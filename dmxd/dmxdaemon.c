@@ -19,6 +19,8 @@ static int sock;
 static int operation_id = 1;
 static int transaction_id = 1;
 
+static unsigned char internal_dmx[512];
+
 #define MAX_CONNECTIONS 20
 #define MAX_OPERATIONS 1024
 #define BUFLEN 1024
@@ -27,8 +29,12 @@ static struct dmxd_connection connections[MAX_CONNECTIONS];
 static struct dmxd_operation operations[MAX_OPERATIONS];
 
 #define FUNC_FADE 1
+#define FUNC_LOCK 4
 #define FUNC_TRANSACTION_START 14
 #define FUNC_TRANSACTION_END 15
+
+#define RET_COMMAND 0
+#define RET_TRANSACTION 1
 
 static int dmxd_read_byte(struct dmxd_operation *op, int pos, unsigned char *out) {
 	if (op != NULL) {
@@ -53,6 +59,20 @@ static int dmxd_read_float(struct dmxd_operation *op, int pos, float *out) {
 		*out = ntohl(variable);
 		return sizeof(float);
 	}
+}
+
+static int dmxd_send_udp(struct dmxd_operation *op, unsigned char result, int value) {
+	unsigned char buffer[1024];
+	unsigned short uniqueid = op->uniqueid;
+	
+	uniqueid = htons(uniqueid);
+	value = htonl(value);
+	
+	memcpy(buffer, &uniqueid, 2);
+	memcpy(buffer + 2, &result, 1);
+	memcpy(buffer + 3, &value, 4);
+	
+	sendto(sock, buffer, 7, MSG_DONTWAIT, (const struct sockaddr*)connections[op->connection_id].from, sizeof(connections[op->connection_id].from));
 }
 
 static struct dmxd_operation *parse_packet(unsigned char *data, int length) {
@@ -93,6 +113,35 @@ static void operation_activate(struct dmxd_operation *op) {
 	}
 }
 
+/* Checks if a channel is already in use, and if it should be overriden
+ * The return value says if the operation should continue or not
+ */
+static int should_override(struct dmxd_operation*op) {
+	int i;
+	if (!op->has_run) {
+		op->has_run = 1;
+
+		if (op->flags & DMXD_OP_OVERRIDE) {
+			for (i = 0; i < MAX_OPERATIONS; ++i) {
+				if (i != op->operation_id && operations[i].active && operations[i].channel == op->channel) {
+					operation_remove(&operations[i]);
+				}
+			}
+			return 1;
+		} else {
+			for (i = 0; i < MAX_OPERATIONS; ++i) {
+				if (i != op->operation_id && operations[i].active && operations[i].channel == op->channel) {
+					/* abort current command */
+					return 0;
+				}
+			}
+			return 1;
+		}
+	} else {
+		return 1;
+	}
+}
+
 static void f_fade(struct dmxd_operation *op, float runtime) {
 	int len = 0;
 	short channel;
@@ -110,10 +159,46 @@ static void f_fade(struct dmxd_operation *op, float runtime) {
 	len += dmxd_read_byte(op, len, &fromval);
 	len += dmxd_read_byte(op, len, &toval);
 	len += dmxd_read_float(op, len, &timespan);
+
+	op->channel = channel;
+
+	/* Cancel operation if no override flag, cancel all others if override flag */
+	if (!should_override(op)) {
+		operation_remove(op);
+		return;
+	}
+
+	printf("f%d: %02d %f\n", op->operation_id, fromval + (int)((float)((toval-fromval) * (float)(runtime/timespan))), runtime);
+	if (runtime >= timespan) {
+		operation_remove(op);
+	}
+}
+
+static void f_lock(struct dmxd_operation *op, float runtime) {
+	int len = 0;
+	short channel;
+	unsigned char value;
+	float timespan;
 	
-//	printf("Channel: %d\nFromval: %d\nToval: %d\nTimespan: %f\n\n", channel, fromval, toval, timespan);
-	printf("%d: %02d %f\n", op->operation_id, fromval + (int)((float)((toval-fromval) * (float)(runtime/timespan))), runtime);
-	//printf("Ran fade function With channel %d for %f of %f seconds\n", channel, runtime, timespan);
+	if (op->argument_len < 7) {
+		fprintf(stderr, "f_lock: Too small packet\n");
+		operation_remove(op);
+		return;
+	}
+	
+	len += dmxd_read_short(op, len, &channel);
+	len += dmxd_read_byte(op, len, &value);
+	len += dmxd_read_float(op, len, &timespan);
+
+	op->channel = channel;
+
+	/* Cancel operation if no override flag, cancel all others if override flag */
+	if (!should_override(op)) {
+		operation_remove(op);
+		return;
+	}
+
+	printf("l%d: %02d %f\n", op->operation_id, value, runtime);
 	if (runtime >= timespan) {
 		operation_remove(op);
 	}
@@ -154,22 +239,16 @@ static void f_transaction_start(struct dmxd_operation *op, float runtime) {
 	printf("Assigned transaction id %d\n", transaction_id);
 	connections[op->connection_id].transaction_id = transaction_id;
 
-	memcpy(buffer, &n_uniqueid, sizeof(n_uniqueid));
-	buffer[2] = op->command;
-	memcpy(buffer+3, &n_transaction_id, sizeof(n_transaction_id));
-
-	bufferlen = sizeof(n_uniqueid) + 1 + sizeof(n_transaction_id);
-
-	sendto(sock, buffer, bufferlen, MSG_DONTWAIT, (const struct sockaddr*)connections[op->connection_id].from, sizeof(connections[op->connection_id].from));
-	transaction_id++;
-
+	dmxd_send_udp(op, RET_TRANSACTION, transaction_id);
 	printf("Sent packet back about transaction_id=%d\n", transaction_id);
 
+	transaction_id++;
 	operation_remove(op);
 }
 
 static void *functions[] = {
-	(void *)1, (void *)f_fade,
+	(void *)FUNC_FADE, (void *)f_fade,
+	(void *)FUNC_LOCK, (void *)f_lock,
 	(void *)FUNC_TRANSACTION_START, (void *)f_transaction_start,
 	(void *)FUNC_TRANSACTION_END, (void *)f_transaction_end,
 };
@@ -219,6 +298,8 @@ static int add_operation(struct dmxd_operation *operation) {
 			operation->operation_id = i;
 			memcpy(&operations[i], operation, sizeof(struct dmxd_operation));
 			printf("Operation added with command: %d, Active: %d, Operation-id: %d\n", operation->command, operations[i].active, i);
+			
+			dmxd_send_udp(operation, RET_COMMAND, i);
 			return i;
 		}
 	}

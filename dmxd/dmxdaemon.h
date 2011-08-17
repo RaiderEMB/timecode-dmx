@@ -15,6 +15,7 @@ enum dmxd_operation_flags {
 struct dmxd_operation {
 	char active;
 	char allocated;
+	char has_run;
 	struct timeval start_time;
 	unsigned short uniqueid;
 	unsigned short channel;

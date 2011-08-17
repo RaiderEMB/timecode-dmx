@@ -15,18 +15,25 @@
 
 static int sock;
 
-/*
-unsigned char test2[] = {
+
+unsigned char test1[] = {
 	12, 34, 14, 1
 };
-*/
-/*
-unsigned char test2[] = {
-	12, 34, 2, 1
-};
-*/
+
 unsigned char test2[] = {
 	12, 34, 1, 1, 0, 123, 10, 255, 1, 1, 1, 1
+};
+
+unsigned char test3[] = {
+	12, 34, 1, 0, 0, 124, 0, 100, 1, 1, 1, 1
+};
+
+unsigned char test4[] = {
+	12, 34, 4, 1, 0, 125, 111, 1, 1, 1, 1
+};
+
+unsigned char test5[] = {
+	12, 34, 15, 1
 };
 
 int main() {
@@ -65,9 +72,12 @@ int main() {
 
 testen = htonl(testen);
 memcpy(test2 + 8, &testen, sizeof(testen));
+memcpy(test3 + 8, &testen, sizeof(testen));
+memcpy(test4 + 7, &testen, sizeof(testen));
 
+	sendto(sock, test1, sizeof(test1), MSG_DONTWAIT, (const struct sockaddr*)&si_other, sizeof(si_other));
 	sendto(sock, test2, sizeof(test2), MSG_DONTWAIT, (const struct sockaddr*)&si_other, sizeof(si_other));
-/*
-	sendto(sock, buffer, bufferlen, MSG_DONTWAIT, (const struct sockaddr*)&si_other, sizeof(si_other));
-*/
+	sendto(sock, test3, sizeof(test3), MSG_DONTWAIT, (const struct sockaddr*)&si_other, sizeof(si_other));
+	sendto(sock, test4, sizeof(test4), MSG_DONTWAIT, (const struct sockaddr*)&si_other, sizeof(si_other));
+	sendto(sock, test5, sizeof(test5), MSG_DONTWAIT, (const struct sockaddr*)&si_other, sizeof(si_other));
 }
