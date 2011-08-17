@@ -149,12 +149,14 @@ static struct dmxd_operation *parse_packet(unsigned char *data, int length) {
 	memcpy(operation.arguments, data + 4, length - 4);
 	operation.argument_len = length - 4;
 
+	if (verbose)
 	printf("Parsed command: %d, uniqueid: %d\n", operation.command, operation.uniqueid);
 	
 	return &operation;
 }
 
 static void operation_remove(struct dmxd_operation *op) {
+	if (verbose)
 	printf("Removing oid: %d\n", op->operation_id);
 	if (op != NULL && op->operation_id >= 0) {
 		operations[op->operation_id].active = 0;
@@ -163,6 +165,7 @@ static void operation_remove(struct dmxd_operation *op) {
 }
 
 static void operation_activate(struct dmxd_operation *op) {
+	if (verbose)
 	printf("Activating oid: %d, (%d)\n", op->operation_id, op->command);
 	if (op != NULL) {
 		operations[op->operation_id].active = 1;
@@ -225,7 +228,8 @@ static void f_fade(struct dmxd_operation *op, float runtime) {
 		return;
 	}
 
-	printf("f%d: %02d %f\n", op->operation_id, fromval + (int)((float)((toval-fromval) * (float)(runtime/timespan))), runtime);
+	if (verbose)
+		printf("f%d: %02d %f\n", op->operation_id, fromval + (int)((float)((toval-fromval) * (float)(runtime/timespan))), runtime);
 	dmxd_set_dmx(channel, fromval + (int)((float)((toval-fromval) * (float)(runtime/timespan))));
 	
 	if (runtime >= timespan) {
@@ -273,10 +277,12 @@ static void f_blink(struct dmxd_operation *op, float runtime) {
 	}
 	
 	if (current_time < timeup) {
-		printf("b%d: %02d %f r%d/%d\n", op->operation_id, highval, runtime, times_run, times);
+		if (verbose)
+			printf("b%d: %02d %f r%d/%d\n", op->operation_id, highval, runtime, times_run, times);
 		dmxd_set_dmx(channel, highval);
 	} else {
-		printf("b%d: %02d %f r%d/%d\n", op->operation_id, lowval, runtime, times_run, times);
+		if (verbose)
+			printf("b%d: %02d %f r%d/%d\n", op->operation_id, lowval, runtime, times_run, times);
 		dmxd_set_dmx(channel, lowval);
 	}
 }
@@ -306,21 +312,24 @@ static void f_lock(struct dmxd_operation *op, float runtime) {
 	}
 
 	dmxd_set_dmx(channel, value);
-	printf("l%d: %02d %f\n", op->operation_id, value, runtime);
+	if (verbose)
+		printf("l%d: %02d %f\n", op->operation_id, value, runtime);
 	if (runtime >= timespan) {
 		operation_remove(op);
 	}
 }
 
 static void f_transaction_end(struct dmxd_operation *op, float runtime) {
-	printf("Ran transaction end function\n");
+	if (verbose)
+		printf("Ran transaction end function\n");
 	if (connections[op->connection_id].transaction_id != -1) {
 		int i;
 		for (i = 0; i < MAX_OPERATIONS; ++i) {
 			if (operations[i].allocated && 
 				operations[i].active == 0 && 
 				operations[i].transaction_id == op->transaction_id) {
-					printf("Activating transacted operation %d (%d)\n", operations[i].operation_id, operations[i].command);
+					if (verbose)
+						printf("Activating transacted operation %d (%d)\n", operations[i].operation_id, operations[i].command);
 					operation_activate(&operations[i]);
 			}
 		}
@@ -343,12 +352,15 @@ static void f_transaction_start(struct dmxd_operation *op, float runtime) {
 		f_transaction_end(op, -1);
 	}
 	
-	printf("Ran transaction start function\n");
-	printf("Assigned transaction id %d\n", transaction_id);
+	if (verbose) {
+		printf("Ran transaction start function\n");
+		printf("Assigned transaction id %d\n", transaction_id);
+	}
 	connections[op->connection_id].transaction_id = transaction_id;
 
 	dmxd_send_udp(op, RET_TRANSACTION, transaction_id);
-	printf("Sent packet back about transaction_id=%d\n", transaction_id);
+	if (verbose)
+		printf("Sent packet back about transaction_id=%d\n", transaction_id);
 
 	transaction_id++;
 	operation_remove(op);
@@ -376,7 +388,8 @@ static int find_connection(struct sockaddr_in *addr) {
 	int i;
 	for (i = 0; i < MAX_CONNECTIONS; ++i) {
 		if (connections[i].inuse && memcmp((void *)connections[i].from, (void *)addr, sizeof(addr)) == 0) {
-			printf("Connection found.\n");
+			if (verbose)
+				printf("Connection found.\n");
 			return i;
 		}
 	}
@@ -390,7 +403,8 @@ static int add_connection(struct sockaddr_in *addr) {
 			connections[i].inuse = 1;
 			connections[i].from = addr;
 			connections[i].transaction_id = -1;
-			printf("Connection added.\n");
+			if (verbose)
+				printf("Connection added.\n");
 			return i;
 		}
 	}
@@ -406,7 +420,8 @@ static int add_operation(struct dmxd_operation *operation) {
 			operation->allocated = 1;
 			operation->operation_id = i;
 			memcpy(&operations[i], operation, sizeof(struct dmxd_operation));
-			printf("Operation added with command: %d, Active: %d, Operation-id: %d\n", operation->command, operations[i].active, i);
+			if (verbose)
+				printf("Operation added with command: %d, Active: %d, Operation-id: %d\n", operation->command, operations[i].active, i);
 			
 			dmxd_send_udp(operation, RET_COMMAND, i);
 			return i;
@@ -424,7 +439,8 @@ static void handle_operations(void) {
 		if (operations[i].allocated && operations[i].active) {
 			void (*func)(struct dmxd_operation *op, float runtime);
 			todo++;
-			printf("Handling operation %d (%d)\n", operations[i].operation_id, operations[i].command);
+			if (verbose)
+				printf("Handling operation %d (%d)\n", operations[i].operation_id, operations[i].command);
 			func = find_function(operations[i].command);
 			if (func != NULL) {
 				float duration;
@@ -435,7 +451,7 @@ static void handle_operations(void) {
 			}
 		}
 	}
-	if (todo > 0)
+	if (verbose && todo > 0)
 	  printf("Handeled %d jobs\n", todo);
 }
 
@@ -457,14 +473,15 @@ int dmx_callback(artnet_node n, void *p, void *d) {
 
 	time(&now) ;
 
-	if(pack->data.admx.sequence - last_seq > 1) {
+	if(verbose && pack->data.admx.sequence - last_seq > 1) {
 			printf("lost %d packets %d %d \n", pack->data.admx.sequence - last_seq, pack->data.admx.sequence , last_seq );
 	}
 	
 	if(last == now) 
 		counter++ ;
 	else {
-		printf("Got %d packets last second\n", counter) ;
+		if (verbose)
+			printf("Got %d packets last second\n", counter) ;
 		counter = 0;
 		last = now ;
 	}
@@ -581,7 +598,8 @@ int main(int argc, char **argv) {
 					perror("recvfrom");
 					return 1;
 				}
-				printf("DEBUG: %d bytes of data received\n", len);
+				if (verbose)
+					printf("DEBUG: %d bytes of data received\n", len);
 				int connection_id = find_connection(&si_other);
 				if (connection_id == -1) {
 					if (connection_id = add_connection(&si_other) == -1) {
@@ -594,7 +612,8 @@ int main(int argc, char **argv) {
 					operation->connection_id = connection_id;
 					operation->transaction_id = connections[connection_id].transaction_id;
 
-					printf("Connection_id = %d, transaction_id = %d\n", operation->connection_id, operation->transaction_id);
+					if (verbose)
+						printf("Connection_id = %d, transaction_id = %d\n", operation->connection_id, operation->transaction_id);
 
 					add_operation(operation);
 
@@ -611,7 +630,8 @@ int main(int argc, char **argv) {
 				}
 			}
 			if (FD_ISSET(artnet_fd, &selectlist)) {
-				printf("artnet read\n");
+				if (verbose)
+					printf("artnet read\n");
 				artnet_read(node, 0);
 			}
 		}
