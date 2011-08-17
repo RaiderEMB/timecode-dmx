@@ -23,6 +23,7 @@ static int dmx_out_fd;
 
 static int operation_id = 1;
 static int transaction_id = 1;
+static int fullcontrol = 0;
 
 static unsigned char artnet_dmx[512];
 static unsigned char internal_dmx[512];
@@ -41,6 +42,7 @@ static struct dmxd_operation operations[MAX_OPERATIONS];
 
 #define FUNC_FADE 1
 #define FUNC_BLINK 2
+#define FUNC_CONTROL 3
 #define FUNC_LOCK 4
 #define FUNC_SCALEMAX 12
 #define FUNC_TRANSACTION_START 14
@@ -292,6 +294,25 @@ static void f_blink(struct dmxd_operation *op, float runtime) {
 	}
 }
 
+static void f_control(struct dmxd_operation *op, float runtime) {
+	int len = 0;
+	short channel;
+	float timespan;
+
+	/* Cancel operation if no override flag, cancel all others if override flag */
+	if (!should_override(op)) {
+		operation_remove(op);
+		return;
+	}
+
+	/* stop passing artnet data the next frame */
+	fullcontrol = 1;
+
+	if (runtime >= 1) {
+		operation_remove(op);
+	}
+}
+
 static void f_scalemax(struct dmxd_operation *op, float runtime) {
 	int len = 0;
 	short channel;
@@ -404,6 +425,7 @@ static void f_transaction_start(struct dmxd_operation *op, float runtime) {
 static void *functions[] = {
 	(void *)FUNC_FADE, (void *)f_fade,
 	(void *)FUNC_LOCK, (void *)f_lock,
+	(void *)FUNC_CONTROL, (void *)f_control,
 	(void *)FUNC_BLINK, (void *)f_blink,
 	(void *)FUNC_SCALEMAX, (void *)f_scalemax,
 	(void *)FUNC_TRANSACTION_START, (void *)f_transaction_start,
@@ -548,8 +570,9 @@ int init_artnet() {
 	artnet_fd = artnet_get_sd(node);
 }
 
-void copy_artnet_to_dmx() {
-	memcpy(internal_dmx, artnet_dmx, 512);
+inline void copy_artnet_to_dmx() {
+	if (!fullcontrol)
+		memcpy(internal_dmx, artnet_dmx, 512);
 }
 
 int main(int argc, char **argv) {
@@ -678,6 +701,8 @@ int main(int argc, char **argv) {
 		
 		/* Come here at least every *timeout* uS */
 		copy_artnet_to_dmx();
+		/* Reset for each frame */
+		fullcontrol = 0;
 		handle_operations();
 		if (!simulate)
 			dmxd_transmit_dmx();

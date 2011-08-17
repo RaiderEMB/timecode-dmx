@@ -40,6 +40,12 @@ sub blink {
 	$sock->send(pack("nCCnCCffN", int(rand() * 65564), 2, $flags, $channel, $lowval, $highval, $secdown, $secup, $times));
 }
 
+sub control {
+	my ($flags) = @_;
+
+	$sock->send(pack("nCC", int(rand() * 65564), 2, $flags));
+}
+
 sub lock {
 	my ($channel, $value, $forsecs, $flags) = @_;
 
