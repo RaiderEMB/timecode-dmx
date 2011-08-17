@@ -15,21 +15,26 @@
 #include <netinet/in.h>
 #include <netdb.h> 
 
+/* Listen on UDP Port */
+int port  = 9119;
 
-int port = 9119;
+
+/* Internal */
 
 int socket_descriptor;
-int iter = 0;
+int iter  = 0;
 int errno = 0;
+
 ssize_t sendto_rc;
+
 int close_rc;
+
 char buf[80];
+
 struct sockaddr_in address;
 struct hostent *hostbyname;
 
-
 jack_client_t *client;
-
 
 void jack_shutdown (void *arg) {
 	exit (1);
@@ -69,8 +74,9 @@ int main (int argc, char *argv[]) {
 		exit(errno);
 	}
 
+	jack_status_t status;
 
-	if ((client = jack_client_new ("jack2tc")) == 0) {
+	if ((client = jack_client_open ("jack2tc",  JackNullOption, &status)) == 0) {
 		fprintf (stderr, "jack server not running?\n");
 		return 1;
 	}
@@ -89,6 +95,9 @@ int main (int argc, char *argv[]) {
 		return 1;
 	}
 
+	unsigned int loops = 0;
+	unsigned int termbytes = 0;
+
 	while (1) {
 
 		usleep(20000);
@@ -101,7 +110,8 @@ int main (int argc, char *argv[]) {
 		transport_state = jack_transport_query (client, &current);
 		frame_time = jack_get_current_transport_frame (client);
 		jacktime = jack_frames_to_time(client, frame_time);
-		
+
+
 		if (transport_state == JackTransportRolling) {
 			if (current.valid & JackPositionBBT) {
 
@@ -119,6 +129,23 @@ int main (int argc, char *argv[]) {
 				}
 			}
 		}
+		
+		if (loops++ > 5) {
+			if (termbytes++ > 20) {
+				printf("\e[1000;0H");
+				termbytes = 0;
+			} else {
+				if (termbytes > 0) printf("\e[1000;%dH", termbytes+1);
+			}
+
+			if (transport_state == JackTransportRolling) printf("> ");
+			else printf("# ");
+
+			fflush(stdout);
+			// Clear line printf("\e[K");
+			loops = 0;
+		}
+
 	}
 
 	jack_client_close (client);
