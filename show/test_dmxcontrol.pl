@@ -8,6 +8,9 @@ $DMXControl::port = 9118;
 
 DMXControl::init();
 DMXControl::start_transaction();
+for (1..10) {
+	DMXControl::scalemax($_,128,20,DMXControl::OVERRIDE);
+}
 DMXControl::fade(int(rand()*512),0,255,5,DMXControl::OVERRIDE);
 DMXControl::fade(int(rand()*512),0,255,5,DMXControl::OVERRIDE);
 DMXControl::fade(int(rand()*512),0,255,5,DMXControl::OVERRIDE);

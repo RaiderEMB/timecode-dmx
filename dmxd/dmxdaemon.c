@@ -42,6 +42,7 @@ static struct dmxd_operation operations[MAX_OPERATIONS];
 #define FUNC_FADE 1
 #define FUNC_BLINK 2
 #define FUNC_LOCK 4
+#define FUNC_SCALEMAX 12
 #define FUNC_TRANSACTION_START 14
 #define FUNC_TRANSACTION_END 15
 
@@ -288,6 +289,42 @@ static void f_blink(struct dmxd_operation *op, float runtime) {
 	}
 }
 
+static void f_scalemax(struct dmxd_operation *op, float runtime) {
+	int len = 0;
+	short channel;
+	unsigned char maxval;
+	float forsecs;
+	
+	if (op->argument_len < 7) {
+		fprintf(stderr, "f_lock: Too small packet\n");
+		operation_remove(op);
+		return;
+	}
+	
+	len += dmxd_read_short(op, len, &channel);
+	len += dmxd_read_byte(op, len, &maxval);
+	len += dmxd_read_float(op, len, &forsecs);
+
+	op->channel = channel;
+
+	/* Cancel operation if no override flag, cancel all others if override flag */
+	if (!should_override(op)) {
+		operation_remove(op);
+		return;
+	}
+	
+	unsigned char value = (unsigned char)((float)(artnet_dmx[channel] / 255.f) * maxval);
+
+	dmxd_set_dmx(channel, value);
+
+	if (verbose)
+		printf("s%d: %02d %f\n", op->operation_id, value, runtime);
+
+	if (runtime >= forsecs) {
+		operation_remove(op);
+	}
+}
+
 static void f_lock(struct dmxd_operation *op, float runtime) {
 	int len = 0;
 	short channel;
@@ -371,6 +408,7 @@ static void *functions[] = {
 	(void *)FUNC_FADE, (void *)f_fade,
 	(void *)FUNC_LOCK, (void *)f_lock,
 	(void *)FUNC_BLINK, (void *)f_blink,
+	(void *)FUNC_SCALEMAX, (void *)f_scalemax,
 	(void *)FUNC_TRANSACTION_START, (void *)f_transaction_start,
 	(void *)FUNC_TRANSACTION_END, (void *)f_transaction_end,
 };
@@ -449,6 +487,10 @@ static void handle_operations(void) {
 				gettimeofday(&now, NULL);
 				duration = (now.tv_sec - operations[i].start_time.tv_sec) + ((now.tv_usec / 1000000.f) - (operations[i].start_time.tv_usec / 1000000.f));
 				func(&operations[i], duration);
+			} else {
+				/* Invalid function, remove */
+				fprintf(stderr,"Received command %d unknown\n", operations[i].command);
+				operation_remove(&operations[i]);
 			}
 		}
 	}
