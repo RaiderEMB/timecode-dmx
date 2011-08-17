@@ -57,9 +57,15 @@ void signal_handler (int sig) {
 }
 
 int main (int argc, char *argv[]) {
-	hostbyname = gethostbyname("172.16.1.6");
+
+	if (argc <= 1) {
+		fprintf(stderr, "Usage: %s <host>\n", argv[0]); 
+		return 1;
+	}
+
+	hostbyname = gethostbyname(argv[1]);
 	if(hostbyname == NULL) {
-		perror("Gethostbyname failed");
+		perror("SOCKET Gethostbyname failed");
 		exit(errno);
 	}
 
@@ -70,18 +76,18 @@ int main (int argc, char *argv[]) {
 	socket_descriptor = socket(AF_INET, SOCK_DGRAM, 0);
 
 	if (socket_descriptor == -1) {
-		perror("socket call failed");
+		perror("SOCKET: Call failed");
 		exit(errno);
 	}
 
 	jack_status_t status;
 
 	if ((client = jack_client_open ("jack2tc",  JackNullOption, &status)) == 0) {
-		fprintf (stderr, "jack server not running?\n");
+		fprintf (stderr, "JACK: Server not running?\n");
 		return 1;
 	}
 
-	printf("Jack: Tilkoblet\n");
+	printf("JACK: Connected\n");
 
 	signal (SIGQUIT, signal_handler);
 	signal (SIGTERM, signal_handler);
@@ -95,8 +101,11 @@ int main (int argc, char *argv[]) {
 		return 1;
 	}
 
+	printf("JACK: Client active\n");
+
 	unsigned int loops = 0;
 	unsigned int termbytes = 0;
+	unsigned int udp_problems = 0;
 
 	while (1) {
 
@@ -125,7 +134,7 @@ int main (int argc, char *argv[]) {
 				sendto_rc = sendto(socket_descriptor, buf, sizeof(buf), 0, (struct sockaddr *)&address, sizeof(address));
 
 				if (sendto_rc == -1) {
-					perror("sendto: failed, moving on");
+					udp_problems++;
 				}
 			}
 		}
@@ -138,9 +147,17 @@ int main (int argc, char *argv[]) {
 				if (termbytes > 0) printf("\e[1000;%dH", termbytes+1);
 			}
 
-			if (transport_state == JackTransportRolling) printf("> ");
-			else printf("# ");
-
+			if (udp_problems == 0) {
+				if (transport_state == JackTransportRolling) {
+					printf("> ");
+				} 
+				else {
+					printf("# ");
+				}
+			} else {
+				printf("!!");
+			}
+			
 			fflush(stdout);
 			// Clear line printf("\e[K");
 			loops = 0;
@@ -149,5 +166,6 @@ int main (int argc, char *argv[]) {
 	}
 
 	jack_client_close (client);
+	printf("JACK: Client closed\n");
 	exit (0);
 }
