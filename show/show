@@ -1,0 +1,110 @@
+#!/usr/bin/perl -w
+
+use strict;
+use IO::Socket::INET;
+use IO::Select;
+use Time::HiRes qw/usleep time/;
+use Memory::Usage;
+
+#my $mu = Memory::Usage->new();
+
+$|=1;
+
+my $tc_socket = IO::Socket::INET->new(
+	LocalPort	=> 9119, 
+	Proto		=> 'udp',
+	Blocking 	=> 0
+	) or die "nada: $!";
+
+our $status = "None";
+my $datagram;
+my $MAX_TO_READ = 512;
+my $flags = "0";
+my $packets = "0";
+my $last_time = time;
+my $last_time2 = time;
+my $current_tc;
+my ($tc_bar, $tc_beat, $tc_secs) = (0,0,0);
+my $lastpost = 0;
+
+while (1) {
+	my $current_utime = time;
+	my $current_time = int $current_utime;
+
+	while (my $tc_msg = $tc_socket->recv($datagram, $MAX_TO_READ, $flags)) {
+		if ($datagram =~ /^(\d+):(\d+):(.+?)\n/) {
+			my ($tc_new_bar, $tc_new_beat, $tc_new_secs) = ($1, $2, $3);
+			if ($tc_new_secs < $tc_secs) {
+				handle_rewind();
+			}
+			if ($tc_new_beat != $tc_beat) {
+				$tc_beat = $tc_new_beat;
+				handle_beat();
+			}
+			if ($tc_new_bar != $tc_bar) {
+				$tc_bar = $tc_new_bar;
+				handle_bar();	
+			}
+
+			$tc_secs = $tc_new_secs;
+			handle_tc($tc_secs);
+
+			$packets++;
+
+		} else {
+			print "antipackage '$datagram'\n";
+		}
+	}
+
+	if ($lastpost++ > 20) {
+		$status = "BAR: ".sprintf("%04d",$tc_bar)." ][ BEAT: ";
+		$status .= "|" x $tc_beat;
+		$status .= " " x (4 - int($tc_beat));
+		$status .= " ][ TC:".print_time($tc_secs);
+		writeline();	
+		$lastpost = 0;
+	}
+
+	usleep 5000;	
+}
+
+# Called when the timecode rewinds. Hope this doesnt happen during a show, but:
+# BE PREPARED TO FAIL! :)
+sub handle_rewind {
+	print "Handling a rewind in timecode\n";
+}
+
+
+# Timecode Handler
+sub handle_tc {
+}
+
+# Beat handler
+sub handle_beat {
+}
+
+# Bar handler
+sub handle_bar {
+	writeline("At bar $tc_bar");
+}
+sub writeline {
+	my ($text) = @_;
+	printf "\e[%d;%dH", 1000, 0; # Put cursor at row $R, column $C (good for "drawing")
+	print  "\e[K";              # Clear to end of current line (as stated previously)
+	if (defined $text) { 
+		print $text."\n";
+	}
+	print "]=[ ".$status." ]";
+	return 1;
+}
+
+
+sub print_time {
+        my $ts = shift();
+        my $milli = $ts*100 % 100;
+        my $sec = int($ts % 60);
+        my $min = int($ts/60) % 60;
+        my $hour = int($ts/3600);
+        return sprintf("%02d:%02d:%02d:%02d", $hour, $min, $sec, $milli);
+}
+
