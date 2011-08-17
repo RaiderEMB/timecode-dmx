@@ -44,6 +44,8 @@ static struct dmxd_operation operations[MAX_OPERATIONS];
 #define FUNC_BLINK 2
 #define FUNC_CONTROL 3
 #define FUNC_LOCK 4
+#define FUNC_MAX 6
+#define FUNC_MIN 7
 #define FUNC_SCALEMAX 12
 #define FUNC_TRANSACTION_START 14
 #define FUNC_TRANSACTION_END 15
@@ -375,6 +377,73 @@ static void f_lock(struct dmxd_operation *op, float runtime) {
 	}
 }
 
+static void f_max(struct dmxd_operation *op, float runtime) {
+	int len = 0;
+	short channel;
+	unsigned char maxval;
+	float forsecs;
+
+	if (!enough_arguments(__func__, op, 7))
+		return;
+
+	len += dmxd_read_short(op, len, &channel);
+	len += dmxd_read_byte(op, len, &maxval);
+	len += dmxd_read_float(op, len, &forsecs);
+
+	op->channel = channel;
+
+	/* Cancel operation if no override flag, cancel all others if override flag */
+	if (!should_override(op)) {
+		operation_remove(op);
+		return;
+	}
+
+	unsigned char value = min(artnet_dmx[channel],maxval);
+
+	dmxd_set_dmx(channel, value);
+
+	if (verbose)
+		printf("ma%d: %02d %f\n", op->operation_id, value, runtime);
+
+	if (runtime >= forsecs) {
+		operation_remove(op);
+	}
+}
+
+static void f_min(struct dmxd_operation *op, float runtime) {
+	int len = 0;
+	short channel;
+	unsigned char minval;
+	float forsecs;
+
+	if (!enough_arguments(__func__, op, 7))
+		return;
+
+	len += dmxd_read_short(op, len, &channel);
+	len += dmxd_read_byte(op, len, &minval);
+	len += dmxd_read_float(op, len, &forsecs);
+
+	op->channel = channel;
+
+	/* Cancel operation if no override flag, cancel all others if override flag */
+	if (!should_override(op)) {
+		operation_remove(op);
+		return;
+	}
+
+	unsigned char value = max(artnet_dmx[channel],minval);
+
+	dmxd_set_dmx(channel, value);
+
+	if (verbose)
+		printf("mi%d: %02d %f\n", op->operation_id, value, runtime);
+
+	if (runtime >= forsecs) {
+		operation_remove(op);
+	}
+}
+
+
 static void f_transaction_end(struct dmxd_operation *op, float runtime) {
 	if (verbose)
 		printf("Ran transaction end function\n");
@@ -425,6 +494,8 @@ static void f_transaction_start(struct dmxd_operation *op, float runtime) {
 static void *functions[] = {
 	(void *)FUNC_FADE, (void *)f_fade,
 	(void *)FUNC_LOCK, (void *)f_lock,
+	(void *)FUNC_MAX, (void *)f_max,
+	(void *)FUNC_MIN, (void *)f_min,
 	(void *)FUNC_CONTROL, (void *)f_control,
 	(void *)FUNC_BLINK, (void *)f_blink,
 	(void *)FUNC_SCALEMAX, (void *)f_scalemax,

@@ -52,6 +52,18 @@ sub lock {
 	$sock->send(pack("nCCnCf", int(rand() * 65564), 2, $flags, $channel, $value, $forsecs));
 }
 
+sub max {
+	my ($channel, $maxval, $forsecs, $flags) = @_;
+
+	$sock->send(pack("nCCnCf", int(rand() * 65564), 12, $flags, $channel, $maxval, $forsecs));
+}
+
+sub min {
+	my ($channel, $minval, $forsecs, $flags) = @_;
+
+	$sock->send(pack("nCCnCf", int(rand() * 65564), 12, $flags, $channel, $minval, $forsecs));
+}
+
 sub scalemax {
 	my ($channel, $maxval, $forsecs, $flags) = @_;
 
