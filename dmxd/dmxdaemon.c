@@ -12,14 +12,24 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <time.h>
+#include <artnet/artnet.h>
+#include <artnet/packets.h>
 #include "dmxdaemon.h"
 
+/* File descriptors */
 static int sock;
+static int artnet_fd;
+static int dmx_out_fd;
 
 static int operation_id = 1;
 static int transaction_id = 1;
 
+static unsigned char artnet_dmx[512];
 static unsigned char internal_dmx[512];
+
+static artnet_node node ;
+static char *artnet_ip = NULL;
+static int verbose;
 
 #define MAX_CONNECTIONS 20
 #define MAX_OPERATIONS 1024
@@ -36,6 +46,8 @@ static struct dmxd_operation operations[MAX_OPERATIONS];
 
 #define RET_COMMAND 0
 #define RET_TRANSACTION 1
+
+#define ENTTEC_SEND 6
 
 static int dmxd_read_byte(struct dmxd_operation *op, int pos, unsigned char *out) {
 	if (op != NULL) {
@@ -85,6 +97,24 @@ static int dmxd_send_udp(struct dmxd_operation *op, unsigned char result, int va
 	memcpy(buffer + 3, &value, 4);
 	
 	sendto(sock, buffer, 7, MSG_DONTWAIT, (const struct sockaddr*)connections[op->connection_id].from, sizeof(connections[op->connection_id].from));
+}
+
+static int dmxd_transmit_dmx() {
+	unsigned char dmx[517];
+	int length = 512;
+	unsigned char lLength = length & 0xFF;
+	unsigned char hLength = (length >> 8) & 0xFF;
+	int count=0;
+
+	dmx[0] = 0x7E;
+	dmx[1] = ENTTEC_SEND;
+	dmx[2] = lLength;
+	dmx[3] = hLength;
+	memcpy(dmx+4, internal_dmx, length);
+	dmx[length+4] = 0xE7;
+
+	count = write(dmx_out_fd, dmx, length+5);
+	printf("Sent %d of %d bytes to dmx\n", count, length + 5);
 }
 
 static void dmxd_set_dmx(short channel, unsigned char value) {
@@ -396,16 +426,123 @@ static void handle_operations(void) {
 	  printf("Handeled %d jobs\n", todo);
 }
 
+int dmx_callback(artnet_node n, void *p, void *d) {
+	static time_t last = 0;
+	static int counter = 0;
+	time_t now;
+	static int last_seq = 0;
+
+	artnet_packet pack = (artnet_packet) p;
+
+	// first time
+	if(last ==0) {
+		time(&last);
+		last_seq = pack->data.admx.sequence;
+	}
+
+	memcpy(artnet_dmx, (unsigned char *)&(pack->data.admx.data), 512);
+
+	time(&now) ;
+
+	if(pack->data.admx.sequence - last_seq > 1) {
+			printf("lost %d packets %d %d \n", pack->data.admx.sequence - last_seq, pack->data.admx.sequence , last_seq );
+	}
+	
+	if(last == now) 
+		counter++ ;
+	else {
+		printf("Got %d packets last second\n", counter) ;
+		counter = 0;
+		last = now ;
+	}
+	last_seq = pack->data.admx.sequence ;
+
+	return 0;
+}
+
+int init_artnet() {
+	node = artnet_new(artnet_ip, verbose);
+
+	artnet_set_short_name(node, "Artnet -> DMX ");
+	artnet_set_long_name(node, "ArtNet to DMX converter. Using EntTec DMX adapter. (c) Raider 2011");
+	artnet_set_node_type(node, ARTNET_NODE);
+
+	artnet_set_handler(node, ARTNET_DMX_HANDLER, dmx_callback, NULL);
+
+	artnet_set_port_type(node, 0, ARTNET_ENABLE_OUTPUT, ARTNET_PORT_DMX);
+	artnet_set_subnet_addr(node, 0);
+
+	artnet_set_port_addr(node, 0, ARTNET_OUTPUT_PORT, 0) ;
+	artnet_start(node);
+
+	artnet_fd = artnet_get_sd(node);
+}
+
+void copy_artnet_to_dmx() {
+	int i;
+	char no_copy[512];
+
+	/* find locked channels */
+	for (i = 0; i < MAX_OPERATIONS; ++i) {
+		if (operations[i].allocated && operations[i].active && operations[i].channel > 0) {
+			no_copy[operations[i].channel] = 1;
+		}
+	}
+
+	/* Copy everything except locked channels */
+	for (i = 0; i < 512; ++i) {
+		if (no_copy[i])
+			continue;
+		
+		internal_dmx[i] = artnet_dmx[i];
+	}
+}
+
 int main(int argc, char **argv) {
 	struct sockaddr_in si_me, si_other;
 	int len, slen = sizeof(si_other);
 	unsigned char buffer[BUFLEN];
 	fd_set selectlist;
 	int highsock;
+	int optc;
+	char usb_dflt_device[] = "/dev/ttyUSB0";
+	char *usb_device = usb_dflt_device;
+	
 	struct timeval timeout;
 	
+	// parse options 
+	while ((optc = getopt (argc, argv, "a:d:v")) != EOF) {
+		switch (optc) {
+			case 'a':
+				artnet_ip = (char *) strdup(optarg);
+				break;
+
+			case 'd':
+				usb_device = (char *) strdup(optarg);
+
+			case 'v':
+				verbose = 1;
+				break;
+
+		}
+	}
+
+	if (argc == 0 || artnet_ip == NULL) {
+		fprintf(stderr, "Usage: %s -a <artnet_ip> [-d /dev/ttyUSBx] [-v]\n", argv[0]);
+		return 1;
+	}
+
+
+	dmx_out_fd = open(usb_device, O_RDWR | O_NOCTTY | O_NONBLOCK);
+	if (dmx_out_fd <= 0) {
+		fprintf(stderr, "Could not open USB device %s.\n", usb_device);
+		return 1;
+	}
+
+	init_artnet();
+
 	if ((sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
-		perror("socket");
+		perror("dmxd socket");
 		return 1;
 	}
 
@@ -413,25 +550,29 @@ int main(int argc, char **argv) {
 	si_me.sin_family = AF_INET;
 	si_me.sin_port = htons(DMXD_UDP_PORT);
 	si_me.sin_addr.s_addr = htonl(INADDR_ANY);
-	
+
 	if (bind(sock, (const struct sockaddr*)&si_me, sizeof(si_me)) == -1) {
-		perror("bind");
+		perror("dmxd udp port");
 		close(sock);
 		return 1;
 	}
-	
-	highsock = sock;
-	
+
+	if (artnet_fd > sock)
+		highsock = artnet_fd;
+	else
+		highsock = sock;
+
 	/* Mainloop */
 	while (1) {
 		timeout.tv_sec = 0;
 		timeout.tv_usec = 10000;
-		
+
 		FD_ZERO(&selectlist);
 		FD_SET(sock, &selectlist);
-		
+		FD_SET(artnet_fd, &selectlist);
+
 		int ready = select(highsock + 1, &selectlist, 0, 0, &timeout);
-		
+
 		if (ready > 0) {
 			if (FD_ISSET(sock, &selectlist)) {
 				len = recvfrom(sock, buffer, BUFLEN, 0, (struct sockaddr *)&si_other, &slen);
@@ -468,9 +609,15 @@ int main(int argc, char **argv) {
 					printf("Invalid packet received\n");
 				}
 			}
+			if (FD_ISSET(artnet_fd, &selectlist)) {
+				printf("artnet read\n");
+				artnet_read(node, 0);
+			}
 		}
 		
 		/* Come here at least every *timeout* uS */
 		handle_operations();
+		copy_artnet_to_dmx();
+		dmxd_transmit_dmx();
 	}
 }
