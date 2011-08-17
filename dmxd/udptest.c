@@ -25,7 +25,7 @@ unsigned char test2[] = {
 };
 
 unsigned char test3[] = {
-	12, 34, 1, 0, 0, 124, 0, 100, 1, 1, 1, 1
+	12, 34, 2, 0, 0, 124, 0, 123, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 5
 };
 
 unsigned char test4[] = {
@@ -37,7 +37,8 @@ unsigned char test5[] = {
 };
 
 int main() {
-	float testen = 2.f;
+	float testen = 1.5f;
+	float teste = 0.100f;
 	struct sockaddr_in si_me, si_other;
 	int len, slen = sizeof(si_other);
 	fd_set selectlist;
@@ -70,9 +71,9 @@ int main() {
 
 	bufferlen = 6;
 
-testen = htonl(testen);
 memcpy(test2 + 8, &testen, sizeof(testen));
-memcpy(test3 + 8, &testen, sizeof(testen));
+memcpy(test3 + 8, &teste, sizeof(float));
+memcpy(test3 + 12, &teste, sizeof(float));
 memcpy(test4 + 7, &testen, sizeof(testen));
 
 	sendto(sock, test1, sizeof(test1), MSG_DONTWAIT, (const struct sockaddr*)&si_other, sizeof(si_other));

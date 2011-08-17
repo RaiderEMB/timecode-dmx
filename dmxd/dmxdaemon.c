@@ -29,6 +29,7 @@ static struct dmxd_connection connections[MAX_CONNECTIONS];
 static struct dmxd_operation operations[MAX_OPERATIONS];
 
 #define FUNC_FADE 1
+#define FUNC_BLINK 2
 #define FUNC_LOCK 4
 #define FUNC_TRANSACTION_START 14
 #define FUNC_TRANSACTION_END 15
@@ -44,6 +45,7 @@ static int dmxd_read_byte(struct dmxd_operation *op, int pos, unsigned char *out
 		return sizeof(unsigned char);
 	}
 }
+
 static int dmxd_read_short(struct dmxd_operation *op, int pos, unsigned short *out) {
 	if (op != NULL) {
 		unsigned short variable;
@@ -52,11 +54,21 @@ static int dmxd_read_short(struct dmxd_operation *op, int pos, unsigned short *o
 		return sizeof(unsigned short);
 	}
 }
+
+static int dmxd_read_int(struct dmxd_operation *op, int pos, int *out) {
+	if (op != NULL) {
+		int variable;
+		memcpy(&variable, op->arguments + pos, sizeof(int));
+		*out = ntohl(variable);
+		return sizeof(int);
+	}
+}
+
 static int dmxd_read_float(struct dmxd_operation *op, int pos, float *out) {
 	if (op != NULL) {
 		float variable;
 		memcpy(&variable, op->arguments + pos, sizeof(float));
-		*out = ntohl(variable);
+		*out = variable;
 		return sizeof(float);
 	}
 }
@@ -73,6 +85,10 @@ static int dmxd_send_udp(struct dmxd_operation *op, unsigned char result, int va
 	memcpy(buffer + 3, &value, 4);
 	
 	sendto(sock, buffer, 7, MSG_DONTWAIT, (const struct sockaddr*)connections[op->connection_id].from, sizeof(connections[op->connection_id].from));
+}
+
+static void dmxd_set_dmx(short channel, unsigned char value) {
+	internal_dmx[channel] = value;
 }
 
 static struct dmxd_operation *parse_packet(unsigned char *data, int length) {
@@ -174,6 +190,54 @@ static void f_fade(struct dmxd_operation *op, float runtime) {
 	}
 }
 
+static void f_blink(struct dmxd_operation *op, float runtime) {
+	int len = 0;
+	short channel;
+	unsigned char lowval;
+	unsigned char highval;
+	float timeup;
+	float timedown;
+	int times;
+	
+	if (op->argument_len < 7) {
+		fprintf(stderr, "f_lock: Too small packet\n");
+		operation_remove(op);
+		return;
+	}
+	
+	len += dmxd_read_short(op, len, &channel);
+	len += dmxd_read_byte(op, len, &lowval);
+	len += dmxd_read_byte(op, len, &highval);
+	len += dmxd_read_float(op, len, &timeup);
+	len += dmxd_read_float(op, len, &timedown);
+	len += dmxd_read_int(op, len, &times);
+
+	op->channel = channel;
+
+	/* Cancel operation if no override flag, cancel all others if override flag */
+	if (!should_override(op)) {
+		operation_remove(op);
+		return;
+	}
+
+	float totaltime = timeup + timedown;
+	int times_run = runtime / totaltime;
+	float current_time = runtime - (times_run * totaltime);
+
+	if (times_run == times) {
+		operation_remove(op);
+		return;
+	}
+	
+	if (current_time < timeup) {
+		printf("b%d: %02d %f r%d/%d\n", op->operation_id, highval, runtime, times_run, times);
+		dmxd_set_dmx(channel, highval);
+	} else {
+		printf("b%d: %02d %f r%d/%d\n", op->operation_id, lowval, runtime, times_run, times);
+		dmxd_set_dmx(channel, lowval);
+	}
+}
+
 static void f_lock(struct dmxd_operation *op, float runtime) {
 	int len = 0;
 	short channel;
@@ -198,6 +262,7 @@ static void f_lock(struct dmxd_operation *op, float runtime) {
 		return;
 	}
 
+	dmxd_set_dmx(channel, value);
 	printf("l%d: %02d %f\n", op->operation_id, value, runtime);
 	if (runtime >= timespan) {
 		operation_remove(op);
@@ -249,6 +314,7 @@ static void f_transaction_start(struct dmxd_operation *op, float runtime) {
 static void *functions[] = {
 	(void *)FUNC_FADE, (void *)f_fade,
 	(void *)FUNC_LOCK, (void *)f_lock,
+	(void *)FUNC_BLINK, (void *)f_blink,
 	(void *)FUNC_TRANSACTION_START, (void *)f_transaction_start,
 	(void *)FUNC_TRANSACTION_END, (void *)f_transaction_end,
 };
