@@ -30,6 +30,7 @@ static unsigned char internal_dmx[512];
 static artnet_node node ;
 static char *artnet_ip = NULL;
 static int verbose;
+static int simulate = 0;
 
 #define MAX_CONNECTIONS 20
 #define MAX_OPERATIONS 1024
@@ -114,7 +115,17 @@ static int dmxd_transmit_dmx() {
 	dmx[length+4] = 0xE7;
 
 	count = write(dmx_out_fd, dmx, length+5);
-	printf("Sent %d of %d bytes to dmx\n", count, length + 5);
+}
+
+static int dmxd_output_console() {
+	int i;
+	printf("\e[H\e[2J");
+	for (i = 0; i < 512; i++) {
+		printf("%02X ", internal_dmx[i]);
+		if (i % 30 == 29)
+			printf("\n");
+	}
+	printf("\n");
 }
 
 static void dmxd_set_dmx(short channel, unsigned char value) {
@@ -215,6 +226,8 @@ static void f_fade(struct dmxd_operation *op, float runtime) {
 	}
 
 	printf("f%d: %02d %f\n", op->operation_id, fromval + (int)((float)((toval-fromval) * (float)(runtime/timespan))), runtime);
+	dmxd_set_dmx(channel, fromval + (int)((float)((toval-fromval) * (float)(runtime/timespan))));
+	
 	if (runtime >= timespan) {
 		operation_remove(op);
 	}
@@ -464,7 +477,7 @@ int init_artnet() {
 	node = artnet_new(artnet_ip, verbose);
 
 	artnet_set_short_name(node, "Artnet -> DMX ");
-	artnet_set_long_name(node, "ArtNet to DMX converter. Using EntTec DMX adapter. (c) Raider 2011");
+	artnet_set_long_name(node, "ArtNet to EntTec DMX adapter. (c) Raider 2011");
 	artnet_set_node_type(node, ARTNET_NODE);
 
 	artnet_set_handler(node, ARTNET_DMX_HANDLER, dmx_callback, NULL);
@@ -479,23 +492,7 @@ int init_artnet() {
 }
 
 void copy_artnet_to_dmx() {
-	int i;
-	char no_copy[512];
-
-	/* find locked channels */
-	for (i = 0; i < MAX_OPERATIONS; ++i) {
-		if (operations[i].allocated && operations[i].active && operations[i].channel > 0) {
-			no_copy[operations[i].channel] = 1;
-		}
-	}
-
-	/* Copy everything except locked channels */
-	for (i = 0; i < 512; ++i) {
-		if (no_copy[i])
-			continue;
-		
-		internal_dmx[i] = artnet_dmx[i];
-	}
+	memcpy(internal_dmx, artnet_dmx, 512);
 }
 
 int main(int argc, char **argv) {
@@ -511,7 +508,7 @@ int main(int argc, char **argv) {
 	struct timeval timeout;
 	
 	// parse options 
-	while ((optc = getopt (argc, argv, "a:d:v")) != EOF) {
+	while ((optc = getopt (argc, argv, "a:d:vs")) != EOF) {
 		switch (optc) {
 			case 'a':
 				artnet_ip = (char *) strdup(optarg);
@@ -519,7 +516,10 @@ int main(int argc, char **argv) {
 
 			case 'd':
 				usb_device = (char *) strdup(optarg);
-
+				break;
+			case 's':
+				simulate = 1;
+				break;
 			case 'v':
 				verbose = 1;
 				break;
@@ -532,11 +532,12 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
-
-	dmx_out_fd = open(usb_device, O_RDWR | O_NOCTTY | O_NONBLOCK);
-	if (dmx_out_fd <= 0) {
-		fprintf(stderr, "Could not open USB device %s.\n", usb_device);
-		return 1;
+	if (!simulate) {
+		dmx_out_fd = open(usb_device, O_RDWR | O_NOCTTY | O_NONBLOCK);
+		if (dmx_out_fd <= 0) {
+			fprintf(stderr, "Could not open USB device %s.\n", usb_device);
+			return 1;
+		}
 	}
 
 	init_artnet();
@@ -565,7 +566,7 @@ int main(int argc, char **argv) {
 	/* Mainloop */
 	while (1) {
 		timeout.tv_sec = 0;
-		timeout.tv_usec = 10000;
+		timeout.tv_usec = 20000;
 
 		FD_ZERO(&selectlist);
 		FD_SET(sock, &selectlist);
@@ -616,8 +617,11 @@ int main(int argc, char **argv) {
 		}
 		
 		/* Come here at least every *timeout* uS */
-		handle_operations();
 		copy_artnet_to_dmx();
-		dmxd_transmit_dmx();
+		handle_operations();
+		if (!simulate)
+			dmxd_transmit_dmx();
+		else
+			dmxd_output_console();
 	}
 }
