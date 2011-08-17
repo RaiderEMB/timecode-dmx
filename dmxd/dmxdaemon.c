@@ -203,19 +203,25 @@ static int should_override(struct dmxd_operation*op) {
 	}
 }
 
+inline static int enough_arguments(const char *function_name, struct dmxd_operation *op, int size) {
+	if (op->argument_len < size) {
+		fprintf(stderr, "%s: Too small packet\n", function_name);
+		operation_remove(op);
+		return 0;
+	}
+	return 1;
+}
+
 static void f_fade(struct dmxd_operation *op, float runtime) {
 	int len = 0;
 	short channel;
 	unsigned char fromval;
 	unsigned char toval;
 	float timespan;
-	
-	if (op->argument_len < 8) {
-		fprintf(stderr, "f_fade: Too small packet\n");
-		operation_remove(op);
+
+	if (!enough_arguments(__func__, op, 8))
 		return;
-	}
-	
+
 	len += dmxd_read_short(op, len, &channel);
 	len += dmxd_read_byte(op, len, &fromval);
 	len += dmxd_read_byte(op, len, &toval);
@@ -248,11 +254,8 @@ static void f_blink(struct dmxd_operation *op, float runtime) {
 	float timedown;
 	int times;
 	
-	if (op->argument_len < 7) {
-		fprintf(stderr, "f_lock: Too small packet\n");
-		operation_remove(op);
+	if (!enough_arguments(__func__, op, 16))
 		return;
-	}
 	
 	len += dmxd_read_short(op, len, &channel);
 	len += dmxd_read_byte(op, len, &lowval);
@@ -294,13 +297,10 @@ static void f_scalemax(struct dmxd_operation *op, float runtime) {
 	short channel;
 	unsigned char maxval;
 	float forsecs;
-	
-	if (op->argument_len < 7) {
-		fprintf(stderr, "f_lock: Too small packet\n");
-		operation_remove(op);
+
+	if (!enough_arguments(__func__, op, 7))
 		return;
-	}
-	
+
 	len += dmxd_read_short(op, len, &channel);
 	len += dmxd_read_byte(op, len, &maxval);
 	len += dmxd_read_float(op, len, &forsecs);
@@ -330,13 +330,10 @@ static void f_lock(struct dmxd_operation *op, float runtime) {
 	short channel;
 	unsigned char value;
 	float timespan;
-	
-	if (op->argument_len < 7) {
-		fprintf(stderr, "f_lock: Too small packet\n");
-		operation_remove(op);
+
+	if (!enough_arguments(__func__, op, 7))
 		return;
-	}
-	
+
 	len += dmxd_read_short(op, len, &channel);
 	len += dmxd_read_byte(op, len, &value);
 	len += dmxd_read_float(op, len, &timespan);
