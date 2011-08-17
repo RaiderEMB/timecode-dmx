@@ -33,7 +33,7 @@ static int verbose;
 static int simulate = 0;
 
 #define MAX_CONNECTIONS 20
-#define MAX_OPERATIONS 1024
+#define MAX_OPERATIONS (512*2)
 #define BUFLEN 1024
 
 static struct dmxd_connection connections[MAX_CONNECTIONS];
@@ -230,7 +230,8 @@ static void f_fade(struct dmxd_operation *op, float runtime) {
 
 	if (verbose)
 		printf("f%d: %02d %f\n", op->operation_id, fromval + (int)((float)((toval-fromval) * (float)(runtime/timespan))), runtime);
-	dmxd_set_dmx(channel, fromval + (int)((float)((toval-fromval) * (float)(runtime/timespan))));
+
+	dmxd_set_dmx(channel, min(fromval + (int)((float)((toval-fromval) * (float)(runtime/timespan))), toval));
 	
 	if (runtime >= timespan) {
 		operation_remove(op);
@@ -276,7 +277,7 @@ static void f_blink(struct dmxd_operation *op, float runtime) {
 		return;
 	}
 	
-	if (current_time < timeup) {
+	if (current_time < timedown) {
 		if (verbose)
 			printf("b%d: %02d %f r%d/%d\n", op->operation_id, highval, runtime, times_run, times);
 		dmxd_set_dmx(channel, highval);
