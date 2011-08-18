@@ -42,7 +42,7 @@ my $syntax = {
 		'callback' => \&cb_mirror,
 	},
 	"NAME" => {
-		'callback' => \&dummy,
+		'callback' => \&cb_name,
 	},
 	"MINDMX" => {
 		'callback' => \&cb_eq,
@@ -171,7 +171,7 @@ sub handle_syntax {
 
 sub dummy {
 	my ($cmd, $param, $data) = @_;
-#	print STDERR "Use of valid but unimplemented command '$cmd'\n";
+	print STDERR "Use of valid but unimplemented command '$cmd': $param\n";
 }
 
 
@@ -179,7 +179,7 @@ sub dummy {
 sub cb_device {
 	my ($cmd, $param) = @_;
 	if ($param =~ s/^(\w+)//) {
-		$this->{'legend'}->{'name'} = $1;
+		$this->{'legend'}->{'modelshort'} = $1;
 	}
 	if ($param =~ s/  (\d+) DMX Channels?//si) {
 		$this->{'legend'}->{'channels'} = $1;
@@ -358,6 +358,13 @@ sub cb_pftable {
 
 }
 
+sub cb_name {
+	my ($cmd, $param) = @_;
 
+	if ($param =~ s/^\s*"([^"]+)"\s+"([^"]+)"//) {
+		$this->{legend}->{manufacturer} = $1;
+		$this->{legend}->{model} = $2;
+	}
+}
 
 print Dumper $this;
