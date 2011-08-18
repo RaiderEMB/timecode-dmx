@@ -45,16 +45,16 @@ my $syntax = {
 		'callback' => \&dummy,
 	},
 	"MINDMX" => {
-		'callback' => \&dummy,
+		'callback' => \&cb_eq,
 	},
 	"MAXDMX" => {
-		'callback' => \&dummy,
+		'callback' => \&cb_eq,
 	},
 	"DEVICE" => {
 		'callback' => \&cb_device,
 	},
 	"DIVBY" => {
-		'callback' => \&dummy,
+		'callback' => \&cb_eq,
 	},
 		
 };
@@ -225,8 +225,6 @@ sub cb_deviceaddress {
 	}
 }
 
-
-
 sub cb_type {
 	my ($cmd, $param) = @_;
 	if ($param =~ /\s*\d+\s+(\d+)\s+\w\s*/) {
@@ -250,5 +248,10 @@ sub cb_mirror {
 	}
 }
 
+sub cb_eq {
+	my ($cmd, $param) = @_;
+	if ($param =~ /\s*=\s*(\S+)\s*/) {
+		$this->{constraint}->{lc($cmd)} = $1;
+	}
 
-
+}
