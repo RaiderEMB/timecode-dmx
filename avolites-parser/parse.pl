@@ -21,7 +21,7 @@ my $syntax = {
 	},
 	"DMX" => {
 		'end' => "END",
-		'callback' => \&dummy,
+		'callback' => \&cb_dmx,
 	},
 	"RANGE" => {
 		'end' => "REND",
@@ -264,5 +264,50 @@ sub cb_eq {
 	if ($param =~ /\s*=\s*(\S+)\s*/) {
 		$this->{constraint}->{lc($cmd)} = $1;
 	}
+
+}
+
+sub cb_dmx {
+
+	my ($cmd, $param, $data) = @_;
+
+	for my $line (split /\n/, $data) {
+		$line =~ s/^\s*//sg;
+		$line =~ s/\s*$//sg;
+	
+		if ($line =~ m{
+			^ 
+			(\d+) \s+    #  1: "Channels bank number"
+			(\d+) \s+    #  2: Upper faders in bank?!
+			(\w+) \s+    #  3: Channel type LTP HTP 16bit fadable HTP LTP.. etc
+			(\d+) \s+    #  4: DMX Offset
+			(\d+) \s+    #  5: Output level 0%-100%
+			(\d+)        #  6: Curve number ?! usually 1
+			(I|N) \s+    #  7: Curve inverted or normal
+			([A-Z0]) \s+ #  8: Attribute type 
+			(1) \s+      #  9: Checksum channel (always 1)
+			"([^"]+)"\s+ # 10: Attribute name
+			(\d+) \s+    # 11: The ON value of this channel 0..255
+			(\d+) \s+    # 12: Highlight level of this channel 0..255
+			(\d+)        # 13: Lowlight level of this channel 0..255
+			$
+
+		}simx) {
+			$this->{patch}->{channels}->{$4} = {
+				bank => $1,
+				bank_ul_faders => $2,
+				type => $3,
+				offset => $4,
+				level_pc => $5,
+				curve_dir => $7,
+				attr => $8,
+				name => $10,
+				val_on => $11,
+				val_hi => $12,
+				val_lo => $13,
+			};
+		}		
+	}
+
 
 }
