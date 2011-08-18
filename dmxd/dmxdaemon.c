@@ -11,6 +11,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <sys/time.h>
 #include <time.h>
 #include <artnet/artnet.h>
 #include <artnet/packets.h>
@@ -32,6 +33,10 @@ static artnet_node node ;
 static char *artnet_ip = NULL;
 static int verbose;
 static int simulate = 0;
+
+static int artnet_pps = 0;
+static int dmxd_pps = 0;
+static int dmx_pps = 0;
 
 #define MAX_CONNECTIONS 20
 #define MAX_OPERATIONS (512*2)
@@ -120,6 +125,8 @@ static int dmxd_transmit_dmx() {
 	dmx[length+4] = 0xE7;
 
 	count = write(dmx_out_fd, dmx, length+5);
+	
+	dmx_pps++;
 }
 
 static int dmxd_output_console() {
@@ -141,7 +148,7 @@ static struct dmxd_operation *parse_packet(unsigned char *data, int length) {
 	static struct dmxd_operation operation;
 	if (length < 4)
 		return NULL;
-	
+
 	if (length - 4 > DMXD_MAX_ARG_LEN)
 		return NULL;
 
@@ -156,7 +163,9 @@ static struct dmxd_operation *parse_packet(unsigned char *data, int length) {
 
 	if (verbose)
 	printf("Parsed command: %d, uniqueid: %d\n", operation.command, operation.uniqueid);
-	
+
+	dmxd_pps++;
+
 	return &operation;
 }
 
@@ -620,6 +629,8 @@ int dmx_callback(artnet_node n, void *p, void *d) {
 	}
 	last_seq = pack->data.admx.sequence ;
 
+	artnet_pps++;
+	
 	return 0;
 }
 
@@ -653,6 +664,7 @@ int main(int argc, char **argv) {
 	fd_set selectlist;
 	int highsock;
 	int optc;
+	struct timeval updated;
 	char usb_dflt_device[] = "/dev/ttyUSB0";
 	char *usb_device = usb_dflt_device;
 	
@@ -714,14 +726,25 @@ int main(int argc, char **argv) {
 	else
 		highsock = sock;
 
+	/* save cursor */
+	printf("\e7");
+	
 	/* Mainloop */
 	while (1) {
+		static struct timeval lastsend;
+		struct timeval now;
 		timeout.tv_sec = 0;
-		timeout.tv_usec = 20000;
+		timeout.tv_usec = 23000;
 
 		FD_ZERO(&selectlist);
 		FD_SET(sock, &selectlist);
 		FD_SET(artnet_fd, &selectlist);
+
+		gettimeofday(&now, NULL);
+		long long diff = (long long)(now.tv_sec - lastsend.tv_sec) * 1000000;
+		diff += now.tv_usec - lastsend.tv_usec;
+
+		timeout.tv_usec -= diff;
 
 		int ready = select(highsock + 1, &selectlist, 0, 0, &timeout);
 
@@ -769,15 +792,36 @@ int main(int argc, char **argv) {
 				artnet_read(node, 0);
 			}
 		}
-		
+
+		gettimeofday(&now, NULL);
+		diff = (long long)(now.tv_sec - lastsend.tv_sec) * 1000000;
+		diff += now.tv_usec - lastsend.tv_usec;
+		if (diff < 23000)
+			continue;
+
 		/* Come here at least every *timeout* uS */
 		copy_artnet_to_dmx();
 		/* Reset for each frame */
 		fullcontrol = 0;
 		handle_operations();
+		gettimeofday(&lastsend, NULL);
 		if (!simulate)
 			dmxd_transmit_dmx();
 		else
 			dmxd_output_console();
+		
+		if (!verbose && !simulate && (now.tv_sec > updated.tv_sec)) {
+			int i,num_operations = 0;
+			for (i = 0; i < MAX_OPERATIONS; ++i) {
+				if (operations[i].allocated)
+					num_operations++;
+			}
+			printf("\e8\e[2KCurrent operations: %d Artnet pps: %d DMXd pps: %d DMX Out pps: %d ", num_operations, artnet_pps, dmxd_pps, dmx_pps);
+			fflush(stdout);
+			dmxd_pps = 0;
+			artnet_pps = 0;
+			dmx_pps = 0;
+			gettimeofday(&updated, NULL);
+		}
 	}
 }
