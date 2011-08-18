@@ -9,7 +9,7 @@ die unless defined $ARGV[0];
 my $syntax = {
 	"ATTR" => {
 		'end' => "END",
-		'callback' => \&dummy,
+		'callback' => \&cb_attr,
 	},
 	"PFTABLE" => {
 		'end' => "PFEND",
@@ -311,14 +311,6 @@ sub cb_dmx {
 }
 
 
-
-sub cb_macro {
-	my ($cmd, $param, $data) = @_;
-
-
-
-}
-
 sub cb_range {
 	my ($cmd, $param, $data) = @_;
 
@@ -367,4 +359,38 @@ sub cb_name {
 	}
 }
 
-print Dumper $this;
+
+sub cb_attr {
+	my ($cmd, $param, $data) = @_;
+	# Function obsolete
+}
+
+sub cb_macro {
+	my ($cmd, $param, $data) = @_;
+	
+	if ($param =~ s/^\s*"([^"]+)"\s*//) {
+		my $tablename = $1;
+		my @headers = split /[ \t]+/, $param;
+		$this->{macro}->{$tablename} = [];
+		while ($data =~ /"([^"]+)"[ \t]+(\d+)[ \t]+(.+)/g) {
+			my @data = split /\s+/, $3;
+			my $hashref = {};
+			my $valnum = 0;
+			for my $value (@data) {
+				$valnum++;
+				$hashref->{$valnum} = hex $data[$valnum-1];
+			}
+			push @{ $this->{macro}->{$tablename} }, {
+				name => $1,
+				typeflag => $2,
+				args => $hashref,
+			};
+		}
+	}
+
+#	print Dumper $this->{macro};
+
+}
+
+
+#print Dumper $this;
