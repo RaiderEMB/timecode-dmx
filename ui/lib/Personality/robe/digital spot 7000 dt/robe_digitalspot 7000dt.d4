@@ -1,0 +1,904 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Digital Spot 7000 Gobo Layers" ShortName="DSp7K Gobo" Company="Robe">
+  <Copyright Notice="© Avolites Ltd. 2010" />
+  <History Date="23-03-09" Author="David Hunt" Comment="Created" />
+  <History Date="27-05-09" Author="Jonathan Moreton" Comment="Checked" />
+  <History Date="27-05-09" Author="Jonathan Moreton" Comment="Removed Iris and Zoom, Focus is now 16 bit" />
+  <History Date="15-06-10" Author="John Rogers" Comment="Tested against fixture - updated naming, ranges and wheel mapping. Added all control functions as macros and tested against fixture." />
+  <History Date="17-06-10" Author="John Rogers" Comment="Added No Server mode." />
+  <History Date="26-07-10" Author="John Rogers" Comment="Edited Keystone and Banner Attribute IDs to fall in line with naming conventions required for V4." />
+  <History Date="27-07-10" Author="John Rogers" Comment="Merged Master and Common Effects modes." />
+  <History Date="06-09-10" Author="John Rogers" Comment="Edited Keystone and Banner rotation ranges to be linear for the benefit of V4." />
+  <History Date="10-09-10" Author="John Rogers" Comment="Edited Gobo Zoom X and Y to be linear." />
+  <History Date="08-10-10" Author="John Rogers" Comment="Fixed locate issues in Gobo Zoom channels." />
+  <History Date="12-10-10" Author="John Rogers" Comment="Edited the locate value of 'Iris' to 0 DMX." />
+  <History Date="12-10-10" Author="John Rogers" Comment="Edited Channel assignment of LED Shutter and Dimmer." />
+  <History Date="25-10-10" Author="John Rogers" Comment="Reallocated LED RGB wheel assignments." />
+  <History Date="26-10-10" Author="John Rogers" Comment="Made LED contol 16 bit to work with Colour Picker in V3.1" />
+  <History Date="26-10-10" Author="John Rogers" Comment="Cut down to Gobo Layer only." />
+  <History Date="11-11-10" Author="John Rogers" Comment="Edited Gobo Pan and Tilt to be linear." />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" Clear="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="GoboFolder" Name="Gobo Folder" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Factory" Display="'Factory %.f',0~19" Dmx="0~19" Update="Gobo1, Gobo" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Test Cards" Display="'Test Cards    %.f',20~20" Dmx="20~20" WheelPosition="5" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="User" Display="'User %.f',21~240" Dmx="21~240" Update="Gobo1, Gobo" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="Reserved" Display="'Reserved %.f',241~250" Dmx="241~250" Update="Gobo1, Gobo" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="5" Name="Live" Display="'Live'" Dmx="251~251" Update="Gobo1, Gobo" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="6" Name="Remote Sources" Display="'Remote Sources'" Dmx="252~252" Update="Gobo1, Gobo" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="7" Name="Reserved" Display="'Reserved %.f',253~255" Dmx="253~255" Update="Gobo1, Gobo" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo" Name="Gobo" Description="" Group="G">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Not Live" ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256" If="'GoboFolder'!=4" />
+      <Condition Name="Live" ID="257,258,259,260,261,262,263,264,266,267,268,269,270" If="'GoboFolder'==4" />
+      <Else ID="265" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Gobo 1" Display="'Gobo 1'" Dmx="1~1" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Gobo 2" Display="'Gobo 2'" Dmx="2~2" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="Gobo 3" Display="'Gobo 3'" Dmx="3~3" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="5" Name="Gobo 4" Display="'Gobo 4'" Dmx="4~4" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="6" Name="Gobo 5" Display="'Gobo 5'" Dmx="5~5" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="7" Name="Gobo 6" Display="'Gobo 6'" Dmx="6~6" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="8" Name="Gobo 7" Display="'Gobo 7'" Dmx="7~7" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="9" Name="Gobo 8" Display="'Gobo 8'" Dmx="8~8" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="10" Name="Gobo 9" Display="'Gobo 9'" Dmx="9~9" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="11" Name="Gobo 10" Display="'Gobo 10'" Dmx="10~10" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="12" Name="Gobo 11" Display="'Gobo 11'" Dmx="11~11" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="13" Name="Gobo 12" Display="'Gobo 12'" Dmx="12~12" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="14" Name="Gobo 13" Display="'Gobo 13'" Dmx="13~13" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="15" Name="Gobo 14" Display="'Gobo 14'" Dmx="14~14" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="16" Name="Gobo 15" Display="'Gobo 15'" Dmx="15~15" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="17" Name="Gobo 16" Display="'Gobo 16'" Dmx="16~16" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="18" Name="Gobo 17" Display="'Gobo 17'" Dmx="17~17" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="19" Name="Gobo 18" Display="'Gobo 18'" Dmx="18~18" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="20" Name="Gobo 19" Display="'Gobo 19'" Dmx="19~19" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="21" Name="Gobo 20" Display="'Gobo 20'" Dmx="20~20" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="22" Name="Gobo 21" Display="'Gobo 21'" Dmx="21~21" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="23" Name="Gobo 22" Display="'Gobo 22'" Dmx="22~22" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="24" Name="Gobo 23" Display="'Gobo 23'" Dmx="23~23" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="25" Name="Gobo 24" Display="'Gobo 24'" Dmx="24~24" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="26" Name="Gobo 25" Display="'Gobo 25'" Dmx="25~25" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="27" Name="Gobo 26" Display="'Gobo 26'" Dmx="26~26" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="28" Name="Gobo 27" Display="'Gobo 27'" Dmx="27~27" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="29" Name="Gobo 28" Display="'Gobo 28'" Dmx="28~28" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="30" Name="Gobo 29" Display="'Gobo 29'" Dmx="29~29" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="31" Name="Gobo 30" Display="'Gobo 30'" Dmx="30~30" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="32" Name="Gobo 31" Display="'Gobo 31'" Dmx="31~31" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="33" Name="Gobo 32" Display="'Gobo 32'" Dmx="32~32" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="34" Name="Gobo 33" Display="'Gobo 33'" Dmx="33~33" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="35" Name="Gobo 34" Display="'Gobo 34'" Dmx="34~34" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="36" Name="Gobo 35" Display="'Gobo 35'" Dmx="35~35" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="37" Name="Gobo 36" Display="'Gobo 36'" Dmx="36~36" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="38" Name="Gobo 37" Display="'Gobo 37'" Dmx="37~37" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="39" Name="Gobo 38" Display="'Gobo 38'" Dmx="38~38" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="40" Name="Gobo 39" Display="'Gobo 39'" Dmx="39~39" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="41" Name="Gobo 40" Display="'Gobo 40'" Dmx="40~40" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="42" Name="Gobo 41" Display="'Gobo 41'" Dmx="41~41" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="43" Name="Gobo 42" Display="'Gobo 42'" Dmx="42~42" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="44" Name="Gobo 43" Display="'Gobo 43'" Dmx="43~43" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="45" Name="Gobo 44" Display="'Gobo 44'" Dmx="44~44" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="46" Name="Gobo 45" Display="'Gobo 45'" Dmx="45~45" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="47" Name="Gobo 46" Display="'Gobo 46'" Dmx="46~46" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="48" Name="Gobo 47" Display="'Gobo 47'" Dmx="47~47" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="49" Name="Gobo 48" Display="'Gobo 48'" Dmx="48~48" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="50" Name="Gobo 49" Display="'Gobo 49'" Dmx="49~49" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="51" Name="Gobo 50" Display="'Gobo 50'" Dmx="50~50" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="52" Name="Gobo 51" Display="'Gobo 51'" Dmx="51~51" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="53" Name="Gobo 52" Display="'Gobo 52'" Dmx="52~52" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="54" Name="Gobo 53" Display="'Gobo 53'" Dmx="53~53" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="55" Name="Gobo 54" Display="'Gobo 54'" Dmx="54~54" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="56" Name="Gobo 55" Display="'Gobo 55'" Dmx="55~55" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="57" Name="Gobo 56" Display="'Gobo 56'" Dmx="56~56" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="58" Name="Gobo 57" Display="'Gobo 57'" Dmx="57~57" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="59" Name="Gobo 58" Display="'Gobo 58'" Dmx="58~58" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="60" Name="Gobo 59" Display="'Gobo 59'" Dmx="59~59" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="61" Name="Gobo 60" Display="'Gobo 60'" Dmx="60~60" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="62" Name="Gobo 61" Display="'Gobo 61'" Dmx="61~61" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="63" Name="Gobo 62" Display="'Gobo 62'" Dmx="62~62" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="64" Name="Gobo 63" Display="'Gobo 63'" Dmx="63~63" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="65" Name="Gobo 64" Display="'Gobo 64'" Dmx="64~64" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="66" Name="Gobo 65" Display="'Gobo 65'" Dmx="65~65" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="67" Name="Gobo 66" Display="'Gobo 66'" Dmx="66~66" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="68" Name="Gobo 67" Display="'Gobo 67'" Dmx="67~67" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="69" Name="Gobo 68" Display="'Gobo 68'" Dmx="68~68" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="70" Name="Gobo 69" Display="'Gobo 69'" Dmx="69~69" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="71" Name="Gobo 70" Display="'Gobo 70'" Dmx="70~70" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="72" Name="Gobo 71" Display="'Gobo 71'" Dmx="71~71" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="73" Name="Gobo 72" Display="'Gobo 72'" Dmx="72~72" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="74" Name="Gobo 73" Display="'Gobo 73'" Dmx="73~73" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="75" Name="Gobo 74" Display="'Gobo 74'" Dmx="74~74" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="76" Name="Gobo 75" Display="'Gobo 75'" Dmx="75~75" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="77" Name="Gobo 76" Display="'Gobo 76'" Dmx="76~76" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="78" Name="Gobo 77" Display="'Gobo 77'" Dmx="77~77" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="79" Name="Gobo 78" Display="'Gobo 78'" Dmx="78~78" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="80" Name="Gobo 79" Display="'Gobo 79'" Dmx="79~79" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="81" Name="Gobo 80" Display="'Gobo 80'" Dmx="80~80" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="82" Name="Gobo 81" Display="'Gobo 81'" Dmx="81~81" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="83" Name="Gobo 82" Display="'Gobo 82'" Dmx="82~82" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="84" Name="Gobo 83" Display="'Gobo 83'" Dmx="83~83" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="85" Name="Gobo 84" Display="'Gobo 84'" Dmx="84~84" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="86" Name="Gobo 85" Display="'Gobo 85'" Dmx="85~85" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="87" Name="Gobo 86" Display="'Gobo 86'" Dmx="86~86" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="88" Name="Gobo 87" Display="'Gobo 87'" Dmx="87~87" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="89" Name="Gobo 88" Display="'Gobo 88'" Dmx="88~88" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="90" Name="Gobo 89" Display="'Gobo 89'" Dmx="89~89" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="91" Name="Gobo 90" Display="'Gobo 90'" Dmx="90~90" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="92" Name="Gobo 91" Display="'Gobo 91'" Dmx="91~91" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="93" Name="Gobo 92" Display="'Gobo 92'" Dmx="92~92" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="94" Name="Gobo 93" Display="'Gobo 93'" Dmx="93~93" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="95" Name="Gobo 94" Display="'Gobo 94'" Dmx="94~94" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="96" Name="Gobo 95" Display="'Gobo 95'" Dmx="95~95" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="97" Name="Gobo 96" Display="'Gobo 96'" Dmx="96~96" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="98" Name="Gobo 97" Display="'Gobo 97'" Dmx="97~97" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="99" Name="Gobo 98" Display="'Gobo 98'" Dmx="98~98" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="100" Name="Gobo 99" Display="'Gobo 99'" Dmx="99~99" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="101" Name="Gobo 100" Display="'Gobo 100'" Dmx="100~100" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="102" Name="Gobo 101" Display="'Gobo 101'" Dmx="101~101" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="103" Name="Gobo 102" Display="'Gobo 102'" Dmx="102~102" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="104" Name="Gobo 103" Display="'Gobo 103'" Dmx="103~103" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="105" Name="Gobo 104" Display="'Gobo 104'" Dmx="104~104" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="106" Name="Gobo 105" Display="'Gobo 105'" Dmx="105~105" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="107" Name="Gobo 106" Display="'Gobo 106'" Dmx="106~106" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="108" Name="Gobo 107" Display="'Gobo 107'" Dmx="107~107" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="109" Name="Gobo 108" Display="'Gobo 108'" Dmx="108~108" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="110" Name="Gobo 109" Display="'Gobo 109'" Dmx="109~109" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="111" Name="Gobo 110" Display="'Gobo 110'" Dmx="110~110" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="112" Name="Gobo 111" Display="'Gobo 111'" Dmx="111~111" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="113" Name="Gobo 112" Display="'Gobo 112'" Dmx="112~112" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="114" Name="Gobo 113" Display="'Gobo 113'" Dmx="113~113" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="115" Name="Gobo 114" Display="'Gobo 114'" Dmx="114~114" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="116" Name="Gobo 115" Display="'Gobo 115'" Dmx="115~115" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="117" Name="Gobo 116" Display="'Gobo 116'" Dmx="116~116" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="118" Name="Gobo 117" Display="'Gobo 117'" Dmx="117~117" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="119" Name="Gobo 118" Display="'Gobo 118'" Dmx="118~118" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="120" Name="Gobo 119" Display="'Gobo 119'" Dmx="119~119" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="121" Name="Gobo 120" Display="'Gobo 120'" Dmx="120~120" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="122" Name="Gobo 121" Display="'Gobo 121'" Dmx="121~121" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="123" Name="Gobo 122" Display="'Gobo 122'" Dmx="122~122" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="124" Name="Gobo 123" Display="'Gobo 123'" Dmx="123~123" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="125" Name="Gobo 124" Display="'Gobo 124'" Dmx="124~124" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="126" Name="Gobo 125" Display="'Gobo 125'" Dmx="125~125" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="127" Name="Gobo 126" Display="'Gobo 126'" Dmx="126~126" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="128" Name="Gobo 127" Display="'Gobo 127'" Dmx="127~127" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="129" Name="Gobo 128" Display="'Gobo 128'" Dmx="128~128" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="130" Name="Gobo 129" Display="'Gobo 129'" Dmx="129~129" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="131" Name="Gobo 130" Display="'Gobo 130'" Dmx="130~130" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="132" Name="Gobo 131" Display="'Gobo 131'" Dmx="131~131" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="133" Name="Gobo 132" Display="'Gobo 132'" Dmx="132~132" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="134" Name="Gobo 133" Display="'Gobo 133'" Dmx="133~133" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="135" Name="Gobo 134" Display="'Gobo 134'" Dmx="134~134" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="136" Name="Gobo 135" Display="'Gobo 135'" Dmx="135~135" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="137" Name="Gobo 136" Display="'Gobo 136'" Dmx="136~136" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="138" Name="Gobo 137" Display="'Gobo 137'" Dmx="137~137" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="139" Name="Gobo 138" Display="'Gobo 138'" Dmx="138~138" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="140" Name="Gobo 139" Display="'Gobo 139'" Dmx="139~139" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="141" Name="Gobo 140" Display="'Gobo 140'" Dmx="140~140" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="142" Name="Gobo 141" Display="'Gobo 141'" Dmx="141~141" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="143" Name="Gobo 142" Display="'Gobo 142'" Dmx="142~142" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="144" Name="Gobo 143" Display="'Gobo 143'" Dmx="143~143" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="145" Name="Gobo 144" Display="'Gobo 144'" Dmx="144~144" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="146" Name="Gobo 145" Display="'Gobo 145'" Dmx="145~145" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="147" Name="Gobo 146" Display="'Gobo 146'" Dmx="146~146" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="148" Name="Gobo 147" Display="'Gobo 147'" Dmx="147~147" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="149" Name="Gobo 148" Display="'Gobo 148'" Dmx="148~148" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="150" Name="Gobo 149" Display="'Gobo 149'" Dmx="149~149" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="151" Name="Gobo 150" Display="'Gobo 150'" Dmx="150~150" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="152" Name="Gobo 151" Display="'Gobo 151'" Dmx="151~151" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="153" Name="Gobo 152" Display="'Gobo 152'" Dmx="152~152" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="154" Name="Gobo 153" Display="'Gobo 153'" Dmx="153~153" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="155" Name="Gobo 154" Display="'Gobo 154'" Dmx="154~154" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="156" Name="Gobo 155" Display="'Gobo 155'" Dmx="155~155" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="157" Name="Gobo 156" Display="'Gobo 156'" Dmx="156~156" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="158" Name="Gobo 157" Display="'Gobo 157'" Dmx="157~157" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="159" Name="Gobo 158" Display="'Gobo 158'" Dmx="158~158" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="160" Name="Gobo 159" Display="'Gobo 159'" Dmx="159~159" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="161" Name="Gobo 160" Display="'Gobo 160'" Dmx="160~160" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="162" Name="Gobo 161" Display="'Gobo 161'" Dmx="161~161" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="163" Name="Gobo 162" Display="'Gobo 162'" Dmx="162~162" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="164" Name="Gobo 163" Display="'Gobo 163'" Dmx="163~163" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="165" Name="Gobo 164" Display="'Gobo 164'" Dmx="164~164" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="166" Name="Gobo 165" Display="'Gobo 165'" Dmx="165~165" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="167" Name="Gobo 166" Display="'Gobo 166'" Dmx="166~166" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="168" Name="Gobo 167" Display="'Gobo 167'" Dmx="167~167" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="169" Name="Gobo 168" Display="'Gobo 168'" Dmx="168~168" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="170" Name="Gobo 169" Display="'Gobo 169'" Dmx="169~169" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="171" Name="Gobo 170" Display="'Gobo 170'" Dmx="170~170" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="172" Name="Gobo 171" Display="'Gobo 171'" Dmx="171~171" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="173" Name="Gobo 172" Display="'Gobo 172'" Dmx="172~172" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="174" Name="Gobo 173" Display="'Gobo 173'" Dmx="173~173" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="175" Name="Gobo 174" Display="'Gobo 174'" Dmx="174~174" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="176" Name="Gobo 175" Display="'Gobo 175'" Dmx="175~175" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="177" Name="Gobo 176" Display="'Gobo 176'" Dmx="176~176" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="178" Name="Gobo 177" Display="'Gobo 177'" Dmx="177~177" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="179" Name="Gobo 178" Display="'Gobo 178'" Dmx="178~178" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="180" Name="Gobo 179" Display="'Gobo 179'" Dmx="179~179" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="181" Name="Gobo 180" Display="'Gobo 180'" Dmx="180~180" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="182" Name="Gobo 181" Display="'Gobo 181'" Dmx="181~181" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="183" Name="Gobo 182" Display="'Gobo 182'" Dmx="182~182" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="184" Name="Gobo 183" Display="'Gobo 183'" Dmx="183~183" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="185" Name="Gobo 184" Display="'Gobo 184'" Dmx="184~184" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="186" Name="Gobo 185" Display="'Gobo 185'" Dmx="185~185" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="187" Name="Gobo 186" Display="'Gobo 186'" Dmx="186~186" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="188" Name="Gobo 187" Display="'Gobo 187'" Dmx="187~187" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="189" Name="Gobo 188" Display="'Gobo 188'" Dmx="188~188" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="190" Name="Gobo 189" Display="'Gobo 189'" Dmx="189~189" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="191" Name="Gobo 190" Display="'Gobo 190'" Dmx="190~190" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="192" Name="Gobo 191" Display="'Gobo 191'" Dmx="191~191" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="193" Name="Gobo 192" Display="'Gobo 192'" Dmx="192~192" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="194" Name="Gobo 193" Display="'Gobo 193'" Dmx="193~193" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="195" Name="Gobo 194" Display="'Gobo 194'" Dmx="194~194" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="196" Name="Gobo 195" Display="'Gobo 195'" Dmx="195~195" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="197" Name="Gobo 196" Display="'Gobo 196'" Dmx="196~196" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="198" Name="Gobo 197" Display="'Gobo 197'" Dmx="197~197" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="199" Name="Gobo 198" Display="'Gobo 198'" Dmx="198~198" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="200" Name="Gobo 199" Display="'Gobo 199'" Dmx="199~199" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="201" Name="Gobo 200" Display="'Gobo 200'" Dmx="200~200" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="202" Name="Gobo 201" Display="'Gobo 201'" Dmx="201~201" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="203" Name="Gobo 202" Display="'Gobo 202'" Dmx="202~202" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="204" Name="Gobo 203" Display="'Gobo 203'" Dmx="203~203" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="205" Name="Gobo 204" Display="'Gobo 204'" Dmx="204~204" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="206" Name="Gobo 205" Display="'Gobo 205'" Dmx="205~205" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="207" Name="Gobo 206" Display="'Gobo 206'" Dmx="206~206" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="208" Name="Gobo 207" Display="'Gobo 207'" Dmx="207~207" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="209" Name="Gobo 208" Display="'Gobo 208'" Dmx="208~208" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="210" Name="Gobo 209" Display="'Gobo 209'" Dmx="209~209" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="211" Name="Gobo 210" Display="'Gobo 210'" Dmx="210~210" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="212" Name="Gobo 211" Display="'Gobo 211'" Dmx="211~211" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="213" Name="Gobo 212" Display="'Gobo 212'" Dmx="212~212" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="214" Name="Gobo 213" Display="'Gobo 213'" Dmx="213~213" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="215" Name="Gobo 214" Display="'Gobo 214'" Dmx="214~214" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="216" Name="Gobo 215" Display="'Gobo 215'" Dmx="215~215" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="217" Name="Gobo 216" Display="'Gobo 216'" Dmx="216~216" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="218" Name="Gobo 217" Display="'Gobo 217'" Dmx="217~217" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="219" Name="Gobo 218" Display="'Gobo 218'" Dmx="218~218" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="220" Name="Gobo 219" Display="'Gobo 219'" Dmx="219~219" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="221" Name="Gobo 220" Display="'Gobo 220'" Dmx="220~220" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="222" Name="Gobo 221" Display="'Gobo 221'" Dmx="221~221" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="223" Name="Gobo 222" Display="'Gobo 222'" Dmx="222~222" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="224" Name="Gobo 223" Display="'Gobo 223'" Dmx="223~223" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="225" Name="Gobo 224" Display="'Gobo 224'" Dmx="224~224" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="226" Name="Gobo 225" Display="'Gobo 225'" Dmx="225~225" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="227" Name="Gobo 226" Display="'Gobo 226'" Dmx="226~226" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="228" Name="Gobo 227" Display="'Gobo 227'" Dmx="227~227" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="229" Name="Gobo 228" Display="'Gobo 228'" Dmx="228~228" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="230" Name="Gobo 229" Display="'Gobo 229'" Dmx="229~229" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="231" Name="Gobo 230" Display="'Gobo 230'" Dmx="230~230" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="232" Name="Gobo 231" Display="'Gobo 231'" Dmx="231~231" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="233" Name="Gobo 232" Display="'Gobo 232'" Dmx="232~232" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="234" Name="Gobo 233" Display="'Gobo 233'" Dmx="233~233" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="235" Name="Gobo 234" Display="'Gobo 234'" Dmx="234~234" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="236" Name="Gobo 235" Display="'Gobo 235'" Dmx="235~235" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="237" Name="Gobo 236" Display="'Gobo 236'" Dmx="236~236" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="238" Name="Gobo 237" Display="'Gobo 237'" Dmx="237~237" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="239" Name="Gobo 238" Display="'Gobo 238'" Dmx="238~238" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="240" Name="Gobo 239" Display="'Gobo 239'" Dmx="239~239" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="241" Name="Gobo 240" Display="'Gobo 240'" Dmx="240~240" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="242" Name="Gobo 241" Display="'Gobo 241'" Dmx="241~241" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="243" Name="Gobo 242" Display="'Gobo 242'" Dmx="242~242" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="244" Name="Gobo 243" Display="'Gobo 243'" Dmx="243~243" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="245" Name="Gobo 244" Display="'Gobo 244'" Dmx="244~244" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="246" Name="Gobo 245" Display="'Gobo 245'" Dmx="245~245" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="247" Name="Gobo 246" Display="'Gobo 246'" Dmx="246~246" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="248" Name="Gobo 247" Display="'Gobo 247'" Dmx="247~247" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="249" Name="Gobo 248" Display="'Gobo 248'" Dmx="248~248" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="250" Name="Gobo 249" Display="'Gobo 249'" Dmx="249~249" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="251" Name="Gobo 250" Display="'Gobo 250'" Dmx="250~250" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="252" Name="Gobo 251" Display="'Gobo 251'" Dmx="251~251" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="253" Name="Gobo 252" Display="'Gobo 252'" Dmx="252~252" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="254" Name="Gobo 253" Display="'Gobo 253'" Dmx="253~253" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="255" Name="Gobo 254" Display="'Gobo 254'" Dmx="254~254" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="256" Name="Gobo 255" Display="'Gobo 255'" Dmx="255~255" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="257" Name="Open" Display="'Open'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="258" Name="Comp In PAL" Display="'Comp In PAL'" Dmx="1~20" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="259" Name="Svid In PAL" Display="'Svid In PAL'" Dmx="21~40" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="260" Name="Comp In NTSC" Display="'Comp In NTSC'" Dmx="41~60" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="261" Name="Svid In NTSC" Display="'Svid In NTSC'" Dmx="61~80" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="262" Name="Comp In SECAM" Display="'Comp In SECAM'" Dmx="81~100" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="263" Name="Svid In SECAM" Display="'Svid In SECAM'" Dmx="101~120" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="264" Name="Reserved" Display="'Reserved %.f',121~140" Dmx="121~140" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="265" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="266" Name="VGA Input DVI/VGA" Display="'VGA Input     DVI/VGA'" Dmx="141~160" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="267" Name="DVI-I Input DVI/VGA" Display="'DVI-I Input   DVI/VGA'" Dmx="161~180" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="268" Name="SDI Input SDI/ASI" Display="'SDI Input     SDI/ASI'" Dmx="181~200" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="269" Name="ASI Input SDI/ASI" Display="'ASI Input     SDI/ASI'" Dmx="201~220" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="270" Name="Reserved" Display="'Reserved %.f',221~255" Dmx="221~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo_InFrame" Name="Gobo In Frame" Description="" Group="S" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Frame" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Gobo_OutFrame" Name="Gobo Out Frame" Description="" Group="S" Size="2">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Frame" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="GoboControlFunc" Name="Gobo Ctrl Func" Description="" Group="S" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Copy Mode" Display="'Copy Mode'" Dmx="0~0" Update="GoboControl" />
+      <Function ID="2" Name="Addition Mode" Display="'Addition Mode'" Dmx="0~0" Update="GoboControl" />
+      <Function ID="3" Name="Subtraction Mode" Display="'Subtraction Mode'" Dmx="0~0" Update="GoboControl" />
+      <Function ID="4" Name="Multiplication Mode" Display="'Multiplication Mode'" Dmx="0~0" Update="GoboControl" />
+      <Function ID="5" Name="Minimum Mode" Display="'Minimum Mode'" Dmx="0~0" Update="GoboControl" />
+      <Function ID="6" Name="Maximum Mode" Display="'Maximum Mode'" Dmx="0~0" Update="GoboControl" />
+    </Attribute>
+    <Attribute ID="GoboControl" Name="Gobo Control" Description="" Group="G">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Copy Mode" ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18" If="'GoboControlFunc'==1" />
+      <Condition Name="Addition Mode" ID="19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36" If="'GoboControlFunc'==2" />
+      <Condition Name="Subtraction Mode" ID="37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54" If="'GoboControlFunc'==3" />
+      <Condition Name="Multiplication Mode" ID="55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72" If="'GoboControlFunc'==4" />
+      <Condition Name="Minimum Mode" ID="73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90" If="'GoboControlFunc'==5" />
+      <Condition Name="Maximum Mode" ID="91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108" If="'GoboControlFunc'==6" />
+      <Else ID="109" />
+      <Function ID="1" Name="Loop (Dim)" Display="'Loop (Dim)'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Once (Dim)" Display="'Once (Dim)'" Dmx="1~1" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Pause" Display="'Pause'" Dmx="2~2" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="Loop" Display="'Loop'" Dmx="3~3" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="5" Name="Once" Display="'Once'" Dmx="4~4" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="6" Name="No Function" Display="'No Function'" Dmx="5~5" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="7" Name="Scrub In" Display="'Scrub In'" Dmx="6~6" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="8" Name="Scrub Out" Display="'Scrub Out'" Dmx="7~7" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="9" Name="Reserved" Display="'No Function %.f',8~9" Dmx="8~9" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="10" Name="Loop (Dim)" Display="'Loop (Dim)'" Dmx="10~10" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="11" Name="Once (Dim)" Display="'Once (Dim)'" Dmx="11~11" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="12" Name="Pause" Display="'Pause'" Dmx="12~12" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="13" Name="Loop" Display="'Loop'" Dmx="13~13" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="14" Name="Once" Display="'Once'" Dmx="14~14" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="15" Name="No Function" Display="'No Function'" Dmx="15~15" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="16" Name="Scrub In" Display="'Scrub In'" Dmx="16~16" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="17" Name="Scrub Out" Display="'Scrub Out'" Dmx="17~17" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="18" Name="Reserved" Display="'No Function %.f',18~19" Dmx="18~19" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="19" Name="Loop (Dim)" Display="'Loop (Dim)'" Dmx="20~20" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="20" Name="Once (Dim)" Display="'Once (Dim)'" Dmx="21~21" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="21" Name="Pause" Display="'Pause'" Dmx="22~22" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="22" Name="Loop" Display="'Loop'" Dmx="23~23" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="23" Name="Once" Display="'Once'" Dmx="24~24" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="24" Name="No Function" Display="'No Function'" Dmx="25~25" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="25" Name="Scrub In" Display="'Scrub In'" Dmx="26~26" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="26" Name="Scrub Out" Display="'Scrub Out'" Dmx="27~27" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="27" Name="Reserved" Display="'Reserved'" Dmx="28~29" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="28" Name="Loop (Dim)" Display="'Loop (Dim)'" Dmx="30~30" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="29" Name="Once (Dim)" Display="'Once (Dim)'" Dmx="31~31" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="30" Name="Pause" Display="'Pause'" Dmx="32~32" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="31" Name="Loop" Display="'Loop'" Dmx="33~33" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="32" Name="Once" Display="'Once'" Dmx="34~34" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="33" Name="No Function" Display="'No Function'" Dmx="35~35" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="34" Name="Scrub In" Display="'Scrub In'" Dmx="36~36" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="35" Name="Scrub Out" Display="'Scrub Out'" Dmx="37~37" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="36" Name="Reserved" Display="'Reserved %.f',38~39" Dmx="38~39" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="37" Name="Loop (Dim)" Display="'Loop (Dim)'" Dmx="40~40" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="38" Name="Once (Dim)" Display="'Once (Dim)'" Dmx="41~41" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="39" Name="Pause" Display="'Pause'" Dmx="42~42" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="40" Name="Loop" Display="'Loop'" Dmx="43~43" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="41" Name="Once" Display="'Once'" Dmx="44~44" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="42" Name="No Function" Display="'No Function'" Dmx="45~45" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="43" Name="Scrub In" Display="'Scrub In'" Dmx="46~46" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="44" Name="Scrub Out" Display="'Scrub Out'" Dmx="47~47" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="45" Name="Reserved" Display="'Reserved'" Dmx="48~49" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="46" Name="Loop (Dim)" Display="'Loop (Dim)'" Dmx="50~50" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="47" Name="Once (Dim)" Display="'Once (Dim)'" Dmx="51~51" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="48" Name="Pause" Display="'Pause'" Dmx="52~52" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="49" Name="Loop" Display="'Loop'" Dmx="53~53" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="50" Name="Once" Display="'Once'" Dmx="54~54" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="51" Name="No Function" Display="'No Function'" Dmx="55~55" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="52" Name="Scrub In" Display="'Scrub In'" Dmx="56~56" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="53" Name="Scrub Out" Display="'Scrub Out'" Dmx="57~57" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="54" Name="Reserved" Display="'Reserved %.f',58~59" Dmx="58~59" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="55" Name="Loop (Dim)" Display="'Loop (Dim)'" Dmx="60~60" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="56" Name="Once (Dim)" Display="'Once (Dim)'" Dmx="61~61" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="57" Name="Pause" Display="'Pause'" Dmx="62~62" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="58" Name="Loop" Display="'Loop'" Dmx="63~63" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="59" Name="Once" Display="'Once'" Dmx="64~64" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="60" Name="No Function" Display="'No Function'" Dmx="65~65" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="61" Name="Scrub In" Display="'Scrub In'" Dmx="66~66" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="62" Name="Scrub Out" Display="'Scrub Out'" Dmx="67~67" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="63" Name="Reserved" Display="'Reserved %.f',68~69" Dmx="68~69" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="64" Name="Loop (Dim)" Display="'Loop (Dim)'" Dmx="70~70" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="65" Name="Once (Dim)" Display="'Once (Dim)'" Dmx="71~71" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="66" Name="Pause" Display="'Pause'" Dmx="72~72" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="67" Name="Loop" Display="'Loop'" Dmx="73~73" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="68" Name="Once" Display="'Once'" Dmx="74~74" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="69" Name="No Function" Display="'No Function'" Dmx="75~75" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="70" Name="Scrub In" Display="'Scrub In'" Dmx="76~76" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="71" Name="Scrub Out" Display="'Scrub Out'" Dmx="77~77" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="72" Name="Reserved" Display="'Reserved %.f',78~79" Dmx="78~79" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="73" Name="Loop (Dim)" Display="'Loop (Dim)'" Dmx="80~80" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="74" Name="Once (Dim)" Display="'Once (Dim)'" Dmx="81~81" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="75" Name="Pause" Display="'Pause'" Dmx="82~82" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="76" Name="Loop" Display="'Loop'" Dmx="83~83" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="77" Name="Once" Display="'Once'" Dmx="84~84" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="78" Name="No Function" Display="'No Function'" Dmx="85~85" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="79" Name="Scrub In" Display="'Scrub In'" Dmx="86~86" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="80" Name="Scrub Out" Display="'Scrub Out'" Dmx="87~87" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="81" Name="Reserved" Display="'Reserved %.f',88~89" Dmx="88~89" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="82" Name="Loop (Dim)" Display="'Loop (Dim)'" Dmx="90~90" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="83" Name="Once (Dim)" Display="'Once (Dim)'" Dmx="91~91" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="84" Name="Pause" Display="'Pause'" Dmx="92~92" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="85" Name="Loop" Display="'Loop'" Dmx="93~93" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="86" Name="Once" Display="'Once'" Dmx="94~94" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="87" Name="No Function" Display="'No Function'" Dmx="95~95" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="88" Name="Scrub In" Display="'Scrub In'" Dmx="96~96" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="89" Name="Scrub Out" Display="'Scrub Out'" Dmx="97~97" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="90" Name="Reserved" Display="'Reserved'" Dmx="98~99" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="91" Name="Loop (Dim)" Display="'Loop (Dim)'" Dmx="100~100" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="92" Name="Once (Dim)" Display="'Once (Dim)'" Dmx="101~101" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="93" Name="Pause" Display="'Pause'" Dmx="102~102" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="94" Name="Loop" Display="'Loop'" Dmx="103~103" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="95" Name="Once" Display="'Once'" Dmx="104~104" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="96" Name="No Function" Display="'No Function'" Dmx="105~105" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="97" Name="Scrub In" Display="'Scrub In'" Dmx="106~106" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="98" Name="Scrub Out" Display="'Scrub Out'" Dmx="107~107" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="99" Name="Reserved" Display="'Reserved %.f',108~109" Dmx="108~109" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="100" Name="Loop (Dim)" Display="'Loop (Dim)'" Dmx="110~110" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="101" Name="Once (Dim)" Display="'Once (Dim)'" Dmx="111~111" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="102" Name="Pause" Display="'Pause'" Dmx="112~112" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="103" Name="Loop" Display="'Loop'" Dmx="113~113" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="104" Name="Once" Display="'Once'" Dmx="114~114" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="105" Name="No Function" Display="'No Function'" Dmx="115~115" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="106" Name="Scrub In" Display="'Scrub In'" Dmx="116~116" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="107" Name="Scrub Out" Display="'Scrub Out'" Dmx="117~117" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="108" Name="Reserved" Display="'Reserved %.f',118~255" Dmx="118~255" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="109" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo_PlaybackSpd" Name="Gobo Play Spd" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Normal" Display="'Normal'" Dmx="0~0" />
+      <Function ID="2" Name="Slow - Normal" Display="'%.f%%',-100~0" Dmx="1~127" />
+      <Function ID="3" Name="Normal" Display="'Normal %.f%%',0~0" Dmx="128~128" />
+      <Function ID="4" Name="Normal - Fastest" Display="'%.f%%',0~100" Dmx="129~255" />
+    </Attribute>
+    <Attribute ID="Gobo1Rot" Name="Gobo Rot" Description="" Group="G" Size="2">
+      <Locate Locate="3" PowerOn="3" />
+      <Function ID="1" Name="Spin CW" Display="'Spin CW %.2f%%',100.00~0.00" Dmx="0~16191" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Index" Display="'Index %.2f%%',100.00~50.00" Dmx="16448~32767" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Centre" Display="'Centre'" Dmx="32768~32768" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="Index" Display="'Index %.2f%%',50.00~100.00" Dmx="33153~49344" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="5" Name="Spin CCW" Display="'Spin CCW %.2f%%',0.00~100.00" Dmx="49601~65535" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo1_Effect1" Name="Gobo Effect 1" Description="" Group="E">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="2" Name="Zm Sinus" Display="'Zm Sinus'" Dmx="1~1" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="3" Name="Zm Bump Fade" Display="'Zm Bump Fade'" Dmx="2~2" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="4" Name="Zm Fade Bump" Display="'Zm Fade Bump'" Dmx="3~3" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="5" Name="Reserved" Display="'Reserved'" Dmx="4~4" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="6" Name="Zm in Fade" Display="'Zm in Fade'" Dmx="5~5" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="7" Name="Zm out Fade" Display="'Zm out Fade'" Dmx="6~6" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="8" Name="Sc XY Sin" Display="'Sc XY Sin'" Dmx="7~7" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="9" Name="Reserved" Display="'Reserved'" Dmx="8~8" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="10" Name="Reserved" Display="'Reserved'" Dmx="9~9" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="11" Name="Reserved" Display="'Reserved'" Dmx="10~10" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="12" Name="XY Circ CCW" Display="'XY Circ CCW'" Dmx="11~11" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="13" Name="XY Circ CW" Display="'XY Circ CW'" Dmx="12~12" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="14" Name="XY Scroll up" Display="'XY Scroll up'" Dmx="13~13" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="15" Name="XY Scroll down" Display="'XY Scroll down'" Dmx="14~14" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="16" Name="XY Scroll Left" Display="'XY Scroll Left'" Dmx="15~15" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="17" Name="XY Scroll Rt" Display="'XY Scroll Rt'" Dmx="16~16" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="18" Name="RL Diag down" Display="'RL Diag down'" Dmx="17~17" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="19" Name="RL Diag up" Display="'RL Diag up'" Dmx="18~18" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="20" Name="LR Diag Down" Display="'LR Diag Down'" Dmx="19~19" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="21" Name="LR Diag Up" Display="'LR Diag Up'" Dmx="20~20" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="22" Name="X Rot" Display="'X Rot'" Dmx="21~21" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="23" Name="Y Rot" Display="'Y Rot'" Dmx="22~22" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="24" Name="XY Rot" Display="'XY Rot'" Dmx="23~23" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="25" Name="XY Inv Rot" Display="'XY Inv Rot'" Dmx="24~24" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="26" Name="X Inv Y Rot" Display="'X Inv Y Rot'" Dmx="25~25" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="27" Name="Tile XY" Display="'Tile XY'" Dmx="26~26" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="28" Name="Tile XY" Display="'Tile XY'" Dmx="27~27" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="29" Name="XYZ Rot Cube" Display="'XYZ Rot Cube'" Dmx="28~28" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="30" Name="XYZ Rot Sp" Display="'XYZ Rot Sp'" Dmx="29~29" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="31" Name="X Rot Cylinder" Display="'X Rot Cylinder'" Dmx="30~30" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="32" Name="Y Rot Cylinder" Display="'Y Rot Cylinder'" Dmx="31~31" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="33" Name="Reserved" Display="'Reserved'" Dmx="32~32" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="34" Name="Kaleidoscope" Display="'Kaleidoscope'" Dmx="33~33" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="35" Name="Squeeze In" Display="'Squeeze In'" Dmx="34~34" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="36" Name="Squeeze Out" Display="'Squeeze Out'" Dmx="35~35" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="37" Name="Bend X" Display="'Bend X'" Dmx="36~36" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="38" Name="Bend Y" Display="'Bend Y'" Dmx="37~37" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="39" Name="Tile Frame" Display="'Tile Frame'" Dmx="38~38" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="40" Name="Frame" Display="'Frame'" Dmx="39~39" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="41" Name="Plane Flip X" Display="'Plane Flip X'" Dmx="40~40" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="42" Name="Plane Flip Y" Display="'Plane Flip Y'" Dmx="41~41" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="43" Name="Plane Flip XY" Display="'Plane Flip XY'" Dmx="42~42" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="44" Name="Pl Mirror X T" Display="'Pl Mirror X T'" Dmx="43~43" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="45" Name="Pl Mirror X B" Display="'Pl Mirror X B'" Dmx="44~44" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="46" Name="Pl Mirror Y L" Display="'Pl Mirror Y L'" Dmx="45~45" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="47" Name="Pl Mirror Y R" Display="'Pl Mirror Y R'" Dmx="46~46" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="48" Name="Pl Mirror XY 1" Display="'Pl Mirror XY 1'" Dmx="47~47" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="49" Name="Pl Mirror XY 2" Display="'Pl Mirror XY 2'" Dmx="48~48" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="50" Name="Pl Mirror XY 3" Display="'Pl Mirror XY 3'" Dmx="49~49" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="51" Name="Pl Mirror XY 4" Display="'Pl Mirror XY 4'" Dmx="50~50" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="52" Name="Plane Tile 2x" Display="'Plane Tile 2x'" Dmx="51~51" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="53" Name="Plane Tile 3x" Display="'Plane Tile 3x'" Dmx="52~52" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="54" Name="Plane Tile 4x" Display="'Plane Tile 4x'" Dmx="53~53" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="55" Name="Plane Tile 5x" Display="'Plane Tile 5x'" Dmx="54~54" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="56" Name="Plane Cross Tile 2x" Display="'Plane Cross   Tile 2x'" Dmx="55~55" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="57" Name="Plane Cross Tile 2x Inv" Display="'Plane Cross   Tile 2x Inv'" Dmx="56~56" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="58" Name="Plane Cross Tile 3x" Display="'Plane Cross   Tile 3x'" Dmx="57~57" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="59" Name="Plane Cross Tile 3x Inv" Display="'Plane Cross   Tile 3x Inv'" Dmx="58~58" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="60" Name="Plane Cross Tile 4x" Display="'Plane Cross   Tile 4x'" Dmx="59~59" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="61" Name="Plane Cross Tile 4x Inv" Display="'Plane Cross   Tile 4x Inv'" Dmx="60~60" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="62" Name="Plane Cross Tile 5x" Display="'Plane Cross   Tile 5x'" Dmx="61~61" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="63" Name="Plane Cross Tile 5x Inv" Display="'Plane Cross   Tile 5x Inv'" Dmx="62~62" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="64" Name="Plane Cross Tiler 5x" Display="'Plane Cross   Tiler 5x'" Dmx="63~63" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="65" Name="Plane Cross Tiler 5x Inv" Display="'Plane Cross   Tiler 5x Inv'" Dmx="64~64" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="66" Name="Plane Bar" Display="'Plane Bar'" Dmx="65~65" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="67" Name="Plane Bar Inv" Display="'Plane Bar Inv'" Dmx="66~66" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="68" Name="Plane Bar Left - Right" Display="'Plane Bar Left - Right'" Dmx="67~67" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="69" Name="Plane Bar Right - Left" Display="'Plane Bar     Right - Left'" Dmx="68~68" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="70" Name="Reserved" Display="'Reserved'" Dmx="69~69" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="71" Name="Reserved" Display="'Reserved'" Dmx="70~70" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="72" Name="Gobo Disc" Display="'Gobo Disc'" Dmx="71~71" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="73" Name="Gobo Disc Flip X" Display="'Gobo Disc Flip X'" Dmx="72~72" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="74" Name="Gobo Disc Flip Y" Display="'Gobo Disc Flip Y'" Dmx="73~73" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="75" Name="Gobo Disc Flip XY" Display="'Gobo Disc Flip XY'" Dmx="74~74" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="76" Name="Gobo Disc Mirror X" Display="'Gobo Disc     Mirror X'" Dmx="75~75" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="77" Name="Gobo Disc Mirror Y" Display="'Gobo Disc     Mirror Y'" Dmx="76~76" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="78" Name="Gobo Disc Mirror XY" Display="'Gobo Disc     Mirror XY'" Dmx="77~77" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="79" Name="Reserved" Display="'Reserved %.f',78~79" Dmx="78~79" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="80" Name="Plane Mirror X Top Inv" Display="'Plane Mirror X Top Inv'" Dmx="80~80" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="81" Name="Plane Mirror X Bot Inv" Display="'Plane Mirror X Bot Inv'" Dmx="81~81" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="82" Name="Plane Mirror Y Top Inv" Display="'Plane Mirror Y Top Inv'" Dmx="82~82" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="83" Name="Plane Mirror Y Bot Inv" Display="'Plane Mirror Y Bot Inv'" Dmx="83~83" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="84" Name="Plane Mirror XY Inv" Display="'Plane Mirror  XY Inv'" Dmx="84~84" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="85" Name="Plane Mirror X-Inv Y" Display="'Plane Mirror  X-Inv Y'" Dmx="85~85" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="86" Name="Plane Mirror X,Y-Inv" Display="'Plane Mirror X,Y-Inv'" Dmx="86~86" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="87" Name="Reserved" Display="'Reserved %.f',87~89" Dmx="87~89" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="88" Name="Fish Eye" Display="'Fish Eye'" Dmx="90~90" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="89" Name="Reserved" Display="'Reserved %.f',91~99" Dmx="91~99" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="90" Name="Square Static" Display="'Square Static'" Dmx="100~100" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="91" Name="Square Dynamic" Display="'Square Dynamic'" Dmx="101~101" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="92" Name="Right Triangle Static" Display="'Right Triangle Static'" Dmx="102~102" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="93" Name="Right Triangle Dynamic" Display="'Right Triangle Dynamic'" Dmx="103~103" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="94" Name="Isosceles Tiang Static" Display="'Isosceles     Tiang Static'" Dmx="104~104" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="95" Name="Isosceles Tiang Dynamic" Display="'Isosceles     Tiang Dynamic'" Dmx="105~105" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="96" Name="Triangle 1 Static" Display="'Triangle 1    Static'" Dmx="106~106" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="97" Name="Triangle 1 Dynamic" Display="'Triangle 1    Dynamic'" Dmx="107~107" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="98" Name="Triangle 2 Static" Display="'Triangle 2    Static'" Dmx="108~108" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="99" Name="Triangle 2 Dynamic" Display="'Triangle 2    Dynamic'" Dmx="109~109" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+      <Function ID="100" Name="Reserved" Display="'Reserved %.f',110~255" Dmx="110~255" Update="Gobo_Effect1P1, Gobo_Effect1P2, Gobo_Effect1P3" />
+    </Attribute>
+    <Attribute ID="Gobo_Effect1P1" Name="Gobo Eff 1 P1" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Static" ID="2" If="'Gobo1_Effect1'==88||'Gobo1_Effect1'==90||'Gobo1_Effect1'==92||'Gobo1_Effect1'==94||'Gobo1_Effect1'==96" />
+      <Condition Name="Dynamic" ID="3" If="'Gobo1_Effect1'==89||'Gobo1_Effect1'==91||'Gobo1_Effect1'==93||'Gobo1_Effect1'==95||'Gobo1_Effect1'==97" />
+      <Condition Name="Amount/Speed" ID="1" If="'Gobo1_Effect1'==2||'Gobo1_Effect1'==3||'Gobo1_Effect1'==4||'Gobo1_Effect1'==6||'Gobo1_Effect1'==7||'Gobo1_Effect1'==8||'Gobo1_Effect1'==12||'Gobo1_Effect1'==13||'Gobo1_Effect1'==14||'Gobo1_Effect1'==15||'Gobo1_Effect1'==16||'Gobo1_Effect1'==17||'Gobo1_Effect1'==18||'Gobo1_Effect1'==19||'Gobo1_Effect1'==20||'Gobo1_Effect1'==21||'Gobo1_Effect1'==22||'Gobo1_Effect1'==23||'Gobo1_Effect1'==24||'Gobo1_Effect1'==25||'Gobo1_Effect1'==26||'Gobo1_Effect1'==27||'Gobo1_Effect1'==28||'Gobo1_Effect1'==29||'Gobo1_Effect1'==30||'Gobo1_Effect1'==31||'Gobo1_Effect1'==32" />
+      <Condition Name="Fish Eye" ID="5,6,7,8" If="'Gobo1_Effect1'==88" />
+      <Else ID="4" />
+      <Function ID="1" Name="Amount/Speed" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="2" Name="Density" Display="'Density %.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="3" Name="Density" Display="'Density %.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="4" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+      <Function ID="5" Name="No Effect" Display="'No Effect'" Dmx="128~128" />
+      <Function ID="6" Name="Concave" Display="'Concave %.1f%%',100.0~0.0" Dmx="0~127" />
+      <Function ID="7" Name="No Effect" Display="'No Effect'" Dmx="128~128" />
+      <Function ID="8" Name="Convex" Display="'Convex %.1f%%',0.0~100.0" Dmx="129~255" />
+    </Attribute>
+    <Attribute ID="Gobo_Effect1P2" Name="Gobo Eff 1 P2" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Static" ID="1" If="'Gobo1_Effect1'==88||'Gobo1_Effect1'==90||'Gobo1_Effect1'==92||'Gobo1_Effect1'==94||'Gobo1_Effect1'==96" />
+      <Condition Name="Dynamic" ID="2,3" If="'Gobo1_Effect1'==89||'Gobo1_Effect1'==91||'Gobo1_Effect1'==93||'Gobo1_Effect1'==95||'Gobo1_Effect1'==97" />
+      <Condition Name="Fish Eye X-ratio" ID="5,6,7,8" If="'Gobo1_Effect1'==88" />
+      <Else ID="4" />
+      <Function ID="1" Name="Seg Adj (Course)" Display="'Seg Adj (Crs) %.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="2" Name="Seg Size" Display="'Seg Size %.1f%%',0.0~100.0" Dmx="0~128" />
+      <Function ID="3" Name="Speed" Display="'Speed %.1f%%',0.0~100.0" Dmx="129~255" />
+      <Function ID="4" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+      <Function ID="5" Name="Centre" Display="'Centre'" Dmx="128~128" />
+      <Function ID="6" Name="Left" Display="'Left %.1f%%',100.0~0.0" Dmx="0~127" />
+      <Function ID="7" Name="Centre" Display="'Centre'" Dmx="128~128" />
+      <Function ID="8" Name="Right" Display="'Right %.1f%%',0.0~100.0" Dmx="129~255" />
+    </Attribute>
+    <Attribute ID="Gobo_Effect1P3" Name="Gobo Eff 1 P3" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Static" ID="1" If="'Gobo1_Effect1'==88||'Gobo1_Effect1'==90||'Gobo1_Effect1'==92||'Gobo1_Effect1'==94||'Gobo1_Effect1'==96" />
+      <Condition Name="Dynamic" ID="2,3,4" If="'Gobo1_Effect1'==89||'Gobo1_Effect1'==91||'Gobo1_Effect1'==93||'Gobo1_Effect1'==95||'Gobo1_Effect1'==97" />
+      <Condition Name="Fish Eye Y-Ratio" ID="6,7,8,9" If="'Gobo1_Effect1'==88" />
+      <Else ID="5" />
+      <Function ID="1" Name="Seg Adj (Fine)" Display="'Seg Adj (Fine) %.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="2" Name="Bkwrd Movement" Display="'Bkwrd Movement %.1f%%',100.0~0.0" Dmx="0~127" />
+      <Function ID="3" Name="No Movement" Display="'No Movement'" Dmx="128~128" />
+      <Function ID="4" Name="Fwrd Movement" Display="'Fwrd Movement %.1f%%',0.0~100.0" Dmx="129~255" />
+      <Function ID="5" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+      <Function ID="6" Name="Centre" Display="'Centre'" Dmx="128~128" />
+      <Function ID="7" Name="Left" Display="'Left %.1f%%',100.0~0.0" Dmx="0~127" />
+      <Function ID="8" Name="Centre" Display="'Centre'" Dmx="128~128" />
+      <Function ID="9" Name="Right" Display="'Right %.1f%%',0.0~100.0" Dmx="129~255" />
+    </Attribute>
+    <Attribute ID="Gobo1_Effect2" Name="Gobo Effect 2" Description="" Group="E">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="2" Name="Col to BW" Display="'Col to BW'" Dmx="1~1" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="3" Name="Col to BW Inv" Display="'Col to BW Inv'" Dmx="2~2" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="4" Name="BW to BW Inv" Display="'BW to BW Inv'" Dmx="3~3" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="5" Name="Inversion" Display="'Inversion'" Dmx="4~4" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="6" Name="Blk Mask" Display="'Blk Mask'" Dmx="5~5" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="7" Name="Blk Mask Inv" Display="'Blk Mask Inv'" Dmx="6~6" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="8" Name="Contrast" Display="'Contrast'" Dmx="7~7" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="9" Name="Brightness" Display="'Brightness'" Dmx="8~8" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="10" Name="RGB-GBR" Display="'RGB-GBR'" Dmx="9~9" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="11" Name="RGB-BRG" Display="'RGB-BRG'" Dmx="10~10" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="12" Name="RGB-RBG" Display="'RGB-RBG'" Dmx="11~11" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="13" Name="BW to BW Inv T" Display="'BW to BW Inv T'" Dmx="12~12" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="14" Name="Col to Inv T" Display="'Col to Inv T'" Dmx="13~13" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="15" Name="Co to BW T" Display="'Co to BW T'" Dmx="14~14" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="16" Name="Cycle" Display="'Cycle'" Dmx="15~15" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="17" Name="Cycle In" Display="'Cycle In'" Dmx="16~16" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="18" Name="Reserved" Display="'Reserved'" Dmx="17~17" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="19" Name="Reserved" Display="'Reserved'" Dmx="18~18" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="20" Name="Col Key" Display="'Col Key'" Dmx="19~19" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="21" Name="Col Key Inv" Display="'Col Key Inv'" Dmx="20~20" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="22" Name="Key Blk" Display="'Key Blk'" Dmx="21~21" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="23" Name="Key Blk Inv" Display="'Key Blk Inv'" Dmx="22~22" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="24" Name="Key Wht" Display="'Key Wht'" Dmx="23~23" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="25" Name="Key Wht Inv" Display="'Key Wht Inv'" Dmx="24~24" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="26" Name="White ash" Display="'White ash'" Dmx="25~25" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="27" Name="Black ash" Display="'Black ash'" Dmx="26~26" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="28" Name="Alpha ash" Display="'Alpha ash'" Dmx="27~27" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="29" Name="Invert ash" Display="'Invert ash'" Dmx="28~28" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="30" Name="BW ash" Display="'BW ash'" Dmx="29~29" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="31" Name="BW to BW Inv Fl" Display="'BW to BW Inv  Fl'" Dmx="30~30" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="32" Name="Grad Wpe X" Display="'Grad Wpe X'" Dmx="31~31" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="33" Name="Grad Wpe Y" Display="'Grad Wpe Y'" Dmx="32~32" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="34" Name="Reserved" Display="'Reserved'" Dmx="33~39" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="35" Name="Gaussian" Display="'Gaussian'" Dmx="40~40" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="36" Name="Mean" Display="'Mean'" Dmx="41~41" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="37" Name="Laplacain" Display="'Laplacain'" Dmx="42~42" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="38" Name="Emboss" Display="'Emboss'" Dmx="43~43" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="39" Name="Sharpness" Display="'Sharpness'" Dmx="44~44" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="40" Name="Reserved" Display="'Reserved %.f',45~49" Dmx="45~49" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="41" Name="RGB Subtract All Pixels" Display="'RGB Subtract  All Pixels'" Dmx="50~50" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="42" Name="RGB Add All Pixels" Display="'RGB Add All   Pixels'" Dmx="51~51" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="43" Name="RGB Add Non Black Pixels" Display="'RGB Add Non   Black Pixels'" Dmx="52~52" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="44" Name="RGB Sub/Add All Pixels" Display="'RGB Sub/Add   All Pixels'" Dmx="53~53" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="45" Name="RGB to RBG" Display="'RGB to RBG'" Dmx="54~54" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="46" Name="RGB to GRB" Display="'RGB to GRB'" Dmx="55~55" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="47" Name="RGB to GBR" Display="'RGB to GBR'" Dmx="56~56" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="48" Name="RGB to BRG" Display="'RGB to BRG'" Dmx="57~57" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="49" Name="RGB to BGR" Display="'RGB to BGR'" Dmx="58~58" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="50" Name="RGB Invert" Display="'RGB Invert'" Dmx="59~59" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="51" Name="RGB to BRG Inv" Display="'RGB to BRG Inv'" Dmx="60~60" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="52" Name="RGB to GBR Inv" Display="'RGB to GBR Inv'" Dmx="61~61" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="53" Name="Colour to Alpha" Display="'Colour to     Alpha'" Dmx="62~62" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="54" Name="Colour to Alpha Inv" Display="'Colour to     Alpha Inv'" Dmx="63~63" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="55" Name="Reserved" Display="'Reserved %.f',64~67" Dmx="64~67" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="56" Name="RGB Scale" Display="'RGB Scale'" Dmx="68~68" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="57" Name="Brightness Scale" Display="'Brightness    Scale'" Dmx="69~69" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+      <Function ID="58" Name="Reserved" Display="'Reserved %.f',70~255" Dmx="70~255" Update="Gobo_Effect2P1, Gobo_Effect2P2, Gobo_Effect2P3" />
+    </Attribute>
+    <Attribute ID="Gobo_Effect2P1" Name="Gobo Eff 2 P1" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Amount/Speed" ID="1" If="'Gobo1_Effect2'&gt;1&amp;&amp;'Gobo1_Effect2'&lt;18&amp;&amp;'Gobo1_Effect2'&gt;19&amp;&amp;'Gobo1_Effect2'&lt;34&amp;&amp;'Gobo1_Effect2'&gt;34&amp;&amp;'Gobo1_Effect2'&lt;40" />
+      <Condition Name="RGB Subtract All Pixels" ID="2" If="'Gobo1_Effect2'==41||'Gobo1_Effect2'==42||'Gobo1_Effect2'==43||'Gobo1_Effect2'==44" />
+      <Condition Name="RGB to RBG" ID="4" If="'Gobo1_Effect2'==45" />
+      <Condition Name="RGB to GRB" ID="5" If="'Gobo1_Effect2'==46||'Gobo1_Effect2'==47" />
+      <Condition Name="RGB to BRG" ID="6" If="'Gobo1_Effect2'==48||'Gobo1_Effect2'==49" />
+      <Condition Name="RGB Invert" ID="7" If="'Gobo1_Effect2'==50" />
+      <Condition Name="RGB to BRG Inv" ID="8" If="'Gobo1_Effect2'==51" />
+      <Condition Name="RGB to GBR Inv" ID="9" If="'Gobo1_Effect2'==52" />
+      <Condition Name="Colour to Alpha" ID="10" If="'Gobo1_Effect2'==53" />
+      <Condition Name="Colour to Alpha Inv" ID="11" If="'Gobo1_Effect2'==54" />
+      <Condition Name="RGB Scale" ID="12" If="'Gobo1_Effect2'==56||'Gobo1_Effect2'==57" />
+      <Else ID="3" />
+      <Function ID="1" Name="Amount/Speed" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="2" Name="Saturation" Display="'Saturation    %.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="3" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+      <Function ID="4" Name="Red C-Mix" Display="'Red %.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="5" Name="Green C-Mix" Display="'Green %.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="6" Name="Blue C-Mix" Display="'Blue %.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="7" Name="Red C-Mix" Display="'Red %.1f%%',100.0~0.0" Dmx="0~255" />
+      <Function ID="8" Name="Blue C-Mix" Display="'Blue %.1f%%',100.0~0.0" Dmx="0~255" />
+      <Function ID="9" Name="Green C-Mix" Display="'Green %.1f%%',100.0~0.0" Dmx="0~255" />
+      <Function ID="10" Name="Transparency" Display="'Transparency  %.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="11" Name="Transparency Inv" Display="'Transparency  Inv %.1f%%',100.0~0.0" Dmx="0~255" />
+      <Function ID="12" Name="Intensity" Display="'Intensity %.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Gobo_Effect2P2" Name="Gobo Eff 2 P2" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="RGB Subtract All Pixels" ID="1" If="'Gobo1_Effect2'==41||'Gobo1_Effect2'==42||'Gobo1_Effect2'==43||'Gobo1_Effect2'==44" />
+      <Condition Name="RGB to RBG" ID="3" If="'Gobo1_Effect2'==45||'Gobo1_Effect2'==47" />
+      <Condition Name="RGB to GRB" ID="4" If="'Gobo1_Effect2'==46||'Gobo1_Effect2'==48" />
+      <Condition Name="RGB to BGR" ID="5" If="'Gobo1_Effect2'==49" />
+      <Condition Name="RGB Invert" ID="6" If="'Gobo1_Effect2'==50" />
+      <Condition Name="RGB to BRG Inv" ID="7" If="'Gobo1_Effect2'==51" />
+      <Condition Name="RGB to GBR Inv" ID="8" If="'Gobo1_Effect2'==52" />
+      <Condition Name="Colour to Alpha" ID="9" If="'Gobo1_Effect2'==53" />
+      <Condition Name="Colour to Alpha Inv" ID="10" If="'Gobo1_Effect2'==54" />
+      <Condition Name="RGB Scale" ID="11" If="'Gobo1_Effect2'==56||'Gobo1_Effect2'==57" />
+      <Else ID="2" />
+      <Function ID="1" Name="Saturation" Display="'Saturation    %.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+      <Function ID="3" Name="Blue C-Mix" Display="'Blue %.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="4" Name="Red C-Mix" Display="'Red %.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="5" Name="Green C-Mix" Display="'Green %.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="6" Name="Green C-Mix" Display="'Green %.1f%%',100.0~0.0" Dmx="0~255" />
+      <Function ID="7" Name="Red C-Mix" Display="'Red %.1f%%',100.0~0.0" Dmx="0~255" />
+      <Function ID="8" Name="Blue C-Mix" Display="'Blue %.1f%%',100.0~0.0" Dmx="0~255" />
+      <Function ID="9" Name="Transparency" Display="'Transparency  %.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="10" Name="Transparency Inv" Display="'Transparency  Inv %.1f%%',100.0~0.0" Dmx="0~255" />
+      <Function ID="11" Name="Intensity" Display="'Intensity %.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Gobo_Effect2P3" Name="Gobo Eff 2 P3" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="RGB Subtract All Pixels" ID="1" If="'Gobo1_Effect2'==41||'Gobo1_Effect2'==42||'Gobo1_Effect2'==43||'Gobo1_Effect2'==44" />
+      <Condition Name="RGB to RBG" ID="3" If="'Gobo1_Effect2'==45||'Gobo1_Effect2'==48" />
+      <Condition Name="RGB to GRB" ID="4" If="'Gobo1_Effect2'==46" />
+      <Condition Name="RGB to GBR" ID="5" If="'Gobo1_Effect2'==47||'Gobo1_Effect2'==49" />
+      <Condition Name="RGB Invert" ID="6" If="'Gobo1_Effect2'==50" />
+      <Condition Name="RGB to BRG Inv" ID="7" If="'Gobo1_Effect2'==51" />
+      <Condition Name="RGB to GBR Inv" ID="8" If="'Gobo1_Effect2'==52" />
+      <Condition Name="Colour to Alpha" ID="9" If="'Gobo1_Effect2'==53" />
+      <Condition Name="Colour to Alpha Inv" ID="10" If="'Gobo1_Effect2'==54" />
+      <Condition Name="RGB Scale" ID="11" If="'Gobo1_Effect2'==56||'Gobo1_Effect2'==57" />
+      <Else ID="2" />
+      <Function ID="1" Name="Saturation" Display="'Saturation    %.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+      <Function ID="3" Name="Green C-Mix" Display="'Green %.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="4" Name="Blue C-Mix" Display="'Blue %.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="5" Name="Red C-Mix" Display="'Red %.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="6" Name="Blue C-Mix" Display="'Blue %.1f%%',100.0~0.0" Dmx="0~255" />
+      <Function ID="7" Name="Green C-Mix" Display="'Green %.1f%%',100.0~0.0" Dmx="0~255" />
+      <Function ID="8" Name="Red C-Mix" Display="'Red %.1f%%',100.0~0.0" Dmx="0~255" />
+      <Function ID="9" Name="Transparency" Display="'Transparency  %.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="10" Name="Transparency Inv" Display="'Transparency  Inv %.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="11" Name="Intensity" Display="'Intensity %.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Gobo_Pan" Name="Gobo Pan " Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Gobo_Tilt" Name="Gobo Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Gobo_ZoomX" Name="Gobo Zoom X" Description="" Group="B" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Zoom" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo_ZoomY" Name="Gobo Zoom Y" Description="" Group="B" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Zoom" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo_SyncID" Name="Gobo Sync ID" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="No Func" Display="'No Func'" Dmx="0~0" Update="P/T_Speed" />
+      <Function ID="2" Name="Sync to ID" Display="'Sync to ID %.f',1~255" Dmx="1~255" Update="P/T_Speed" />
+    </Attribute>
+  </Control>
+  <Mode Name="2-5. Gobo Layer" Channels="28">
+    <Import PearlRef="RO_DSpt3KG" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="530" TiltMax="280" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Gobo_Pan" ChannelOffset="20,21" Wheel="2" />
+      <Attribute ID="Gobo_Tilt" ChannelOffset="22,23" Wheel="3" />
+      <Attribute ID="GoboFolder" ChannelOffset="2" Wheel="13" />
+      <Attribute ID="Gobo" ChannelOffset="3" Wheel="14" />
+      <Attribute ID="GoboControl" ChannelOffset="8" Wheel="18" />
+      <Attribute ID="Gobo1Rot" ChannelOffset="10,11" Wheel="15" />
+      <Attribute ID="Gobo_ZoomX" ChannelOffset="24,25" Wheel="19" />
+      <Attribute ID="Gobo_ZoomY" ChannelOffset="26,27" Wheel="20" />
+      <Attribute ID="Gobo1_Effect1" ChannelOffset="12" Wheel="22" />
+      <Attribute ID="Gobo_Effect1P1" ChannelOffset="13" Wheel="23" />
+      <Attribute ID="Gobo_Effect1P2" ChannelOffset="14" Wheel="24" />
+      <Attribute ID="Gobo_Effect1P3" ChannelOffset="15" Wheel="52" />
+      <Attribute ID="Gobo1_Effect2" ChannelOffset="16" Wheel="53" />
+      <Attribute ID="Gobo_Effect2P1" ChannelOffset="17" Wheel="54" />
+      <Attribute ID="Gobo_Effect2P2" ChannelOffset="18" Wheel="82" />
+      <Attribute ID="Gobo_Effect2P3" ChannelOffset="19" Wheel="83" />
+      <Attribute ID="Gobo_InFrame" ChannelOffset="4,5" Wheel="16" />
+      <Attribute ID="Gobo_OutFrame" ChannelOffset="6,7" Wheel="17" />
+      <Attribute ID="Gobo_PlaybackSpd" ChannelOffset="9" Wheel="46" />
+      <Attribute ID="Gobo_SyncID" ChannelOffset="28" Wheel="28" />
+      <Attribute ID="GoboControlFunc" Wheel="43" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Internal PC Reset">
+      <Set Channel="LEDShutter:9" Delay="1000" />
+      <Set Channel="Control:2" Delay="4000" />
+      <Set Channel="Control:1,LEDShutter:2" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Control:15" Delay="6000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Reset All">
+      <Set Channel="Control:19" Delay="6000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp Off">
+      <Set Channel="Control:22" Delay="6000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="PT Speed Mode">
+      <Set Channel="GlobaIris:1:100" Delay="3500" />
+      <Set Channel="Control:4" Delay="3500" />
+      <Set Channel="GlobaIris:1:100,Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="PT Time Mode">
+      <Set Channel="GlobaIris:1:100" Delay="3500" />
+      <Set Channel="Control:5" Delay="3500" />
+      <Set Channel="GlobaIris:1:100,Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="PT Blackout Enabled">
+      <Set Channel="GlobaIris:1:100" Delay="3500" />
+      <Set Channel="Control:6" Delay="3500" />
+      <Set Channel="GlobaIris:1:100,Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="PT Blackout Disabled">
+      <Set Channel="GlobaIris:1:100" Delay="3500" />
+      <Set Channel="Control:7" Delay="3500" />
+      <Set Channel="GlobaIris:1:100,Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Ceiling Projection On">
+      <Set Channel="GlobaIris:1:100" Delay="3500" />
+      <Set Channel="Control:8" Delay="3500" />
+      <Set Channel="GlobaIris:1:100,Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Ceiling Projection Off">
+      <Set Channel="GlobaIris:1:100" Delay="3500" />
+      <Set Channel="Control:9" Delay="3500" />
+      <Set Channel="GlobaIris:1:100,Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Rear Projection On">
+      <Set Channel="GlobaIris:1:100" Delay="3500" />
+      <Set Channel="Control:10" Delay="3500" />
+      <Set Channel="GlobaIris:1:100,Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Rear Projection Off">
+      <Set Channel="GlobaIris:1:100" Delay="3500" />
+      <Set Channel="Control:11" Delay="3500" />
+      <Set Channel="GlobaIris:1:100,Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="DMX Input">
+      <Set Channel="GlobaIris:1:100" Delay="3500" />
+      <Set Channel="Control:12" Delay="3500" />
+      <Set Channel="GlobaIris:1:100,Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Artnet Input">
+      <Set Channel="GlobaIris:1:100" Delay="3500" />
+      <Set Channel="Control:13" Delay="3500" />
+      <Set Channel="GlobaIris:1:100,Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Control:15" Delay="4000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="PT Reset">
+      <Set Channel="Control:16" Delay="4000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Focus Reset">
+      <Set Channel="Control:17" Delay="4000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Reset All">
+      <Set Channel="Control:19" Delay="4000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Graphic Engine Reset">
+      <Set Channel="Control:20" Delay="4000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp Off">
+      <Set Channel="Control:22" Delay="4000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Shutdown">
+      <Set Channel="Control:23" Delay="6000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+  </Macro>
+</Fixture>

@@ -1,0 +1,216 @@
+TODO, DIP SWITCHES, Check PF tables
+; "Martin Roboscan PAL 1200", 24 DMX channels, filename :mtpl1200.r20
+;
+;  Date       By            Description
+;  19-11-95   G. Baekelmans created
+;  04-03-96   S. Anwar      Revised for Sapphire 96
+;  02-08-96   S. Anwar      Pan/Tilt reversed to make tracking work
+;  02-08-96   S. Anwar      Attribute layout changed to make it consistent
+;				    with other moveing lights.
+;  01-10-96   S.Anwar       Frost and Zoom swapped in the text
+;  09-01-97   S.Anwar       Modifed Pal 1200 so that the Pan is limited
+;				    to 175 degrees, this allows the tracking to 
+;				    work but the movement of the light will fall
+;				    fall short by 67 degrees before the PAN end
+;				    stop.
+;  15-01-98   P.Bari        Revised attributes
+;  23-07-02   D.Shelton     Corrected CMY Inversion
+;  22-02-05   Phil          Revised device name
+;  17-05-05   Phil          Fixed palettes
+;  29-11-05   Ed	    Revised device name
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MT_PL1200M2                           mode=2  24 DMX channels
+NAME "Martin" "Pal 1200, Mode 2"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE    1    24   M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR	1	175	85
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;	+,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;	& means logical AND
+;	| means logical OR 
+;	R means reverse the bits of the curernt result (operates on a byte)
+;	^ means logical Exclusive OR (operates on a byte)
+;	> means shift to the right
+;	< shift to the left
+;	r followed by number means get the value of that parameter 
+;	d DMX address
+;	n Fixture name, a 0 terminated character string
+;	h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+"NOTE : Pan limited "
+"to 175 degrees     "
+""
+""
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=487
+;
+; DMX number must be divisible by this	
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt, 
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom, 
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX
+2  61 L  1 100 1N O 1 "Shutter"		0    0    0
+1   1 H  2 100 1N H 1 "Dimmer"		255  255  255
+7   1 L  3 100 1N 0 1 "Blade 1A"	0    0    0
+7  61 L  4 100 1N 0 1 "Blade 1B"	0    0    0
+8   1 L  5 100 1N 0 1 "Blade 2A"	0    0    0
+8  61 L  6 100 1N 0 1 "Blade 2B"	0    0    0
+11  1 L  7 100 1N 0 1 "Blade 3A"	0    0    0
+11 61 L  8 100 1N 0 1 "Blade 3B"	0    0    0
+12  1 L  9 100 1N 0 1 "Blade 4A"	0    0    0
+12 61 L 10 100 1N 0 1 "Blade 4B"	0    0    0
+9   1 I 11 100 1N 0 1 "Blade ROT"	0    0    0
+10  1 L 12 100 1N B 1 "Cyan"		0    0    0
+10 61 L 13 100 1N C 1 "Magenta"		0    0    0
+9  61 L 14 100 1N D 1 "Yellow"		0    0    0
+4   1 I 15 100 1N A 1 "Color"		0    0    0
+6   1 I 16 100 1N I 1 "Gobo"		0    0    0
+6  61 L 17 100 1N 0 1 "G.Index"		0    0    0
+5  61 I 18 100 1N L 1 "Focus"		55    0    0
+5   1 I 19 100 1N Q 1 "Zoom"		133    0    0
+2   1 L 20 100 1N S 1 "Frost"		0    0    0
+3  61 s 21  73 1N E 1 "Pan"		128   -1   -1
+0   0 L 22 100 1N E 1 "Pan lo"		128   -1   -1
+3   1 s 23  73 1N F 1 "Tilt"		128   -1   -1
+0   0 L 24 100 1N F 1 "Tilt lo"		128   -1   -1
+END
+TEXT
+  MARTIN PAL 1200
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1 Dimmer   --  
+ 2 Frost    Shutter
+ 3 Tilt     Pan 
+ 4 Color    --   
+ 5 Zoom     Focus  
+ 6 Gobo     G.Index     
+ 7 Blade 1A Blade 1B
+ 8 Blade 2A Blade 2B
+ 9 Bld Spd  Yellow
+10 Cyan     Magenta
+11 Blade 3A Blade 3B
+12 Blade 4A Blade 4B    
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+; Positions
+PFTABLE "Positions" -1 21  23
+"Middle"    21 80  80
+"Left"      22 50  80
+"Right"     23 b0  80
+"Top"       24 80  50
+"Bottom"    25 80  b0
+"TLeft"     26 50  50
+"TRight"    27 b0  b0
+"BLeft"     28 50  b0
+"BRight"    29 b0  50
+PFEND
+
+
+; A color table cyan, magenta, yellow, colour wheel
+PFTABLE "Color" 29  12  13  14  15  
+"White"          1   0   0   0   0  
+"Red"            2   0  ff  ff   0  
+"Amber"          3   0  e1  ff   0  
+"Yellow"         4   0   0  ff   0  
+"Green"          5  ff   0  ff   0   
+"Cyan"           6  ff   0   0   0  
+"Blue"           7  ff  9b   0   0  
+"Lavender"       8  96  c8   0   0  
+"UV"             9  ff  ff  64   0  
+"Magenta"       10   0  ff   0   0
+PFEND
+
+
+; Gobo table
+PFTABLE "Gobos" -1  16
+"Gobo 1"    11   0 
+"Gobo 2"    12  96 
+"Gobo 3"    13  aa 
+"Gobo 4"    14  cd 
+"Gobo 5"    15  dc 
+"Gobo 6"    16  ff 
+PFEND
+
+;Blade Table
+PFTABLE "Blades" -1  3  4  5  6  7  8  9 10 
+"SHAPE1"    17      c8 c8 c8 c8 c8 c8 c8 c8
+"SHAPE2"    18      96 96 96 96 96 96 96 96 
+"SHAPE3"    19      64 64 64 64 64 64 64 64 
+"SHAPE4"    20      00 00 00 00 00 00 00 00
+PFEND
+
+MACRO  "STRIKE LAMP"  1 1
+"data"           0  e9
+"delay"          1  50
+"data"           0   0
+MEND
+
+MACRO  "RESET UNIT"  2   1
+"data"           0  d4
+"delay"          1  50
+"data"           0   0
+MEND

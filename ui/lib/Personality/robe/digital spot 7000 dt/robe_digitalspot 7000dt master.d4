@@ -1,0 +1,971 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Digital Spot 7000 Master Layer" ShortName="DSp7KMastr" Company="Robe">
+  <Copyright Notice="© Avolites Ltd. 2010" />
+  <History Date="26-10-10" Author="John Rogers" Comment="Created from Robe_DigitalSpot 7000DT.d4" />
+  <History Date="27-10-10" Author="John Rogers" Comment="Corrected Banner Rotate locate values for keystone controls." />
+  <History Date="04-11-10" Author="John Rogers" Comment="Edited RGBW1 to percentage 1dp from Value DMX range." />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:0" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:0" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="P/T_Speed" Name="P/T Speed" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="P/T Speed" ID="2" If="'Control'==2" />
+      <Condition Name="P/T Time" ID="3" If="'Control'==3" />
+      <Else ID="1,2,3" />
+      <Function ID="1" Name="Max Speed (Tracking)" Display="'Max Speed     (Tracking)'" Dmx="0~0" />
+      <Function ID="2" Name="Speed (Vector)" Display="'%.1f%%',0.0~100.0" Dmx="1~255" />
+      <Function ID="3" Name="Time" Display="'Time %.1f',0.0~26.0" Dmx="1~255" />
+    </Attribute>
+    <Attribute ID="P/T_Macro" Name="P/T Macro" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~9" />
+      <Function ID="2" Name="Reserved" Display="'Reserved %.f',10~31" Dmx="10~31" />
+      <Function ID="3" Name="Circle" Display="'Circle %.f%%',0~100" Dmx="32~63" />
+      <Function ID="4" Name="Horiz Eight" Display="'Horiz Eight %.f%%',0~100" Dmx="64~95" />
+      <Function ID="5" Name="Vert Eight" Display="'Vert Eight %.f%%',0~100" Dmx="96~127" />
+      <Function ID="6" Name="Rectangle" Display="'Rectangle %.f%%',0~100" Dmx="128~159" />
+      <Function ID="7" Name="Triangle" Display="'Triangle %.f%%',0~100" Dmx="160~191" />
+      <Function ID="8" Name="Star" Display="'Star %.f%%',0~100" Dmx="192~223" />
+      <Function ID="9" Name="Cross" Display="'Cross %.f%%',0~100" Dmx="224~255" />
+    </Attribute>
+    <Attribute ID="PT_MSPeed" Name="P/T Macro Spd" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~0" />
+      <Function ID="2" Name="Macro Forwards" Display="'Forwards %.f%%',100~0" Dmx="1~127" />
+      <Function ID="3" Name="No Macro" Display="'No Macro'" Dmx="128~129" />
+      <Function ID="4" Name="Macro Backwards" Display="'Backwards %.f%%',0~100" Dmx="130~255" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Reserved" Display="'Reserved %.f',0~39" Dmx="0~39" Update="P/T_Speed" />
+      <Function ID="2" Name="Internal Hardware Reset" Display="'Internal      Hardware Reset'" Dmx="40~44" Update="P/T_Speed" />
+      <Function ID="3" Name="Reserved" Display="'Reserved %.f',45~49" Dmx="45~49" Update="P/T_Speed" />
+      <Function ID="4" Name="P/T Speed" Display="'P/T Speed'" Dmx="50~59" Update="P/T_Speed" />
+      <Function ID="5" Name="P/T Time" Display="'P/T Time'" Dmx="60~69" Update="P/T_Speed" />
+      <Function ID="6" Name="BO P/T" Display="'BO P/T'" Dmx="70~79" Update="P/T_Speed" />
+      <Function ID="7" Name="No BO P/T" Display="'No BO P/T'" Dmx="80~89" Update="P/T_Speed" />
+      <Function ID="8" Name="Ceiling Proj On" Display="'Ceiling Proj On'" Dmx="90~94" Update="P/T_Speed" />
+      <Function ID="9" Name="Ceiling Proj Off" Display="'Ceiling Proj Off'" Dmx="95~99" Update="P/T_Speed" />
+      <Function ID="10" Name="Rear Proj On" Display="'Rear Proj On'" Dmx="100~104" Update="P/T_Speed" />
+      <Function ID="11" Name="Rear Proj Off" Display="'Rear Proj Off'" Dmx="105~109" Update="P/T_Speed" />
+      <Function ID="12" Name="DMX In" Display="'DMX In'" Dmx="110~114" Update="P/T_Speed" />
+      <Function ID="13" Name="Artnet In" Display="'Artnet In'" Dmx="115~119" Update="P/T_Speed" />
+      <Function ID="14" Name="Reserved" Display="'Reserved %.f',120~129" Dmx="120~129" Update="P/T_Speed" />
+      <Function ID="15" Name="Lamp On" Display="'Lamp On'" Dmx="130~139" Update="P/T_Speed" />
+      <Function ID="16" Name="P/T Reset" Display="'P/T Reset'" Dmx="140~179" Update="P/T_Speed" />
+      <Function ID="17" Name="F/Z Reset" Display="'F/Z Reset'" Dmx="180~189" Update="P/T_Speed" />
+      <Function ID="18" Name="Reserved" Display="'Reserved %.f',190~199" Dmx="190~199" Update="P/T_Speed" />
+      <Function ID="19" Name="Reset_All" Display="'Reset All'" Dmx="200~209" Update="P/T_Speed" />
+      <Function ID="20" Name="Graphic Reset" Display="'Graphic Reset'" Dmx="210~215" Update="P/T_Speed" />
+      <Function ID="21" Name="Reserved" Display="'Reserved %.f',216~229" Dmx="216~229" Update="P/T_Speed" />
+      <Function ID="22" Name="Lamp Off" Display="'Lamp Off'" Dmx="230~239" Update="P/T_Speed" />
+      <Function ID="23" Name="Fixture Off" Display="'Fixture Off'" Dmx="240~249" Update="P/T_Speed" />
+      <Function ID="24" Name="Reserved" Display="'Reserved %.f',250~255" Dmx="250~255" Update="P/T_Speed" />
+    </Attribute>
+    <Attribute ID="Video" Name="Video Input" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Internal" Display="'Internal'" Dmx="0~63" />
+      <Function ID="2" Name="VGA" Display="'VGA'" Dmx="64~127" />
+      <Function ID="3" Name="S-video" Display="'S-video'" Dmx="128~191" />
+      <Function ID="4" Name="Reserved" Display="'Reserved %.f',192~255" Dmx="192~255" />
+    </Attribute>
+    <Attribute ID="Focus" Name="Focus" Description="" Group="B" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Focus" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Keystone_TL_X" Name="Keystone TL X" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="KStone" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Keystone_TL_Y" Name="Keystone TL Y" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="KStone" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Keystone_TR_X" Name="Keystone TR X" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="KStone" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Keystone_TR_Y" Name="Keystone TR Y" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="KStone" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Keystone_BR_X" Name="Keystone BR X" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="KStone" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Keystone_BR_Y" Name="Keystone BR Y" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="KStone" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Keystone_BL_X" Name="Keystone BL X" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="KStone" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Keystone_BL_Y" Name="Keystone BL Y" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="KStone" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Keystone_X_Ratio" Name="X Ratio" Description="" Group="B">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Left - Right" Display="'Left - Right  %.1f%%',0.0~200.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Keystone_Y_Ratio" Name="Y Ratio" Description="" Group="B">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Bottom - Top" Display="'Bottom - Top  %.1f%%',0.0~200.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" Clear="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:20" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="CTF" Name="CTF" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" Colour="255,255,255" />
+      <Function ID="2" Name="14000K" Display="'14000K'" Dmx="1~1" Colour="0,0,0" />
+      <Function ID="3" Name="13000K" Display="'13000K'" Dmx="2~2" Colour="0,0,0" />
+      <Function ID="4" Name="12500K" Display="'12500K'" Dmx="3~3" Colour="0,0,0" />
+      <Function ID="5" Name="12000K" Display="'12000K'" Dmx="4~4" Colour="0,0,0" />
+      <Function ID="6" Name="11500K" Display="'11500K'" Dmx="5~5" Colour="0,0,0" />
+      <Function ID="7" Name="11000K" Display="'11000K'" Dmx="6~6" Colour="0,0,0" />
+      <Function ID="8" Name="10500K" Display="'10500K'" Dmx="7~7" Colour="0,0,0" />
+      <Function ID="9" Name="10000K" Display="'10000K'" Dmx="8~8" Colour="0,0,0" />
+      <Function ID="10" Name="9500K" Display="'9500K'" Dmx="9~9" Colour="0,0,0" />
+      <Function ID="11" Name="9000K" Display="'9000K'" Dmx="10~10" Colour="0,0,0" />
+      <Function ID="12" Name="8600K" Display="'8600K'" Dmx="11~11" Colour="0,0,0" />
+      <Function ID="13" Name="8575K" Display="'8575K'" Dmx="12~12" Colour="0,0,0" />
+      <Function ID="14" Name="8550K" Display="'8550K'" Dmx="13~13" Colour="0,0,0" />
+      <Function ID="15" Name="8525K" Display="'8525K'" Dmx="14~14" Colour="0,0,0" />
+      <Function ID="16" Name="8500K" Display="'8500K'" Dmx="15~15" Colour="0,0,0" />
+      <Function ID="17" Name="8475K" Display="'8475K'" Dmx="16~16" Colour="0,0,0" />
+      <Function ID="18" Name="8450K" Display="'8450K'" Dmx="17~17" Colour="0,0,0" />
+      <Function ID="19" Name="8425K" Display="'8425K'" Dmx="18~18" Colour="0,0,0" />
+      <Function ID="20" Name="8400K" Display="'8400K'" Dmx="19~19" Colour="0,0,0" />
+      <Function ID="21" Name="8375K" Display="'8375K'" Dmx="20~20" Colour="0,0,0" />
+      <Function ID="22" Name="8350K" Display="'8350K'" Dmx="21~21" Colour="0,0,0" />
+      <Function ID="23" Name="8325K" Display="'8325K'" Dmx="22~22" Colour="0,0,0" />
+      <Function ID="24" Name="8300K" Display="'8300K'" Dmx="23~23" Colour="0,0,0" />
+      <Function ID="25" Name="8275K" Display="'8275K'" Dmx="24~24" Colour="0,0,0" />
+      <Function ID="26" Name="8250K" Display="'8250K'" Dmx="25~25" Colour="0,0,0" />
+      <Function ID="27" Name="8225K" Display="'8225K'" Dmx="26~26" Colour="0,0,0" />
+      <Function ID="28" Name="8200K" Display="'8200K'" Dmx="27~27" Colour="0,0,0" />
+      <Function ID="29" Name="8175K" Display="'8175K'" Dmx="28~28" Colour="0,0,0" />
+      <Function ID="30" Name="8150K" Display="'8150K'" Dmx="29~29" Colour="0,0,0" />
+      <Function ID="31" Name="8125K" Display="'8125K'" Dmx="30~30" Colour="0,0,0" />
+      <Function ID="32" Name="8100K" Display="'8100K'" Dmx="31~31" Colour="0,0,0" />
+      <Function ID="33" Name="8075K" Display="'8075K'" Dmx="32~32" Colour="0,0,0" />
+      <Function ID="34" Name="8050K" Display="'8050K'" Dmx="33~33" Colour="0,0,0" />
+      <Function ID="35" Name="8025K" Display="'8025K'" Dmx="34~34" Colour="0,0,0" />
+      <Function ID="36" Name="8000K" Display="'8000K'" Dmx="35~35" Colour="0,0,0" />
+      <Function ID="37" Name="7975K" Display="'7975K'" Dmx="36~36" Colour="0,0,0" />
+      <Function ID="38" Name="7950K" Display="'7950K'" Dmx="37~37" Colour="0,0,0" />
+      <Function ID="39" Name="7925K" Display="'7925K'" Dmx="38~38" Colour="0,0,0" />
+      <Function ID="40" Name="7900K" Display="'7900K'" Dmx="39~39" Colour="0,0,0" />
+      <Function ID="41" Name="7875K" Display="'7875K'" Dmx="40~40" Colour="0,0,0" />
+      <Function ID="42" Name="7850K" Display="'7850K'" Dmx="41~41" Colour="0,0,0" />
+      <Function ID="43" Name="7825K" Display="'7825K'" Dmx="42~42" Colour="0,0,0" />
+      <Function ID="44" Name="7800K" Display="'7800K'" Dmx="43~43" Colour="0,0,0" />
+      <Function ID="45" Name="7775K" Display="'7775K'" Dmx="44~44" Colour="0,0,0" />
+      <Function ID="46" Name="7750K" Display="'7750K'" Dmx="45~45" Colour="0,0,0" />
+      <Function ID="47" Name="7725K" Display="'7725K'" Dmx="46~46" Colour="0,0,0" />
+      <Function ID="48" Name="7700K" Display="'7700K'" Dmx="47~47" Colour="0,0,0" />
+      <Function ID="49" Name="7675K" Display="'7675K'" Dmx="48~48" Colour="0,0,0" />
+      <Function ID="50" Name="7650K" Display="'7650K'" Dmx="49~49" Colour="0,0,0" />
+      <Function ID="51" Name="7625K" Display="'7625K'" Dmx="50~50" Colour="0,0,0" />
+      <Function ID="52" Name="7600K" Display="'7600K'" Dmx="51~51" Colour="0,0,0" />
+      <Function ID="53" Name="7575K" Display="'7575K'" Dmx="52~52" Colour="0,0,0" />
+      <Function ID="54" Name="7550K" Display="'7550K'" Dmx="53~53" Colour="0,0,0" />
+      <Function ID="55" Name="7525K" Display="'7525K'" Dmx="54~54" Colour="0,0,0" />
+      <Function ID="56" Name="7500K" Display="'7500K'" Dmx="55~55" Colour="0,0,0" />
+      <Function ID="57" Name="7475K" Display="'7475K'" Dmx="56~56" Colour="0,0,0" />
+      <Function ID="58" Name="7450K" Display="'7450K'" Dmx="57~57" Colour="0,0,0" />
+      <Function ID="59" Name="7425K" Display="'7425K'" Dmx="58~58" Colour="0,0,0" />
+      <Function ID="60" Name="7400K" Display="'7400K'" Dmx="59~59" Colour="0,0,0" />
+      <Function ID="61" Name="7375K" Display="'7375K'" Dmx="60~60" Colour="0,0,0" />
+      <Function ID="62" Name="7350K" Display="'7350K'" Dmx="61~61" Colour="0,0,0" />
+      <Function ID="63" Name="7325K" Display="'7325K'" Dmx="62~62" Colour="0,0,0" />
+      <Function ID="64" Name="7300K" Display="'7300K'" Dmx="63~63" Colour="0,0,0" />
+      <Function ID="65" Name="7275K" Display="'7275K'" Dmx="64~64" Colour="0,0,0" />
+      <Function ID="66" Name="7250K" Display="'7250K'" Dmx="65~65" Colour="0,0,0" />
+      <Function ID="67" Name="7225K" Display="'7225K'" Dmx="66~66" Colour="0,0,0" />
+      <Function ID="68" Name="7200K" Display="'7200K'" Dmx="67~67" Colour="0,0,0" />
+      <Function ID="69" Name="7175K" Display="'7175K'" Dmx="68~68" Colour="0,0,0" />
+      <Function ID="70" Name="7150K" Display="'7150K'" Dmx="69~69" Colour="0,0,0" />
+      <Function ID="71" Name="7125K" Display="'7125K'" Dmx="70~70" Colour="0,0,0" />
+      <Function ID="72" Name="7100K" Display="'7100K'" Dmx="71~71" Colour="0,0,0" />
+      <Function ID="73" Name="7075K" Display="'7075K'" Dmx="72~72" Colour="0,0,0" />
+      <Function ID="74" Name="7050K" Display="'7050K'" Dmx="73~73" Colour="0,0,0" />
+      <Function ID="75" Name="7025K" Display="'7025K'" Dmx="74~74" Colour="0,0,0" />
+      <Function ID="76" Name="7000K" Display="'7000K'" Dmx="75~75" Colour="0,0,0" />
+      <Function ID="77" Name="6975K" Display="'6975K'" Dmx="76~76" Colour="0,0,0" />
+      <Function ID="78" Name="6950K" Display="'6950K'" Dmx="77~77" Colour="0,0,0" />
+      <Function ID="79" Name="6925K" Display="'6925K'" Dmx="78~78" Colour="0,0,0" />
+      <Function ID="80" Name="6900K" Display="'6900K'" Dmx="79~79" Colour="0,0,0" />
+      <Function ID="81" Name="6875K" Display="'6875K'" Dmx="80~80" Colour="0,0,0" />
+      <Function ID="82" Name="6850K" Display="'6850K'" Dmx="81~81" Colour="0,0,0" />
+      <Function ID="83" Name="6825K" Display="'6825K'" Dmx="82~82" Colour="0,0,0" />
+      <Function ID="84" Name="6800K" Display="'6800K'" Dmx="83~83" Colour="0,0,0" />
+      <Function ID="85" Name="6775K" Display="'6775K'" Dmx="84~84" Colour="0,0,0" />
+      <Function ID="86" Name="6750K" Display="'6750K'" Dmx="85~85" Colour="0,0,0" />
+      <Function ID="87" Name="6725K" Display="'6725K'" Dmx="86~86" Colour="0,0,0" />
+      <Function ID="88" Name="6700K" Display="'6700K'" Dmx="87~87" Colour="0,0,0" />
+      <Function ID="89" Name="6675K" Display="'6675K'" Dmx="88~88" Colour="0,0,0" />
+      <Function ID="90" Name="6650K" Display="'6650K'" Dmx="89~89" Colour="0,0,0" />
+      <Function ID="91" Name="6625K" Display="'6625K'" Dmx="90~90" Colour="0,0,0" />
+      <Function ID="92" Name="6600K" Display="'6600K'" Dmx="91~91" Colour="0,0,0" />
+      <Function ID="93" Name="6575K" Display="'6575K'" Dmx="92~92" Colour="0,0,0" />
+      <Function ID="94" Name="6550K" Display="'6550K'" Dmx="93~93" Colour="0,0,0" />
+      <Function ID="95" Name="6525K" Display="'6525K'" Dmx="94~94" Colour="0,0,0" />
+      <Function ID="96" Name="6500K" Display="'6500K'" Dmx="95~95" Colour="0,0,0" />
+      <Function ID="97" Name="6475K" Display="'6475K'" Dmx="96~96" Colour="0,0,0" />
+      <Function ID="98" Name="6450K" Display="'6450K'" Dmx="97~97" Colour="0,0,0" />
+      <Function ID="99" Name="6425K" Display="'6425K'" Dmx="98~98" Colour="0,0,0" />
+      <Function ID="100" Name="6400K" Display="'6400K'" Dmx="99~99" Colour="0,0,0" />
+      <Function ID="101" Name="6375K" Display="'6375K'" Dmx="100~100" Colour="0,0,0" />
+      <Function ID="102" Name="6350K" Display="'6350K'" Dmx="101~101" Colour="0,0,0" />
+      <Function ID="103" Name="6325K" Display="'6325K'" Dmx="102~102" Colour="0,0,0" />
+      <Function ID="104" Name="6300K" Display="'6300K'" Dmx="103~103" Colour="0,0,0" />
+      <Function ID="105" Name="6275K" Display="'6275K'" Dmx="104~104" Colour="0,0,0" />
+      <Function ID="106" Name="6250K" Display="'6250K'" Dmx="105~105" Colour="0,0,0" />
+      <Function ID="107" Name="6225K" Display="'6225K'" Dmx="106~106" Colour="0,0,0" />
+      <Function ID="108" Name="6200K" Display="'6200K'" Dmx="107~107" Colour="0,0,0" />
+      <Function ID="109" Name="6175K" Display="'6175K'" Dmx="108~108" Colour="0,0,0" />
+      <Function ID="110" Name="6150K" Display="'6150K'" Dmx="109~109" Colour="0,0,0" />
+      <Function ID="111" Name="6125K" Display="'6125K'" Dmx="110~110" Colour="0,0,0" />
+      <Function ID="112" Name="6100K" Display="'6100K'" Dmx="111~111" Colour="0,0,0" />
+      <Function ID="113" Name="6075K" Display="'6075K'" Dmx="112~112" Colour="0,0,0" />
+      <Function ID="114" Name="6050K" Display="'6050K'" Dmx="113~113" Colour="0,0,0" />
+      <Function ID="115" Name="6025K" Display="'6025K'" Dmx="114~114" Colour="0,0,0" />
+      <Function ID="116" Name="6000K" Display="'6000K'" Dmx="115~115" Colour="0,0,0" />
+      <Function ID="117" Name="5975K" Display="'5975K'" Dmx="116~116" Colour="0,0,0" />
+      <Function ID="118" Name="5950K" Display="'5950K'" Dmx="117~117" Colour="0,0,0" />
+      <Function ID="119" Name="5925K" Display="'5925K'" Dmx="118~118" Colour="0,0,0" />
+      <Function ID="120" Name="5900K" Display="'5900K'" Dmx="119~119" Colour="0,0,0" />
+      <Function ID="121" Name="5875K" Display="'5875K'" Dmx="120~120" Colour="0,0,0" />
+      <Function ID="122" Name="5850K" Display="'5850K'" Dmx="121~121" Colour="0,0,0" />
+      <Function ID="123" Name="5825K" Display="'5825K'" Dmx="122~122" Colour="0,0,0" />
+      <Function ID="124" Name="5800K" Display="'5800K'" Dmx="123~123" Colour="0,0,0" />
+      <Function ID="125" Name="5775K" Display="'5775K'" Dmx="124~124" Colour="0,0,0" />
+      <Function ID="126" Name="5750K" Display="'5750K'" Dmx="125~125" Colour="0,0,0" />
+      <Function ID="127" Name="5725K" Display="'5725K'" Dmx="126~126" Colour="0,0,0" />
+      <Function ID="128" Name="5700K" Display="'5700K'" Dmx="127~127" Colour="0,0,0" />
+      <Function ID="129" Name="5675K" Display="'5675K'" Dmx="128~128" Colour="0,0,0" />
+      <Function ID="130" Name="5650K" Display="'5650K'" Dmx="129~129" Colour="0,0,0" />
+      <Function ID="131" Name="5625K" Display="'5625K'" Dmx="130~130" Colour="0,0,0" />
+      <Function ID="132" Name="5600K" Display="'5600K'" Dmx="131~131" Colour="0,0,0" />
+      <Function ID="133" Name="5575K" Display="'5575K'" Dmx="132~132" Colour="0,0,0" />
+      <Function ID="134" Name="5550K" Display="'5550K'" Dmx="133~133" Colour="0,0,0" />
+      <Function ID="135" Name="5525K" Display="'5525K'" Dmx="134~134" Colour="0,0,0" />
+      <Function ID="136" Name="5500K" Display="'5500K'" Dmx="135~135" Colour="0,0,0" />
+      <Function ID="137" Name="5475K" Display="'5475K'" Dmx="136~136" Colour="0,0,0" />
+      <Function ID="138" Name="5450K" Display="'5450K'" Dmx="137~137" Colour="0,0,0" />
+      <Function ID="139" Name="5425K" Display="'5425K'" Dmx="138~138" Colour="0,0,0" />
+      <Function ID="140" Name="5400K" Display="'5400K'" Dmx="139~139" Colour="0,0,0" />
+      <Function ID="141" Name="5375K" Display="'5375K'" Dmx="140~140" Colour="0,0,0" />
+      <Function ID="142" Name="5350K" Display="'5350K'" Dmx="141~141" Colour="0,0,0" />
+      <Function ID="143" Name="5325K" Display="'5325K'" Dmx="142~142" Colour="0,0,0" />
+      <Function ID="144" Name="5300K" Display="'5300K'" Dmx="143~143" Colour="0,0,0" />
+      <Function ID="145" Name="5275K" Display="'5275K'" Dmx="144~144" Colour="0,0,0" />
+      <Function ID="146" Name="5250K" Display="'5250K'" Dmx="145~145" Colour="0,0,0" />
+      <Function ID="147" Name="5225K" Display="'5225K'" Dmx="146~146" Colour="0,0,0" />
+      <Function ID="148" Name="5200K" Display="'5200K'" Dmx="147~147" Colour="0,0,0" />
+      <Function ID="149" Name="5175K" Display="'5175K'" Dmx="148~148" Colour="0,0,0" />
+      <Function ID="150" Name="5150K" Display="'5150K'" Dmx="149~149" Colour="0,0,0" />
+      <Function ID="151" Name="5125K" Display="'5125K'" Dmx="150~150" Colour="0,0,0" />
+      <Function ID="152" Name="5100K" Display="'5100K'" Dmx="151~151" Colour="0,0,0" />
+      <Function ID="153" Name="5075K" Display="'5075K'" Dmx="152~152" Colour="0,0,0" />
+      <Function ID="154" Name="5050K" Display="'5050K'" Dmx="153~153" Colour="0,0,0" />
+      <Function ID="155" Name="5025K" Display="'5025K'" Dmx="154~154" Colour="0,0,0" />
+      <Function ID="156" Name="5000K" Display="'5000K'" Dmx="155~155" Colour="0,0,0" />
+      <Function ID="157" Name="4975K" Display="'4975K'" Dmx="156~156" Colour="0,0,0" />
+      <Function ID="158" Name="4950K" Display="'4950K'" Dmx="157~157" Colour="0,0,0" />
+      <Function ID="159" Name="4925K" Display="'4925K'" Dmx="158~158" Colour="0,0,0" />
+      <Function ID="160" Name="4900K" Display="'4900K'" Dmx="159~159" Colour="0,0,0" />
+      <Function ID="161" Name="4875K" Display="'4875K'" Dmx="160~160" Colour="0,0,0" />
+      <Function ID="162" Name="4850K" Display="'4850K'" Dmx="161~161" Colour="0,0,0" />
+      <Function ID="163" Name="4825K" Display="'4825K'" Dmx="162~162" Colour="0,0,0" />
+      <Function ID="164" Name="4800K" Display="'4800K'" Dmx="163~163" Colour="0,0,0" />
+      <Function ID="165" Name="4775K" Display="'4775K'" Dmx="164~164" Colour="0,0,0" />
+      <Function ID="166" Name="4750K" Display="'4750K'" Dmx="165~165" Colour="0,0,0" />
+      <Function ID="167" Name="4725K" Display="'4725K'" Dmx="166~166" Colour="0,0,0" />
+      <Function ID="168" Name="4700K" Display="'4700K'" Dmx="167~167" Colour="0,0,0" />
+      <Function ID="169" Name="4675K" Display="'4675K'" Dmx="168~168" Colour="0,0,0" />
+      <Function ID="170" Name="4650K" Display="'4650K'" Dmx="169~169" Colour="0,0,0" />
+      <Function ID="171" Name="4625K" Display="'4625K'" Dmx="170~170" Colour="0,0,0" />
+      <Function ID="172" Name="4600K" Display="'4600K'" Dmx="171~171" Colour="0,0,0" />
+      <Function ID="173" Name="4575K" Display="'4575K'" Dmx="172~172" Colour="0,0,0" />
+      <Function ID="174" Name="4550K" Display="'4550K'" Dmx="173~173" Colour="0,0,0" />
+      <Function ID="175" Name="4525K" Display="'4525K'" Dmx="174~174" Colour="0,0,0" />
+      <Function ID="176" Name="4500K" Display="'4500K'" Dmx="175~175" Colour="0,0,0" />
+      <Function ID="177" Name="4475K" Display="'4475K'" Dmx="176~176" Colour="0,0,0" />
+      <Function ID="178" Name="4450K" Display="'4450K'" Dmx="177~177" Colour="0,0,0" />
+      <Function ID="179" Name="4425K" Display="'4425K'" Dmx="178~178" Colour="0,0,0" />
+      <Function ID="180" Name="4400K" Display="'4400K'" Dmx="179~179" Colour="0,0,0" />
+      <Function ID="181" Name="4375K" Display="'4375K'" Dmx="180~180" Colour="0,0,0" />
+      <Function ID="182" Name="4350K" Display="'4350K'" Dmx="181~181" Colour="0,0,0" />
+      <Function ID="183" Name="4325K" Display="'4325K'" Dmx="182~182" Colour="0,0,0" />
+      <Function ID="184" Name="4300K" Display="'4300K'" Dmx="183~183" Colour="0,0,0" />
+      <Function ID="185" Name="4275K" Display="'4275K'" Dmx="184~184" Colour="0,0,0" />
+      <Function ID="186" Name="4250K" Display="'4250K'" Dmx="185~185" Colour="0,0,0" />
+      <Function ID="187" Name="4225K" Display="'4225K'" Dmx="186~186" Colour="0,0,0" />
+      <Function ID="188" Name="4200K" Display="'4200K'" Dmx="187~187" Colour="0,0,0" />
+      <Function ID="189" Name="4175K" Display="'4175K'" Dmx="188~188" Colour="0,0,0" />
+      <Function ID="190" Name="4150K" Display="'4150K'" Dmx="189~189" Colour="0,0,0" />
+      <Function ID="191" Name="4125K" Display="'4125K'" Dmx="190~190" Colour="0,0,0" />
+      <Function ID="192" Name="4100K" Display="'4100K'" Dmx="191~191" Colour="0,0,0" />
+      <Function ID="193" Name="4075K" Display="'4075K'" Dmx="192~192" Colour="0,0,0" />
+      <Function ID="194" Name="4050K" Display="'4050K'" Dmx="193~193" Colour="0,0,0" />
+      <Function ID="195" Name="4025K" Display="'4025K'" Dmx="194~194" Colour="0,0,0" />
+      <Function ID="196" Name="4000K" Display="'4000K'" Dmx="195~195" Colour="0,0,0" />
+      <Function ID="197" Name="3975K" Display="'3975K'" Dmx="196~196" Colour="0,0,0" />
+      <Function ID="198" Name="3950K" Display="'3950K'" Dmx="197~197" Colour="0,0,0" />
+      <Function ID="199" Name="3925K" Display="'3925K'" Dmx="198~198" Colour="0,0,0" />
+      <Function ID="200" Name="3900K" Display="'3900K'" Dmx="199~199" Colour="0,0,0" />
+      <Function ID="201" Name="3875K" Display="'3875K'" Dmx="200~200" Colour="0,0,0" />
+      <Function ID="202" Name="3850K" Display="'3850K'" Dmx="201~201" Colour="0,0,0" />
+      <Function ID="203" Name="3825K" Display="'3825K'" Dmx="202~202" Colour="0,0,0" />
+      <Function ID="204" Name="3800K" Display="'3800K'" Dmx="203~203" Colour="0,0,0" />
+      <Function ID="205" Name="3775K" Display="'3775K'" Dmx="204~204" Colour="0,0,0" />
+      <Function ID="206" Name="3750K" Display="'3750K'" Dmx="205~205" Colour="0,0,0" />
+      <Function ID="207" Name="3725K" Display="'3725K'" Dmx="206~206" Colour="0,0,0" />
+      <Function ID="208" Name="3700K" Display="'3700K'" Dmx="207~207" Colour="0,0,0" />
+      <Function ID="209" Name="3675K" Display="'3675K'" Dmx="208~208" Colour="0,0,0" />
+      <Function ID="210" Name="3650K" Display="'3650K'" Dmx="209~209" Colour="0,0,0" />
+      <Function ID="211" Name="3625K" Display="'3625K'" Dmx="210~210" Colour="0,0,0" />
+      <Function ID="212" Name="3600K" Display="'3600K'" Dmx="211~211" Colour="0,0,0" />
+      <Function ID="213" Name="3575K" Display="'3575K'" Dmx="212~212" Colour="0,0,0" />
+      <Function ID="214" Name="3550K" Display="'3550K'" Dmx="213~213" Colour="0,0,0" />
+      <Function ID="215" Name="3525K" Display="'3525K'" Dmx="214~214" Colour="0,0,0" />
+      <Function ID="216" Name="3500K" Display="'3500K'" Dmx="215~215" Colour="0,0,0" />
+      <Function ID="217" Name="3475K" Display="'3475K'" Dmx="216~216" Colour="0,0,0" />
+      <Function ID="218" Name="3450K" Display="'3450K'" Dmx="217~217" Colour="0,0,0" />
+      <Function ID="219" Name="3425K" Display="'3425K'" Dmx="218~218" Colour="0,0,0" />
+      <Function ID="220" Name="3400K" Display="'3400K'" Dmx="219~219" Colour="0,0,0" />
+      <Function ID="221" Name="3375K" Display="'3375K'" Dmx="220~220" Colour="0,0,0" />
+      <Function ID="222" Name="3350K" Display="'3350K'" Dmx="221~221" Colour="0,0,0" />
+      <Function ID="223" Name="3325K" Display="'3325K'" Dmx="222~222" Colour="0,0,0" />
+      <Function ID="224" Name="3300K" Display="'3300K'" Dmx="223~223" Colour="0,0,0" />
+      <Function ID="225" Name="3275K" Display="'3275K'" Dmx="224~224" Colour="0,0,0" />
+      <Function ID="226" Name="3250K" Display="'3250K'" Dmx="225~225" Colour="0,0,0" />
+      <Function ID="227" Name="3225K" Display="'3225K'" Dmx="226~226" Colour="0,0,0" />
+      <Function ID="228" Name="3200K" Display="'3200K'" Dmx="227~227" Colour="0,0,0" />
+      <Function ID="229" Name="3175K" Display="'3175K'" Dmx="228~228" Colour="0,0,0" />
+      <Function ID="230" Name="3150K" Display="'3150K'" Dmx="229~229" Colour="0,0,0" />
+      <Function ID="231" Name="3125K" Display="'3125K'" Dmx="230~230" Colour="0,0,0" />
+      <Function ID="232" Name="3100K" Display="'3100K'" Dmx="231~231" Colour="0,0,0" />
+      <Function ID="233" Name="3075K" Display="'3075K'" Dmx="232~232" Colour="0,0,0" />
+      <Function ID="234" Name="3050K" Display="'3050K'" Dmx="233~233" Colour="0,0,0" />
+      <Function ID="235" Name="3025K" Display="'3025K'" Dmx="234~234" Colour="0,0,0" />
+      <Function ID="236" Name="3000K" Display="'3000K'" Dmx="235~235" Colour="0,0,0" />
+      <Function ID="237" Name="2975K" Display="'2975K'" Dmx="236~236" Colour="0,0,0" />
+      <Function ID="238" Name="2950K" Display="'2950K'" Dmx="237~237" Colour="0,0,0" />
+      <Function ID="239" Name="2925K" Display="'2925K'" Dmx="238~238" Colour="0,0,0" />
+      <Function ID="240" Name="2900K" Display="'2900K'" Dmx="239~239" Colour="0,0,0" />
+      <Function ID="241" Name="2875K" Display="'2875K'" Dmx="240~240" Colour="0,0,0" />
+      <Function ID="242" Name="2850K" Display="'2850K'" Dmx="241~241" Colour="0,0,0" />
+      <Function ID="243" Name="2825K" Display="'2825K'" Dmx="242~242" Colour="0,0,0" />
+      <Function ID="244" Name="2800K" Display="'2800K'" Dmx="243~243" Colour="0,0,0" />
+      <Function ID="245" Name="2775K" Display="'2775K'" Dmx="244~244" Colour="0,0,0" />
+      <Function ID="246" Name="2750K" Display="'2750K'" Dmx="245~245" Colour="0,0,0" />
+      <Function ID="247" Name="2725K" Display="'2725K'" Dmx="246~246" Colour="0,0,0" />
+      <Function ID="248" Name="2700K" Display="'2700K'" Dmx="247~247" Colour="0,0,0" />
+      <Function ID="249" Name="2675K" Display="'2675K'" Dmx="248~248" Colour="0,0,0" />
+      <Function ID="250" Name="2650K" Display="'2650K'" Dmx="249~249" Colour="0,0,0" />
+      <Function ID="251" Name="2625K" Display="'2625K'" Dmx="250~250" Colour="0,0,0" />
+      <Function ID="252" Name="2600K" Display="'2600K'" Dmx="251~251" Colour="0,0,0" />
+      <Function ID="253" Name="2575K" Display="'2575K'" Dmx="252~252" Colour="0,0,0" />
+      <Function ID="254" Name="2550K" Display="'2550K'" Dmx="253~253" Colour="0,0,0" />
+      <Function ID="255" Name="2525K" Display="'2525K'" Dmx="254~254" Colour="0,0,0" />
+      <Function ID="256" Name="2500K" Display="'2500K'" Dmx="255~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Digital_Iris_Sel" Name="Digi Iris Sel" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Circle Out In Sharp Edge" Display="'Circle Out In Sharp Edge'" Dmx="0~0" />
+      <Function ID="2" Name="Circle Out In Fuzzy Edge 1" Display="'Circle Out In Fuzzy Edge 1'" Dmx="1~1" />
+      <Function ID="3" Name="Circle Out In Fuzzy Edge 2" Display="'Circle Out In Fuzzy Edge 2'" Dmx="2~2" />
+      <Function ID="4" Name="Circle Out In Fuzzy Edge 3" Display="'Circle Out In Fuzzy Edge 3'" Dmx="3~3" />
+      <Function ID="5" Name="Circle Out In Fuzzy Edge 4" Display="'Circle Out In Fuzzy Edge 4'" Dmx="4~4" />
+      <Function ID="6" Name="Circle In Out Sharp Edge" Display="'Circle In Out Sharp Edge'" Dmx="5~5" />
+      <Function ID="7" Name="Circle In Out Fuzzy Edge 1" Display="'Circle In Out Fuzzy Edge 1'" Dmx="6~6" />
+      <Function ID="8" Name="Circle In Out Fuzzy Edge 2" Display="'Circle In Out Fuzzy Edge 2'" Dmx="7~7" />
+      <Function ID="9" Name="Circle In Out Fuzzy Edge 3" Display="'Circle In Out Fuzzy Edge 3'" Dmx="8~8" />
+      <Function ID="10" Name="Circle In Out Fuzzy Edge 4" Display="'Circle In Out Fuzzy Edge 4'" Dmx="9~9" />
+      <Function ID="11" Name="Hori El Out In Sharp Edge" Display="'Hori El Out In Sharp Edge'" Dmx="10~10" />
+      <Function ID="12" Name="Hori El Out In Fuzzy Edge 1" Display="'Hori El Out In Fuzzy Edge 1'" Dmx="11~11" />
+      <Function ID="13" Name="Hori El Out In Fuzzy Edge 2" Display="'Hori El Out In Fuzzy Edge 2'" Dmx="12~12" />
+      <Function ID="14" Name="Hori El Out In Fuzzy Edge 3" Display="'Hori El Out In Fuzzy Edge 3'" Dmx="13~13" />
+      <Function ID="15" Name="Hori El Out In Fuzzy Edge 4" Display="'Hori El Out In Fuzzy Edge 4'" Dmx="14~14" />
+      <Function ID="16" Name="Hori El In Out Sharp Edge" Display="'Hori El In Out Sharp Edge'" Dmx="15~15" />
+      <Function ID="17" Name="Hori El In Out Fuzzy Edge 1" Display="'Hori El In Out Fuzzy Edge 1'" Dmx="16~16" />
+      <Function ID="18" Name="Hori El In Out Fuzzy Edge 2" Display="'Hori El In Out Fuzzy Edge 2'" Dmx="17~17" />
+      <Function ID="19" Name="Hori El In Out Fuzzy Edge 3" Display="'Hori El In Out Fuzzy Edge 3'" Dmx="18~18" />
+      <Function ID="20" Name="Hori El In Out Fuzzy Edge 4" Display="'Hori El In Out Fuzzy Edge 4'" Dmx="19~19" />
+      <Function ID="21" Name="Vert El Out In Sharp Edge" Display="'Vert El Out In Sharp Edge'" Dmx="20~20" />
+      <Function ID="22" Name="Vert El Out In Fuzzy Edge 1" Display="'Vert El Out In Fuzzy Edge 1'" Dmx="21~21" />
+      <Function ID="23" Name="Vert El Out In Fuzzy Edge 2" Display="'Vert El Out In Fuzzy Edge 2'" Dmx="22~22" />
+      <Function ID="24" Name="Vert El Out In Fuzzy Edge 3" Display="'Vert El Out In Fuzzy Edge 3'" Dmx="23~23" />
+      <Function ID="25" Name="Vert El Out In Fuzzy Edge 4" Display="'Vert El Out In Fuzzy Edge 4'" Dmx="24~24" />
+      <Function ID="26" Name="Vert El In Out Sharp Edge" Display="'Vert El In Out Sharp Edge'" Dmx="25~25" />
+      <Function ID="27" Name="Vert El In Out Fuzzy Edge 1" Display="'Vert El In Out Fuzzy Edge 1'" Dmx="26~26" />
+      <Function ID="28" Name="Vert El In Out Fuzzy Edge 2" Display="'Vert El In Out Fuzzy Edge 2'" Dmx="27~27" />
+      <Function ID="29" Name="Vert El In Out Fuzzy Edge 3" Display="'Vert El In Out Fuzzy Edge 3'" Dmx="28~28" />
+      <Function ID="30" Name="Vert El In Out Fuzzy Edge 4" Display="'Vert El In Out Fuzzy Edge 4'" Dmx="29~29" />
+      <Function ID="31" Name="Clockwise Wipe Sharp Edge" Display="'Clockwise Wipe Sharp Edge'" Dmx="30~30" />
+      <Function ID="32" Name="Clockwise Wipe Fuzzy Edge 1" Display="'Clockwise Wipe Fuzzy Edge 1'" Dmx="31~31" />
+      <Function ID="33" Name="Clockwise Wipe Fuzzy Edge 2" Display="'Clockwise Wipe Fuzzy Edge 2'" Dmx="32~32" />
+      <Function ID="34" Name="Clockwise Wipe Fuzzy Edge 3" Display="'Clockwise Wipe Fuzzy Edge 3'" Dmx="33~33" />
+      <Function ID="35" Name="Clockwise Wipe Fuzzy Edge 4" Display="'Clockwise Wipe Fuzzy Edge 4'" Dmx="34~34" />
+      <Function ID="36" Name="CCW Wipe Sharp Edge" Display="'CCW Wipe Sharp Edge'" Dmx="35~35" />
+      <Function ID="37" Name="CCW Wipe Fuzzy Edge 1" Display="'CCW Wipe Fuzzy Edge 1'" Dmx="36~36" />
+      <Function ID="38" Name="CCW Wipe Fuzzy Edge 2" Display="'CCW Wipe Fuzzy Edge 2'" Dmx="37~37" />
+      <Function ID="39" Name="CCW Wipe Fuzzy Edge 3" Display="'CCW Wipe Fuzzy Edge 3'" Dmx="38~38" />
+      <Function ID="40" Name="CCW Wipe Fuzzy Edge 4" Display="'CCW Wipe Fuzzy Edge 4'" Dmx="39~39" />
+      <Function ID="41" Name="Wedge Top Down Sharp Edge" Display="'Wedge Top Down Sharp Edge'" Dmx="40~40" />
+      <Function ID="42" Name="Wedge Top Down Fuzzy Edge 1" Display="'Wedge Top Down Fuzzy Edge 1'" Dmx="41~41" />
+      <Function ID="43" Name="Wedge Top Down Fuzzy Edge 2" Display="'Wedge Top Down Fuzzy Edge 2'" Dmx="42~42" />
+      <Function ID="44" Name="Wedge Top Down Fuzzy Edge 3" Display="'Wedge Top Down Fuzzy Edge 3'" Dmx="43~43" />
+      <Function ID="45" Name="Wedge Top Down Fuzzy Edge 4" Display="'Wedge Top Down Fuzzy Edge 4'" Dmx="44~44" />
+      <Function ID="46" Name="Wedge Bottom Up Sharp Edge" Display="'Wedge Bottom  Up Sharp Edge'" Dmx="45~45" />
+      <Function ID="47" Name="Wedge Bottm Up Fuzzy Edge 1" Display="'Wedge Bottm Up Fuzzy Edge 1'" Dmx="46~46" />
+      <Function ID="48" Name="Wedge Bottm Up Fuzzy Edge 2" Display="'Wedge Bottm Up Fuzzy Edge 2'" Dmx="47~47" />
+      <Function ID="49" Name="Wedge Bottm Up Fuzzy Edge 3" Display="'Wedge Bottm Up Fuzzy Edge 3'" Dmx="48~48" />
+      <Function ID="50" Name="Wedge Bottm Up Fuzzy Edge 4" Display="'Wedge Bottm Up Fuzzy Edge 4'" Dmx="49~49" />
+      <Function ID="51" Name="Radial Lf Bttm Sharp Edge" Display="'Radial Lf Bttm Sharp Edge'" Dmx="50~50" />
+      <Function ID="52" Name="Radial Lf Bttm Fuzzy Edge 1" Display="'Radial Lf Bttm Fuzzy Edge 1'" Dmx="51~51" />
+      <Function ID="53" Name="Radial Lf Bttm Fuzzy Edge 2" Display="'Radial Lf Bttm Fuzzy Edge 2'" Dmx="52~52" />
+      <Function ID="54" Name="Radial Lf Bttm Fuzzy Edge 3" Display="'Radial Lf Bttm Fuzzy Edge 3'" Dmx="53~53" />
+      <Function ID="55" Name="Radial Lf Bttm Fuzzy Edge 4" Display="'Radial Lf Bttm Fuzzy Edge 4'" Dmx="54~54" />
+      <Function ID="56" Name="Radial Bttm Lf Sharp Edge" Display="'Radial Bttm Lf Sharp Edge'" Dmx="55~55" />
+      <Function ID="57" Name="Radial Bttm Lf Fuzzy Edge 1" Display="'Radial Bttm Lf Fuzzy Edge 1'" Dmx="56~56" />
+      <Function ID="58" Name="Radial Bttm Lf Fuzzy Edge 2" Display="'Radial Bttm Lf Fuzzy Edge 2'" Dmx="57~57" />
+      <Function ID="59" Name="Radial Bttm Lf Fuzzy Edge 3" Display="'Radial Bttm Lf Fuzzy Edge 3'" Dmx="58~58" />
+      <Function ID="60" Name="Radial Bttm Lf Fuzzy Edge 4" Display="'Radial Bttm Lf Fuzzy Edge 4'" Dmx="59~59" />
+      <Function ID="61" Name="Radial Top Lf Sharp Edge" Display="'Radial Top Lf Sharp Edge'" Dmx="60~60" />
+      <Function ID="62" Name="Radial Top Lf Fuzzy Edge 1" Display="'Radial Top Lf Fuzzy Edge 1'" Dmx="61~61" />
+      <Function ID="63" Name="Radial Top Lf Fuzzy Edge 2" Display="'Radial Top Lf Fuzzy Edge 2'" Dmx="62~62" />
+      <Function ID="64" Name="Radial Top Lf Fuzzy Edge 3" Display="'Radial Top Lf Fuzzy Edge 3'" Dmx="63~63" />
+      <Function ID="65" Name="Radial Top Lf Fuzzy Edge 4" Display="'Radial Top Lf Fuzzy Edge 4'" Dmx="64~64" />
+      <Function ID="66" Name="Radial Lf Top Sharp Edge" Display="'Radial Lf Top Sharp Edge'" Dmx="65~65" />
+      <Function ID="67" Name="Radial Lf Top Fuzzy Edge 1" Display="'Radial Lf Top Fuzzy Edge 1'" Dmx="66~66" />
+      <Function ID="68" Name="Radial Lf Top Fuzzy Edge 2" Display="'Radial Lf Top Fuzzy Edge 2'" Dmx="67~67" />
+      <Function ID="69" Name="Radial Lf Top Fuzzy Edge 3" Display="'Radial Lf Top Fuzzy Edge 3'" Dmx="68~68" />
+      <Function ID="70" Name="Radial Lf Top Fuzzy Edge 4" Display="'Radial Lf Top Fuzzy Edge 4'" Dmx="69~69" />
+      <Function ID="71" Name="Vert BD Out In Sharp Edge" Display="'Vert BD Out In Sharp Edge'" Dmx="70~70" />
+      <Function ID="72" Name="Vert BD Out In Fuzzy Edge 1" Display="'Vert BD Out In Fuzzy Edge 1'" Dmx="71~71" />
+      <Function ID="73" Name="Vert BD Out In Fuzzy Edge 2" Display="'Vert BD Out In Fuzzy Edge 2'" Dmx="72~72" />
+      <Function ID="74" Name="Vert BD Out In Fuzzy Edge 3" Display="'Vert BD Out In Fuzzy Edge 3'" Dmx="73~73" />
+      <Function ID="75" Name="Vert BD Out In Fuzzy Edge 4" Display="'Vert BD Out In Fuzzy Edge 4'" Dmx="74~74" />
+      <Function ID="76" Name="Vert BD In Out Sharp Edge" Display="'Vert BD In Out Sharp Edge'" Dmx="75~75" />
+      <Function ID="77" Name="Vert BD In Out Fuzzy Edge 1" Display="'Vert BD In Out Fuzzy Edge 1'" Dmx="76~76" />
+      <Function ID="78" Name="Vert BD In Out Fuzzy Edge 2" Display="'Vert BD In Out Fuzzy Edge 2'" Dmx="77~77" />
+      <Function ID="79" Name="Vert BD In Out Fuzzy Edge 3" Display="'Vert BD In Out Fuzzy Edge 3'" Dmx="78~78" />
+      <Function ID="80" Name="Vert BD In Out Fuzzy Edge 4" Display="'Vert BD In Out Fuzzy Edge 4'" Dmx="79~79" />
+      <Function ID="81" Name="Hori BD Out In Sharp Edge" Display="'Hori BD Out In Sharp Edge'" Dmx="80~80" />
+      <Function ID="82" Name="Hori BD Out In Fuzzy Edge 1" Display="'Hori BD Out In Fuzzy Edge 1'" Dmx="81~81" />
+      <Function ID="83" Name="Hori BD Out In Fuzzy Edge 2" Display="'Hori BD Out In Fuzzy Edge 2'" Dmx="82~82" />
+      <Function ID="84" Name="Hori BD Out In Fuzzy Edge 3" Display="'Hori BD Out In Fuzzy Edge 3'" Dmx="83~83" />
+      <Function ID="85" Name="Hori BD Out In Fuzzy Edge 4" Display="'Hori BD Out In Fuzzy Edge 4'" Dmx="84~84" />
+      <Function ID="86" Name="Hori BD In Out Sharp Edge" Display="'Hori BD In Out Sharp Edge'" Dmx="85~85" />
+      <Function ID="87" Name="Hori BD In Out Fuzzy Edge 1" Display="'Hori BD In Out Fuzzy Edge 1'" Dmx="86~86" />
+      <Function ID="88" Name="Hori BD In Out Fuzzy Edge 2" Display="'Hori BD In Out Fuzzy Edge 2'" Dmx="87~87" />
+      <Function ID="89" Name="Hori BD In Out Fuzzy Edge 3" Display="'Hori BD In Out Fuzzy Edge 3'" Dmx="88~88" />
+      <Function ID="90" Name="Hori BD In Out Fuzzy Edge 4" Display="'Hori BD In Out Fuzzy Edge 4'" Dmx="89~89" />
+      <Function ID="91" Name="Hori 1W B Top Lf Bttm Right" Display="'Hori 1W B Top Lf Bttm Right'" Dmx="90~90" />
+      <Function ID="92" Name="Hori 1W B Bttm Right Top Lf" Display="'Hori 1W B Bttm Right Top Lf'" Dmx="91~91" />
+      <Function ID="93" Name="Hori 1W B Top Right Bttm Lf" Display="'Hori 1W B Top Right Bttm Lf'" Dmx="92~92" />
+      <Function ID="94" Name="Hori 1W B Bttm Lf Top Right" Display="'Hori 1W B Bttm Lf Top Right'" Dmx="93~93" />
+      <Function ID="95" Name="Hori 2W B Top Lf Bttm Right" Display="'Hori 2W B Top Lf Bttm Right'" Dmx="94~94" />
+      <Function ID="96" Name="Hori 2W B Bttm Right Top Lf" Display="'Hori 2W B Bttm Right Top Lf'" Dmx="95~95" />
+      <Function ID="97" Name="Hori 2W B Top Right Bttm Lf" Display="'Hori 2W B Top Right Bttm Lf'" Dmx="96~96" />
+      <Function ID="98" Name="Hori 2W B Bttm Lf Top Right" Display="'Hori 2W B Bttm Lf Top Right'" Dmx="97~97" />
+      <Function ID="99" Name="Vert 1W B Top Lf Bttm Right" Display="'Vert 1W B Top Lf Bttm Right'" Dmx="98~98" />
+      <Function ID="100" Name="Vert 1W B Bttm Right Top Lf" Display="'Vert 1W B Bttm Right Top Lf'" Dmx="99~99" />
+      <Function ID="101" Name="Vert 1W B Top Right Bttm Lf" Display="'Vert 1W B Top Right Bttm Lf'" Dmx="100~100" />
+      <Function ID="102" Name="Vert 1W B Bttm Lf Top Right" Display="'Vert 1W B Bttm Lf Top Right'" Dmx="101~101" />
+      <Function ID="103" Name="Vert 2W B Top Lf Bttm Right" Display="'Vert 2W B Top Lf Bttm Right'" Dmx="102~102" />
+      <Function ID="104" Name="Vert 2W B Bttm Right Top Lf" Display="'Vert 2W B Bttm Right Top Lf'" Dmx="103~103" />
+      <Function ID="105" Name="Vert 2W B Top Right Bttm Lf" Display="'Vert 2W B Top Right Bttm Lf'" Dmx="104~104" />
+      <Function ID="106" Name="Vert 2W B Bttm Lf Top Right" Display="'Vert 2W B Bttm Lf Top Right'" Dmx="105~105" />
+      <Function ID="107" Name="Hori Bands 4x Top Bottom" Display="'Hori Bands 4x Top Bottom'" Dmx="106~106" />
+      <Function ID="108" Name="Hori Bands 4x Bottom Top" Display="'Hori Bands 4x Bottom Top'" Dmx="107~107" />
+      <Function ID="109" Name="Vert Bands 4x Left Right" Display="'Vert Bands 4x Left Right'" Dmx="108~108" />
+      <Function ID="110" Name="Vert Bands 4x Right Left" Display="'Vert Bands 4x Right Left'" Dmx="109~109" />
+      <Function ID="111" Name="Hori Bands 8x Top Bottom" Display="'Hori Bands 8x Top Bottom'" Dmx="110~110" />
+      <Function ID="112" Name="Hori Bands 8x Bottom Top" Display="'Hori Bands 8x Bottom Top'" Dmx="111~111" />
+      <Function ID="113" Name="Vert Bands 8x Left Right" Display="'Vert Bands 8x Left Right'" Dmx="112~112" />
+      <Function ID="114" Name="Vert Bands 8x Right Left" Display="'Vert Bands 8x Right Left'" Dmx="113~113" />
+      <Function ID="115" Name="Hori Bands 16x Top Bottom" Display="'Hori Bands 16x Top Bottom'" Dmx="114~114" />
+      <Function ID="116" Name="Hori Bands 16x Bottom Top" Display="'Hori Bands 16x Bottom Top'" Dmx="115~115" />
+      <Function ID="117" Name="Vert Bands 16x Left Right" Display="'Vert Bands 16x Left Right'" Dmx="116~116" />
+      <Function ID="118" Name="Vert Bands 16x Right Left" Display="'Vert Bands 16x Right Left'" Dmx="117~117" />
+      <Function ID="119" Name="Hori Bands 32x Top Bottom" Display="'Hori Bands 32x Top Bottom'" Dmx="118~118" />
+      <Function ID="120" Name="Hori Bands 32x Bottom Top" Display="'Hori Bands 32x Bottom Top'" Dmx="119~119" />
+      <Function ID="121" Name="Vert Bands 32x Left Right" Display="'Vert Bands 32x Left Right'" Dmx="120~120" />
+      <Function ID="122" Name="Vert Bands 32x Right Left" Display="'Vert Bands 32x Right Left'" Dmx="121~121" />
+      <Function ID="123" Name="Hori Crossing 4x" Display="'Hori Crossing 4x'" Dmx="122~122" />
+      <Function ID="124" Name="Hori Crossing 4x Inverse" Display="'Hori Crossing 4x Inverse'" Dmx="123~123" />
+      <Function ID="125" Name="Vert Crossing 4x" Display="'Vert Crossing 4x'" Dmx="124~124" />
+      <Function ID="126" Name="Vert Crossing 4x Inverse" Display="'Vert Crossing 4x Inverse'" Dmx="125~125" />
+      <Function ID="127" Name="Hori Crossing 8x" Display="'Hori Crossing 8x'" Dmx="126~126" />
+      <Function ID="128" Name="Hori Crossing 8x Inverse" Display="'Hori Crossing 8x Inverse'" Dmx="127~127" />
+      <Function ID="129" Name="Vert Crossing 8x" Display="'Vert Crossing 8x'" Dmx="128~128" />
+      <Function ID="130" Name="Vert Crossing 8x Inverse" Display="'Vert Crossing 8x Inverse'" Dmx="129~129" />
+      <Function ID="131" Name="Hori Crossing 16x" Display="'Hori Crossing 16x'" Dmx="130~130" />
+      <Function ID="132" Name="Hori Crossing 16x Inverse" Display="'Hori Crossing 16x Inverse'" Dmx="131~131" />
+      <Function ID="133" Name="Vert Crossing 16x" Display="'Vert Crossing 16x'" Dmx="132~132" />
+      <Function ID="134" Name="Vert Crossing 16x Inverse" Display="'Vert Crossing 16x Inverse'" Dmx="133~133" />
+      <Function ID="135" Name="Checker 3 x 4 Left Right" Display="'Checker 3 x 4 Left Right'" Dmx="134~134" />
+      <Function ID="136" Name="Checker 3 x 4 Right Left" Display="'Checker 3 x 4 Right Left'" Dmx="135~135" />
+      <Function ID="137" Name="Checker 4 x 4 Left Right" Display="'Checker 4 x 4 Left Right'" Dmx="136~136" />
+      <Function ID="138" Name="Checker 4 x 4 Right Left" Display="'Checker 4 x 4 Right Left'" Dmx="137~137" />
+      <Function ID="139" Name="Checker 5 x 8 Left Right" Display="'Checker 5 x 8 Left Right'" Dmx="138~138" />
+      <Function ID="140" Name="Checker 5 x 8 Right Left" Display="'Checker 5 x 8 Right Left'" Dmx="139~139" />
+      <Function ID="141" Name="Checker 9 x 8 Left Right" Display="'Checker 9 x 8 Left Right'" Dmx="140~140" />
+      <Function ID="142" Name="Checker 9 x 8 Right Left" Display="'Checker 9 x 8 Right Left'" Dmx="141~141" />
+      <Function ID="143" Name="Checker 9 x 16 Left Right" Display="'Checker 9 x 16 Left Right'" Dmx="142~142" />
+      <Function ID="144" Name="Checker 9 x 16 Right Left" Display="'Checker 9 x 16 Right Left'" Dmx="143~143" />
+      <Function ID="145" Name="Checker 10x32 Left Right" Display="'Checker 10x32 Left Right'" Dmx="144~144" />
+      <Function ID="146" Name="Checker 10x32 Right Left" Display="'Checker 10x32 Right Left'" Dmx="145~145" />
+      <Function ID="147" Name="2 Diag Curtain BL C TR" Display="'2 Diag Curtain BL C TR'" Dmx="146~146" />
+      <Function ID="148" Name="2 Diag Curtain TL C BR" Display="'2 Diag Curtain TL C BR'" Dmx="147~147" />
+      <Function ID="149" Name="Grid 8 x 8 Bttm Rt Tp Lf" Display="'Grid 8 x 8    Bttm Rt Tp Lf'" Dmx="148~148" />
+      <Function ID="150" Name="Grid 8x8 Bttm Rt Tp Lf Inv" Display="'Grid 8x8 Bttm Rt Tp Lf Inv'" Dmx="149~149" />
+      <Function ID="151" Name="Grid 8 x 8 Tp Rt Bttm Lf" Display="'Grid 8 x 8 Tp Rt Bttm Lf'" Dmx="150~150" />
+      <Function ID="152" Name="Grid 8 x 8 Tp Rt Bttm Lf Inv" Display="'Grid 8 x 8 Tp Rt Bttm Lf Inv'" Dmx="151~151" />
+      <Function ID="153" Name="Grid 16x16 Bttm Rt Tp Lf" Display="'Grid 16x16    Bttm Rt Tp Lf'" Dmx="152~152" />
+      <Function ID="154" Name="Grid 16x16 Bttm Rt Tp Lf Inv" Display="'Grid 16x16 Bttm Rt Tp Lf Inv'" Dmx="153~153" />
+      <Function ID="155" Name="Grid 16x16 Tp Rt Bttm Lf" Display="'Grid 16x16 Tp Rt Bttm Lf'" Dmx="154~154" />
+      <Function ID="156" Name="Grid 16x16 Tp Rt Bttm Lf Inv" Display="'Grid 16x16 Tp Rt Bttm Lf Inv'" Dmx="155~155" />
+      <Function ID="157" Name="Grid 32x32 Bttm Rt Tp Lf" Display="'Grid 32x32 Bttm Rt Tp Lf'" Dmx="156~156" />
+      <Function ID="158" Name="Grid 32x32 Bttm Rt Tp Lf Inv" Display="'Grid 32x32 Bttm Rt Tp Lf Inv'" Dmx="157~157" />
+      <Function ID="159" Name="Grid 32x32 Tp Lf Bttm Rt" Display="'Grid 32x32 Tp Lf Bttm Rt'" Dmx="158~158" />
+      <Function ID="160" Name="Grid 32x32 Tp Lf Bttm Rt Inv" Display="'Grid 32x32 Tp Lf Bttm Rt Inv'" Dmx="159~159" />
+      <Function ID="161" Name="4 Sliding Triangles" Display="'4 Sliding     Triangles'" Dmx="160~160" />
+      <Function ID="162" Name="Reserved" Display="'Reserved %.f',161~169" Dmx="161~169" />
+      <Function ID="163" Name="Rect. Out In Sharp Edge" Display="'Rect. Out In  Sharp Edge'" Dmx="170~170" />
+      <Function ID="164" Name="Rect. Out In Fuzzy Edge 1" Display="'Rect. Out In  Fuzzy Edge 1'" Dmx="171~171" />
+      <Function ID="165" Name="Rect. Out In Fuzzy Edge 2" Display="'Rect. Out In  Fuzzy Edge 2'" Dmx="172~172" />
+      <Function ID="166" Name="Rect. Out In Fuzzy Edge 3" Display="'Rect. Out In  Fuzzy Edge 3'" Dmx="173~173" />
+      <Function ID="167" Name="Rect. Out In Fuzzy Edge 4" Display="'Rect. Out In  Fuzzy Edge 4'" Dmx="174~174" />
+      <Function ID="168" Name="Rect. In Out Sharp Edge" Display="'Rect. In Out  Sharp Edge'" Dmx="175~175" />
+      <Function ID="169" Name="Rect. In Out Fuzzy Edge 1" Display="'Rect. In Out  Fuzzy Edge 1'" Dmx="176~176" />
+      <Function ID="170" Name="Rect. Out In Fuzzy Edge 2" Display="'Rect. Out In  Fuzzy Edge 2'" Dmx="177~177" />
+      <Function ID="171" Name="Rect. Out In Fuzzy Edge 3" Display="'Rect. Out In  Fuzzy Edge 3'" Dmx="178~178" />
+      <Function ID="172" Name="Rect. Out In Fuzzy Edge 4" Display="'Rect. Out In  Fuzzy Edge 4'" Dmx="179~179" />
+      <Function ID="173" Name="Reserved" Display="'Reserved %.f',180~255" Dmx="180~255" />
+    </Attribute>
+    <Attribute ID="GlobaIris" Name="Global Iris" Description="" Group="B" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Iris" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Iris" Name="Iris" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Iris" Display="'%.2f%%',0.00~100.00" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~30" Intensity="0~0" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="31~80" Intensity="0~0" />
+      <Function ID="3" Name="Open" Display="'Open'" Dmx="81~110" Intensity="0~0" />
+      <Function ID="4" Name="Rnd Strobe" Display="'Rnd Strobe %.f%%',0~100" Dmx="111~140" Intensity="0~0" />
+      <Function ID="5" Name="Open" Display="'Open'" Dmx="141~149" Intensity="0~0" />
+      <Function ID="6" Name="Iris Gobo Layer 1" Display="'Iris Gobo     Layer 1'" Dmx="150~154" Intensity="0~0" />
+      <Function ID="7" Name="Iris Gobo Layer 2" Display="'Iris Gobo     Layer 2'" Dmx="155~159" Intensity="0~0" />
+      <Function ID="8" Name="Iris Gobo Layer 3" Display="'Iris Gobo     Layer 3'" Dmx="160~164" Intensity="0~0" />
+      <Function ID="9" Name="Reserved" Display="'Reserved'" Dmx="165~189" Intensity="0~0" />
+      <Function ID="10" Name="Banner Gobo Layer 1" Display="'Banner Gobo   Layer 1'" Dmx="190~194" Intensity="0~0" />
+      <Function ID="11" Name="Banner Gobo Layer 2" Display="'Banner Gobo   Layer 2'" Dmx="195~199" Intensity="0~0" />
+      <Function ID="12" Name="Banner Gobo Layer 3" Display="'Banner Gobo   Layer 3'" Dmx="200~204" Intensity="0~0" />
+      <Function ID="13" Name="Reserved" Display="'Reserved'" Dmx="205~244" Intensity="0~0" />
+      <Function ID="14" Name="Digi Shutter Closed" Display="'Digi Shutter  Closed'" Dmx="245~249" Intensity="0~0" />
+      <Function ID="15" Name="Mech Shutter Closed" Display="'Mech Shutter  Closed'" Dmx="250~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Blade_4" Name="Banner L Pos" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Position" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Blade_4_Rot" Name="Banner L Rot" Description="" Group="S">
+      <Locate Locate="1:45" PowerOn="1:45" />
+      <Function ID="1" Name="Degrees" Display="'%.1f°',0.0~90.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Blade_2" Name="Banner R Pos" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Position" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Blade_2_Rot" Name="Banner R Rot" Description="" Group="S">
+      <Locate Locate="1:45" PowerOn="1:45" />
+      <Function ID="1" Name="Degrees" Display="'%.1f°',0.0~90.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Blade_1" Name="Banner T Pos" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Position" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Blade_1_Rot" Name="Banner T Rot" Description="" Group="S">
+      <Locate Locate="1:45" PowerOn="1:45" />
+      <Function ID="1" Name="Degrees" Display="'%.1f°',0.0~90.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Blade_3" Name="Banner B Pos" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Position" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Blade_3_Rot" Name="Banner B Rot" Description="" Group="S">
+      <Locate Locate="1:45" PowerOn="1:45" />
+      <Function ID="1" Name="Degrees" Display="'%.1f°',0.0~90.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Blade_All_Rot" Name="Banner A Rot" Description="" Group="S">
+      <Locate Locate="1:45" PowerOn="1:45" />
+      <Function ID="1" Name="Degrees" Display="'%.1f°',0.0~90.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Global1Effect" Name="Global Effect 1" Description="" Group="E">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" Update="GlobalEffectsP3" />
+      <Function ID="2" Name="Overlap Edge 10%" Display="'Overlap Edge  10%'" Dmx="1~1" Update="GlobalEffectsP3" />
+      <Function ID="3" Name="Overlap Edge 0%" Display="'Overlap Edge  0%'" Dmx="2~2" Update="GlobalEffectsP3" />
+      <Function ID="4" Name="Overlap Edge 15%" Display="'Overlap Edge  15%'" Dmx="3~3" Update="GlobalEffectsP3" />
+      <Function ID="5" Name="Overlap Edge 20%" Display="'Overlap Edge  20%'" Dmx="4~4" Update="GlobalEffectsP3" />
+      <Function ID="6" Name="Overlap Edge 25%" Display="'Overlap Edge  25%'" Dmx="5~5" Update="GlobalEffectsP3" />
+      <Function ID="7" Name="Overlap Edge 30%" Display="'Overlap Edge  30%'" Dmx="6~6" Update="GlobalEffectsP3" />
+      <Function ID="8" Name="Overlap Edge 35%" Display="'Overlap Edge  35%'" Dmx="7~7" Update="GlobalEffectsP3" />
+      <Function ID="9" Name="Reserved" Display="'Reserved %.f',8~10" Dmx="8~10" Update="GlobalEffectsP3" />
+      <Function ID="10" Name="Overlap PCC Edge 10%" Display="'Overlap PCC   Edge 10%'" Dmx="11~11" Update="GlobalEffectsP3" />
+      <Function ID="11" Name="Overlap PCC Edge 0%" Display="'Overlap PCC   Edge 0%'" Dmx="12~12" Update="GlobalEffectsP3" />
+      <Function ID="12" Name="Overlap PCC Edge 15%" Display="'Overlap PCC   Edge 15%'" Dmx="13~13" Update="GlobalEffectsP3" />
+      <Function ID="13" Name="Overlap PCC Edge 20%" Display="'Overlap PCC   Edge 20%'" Dmx="14~14" Update="GlobalEffectsP3" />
+      <Function ID="14" Name="Overlap PCC Edge 25%" Display="'Overlap PCC   Edge 25%'" Dmx="15~15" Update="GlobalEffectsP3" />
+      <Function ID="15" Name="Overlap PCC Edge 30%" Display="'Overlap PCC   Edge 30%'" Dmx="16~16" Update="GlobalEffectsP3" />
+      <Function ID="16" Name="Overlap PCC Edge 35%" Display="'Overlap PCC   Edge 35%'" Dmx="17~17" Update="GlobalEffectsP3" />
+      <Function ID="17" Name="Reserved" Display="'Reserved %.f',18~255" Dmx="18~255" Update="GlobalEffectsP3" />
+    </Attribute>
+    <Attribute ID="Global1EffectsP1" Name="Glob Eff 1 P1" Description="" Group="E">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~0" />
+      <Function ID="2" Name="Non Mirrored Configs" Display="'Non Mirrored  Configs %.f%%',0~100" Dmx="1~109" />
+      <Function ID="3" Name="Reserved" Display="'Reserved %.f',110~127" Dmx="110~127" />
+      <Function ID="4" Name="Hori Mirrored Configs" Display="'Hori Mirrored Configs %.f%%',0~100" Dmx="128~163" />
+      <Function ID="5" Name="Vert Mirrored Configs" Display="'Vert Mirrored Configs %.f%%',0~100" Dmx="164~199" />
+      <Function ID="6" Name="Hori&amp;Vert Mir Configs" Display="'Hori&amp;Vert Mir Configs %.f%%',0~100" Dmx="200~235" />
+      <Function ID="7" Name="Reserved" Display="'Reserved %.f',236~255" Dmx="236~255" />
+    </Attribute>
+    <Attribute ID="GlobalEffectsP2" Name="Glob Eff 1 P2" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1" />
+      <Function ID="1" Name="Segment" Display="'Segment %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="GlobalEffectsP3" Name="Glob Eff 1 P3" Description="" Group="E">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Open" ID="1" If="'Global1Effect'==1" />
+      <Else ID="2,3" />
+      <Function ID="1" Name="Grid Off" Display="'Grid Off'" Dmx="0~0" />
+      <Function ID="2" Name="Grid Off" Display="'Grid Off'" Dmx="0~0" />
+      <Function ID="3" Name="Grid On" Display="'Grid On'" Dmx="158~158" />
+    </Attribute>
+    <Attribute ID="Global2Effect" Name="Global Eff 2" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" />
+      <Function ID="2" Name="Vert In Corner Map" Display="'Vert In Corner Map'" Dmx="1~1" />
+      <Function ID="3" Name="Vert Out Corner Map" Display="'Vert Out      Corner Map'" Dmx="2~2" />
+      <Function ID="4" Name="Hori In Corner Map" Display="'Hori In Corner Map'" Dmx="3~3" />
+      <Function ID="5" Name="Hori Out Corner Map" Display="'Hori Out      Corner Map'" Dmx="4~4" />
+      <Function ID="6" Name="Vert Convex Cylinder Map" Display="'Vert Convex   Cylinder Map'" Dmx="5~5" />
+      <Function ID="7" Name="Vert Concave Cylinder Map" Display="'Vert Concave  Cylinder Map'" Dmx="6~6" />
+      <Function ID="8" Name="Hori Convex Cylinder Map" Display="'Hori Convex   Cylinder Map'" Dmx="7~7" />
+      <Function ID="9" Name="Hori Concave Cylinder Map" Display="'Hori Concave  Cylinder Map'" Dmx="8~8" />
+      <Function ID="10" Name="Ortographic Sphere Map" Display="'Ortographic   Sphere Map'" Dmx="9~9" />
+      <Function ID="11" Name="Rectangle On Circle Map" Display="'Rectangle On  Circle Map'" Dmx="10~10" />
+      <Function ID="12" Name="Square On Circle Map" Display="'Square On     Circle Map'" Dmx="11~11" />
+      <Function ID="13" Name="Reserved" Display="'Reserved %.f',12~19" Dmx="12~19" />
+      <Function ID="14" Name="Picture Merge" Display="'RGB Edge      Blending'" Dmx="20~20" />
+      <Function ID="15" Name="Reserved" Display="'Reserved %.f',21~255" Dmx="21~255" />
+    </Attribute>
+    <Attribute ID="Global2EffectsP1" Name="Glob Eff 2 P1" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Parameter 1" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Global2EffectsP2" Name="Glob Eff 2 P2" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Parameter 2" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Global2EffectsP3" Name="Glob Eff 2 P3" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Parameter 3" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Red1" Name="Red 1" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green1" Name="Green 1" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue1" Name="Blue 1" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="White1" Name="White 1" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="White C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,255" />
+    </Attribute>
+    <Attribute ID="LEDShutter" Name="LED Shutter" Description="" Group="I">
+      <Locate Locate="2" PowerOn="2" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~31" Intensity="0~0" />
+      <Function ID="2" Name="Open" Display="'Open'" Dmx="32~63" Intensity="0~0" />
+      <Function ID="3" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="64~95" Intensity="0~0" />
+      <Function ID="4" Name="Open" Display="'Open'" Dmx="96~127" Intensity="0~0" />
+      <Function ID="5" Name="Open Pulse" Display="'Open Pulse    %.f%%',0~100" Dmx="128~143" Intensity="0~0" />
+      <Function ID="6" Name="Close Pulse" Display="'Close Pulse   %.f%%',100~0" Dmx="144~159" Intensity="0~0" />
+      <Function ID="7" Name="Open" Display="'Open'" Dmx="160~191" Intensity="0~0" />
+      <Function ID="8" Name="Rnd Strobe" Display="'Rnd Strobe    %.f%%',0~100" Dmx="192~223" Intensity="0~0" />
+      <Function ID="9" Name="Open" Display="'Open'" Dmx="255~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Zoom" Name="Zoom" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Zoom" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Red2" Name="Red 2" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green2" Name="Green 2" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue2" Name="Blue 2" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="White2" Name="White 2" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="White C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,255" />
+    </Attribute>
+  </Control>
+  <Mode Name="1. Master and Effects" Channels="57">
+    <Import PearlRef="RO_DSpt3KM" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="530" TiltMax="280" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="LEDShutter" ChannelOffset="21" Wheel="5" />
+      <Attribute ID="Dimmer" ChannelOffset="22" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="40" Wheel="4" />
+      <Attribute ID="Pan" ChannelOffset="1,2" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="3,4" Wheel="3" />
+      <Attribute ID="Red1" ChannelOffset="13" Wheel="40" />
+      <Attribute ID="Green1" ChannelOffset="14" Wheel="41" />
+      <Attribute ID="Blue1" ChannelOffset="15" Wheel="42" />
+      <Attribute ID="White1" ChannelOffset="16" Wheel="37" />
+      <Attribute ID="Cyan" ChannelOffset="33" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="34" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="35" Wheel="12" />
+      <Attribute ID="CTF" ChannelOffset="36" Wheel="7" />
+      <Attribute ID="Red2" ChannelOffset="17" Wheel="70" />
+      <Attribute ID="Green2" ChannelOffset="18" Wheel="71" />
+      <Attribute ID="Blue2" ChannelOffset="19" Wheel="72" />
+      <Attribute ID="White2" ChannelOffset="20" Wheel="38" />
+      <Attribute ID="Focus" ChannelOffset="11" Wheel="20" />
+      <Attribute ID="Iris" ChannelOffset="12" Wheel="21" />
+      <Attribute ID="Keystone_TL_X" ChannelOffset="23" Wheel="13" />
+      <Attribute ID="Keystone_TL_Y" ChannelOffset="24" Wheel="15" />
+      <Attribute ID="Keystone_TR_X" ChannelOffset="25" Wheel="43" />
+      <Attribute ID="Keystone_TR_Y" ChannelOffset="26" Wheel="45" />
+      <Attribute ID="Keystone_BR_X" ChannelOffset="27" Wheel="73" />
+      <Attribute ID="Keystone_BR_Y" ChannelOffset="28" Wheel="75" />
+      <Attribute ID="Keystone_BL_X" ChannelOffset="29" Wheel="103" />
+      <Attribute ID="Keystone_BL_Y" ChannelOffset="30" Wheel="105" />
+      <Attribute ID="Keystone_X_Ratio" ChannelOffset="31" Wheel="133" />
+      <Attribute ID="Keystone_Y_Ratio" ChannelOffset="32" Wheel="135" />
+      <Attribute ID="GlobaIris" ChannelOffset="38,39" Wheel="49" />
+      <Attribute ID="Zoom" ChannelOffset="10" Wheel="19" />
+      <Attribute ID="Global1Effect" ChannelOffset="50" Wheel="23" />
+      <Attribute ID="Global1EffectsP1" ChannelOffset="51" Wheel="24" />
+      <Attribute ID="GlobalEffectsP2" ChannelOffset="52" Wheel="52" />
+      <Attribute ID="GlobalEffectsP3" ChannelOffset="53" Wheel="53" />
+      <Attribute ID="Global2Effect" ChannelOffset="54" Wheel="54" />
+      <Attribute ID="Global2EffectsP1" ChannelOffset="55" Wheel="82" />
+      <Attribute ID="Global2EffectsP2" ChannelOffset="56" Wheel="83" />
+      <Attribute ID="Global2EffectsP3" ChannelOffset="57" Wheel="84" />
+      <Attribute ID="P/T_Speed" ChannelOffset="5" Wheel="25" />
+      <Attribute ID="P/T_Macro" ChannelOffset="6" Wheel="26" />
+      <Attribute ID="PT_MSPeed" ChannelOffset="7" Wheel="27" />
+      <Attribute ID="Control" ChannelOffset="8" Wheel="148" />
+      <Attribute ID="Video" ChannelOffset="9" Wheel="22" />
+      <Attribute ID="Digital_Iris_Sel" ChannelOffset="37" Wheel="50" />
+      <Attribute ID="Blade_4" ChannelOffset="41" Wheel="28" />
+      <Attribute ID="Blade_4_Rot" ChannelOffset="42" Wheel="29" />
+      <Attribute ID="Blade_2" ChannelOffset="43" Wheel="58" />
+      <Attribute ID="Blade_2_Rot" ChannelOffset="44" Wheel="59" />
+      <Attribute ID="Blade_1" ChannelOffset="45" Wheel="88" />
+      <Attribute ID="Blade_1_Rot" ChannelOffset="46" Wheel="89" />
+      <Attribute ID="Blade_3" ChannelOffset="47" Wheel="118" />
+      <Attribute ID="Blade_3_Rot" ChannelOffset="48" Wheel="119" />
+      <Attribute ID="Blade_All_Rot" ChannelOffset="49" Wheel="120" />
+    </Include>
+  </Mode>
+  <Mode Name="No Server" Channels="22">
+    <Import PearlRef="RO_DSpt3KNS" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="530" TiltMax="280" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="LEDShutter" ChannelOffset="21" Wheel="5" />
+      <Attribute ID="Dimmer" ChannelOffset="22" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="1,2" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="3,4" Wheel="3" />
+      <Attribute ID="Red1" ChannelOffset="13" Wheel="40" />
+      <Attribute ID="Green1" ChannelOffset="14" Wheel="41" />
+      <Attribute ID="Blue1" ChannelOffset="15" Wheel="42" />
+      <Attribute ID="White1" ChannelOffset="16" Wheel="37" />
+      <Attribute ID="Red2" ChannelOffset="17" Wheel="70" />
+      <Attribute ID="Green2" ChannelOffset="18" Wheel="71" />
+      <Attribute ID="Blue2" ChannelOffset="19" Wheel="72" />
+      <Attribute ID="White2" ChannelOffset="20" Wheel="38" />
+      <Attribute ID="Focus" ChannelOffset="11" Wheel="20" />
+      <Attribute ID="Zoom" ChannelOffset="10" Wheel="19" />
+      <Attribute ID="Iris" ChannelOffset="12" Wheel="21" />
+      <Attribute ID="P/T_Speed" ChannelOffset="5" Wheel="25" />
+      <Attribute ID="P/T_Macro" ChannelOffset="6" Wheel="26" />
+      <Attribute ID="PT_MSPeed" ChannelOffset="7" Wheel="27" />
+      <Attribute ID="Control" ChannelOffset="8" Wheel="148" />
+      <Attribute ID="Video" ChannelOffset="9" Wheel="22" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Internal PC Reset">
+      <Set Channel="LEDShutter:9" Delay="1000" />
+      <Set Channel="Control:2" Delay="4000" />
+      <Set Channel="Control:1,LEDShutter:2" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Control:15" Delay="6000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Reset All">
+      <Set Channel="Control:19" Delay="6000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp Off">
+      <Set Channel="Control:22" Delay="6000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="PT Speed Mode">
+      <Set Channel="GlobaIris:1:100" Delay="3500" />
+      <Set Channel="Control:4" Delay="3500" />
+      <Set Channel="GlobaIris:1:100,Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="PT Time Mode">
+      <Set Channel="GlobaIris:1:100" Delay="3500" />
+      <Set Channel="Control:5" Delay="3500" />
+      <Set Channel="GlobaIris:1:100,Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="PT Blackout Enabled">
+      <Set Channel="GlobaIris:1:100" Delay="3500" />
+      <Set Channel="Control:6" Delay="3500" />
+      <Set Channel="GlobaIris:1:100,Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="PT Blackout Disabled">
+      <Set Channel="GlobaIris:1:100" Delay="3500" />
+      <Set Channel="Control:7" Delay="3500" />
+      <Set Channel="GlobaIris:1:100,Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Ceiling Projection On">
+      <Set Channel="GlobaIris:1:100" Delay="3500" />
+      <Set Channel="Control:8" Delay="3500" />
+      <Set Channel="GlobaIris:1:100,Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Ceiling Projection Off">
+      <Set Channel="GlobaIris:1:100" Delay="3500" />
+      <Set Channel="Control:9" Delay="3500" />
+      <Set Channel="GlobaIris:1:100,Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Rear Projection On">
+      <Set Channel="GlobaIris:1:100" Delay="3500" />
+      <Set Channel="Control:10" Delay="3500" />
+      <Set Channel="GlobaIris:1:100,Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Rear Projection Off">
+      <Set Channel="GlobaIris:1:100" Delay="3500" />
+      <Set Channel="Control:11" Delay="3500" />
+      <Set Channel="GlobaIris:1:100,Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="DMX Input">
+      <Set Channel="GlobaIris:1:100" Delay="3500" />
+      <Set Channel="Control:12" Delay="3500" />
+      <Set Channel="GlobaIris:1:100,Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Artnet Input">
+      <Set Channel="GlobaIris:1:100" Delay="3500" />
+      <Set Channel="Control:13" Delay="3500" />
+      <Set Channel="GlobaIris:1:100,Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Control:15" Delay="4000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="PT Reset">
+      <Set Channel="Control:16" Delay="4000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Focus Reset">
+      <Set Channel="Control:17" Delay="4000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Reset All">
+      <Set Channel="Control:19" Delay="4000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Graphic Engine Reset">
+      <Set Channel="Control:20" Delay="4000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp Off">
+      <Set Channel="Control:22" Delay="4000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Shutdown">
+      <Set Channel="Control:23" Delay="6000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+  </Macro>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Cyan:1:0,Magenta:1:0,Yellow:1:0" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Cyan:1:0,Magenta:1:100,Yellow:1:100" />
+      <Palette ID="3" Name="Amber" Number="3" Page="1" SetControl="Cyan:1:0,Magenta:1:50,Yellow:1:100" />
+      <Palette ID="4" Name="Yellow" Legend="Yell" Number="4" Page="1" SetControl="Cyan:1:0,Magenta:1:0,Yellow:1:100" />
+      <Palette ID="5" Name="Lime" Number="0" Page="1" SetControl="Cyan:1:50,Magenta:1:0,Yellow:1:100" />
+      <Palette ID="6" Name="Green" Number="5" Page="1" SetControl="Cyan:1:100,Magenta:1:0,Yellow:1:100" />
+      <Palette ID="7" Name="Aqua" Number="0" Page="1" SetControl="Cyan:1:100,Magenta:1:0,Yellow:1:50" />
+      <Palette ID="8" Name="Cyan" Number="6" Page="1" SetControl="Cyan:1:100,Magenta:1:0,Yellow:1:0" />
+      <Palette ID="9" Name="Light Blue" Number="0" Page="1" SetControl="Cyan:1:100,Magenta:1:50,Yellow:1:0" />
+      <Palette ID="10" Name="Blue" Number="7" Page="1" SetControl="Cyan:1:100,Magenta:1:100,Yellow:1:0" />
+      <Palette ID="11" Name="Purple" Legend="Purpl" Number="0" Page="1" SetControl="Cyan:1:50,Magenta:1:100,Yellow:1:0" />
+      <Palette ID="12" Name="Magenta" Legend="Mag" Number="10" Page="1" SetControl="Cyan:1:0,Magenta:1:100,Yellow:1:0" />
+      <Palette ID="13" Name="Rose" Number="0" Page="1" SetControl="Cyan:1:0,Magenta:1:100,Yellow:1:50" />
+      <Palette ID="14" Name="Lavender" Legend="Lav" Number="8" Page="1" SetControl="Cyan:1:29,Magenta:1:57,Yellow:1:6" />
+      <Palette ID="15" Name="Ultra Violet" Legend="UV" Number="9" Page="1" SetControl="Cyan:1:80,Magenta:1:100,Yellow:1:0" />
+    </Group>
+  </Palettes>
+</Fixture>

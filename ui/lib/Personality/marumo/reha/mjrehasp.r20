@@ -1,0 +1,631 @@
+; 'Marumo REHA', 8 DMX Channels, filename: MJREHASP.R20
+;
+;   Date       By                Description
+;   15-06-07   Pers Creator      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MJ_REHASPLT                         mode=8 DMX Split  8 DMX Channels
+NAME "Marumo" "REHA, Split"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  8  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   0   0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 8 DMX Split"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=504
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   L    1   100   1N   E   1   "Pan"             128     0     0
+3     1   L    2   100   1N   F   1   "Tilt"            128     0     0
+13   61   L    3   100   1N   0   1   "Pan Low"         128     0     0
+13    1   L    4   100   1N   0   1   "Tilt Low"        128     0     0
+4     1   I    6   100   1N   A   1   "Colour 1"          0     0     0
+5    61   L    5   100   1N   L   1   "Focus"           128     0     0
+8     1   L    7   100   1N   0   1   "P/T Speed"         0     0     0
+8    61   L    8   100   1N   0   1   "Speed"             0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Marumo REHA
+8 DMX Split
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 6  ;Colour 1
+0   15   "Colour 1"
+16  31   "Colour 2"
+32  47   "Colour 3"
+48  63   "Colour 4"
+64  79   "Colour 5"
+80  95   "Colour 6"
+96  111  "Colour 7"
+112 127  "Colour 8"
+128 143  "Colour 9"
+144 159  "Colour 10"
+160 175  "Colour 11"
+176 191  "Colour 12"
+192 207  "Colour 13"
+208 223  "Colour 14"
+224 239  "Colour 15"
+240 255  "Colour 16"
+REND
+
+RANGE 7  ;P/T Speed
+0   0    "No Movement"
+1   1    "P0 T1"
+2   2    "P0 T2"
+3   3    "P0 T3"
+4   4    "P0 T4"
+5   5    "P0 T5"
+6   6    "P0 T6"
+7   7    "P0 T7"
+8   8    "P0 T8"
+9   9    "P0 T9"
+10  10   "P0 T10"
+11  11   "P0 T11"
+12  12   "P0 T12"
+13  13   "P0 T13"
+14  14   "P0 T14"
+15  15   "P0 T15"
+16  16   "P1 T0"
+17  17   "P1 T1"
+18  18   "P1 T2"
+19  19   "P1 T3"
+20  20   "P1 T4"
+21  21   "P1 T5"
+22  22   "P1 T6"
+23  23   "P1 T7"
+24  24   "P1 T8"
+25  25   "P1 T9"
+26  26   "P1 T10"
+27  27   "P1 T11"
+28  28   "P1 T12"
+29  29   "P1 T13"
+30  30   "P1 T14"
+31  31   "P1 T15"
+32  32   "P2 T0"
+33  33   "P2 T1"
+34  34   "P2 T2"
+35  35   "P2 T3"
+36  36   "P2 T4"
+37  37   "P2 T5"
+38  38   "P2 T6"
+39  39   "P2 T7"
+40  40   "P2 T8"
+41  41   "P2 T9"
+42  42   "P2 T10"
+43  43   "P2 T11"
+44  44   "P2 T12"
+45  45   "P2 T13"
+46  46   "P2 T14"
+47  47   "P2 T15"
+48  48   "P3 T0"
+49  49   "P3 T1"
+50  50   "P3 T2"
+51  51   "P3 T3"
+52  52   "P3 T4"
+53  53   "P3 T5"
+54  54   "P3 T6"
+55  55   "P3 T7"
+56  56   "P3 T8"
+57  57   "P3 T9"
+58  58   "P3 T10"
+59  59   "P3 T11"
+60  60   "P3 T12"
+61  61   "P3 T13"
+62  62   "P3 T14"
+63  63   "P3 T15"
+64  64   "P4 T0"
+65  65   "P4 T1"
+66  66   "P4 T2"
+67  67   "P4 T3"
+68  68   "P4 T4"
+69  69   "P4 T5"
+70  70   "P4 T6"
+71  71   "P4 T7"
+72  72   "P4 T8"
+73  73   "P4 T9"
+74  74   "P4 T10"
+75  75   "P4 T11"
+76  76   "P4 T12"
+77  77   "P4 T13"
+78  78   "P4 T14"
+79  79   "P4 T15"
+80  80   "P5 T0"
+81  81   "P5 T1"
+82  82   "P5 T2"
+83  83   "P5 T3"
+84  84   "P5 T4"
+85  85   "P5 T5"
+86  86   "P5 T6"
+87  87   "P5 T7"
+88  88   "P5 T8"
+89  89   "P5 T9"
+90  90   "P5 T10"
+91  91   "P5 T11"
+92  92   "P5 T12"
+93  93   "P5 T13"
+94  94   "P5 T14"
+95  95   "P5 T15"
+96  96   "P6 T0"
+97  97   "P6 T1"
+98  98   "P6 T2"
+99  99   "P6 T3"
+100 100  "P6 T4"
+101 101  "P6 T5"
+102 102  "P6 T6"
+103 103  "P6 T7"
+104 104  "P6 T8"
+105 105  "P6 T9"
+106 106  "P6 T10"
+107 107  "P6 T11"
+108 108  "P6 T12"
+109 109  "P6 T13"
+110 110  "P6 T14"
+111 111  "P6 T15"
+112 112  "P7 T0"
+113 113  "P7 T1"
+114 114  "P7 T2"
+115 115  "P7 T3"
+116 116  "P7 T4"
+117 117  "P7 T5"
+118 118  "P7 T6"
+119 119  "P7 T7"
+120 120  "P7 T8"
+121 121  "P7 T9"
+122 122  "P7 T10"
+123 123  "P7 T11"
+124 124  "P7 T12"
+125 125  "P7 T13"
+126 126  "P7 T14"
+127 127  "P7 T15"
+128 128  "P8 T0"
+129 129  "P8 T1"
+130 130  "P8 T2"
+131 131  "P8 T3"
+132 132  "P8 T4"
+133 133  "P8 T5"
+134 134  "P8 T6"
+135 135  "P8 T7"
+136 136  "P8 T8"
+137 137  "P8 T9"
+138 138  "P8 T10"
+139 139  "P8 T11"
+140 140  "P8 T12"
+141 141  "P8 T13"
+142 142  "P8 T14"
+143 143  "P8 T15"
+144 144  "P9 T0"
+145 145  "P9 T1"
+146 146  "P9 T2"
+147 147  "P9 T3"
+148 148  "P9 T4"
+149 149  "P9 T5"
+150 150  "P9 T6"
+151 151  "P9 T7"
+152 152  "P9 T8"
+153 153  "P9 T9"
+154 154  "P9 T10"
+155 155  "P9 T11"
+156 156  "P9 T12"
+157 157  "P9 T13"
+158 158  "P9 T14"
+159 159  "P9 T15"
+160 160  "P10 T0"
+161 161  "P10 T1"
+162 162  "P10 T2"
+163 163  "P10 T3"
+164 164  "P10 T4"
+165 165  "P10 T5"
+166 166  "P10 T6"
+167 167  "P10 T7"
+168 168  "P10 T8"
+169 169  "P10 T9"
+170 170  "P10 T10"
+171 171  "P10 T11"
+172 172  "P10 T12"
+173 173  "P10 T13"
+174 174  "P10 T14"
+175 175  "P10 T15"
+176 176  "P11 T0"
+177 177  "P11 T1"
+178 178  "P11 T2"
+179 179  "P11 T3"
+180 180  "P11 T4"
+181 181  "P11 T5"
+182 182  "P11 T6"
+183 183  "P11 T7"
+184 184  "P11 T8"
+185 185  "P11 T9"
+186 186  "P11 T10"
+187 187  "P11 T11"
+188 188  "P11 T12"
+189 189  "P11 T13"
+190 190  "P11 T14"
+191 191  "P11 T15"
+192 192  "P12 T0"
+193 193  "P12 T1"
+194 194  "P12 T2"
+195 195  "P12 T3"
+196 196  "P12 T4"
+197 197  "P12 T5"
+198 198  "P12 T6"
+199 199  "P12 T7"
+200 200  "P12 T8"
+201 201  "P12 T9"
+202 202  "P12 T10"
+203 203  "P12 T11"
+204 204  "P12 T12"
+205 205  "P12 T13"
+206 206  "P12 T14"
+207 207  "P12 T15"
+208 208  "P13 T0"
+209 209  "P13 T1"
+210 210  "P13 T2"
+211 211  "P13 T3"
+212 212  "P13 T4"
+213 213  "P13 T5"
+214 214  "P13 T6"
+215 215  "P13 T7"
+216 216  "P13 T8"
+217 217  "P13 T9"
+218 218  "P13 T10"
+219 219  "P13 T11"
+220 220  "P13 T12"
+221 221  "P13 T13"
+222 222  "P13 T14"
+223 223  "P13 T15"
+224 224  "P14 T0"
+225 225  "P14 T1"
+226 226  "P14 T2"
+227 227  "P14 T3"
+228 228  "P14 T4"
+229 229  "P14 T5"
+230 230  "P14 T6"
+231 231  "P14 T7"
+232 232  "P14 T8"
+233 233  "P14 T9"
+234 234  "P14 T10"
+235 235  "P14 T11"
+236 236  "P14 T12"
+237 237  "P14 T13"
+238 238  "P14 T14"
+239 239  "P14 T15"
+REND
+
+RANGE 8  ;Speed
+0   0    "No Movement"
+1   1    "F0 C1"
+2   2    "F0 C2"
+3   3    "F0 C3"
+4   4    "F0 C4"
+5   5    "F0 C5"
+6   6    "F0 C6"
+7   7    "F0 C7"
+8   8    "F0 C8"
+9   9    "F0 C9"
+10  10   "F0 C10"
+11  11   "F0 C11"
+12  12   "F0 C12"
+13  13   "F0 C13"
+14  14   "F0 C14"
+15  15   "F0 C15"
+16  16   "F1 C0"
+17  17   "F1 C1"
+18  18   "F1 C2"
+19  19   "F1 C3"
+20  20   "F1 C4"
+21  21   "F1 C5"
+22  22   "F1 C6"
+23  23   "F1 C7"
+24  24   "F1 C8"
+25  25   "F1 C9"
+26  26   "F1 C10"
+27  27   "F1 C11"
+28  28   "F1 C12"
+29  29   "F1 C13"
+30  30   "F1 C14"
+31  31   "F1 C15"
+32  32   "F2 C0"
+33  33   "F2 C1"
+34  34   "F2 C2"
+35  35   "F2 C3"
+36  36   "F2 C4"
+37  37   "F2 C5"
+38  38   "F2 C6"
+39  39   "F2 C7"
+40  40   "F2 C8"
+41  41   "F2 C9"
+42  42   "F2 C10"
+43  43   "F2 C11"
+44  44   "F2 C12"
+45  45   "F2 C13"
+46  46   "F2 C14"
+47  47   "F2 C15"
+48  48   "F3 C0"
+49  49   "F3 C1"
+50  50   "F3 C2"
+51  51   "F3 C3"
+52  52   "F3 C4"
+53  53   "F3 C5"
+54  54   "F3 C6"
+55  55   "F3 C7"
+56  56   "F3 C8"
+57  57   "F3 C9"
+58  58   "F3 C10"
+59  59   "F3 C11"
+60  60   "F3 C12"
+61  61   "F3 C13"
+62  62   "F3 C14"
+63  63   "F3 C15"
+64  64   "F4 C0"
+65  65   "F4 C1"
+66  66   "F4 C2"
+67  67   "F4 C3"
+68  68   "F4 C4"
+69  69   "F4 C5"
+70  70   "F4 C6"
+71  71   "F4 C7"
+72  72   "F4 C8"
+73  73   "F4 C9"
+74  74   "F4 C10"
+75  75   "F4 C11"
+76  76   "F4 C12"
+77  77   "F4 C13"
+78  78   "F4 C14"
+79  79   "F4 C15"
+80  80   "F5 C0"
+81  81   "F5 C1"
+82  82   "F5 C2"
+83  83   "F5 C3"
+84  84   "F5 C4"
+85  85   "F5 C5"
+86  86   "F5 C6"
+87  87   "F5 C7"
+88  88   "F5 C8"
+89  89   "F5 C9"
+90  90   "F5 C10"
+91  91   "F5 C11"
+92  92   "F5 C12"
+93  93   "F5 C13"
+94  94   "F5 C14"
+95  95   "F5 C15"
+96  96   "F6 C0"
+97  97   "F6 C1"
+98  98   "F6 C2"
+99  99   "F6 C3"
+100 100  "F6 C4"
+101 101  "F6 C5"
+102 102  "F6 C6"
+103 103  "F6 C7"
+104 104  "F6 C8"
+105 105  "F6 C9"
+106 106  "F6 C10"
+107 107  "F6 C11"
+108 108  "F6 C12"
+109 109  "F6 C13"
+110 110  "F6 C14"
+111 111  "F6 C15"
+112 112  "F7 C0"
+113 113  "F7 C1"
+114 114  "F7 C2"
+115 115  "F7 C3"
+116 116  "F7 C4"
+117 117  "F7 C5"
+118 118  "F7 C6"
+119 119  "F7 C7"
+120 120  "F7 C8"
+121 121  "F7 C9"
+122 122  "F7 C10"
+123 123  "F7 C11"
+124 124  "F7 C12"
+125 125  "F7 C13"
+126 126  "F7 C14"
+127 127  "F7 C15"
+128 128  "F8 C0"
+129 129  "F8 C1"
+130 130  "F8 C2"
+131 131  "F8 C3"
+132 132  "F8 C4"
+133 133  "F8 C5"
+134 134  "F8 C6"
+135 135  "F8 C7"
+136 136  "F8 C8"
+137 137  "F8 C9"
+138 138  "F8 C10"
+139 139  "F8 C11"
+140 140  "F8 C12"
+141 141  "F8 C13"
+142 142  "F8 C14"
+143 143  "F8 C15"
+144 144  "F9 C0"
+145 145  "F9 C1"
+146 146  "F9 C2"
+147 147  "F9 C3"
+148 148  "F9 C4"
+149 149  "F9 C5"
+150 150  "F9 C6"
+151 151  "F9 C7"
+152 152  "F9 C8"
+153 153  "F9 C9"
+154 154  "F9 C10"
+155 155  "F9 C11"
+156 156  "F9 C12"
+157 157  "F9 C13"
+158 158  "F9 C14"
+159 159  "F9 C15"
+160 160  "F10 C0"
+161 161  "F10 C1"
+162 162  "F10 C2"
+163 163  "F10 C3"
+164 164  "F10 C4"
+165 165  "F10 C5"
+166 166  "F10 C6"
+167 167  "F10 C7"
+168 168  "F10 C8"
+169 169  "F10 C9"
+170 170  "F10 C10"
+171 171  "F10 C11"
+172 172  "F10 C12"
+173 173  "F10 C13"
+174 174  "F10 C14"
+175 175  "F10 C15"
+176 176  "F11 C0"
+177 177  "F11 C1"
+178 178  "F11 C2"
+179 179  "F11 C3"
+180 180  "F11 C4"
+181 181  "F11 C5"
+182 182  "F11 C6"
+183 183  "F11 C7"
+184 184  "F11 C8"
+185 185  "F11 C9"
+186 186  "F11 C10"
+187 187  "F11 C11"
+188 188  "F11 C12"
+189 189  "F11 C13"
+190 190  "F11 C14"
+191 191  "F11 C15"
+192 192  "F12 C0"
+193 193  "F12 C1"
+194 194  "F12 C2"
+195 195  "F12 C3"
+196 196  "F12 C4"
+197 197  "F12 C5"
+198 198  "F12 C6"
+199 199  "F12 C7"
+200 200  "F12 C8"
+201 201  "F12 C9"
+202 202  "F12 C10"
+203 203  "F12 C11"
+204 204  "F12 C12"
+205 205  "F12 C13"
+206 206  "F12 C14"
+207 207  "F12 C15"
+208 208  "F13 C0"
+209 209  "F13 C1"
+210 210  "F13 C2"
+211 211  "F13 C3"
+212 212  "F13 C4"
+213 213  "F13 C5"
+214 214  "F13 C6"
+215 215  "F13 C7"
+216 216  "F13 C8"
+217 217  "F13 C9"
+218 218  "F13 C10"
+219 219  "F13 C11"
+220 220  "F13 C12"
+221 221  "F13 C13"
+222 222  "F13 C14"
+223 223  "F13 C15"
+224 224  "F14 C0"
+225 225  "F14 C1"
+226 226  "F14 C2"
+227 227  "F14 C3"
+228 228  "F14 C4"
+229 229  "F14 C5"
+230 230  "F14 C6"
+231 231  "F14 C7"
+232 232  "F14 C8"
+233 233  "F14 C9"
+234 234  "F14 C10"
+235 235  "F14 C11"
+236 236  "F14 C12"
+237 237  "F14 C13"
+238 238  "F14 C14"
+239 239  "F14 C15"
+REND
+

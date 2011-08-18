@@ -1,0 +1,254 @@
+; 'SGM Giotto Profile 400', 27 DMX Channels, filename: SGMGPf4.R20
+;
+;   Date       By                Description
+;   18-05-04   Pers Creator      Created - Exported from Diamond 4 file.
+;   19-05-04   L Gallagher       Checked
+;   02-09-04   Phil Rogers       Revised range tables
+;   23-09-04   Phil Rogers       Edited control locate (etc) values.
+;   14-01-05  Phil      Revised device name
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  SM_GiPro400                            mode=27 DMX  27 DMX Channels
+NAME "SGM" "Giotto Profile 400"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  27  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   540   270
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 27 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=485
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    8   100   1N   O   1   "Shutter"         255   255   255
+1     1   H    9   100   1N   H   1   "Dimmer"          255   255   255
+3    61   s    1   100   1N   E   1   "Pan"             128   128   128
+0     0   L    2   100   1N   E   1   "Pan Low"         128   128   128
+3     1   s    3   100   1N   F   1   "Tilt"            128   128   128
+0     0   L    4   100   1N   F   1   "Tilt Low"        128   128   128
+19   61   I    5   100   1N   0   1   "CTO"               0     0     0
+4     1   I   23   100   1N   0   1   "Colour Func"       0     0     0
+4    61   I    6   100   1N   A   1   "Colour"            0     0     0
+5     1   L   21   100   1N   Q   1   "Zoom"              0     0     0
+5    61   L   20   100   1N   L   1   "Focus"             0     0     0
+6     1   L   22   100   1N   0   1   "Frost"             0     0     0
+9     1   I   24   100   1N   0   1   "Effect Func"       0     0     0
+9    61   I    7   100   1N   P   1   "Effect"            0     0     0
+12    1   L   10   100   1N   0   1   "Blade A"           0     0     0
+13    1   L   12   100   1N   0   1   "Blade B"           0     0     0
+14    1   L   14   100   1N   0   1   "Blade C"           0     0     0
+15    1   L   16   100   1N   0   1   "Blade D"           0     0     0
+12   61   L   11   100   1N   0   1   "Blade A Rot"       0     0     0
+13   61   L   13   100   1N   0   1   "Blade B Rot"       0     0     0
+14   61   L   15   100   1N   0   1   "Blade C Rot"       0     0     0
+15   61   L   17   100   1N   0   1   "Blade D Rot"       0     0     0
+10    1   L   25   100   1N   0   1   "Effect 1 Sha"      0     0     0
+10   61   L   26   100   1N   0   1   "Effect 2 Sha"      0     0     0
+8    61   I   18   100   1N   0   1   "Control"          90    90    90
+8     1   I   19   100   1N   0   1   "MSpeed"            0     0     0
+7    61   I   27   100   1N   0   1   "Macro"             0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+SGM Giotto Profile 400
+27 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Lamp On"       1  18
+"data"                0  9A
+"delay"               1  32
+"data"                0  5F
+MEND
+
+MACRO "Lamp Off"      2  18
+"data"                0  1E
+"delay"               1  32
+"data"                0  5F
+MEND
+
+MACRO "Reset"         3  18
+"data"                0  F8
+"delay"               1  32
+"data"                0  5F
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 8  ;Shutter
+0   7    "Closed"
+8   119  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+120 136  "Strobe Bass"
+137 153  "Music Flash"
+154 170  "Colour B/O"
+171 187  "Effect B/O"
+188 204  "Eff/Col B/O"
+205 255  "Open"
+REND
+
+RANGE 5  ;CTO
+0   127  "Open"
+128 255  "CTO"
+REND
+
+RANGE 23  ;Colour Func
+0   85    "Fixed"
+86  170  "Scroll"
+171 255  "Music"
+REND
+
+RANGE 6  ;Colour
+0   36    "Open"
+37  72   "Amber"
+73  108  "Green"
+109 144  "Red"
+145 180  "Magenta"
+181 216  "Blue"
+217 255  "Yellow"
+REND
+
+RANGE 24  ;Effect Func
+0   85    "Fixed"
+86  170  "Scroll"
+171 255  "Music"
+REND
+
+RANGE 7  ;Effect
+0   36    "Open"
+37  72   "Cyan"
+73  108  "Gobo 1"
+109 144  "Pink"
+145 180  "Gobo 2"
+181 216  "Orange"
+217 255  "Gobo 3"
+REND
+
+RANGE 25  ;Effect 1 Shake
+0   47    "No Shake"
+48  255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 26  ;Effect 2 Shake
+0   47    "No Shake"
+48  255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 18  ;Control
+0   60   "Lamp Off"
+61  129  "Safe"
+130 179  "Lamp On"
+180 239  "Safe"
+240 255  "Reset"
+REND
+
+RANGE 19  ;MSpeed
+0   3    "Crossfade"
+4   255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 27  ;Macro
+0   7    "No Macro"
+8   15   "Macro 1"
+16  23   "Macro 2"
+24  31   "Macro 3"
+32  39   "Macro 4"
+40  47   "Macro 5"
+48  55   "Macro 6"
+56  63   "Macro 7"
+64  71   "Macro 8"
+72  79   "Macro 9"
+80  87   "Macro 10"
+88  95   "Macro 11"
+96  255  "No Macro"
+REND
+

@@ -1,0 +1,167 @@
+; "Martin ImageScan", 7 DMX channels, factory default, filename :mtpiscan.r20
+;
+;  Date       By            Description
+;  3.1.97     S.W.          Created
+;  15-01-98   P.Bari        Revised attributes
+;   22-02-05  Phil      Revised device name
+;  25-11-05   E Spencer	Revised device name
+; 
+;Special notes for Martin Image Scan:-
+; Built in focuses for dimmer channel
+; 1   Turns on lamp (dimmer on)
+; 2   Turns off lamp (dimmer off)
+;
+; Built in focuses for the image channel (high resolution)    
+; 11    STOP
+; 12    Slow Clockwise
+; 13    Fast Clockwise
+; 14    Slow Anti Clockwise
+; 15    Fast Anti Clockwise
+;
+; Built in orientation focuses (in degrees)
+; 16    0 
+; 17    90 
+; 18    180
+; 19    270
+; 20    360 
+;
+; Note:- Because the reset function is on the same channel as the
+;   dimmer function care should be taken not to put the preset fader
+;   to full. It will be better to use built in focus 1 & 2 for turning
+;   on and off the dimmer.
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MT_ImgScan                                    7 DMX channels
+NAME "Martin" "Image Scan, 7 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE    1   7  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  1   150 110
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Dip      1234 56789 0"
+"Address  %04b %04b%b 0" d%256&15R>4, d%256&240R, d/256
+""
+"1=ON  0=OFF"
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=506
+;
+; DMX number must be divisible by this	
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+;
+DMX
+1  1 H 1 100 1N O 1 "Shutter"	30   30    0
+5 61 L 2 100 1N L 1 "Focus"	160    0    0
+7  1 s 3 100 1N 0 1 "Rotate"	0    0    0
+0  0 L 4 100 1N 0 1 "R.Fine"	0    0    0
+3 61 L 5 100 1N E 1 "Pan"	128   -1   -1
+3  1 L 6 100 1N F 1 "Tilt"	128   -1   -1
+8  1 I 7 100 1N 0 1 "Speed"	0   -1   -1
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+  Martin Image Scan.
+Bank    Faders
+   Bottom    Top
+---------------------
+ 1 Shutter   --      
+ 2 --        --       
+ 3 Tilt      Pan     
+ 4 --        --      
+ 5 --        Focus      
+ 6 Gobo      --      
+ 7 Rotate    --      
+ 8 Speed p/t --      
+
+!Assume factory set 
+  to 7 channel
+
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+; Positions
+
+PFTABLE "Positions" -1  5  6
+"Middle"    21 80  80
+"Left"      22 50  80
+"Right"     23 b0  80
+"Top"       24 80  50
+"Bottom"    25 80  b0
+"TLeft"     26 50  50
+"TRight"    27 b0  b0
+"BLeft"     28 50  b0
+"BRight"    29 b0  50
+PFEND
+
+PFTABLE "LampOnOFF" -1 1
+"LampON"     1   20
+"LampOFF"    2    0
+PFEND
+
+PFTABLE "Image" -1  3 
+"Stop"          11  0 
+"Spin1"         12  84
+"Spin2"         13  6a
+"Spin3"         14  3c
+"Spin4"         15  53
+"Orient1"       16  c8
+"Orient2"       17  d4
+"Orient3"       18  e1
+"Orient4"       19  ed
+"Orient5"       20  f9
+PFEND
+
+MACRO "Reset Unit" 1  1
+"data"           0  d2
+"delay"          1  20
+"data"           0  20
+"delay"          1  10
+MEND
+
+MACRO "Lamp ON" 2  1
+"data"           0  f0
+"delay"          1  20
+"data"           0  20
+"delay"          1  10
+MEND
+

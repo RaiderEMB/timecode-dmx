@@ -1,0 +1,172 @@
+; 'Robe Hip-Hop', 4 DMX Channels, filename: ROHIPHOP.R20
+;
+;   Date       By                Description
+;   01-03-06   Pers Creator      Created - Exported from Diamond 4 file.
+;   01-03-06   Ed Spencer	 Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  RO_HipHop                              mode=4 DMX, 8bit  4 DMX Channels
+NAME "Robe" "Hip Hop"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  4  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0   0   0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 4 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=508
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+DMX
+6     1   I    1   100   1N   I   1   "Gobo"              0     0     0
+7     1   L    2   100   1N   J   1   "Gobo Rot"          0     0     0
+1     1   H    3   100   1N   H   1   "Dimmer"           95     0     0
+9     1   L    4   100   1N   P   1   "Prism"             0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Robe Hip-Hop
+4 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+RANGE 1  ;Gobo
+0   7    "Open"
+8   11   "G1"
+12  15   "G2"
+16  19   "G3"
+20  23   "G4"
+24  27   "G5"
+28  31   "G6"
+32  35   "G7"
+36  39   "G8"
+40  43   "G9"
+44  47   "G10"
+48  51   "G11"
+52  55   "G12"
+56  59   "G13"
+60  63   "G14"
+64  69   "Open"
+70  75   "G1 %3d%%"0+(((c-a)*100)/(b-a))
+76  81   "G2 %3d%%"0+(((c-a)*100)/(b-a))
+82  87   "G3 %3d%%"0+(((c-a)*100)/(b-a))
+88  93   "G4 %3d%%"0+(((c-a)*100)/(b-a))
+94  99   "G5 %3d%%"0+(((c-a)*100)/(b-a))
+100 105  "G6 %3d%%"0+(((c-a)*100)/(b-a))
+106 111  "G7 %3d%%"0+(((c-a)*100)/(b-a))
+112 117  "G8 %3d%%"0+(((c-a)*100)/(b-a))
+118 123  "G9 %3d%%"0+(((c-a)*100)/(b-a))
+124 129  "G10 %3d%%"0+(((c-a)*100)/(b-a))
+130 135  "G11 %3d%%"0+(((c-a)*100)/(b-a))
+136 141  "G12 %3d%%"0+(((c-a)*100)/(b-a))
+142 147  "G13 %3d%%"0+(((c-a)*100)/(b-a))
+148 153  "G14 %3d%%"0+(((c-a)*100)/(b-a))
+158 161  "Op> G1 %3d%%"0+(((c-a)*100)/(b-a))
+154 157  "BO to  %3d%%"0+(((c-a)*100)/(b-a))
+162 165  "G1> G2 %3d%%"0+(((c-a)*100)/(b-a))
+166 169  "G2> G3 %3d%%"0+(((c-a)*100)/(b-a))
+170 173  "G3> G4 %3d%%"0+(((c-a)*100)/(b-a))
+174 177  "G4> G5 %3d%%"0+(((c-a)*100)/(b-a))
+178 181  "G5> G6 %3d%%"0+(((c-a)*100)/(b-a))
+182 185  "G6> G7 %3d%%"0+(((c-a)*100)/(b-a))
+186 189  "G7> G8 %3d%%"0+(((c-a)*100)/(b-a))
+190 193  "G8> G9 %3d%%"0+(((c-a)*100)/(b-a))
+194 197  "G9>G10 %3d%%"0+(((c-a)*100)/(b-a))
+198 201  "G10>G11%3d%%"0+(((c-a)*100)/(b-a))
+202 205  "G11>G12%3d%%"0+(((c-a)*100)/(b-a))
+206 209  "G12>G13%3d%%"0+(((c-a)*100)/(b-a))
+210 213  "G13>G14%3d%%"0+(((c-a)*100)/(b-a))
+214 217  "G14>BO  %3d%%"0+(((c-a)*100)/(b-a))
+218 229  "Scroll %3d%%"100-(((c-a)*100)/(b-a))
+230 231  "No Scroll"
+232 243  "Scroll %3d%%"0+(((c-a)*100)/(b-a))
+244 249  "Rand Audio"
+250 255  "Rand Auto"
+REND
+
+RANGE 2  ;Gobo Rot
+0   0    "No Spin"
+1   63   "Sp CW %3d%%"0+(((c-a)*100)/(b-a))
+64  64   "No Spin"
+65  127  "Sp CCW %3d%%"100-(((c-a)*100)/(b-a))
+128 128  "No Spin"
+129 191  "T Puls %3d%%"0+(((c-a)*100)/(b-a))
+192 192  "No Spin"
+193 243  "T Puls %3d%%"100-(((c-a)*100)/(b-a))
+244 249  "Rand Audio"
+250 255  "Rand Auto"
+REND
+
+RANGE 3  ;Dimmer
+0   95   "%3d%%"0+(((c-a)*100)/(b-a))
+96  127  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+128 139  "Reset"
+140 191  "Time"
+192 223  "Audio"
+224 255  "Rand Audio"
+REND
+
+RANGE 4  ;Prism
+0   0    "No Spin"
+1   63   "Sp CW %3d%%"0+(((c-a)*100)/(b-a))
+64  64   "No Spin"
+65  127  "Sp CCW %3d%%"100-(((c-a)*100)/(b-a))
+128 128  "No Spin"
+129 191  "Rot P %3d%%"100-(((c-a)*100)/(b-a))
+192 192  "No Spin"
+193 243  "Rot P %3d%%"0+(((c-a)*100)/(b-a))
+244 249  "Audio Prism"
+250 255  "Auto Prism"
+REND
+

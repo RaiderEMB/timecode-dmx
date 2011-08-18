@@ -1,0 +1,265 @@
+; "Robe Scan1200", 16 DMX channels, filename :rosc1200.r20
+;
+;   Date        By                Description
+;   21-05-02    Edward            Created
+;   03-08-04    Phil R            Edited Lamp Off macro
+;   17-09-04    Phil R            Edited Lamp On macro (renamed)
+;   20-01-05    Phil Rogers       Changed naming to Robe's spec
+;   26-10-05	Ed		  revised device name
+;   06-09-06    D.Milligan  	  Added Range tables. Corrected max P/T. Fixed DMX Table
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  RO_SCN1200                                   16 DMX channels
+NAME "Robe" "Scan 1200 XT mode 1"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  16  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  1   143  114
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+DEVICEADDRESS
+;
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=497
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+DMX
+3   61   s   1   100   1N   E   1   "Pan"         128   -1   -1 
+0    0   L   3   100   1N   E   1   "Pan_Low"     128   -1   -1 
+3    1   s   2   100   1N   F   1   "Tilt"        128   -1   -1 
+0    0   L   4   100   1N   F   1   "Tilt_Low"    128   -1   -1 
+8    1   I   5   100   1N   0   1   "P/T Speed"     0    0    0
+8   61   I   6   100   1N   0   1   "Control"       0    0    0
+4    1   I   7   100   1N   A   1   "Colour1"       0    0   28 
+4   61   I   8   100   1N   N   1   "Colour2"       0    0    0   
+9    1   I   9   100   1N   P   1   "Prism"         0    0    0
+6    1   I  10   100   1N   I   1   "Gobo1"         0    0    0
+6   61   I  11   100   1N   J   1   "Gobo2"         0    0    0
+7   61   L  12   100   1N   M   1   "GoboSpin"      0    0    0 
+2    1   L  13   100   1N   0   1   "Iris"          0    0    0
+5   61   L  14   100   1N   L   1   "Focus"        70   70   70
+2   61   L  15   100   1N   O   1   "Shutter"      40   40   40
+1    1   H  16   100   1N   H   1   "Dimmer"       255  255  255
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+  Robe Scan 1200
+Bank WheelA  WheelB
+---------------------
+ 1 Dimmer    --
+ 2 Iris      Shutter
+ 3 Tilt      Pan
+ 4 Colour1   Colour2
+ 5 --        Focus
+ 6 Gobo1     Gobo2
+ 7 --        GoboSpin
+ 8 Speed p/t Control
+ 9 Prism     --
+10 --        --
+11 --        --
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+;
+; Positions
+PFTABLE "Positions" -1  1  2
+"Middle"    21  80  80
+"Left"      22  50  80
+"Right"     23  b0  80
+"Top"       24  80  50
+"Bottom"    25  80  b0
+"TLeft"     26  50  50
+"TRight"    27  b0  b0
+"BLeft"     28  50  b0
+"BRight"    29  b0  50
+PFEND
+;
+; A color table for the colour wheel
+PFTABLE "Color" -1   7  8
+"White"          1   0  0
+"Red"            2  0e  0
+"Blue"           3  1c  0
+"Green"          4  2b  0
+"Yellow"         5  39  0
+"Magenta"        6  47  0
+"Cyan"           7  55  0
+"Turquoise"      8  64  0
+"Organge"        9  72  0
+"Pink"          10   0 0e
+PFEND
+;
+PFTABLE "Gobos"  30  10 11
+"Open"           11   0  0
+"Gobo  1"        12  2f  0
+"Gobo  2"        13  4f  0
+"Gobo  3"        14  6f  0
+"Gobo  4"        15  8f  0
+"Gobo  5"        16  af  0
+"Gobo  6"        17   0 4f
+"Gobo  7"        18   0 6f
+"Gobo  8"        19   0 8f
+"Gobo  9"        20   0 af
+PFEND
+;
+; Macros
+MACRO "LMP ON/RST" 1   6   
+"data"          0   85
+"delay"         1   50
+"data"          0   0
+MEND
+;
+MACRO "LAMP OFF" 3    6
+"data"           0   eb
+"delay"          1   50
+"data"           0    0
+MEND
+;
+MACRO "FAN MAX" 4    6
+"data"           0   0
+MEND
+;
+MACRO "FAN MIN" 5    6
+"data"           0  7f
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+RANGE 5  ;P/T Speed
+0   249  "Speed %3d%%"100-(((c-a)*100)/(b-a))
+250 252  "BO C/G/P"
+253 255  "BO PT/C/G/P"
+REND
+
+RANGE 6  ;Control
+0   127  "Fan Sp %3d%%"0+(((c-a)*100)/(b-a))
+128 139  "Lamp On"
+140 229  "No Func"
+230 239  "Lamp Off"
+240 255  "No Func"
+REND
+
+RANGE 7  ;Colour 1
+0   13   "Open %3d%%"0+(((c-a)*100)/(b-a))
+14  27   "Red %3d%%"0+(((c-a)*100)/(b-a))
+28  42   "Blue %3d%%"0+(((c-a)*100)/(b-a))
+43  56   "Green %3d%%"0+(((c-a)*100)/(b-a))
+57  70   "Yellow %3d%%"0+(((c-a)*100)/(b-a))
+71  84   "Mag %3d%%"0+(((c-a)*100)/(b-a))
+85  99   "LBlue %3d%%"0+(((c-a)*100)/(b-a))
+100 113  "Turq %3d%%"0+(((c-a)*100)/(b-a))
+114 126  "Orange %3d%%"0+(((c-a)*100)/(b-a))
+127 127  "White %3d%%"0+(((c-a)*100)/(b-a))
+128 190  "Sc CW %3d%%"100-(((c-a)*100)/(b-a))
+191 193  "No Scroll"
+194 255  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 8  ;Colour 2
+0   13   "Open %3d%%"0+(((c-a)*100)/(b-a))
+14  27   "Pink %3d%%"0+(((c-a)*100)/(b-a))
+28  42   "Yel-Gr %3d%%"0+(((c-a)*100)/(b-a))
+43  56   "LBlue %3d%%"0+(((c-a)*100)/(b-a))
+57  70   "Yellow %3d%%"0+(((c-a)*100)/(b-a))
+71  84   "Mag %3d%%"0+(((c-a)*100)/(b-a))
+85  99   "5600K %3d%%"0+(((c-a)*100)/(b-a))
+100 113  "3200K %3d%%"0+(((c-a)*100)/(b-a))
+114 126  "UV %3d%%"0+(((c-a)*100)/(b-a))
+127 127  "White %3d%%"0+(((c-a)*100)/(b-a))
+128 255  "Enb Mc Col1"
+REND
+
+RANGE 9  ;Prism
+0   95   "Open"
+96  127  "Frost"
+128 142  "P1 CW %3d%%"100-(((c-a)*100)/(b-a))
+143 144  "Prism 1"
+145 159  "P1 CCW %3d%%"0+(((c-a)*100)/(b-a))
+160 174  "P2 CW %3d%%"100-(((c-a)*100)/(b-a))
+175 176  "Prism 2"
+177 191  "P2 CCW %3d%%"0+(((c-a)*100)/(b-a))
+192 206  "P3 CW %3d%%"100-(((c-a)*100)/(b-a))
+207 208  "Prism 3"
+209 223  "P3 CCW %3d%%"0+(((c-a)*100)/(b-a))
+224 255  "P3 Ind %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 10 ;Gobo1
+0   31   "Open"
+32  63   "Gobo 1"
+64  95   "Gobo 2"
+96  127  "Gobo 3"
+128 159  "Gobo 4"
+160 191  "Gobo 5"
+192 255  "Sc CW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 11 ;Gobo2
+0   63   "Open"
+64  95   "Gobo 1"
+96  127  "Gobo 2"
+128 159  "Gobo 3"
+160 191  "Gobo 4"
+192 255  "No Func"
+REND
+
+RANGE 12 ;GoboRot
+0   127  "Index %3d%%"0+(((c-a)*100)/(b-a))
+128 190  "Sc CW %3d%%"100-(((c-a)*100)/(b-a))
+191 192  "No Scroll
+193 255  "SC CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 13 ;Iris
+0   0    "Open"
+1   179  "Iris %3d%%"0+(((c-a)*100)/(b-a))
+180 191  "Closed"
+192 223  "Pul Cl %3d%%"0+(((c-a)*100)/(b-a))
+224 255  "Pul Op %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 15 ;Shutter
+0   31   "Closed"
+32  63   "Open"
+64  95   "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+96  127  "Open"
+128 159  "Pulse %3d%%"0+(((c-a)*100)/(b-a))
+160 191  "Open"
+192 223  "Rnd St %3d%%"0+(((c-a)*100)/(b-a))
+224 255  "Open"
+REND
+

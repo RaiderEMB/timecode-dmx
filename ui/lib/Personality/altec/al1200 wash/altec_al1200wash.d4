@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="AL1200 Wash" ShortName=" AL  1200W" Company="Altec">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="09-11-06" Author="D.Milligan" Comment="Created" />
+  <History Date="15-11-06" Author="D.Milligan" Comment="Checked" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:20" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="8bit HTP" Display="'%.1f%%',0.0~100.0" Dmx="0~139" Intensity="0~0" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="140~243" Intensity="0~0" />
+      <Function ID="3" Name="Open" Display="'Open'" Dmx="244~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Colour1Func" Name="Colour 1 Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour 1" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="6,7" If="'Colour1Func'==2" />
+      <Condition Name="Raw_Func" ID="8" If="'Colour1Func'==3" />
+      <Else ID="1,2,3,4,5,6,7,8" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~39" Colour="255,255,255" />
+      <Function ID="2" Name="Red" Display="'Red'" Dmx="40~79" Colour="255,0,0" />
+      <Function ID="3" Name="Yellow" Display="'Yellow'" Dmx="80~119" Colour="255,255,0" />
+      <Function ID="4" Name="Blue" Display="'Blue'" Dmx="120~159" Colour="0,0,255" />
+      <Function ID="5" Name="Green" Display="'Green'" Dmx="160~199" Colour="0,255,0" />
+      <Function ID="6" Name="No Scroll" Display="'No Scroll'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="7" Name="Scroll CW" Display="'Scroll CW %.f%%',0~100" Dmx="200~255" Colour="0,0,0" />
+      <Function ID="8" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Effect" Name="Effect" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~51" />
+      <Function ID="2" Name="Warm" Display="'Warm'" Dmx="52~103" />
+      <Function ID="3" Name="Cool" Display="'Cool'" Dmx="104~155" />
+      <Function ID="4" Name="UV" Display="'UV'" Dmx="156~207" />
+      <Function ID="5" Name="Wash" Display="'Wash'" Dmx="208~255" />
+    </Attribute>
+    <Attribute ID="Focus" Name="Focus" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Focus" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Iris" Name="Iris" Description="" Group="B">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Iris" Display="'%.1f%%',100.0~0.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="13 DMX, 8bit" Channels="13">
+    <Import PearlRef="AT_Wash1200" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="450" TiltMax="280" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="4" Wheel="4" />
+      <Attribute ID="Pan" ChannelOffset="5,7" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="6,8" Wheel="3" />
+      <Attribute ID="Blue" ChannelOffset="1" Wheel="11" />
+      <Attribute ID="Red" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Yellow" ChannelOffset="3" Wheel="12" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="9" Wheel="8" />
+      <Attribute ID="Focus" ChannelOffset="11" Wheel="20" />
+      <Attribute ID="Iris" ChannelOffset="12" Wheel="21" />
+      <Attribute ID="Effect" ChannelOffset="10" Wheel="23" />
+      <Attribute ID="Control" ChannelOffset="13" Wheel="28" />
+    </Include>
+  </Mode>
+</Fixture>

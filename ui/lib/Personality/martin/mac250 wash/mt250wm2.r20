@@ -1,0 +1,207 @@
+; 'Martin Mac 250 Wash', 19 DMX Channels, filename: MT250WM2.R20
+;
+;   Date       By                Description
+;   26-04-05   Pers Creator      Created - Exported from Diamond 4 file.
+;   15-06-05   Pers Creator      Adjusted dimmer to partially solve clear problem.
+;                                Now clears to 254 (on Dim low)
+;   25-11-05   Ed Spencer	 Revised device name
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MT_Mac250W2                         mode=19 DMX, 16bit  19 DMX Channels
+NAME "Martin" "Mac 250 Wash, 16-bit Extended"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  19  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   540   257
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 19 DMX, 16bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=493
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    1   100   1N   O   1   "Shutter"          20    20    20
+1     1   H    2   100   1N   H   1   "Dimmer"          255   255   128
+0     0   H    3   100   1N   H   1   "Dimmer Low"      255   255   128
+10    1   s    4   100   1N   B   1   "Cyan"              0     0     0
+0     0   L    5   100   1N   B   1   "Cyan Low"          0     0     0
+10   61   s    6   100   1N   C   1   "Magenta"           0     0     0
+0     0   L    7   100   1N   C   1   "Magenta Low"       0     0     0
+9    61   s    8   100   1N   D   1   "Yellow"            0     0     0
+0     0   L    9   100   1N   D   1   "Yellow Low"        0     0     0
+4     1   S   10   100   1N   A   1   "Colour"            0     0     0
+0     0   I   11   100   1N   A   1   "Colour Low"        0     0     0
+9     1   s   12   100   1N   P   1   "Frost"             0     0     0
+0     0   L   13   100   1N   P   1   "Frost Low"         0     0     0
+3    61   s   14   100   1N   E   1   "Pan"             128     0     0
+0     0   L   15   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s   16   100   1N   F   1   "Tilt"            128     0     0
+0     0   L   17   100   1N   F   1   "Tilt Low"        128     0     0
+8    61   L   18   100   1N   0   1   "MSpeed"            0     0     0
+8     1   L   19   100   1N   0   1   "Speed"             0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Martin Mac 250 Wash
+19 DMX, 16bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Color" 29   4   6   8
+"White"          1  00  00  00
+"Red"            2  7F  DD  F9
+"Amber"          3  4C  FD  C8
+"Yellow"         4  00  E6  23
+"Green"          5  DB  D1  0B
+"Cyan"           6  DC  83  0A
+"Blue"           7  DE  08  D3
+"Lavender"       8  B6  03  E3
+"UltraViolet"    9  FF  79  FB
+"Magenta"       10  79  93  FF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Lamp On"       1   1   4   6   8
+"data"                0   0  e7  e7  e7
+"delay"               1   A
+"data"                0  E8  e7  e7  e7
+"delay"               1  46
+"data"                0   A   0   0   0
+MEND
+
+MACRO "Lamp Off"      2   1   4   6   8
+"data"                0   0  e7  e7  e7
+"delay"               1   A
+"data"                0  FC  e7  e7  e7
+"delay"               1  46
+"data"                0   A   0   0   0
+MEND
+
+MACRO "Reset"         3   1
+"data"                0  D4
+"delay"               1  46
+"data"                0   A
+"delay"               1  32
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Shutter
+0   19   "Closed"
+20  49   "Open"
+50  72   "Strobe %3d%%"100-(((c-a)*100)/(b-a))
+73  79   "Open"
+80  99   "Open P %3d%%"100-(((c-a)*100)/(b-a))
+100 119  "Close  %3d%%"100-(((c-a)*100)/(b-a))
+120 127  "Open"
+128 147  "Rnd Strob S"
+148 167  "Rnd Strob M"
+168 187  "Rnd Strob F"
+188 190  "Open"
+191 193  "ORdm Pls F"
+194 196  "ORdm Pls S"
+197 199  "CRdm Pls F"
+200 202  "CRdm Pls S"
+203 207  "Safe"
+208 217  "Reset"
+218 227  "Safe"
+228 237  "Lamp On"
+238 247  "Safe"
+248 255  "Lamp Off"
+REND
+
+RANGE 18  ;MSpeed
+0   2    "Tracking"
+3   245  "F-S %3d%%"0+(((c-a)*100)/(b-a))
+246 248  "Tck PTSP Sl"
+249 251  "Tck PTSP Fa"
+252 255  "BO moving"
+REND

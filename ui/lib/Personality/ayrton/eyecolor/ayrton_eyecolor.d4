@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Eyecolor" ShortName="ATN_Eyeclr" Company="Ayrton">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="24-10-03" Author="Greg Brown" Comment="Created" />
+  <History Date="10-02-04" Author="L.Gallagher" Comment="Error Found 1. No macros found" />
+  <History Date="10-02-04" Author="L.Gallagher" Comment="Error Found 2. Pan F - (16 bit)" />
+  <History Date="10-02-04" Author="L.Gallagher" Comment="Error Found 3. Tilt F - (16 bit)" />
+  <History Date="10-02-04" Author="L.Gallagher" Comment="Error Found 4. R - (Power On) 0" />
+  <History Date="10-02-04" Author="L.Gallagher" Comment="Error Found 5. E - (Power On) 0" />
+  <History Date="10-02-04" Author="L.Gallagher" Comment="Error Found 6. B - (Power On) 0" />
+  <History Date="12-07-04" Author="Phil Rogers" Comment="Above all fixed except macros - none found on DMX Protocol" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:50" />
+      <Function ID="1" Name="Blue" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Rainbow" Name="Rainbow" Description="" Group="E" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Rainbow" Display="'Rainbow %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Strobe" Name="Strobe" Description="" Group="I" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Strobe" Display="'Strobe %.f',0~255" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="7 DMX, 8bit" Channels="7">
+    <Import PearlRef="ATNEyeclrM1" DiamondRef="" />
+    <Physical>
+      <Bulb Type="LEDs" Lumens="330" ColourTemp="" />
+      <Lens Name="N/A" Degrees="N/A" />
+      <Weight Kg="8.5" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="650" TiltMax="280" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Strobe" ChannelOffset="7" Wheel="4" />
+      <Attribute ID="Pan" ChannelOffset="1" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="2" Wheel="3" />
+      <Attribute ID="Red" ChannelOffset="3" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="4" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="5" Wheel="12" />
+      <Attribute ID="Rainbow" ChannelOffset="6" Wheel="22" />
+    </Include>
+  </Mode>
+  <Mode Name="9 DMX, 16bit" Channels="9">
+    <Import PearlRef="ATNEyeclrM2" DiamondRef="" />
+    <Physical>
+      <Bulb Type="LEDs" Lumens="330" ColourTemp="" />
+      <Lens Name="N/A" Degrees="N/A" />
+      <Weight Kg="8.5" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="650" TiltMax="280" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Strobe" ChannelOffset="9" Wheel="4" />
+      <Attribute ID="Pan" ChannelOffset="1,2" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="3,4" Wheel="3" />
+      <Attribute ID="Red" ChannelOffset="5" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="6" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="7" Wheel="12" />
+      <Attribute ID="Rainbow" ChannelOffset="8" Wheel="22" />
+    </Include>
+  </Mode>
+</Fixture>

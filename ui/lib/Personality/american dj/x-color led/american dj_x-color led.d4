@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="X-Color LED" ShortName="XColor LED" Company="American DJ">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="05-01-09" Author="Jonathan" Comment="Created" />
+  <History Date="05-01-09" Author="David Hunt" Comment="Checked" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Colour1Func" Name="Colour Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8,9" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="10,11" If="'Colour1Func'==2" />
+      <Else ID="12" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~14" Colour="255,255,255" />
+      <Function ID="2" Name="Orange" Display="'Orange'" Dmx="15~29" Colour="255,128,0" />
+      <Function ID="3" Name="Blue" Display="'Blue'" Dmx="30~44" Colour="0,0,255" />
+      <Function ID="4" Name="Green" Display="'Green'" Dmx="45~59" Colour="0,255,0" />
+      <Function ID="5" Name="Yellow" Display="'Yellow'" Dmx="60~74" Colour="255,255,0" />
+      <Function ID="6" Name="Pink" Display="'Pink'" Dmx="75~89" Colour="255,150,150" />
+      <Function ID="7" Name="Light Blue" Display="'Light Blue'" Dmx="90~104" Colour="0,128,255" />
+      <Function ID="8" Name="Light Green" Display="'Light Green'" Dmx="105~119" Colour="128,255,0" />
+      <Function ID="9" Name="Light Yellow" Display="'Yellow'" Dmx="120~127" Colour="255,255,128" />
+      <Function ID="10" Name="Scroll" Display="'Scroll %.f%%',0~100" Dmx="128~254" Colour="0,0,0" />
+      <Function ID="11" Name="Sound Active" Display="'Sound Active'" Dmx="255~255" Colour="0,0,0" />
+      <Function ID="12" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="10" PowerOn="10" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~7" Intensity="0~0" />
+      <Function ID="2" Name="Open" Display="'Open'" Dmx="8~15" Intensity="0~0" />
+      <Function ID="3" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="16~131" Intensity="0~0" />
+      <Function ID="4" Name="Open" Display="'Open'" Dmx="132~139" Intensity="0~0" />
+      <Function ID="5" Name="Close Pulse" Display="'Close Pulse   %.f%%',0~100" Dmx="140~180" Intensity="0~0" />
+      <Function ID="6" Name="Open" Display="'Open'" Dmx="181~189" Intensity="0~0" />
+      <Function ID="7" Name="Open Pulse" Display="'Open Pulse    %.f%%',0~100" Dmx="190~231" Intensity="0~0" />
+      <Function ID="8" Name="Open" Display="'Open'" Dmx="232~239" Intensity="0~0" />
+      <Function ID="9" Name="Rnd Strobe" Display="'Rnd Strobe    %.f%%',0~100" Dmx="240~247" Intensity="0~0" />
+      <Function ID="10" Name="Open" Display="'Open'" Dmx="248~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="3 DMX, 8bit" Channels="3">
+    <Import PearlRef="ADJ_XColL" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Mirror" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="3" Wheel="4" />
+      <Attribute ID="Dimmer" ChannelOffset="2" Wheel="1" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="8" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Colour1:1,Colour1Func:1" />
+      <Palette ID="2" Name="Orange" Number="2" Page="1" SetControl="Colour1:2,Colour1Func:1" />
+      <Palette ID="3" Name="Orange" Number="3" Page="1" SetControl="Colour1:2,Colour1Func:1" />
+      <Palette ID="4" Name="Yellow" Number="4" Page="1" SetControl="Colour1:5,Colour1Func:1" />
+      <Palette ID="5" Name="Light Green" Number="0" Page="1" SetControl="Colour1:8,Colour1Func:1" />
+      <Palette ID="6" Name="Green" Number="5" Page="1" SetControl="Colour1:4,Colour1Func:1" />
+      <Palette ID="7" Name="Green" Number="0" Page="1" SetControl="Colour1:4,Colour1Func:1" />
+      <Palette ID="8" Name="Light Blue" Number="6" Page="1" SetControl="Colour1:7,Colour1Func:1" />
+      <Palette ID="9" Name="Light Blue" Number="0" Page="1" SetControl="Colour1:7,Colour1Func:1" />
+      <Palette ID="10" Name="Blue" Number="7" Page="1" SetControl="Colour1:3,Colour1Func:1" />
+      <Palette ID="11" Name="Blue" Number="9" Page="1" SetControl="Colour1:3,Colour1Func:1" />
+      <Palette ID="12" Name="Pink" Number="10" Page="1" SetControl="Colour1:6,Colour1Func:1" />
+      <Palette ID="13" Name="Pink" Number="0" Page="1" SetControl="Colour1:6,Colour1Func:1" />
+      <Palette ID="14" Name="Pink" Number="8" Page="1" SetControl="Colour1:6,Colour1Func:1" />
+      <Palette ID="15" Name="Blue" Number="0" Page="1" SetControl="Colour1:3,Colour1Func:1" />
+    </Group>
+  </Palettes>
+</Fixture>

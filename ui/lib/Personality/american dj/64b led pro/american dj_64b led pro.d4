@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="64B Led Pro" ShortName="ADJ64BLP" Company="American DJ">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="15-02-08" Author="Ion Balan" Comment="Created" />
+  <History Date="15-02-08" Author="Ion Balan" Comment="Checked" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <History Date="17-07-09" Author="David Hunt" Comment="Added a Virtual Dimmer to 3 and 6 DMX modes" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="Generic" Name="Col Mac" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~7" />
+      <Function ID="2" Name="Raw DMX" Display="'Col Mac %.f',8~255" Dmx="8~255" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~15" Intensity="0~0" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="16~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~31" />
+      <Function ID="2" Name="DimBrght" Display="'DimBrght'" Dmx="32~63" />
+      <Function ID="3" Name="BrghtDim" Display="'BrghtDim'" Dmx="64~95" />
+      <Function ID="4" Name="D-B-D" Display="'D-B-D'" Dmx="96~127" />
+      <Function ID="5" Name="Col Mix" Display="'Col Mix'" Dmx="128~159" />
+      <Function ID="6" Name="3Col Chn" Display="'3Col Chn'" Dmx="160~191" />
+      <Function ID="7" Name="7Col Chn" Display="'7Col Chn'" Dmx="192~223" />
+      <Function ID="8" Name="Snd Actv " Display="'Snd Actv'" Dmx="224~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="3 DMX, 8bit" Channels="3">
+    <Import PearlRef="ADJ64LP1" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="1" Wheel="10" VirtualControl="Dimmer" />
+      <Attribute ID="Green" ChannelOffset="2" Wheel="11" VirtualControl="Dimmer" />
+      <Attribute ID="Blue" ChannelOffset="3" Wheel="12" VirtualControl="Dimmer" />
+    </Include>
+  </Mode>
+  <Mode Name="6 DMX, 8bit" Channels="6">
+    <Import PearlRef="ADJ64LP2" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="5" Wheel="4" />
+      <Attribute ID="Dimmer" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="1" Wheel="10" VirtualControl="Dimmer" />
+      <Attribute ID="Green" ChannelOffset="2" Wheel="11" VirtualControl="Dimmer" />
+      <Attribute ID="Blue" ChannelOffset="3" Wheel="12" VirtualControl="Dimmer" />
+      <Attribute ID="Generic" ChannelOffset="4" Wheel="29" />
+      <Attribute ID="Control" ChannelOffset="6" Wheel="28" />
+    </Include>
+  </Mode>
+  <Mode Name="7 DMX, 8bit" Channels="7">
+    <Import PearlRef="ADJ64LP3" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="5" Wheel="4" />
+      <Attribute ID="Dimmer" ChannelOffset="7" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="1" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="2" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="3" Wheel="12" />
+      <Attribute ID="Generic" ChannelOffset="4" Wheel="29" />
+      <Attribute ID="Control" ChannelOffset="6" Wheel="28" />
+    </Include>
+  </Mode>
+</Fixture>

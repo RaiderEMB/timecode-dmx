@@ -1,0 +1,169 @@
+TODO, DIP SWITCHES
+; "Nippon Poly Colour Filter personality", 3 DMX channels, filename :Nipon+d.r96
+; "With pending dimmer"
+;   Date      By        Description
+;   12-03-97  DBT       Created
+;
+; NOTE: Only table values were provided so DMX channel description order could be wrong.
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  NipponCol+D
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  3  M
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the curernt result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+""
+""
+""
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=510
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel, BCD=Color Mix, E=Pan, F=Tilt,
+;                    0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 charcaters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX
+10   1  L  3  100  1N  B  0  "Cyan"       0   0   0
+10  61  L  2  100  1N  D  0  "Magenta"    0   0   0
+ 9  61  L  1  100  1N  C  0  "Yellow"     0   0   0
+ 1   1  H  0  100  1N  0  1  "Dimmer"   255 255 255   ; Dimmer (no DMX)
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+Nippon Colour Filter
+(With Pending Dimmer)
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1  --      --
+ 2  --      --
+ 3  --      --
+ 4  --      --
+ 5  --      --
+ 6  --      --
+ 7  --      --
+ 8  --      --
+ 9  --     Yellow
+10 Cyan    Magenta
+11  --      --
+12  --      --
+INPUT and/or note DMX
+number.
+Press a channel grab
+to make patch
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+; Color table
+PFTABLE "Colors" -1  1  2  3
+"Col 1"    -1       37 e2  0
+"Col 2"    -1       16 93  0
+"Col 3"    -1        0 73  f
+"Col 4"    -1        0 55  f
+"Col 5"    -1        0 46  0
+"Col 6"    -1       36 41  0
+"Col 7"    -1       ff ff  0
+"Col 8"    -1       ff b7  0
+"Col 9"    -1       89 a2  0
+"Col 11"   -1       f0 6a  0
+"Col 12"   -1       ff 69  0
+"Col 13"   -1       d4 50  0
+"Col 14"   -1       7a 3c  0
+"Col 15"   -1       84 1b  0
+"Col 16"   -1       9a 71  0
+"Col 17"   -1       7a 4f  0
+"Col 18"   -1       d1  0 49
+"Col 19"   -1       e6  0 36
+"Col 20"   -1       b8  0 11
+"Col 21"   -1       a8  0 52
+"Col 22"   -1       6c  0  0
+"Col 23"   -1       86  0 47
+"Col 24"   -1       d6  0 ff
+"Col 25"   -1       e4  0 bc
+"Col 26"   -1       6c  0 ff
+"Col 27"   -1       87  0 93
+"Col 28"   -1       62  0 ff
+"Col 29"   -1       84  0 ff
+"Col 30"   -1       ac  0 d9
+"Col 31"   -1       6e  0 ff
+"Col 32"   -1        0 1e ff
+"Col 33"   -1        0 2e 6e
+"Col 34"   -1        0 48 d9
+"Col 35"   -1        0 4c d1
+"Col 36"   -1        0 39 96
+"Col 37"   -1        0 7a b1
+"Col 38"   -1        0 ff ff
+"Col 39"   -1        0 dc ff
+"Col 40"   -1        0 af ff
+"Col 41"   -1        0 78 ff
+"Col 42"   -1        0 4c b0
+"Col 43"   -1        0 7c ff
+"Col 44"   -1        0 6a c0
+"Col 45"   -1       20  0 61
+"Col 46"   -1        0 ff 6e
+"Col 47"   -1        0 97 60
+"Col 48"   -1        0 ff a2
+"Col 49"   -1        0 c8 a4
+"Col 50"   -1        0 e6 ff
+"Col 51"   -1        0 a1 bc
+"Col 52"   -1        0 5c 6a
+PFEND
+

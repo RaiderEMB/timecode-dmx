@@ -1,0 +1,272 @@
+; 'Martin RoboScan Pro 918', 14 DMX Channels, filename: MRSP91M2.R20
+;
+;   Date       By                Description
+;   08-04-04   L.Gallagher       Created
+;   14-04-04   G.Brown           Checked
+;   06-01-09   David Hunt        Fixed duplicate dmx values in range tables
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  RScan918M2                          mode=14 DMX, Mode 2  14 DMX Channels
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  14  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  1   180   72
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 14 DMX, Mode 2"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=498
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 charcaters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    1   100   1N   0   1   "Shutter"           0     0     0
+1     1   H    2   100   1N   0   1   "Dimmer"          255   255   255
+4     1   I    3   100   1N   A   1   "Colour 1"          0     0     0
+4    61   I    4   100   1N   0   1   "Colour 2"          0     0     0
+6     1   I    5   100   1N   0   1   "Gobo 1"            0     0     0
+7     1   I    6   100   1N   0   1   "G1_ROt"        0     0     0
+6    61   I    7   100   1N   0   1   "Gobo 2"            0     0     0
+5     1   L    8   100   1N   0   1   "Focus"             0     0     0
+2     1   L    9   100   1N   0   1   "Iris"              0     0     0
+9     1   I   10   100   1N   0   1   "Prism"             0     0     0
+3     1   s   11   100   1N   E   1   "Pan"             127   127   127
+0     0   L   12   100   1N   E   1   "Pan Low"         127   127   127
+3    61   s   13   100   1N   F   1   "Tilt"            127   127   127
+0     0   L   14   100   1N   F   1   "Tilt Low"        127   127   127
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Martin RoboScan Pro 918
+14 DMX, Mode 2
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Shutter
+0   19   "Closed"
+20  49   "Open"
+50  72   "Strobe %3d%%"100-(((c-a)*100)/(b-a))
+73  79   "Open Low Pw"
+80  99   "Open P %3d"10-(((c-a)*10)/(b-a))
+100 119  "Clse P %3d"10-(((c-a)*10)/(b-a))
+120 127  "No Function"
+128 147  "Rdm  (Fast)"
+148 167  "Rdm (Med)"
+168 187  "Rdm (Slow)"
+188 190  "Open"
+191 193  "ORdm Pls (F"
+194 196  "ORdm Pls (S"
+197 199  "CRdm Pls (F"
+200 202  "CRdm Pls (S"
+203 207  "Open"
+208 217  "Reset"
+218 227  "Open"
+228 237  "Lamp On"
+238 247  "Open"
+248 255  "Lamp Off"
+REND
+
+RANGE 2  ;Dimmer
+0   255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 3  ;Colour 1
+181 184  "Open"
+177 180  "Blue 111"
+173 176  "Red"
+169 172  "Magenta"
+165 168  "Green"
+161 164  "Yellow"
+157 160  "Purple"
+153 156  "Blue"
+149 152  "Pink"
+145 148  "Cyan"
+0   144  "Index %3d%%"0+(((c-a)*100)/(b-a))
+185 215  "Sp CW %3d"100-(((c-a)*100)/(b-a))
+216 245  "Sp CCW %3d"0+(((c-a)*100)/(b-a))
+246 255  "Alt Col Fun"
+REND
+
+RANGE 4  ;Colour 2
+181 184  "Open"
+177 180  "CTC 32-4100"
+173 176  "CTC 32-5600"
+169 172  "Blue 104"
+165 168  "Blue 108"
+161 164  "Green"
+157 160  "Red"
+153 156  "Yellow"
+149 152  "CTC 55-2900"
+145 148  "CTC 55-4200"
+0   144  "Index %3d%%"0+(((c-a)*100)/(b-a))
+185 215  "Sp CW %3d"10-(((c-a)*10)/(b-a))
+216 245  "Sp CCW %3d"0+(((c-a)*10)/(b-a))
+246 248  "Rdm  (Fast)"
+249 251  "Rdm (Med)"
+252 255  "Rdm (Slow)"
+REND
+
+RANGE 5  ;Gobo 1
+0   55   "Open Gobo"
+56  75   "Triangle"
+76  95   "Bar"
+96  115  "Fan"
+116 135  "Thin Bars"
+136 155  "Grid Ball"
+156 175  "Grid Ball"
+176 195  "Thin Bars"
+196 215  "Fan"
+216 235  "Bar"
+236 255  "Triangle"
+REND
+
+RANGE 6  ;Gobo 1 Rot
+0   126  "Idx CW %3d%%"100-(((c-a)*100)/(b-a))
+127 127  "Default Idx"
+128 255  "Idx CCW %.f"
+REND
+
+RANGE 7  ;Gobo 2
+0   9    "Open"
+10  19   "Cone"
+20  29   "Dots"
+30  39   "Lotus"
+40  49   "Bricks"
+50  59   "Clouds"
+60  69   "Machine"
+70  79   "Bamboo"
+80  89   "Threads"
+90  102  "Pling"
+103 119  "9 Shk %3d/16"1+(((c-a)*15)/(b-a))
+120 136  "8 Shk %3d/16"1+(((c-a)*15)/(b-a))
+137 153  "7 Shk %3d/16"1+(((c-a)*15)/(b-a))
+157 170  "6 Shk %3d/16"1+(((c-a)*15)/(b-a))
+171 187  "5 Shk %3d/16"1+(((c-a)*15)/(b-a))
+188 204  "4 Shk %3d/16"1+(((c-a)*15)/(b-a))
+205 221  "3 Shk %3d/16"1+(((c-a)*15)/(b-a))
+222 238  "2 Shk %3d/16"1+(((c-a)*15)/(b-a))
+239 255  "1 Shk %3d/16"1+(((c-a)*15)/(b-a))
+REND
+
+RANGE 8  ;Focus
+255 255  "Far"
+1   254  "Focus %3d%%"100-(((c-a)*100)/(b-a))
+0   0    "Near"
+REND
+
+RANGE 9  ;Iris
+0   199  "Open %3d%%"100-(((c-a)*90)/(b-a))
+200 215  "10% Open"
+216 229  "Open P %3d"100-(((c-a)*100)/(b-a))
+230 243  "Clse P %3d"100-(((c-a)*100)/(b-a))
+244 246  "Rdm Pls (F)"
+247 249  "Rdm Pls (S)"
+250 252  "Rdm Pls (F)"
+253 255  "Rdm Pls (S)"
+REND
+
+RANGE 10  ;Prism
+0   19   "Prism OFF"
+20  79   "Rot CW %3d%%"100-(((c-a)*100)/(b-a))
+80  89   "No Rotation"
+90  149  "Rot CC %3d%%"0+(((c-a)*100)/(b-a))
+150 215  "Prism OFF"
+216 220  "Macro 1"
+221 225  "Macro 2"
+226 230  "Macro 3"
+231 235  "Macro 4"
+236 240  "Macro 5"
+241 245  "Macro 6"
+246 250  "Macro 7"
+251 255  "Macro 8"
+REND
+

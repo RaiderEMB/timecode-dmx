@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Mirror" ShortName="Miror" Company="Chroma Q">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="02-02-05" Author="Phil Rogers" Comment="Created" />
+  <History Date="03-02-05" Author="Tom" Comment="Checked" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <History Date="28-09-07" Author="Ion Balan" Comment="Added pending dimmer" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="2 DMX, 8bit" Channels="2">
+    <Import PearlRef="CQMirrorM1" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Mirror" PanMax="230" TiltMax="58" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Pan" ChannelOffset="1" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="2" Wheel="3" />
+    </Include>
+  </Mode>
+  <Mode Name="4 DMX, 16bit" Channels="4">
+    <Import PearlRef="CQMirrorM2" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Mirror" PanMax="230" TiltMax="58" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="0" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="1,2" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="3,4" Wheel="3" />
+    </Include>
+  </Mode>
+</Fixture>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Galileo Ray" ShortName="GaRay" Company="SGM">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="19-04-04" Author="Greg Brown" Comment="Created" />
+  <History Date="19-04-04" Author="Lena Gallagher" Comment="Checked" />
+  <History Date="28-03-06" Author="Ed" Comment="Changed shutter locate value to open" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour ID to Colour1" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Mode" Name="Mode" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="RCS" ID="1" If="'Rays_Mode'==1&amp;&amp;'Colour_Mode'==1&amp;&amp;'Shutter_Mode'==1" />
+      <Condition Name="Condition 2" ID="2" If="'Rays_Mode'==2&amp;&amp;'Colour_Mode'==1&amp;&amp;'Shutter_Mode'==1" />
+      <Condition Name="Condition 3" ID="3" If="'Rays_Mode'==1&amp;&amp;'Colour_Mode'==2&amp;&amp;'Shutter_Mode'==1" />
+      <Condition Name="Condition 4" ID="4" If="'Rays_Mode'==2&amp;&amp;'Colour_Mode'==2&amp;&amp;'Shutter_Mode'==1" />
+      <Condition Name="Condition 5" ID="5" If="'Rays_Mode'==1&amp;&amp;'Colour_Mode'==1&amp;&amp;'Shutter_Mode'==2" />
+      <Condition Name="Condition 6" ID="6" If="'Rays_Mode'==2&amp;&amp;'Colour_Mode'==1&amp;&amp;'Shutter_Mode'==2" />
+      <Condition Name="Condition 7" ID="7" If="'Rays_Mode'==1&amp;&amp;'Colour_Mode'==2&amp;&amp;'Shutter_Mode'==2" />
+      <Condition Name="Condition 8" ID="8" If="'Rays_Mode'==2&amp;&amp;'Colour_Mode'==2&amp;&amp;'Shutter_Mode'==2" />
+      <Else ID="1,2,3,4,5,6,7,8" />
+      <Function ID="1" Name="RCS" Display="'RCS'" Dmx="0~0" />
+      <Function ID="2" Name="CS" Display="'CS'" Dmx="32~63" />
+      <Function ID="3" Name="RS" Display="'RS'" Dmx="64~95" />
+      <Function ID="4" Name="S" Display="'S'" Dmx="96~127" />
+      <Function ID="5" Name="RC" Display="'RC'" Dmx="128~159" />
+      <Function ID="6" Name="C" Display="'C'" Dmx="160~191" />
+      <Function ID="7" Name="R" Display="'R'" Dmx="192~223" />
+      <Function ID="8" Name="" Display="''" Dmx="224~255" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Remote" ID="1,2,3,4,5,6,7" If="'Colour_Mode'==1" />
+      <Condition Name="Musical" ID="8" If="'Colour_Mode'==2" />
+      <Else ID="1,2,3,4,5,6,7,8" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="2" Name="Yellow" Display="'Yellow'" Dmx="37~66" Colour="255,255,0" />
+      <Function ID="3" Name="Cyan" Display="'Cyan'" Dmx="74~103" Colour="0,255,255" />
+      <Function ID="4" Name="Magenta" Display="'Magenta'" Dmx="111~140" Colour="255,0,255" />
+      <Function ID="5" Name="Green" Display="'Green'" Dmx="148~177" Colour="0,255,0" />
+      <Function ID="6" Name="Red" Display="'Red'" Dmx="185~214" Colour="255,0,0" />
+      <Function ID="7" Name="Blue" Display="'Blue'" Dmx="222~255" Colour="0,0,255" />
+      <Function ID="8" Name="n/a" Display="'n/a'" Dmx="0~0" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Rays" Name="Rays" Description="" Group="E">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Remote" ID="1,2,3,4" If="'Rays_Mode'==1" />
+      <Condition Name="Musical" ID="5" If="'Rays_Mode'==2" />
+      <Else ID="1,2,3,4,5" />
+      <Function ID="1" Name="No Spin" Display="'No Spin'" Dmx="111~144" />
+      <Function ID="2" Name="Spin CW" Display="'Spin CW %.f%%',100~0" Dmx="0~110" />
+      <Function ID="3" Name="No Spin" Display="'No Spin'" Dmx="111~144" />
+      <Function ID="4" Name="Spin CCW" Display="'Spin CCW %.f%%',0~100" Dmx="145~255" />
+      <Function ID="5" Name="n/a" Display="'n/a'" Dmx="0~0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="2" PowerOn="1" />
+      <Condition Name="Remote" ID="1,2,3" If="'Shutter_Mode'==1" />
+      <Condition Name="Musical" ID="4" If="'Shutter_Mode'==2" />
+      <Else ID="1,2,3,4" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~0" Intensity="0~0" />
+      <Function ID="2" Name="Open" Display="'Open'" Dmx="50~50" Intensity="0~0" />
+      <Function ID="3" Name="Strobe Hz" Display="'Strobe %.1f Hz',1.0~5.0" Dmx="80~200" Intensity="0~0" />
+      <Function ID="4" Name="n/a" Display="'n/a'" Dmx="0~0" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Rays_Mode" Name="Rays Mode" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Remote" Display="'Remote'" Dmx="0~0" Update="Mode, Rays" />
+      <Function ID="2" Name="Musical" Display="'Musical'" Dmx="0~0" Update="Mode, Rays" />
+    </Attribute>
+    <Attribute ID="Colour_Mode" Name="Colour Mode" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Remote" Display="'Remote'" Dmx="0~0" Update="Mode, Colour" />
+      <Function ID="2" Name="Musical" Display="'Musical'" Dmx="0~0" Update="Mode, Colour" />
+    </Attribute>
+    <Attribute ID="Shutter_Mode" Name="Shutter Mode" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Remote" Display="'Remote'" Dmx="0~0" Update="Mode, Shutter, Dimmer" />
+      <Function ID="2" Name="Musical" Display="'Musical'" Dmx="0~0" Update="Mode, Shutter, Dimmer" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="6 DMX, 8 bit" Channels="6">
+    <Import PearlRef="SM_GalilRay" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="4" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="5" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="6" Wheel="3" />
+      <Attribute ID="Colour1" ChannelOffset="2" Wheel="7" />
+      <Attribute ID="Rays" ChannelOffset="3" Wheel="22" />
+      <Attribute ID="Mode" ChannelOffset="1" Wheel="24" />
+      <Attribute ID="Rays_Mode" Wheel="28" />
+      <Attribute ID="Colour_Mode" Wheel="29" />
+      <Attribute ID="Shutter_Mode" Wheel="30" />
+    </Include>
+  </Mode>
+</Fixture>

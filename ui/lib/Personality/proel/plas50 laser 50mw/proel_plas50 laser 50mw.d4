@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="PLAS50 Laser 50mW" ShortName="PLS50Laser" Company="Proel">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="22-01-07" Author="D.Milligan" Comment="Created" />
+  <History Date="22-01-07" Author="D.Milligan" Comment="Checked" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="ControlFunc" Name="ControlFunc" Description="" Group="S" Size="0">
+      <Locate Locate="1:0" PowerOn="1:0" Clear="1" />
+      <Function ID="1" Name="Figure_Func" Display="'Figure'" Dmx="0~0" Update="Control" />
+      <Function ID="2" Name="Macro_Func" Display="'Macro'" Dmx="0~0" Update="Control" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Control" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Figure_Func" ID="1,2" If="'ControlFunc'==1" />
+      <Condition Name="Macro_Func" ID="3,4" If="'ControlFunc'==2" />
+      <Condition Name="Raw_Func" ID="5" If="'ControlFunc'==3" />
+      <Else ID="1,2,3,4,5" />
+      <Function ID="1" Name="Blackout" Display="'Blackout'" Dmx="0~7" />
+      <Function ID="2" Name="Figure " Display="'Figure  %.f',0~58" Dmx="8~239" />
+      <Function ID="3" Name="Blackout" Display="'Blackout'" Dmx="0~7" />
+      <Function ID="4" Name="Macro" Display="'Macro'" Dmx="240~255" />
+      <Function ID="5" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="1 DMX, 8bit" Channels="1">
+    <Import PearlRef="PL_PLAS50LS" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="ControlFunc" Wheel="28" />
+      <Attribute ID="Control" ChannelOffset="1" Wheel="29" />
+    </Include>
+  </Mode>
+</Fixture>

@@ -1,0 +1,392 @@
+; 'Robe Media Fusion', 4 DMX Channels, filename: ROMFMINI.R20
+;
+;   Date       By                Description
+;   03-09-07   Pers Creator      Created - Exported from Diamond 4 file.
+;   03-09-07   D.Milligan        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  RO_MFMINI                           mode=Mini  4 DMX Channels
+NAME "Robe" "Media Fusion, Mini"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  4  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0   0   0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Mini"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=508
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+6     1   I    2   100   1N   0   1   "Visual Lib"        0     0     0
+6    61   I    3   100   1N   0   1   "File"              1     0     0
+19    1   I    4   100   1N   0   1   "Effect"            0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Robe Media Fusion
+Mini
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 2  ;Visual Library
+0   0    "User 1"
+1   1    "User 2"
+2   2    "User 3"
+3   3    "User 4"
+4   4    "User 5"
+5   5    "User 6"
+6   6    "User 7"
+7   7    "User 8"
+8   8    "User 9"
+9   9    "User 10"
+10  10   "User 11"
+11  11   "User 12"
+12  12   "User 13"
+13  13   "User 14"
+14  14   "User 15"
+15  15   "User 16"
+16  16   "User 17"
+17  17   "User 18"
+18  18   "User 19"
+19  19   "User 20"
+20  20   "User 21"
+21  21   "User 22"
+22  22   "User 23"
+23  23   "User 24"
+24  24   "User 25"
+25  25   "User 26"
+26  26   "User 27"
+27  27   "User 28"
+28  28   "User 29"
+29  29   "User 30"
+30  30   "User 31"
+31  31   "User 32"
+32  32   "User 33"
+33  33   "User 34"
+34  34   "User 35"
+35  35   "User 36"
+36  36   "User 37"
+37  37   "User 38"
+38  38   "User 39"
+39  39   "User 40"
+40  40   "User 41"
+41  41   "User 42"
+42  42   "User 43"
+43  43   "User 44"
+44  44   "User 45"
+45  45   "User 46"
+46  46   "User 47"
+47  47   "User 48"
+48  48   "User 49"
+49  49   "User 50"
+50  50   "User 51"
+51  51   "User 52"
+52  52   "User 53"
+53  53   "User 54"
+54  54   "User 55"
+55  55   "User 56"
+56  56   "User 57"
+57  57   "User 58"
+58  58   "User 59"
+59  59   "User 60"
+60  60   "User 61"
+61  61   "User 62"
+62  62   "User 63"
+63  63   "User 64"
+64  64   "User 65"
+65  65   "User 66"
+66  66   "User 67"
+67  67   "User 68"
+68  68   "User 69"
+69  69   "User 70"
+70  70   "User 71"
+71  71   "User 72"
+72  72   "User 73"
+73  73   "User 74"
+74  74   "User 75"
+75  75   "User 76"
+76  76   "User 77"
+77  77   "User 78"
+78  78   "User 79"
+79  79   "User 80"
+80  80   "User 81"
+81  81   "User 82"
+82  82   "User 83"
+83  83   "User 84"
+84  84   "User 85"
+85  85   "User 86"
+86  86   "User 87"
+87  87   "User 88"
+88  88   "User 89"
+89  89   "User 90"
+90  90   "User 91"
+91  91   "User 92"
+92  92   "User 93"
+93  93   "User 94"
+94  94   "User 95"
+95  95   "User 96"
+96  96   "User 97"
+97  97   "User 98"
+98  98   "User 99"
+99  99   "User 100"
+100 100  "User 101"
+101 101  "User 102"
+102 102  "User 103"
+103 103  "User 104"
+104 104  "User 105"
+105 105  "User 106"
+106 106  "User 107"
+107 107  "User 108"
+108 108  "User 109"
+109 109  "User 110"
+110 110  "User 111"
+111 111  "User 112"
+112 112  "User 113"
+113 113  "User 114"
+114 114  "User 115"
+115 115  "User 116"
+116 116  "User 117"
+117 117  "User 118"
+118 118  "User 119"
+119 119  "User 120"
+120 120  "User 121"
+121 121  "User 122"
+122 122  "User 123"
+123 123  "User 124"
+124 124  "User 125"
+125 125  "User 126"
+126 126  "User 127"
+127 127  "User 128"
+128 128  "User 129"
+129 129  "User 130"
+130 130  "User 131"
+131 131  "User 132"
+132 132  "User 133"
+133 133  "User 134"
+134 134  "User 135"
+135 135  "User 136"
+136 136  "User 137"
+137 137  "User 138"
+138 138  "User 139"
+139 139  "User 140"
+140 140  "User 141"
+141 141  "User 142"
+142 142  "User 143"
+143 143  "User 144"
+144 144  "User 145"
+145 145  "User 146"
+146 146  "User 147"
+147 147  "User 148"
+148 148  "User 149"
+149 149  "User 150"
+150 150  "User 151"
+151 151  "User 152"
+152 152  "User 153"
+153 153  "User 154"
+154 154  "User 155"
+155 155  "User 156"
+156 156  "User 157"
+157 157  "User 158"
+158 158  "User 159"
+159 159  "User 160"
+160 160  "User 161"
+161 161  "User 162"
+162 162  "User 163"
+163 163  "User 164"
+164 164  "User 165"
+165 165  "User 166"
+166 166  "User 167"
+167 167  "User 168"
+168 168  "User 169"
+169 169  "User 170"
+170 170  "User 171"
+171 171  "User 172"
+172 172  "User 173"
+173 173  "User 174"
+174 174  "User 175"
+175 175  "User 176"
+176 176  "User 177"
+177 177  "User 178"
+178 178  "User 179"
+179 179  "User 180"
+180 180  "User 181"
+181 181  "User 182"
+182 182  "User 183"
+183 183  "User 184"
+184 184  "User 185"
+185 185  "User 186"
+186 186  "User 187"
+187 187  "User 188"
+188 188  "User 189"
+189 189  "User 190"
+190 190  "User 191"
+191 191  "User 192"
+192 192  "User 193"
+193 193  "User 194"
+194 194  "User 195"
+195 195  "User 196"
+196 196  "User 197"
+197 197  "User 198"
+198 198  "User 199"
+199 199  "User 200"
+200 200  "User 201"
+201 201  "User 202"
+202 202  "User 203"
+203 203  "User 204"
+204 204  "User 205"
+205 205  "User 206"
+206 206  "User 207"
+207 207  "User 208"
+208 208  "User 209"
+209 209  "User 210"
+210 210  "User 211"
+211 211  "User 212"
+212 212  "User 213"
+213 213  "User 214"
+214 214  "User 215"
+215 215  "User 216"
+216 216  "User 217"
+217 217  "User 218"
+218 218  "User 219"
+219 219  "User 220"
+220 220  "User 221"
+221 221  "User 222"
+222 222  "User 223"
+223 223  "User 224"
+224 224  "User 225"
+225 225  "User 226"
+226 226  "User 227"
+227 227  "User 228"
+228 228  "User 229"
+229 229  "User 230"
+230 230  "User 231"
+231 231  "User 232"
+232 232  "User 233"
+233 233  "User 234"
+234 234  "User 235"
+235 235  "User 236"
+236 236  "User 237"
+237 237  "User 238"
+238 238  "User 239"
+239 239  "User 240"
+240 249  "Reserved"
+250 250  "Text 1"
+251 251  "Text 2"
+252 252  "Text 3"
+253 253  "Text 4"
+254 254  "Cameras"
+255 255  "Masks"
+REND
+
+RANGE 4  ;Effect
+0   15   "None"
+16  31   "RotoZoom"
+32  47   "Cube Inside"
+48  63   "Tile Scroll"
+64  79   "Plane"
+80  95   "Tunnel"
+96  111  "Kaleido"
+112 127  "Radial Blue"
+128 143  "Motion Blue"
+144 159  "Mirror"
+160 175  "AsciiArt"
+176 191  "Split Scrol"
+192 207  "Greyscale"
+208 223  "Invert"
+224 239  "RGB Cycle"
+240 255  "Larsen Simp"
+REND
+

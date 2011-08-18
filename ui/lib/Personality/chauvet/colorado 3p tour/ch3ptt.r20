@@ -1,0 +1,305 @@
+; 'Chauvet COLORado 3P Tour Tour', 12 DMX Channels, filename: CH3PTT.R20
+;  Copyright © Avolites Ltd. 2011
+;
+;   Date       By                Description
+;   29-03-11   Pers Creator      Created - Exported from Diamond 4 file.
+;   29-03-11   John Rogers       Checked.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  CHC3PT_T                            mode=Tour  12 DMX Channels
+NAME "Chauvet" "COLORado 3P Tour Tour"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  12  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Tour"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=500
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+10    1   L    2   100   1N   T   1   "Red"             255   255     0
+10   61   L    3   100   1N   U   1   "Green"           255   255     0
+9    61   L    4   100   1N   V   1   "Blue"            255     0   229
+9     1   L    5   100   1N   0   1   "White"             0     0     0
+4     1   I    6   100   1N   0   1   "Colour Macro"      0     0     0
+2    61   L    7   100   1N   O   1   "Shutter"          11     0     0
+8     1   L    8   100   1N   0   1   "Macro"             0     0     0
+8    61   L    9   100   1N   0   1   "Macro Speed"     255     0     0
+18    1   L   10   100   1N   0   1   "Dimmer Speed"      9     0     0
+20    1   L   11   100   1N   0   1   "ID Address"      255     0     0
+20   61   L   12   100   1N   0   1   "Block Select"      0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Chauvet COLORado 3P
+Tour
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Colour"     -1   2   3   4
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;White
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Colour Macro
+0   10   "No Macro"
+11  30   "Colour 1"
+31  50   "Colour 2"
+51  70   "Colour 3"
+71  90   "Colour 4"
+91  110  "Colour 5"
+111 130  "Colour 6"
+131 150  "Colour 7"
+151 170  "Colour 8"
+171 200  "Colour 9"
+201 205  "White 1"
+206 210  "White 2"
+211 215  "White 3"
+216 220  "White 4"
+221 225  "White 5"
+226 230  "White 6"
+231 235  "White 7"
+236 240  "White 8"
+241 245  "White 9"
+246 250  "White 10"
+251 255  "White 11"
+REND
+
+RANGE 7  ;Shutter
+0   10   "Open"
+11  255  "Str %2d.%d Hz"(c-a)*20/(b-a),10*((c-a)*20%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Macro
+0   40   "No Macro"
+41  50   "Auto 1"
+51  60   "Auto 2"
+61  70   "Auto 3"
+71  80   "Auto 4"
+81  90   "Auto 5"
+91  100  "Auto 6"
+101 110  "Auto 7"
+111 120  "Auto 8"
+121 130  "Auto 9"
+131 140  "Auto 10"
+141 150  "Custom 1"
+151 160  "Custom 2"
+161 170  "Custom 3"
+171 180  "Custom 4"
+181 190  "Custom 5"
+191 200  "Custom 6"
+201 210  "Custom 7"
+211 220  "Custom 8"
+221 230  "Custom 9"
+231 255  "Custom 10"
+REND
+
+RANGE 10  ;Dimmer Speed
+0   9    "No Macro"
+10  29   "Linear Dim"
+30  255  "NL Dim %3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 11  ;ID Address
+0   9    "All IDs"
+10  19   "ID 1"
+20  29   "ID 2"
+30  39   "ID 3"
+40  49   "ID 4"
+50  59   "ID 5"
+60  69   "ID 6"
+70  79   "ID 7"
+80  89   "ID 8"
+90  99   "ID 9"
+100 109  "ID 10"
+110 119  "ID 11"
+120 129  "ID 12"
+130 139  "ID 13"
+140 149  "ID 14"
+150 159  "ID 15"
+160 169  "ID 16"
+170 179  "ID 17"
+180 189  "ID 18"
+190 199  "ID 19"
+200 209  "ID 20"
+210 210  "ID 21"
+211 211  "ID 22"
+212 212  "ID 23"
+213 213  "ID 24"
+214 214  "ID 25"
+215 215  "ID 26"
+216 216  "ID 27"
+217 217  "ID 28"
+218 218  "ID 29"
+219 219  "ID 30"
+220 220  "ID 31"
+221 221  "ID 32"
+222 222  "ID 33"
+223 223  "ID 34"
+224 224  "ID 35"
+225 225  "ID 36"
+226 226  "ID 37"
+227 227  "ID 38"
+228 228  "ID 39"
+229 229  "ID 40"
+230 230  "ID 41"
+231 231  "ID 42"
+232 232  "ID 43"
+233 233  "ID 44"
+234 234  "ID 45"
+235 235  "ID 46"
+236 236  "ID 47"
+237 237  "ID 48"
+238 238  "ID 49"
+239 239  "ID 50"
+240 240  "ID 51"
+241 241  "ID 52"
+242 242  "ID 53"
+243 243  "ID 54"
+244 244  "ID 55"
+245 245  "ID 56"
+246 246  "ID 57"
+247 247  "ID 58"
+248 248  "ID 59"
+249 249  "ID 60"
+250 250  "ID 61"
+251 251  "ID 62"
+252 252  "ID 63"
+253 253  "ID 64"
+254 254  "ID 65"
+255 255  "ID 66"
+REND
+
+RANGE 12  ;Block Select
+0   4    "All"
+5   34   "Block 1"
+35  64   "Block 2"
+65  94   "Block 3"
+95  124  "Blocks 1&2"
+125 154  "Blocks 2&3"
+155 184  "Blocks 1&3"
+185 214  "All"
+REND
+

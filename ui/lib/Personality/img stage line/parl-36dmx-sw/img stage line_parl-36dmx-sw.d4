@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="PARL-36DMX/SW" ShortName="PARL 36-SW" Company="img Stage Line">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="17-07-07" Author="D.Milligan" Comment="Created" />
+  <History Date="17-07-07" Author="D.Milligan" Comment="Checked" />
+  <History Date="14-10-08" Author="Jonathan Moreton" Comment="Updated manufacturer name" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Control" Name="Mode" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Mode 1" Display="'Mode 1'" Dmx="0~63" Update="Red, Green, Blue" />
+      <Function ID="2" Name="Mode 2" Display="'Mode 2'" Dmx="64~127" Update="Red, Green, Blue" />
+      <Function ID="3" Name="Mode 3" Display="'Mode 3'" Dmx="128~191" Update="Red, Green, Blue" />
+      <Function ID="4" Name="Mode 4" Display="'Mode 4'" Dmx="192~255" Update="Red, Green, Blue" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="Mode 1" ID="1" If="'Control'==1" />
+      <Condition Name="Mode 2" ID="2,3" If="'Control'==2||'Control'==3||'Control'==4" />
+      <Else ID="1,2,3" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+      <Function ID="2" Name="Tracking" Display="'Tracking'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="3" Name="Speed" Display="'Speed %.1f%%',100.0~0.0" Dmx="1~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="ColMacros" Name="Col Macros" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~10" />
+      <Function ID="2" Name="Col Spd" Display="'Col Spd %.f%%',100~0" Dmx="11~100" />
+      <Function ID="3" Name="Safe" Display="'Safe'" Dmx="101~150" />
+      <Function ID="4" Name="Sound" Display="'Sound %.f%%',100~0" Dmx="151~255" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I" Size="0">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="5 DMX, 8bit, vDim" Channels="5">
+    <Import PearlRef="ISL_P36SW" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="2" Wheel="10" VirtualControl="Dimmer" />
+      <Attribute ID="Green" ChannelOffset="3" Wheel="11" VirtualControl="Dimmer" />
+      <Attribute ID="Blue" ChannelOffset="4" Wheel="12" VirtualControl="Dimmer" />
+      <Attribute ID="ColMacros" ChannelOffset="5" Wheel="26" />
+      <Attribute ID="Control" ChannelOffset="1" Wheel="28" />
+    </Include>
+  </Mode>
+</Fixture>

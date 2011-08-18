@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="ColorFader" ShortName="ColorFader" Company="Morpheus">
+  <Copyright Notice="© Avolites Ltd. 2011" />
+  <History Date="22-10-04" Author="" Comment="Created" />
+  <History Date="10-05-05" Author="Phil" Comment="Revised" />
+  <History Date="10-05-05" Author="Tom" Comment="Checked" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <History Date="04-02-11" Author="John Rogers" Comment="Fixed Incorrect Channel Count error." />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:20" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+  </Control>
+  <Mode Name="3 DMX, 8bit" Channels="3">
+    <Import PearlRef="MoColFad" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Cyan" ChannelOffset="3" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="2" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="1" Wheel="12" />
+    </Include>
+  </Mode>
+  <Mode Name="4 DMX, (w Pend Dim)" Channels="3">
+    <Import PearlRef="MoColFadD" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="0" Wheel="1" />
+      <Attribute ID="Cyan" ChannelOffset="3" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="2" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="1" Wheel="12" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Cyan:1:0,Magenta:1:0,Yellow:1:0" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Cyan:1:0,Magenta:1:100,Yellow:1:100" />
+      <Palette ID="3" Name="Amber" Number="3" Page="1" SetControl="Cyan:1:0,Magenta:1:50,Yellow:1:100" />
+      <Palette ID="4" Name="Yellow" Legend="Yell" Number="4" Page="1" SetControl="Cyan:1:0,Magenta:1:0,Yellow:1:100" />
+      <Palette ID="5" Name="Lime" Number="0" Page="1" SetControl="Cyan:1:50,Magenta:1:0,Yellow:1:100" />
+      <Palette ID="6" Name="Green" Number="5" Page="1" SetControl="Cyan:1:100,Magenta:1:0,Yellow:1:100" />
+      <Palette ID="7" Name="Aqua" Number="0" Page="1" SetControl="Cyan:1:100,Magenta:1:0,Yellow:1:50" />
+      <Palette ID="8" Name="Cyan" Number="6" Page="1" SetControl="Cyan:1:100,Magenta:1:0,Yellow:1:0" />
+      <Palette ID="9" Name="Light Blue" Number="0" Page="1" SetControl="Cyan:1:100,Magenta:1:50,Yellow:1:0" />
+      <Palette ID="10" Name="Blue" Number="7" Page="1" SetControl="Cyan:1:100,Magenta:1:100,Yellow:1:0" />
+      <Palette ID="11" Name="Purple" Legend="Purpl" Number="0" Page="1" SetControl="Cyan:1:50,Magenta:1:100,Yellow:1:0" />
+      <Palette ID="12" Name="Magenta" Legend="Mag" Number="10" Page="1" SetControl="Cyan:1:0,Magenta:1:100,Yellow:1:0" />
+      <Palette ID="13" Name="Rose" Number="0" Page="1" SetControl="Cyan:1:0,Magenta:1:100,Yellow:1:50" />
+      <Palette ID="14" Name="Lavender" Legend="Lav" Number="8" Page="1" SetControl="Cyan:1:29,Magenta:1:57,Yellow:1:6" />
+      <Palette ID="15" Name="Ultra Violet" Legend="UV" Number="9" Page="1" SetControl="Cyan:1:80,Magenta:1:100,Yellow:1:0" />
+    </Group>
+  </Palettes>
+</Fixture>

@@ -1,0 +1,357 @@
+; 'Qmaxz Lighting Q1500 Spot', 16 DMX Channels, filename: QMQ15SM1.R20
+;
+;   Date       By                Description
+;   06-10-06   Pers Creator      Created - Exported from Diamond 4 file.
+;   05-01-09   David Hunt        Fixed duplicate dmx values in range tables
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  QM_Q1500Sm1                         mode=Mode 1, 8bit  16 DMX Channels
+NAME "Qmaxz Lighting" "Q1500S Mode 1"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  16  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   540   252
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Mode 1, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=496
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    2   100   1N   H   1   "Dimmer"          255     0     0
+2    61   L    3   100   1N   O   1   "Shutter"          15     0     0
+3    61   L    4   100   1N   E   1   "Pan"             128     0     0
+3     1   L    5   100   1N   F   1   "Tilt"            128     0     0
+4     1   I    6   100   1N   A   1   "Colour 1"          0     0     0
+4    61   I   14   100   1N   K   1   "Colour 2"          0     0     0
+6     1   I    7   100   1N   I   1   "Gobo 1"            0     0     0
+6    61   I    8   100   1N   J   1   "Gobo 2"            0     0     0
+7    61   L    9   100   1N   M   1   "Gobo 2 Rot"        0     0     0
+2     1   L   10   100   1N   G   1   "Iris"              0     0     0
+5     1   L   11   100   1N   Q   1   "Zoom"            128     0     0
+5    61   L   12   100   1N   L   1   "Focus"           128     0     0
+9     1   I   13   100   1N   P   1   "Prism"             0     0     0
+9    61   L    1   100   1N   0   1   "Control"           0     0     0
+10    1   L   15   100   1N   0   1   "Blackout"          0     0     0
+8     1   L   16   100   1N   0   1   "P/T Speed"         0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Qmaxz Lighting Q1500 Spot
+Mode 1, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Disp Ups/Right"  1   1
+"data"                0   D
+"delay"               1  32
+"data"                0   4
+"delay"               1   A
+MEND
+
+MACRO "DMX Disp On/Off"  2   1
+"data"                0  17
+"delay"               1  32
+"data"                0   4
+"delay"               1   A
+MEND
+
+MACRO "Menu On/Off"   3   1
+"data"                0  21
+"delay"               1  32
+"data"                0   4
+"delay"               1   A
+MEND
+
+MACRO "Reset Motors"  4   1
+"data"                0  35
+"delay"               1  32
+"data"                0   4
+"delay"               1   A
+MEND
+
+MACRO "Rst Mtr no XY"  5   1
+"data"                0  49
+"delay"               1  32
+"data"                0   4
+"delay"               1   A
+MEND
+
+MACRO "Rst C1/S/G2"   6   1
+"data"                0  5D
+"delay"               1  32
+"data"                0   4
+"delay"               1   A
+MEND
+
+MACRO "Rst I/G1/C2"   7   1
+"data"                0  7B
+"delay"               1  32
+"data"                0   4
+"delay"               1   A
+MEND
+
+MACRO "Rst P/Z/Mtr"   8   1
+"data"                0  99
+"delay"               1  32
+"data"                0   4
+"delay"               1   A
+MEND
+
+MACRO "Lamp Off"      9   1
+"data"                0  DF
+"delay"               1  6E
+"data"                0   4
+"delay"               1   A
+MEND
+
+MACRO "Lamp On"      10   1
+"data"                0  F8
+"delay"               1  6E
+"data"                0   4
+"delay"               1   A
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+
+RANGE 3  ;Shutter
+0   9    "Closed"
+10  19   "Open"
+20  65   "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+66  75   "Open"
+76  107  "Op Pul %3d%%"0+(((c-a)*100)/(b-a))
+108 139  "Cl Pul %3d%%"0+(((c-a)*100)/(b-a))
+140 149  "Open"
+150 179  "Rnd St %3d%%"100-(((c-a)*100)/(b-a))
+180 189  "Open"
+190 219  "R Op P %3d%%"100-(((c-a)*100)/(b-a))
+220 249  "R Cl P %3d%%"100-(((c-a)*100)/(b-a))
+250 255  "Open"
+REND
+
+RANGE 6  ;Colour 1
+0   9    "Open"
+10  19   "Deep Blue"
+20  29   "Yellow"
+30  39   "Purple"
+40  49   "Green"
+50  59   "Orange"
+60  69   "Light Blue"
+70  79   "Red"
+80  89   "Open"
+90  193  "Index %3d%%"0+(((c-a)*100)/(b-a))
+194 223  "Sc CW %3d%%"100-(((c-a)*100)/(b-a))
+224 225  "No Scroll"
+226 255  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 14  ;Colour 2
+0   9    "Open"
+10  19   "CTO"
+20  29   "CTB"
+30  39   "Pink"
+40  49   "Blue"
+50  59   "Yellow"
+60  69   "Purple"
+70  79   "Frost"
+80  89   "Open"
+90  193  "Index %3d%%"0+(((c-a)*100)/(b-a))
+194 223  "Sc CW %3d%%"100-(((c-a)*100)/(b-a))
+224 225  "No Scroll"
+226 255  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 7  ;Gobo 1
+0   9    "Open"
+10  19   "Gobo 1"
+20  29   "Gobo 2"
+30  39   "Gobo 3"
+40  49   "Gobo 4"
+50  59   "Gobo 5"
+60  69   "Gobo 6"
+70  79   "Gobo 7"
+80  94   "Gobo 8"
+95  109  "Gobo 8"
+110 124  "Gobo 7"
+125 139  "Gobo 6"
+140 154  "Gobo 5"
+155 169  "Gobo 4"
+170 184  "Gobo 3"
+185 199  "Gobo 2"
+200 214  "Gobo 1"
+215 224  "No Scroll"
+225 255  "Scroll %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 8  ;Gobo 2
+0   19   "Open"
+20  39   "Gobo 1"
+40  59   "Gobo 2"
+60  79   "Gobo 3"
+80  99   "Gobo 4"
+100 119  "Gobo 5"
+120 144  "Gobo 6"
+145 159  "Gobo 6 %3d%%"0+(((c-a)*100)/(b-a))
+160 174  "Gobo 5 %3d%%"0+(((c-a)*100)/(b-a))
+175 189  "Gobo 4 %3d%%"0+(((c-a)*100)/(b-a))
+190 204  "Gobo 3 %3d%%"0+(((c-a)*100)/(b-a))
+205 219  "Gobo 2 %3d%%"0+(((c-a)*100)/(b-a))
+220 234  "Gobo 1 %3d%%"0+(((c-a)*100)/(b-a))
+235 255  "Open %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 9  ;Gobo 2 Rot
+0   125  "Index %3d%%"0+(((c-a)*100)/(b-a))
+126 128  "No Spin"
+129 190  "Sp CW %3d%%"0+(((c-a)*100)/(b-a))
+191 193  "No Spin"
+194 255  "Sp CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 10  ;Iris
+0   9    "Open"
+10  149  "%3d%%"0+(((c-a)*100)/(b-a))
+150 153  "Closed"
+154 185  "%3d%%"0+(((c-a)*100)/(b-a))
+186 217  "Op Pul %3d%%"0+(((c-a)*100)/(b-a))
+218 249  "Cl Pul  %3d%%"0+(((c-a)*100)/(b-a))
+250 255  "Closed"
+REND
+
+
+RANGE 13  ;Prism
+0   9    "Open"
+10  130  "Sp CW %3d%%"0+(((c-a)*100)/(b-a))
+131 134  "No Spin"
+135 255  "Sp CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 1  ;Control
+0   9    "Safe"
+10  16   "Disp Ups/Rg"
+17  19   "Safe"
+20  26   "DmxD On/Off"
+27  29   "Safe"
+30  36   "Menu On/Off"
+37  49   "Safe"
+50  56   "Reset Motor"
+57  69   "Safe"
+70  76   "R Mtr no XY"
+77  89   "Safe"
+90  96   "Rst C1/S/G2"
+97  119  "Safe"
+120 126  "Rst I/G1/C2"
+127 149  "Safe"
+150 156  "Rst P/Z/Mtr"
+157 219  "Safe"
+220 226  "Lamp Off"
+227 239  "Safe"
+240 255  "Lamp On"
+REND
+
+RANGE 15  ;Blackout
+0   29   "Safe"
+30  89   "P Chnge BO"
+90  119  "G Chnge BO"
+120 149  "Safe"
+150 179  "C Chnge BO"
+180 209  "P/T Mve BO"
+210 239  "Blackout"
+240 255  "Safe"
+REND
+
+RANGE 16  ;P/T Speed
+0   9    "Max"
+10  255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+

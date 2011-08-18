@@ -1,0 +1,335 @@
+; 'Martin SCX 700 Mode 2 V1.2, 10DMX', 10 DMX Channels, filename: MTS7V122.R20
+;  Copyright © Avolites Ltd. 2009
+;
+;   Date       By                Description
+;   30-04-09   Pers Creator      Created - Exported from Diamond 4 file.
+;   30-04-09   Jonathan Moreton  Checked
+;   01-05-09   David Hunt        Checked
+;   13-05-09   Jonathan Moreton  Updated Shutter channel
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MT_SC7v12m2                         mode=Mode 2 V1.2, 10DMX  10 DMX Channels
+NAME "Martin" "SCX 700 Mode 2 V1.2, 10DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  10  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  1   198   72
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Mode 2 V1.2, 10DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=502
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    1   100   1N   0   1   "Shutter"          96     0     0
+3    61   L    5   100   1N   E   1   "Pan"             127     0     0
+3     1   L    6   100   1N   F   1   "Tilt"            127     0     0
+4     1   I    2   100   1N   A   1   "Colour"            0     0     0
+6     1   I    3   100   1N   I   1   "Gobo"              0     0     0
+7     1   L    4   100   1N   K   1   "Gobo Rot"          0     0     0
+9     1   I    8   100   1N   P   1   "Effect Macro"      0     0     0
+9    61   L    7   100   1N   0   1   "PTMacro"           0     0     0
+8    61   L    9   100   1N   0   1   "P/T Speed"         0     0     0
+8     1   L   10   100   1N   0   1   "Effects Spee"      0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Martin SCX 700
+Mode 2 V1.2, 10DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Pan/Tilt"   -1   5   6
+"Middle"             21  7F  7F
+"Left"               22  4F  7F
+"Right"              23  B0  7F
+"Top"                24  7F  4F
+"Bottom"             25  7F  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1   2
+"Open"                1   0
+"Red"                 2  18
+"Orange"              3  54
+"Yellow"              4  24
+"Green"               5  48
+"Cyan"                6  3C
+"Blue"                7   C
+"Magenta"             9  30
+"Magenta"            10  30
+"Pink"                8  6C
+PFEND
+
+PFTABLE "Gobo"       -1   3   4
+"Gobo 1"             11  44   0
+"Gobo 2"             12  4C   0
+"Gobo 3"             13  54   0
+"Gobo 4"             14  5C   0
+"Gobo 5"             15  64   0
+"Gobo 6"             16  6C   0
+"Gobo 7"             17  78   0
+"No Spin"            18   0   4
+"Spin CW"            19   0  2A
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset"         1   1
+"data"                0  FE
+"delay"               1  3C
+"data"                0  1C
+MEND
+
+MACRO "Lamp On"       2   1
+"data"                0  D6
+"delay"               1  32
+"data"                0  1C
+MEND
+
+MACRO "Lamp Off"      3   1
+"data"                0  F4
+"delay"               1  32
+"data"                0  1C
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Shutter
+0   38   "%3d%%"(c-a)*100/(b-a)
+39  95   "Strobe %3d%%"(c-a)*100/(b-a)
+96  103  "Open"
+104 151  "Rnd St %3d%%"(c-a)*100/(b-a)
+152 159  "Open"
+160 199  "Music Sht"
+200 207  "Open"
+208 219  "Lamp On"
+220 239  "Open"
+240 247  "Lamp Off"
+248 251  "Open"
+252 255  "Reset"
+REND
+
+RANGE 5  ;Pan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Tilt
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Colour
+0   0    "Open"
+1   11   "Op/Bl %3d%%"(c-a)*100/(b-a)
+12  12   "Blue"
+13  23   "Bl/Re %3d%%"(c-a)*100/(b-a)
+24  24   "Red"
+25  35   "Re/Ye %3d%%"(c-a)*100/(b-a)
+36  36   "Yellow"
+37  47   "Ye/Ma %3d%%"(c-a)*100/(b-a)
+48  48   "Magenta"
+49  59   "Ma/Cy %3d%%"(c-a)*100/(b-a)
+60  60   "Cyan"
+61  71   "Cy/Gr %3d%%"(c-a)*100/(b-a)
+72  72   "Green"
+73  83   "Gr/Or %3d%%"(c-a)*100/(b-a)
+84  84   "Orange"
+85  95   "Or/Co %3d%%"(c-a)*100/(b-a)
+96  96   "Congo"
+97  107  "Co/Pi %3d%%"(c-a)*100/(b-a)
+108 108  "Pink"
+109 119  "Pi/Op %3d%%"(c-a)*100/(b-a)
+120 128  "Open %3d%%"(c-a)*100/(b-a)
+129 135  "Blue %3d%%"(c-a)*100/(b-a)
+136 142  "Red %3d%%"(c-a)*100/(b-a)
+143 149  "Yellow %3d%%"(c-a)*100/(b-a)
+150 156  "Magent %3d%%"(c-a)*100/(b-a)
+157 163  "Cyan %3d%%"(c-a)*100/(b-a)
+164 170  "Green %3d%%"(c-a)*100/(b-a)
+171 177  "Orange %3d%%"(c-a)*100/(b-a)
+178 184  "Congo %3d%%"(c-a)*100/(b-a)
+185 191  "Pink %3d%%"(c-a)*100/(b-a)
+192 215  "Sc CW %3d%%"100-((c-a)*100/(b-a))
+216 239  "Sc CCW %3d%%"(c-a)*100/(b-a)
+240 245  "Fast"
+246 250  "Medium"
+251 255  "Slow"
+REND
+
+RANGE 3  ;Gobo
+0   7    "Open"
+8   15   "Parasol Tw"
+16  23   "Plaid Dream"
+24  31   "Cartwheel"
+32  39   "Plaid Dream"
+40  47   "Spiral Glxy"
+48  55   "Moons"
+56  63   "Radial Brst"
+64  71   "Parasol Tw"
+72  79   "Plaid Dream"
+80  87   "Cartwheel"
+88  95   "Plaid Dream"
+96  103  "Spiral Glxy"
+104 111  "Moons"
+112 127  "Radial Brst"
+128 143  "GB1SHK %3d%%"(c-a)*100/(b-a)
+144 159  "GB2SHK %3d%%"(c-a)*100/(b-a)
+160 175  "GB3SHK %3d%%"(c-a)*100/(b-a)
+176 191  "GB4SHK %3d%%"(c-a)*100/(b-a)
+192 207  "GB5SHK %3d%%"(c-a)*100/(b-a)
+208 223  "GB6SHK %3d%%"(c-a)*100/(b-a)
+224 239  "GB7SHK %3d%%"(c-a)*100/(b-a)
+240 245  "Fast"
+246 250  "Medium"
+251 255  "Slow"
+REND
+
+RANGE 4  ;Gobo Rot
+0   7    "No Spin"
+8   77   "Sp CW %3d%%"(c-a)*100/(b-a)
+78  147  "Sp CCW %3d%%"100-((c-a)*100/(b-a))
+148 153  "No Spin"
+154 223  "Sp CW %3d%%"(c-a)*100/(b-a)
+224 239  "Rot Shake"
+240 245  "Fast"
+246 250  "Medium"
+251 255  "Slow"
+REND
+
+RANGE 8  ;Effect Macros
+0   15   "No Macro"
+16  31   "Macro 1"
+32  47   "Macro 2"
+48  63   "Macro 3"
+64  79   "Macro 4"
+80  95   "Macro 5"
+96  111  "Macro 6"
+112 127  "Macro 7"
+128 143  "Macro 8"
+144 159  "Macro 9"
+160 175  "Macro 10"
+176 191  "Macro 11"
+192 207  "Macro 12"
+208 255  "Reserved"
+REND
+
+RANGE 7  ;PTMacro
+0   15   "No Macro"
+16  31   "Macro 1"
+32  47   "Macro 2"
+48  63   "Macro 3"
+64  79   "Macro 4"
+80  95   "Macro 5"
+96  111  "Macro 6"
+112 127  "Macro 7"
+128 143  "Macro 8"
+144 159  "Macro 9"
+160 175  "Macro 10"
+176 191  "Macro 11"
+192 207  "Macro 12"
+208 255  "Reserved"
+REND
+
+RANGE 9  ;P/T Speed
+0   7    "Tracking"
+8   240  "Spd %3d%%"(c-a)*100/(b-a)
+241 245  "BO on Co/Gb"
+246 250  "BO on P/T"
+251 255  "BO on All"
+REND
+
+RANGE 10  ;Effects Speed
+0   7    "Tracking"
+8   255  "Spd %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

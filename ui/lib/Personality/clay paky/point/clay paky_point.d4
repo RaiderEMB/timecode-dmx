@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Point" ShortName="Point" Company="Clay Paky">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="12-01-04" Author="Greg Brown" Comment="Created" />
+  <History Date="12-01-04" Author="Shahid Anwar" Comment="Checked against manual" />
+  <History Date="13-02-04" Author="L.Gallagher" Comment="Error Found 1. No macros found" />
+  <History Date="30-07-04" Author="Phil Rogers" Comment="No macros described in DMX protocol for this fixture! Consider the above point fixed" />
+  <History Date="30-07-04" Author="Phil" Comment="Added fixture type and renamed mode to standard generic name." />
+  <History Date="30-07-04" Author="Renamed colour wheel functions and added open to split/scroll" Comment="Edited" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour ID to Colour1" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="20-07-06" Author="Ed" Comment="Checked" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="/manual/Clay Paky_Point MH.pdf" Summary="" />
+  <Control>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Index" ID="1,2,3,4,5,6,7" If="'Colour1Func'==1" />
+      <Condition Name="Split" ID="8,9,10,11,12,13,14,15" If="'Colour1Func'==2" />
+      <Condition Name="Scroll" ID="16,17" If="'Colour1Func'==3" />
+      <Condition Name="Raw DMX" ID="18" If="'Colour1Func'==4" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~8" Colour="0,0,0" />
+      <Function ID="2" Name="Red" Display="'Red'" Dmx="18~26" Colour="255,0,0" />
+      <Function ID="3" Name="Yellow" Display="'Yellow'" Dmx="36~44" Colour="255,255,0" />
+      <Function ID="4" Name="Violet" Display="'Violet'" Dmx="54~62" Colour="128,0,255" />
+      <Function ID="5" Name="Green" Display="'Green'" Dmx="72~80" Colour="0,255,0" />
+      <Function ID="6" Name="Orange" Display="'Orange'" Dmx="90~98" Colour="255,128,0" />
+      <Function ID="7" Name="Blue" Display="'Blue'" Dmx="108~116" Colour="0,0,255" />
+      <Function ID="8" Name="Open" Display="'Open'" Dmx="0~8" Colour="0,0,0" />
+      <Function ID="9" Name="Open/Red" Display="'Open/Red'" Dmx="9~17" Colour="0,0,0" />
+      <Function ID="10" Name="Red/Yellow" Display="'Red/Yellow'" Dmx="27~35" Colour="255,0,0" />
+      <Function ID="11" Name="Yellow/Violet" Display="'Yellow/Violet'" Dmx="45~53" Colour="255,255,0" />
+      <Function ID="12" Name="Violet/Green" Display="'Violet/Green'" Dmx="63~71" Colour="128,0,255" />
+      <Function ID="13" Name="Green/Orange" Display="'Green/Orange'" Dmx="81~89" Colour="0,255,0" />
+      <Function ID="14" Name="Orange/Blue" Display="'Orange/Blue'" Dmx="99~107" Colour="255,128,0" />
+      <Function ID="15" Name="Blue/White" Display="'Blue/White'" Dmx="117~127" Colour="0,0,255" />
+      <Function ID="16" Name="No Scroll" Display="'No Scroll'" Dmx="0~8" Colour="0,0,0" />
+      <Function ID="17" Name="Scroll CW" Display="'Scroll CW %.f%%',0~100" Dmx="128~255" Colour="255,255,255" />
+      <Function ID="18" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Colour1Func" Name="Colour Func" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Index" Display="'Index'" Dmx="0~10" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Split" Display="'Split'" Dmx="0~10" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Scroll" Display="'Scroll'" Dmx="0~10" Update="Colour1" Colour="0,0,0" />
+      <Function ID="4" Name="Raw DMX" Display="'Raw DMX'" Dmx="0~10" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+  </Control>
+  <Mode Name="2 DMX, 8 bit" Channels="2">
+    <Import PearlRef="CPPoint" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="2" Wheel="1" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="8" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+    </Include>
+  </Mode>
+</Fixture>

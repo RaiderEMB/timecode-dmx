@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Spider" ShortName="Spider" Company="Desisti">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="28-04-05" Author="Phil Rogers" Comment="Created" />
+  <History Date="12-05-05" Author="Phil" Comment="Updated to new protocol" />
+  <History Date="13-05-05" Author="Tom" Comment="Checked" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="6" PowerOn="6" />
+      <Condition Name="Safe" ID="6" If="'Control'==1" />
+      <Condition Name="Proportional" ID="1" If="'Control'==2||'Control'==4" />
+      <Condition Name="Up/Down" ID="2,3,4,5" If="'Control'==3" />
+      <Else ID="1,2,3,4,5,6" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+      <Function ID="2" Name="No Movement" Display="'No Movement'" Dmx="0~0" />
+      <Function ID="3" Name="Down" Display="'Down'" Dmx="19789~19789" />
+      <Function ID="4" Name="No Movement" Display="'No Movement'" Dmx="0~0" />
+      <Function ID="5" Name="Up" Display="'Up'" Dmx="46003~46003" />
+      <Function ID="6" Name="No Movement" Display="'No Movement'" Dmx="0~0" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~0" Update="Tilt" />
+      <Function ID="2" Name="Proportional" Display="'Proportional'" Dmx="127~127" Update="Tilt" />
+      <Function ID="3" Name="Up/Down" Display="'Up/Down'" Dmx="76~76" Update="Tilt" />
+      <Function ID="4" Name="Initialise" Display="'Initialise'" Dmx="178~178" Update="Tilt" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Speed" Display="'Speed %.f%%',100~0" Dmx="255~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="4 DMX, 16 bit" Channels="4">
+    <Import PearlRef="DSSpdr4Ch" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Tilt" ChannelOffset="1,2" Wheel="3" />
+      <Attribute ID="Control" ChannelOffset="4" Wheel="28" />
+      <Attribute ID="Speed" ChannelOffset="3" Wheel="25" />
+    </Include>
+  </Mode>
+  <Mode Name="3 DMX, 16bit" Channels="3">
+    <Import PearlRef="DSSpdr3Ch" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Tilt" ChannelOffset="1,2" Wheel="3" />
+      <Attribute ID="Control" ChannelOffset="3" Wheel="28" />
+    </Include>
+  </Mode>
+</Fixture>

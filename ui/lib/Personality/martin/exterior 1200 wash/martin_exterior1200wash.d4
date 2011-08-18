@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Exterior 1200 Wash" ShortName="Exter1200W" Company="Martin">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="27-11-06" Author="D.Milligan" Comment="Created" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~207" />
+      <Function ID="2" Name="Reset" Display="'Reset'" Dmx="208~217" />
+      <Function ID="3" Name="Safe" Display="'Safe'" Dmx="218~227" />
+      <Function ID="4" Name="Lamp On" Display="'Lamp On'" Dmx="228~237" />
+      <Function ID="5" Name="Safe" Display="'Safe'" Dmx="238~247" />
+      <Function ID="6" Name="Lamp Off" Display="'Lamp Off'" Dmx="248~255" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:20" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour 1" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~9" Colour="255,255,255" />
+      <Function ID="2" Name="CTC" Display="'CTC %.f%%',0~100" Dmx="10~19" Colour="255,240,200" />
+      <Function ID="3" Name="Red" Display="'Red'" Dmx="20~29" Colour="255,0,0" />
+      <Function ID="4" Name="Green" Display="'Green'" Dmx="30~39" Colour="0,255,0" />
+      <Function ID="5" Name="Blue" Display="'Blue'" Dmx="40~49" Colour="0,0,255" />
+      <Function ID="6" Name="Reserved" Display="'Reserved %.f',50~255" Dmx="50~255" Colour="255,255,255" />
+    </Attribute>
+    <Attribute ID="Zoom" Name="Zoom" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Zoom" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Tracking" Display="'Tracking'" Dmx="0~2" />
+      <Function ID="2" Name="Speed" Display="'%.1f%%',100.0~0.0" Dmx="3~245" />
+      <Function ID="3" Name="Reserved" Display="'Reserved'" Dmx="246~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="Mode 1" Channels="8">
+    <Import PearlRef="MT_Ext1200W" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="2" Wheel="1" />
+      <Attribute ID="Cyan" ChannelOffset="3" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="4" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="5" Wheel="12" />
+      <Attribute ID="Colour1" ChannelOffset="6" Wheel="8" />
+      <Attribute ID="Zoom" ChannelOffset="7" Wheel="19" />
+      <Attribute ID="Control" ChannelOffset="1" Wheel="28" />
+      <Attribute ID="Speed" ChannelOffset="8" Wheel="25" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Control:4" Delay="6000" />
+      <Set Channel="Control:1" Delay="1000" />
+    </Macro>
+    <Macro Name="Lamp Off">
+      <Set Channel="Control:6,Cyan:1:91,Magenta:1:91,Yellow:1:91" Delay="6000" />
+      <Set Channel="Control:1,Cyan:1:0,Magenta:1:0,Yellow:1:0" Delay="1000" />
+    </Macro>
+    <Macro Name="Reset">
+      <Set Channel="Control:2,Cyan:1:91,Magenta:1:91,Yellow:1:91" Delay="6000" />
+      <Set Channel="Control:1,Cyan:1:0,Magenta:1:0,Yellow:1:0" Delay="1000" />
+    </Macro>
+  </Macro>
+</Fixture>

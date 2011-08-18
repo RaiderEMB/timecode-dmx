@@ -1,0 +1,311 @@
+; 'JB Lighting Vary Color P3 Hog Mode, 16bit', 18 DMX Channels, filename: VSVCLP3H.R20
+;  Copyright © Avolites Ltd. 2009
+;
+;   Date       By                Description
+;   23-06-09   Pers Creator      Created - Exported from Diamond 4 file.
+;   23-06-09   Jonathan Moreton  Checked
+;   30-06-09   David Hunt        Checked
+;   30-08-09   David Hunt        Corrected Duplicate channel assignments
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  VS_VColP3HG                         mode=Hog Mode, 18 DMX  18 DMX Channels
+NAME "JB Lighting" "Vary Color P3 Hog Mode, 17 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  18  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   430  270
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Hog Mode, 16bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=494
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    6   100   1N   O   1   "Shutter"          16     0     0
+1     1   H    7   100   1N   H   1   "Dimmer"          255     0     0
+3    61   s    1   100   1N   E   1   "Pan"             128     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        128     0     0
+4    61   I   10   100   1N   0   1   "Colour Macro"      0     0     0
+10    1   L   11   100   1N   B   1   "Cyan"              0     0   255
+10   61   L   12   100   1N   C   1   "Magenta"           0     0   255
+9    61   L   13   100   1N   D   1   "Yellow"            0   255    51
+4     1   I   15   100   1N   A   1   "Colour"            0     0     0
+2     1   L   14   100   1N   0   1   "Beam Shape"       96     0     0
+5     1   L    9   100   1N   Q   1   "Zoom"            128     0     0
+20    1   I    5   100   1N   0   1   "Control"           0     0     0
+8     1   L   16   100   1N   0   1   "P/T Speed"         0     0     0
+8    61   L   17   100   1N   0   1   "Effect Speed"      0     0     0
+20   61   I   18   100   1N   0   1   "Blackout"          0     0     0
+5    61   L    8   100   1N   0   1   "Beam"              0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+JB Lighting
+Vary Color P3
+Hog Mode, 16bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Lamp On"       1   5
+"data"                0  FC
+"delay"               1  28
+"data"                0  74
+"delay"               1   A
+MEND
+
+MACRO "Lamp Off"      2   5
+"data"                0  EC
+"delay"               1  28
+"data"                0  74
+"delay"               1   A
+MEND
+
+MACRO "Reset"         3   5
+"data"                0  F4
+"delay"               1  14
+"data"                0  74
+"delay"               1   A
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 6  ;Shutter
+0   15   "Closed"
+16  111  "Open"
+112 125  "Fade %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+126 126  "Open"
+127 127  "Closed"
+128 142  "Op Pls %3d%%"100-((c-a)*100/(b-a))
+143 143  "Open"
+144 158  "Cl Pls %3d%%"100-((c-a)*100/(b-a))
+159 159  "Closed"
+160 174  "S R %3d%%"100-((c-a)*100/(b-a))
+175 175  "Open"
+176 190  "R S %3d%%"100-((c-a)*100/(b-a))
+191 191  "Closed"
+192 206  "R O P %3d%%"100-((c-a)*100/(b-a))
+207 207  "Open"
+208 222  "R C P %3d%%"100-((c-a)*100/(b-a))
+223 223  "Closed"
+224 238  "R S R %3d%%"100-((c-a)*100/(b-a))
+239 239  "Open"
+240 254  "R R S %3d%%"100-((c-a)*100/(b-a))
+255 255  "Open"
+REND
+
+RANGE 7  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 1  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Colour Macro
+0   7    "Open"
+8   15   "Lavender"
+16  23   "Yellow"
+24  31   "Medium Yel"
+32  39   "Spring Yel"
+40  47   "Deep Amber"
+48  55   "Amber"
+56  63   "Gold Amber"
+64  71   "Amber"
+72  79   "Scarlet"
+80  87   "Primary Red"
+88  95   "Bright Rose"
+96  103  "Pink Carnat"
+104 111  "Deep Mag"
+112 119  "Magenta"
+120 127  "Mauve"
+128 135  "Purple"
+136 143  "Rose Pink"
+144 151  "Medium Pink"
+152 159  "Carnat Pink"
+160 167  "Deep Lvder"
+168 175  "Pale Lvder"
+176 183  "Light Lvder"
+184 191  "Mist Blue"
+192 199  "Pale Blue"
+200 207  "Sky Blue"
+208 215  "Deep Blue"
+216 223  "Peacock Bl"
+224 231  "Lime Green"
+232 239  "Light Green"
+240 247  "Fern Green"
+248 255  "Deep Green"
+REND
+
+RANGE 11  ;Cyan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;Magenta
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Yellow
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;Colour
+0   1    "Open"
+2   3    "Open/Red"
+4   5    "Red"
+6   7    "Red/Yellow"
+8   9    "Yellow"
+10  11   "Yell/Magent"
+12  13   "Magenta"
+14  15   "Magenta/Gn"
+16  17   "Green"
+18  19   "Gn/Amber"
+20  21   "Amber"
+22  23   "Amber/Blue"
+24  25   "Blue"
+26  27   "Blue/Cyan"
+28  29   "Cyan"
+30  31   "Cyan/Open"
+32  63   "CTO"
+64  191  "Index %3d%%"(c-a)*100/(b-a)
+192 222  "Sc CW %3d%%"(c-a)*100/(b-a)
+223 224  "No Scroll"
+225 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 14  ;Beam Shape
+0   191  "Pos %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+192 222  "Sp CW %3d%%"100-((c-a)*100/(b-a))
+223 224  "No Spin"
+225 255  "Sp CCW %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Zoom
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Control
+0   231  "Safe"
+232 239  "Lamp Off"
+240 247  "Reset"
+248 255  "Lamp On"
+REND
+
+RANGE 16  ;P/T Speed
+0   3    "Tracking"
+4   255  "Spd %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;Effect Speed
+0   3    "Tracking"
+4   255  "Spd %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 18  ;Blackout
+0   95   "Safe"
+96  127  "P/T"
+128 159  "FX, Col, CM"
+160 191  "FX, Col, CM"
+192 223  "FX, Col, CM"
+224 255  "FX, Col, CM"
+REND
+
+RANGE 8  ;Beam
+0   15   "Open"
+16  255  "Shp %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

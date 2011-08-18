@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Led Tube Controller" ShortName="PLLedTC" Company="Proel">
+  <Copyright Notice="© Avolites Ltd. 2010" />
+  <History Date="02-04-08" Author="Ion Balan" Comment="Created" />
+  <History Date="02-04-08" Author="Gregory Haynes" Comment="Checked" />
+  <History Date="01-07-10" Author="John Rogers" Comment="Renamed attribute and functions to aid fixture exchange. Added palettes." />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Colour_Macro" Name="Colour Macro" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="RGB Mix" Display="'RGB Mix'" Dmx="0~16" Update="Generic, Generic1, Generic2" Colour="0,0,0" />
+      <Function ID="2" Name="StatCol" Display="'StatCol'" Dmx="17~31" Update="Generic, Generic1, Generic2" Colour="0,0,0" />
+      <Function ID="3" Name="ColChng" Display="'ColChng'" Dmx="32~47" Update="Generic, Generic1, Generic2" Colour="0,0,0" />
+      <Function ID="4" Name="SlwFlw1" Display="'SlwFlw1'" Dmx="48~63" Update="Generic, Generic1, Generic2" Colour="0,0,0" />
+      <Function ID="5" Name="SlwFlw2" Display="'SlwFlw2'" Dmx="64~79" Update="Generic, Generic1, Generic2" Colour="0,0,0" />
+      <Function ID="6" Name="RllChs1" Display="'RllChs1'" Dmx="80~95" Update="Generic, Generic1, Generic2" Colour="0,0,0" />
+      <Function ID="7" Name="RllChs2" Display="'RllChs2'" Dmx="96~111" Update="Generic, Generic1, Generic2" Colour="0,0,0" />
+      <Function ID="8" Name="MultiCol" Display="'MultiCol'" Dmx="112~127" Update="Generic, Generic1, Generic2" Colour="0,0,0" />
+      <Function ID="9" Name="FstFlw1" Display="'FstFlw1'" Dmx="128~143" Update="Generic, Generic1, Generic2" Colour="0,0,0" />
+      <Function ID="10" Name="FstFlw2" Display="'FstFlw2'" Dmx="144~159" Update="Generic, Generic1, Generic2" Colour="0,0,0" />
+      <Function ID="11" Name="2ColChs" Display="'2ColChs'" Dmx="160~175" Update="Generic, Generic1, Generic2" Colour="0,0,0" />
+      <Function ID="12" Name="2ColFlw" Display="'2ColFlw'" Dmx="176~191" Update="Generic, Generic1, Generic2" Colour="0,0,0" />
+      <Function ID="13" Name="ColFade" Display="'ColFade'" Dmx="192~207" Update="Generic, Generic1, Generic2" Colour="0,0,0" />
+      <Function ID="14" Name="TubeChs1" Display="'TubeChs1'" Dmx="208~223" Update="Generic, Generic1, Generic2" Colour="0,0,0" />
+      <Function ID="15" Name="TubeChs2" Display="'TubeChs2'" Dmx="224~239" Update="Generic, Generic1, Generic2" Colour="0,0,0" />
+      <Function ID="16" Name="AutoRun" Display="'AutoRun'" Dmx="240~255" Update="Generic, Generic1, Generic2" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" Clear="2:0" />
+      <Condition Name="RGB Mix" ID="1" If="'Control'==1" />
+      <Else ID="2" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+      <Function ID="2" Name="Speed" Display="'Speed %.f',0~100" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="2:100" PowerOn="2:0" Highlight="2:100" Lowlight="2:0" Clear="1:0" />
+      <Condition Name="RGB Mix" ID="1" If="'Control'==1" />
+      <Else ID="2" />
+      <Function ID="2" Name="Strobe Hz" Display="'Strobe %.f Hz',1~20" Dmx="0~255" Colour="0,0,0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" Clear="45" />
+      <Condition Name="RGB Mix" ID="1" If="'Control'==1" />
+      <Condition Name="2ColChs" ID="3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30" If="'Control'==11||'Control'==12" />
+      <Condition Name="StatCol" ID="31,32,33,34,35,36,37,38" If="'Control'==2" />
+      <Condition Name="TubeChs1" ID="39,40,41,42,43,44,45" If="'Control'==14||'Control'==15" />
+      <Else ID="2" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+      <Function ID="3" Name="Bk/Re" Display="'Bk/Re'" Dmx="0~8" Colour="0,0,0" />
+      <Function ID="4" Name="Bk/Ye" Display="'Bk/Ye'" Dmx="9~17" Colour="0,0,0" />
+      <Function ID="5" Name="Bk/Bl" Display="'Bk/Bl'" Dmx="18~26" Colour="0,0,0" />
+      <Function ID="6" Name="Bk/Pu" Display="'Bk/Pu'" Dmx="27~35" Colour="0,0,0" />
+      <Function ID="7" Name="Bk/Cy" Display="'Bk/Cy'" Dmx="36~44" Colour="0,0,0" />
+      <Function ID="8" Name="Bk/Wh" Display="'Bk/Wh'" Dmx="45~53" Colour="0,0,0" />
+      <Function ID="9" Name="Re/Gr" Display="'Re/Gr'" Dmx="54~62" Colour="0,0,0" />
+      <Function ID="10" Name="Re/Ye" Display="'Re/Ye'" Dmx="63~71" Colour="0,0,0" />
+      <Function ID="11" Name="Re/Bl" Display="'Re/Bl'" Dmx="72~80" Colour="0,0,0" />
+      <Function ID="12" Name="Re/Pu" Display="'Re/Pu'" Dmx="81~89" Colour="0,0,0" />
+      <Function ID="13" Name="Re/Cy" Display="'Re/Cy'" Dmx="90~98" Colour="0,0,0" />
+      <Function ID="14" Name="Re/Wh" Display="'Re/Wh'" Dmx="99~107" Colour="0,0,0" />
+      <Function ID="15" Name="Gr/Ye" Display="'Gr/Ye'" Dmx="108~116" Colour="0,0,0" />
+      <Function ID="16" Name="Gr/Bl" Display="'Gr/Bl'" Dmx="117~125" Colour="0,0,0" />
+      <Function ID="17" Name="Gr/Pu" Display="'Gr/Pu'" Dmx="126~134" Colour="0,0,0" />
+      <Function ID="18" Name="Gr/Cy" Display="'Gr/Cy'" Dmx="135~143" Colour="0,0,0" />
+      <Function ID="19" Name="Gr/Wh" Display="'Gr/Wh'" Dmx="144~152" Colour="0,0,0" />
+      <Function ID="20" Name="Ye/Bl" Display="'Ye/Bl'" Dmx="153~161" Colour="0,0,0" />
+      <Function ID="21" Name="Ye/Pu" Display="'Ye/Pu'" Dmx="162~170" Colour="0,0,0" />
+      <Function ID="22" Name="Ye/Cy" Display="'Ye/Cy'" Dmx="171~179" Colour="0,0,0" />
+      <Function ID="23" Name="Ye/Wh" Display="'Ye/Wh'" Dmx="180~188" Colour="0,0,0" />
+      <Function ID="24" Name="Bl/Pu" Display="'Bl/Pu'" Dmx="189~197" Colour="0,0,0" />
+      <Function ID="25" Name="Bl/Cy" Display="'Bl/Cy'" Dmx="198~206" Colour="0,0,0" />
+      <Function ID="26" Name="Bl/Wh" Display="'Bl/Wh'" Dmx="207~215" Colour="0,0,0" />
+      <Function ID="27" Name="Pu/Cy" Display="'Pu/Cy'" Dmx="216~224" Colour="0,0,0" />
+      <Function ID="28" Name="Pu/Cy" Display="'Pu/Cy'" Dmx="225~233" Colour="0,0,0" />
+      <Function ID="29" Name="Pu/Wh" Display="'Pu/Wh'" Dmx="234~242" Colour="0,0,0" />
+      <Function ID="30" Name="Cy/Wh" Display="'Cy/Wh'" Dmx="243~251" Colour="0,0,0" />
+      <Function ID="31" Name="Black" Display="'Black'" Dmx="0~31" Colour="0,0,0" />
+      <Function ID="32" Name="Red" Display="'Red'" Dmx="32~63" Colour="0,0,0" />
+      <Function ID="33" Name="Green" Display="'Green'" Dmx="64~95" Colour="0,0,0" />
+      <Function ID="34" Name="Yellow" Display="'Yellow'" Dmx="96~127" Colour="0,0,0" />
+      <Function ID="35" Name="Blue" Display="'Blue'" Dmx="128~159" Colour="0,0,0" />
+      <Function ID="36" Name="Purple" Display="'Purple'" Dmx="160~191" Colour="0,0,0" />
+      <Function ID="37" Name="Cyan" Display="'Cyan'" Dmx="192~223" Colour="0,0,0" />
+      <Function ID="38" Name="White" Display="'White'" Dmx="224~255" Colour="0,0,0" />
+      <Function ID="39" Name="Red" Display="'Red'" Dmx="0~35" Colour="0,0,0" />
+      <Function ID="40" Name="Green" Display="'Green'" Dmx="36~71" Colour="0,0,0" />
+      <Function ID="41" Name="Yellow" Display="'Yellow'" Dmx="72~107" Colour="0,0,0" />
+      <Function ID="42" Name="Blue" Display="'Blue'" Dmx="108~143" Colour="0,0,0" />
+      <Function ID="43" Name="Purple" Display="'Purple'" Dmx="144~179" Colour="0,0,0" />
+      <Function ID="44" Name="Cyan" Display="'Cyan'" Dmx="180~215" Colour="0,0,0" />
+      <Function ID="45" Name="White" Display="'White'" Dmx="216~251" Colour="0,0,0" />
+    </Attribute>
+  </Control>
+  <Mode Name="16 DMX, 8bit" Channels="4">
+    <Import PearlRef="PLLedTC" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Colour_Macro" ChannelOffset="1" Wheel="7" />
+      <Attribute ID="Red" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="4" Wheel="12" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Red:1:100,Green:1:100,Blue:1:100" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:0" />
+      <Palette ID="3" Name="Amber" Number="3" Page="1" SetControl="Red:1:100,Green:1:50,Blue:1:0" />
+      <Palette ID="4" Name="Yellow" Legend="Yell" Number="4" Page="1" SetControl="Red:1:100,Green:1:100,Blue:1:0" />
+      <Palette ID="5" Name="Lime" Number="0" Page="1" SetControl="Red:1:50,Green:1:100,Blue:1:0" />
+      <Palette ID="6" Name="Green" Number="5" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:0" />
+      <Palette ID="7" Name="Aqua" Number="0" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:50" />
+      <Palette ID="8" Name="Cyan" Number="6" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:100" />
+      <Palette ID="9" Name="Light Blue" Number="0" Page="1" SetControl="Red:1:0,Green:1:50,Blue:1:100" />
+      <Palette ID="10" Name="Blue" Number="7" Page="1" SetControl="Red:1:0,Green:1:0,Blue:1:100" />
+      <Palette ID="11" Name="Purple" Legend="Purpl" Number="9" Page="1" SetControl="Red:1:50,Green:1:0,Blue:1:100" />
+      <Palette ID="12" Name="Magenta" Legend="Mag" Number="10" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:100" />
+      <Palette ID="13" Name="Rose" Number="0" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:50" />
+      <Palette ID="14" Name="Lavender" Legend="Lav" Number="8" Page="1" SetControl="Red:1:71,Green:1:43,Blue:1:94" />
+      <Palette ID="15" Name="Ultra Violet" Legend="UV" Number="0" Page="1" SetControl="Red:1:20,Green:1:0,Blue:1:100" />
+    </Group>
+  </Palettes>
+</Fixture>

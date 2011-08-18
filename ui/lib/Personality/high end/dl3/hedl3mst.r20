@@ -1,0 +1,325 @@
+; 'High End Catalyst DL3 1. Master Layer', 21 DMX Channels, filename: HEDL3MST.R20
+;
+;   Date       By                Description
+;   14-07-08   Pers Creator      Created - Exported from Diamond 4 file.
+;   14-07-08   Jonathan Moreton  Checked
+;   14-10-08   David Hunt        Checked
+;   15-12-08   David Hunt        Fixed duplicate dmx values in range tables
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  HE_CATDL3-1                         mode=1. Master Layer  21 DMX Channels
+NAME "High End" "Catalyst DL3 1. Master Layer"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  21  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   400  240
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 1. Master Layer"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=491
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    5   100   1N   H   1   "Dimmer"          255     0     0
+13    1   L   16   100   1N   O   1   "Cam Shutter"       0     0     0
+3    61   s    1   100   1N   E   1   "Pan"             128     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        128     0     0
+15    1   L   17   100   1N   0   1   "White Bal"         0     0     0
+15   61   I   20   100   1N   A   1   "Cam Red Gain"      0   255     0
+14   61   L   21   100   1N   0   1   "Cam BlueGain"      0     0   229
+10    1   L    6   100   1N   L   1   "Focus"           127     0     0
+9     1   L    7   100   1N   Q   1   "Zoom"            127     0     0
+3     1   s   11   100   1N   B   1   "Camera Zoom"     128     0     0
+0     0   L   12   100   1N   B   1   "Camera Z Low"    128     0     0
+3    61   s   13   100   1N   C   1   "Camera Focus"      1     0     0
+0     0   L   14   100   1N   C   1   "Camera F Low"      1     0     0
+14    1   L   15   100   1N   0   1   "Infrared"          0     0     0
+13   61   L   19   100   1N   0   1   "Cam Effects"      63     0     0
+7    61   L    9   100   1N   0   1   "Macro"             0     0     0
+2    61   L   18   100   1N   D   1   "Camera Pos"       63     0     0
+8     1   L    8   100   1N   0   1   "P/T Speed"       255     0     0
+17    1   L   10   100   1N   0   1   "Control"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+High End Catalyst DL3
+1. Master Layer
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Lamp On"       1  10   5
+"data"                0   0   0
+"delay"               1   A
+"data"                0  54   0
+"delay"               1  32
+"data"                0   0   0
+MEND
+
+MACRO "Lamp Off"      2  10   5
+"data"                0   0   0
+"delay"               1   A
+"data"                0  5E   0
+"delay"               1  32
+"data"                0   0   0
+MEND
+
+MACRO "Shutdown"      3  10   5
+"data"                0   0   0
+"delay"               1   A
+"data"                0  7D   0
+"delay"               1  32
+"data"                0   0   0
+MEND
+
+MACRO "Reset All"     4  10   5
+"data"                0   0   0
+"delay"               1   A
+"data"                0  40   0
+"delay"               1  32
+"data"                0   0   0
+MEND
+
+MACRO "Graphics System Reset"  5  10   5
+"data"                0   0   0
+"delay"               1   A
+"data"                0  93   0
+"delay"               1  32
+"data"                0   0   0
+MEND
+
+MACRO "Reset PT"      6  10   5
+"data"                0   0   0
+"delay"               1   A
+"data"                0  A4   0
+"delay"               1  32
+"data"                0   0   0
+MEND
+
+MACRO "Reset Beam"    7  10   5
+"data"                0   0   0
+"delay"               1   A
+"data"                0  AE   0
+"delay"               1  32
+"data"                0   0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 5  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Camera Shutter
+0   63   "Auto"
+64  95   "Speed 30"
+96  126  "Speed 15"
+127 157  "Speed 8"
+158 188  "Speed 4"
+189 219  "Speed 2"
+220 255  "Speed 1"
+REND
+
+RANGE 1  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;Cam White Bal
+0   63   "Auto"
+64  95   "Indoor"
+96  127  "Outdoor"
+128 191  "Man RB Gain"
+192 255  "Reserved"
+REND
+
+RANGE 20  ;Camera        Red Gain
+0   255  "     %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 21  ;Camera        Blue Gain
+0   255  "     %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Focus
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Zoom
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Camera Zoom
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Camera Focus
+0   1    "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+2   255  "Man %3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;Cam Infrared
+0   63   "All off"
+64  127  "IR + Illum"
+128 255  "IR Ill:%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 19  ;Camera Effect
+0   63   "All off"
+64  127  "FF Neg"
+128 159  "Neg BW"
+160 191  "FF Neg BW "
+192 223  "BW"
+224 255  "FF BW"
+REND
+
+RANGE 18  ;Camera Pos
+0   63   "Normal"
+64  127  "Mirror"
+128 191  "Flip"
+192 255  "Flip Mirror"
+REND
+
+RANGE 8  ;Motor Speed
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Control
+0   9    "Safe"
+10  13   "P/T MSpeed "
+14  19   "Reserved"
+20  28   "Menu Displa"
+29  29   "Reserved"
+30  39   "Menu Displa"
+40  48   "Menu Displa"
+49  49   "Reserved"
+50  58   "Preview"
+59  59   "Reserved"
+60  68   "Reset All"
+69  79   "Reserved"
+80  88   "Lamp On"
+89  89   "Reserved"
+90  98   "Lamp Off"
+99  119  "Safe"
+120 130  "Shutdown"
+131 144  "Reserved"
+145 149  "Grapics Rst"
+150 155  "Cam Reset"
+160 168  "Reset PT"
+169 169  "Reserved"
+170 178  "Reset Beam"
+179 179  "Reserved"
+180 184  "Proj Menu"
+185 188  "Proj Up"
+189 192  "Proj Down"
+193 196  "Proj Left"
+197 200  "Proj Right"
+201 204  "Store Sel"
+205 208  "Proj Floor"
+209 212  "Proj Celing"
+213 216  "Proj Front"
+217 220  "Proj Rear"
+221 224  "Ext RGBHV"
+225 228  "Graphic Eng"
+229 232  "S-Video"
+233 236  "Int Camera"
+237 240  "Lens Sh on"
+241 244  "Lens Sh off"
+245 248  "Cam to SDI "
+249 252  "SDI to Capt"
+253 255  "Reserved"
+REND
+

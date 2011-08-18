@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Kolorado 4000" ShortName="GRKol4000" Company="Griven">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="27-06-08" Author="David Hunt" Comment="Created" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Lamp On" Display="'Lamp On'" Dmx="0~126" />
+      <Function ID="2" Name="Lamp Off" Display="'Lamp Off'" Dmx="127~255" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="2:0" PowerOn="2:0" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~5" Intensity="0~0" />
+      <Function ID="2" Name="8bit HTP" Display="'%.1f%%',100.0~0.0" Dmx="6~127" Intensity="0~0" />
+      <Function ID="3" Name="Open" Display="'Open'" Dmx="128~159" Intensity="0~0" />
+      <Function ID="4" Name="Mec Strobe Spd 1" Display="'Mec Strobe    Spd 1 %.f%%',0~100" Dmx="160~167" Intensity="0~0" />
+      <Function ID="5" Name="Mec Strobe Spd 2" Display="'Mec Strobe    Spd 2 %.f%%',0~100" Dmx="168~175" Intensity="0~0" />
+      <Function ID="6" Name="Mec Strobe Spd 3" Display="'Mec Strobe    Spd 3 %.f%%',0~100" Dmx="176~183" Intensity="0~0" />
+      <Function ID="7" Name="Mec Strobe Spd 4" Display="'Mec Strobe    Spd 4 %.f%%',0~100" Dmx="184~191" Intensity="0~0" />
+      <Function ID="8" Name="Elec Strobe Spd 1" Display="'Elec Strobe   Spd 1 %.f%%',0~100" Dmx="192~199" Intensity="0~0" />
+      <Function ID="9" Name="Elec Strobe Spd 2" Display="'Elec Strobe   Spd 2 %.f%%',0~100" Dmx="200~207" Intensity="0~0" />
+      <Function ID="10" Name="Elec Strobe Spd 3" Display="'Elec Strobe   Spd 3 %.f%%',0~100" Dmx="208~215" Intensity="0~0" />
+      <Function ID="11" Name="Elec Strobe Spd 4" Display="'Elec Strobe   Spd 4 %.f%%',0~100" Dmx="216~223" Intensity="0~0" />
+      <Function ID="12" Name="Elec Strobe Spd 5" Display="'Elec Strobe   Spd 5 %.f%%',0~100" Dmx="224~230" Intensity="0~0" />
+      <Function ID="13" Name="Elec Strobe Spd 6" Display="'Elec Strobe   Spd 6 %.f%%',0~100" Dmx="231~239" Intensity="0~0" />
+      <Function ID="14" Name="Open" Display="'Open'" Dmx="240~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="2:0" PowerOn="2:0" Highlight="2:100" Lowlight="2:20" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" Colour="255,255,255" />
+      <Function ID="2" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="1~254" Colour="255,255,0" />
+      <Function ID="3" Name="Closed" Display="'Closed'" Dmx="255~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="2:0" PowerOn="2:0" Highlight="2:0" Lowlight="2:100" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" Colour="255,255,255" />
+      <Function ID="2" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="1~254" Colour="0,255,255" />
+      <Function ID="3" Name="Closed" Display="'Closed'" Dmx="255~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="2:0" PowerOn="2:0" Highlight="2:0" Lowlight="2:100" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" Colour="255,255,255" />
+      <Function ID="2" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="1~254" Colour="255,0,255" />
+      <Function ID="3" Name="Closed" Display="'Closed'" Dmx="255~255" Colour="0,0,0" />
+    </Attribute>
+  </Control>
+  <Mode Name="5 DMX, 8bit" Channels="5">
+    <Import PearlRef="GRKOL4K" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="2" Wheel="4" />
+      <Attribute ID="Yellow" ChannelOffset="3" Wheel="12" />
+      <Attribute ID="Cyan" ChannelOffset="4" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="5" Wheel="11" />
+      <Attribute ID="Control" ChannelOffset="1" Wheel="28" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Control:1" Delay="5000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp Off">
+      <Set Channel="Control:2" Delay="5000" />
+      <Set Channel="Control:2" Delay="0" />
+    </Macro>
+  </Macro>
+</Fixture>

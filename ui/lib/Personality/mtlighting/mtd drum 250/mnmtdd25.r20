@@ -1,0 +1,166 @@
+; 'MT Lighting MTD Drum 250', 5 DMX Channels, filename: MNMTDD25.R20
+;
+;   Date       By                Description
+;   30-08-06   D.Milligan        Created - Exported from Diamond 4 file.
+;   15-10-08   Jonathan Moreton  Corrected Manufacturer Name
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MN_MTDD250                              mode=5 DMX, 8bit  5 DMX Channels
+NAME "MT Lighting" "MTD Drum 250"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  5  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  1   0   0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 5 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=507
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    3   100   1N   O   1   "Shutter"          15     0     0
+3    61   L    4   100   1N   E   1   "Pan"             127     0     0
+3     1   L    5   100   1N   F   1   "Tilt"            127     0     0
+4     1   I    1   100   1N   A   1   "Colour"            0     0     0
+6     1   I    2   100   1N   I   1   "Gobo"              0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+MT Lighting MTD Drum 250
+5 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 3  ;Shutter
+0   14   "Closed"
+15  29   "Open"
+30  250  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 1  ;Colour
+0   17   "Open"
+18  35   "Red"
+36  53   "Yellow"
+54  71   "Purple"
+72  89   "Green"
+90  107  "Orange"
+108 126  "Deep Blue"
+127 143  "Pink"
+144 161  "Lime Green"
+162 179  "Light Blue"
+180 197  "Dark Red"
+198 215  "Dark Yellow"
+216 233  "Dark Purple"
+234 251  "Pur/Red"
+252 255  "Gr/Yel"
+REND
+
+RANGE 2  ;Gobo
+0   17   "Open"
+18  35   "3 Circles"
+36  54   "8 Triangles"
+55  71   "Target"
+72  89   "Flowers"
+90  107  "4 T Shapes"
+108 125  "Sun"
+126 143  "Tri Hex Sh"
+144 161  "5 Wavy Tri"
+162 179  "Cross"
+180 197  "Dif Size Ci"
+198 215  "5 Xmas Tree"
+216 233  "8 Diamonds"
+234 251  "6 Arrow Hea"
+252 255  "Random Line"
+REND
+

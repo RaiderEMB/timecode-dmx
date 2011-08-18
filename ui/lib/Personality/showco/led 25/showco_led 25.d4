@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Led 25" ShortName=" Led  25" Company="Showco">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="09-02-07" Author="D.Milligan" Comment="Created" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Macro" Name="Macro" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:20" Clear="1:0" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" Clear="1:0" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" Clear="1:0" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+  </Control>
+  <Mode Name="4 DMX, 8bit" Channels="4">
+    <Import PearlRef="SC_LED25" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Yellow" ChannelOffset="2" Wheel="12" />
+      <Attribute ID="Magenta" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="4" Wheel="10" />
+      <Attribute ID="Macro" ChannelOffset="1" Wheel="28" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="All On">
+      <Set Channel="Yellow:1:100,Magenta:1:100,Blue:1:100" Delay="1000" />
+    </Macro>
+    <Macro Name="All Off">
+      <Set Channel="Yellow:1:0,Magenta:1:0,Blue:1:0" Delay="1000" />
+    </Macro>
+  </Macro>
+</Fixture>

@@ -1,0 +1,258 @@
+;-----------------------------------------------------------------------|
+; Silver Star YG-LED321W Stage 1, personality for the Diamond II        |
+;-----------------------------------------------------------------------|
+;   History :-                                                          |
+;-----------------------------------------------------------------------|
+;   Revision |  Date     |  By       | Description                      |
+;------------|-----------|-----------|----------------------------------|
+;   1.0      |  14-07-09 | J.Moreton | Created                          |
+;            |  17-07-09 | David Hunt| Checked                          |
+;---------------------------------------------------------------------- |
+
+
+DEVICE=SS_LED321St      ; Device Name (upto 11 chars) must be enclosed in single
+DEVICE23=Stage 1        ; 22 chars after '='
+                        ; extra information for softkey prompt lines 2&3
+                        ; a total of 22 chars, split into 2 lines of 11
+
+;                                  __ Number of lines of DMX info.
+;                                 |   __ Number of lines of wheel info
+;                                 |  |
+;                                 |  |
+;                                 |  |
+HSTART  3  11 1b05  0   0  ff 0 8  11  11
+;       |  |  |    |   |  |  | |
+;       |  |  |    |   |  |  | |__ Line number for flash button DMX info
+;       |  |  |    |   |  |  |     from DMX definition (1..x)
+;       |  |  |    |   |  |  |__ Button release value
+;       |  |  |    |   |  |__ Button ON value (ff means use swop/add fader)
+;       |  |  |    |   |__ The TILT arc in Degrees
+;       |  |  |    |__ The Pan arc in degrees
+;       |  |  |__ Date in PC format (1b05==5/08/93)
+;       |  |__ Number of DMX slots used
+;       |__ Patch direction (1-backward, 2 forward)
+
+
+
+
+TEXTSTART       ; Upto 21 lines of 28 characters
+                            ;
+        Silver  Star        ;
+         YG-LED321W         ;
+         Stage 1            ;
+       11 DMX, 8 bit        ;
+       PERSONALITY          ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+TEXTEND
+
+
+;------------------------------------------------------------
+
+; For the Attribute Dictionary refer to file 'dict.per'
+
+;------------------------------------------------------------
+; DMX information
+; No unused lines allowed between keyword 'DSTART' and last DMX definition
+
+DSTART              ; DMX Picture
+1  1  0 0   0 0     ; Dimmer
+2  2  0 0   5 0     ; Red
+3  2  0 0  10 0     ; Green
+4  2  0 0   6 0     ; Blue
+5  2  0 0   4 0     ; White
+6  2 40 0 107 0     ; Effect Macro
+7  2  0 0  24 0     ; Shutter
+8  2 40 0  52 0     ; Auto Control
+9  2  0 0  56 0     ; Auto Speed
+10 2  0 0  57 0     ; Dim Speed
+11 2 40 0  42 0     ; ID Control
+;| |  | |   | |
+;| |  | |   | |__ Spare (always 0 for now)
+;| |  | |   |__ Attribute name (See list above)
+;| |  | |__ Curve (0 means no curve otherwise curve number)
+;| |  |__ Flags (7=inverted, 40=instant, 20=16-bit)
+;| |__ Channel type (1=HTP, 2=LTP, 0=Dummy(for 16-bit defines)
+;|__ DMX offset (1..255, 0 means DIMMER will be patched seperately)
+
+
+;------------------------------------------------------------
+; WHEEL information
+
+WSTART
+8 ffff ffff 4   0 0  8   0 1  0  1  0  0  0  0  0      ; 1. Dimmer
+8 ffff ffff 1   5 0  9   0 1  1  2  0  0  0  0  0      ; 2. Red
+8 ffff ffff 1  10 0 10   0 1  2  3  0  0  0  0  0      ; 3. Green
+8 ffff ffff 1   6 0 11   0 1  3  4  0  0  0  0  0      ; 4. Blue
+8 ffff ffff 1   4 0 15   0 1  4  5  0  0  0  0  0      ; 5. White
+8 ffff    0 2 107 0 25 107 1  5  6  0  0  0  0  0      ; 6. Effect Macro
+8 ffff    0 1  24 0  1   0 1  6  7  0  0  0  0  0      ; 7. Shutter
+8 ffff    0 2  52 0 41  52 1  7  8  0  0  0  0  0      ; 8. Mode Select
+8 ffff    0 1  56 0 43   0 1  8  9  0  0  0  0  0      ; 9. Auto Speed
+8 ffff    0 1  57 0 44   0 1  9 10  0  0  0  0  0      ; 10. Dim Speed
+8 ffff    0 2  42 0 42  42 1 10 11  0  0  0  0  0      ; 11. ID Control
+;|   |    | |  | |  |   |  |  |  |  |  |  |  |  |__ List of Table channels as
+;|   |    | |  | |  |   |  |  |  |_______________ line numbers from DMX def.
+;|   |    | |  | |  |   |  |  |                  ff or 0 means unused channel
+;|   |    | |  | |  |   |  |  |__ DMX line pertainnig to this wheel (-1)
+;|   |    | |  | |  |   |  |__ Number of chanels under control (Table width)
+;|   |    | |  | |  |   |__ Table type (Attribute number) 0 means NOT a table
+;|   |    | |  | |  |__ Wheel number (1..8 on bank1, 9..16 on bank2 et cetera)
+;|   |    | |  | |__ 0 for 8 bits, 1 for 16 bits
+;|   |    | |  |__  Attribute name from above list (0..MAX)
+;|   |    | |__ Wheel type (1-offset, 2-Table, 3-Pan/Tilt, 4-Dimmer)
+;|   |    |__ Default value (left shifted as necessary)
+;|   |__ AND mask, where more than wheel controls same DMX slot
+;|__ Wheel multiplication =16-(bits used)
+;    eg. for 8 bit channels it is 8, for 12 bit channels it is 4
+
+
+
+
+;--------------------------------------------------------------------
+; TABLES
+; Each Table is enclosed by the keywords "TSTART" and "*** TEND ***"
+; The legend is 16 chars long
+; The correct number of values must be supplied (8-bits) with spaces in
+; between
+
+; FUNCTION TABLE
+;         __ Table width (upto 6 allowed)
+;        |  __ Type of Table from attribute list
+;        | |
+TSTART  1 107
+No Func            2
+High Power        13
+No Func           25
+RGBW Ctrl1        40
+RGBW Ctrl2        60
+RGBW Ctrl3        80
+RGBW Ctrl4       100
+RGBW Ctrl5       120
+RGBW Ctrl6       140
+RGBW Ctrl7       160
+RGBW Ctrl8       180
+RGBW Ctrl9       195
+Wht 1:32K        203
+Wht 2:34K        208
+Wht 3:42K        213
+Wht 4:49K        218
+Wht 5:56K        223
+Wht 6:59K        228
+Wht 7:65K        233
+Wht 8:72K        238
+Wht 9:80K        243
+Wht 10:85        248
+Wht 11:100K      253
+*** TEND ***
+
+TSTART  1 52
+No Func            5
+Auto 1            15
+Auto 2            25
+Auto 3            35
+Auto 4            45
+Auto 5            55
+Auto 6            65
+Auto 7            75
+Auto 8            85
+Auto 9            95
+Auto 10          105
+Program 1        115
+Program 2        125
+Program 3        135
+Program 4        145
+Program 5        155
+Program 6        165
+Program 7        175
+Program 8        185
+Program 9        195
+Program 10       227
+*** TEND ***
+
+TSTART  1 42
+ID 1-6             5
+ID 1              15
+ID 2              25 
+ID 3              35
+ID 4              45
+ID 5              55
+ID 6              65
+ID 7              75
+ID 8              85
+ID 9              95
+ID 10            105
+ID 11            115
+ID 12            125
+ID 13            135
+ID 14            145
+ID 15            155
+ID 16            165
+ID 17            175
+ID 18            185
+ID 19            195
+ID 20            205
+ID 21            210
+ID 22            211
+ID 23            212
+ID 24            213
+ID 25            214
+ID 26            215
+ID 27            216
+ID 28            217
+ID 29            218
+ID 30            219
+ID 31            220
+ID 32            221
+ID 33            222
+ID 34            223
+ID 35            224
+ID 36            225
+ID 37            226
+ID 38            227
+ID 39            228
+ID 40            229
+ID 41            230
+ID 42            231
+ID 43            232
+ID 44            233
+ID 45            234
+ID 46            235
+ID 47            236
+ID 48            237
+ID 49            238
+ID 50            239
+ID 51            240
+ID 52            241
+ID 53            242
+ID 54            243
+ID 55            244
+ID 56            245
+ID 57            246
+ID 58            247
+ID 59            248
+ID 60            249
+ID 61            250
+ID 62            251
+ID 63            252
+ID 64            253
+ID 65            254
+ID 66            255
+*** TEND ***
+
+;--------------------------------------------------------------------
+
+

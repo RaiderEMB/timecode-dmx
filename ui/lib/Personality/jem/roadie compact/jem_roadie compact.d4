@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Roadie Compact" ShortName="Ro Compact" Company="JEM">
+  <Copyright Notice="© Avolites Ltd. 2011" />
+  <History Date="05-11-08" Author="Jonathan Moreton" Comment="Created" />
+  <History Date="05-11-08" Author="David Hunt" Comment="Checked" />
+  <History Date="06-05-11" Author="Nic Morris" Comment="Changed power on and locate in response to customer (bug report)." />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Fog" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Fog Density" Display="'Density %.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Fan Speed" Display="'Fan Speed     %.1f%%',0.0~100.0" Dmx="0~244" />
+      <Function ID="2" Name="Shutdown" Display="'Shutdown'" Dmx="245~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="2 DMX, 8bit" Channels="2">
+    <Import PearlRef="JM_RoCompct" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Control" ChannelOffset="2" Wheel="28" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Shutdown">
+      <Set Channel="Control:2" Delay="5000" />
+    </Macro>
+    <Macro Name="Fan On">
+      <Set Channel="Control:1:100" Delay="0" />
+    </Macro>
+  </Macro>
+</Fixture>

@@ -1,0 +1,240 @@
+; 'Prolight ARCLED345', 11 DMX Channels, filename: PTALD345.R20
+;  Copyright © Avolites Ltd. 2009
+;
+;   Date       By                Description
+;   11-09-09   Pers Creator      Created - Exported from Diamond 4 file.
+;   11-09-09   David Hunt        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  PT_ALED345                          mode=11 DMX, 8bit  11 DMX Channels
+NAME "Prolight" "ARCLED345"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  11  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 11 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=501
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+10    1   L    2   100   1N   T   1   "Red"             255   255     0
+10   61   L    3   100   1N   U   1   "Green"           255   255     0
+9    61   L    4   100   1N   V   1   "Blue"            255     0   229
+4     1   I    5   100   1N   A   1   "Colour"            0     0     0
+4    61   L    6   100   1N   0   1   "Colour Rot"        0     0     0
+2    61   L    7   100   1N   O   1   "Shutter"           0     0     0
+2     1   L    8   100   1N   G   1   "Iris"            255     0     0
+9     1   L    9   100   1N   0   1   "Control"           0     0     0
+7     1   L   10   100   1N   0   1   "ID"                0     0     0
+7    61   L   11   100   1N   0   1   "White Balanc"      0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Prolight ARCLED345
+11 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Colour"     -1   2   3   4
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Shutter
+0   0    "Open"
+1   255  "Strobe %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 8  ;Iris
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;ID
+0   3    "ID 0"
+4   7    "ID 1"
+8   11   "ID 2"
+12  15   "ID 3"
+16  19   "ID 4"
+20  23   "ID 5"
+24  27   "ID 6"
+28  31   "ID 7"
+32  35   "ID 8"
+36  39   "ID 9"
+40  43   "ID 10"
+44  47   "ID 11"
+48  51   "ID 12"
+52  55   "ID 13"
+56  59   "ID 14"
+60  63   "ID 15"
+64  67   "ID 16"
+68  71   "ID 17"
+72  75   "ID 18"
+76  79   "ID 19"
+80  83   "ID 20"
+84  87   "ID 21"
+88  91   "ID 22"
+92  95   "ID 23"
+96  99   "ID 24"
+100 103  "ID 25"
+104 107  "ID 26"
+108 111  "ID 27"
+112 115  "ID 28"
+116 119  "ID 29"
+120 123  "ID 30"
+124 127  "ID 31"
+128 131  "ID 32"
+132 135  "ID 33"
+136 139  "ID 34"
+140 143  "ID 35"
+144 147  "ID 36"
+148 151  "ID 37"
+152 155  "ID 38"
+156 159  "ID 39"
+160 163  "ID 40"
+164 167  "ID 41"
+168 171  "ID 42"
+172 175  "ID 43"
+176 179  "ID 44"
+180 183  "ID 45"
+184 187  "ID 46"
+188 191  "ID 47"
+192 195  "ID 48"
+196 199  "ID 49"
+200 203  "ID 50"
+204 207  "ID 51"
+208 211  "ID 52"
+212 215  "ID 53"
+216 219  "ID 54"
+220 223  "ID 55"
+224 227  "ID 56"
+228 231  "ID 57"
+232 235  "ID 58"
+236 239  "ID 59"
+240 243  "ID 60"
+244 247  "ID 61"
+248 251  "ID 62"
+252 255  "ID 63"
+REND
+
+RANGE 11  ;White Balance
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

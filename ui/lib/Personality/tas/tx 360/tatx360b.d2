@@ -1,0 +1,157 @@
+;-----------------------------------------------------------------------|
+; The Coemar TX360            Personality for the Diamond II            |
+;-----------------------------------------------------------------------|
+;   History :-                                                          |
+;-----------------------------------------------------------------------|
+;   Revision |  Date     |  By    | Description                         |
+;------------|-----------|--------|-------------------------------------|
+;   1.0      |  09-02-01 | Edward | Created from Pearl                  |
+;---------------------------------------------------------------------- |
+
+
+DEVICE=TAS_TX360B     ; Device Name (upto 11 chars after '='
+DEVICE23=10 Channels    ; 22 chars after '='
+                        ; extra information for softkey prompt lines 2&3
+                        ; a total of 22 chars, split into 2 lines of 11
+
+; Device information
+;                                   __ Number of lines of DMX info.
+;                                  |   __ Number of lines of wheel info
+;                                  |  |
+;                                  |  |
+;                                  |  |
+HSTART   1 10 1b05 360 360 ff 0 6 10 10
+;        |  |  |    |   |  |  | |
+;        |  |  |    |   |  |  | |__ Line number for flash button DMX info
+;        |  |  |    |   |  |  |     from DMX definition (1..x)
+;        |  |  |    |   |  |  |__ Button release value
+;        |  |  |    |   |  |__ Button ON value (ff means use swop/add fader)
+;        |  |  |    |   |__ The TILT arc in Degrees
+;        |  |  |    |__ The Pan arc in degrees
+;        |  |  |__ Date in PC format (1b05==5/08/93)
+;        |  |__ Number of DMX slots used
+;        |__ Patch direction (1-backward, 2 forward)
+
+
+TEXTSTART       ; Upto 21 lines of 28 characters (use the template below)
+                                     ;
+       Coemar TX360B                  ;
+       10 DMX Channels               ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+TEXTEND
+
+
+;------------------------------------------------------------
+
+; For the Attribute Dictionary refer to file 'dict.per'
+
+;------------------------------------------------------------
+; DMX information
+; No unused lines allowed between keyword 'DSTART' and last DMX definition
+
+DSTART               ; DMX defintion
+1  2 20 0  13 0      ; PAN
+2  0  0 0   0 0      ; Dummy for 16-bit channels
+3  2 20 0  14 0      ; TILT
+4  0  0 0   0 0      ; Dummy for 16-bit channels
+5  2 40 0 222 0      ; XY Type
+6  1  0 0  24 0      ; SHUTTER
+7  2 40 0  37 0      ; Gobo 
+8  2 40 0  64 0      ; Gobo rot
+9  2 40 0  38 0      ; Color 
+10 2 40 0  52 0      ; Control
+;| |  | |   | |
+;| |  | |   | |__ Spare (always 0 for now)
+;| |  | |   |__ Attribute name (See list above)
+;| |  | |__ Curve (0 means no curve otherwise curve number)
+;| |  |__ Flags (7=inverted, 6=instant, 5=16-bit)
+;| |__ Channel type (1=HTP, 2=LTP, 0=Dummy(for 16-bit defines)
+;|__ DMX offset (1..255, 0 means DIMMER will be patched seperately)
+
+
+;------------------------------------------------------------
+; WHEEL information
+; No unused lines allowed between keyword 'WSTART' and last DMX definition
+
+WSTART
+5 ffff 8080 3  13 1  5  0 1  0  1  0  0  0  0  0  ; 1. PAN
+5 ffff 8080 3  14 1  6  0 1  2  3  0  0  0  0  0  ; 2. TILT
+8 ffff    0 1 222 0 25  0 1  4  5  0  0  0  0  0  ; 3. XY Type
+8 ffff ffff 4  24 0  7  0 1  5  6  0  0  0  0  0  ; 4. SHUTTER
+8 ffff    0 1  37 0 17  0 1  6  7  0  0  0  0  0  ; 5. Gobo 
+8 ffff    0 1  64 0 18  0 1  7  8  0  0  0  0  0  ; 6. Gobo Rot
+8 ffff    0 1  38 0  9  0 1  8  9  0  0  0  0  0  ; 7. Color 1
+8 ffff    0 1  52 0 42  0 1  9 10  0  0  0  0  0  ; 8. Control
+8 ffff    0 2  11 0  3 11 1  6  7  0  0  0  0  0  ; 9. Gobo table
+8 ffff    0 2   4 0  4  4 1  8  9  0  0  0  0  0  ; 10. Color table
+;|   |    | |   | |  |  | |  |  |  |  |  |  |  |__ List of Table channels as
+;|   |    | |   | |  |  | |  |  |_______________ line numbers from DMX def.
+;|   |    | |   | |  |  | |  |                  ff or 0 means unused channel
+;|   |    | |   | |  |  | |  |__ DMX line pertainnig to this wheel (-1)
+;|   |    | |   | |  |  | |__ Number of chanels under control (Table width)
+;|   |    | |   | |  |  |__ Table type (Attribute number) 0 means NOT a table
+;|   |    | |   | |  |__ Wheel number (1..8 on bank1, 9..16 on bank2 et cetera)
+;|   |    | |   | |__ 0 for 8 bits, 1 for 16 bits
+;|   |    | |   |____ Attribute name from above list (0..MAX)
+;|   |    | |__ Wheel type (1-offset, 2-Table, 3-Pan/Tile, 4-Dimmer)
+;|   |    |__ Default value (left shifted as necessary)
+;|   |__ AND mask, where more than wheel controls same DMX slot
+;|__ Wheel multiplication =16-(bits used)
+;    eg. for 8 bit channels it is 8, for 12 bit channels it is 4
+;
+;--------------------------------------------------------------------
+; TABLES
+; Each Table is enclosed by the keywords "TSTART" and "*** TEND ***"
+; The legend is 16 chars long
+; The correct number of values must be supplied (8-bits) with spaces in
+; between
+
+;--------------------------------------------------------------------
+
+TSTART 1 4
+White              0
+Col 2             20
+Col 3             40
+Col 4             60
+Col 5             80
+Col 6            100
+Col 7            120
+Col 8            140
+Col 9            160
+Spin             180
+*** TEND ***
+
+;Gobo table
+TSTART 1 11
+Open            0
+Gobo_1          20
+Gobo_2          40
+Gobo_3          60
+Gobo_4          80
+Gobo_5          100
+Gobo_6          120
+Gobo_7          140
+GoboSpin1       160
+GoboSpin2       180
+*** TEND ***
+
+
+MACRO "RESET"    1  10
+0  95
+1  80
+MEND
+

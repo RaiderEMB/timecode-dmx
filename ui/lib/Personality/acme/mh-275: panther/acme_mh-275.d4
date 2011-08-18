@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="MH-275" ShortName="MH   275" Company="ACME">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="05-01-06" Author="Ed" Comment="Created" />
+  <History Date="05-01-06" Author="Ed" Comment="Checked" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour ID to Colour1" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <History Date="19-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="19-07-06" Author="Ed" Comment="Checked" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Stop" Display="'Stop'" Dmx="0~11" Intensity="0~0" />
+      <Function ID="2" Name="Shaking" Display="'Shaking %.f%%',0~100" Dmx="16~128" Intensity="0~0" />
+      <Function ID="3" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="136~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Colour1Func" Name="Colour Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="17,18" If="'Colour1Func'==2" />
+      <Condition Name="Raw_Func" ID="19" If="'Colour1Func'==3" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19" />
+      <Function ID="1" Name="Blackout" Display="'Blackout'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="2" Name="Open" Display="'Open'" Dmx="8~15" Colour="255,255,255" />
+      <Function ID="3" Name="G1/MultiCol" Display="'G1/MultiCol'" Dmx="16~23" Colour="255,255,255" />
+      <Function ID="4" Name="G2/Blue" Display="'G2/Blue'" Dmx="24~31" Colour="0,0,255" />
+      <Function ID="5" Name="G3/Yell" Display="'G3/Yell'" Dmx="32~39" Colour="255,255,0" />
+      <Function ID="6" Name="G4/Green" Display="'G4/Green'" Dmx="40~47" Colour="0,255,0" />
+      <Function ID="7" Name="G5/Orange" Display="'G5/Orange'" Dmx="48~55" Colour="255,128,0" />
+      <Function ID="8" Name="G6/Red" Display="'G6/Red'" Dmx="56~63" Colour="255,0,0" />
+      <Function ID="9" Name="G7/Magenta" Display="'G7/Magenta'" Dmx="64~71" Colour="255,0,255" />
+      <Function ID="10" Name="G8/LBlue" Display="'G8/LBlue'" Dmx="72~79" Colour="0,128,255" />
+      <Function ID="11" Name="G9/Pink" Display="'G9/Pink'" Dmx="80~87" Colour="255,150,150" />
+      <Function ID="12" Name="G10/Mag" Display="'G10/Mag'" Dmx="88~95" Colour="255,0,255" />
+      <Function ID="13" Name="G11/Orange" Display="'G11/Orange'" Dmx="96~103" Colour="255,128,0" />
+      <Function ID="14" Name="G12/Blue" Display="'G12/Blue'" Dmx="104~111" Colour="0,0,255" />
+      <Function ID="15" Name="G13/White" Display="'G13/White'" Dmx="112~119" Colour="255,255,255" />
+      <Function ID="16" Name="G14/Gn+Pk" Display="'G14/Gn+Pk'" Dmx="120~127" Colour="255,255,255" />
+      <Function ID="17" Name="No Scroll" Display="'No Scroll'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="18" Name="Scroll CW" Display="'Scroll CW %.f%%',0~100" Dmx="128~255" Colour="0,0,0" />
+      <Function ID="19" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Mirror" Name="Mirror" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="No Spin" Display="'No Spin'" Dmx="0~10" />
+      <Function ID="2" Name="Spin CW" Display="'Spin CW %.f%%',100~0" Dmx="11~127" />
+      <Function ID="3" Name="No Spin" Display="'No Spin'" Dmx="128~135" />
+      <Function ID="4" Name="Spin CCW" Display="'Spin CCW %.f%%',0~100" Dmx="136~245" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="3 DMX, 8bit" Channels="5">
+    <Import PearlRef="" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="1" Wheel="4" />
+      <Attribute ID="Pan" ChannelOffset="4" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="5" Wheel="3" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="2" Wheel="8" />
+      <Attribute ID="Mirror" ChannelOffset="3" Wheel="5" />
+    </Include>
+  </Mode>
+</Fixture>

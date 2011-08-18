@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Stadium Hazer" ShortName="StdimHazer" Company="Le Maitre">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="15-11-06" Author="D.Milligan" Comment="Created from Tour Hazer" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Pump" Name="Pump" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~0" Update="Fan" />
+      <Function ID="2" Name="Pump" Display="'%.1f%%',0.0~100.0" Dmx="1~255" Update="Fan" />
+    </Attribute>
+    <Attribute ID="Fan" Name="Fan" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Safe" ID="1" If="'Pump'==1" />
+      <Condition Name="Generic %" ID="2" If="'Pump'==2" />
+      <Else ID="1,2" />
+      <Function ID="1" Name="No Func" Display="'No Func'" Dmx="0~0" />
+      <Function ID="2" Name="Speed" Display="'Speed %.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="2 DMX, 8bit" Channels="2">
+    <Import PearlRef="LM_STADHAZE" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Pump" ChannelOffset="1" Wheel="2" />
+      <Attribute ID="Fan" ChannelOffset="2" Wheel="3" />
+    </Include>
+  </Mode>
+</Fixture>

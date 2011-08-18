@@ -1,0 +1,289 @@
+; 'Griven ProMotion 1200 w Scroller', 6 DMX Channels, filename: GRP1200S.R20
+;
+;   Date       By                Description
+;   04-07-08   Pers Creator      Created - Exported from Diamond 4 file.
+;   04-07-08   David Hunt        Checked
+;   15-07-08   Jonathan Moreton  Checked
+;   17-12-08   David Hunt        Fixed duplicate dmx values in range tables
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  GRP1200S                            mode=6 DMX, 8bit  6 DMX Channels
+NAME "Griven" "ProMotion 1200 w Scroller"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  6  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 6 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=506
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    4   100   1N   O   1   "Shutter"         197     0     0
+6     1   I    6   100   1N   A   1   "Chs Slides"        0     0     0
+7     1   L    1   100   1N   N   1   "Image"             5     0     0
+5    61   L    5   100   1N   L   1   "Focus"           127     0     0
+8     1   L    2   100   1N   0   1   "Film Speed"        2     0     0
+8    61   L    3   100   1N   0   1   "Ps Fm Spd"         2     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Griven
+ProMotion1200 w 
+Scroller
+6 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Gobo"       -1   6
+"Open"               11   0
+"Gobo 1"             12   8
+"Gobo 2"             13  18
+"Gobo 3"             14  28
+"Gobo 4"             15  38
+"Gobo 5"             16  48
+"Gobo 6"             17  58
+"Gobo 7"             18  68
+"Gobo 8"             19  78
+"Gobo 9"             20  88
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 4  ;Shutter
+0   10   "Closed"
+11  191  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+192 202  "Open"
+203 250  "Strobe %3d%%"(c-a)*100/(b-a)
+251 255  "Open"
+REND
+
+RANGE 6  ;Chs Slides
+0   0    "Open"
+1   15   "1° Frame"
+16  31   "2° Frame"
+32  47   "3° Frame"
+48  63   "4° Frame"
+64  79   "5° Frame"
+80  95   "6° Frame"
+96  111  "7° Frame"
+112 127  "8° Frame"
+128 143  "9° Frame"
+144 159  "10° Frame"
+160 175  "11° Frame"
+176 191  "12° Frame"
+192 207  "13° Frame"
+208 223  "14° Frame"
+224 239  "15° Frame"
+240 255  "16° Frame"
+REND
+
+RANGE 1  ;Image
+0   3    "Blackout"
+4   5    "Pause 3s"
+6   7    "Pause 6s"
+8   9    "Pause 12s"
+10  11   "Pause 18s"
+12  13   "Pause 24s"
+14  15   "Pause 30s"
+16  17   "Pause 40s"
+18  19   "Pause 1m"
+20  21   "Pause 2m"
+22  23   "Pause 4m"
+24  25   "Pause 6m"
+26  27   "Pause 10m"
+28  29   "Pause 20m"
+30  31   "Pause 40m"
+32  33   "Pause 60m"
+34  49   "For Move"
+50  65   "Cont For/Ba"
+66  66   "1° Frame  1"
+67  67   "1° Frame  2"
+68  68   "1° Frame  3"
+69  69   "1° Frame  4"
+70  70   "1° Frame  5"
+71  71   "1° Frame  6"
+72  72   "1° Frame  7"
+73  73   "1° Frame  8"
+74  74   "1° Frame  9"
+75  75   "1° Frame 10"
+76  76   "1° Frame 11"
+77  77   "1° Frame 12"
+78  78   "1° Frame 13"
+79  79   "1° Frame 14"
+80  80   "1° Frame 15"
+81  81   "1° Frame 16"
+82  82   "2° Frame 17"
+83  83   "2° Frame 18"
+84  84   "2° Frame 19"
+85  85   "2° Frame 20"
+86  86   "2° Frame 21"
+87  87   "2° Frame 22"
+88  88   "2° Frame 23"
+89  89   "2° Frame 24"
+90  90   "2° Frame 25"
+91  91   "2° Frame 26"
+92  92   "2° Frame 27"
+93  93   "2° Frame 28"
+94  94   "2° Frame 29"
+95  95   "2° Frame 30"
+96  96   "2° Frame 31"
+97  97   "2° Frame 32"
+98  98   "3° Frame 33"
+99  99   "3° Frame 34"
+100 100  "3° Frame 35"
+101 101  "3° Frame 36"
+102 102  "3° Frame 37"
+103 103  "3° Frame 38"
+104 104  "3° Frame 39"
+105 105  "3° Frame 40"
+106 106  "3° Frame 41"
+107 107  "3° Frame 42"
+108 108  "3° Frame 43"
+109 109  "3° Frame 44"
+110 110  "3° Frame 45"
+111 111  "3° Frame 46"
+112 112  "3° Frame 47"
+113 113  "3° Frame 48"
+114 114  "4° Frame 49"
+115 115  "4° Frame 50"
+116 116  "4° Frame 51"
+117 117  "4° Frame 52"
+118 118  "4° Frame 53"
+119 119  "4° Frame 54"
+120 120  "4° Frame 55"
+121 121  "4° Frame 56"
+122 122  "4° Frame 57"
+123 123  "4° Frame 58"
+124 124  "4° Frame 59"
+125 125  "4° Frame 60"
+126 126  "4° Frame 61"
+127 127  "4° Frame 62"
+128 128  "4° Frame 63"
+129 129  "4° Frame 64"
+130 136  "5° Frame 65"
+137 144  "5° Frame 66"
+145 152  "5° Frame 67"
+153 160  "5° Frame 68"
+161 168  "5° Frame 69"
+169 176  "5° Frame 70"
+177 184  "5° Frame 71"
+185 191  "5° Frame 72"
+192 199  "5° Frame 73"
+200 207  "5° Frame 74"
+208 215  "5° Frame 75"
+216 223  "5° Frame 76"
+224 231  "5° Frame 77"
+232 239  "5° Frame 78"
+240 247  "5° Frame 79"
+248 255  "5° Frame 80"
+REND
+
+RANGE 5  ;Focus
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Film Speed
+0   3    "Stop"
+4   198  "No Func"
+199 199  "Pp 0%"
+200 200  "Pp 50%"
+201 201  "Pp 100%"
+202 255  "No Func"
+REND
+
+RANGE 3  ;Pos Film Speed
+0   3    "Stop"
+4   255  "%3d%%"(c-a)*100/(b-a)
+REND
+

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Smoke Machine" ShortName="Smoke" Company="Generic">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="15-11-06" Author="D.Milligan" Comment="Created from Tour Hazer" />
+  <History Date="23-01-09" Author="Jonathan Moreton" Comment="Added 2 Channel HTP version, Changed namings to conform to generic " />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Pump" Name="Pump" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~0" Update="Fan" />
+      <Function ID="2" Name="Pump" Display="'%.1f%%',0.0~100.0" Dmx="1~255" Update="Fan" />
+    </Attribute>
+    <Attribute ID="Fan" Name="Fan" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Safe" ID="1" If="'Pump'==1" />
+      <Else ID="1,2,2" />
+      <Function ID="1" Name="No Func" Display="'No Func'" Dmx="0~0" />
+      <Function ID="2" Name="Speed" Display="'Speed %.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Smoke" Name="Smoke" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="8bit HTP" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Smoke" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="2 DMX, 8bit LTP" Channels="2">
+    <Import PearlRef="GEN_Smoke2" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Pump" ChannelOffset="1" Wheel="2" />
+      <Attribute ID="Fan" ChannelOffset="2" Wheel="3" />
+    </Include>
+  </Mode>
+  <Mode Name="1 DMX (LTP)" Channels="1">
+    <Import PearlRef="GEN_Smoke" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Smoke" ChannelOffset="1" Wheel="1" />
+    </Include>
+  </Mode>
+  <Mode Name="2 DMX (Virtual Master)" Channels="2">
+    <Import PearlRef="GEN_Smoke2" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" Wheel="1" />
+      <Attribute ID="Pump" ChannelOffset="1" Wheel="2" VirtualControl="Dimmer" />
+      <Attribute ID="Fan" ChannelOffset="2" Wheel="3" VirtualControl="Dimmer" />
+    </Include>
+  </Mode>
+  <Mode Name="1 DMX (HTP)" Channels="1">
+    <Import PearlRef="GEN_SmokeH" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+    </Include>
+  </Mode>
+  <Mode Name="2 DMX, 8bit HTP" Channels="2">
+    <Import PearlRef="GEN_Smoke2H" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Fan" ChannelOffset="2" Wheel="3" />
+    </Include>
+  </Mode>
+</Fixture>

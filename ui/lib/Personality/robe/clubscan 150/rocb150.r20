@@ -1,0 +1,221 @@
+; 'Robe Club Scan 150', 6 DMX Channels, filename: ROCScn15.R20
+;
+;   Date       By                Description
+;   26-08-04   Pers Creator      Created - Exported from Diamond 4 file.
+;   26-08-04   Tom               Checked
+;   31-08-04   Phil		 Revised DMX protocol according to updates from Robe
+;   21-01-05   Phil              Revised naming to Robe's standards
+;   26-10-05   Ed		 Revised device name
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  RO_CBSC150                            mode=6 DMX, 8bit  6 DMX Channels
+NAME "Robe" "ClubScan 150"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  6  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  1   0   0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 6 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=506
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+8     1   I    5   100   1N   0   1   "No Func"           0     0     0
+2    61   H    6   100   1N   H   1   "Shutter"          50    50    50
+3    61   L    1   100   1N   E   1   "Pan"             127     0     0
+3     1   L    2   100   1N   F   1   "Tilt"            127     0     0
+4     1   I    3   100   1N   0   1   "Colour"            0    87   124
+6     1   I    4   100   1N   K   1   "Gobo"              0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Robe Club Scan 150
+6 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset"         1   6
+"data"                0  86
+"delay"               1  32
+"data"                0  70
+"delay"               1  32
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 6  ;Shutter
+0   5    "Closed"
+6   95   "Open"
+96  127  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+128 139  "Reset"
+140 191  "Prog Time"
+192 223  "Audio Time"
+224 255  "Rnd Audio"
+REND
+
+RANGE 3  ;Colour
+0   9    "Open"
+10  21   "Turquoise"
+22  33   "Red"
+34  45   "Cyan"
+46  57   "Light Green"
+58  69   "Magenta"
+70  81   "Light Blue"
+82  93   "Yellow"
+94  105  "Green"
+106 117  "Pink"
+118 129  "Blue"
+130 141  "Orange"
+142 153  "UV"
+154 165  "Red/Blue"
+166 177  "Yellow/Gree"
+178 189  "Blue/Purple"
+244 249  "Audio Sel"
+250 255  "Rnd Sel"
+190 215  "Scr CW %3d%%"100-(((c-a)*100)/(b-a))
+216 217  "No Scroll"
+218 243  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 4  ;Gobo
+0   11   "Open"
+12  15   "Gobo 1"
+16  19   "Gobo 2"
+20  23   "Gobo 3"
+24  27   "Gobo 4"
+28  31   "Gobo 5"
+32  35   "Gobo 6"
+36  39   "Gobo 7"
+40  43   "Gobo 8"
+44  47   "Gobo 9"
+48  51   "Gobo 10"
+52  55   "Gobo 11"
+56  59   "Gobo 12"
+60  63   "Gobo 13"
+218 229  "Scr CW %3d%%"100-(((c-a)*100)/(b-a))
+230 231  "No Scroll"
+232 243  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+244 249  "Audio Sel"
+250 255  "Rnd Sel"
+64  69   "Open %3d%%"0+(((c-a)*100)/(b-a))
+70  75   "Gobo 1 %3d%%"0+(((c-a)*100)/(b-a))
+76  81   "Gobo 2 %3d%%"0+(((c-a)*100)/(b-a))
+82  87   "Gobo 3 %3d%%"0+(((c-a)*100)/(b-a))
+88  93   "Gobo 4 %3d%%"0+(((c-a)*100)/(b-a))
+94  99   "Gobo 5 %3d%%"0+(((c-a)*100)/(b-a))
+100 105  "Gobo 6 %3d%%"0+(((c-a)*100)/(b-a))
+106 111  "Gobo 7 %3d%%"0+(((c-a)*100)/(b-a))
+112 117  "Gobo 8 %3d%%"0+(((c-a)*100)/(b-a))
+118 123  "Gobo 9 %3d%%"0+(((c-a)*100)/(b-a))
+124 129  "Gobo10 %3d%%"0+(((c-a)*100)/(b-a))
+130 135  "Gobo11 %3d%%"0+(((c-a)*100)/(b-a))
+136 141  "Gobo12 %3d%%"0+(((c-a)*100)/(b-a))
+142 147  "Gobo13 %3d%%"0+(((c-a)*100)/(b-a))
+154 157  "Op/BkO %3d%%"0+(((c-a)*100)/(b-a))
+158 161  "BkO/G1 %3d%%"0+(((c-a)*100)/(b-a))
+162 165  "G1/G2 %3d%%"0+(((c-a)*100)/(b-a))
+166 169  "G2/G3 %3d%%"0+(((c-a)*100)/(b-a))
+170 173  "G3/G4 %3d%%"0+(((c-a)*100)/(b-a))
+174 177  "G4/G5 %3d%%"0+(((c-a)*100)/(b-a))
+178 181  "G5/G6 %3d%%"0+(((c-a)*100)/(b-a))
+182 185  "G6/G7 %3d%%"0+(((c-a)*100)/(b-a))
+186 189  "G7/G8 %3d%%"0+(((c-a)*100)/(b-a))
+190 193  "G8/G9 %3d%%"0+(((c-a)*100)/(b-a))
+194 197  "G9/G10 %3d%%"0+(((c-a)*100)/(b-a))
+198 201  "G10G11 %3d%%"0+(((c-a)*100)/(b-a))
+202 205  "G11G12 %3d%%"0+(((c-a)*100)/(b-a))
+206 209  "G12G13 %3d%%"0+(((c-a)*100)/(b-a))
+210 213  "G13/Op %3d%%"0+(((c-a)*100)/(b-a))
+214 217  "BkO/Op %3d%%"0+(((c-a)*100)/(b-a))
+REND
+

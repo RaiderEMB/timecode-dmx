@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="RGB LED PAR575" ShortName=" LED PR575" Company="Showtec">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="02-02-07" Author="D.Milligan" Comment="Created" />
+  <History Date="02-02-07" Author="D.Milligan" Comment="Checked" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="Macro" Name="Macro" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~15" Update="SpeedStrobe" />
+      <Function ID="2" Name="Macro" Display="'Macro %.f',1~240" Dmx="16~255" Update="SpeedStrobe" />
+    </Attribute>
+    <Attribute ID="SpeedStrobe" Name="Speed/Strobe" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="8bit HTP" ID="1,2" If="'Control'==1||'Macro'==2" />
+      <Condition Name="Else" ID="3" If="'Control'==2||'Control'==3||'Control'==4||'Control'==5||'Control'==6||'Control'==7||'Control'==8" />
+      <Else ID="1,2,3" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~15" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="16~255" />
+      <Function ID="3" Name="Speed" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="8bit HTP" Display="'Dim %.f%%',0~100" Dmx="0~31" Update="SpeedStrobe" />
+      <Function ID="2" Name="Light Dec" Display="'Light Dec %.f%%',0~100" Dmx="32~63" Update="SpeedStrobe" />
+      <Function ID="3" Name="Light Inc" Display="'Light Inc %.f%%',0~100" Dmx="64~95" Update="SpeedStrobe" />
+      <Function ID="4" Name="Dec/Inc" Display="'Dec/Inc %.f%%',0~100" Dmx="96~127" Update="SpeedStrobe" />
+      <Function ID="5" Name="Col Macro" Display="'Col Macro'" Dmx="128~159" Update="SpeedStrobe" />
+      <Function ID="6" Name="3Col Flash" Display="'3Col Flash'" Dmx="160~191" Update="SpeedStrobe" />
+      <Function ID="7" Name="7Col Flash" Display="'7Col Flash'" Dmx="192~223" Update="SpeedStrobe" />
+      <Function ID="8" Name="Music" Display="'Music'" Dmx="224~255" Update="SpeedStrobe" />
+    </Attribute>
+    <Attribute ID="Dimmer1" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="8bit HTP" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="7 DMX, 8bit" Channels="7">
+    <Import PearlRef="SH_RGBLP575" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer1" ChannelOffset="7" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="1" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="2" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="3" Wheel="12" />
+      <Attribute ID="Control" ChannelOffset="6" Wheel="28" />
+      <Attribute ID="Macro" ChannelOffset="4" Wheel="29" />
+      <Attribute ID="SpeedStrobe" ChannelOffset="5" Wheel="30" />
+    </Include>
+  </Mode>
+</Fixture>

@@ -1,0 +1,407 @@
+; 'Robe Digital Spot 5000 v4 Split', 16 DMX Channels, filename: ROD5V4L4.R20
+;
+;   Date       By                Description
+;   02-10-06   D.Milligan      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  RO_DiS5L4v4                         mode=Effects  16 DMX Channels
+NAME "Robe" "Digital Spot 5000 v4 L4"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  16  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   530   280
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Effects"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=497
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    7   100   1N   O   1   "Shutter"             0     0     0
+4     1   L    4   100   1N   0   1   "CTF"                 0     0     0
+10    1   L    1   100   1N   B   1   "Cyan"                0     0   255
+10   61   L    2   100   1N   C   1   "Magenta"             0     0   255
+9    61   L    3   100   1N   D   1   "Yellow"              0   255    51
+2     1   s    5   100   1N   G   1   "Global Irs"          0     0     0
+0     0   L    6   100   1N   G   1   "Global I L"          0     0     0
+5     1   L    8   100   1N   0   1   "Banr L Pos"          0     0     0
+5    61   L    9   100   1N   0   1   "Banr L Rot"        128     0     0
+6     1   L   10   100   1N   0   1   "Banr R Pos"          0     0     0
+6    61   L   11   100   1N   0   1   "Banr R Rot"        128     0     0
+7     1   L   12   100   1N   0   1   "Banr T Pos"          0     0     0
+7    61   L   13   100   1N   0   1   "Banr T Rot"        128     0     0
+8     1   L   14   100   1N   0   1   "Banr B Pos"          0     0     0
+8    61   L   15   100   1N   0   1   "Banr B Rot"        128     0     0
+9     1   I   16   100   1N   0   1   "Banr A Rot"        128     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Robe Digital Spot 5000 v4 Split
+Effects
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 5  ;Global Iris
+0   0    "Open"
+1   254  "%3d%%"0+(((c-a)*100)/(b-a))
+255 255  "Closed"
+REND
+
+RANGE 7  ;Shutter
+0   30   "Open"
+31  80   "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+81  110  "Open"
+111 140  "Rnd St %3d%%"0+(((c-a)*100)/(b-a))
+141 255  "Open"
+REND
+
+RANGE 4  ;CTF
+0   0   "Open"
+1   1   "14000K"
+2   2   "13000K"
+3   3   "12500K"
+4   4   "12000K"
+5   5   "11500K"
+6   6   "11000K"
+7   7   "10500K"
+8   8   "10000K"
+9   9   "9500K"
+10   10   "9000K"
+11   11   "8600K"
+12   12   "8575K"
+13   13   "8550K"
+14   14   "8525K"
+15   15   "8500K"
+16   16   "8475K"
+17   17   "8450K"
+18   18   "8425K"
+19   19   "8400K"
+20   20   "8375K"
+21   21   "8350K"
+22   22   "8325K"
+23   23   "8300K"
+24   24   "8275K"
+25   25   "8250K"
+26   26   "8225K"
+27   27   "8200K"
+28   28   "8175K"
+29   29   "8150K"
+30   30   "8125K"
+31   31   "8100K"
+32   32   "8075K"
+33   33   "8050K"
+34   34   "8025K"
+35   35   "8000K"
+36   36   "7975K"
+37   37   "7950K"
+38   38   "7925K"
+39   39   "7900K"
+40   40   "7875K"
+41   41   "7850K"
+42   42   "7825K"
+43   43   "7800K"
+44   44   "7775K"
+45   45   "7750K"
+46   46   "7725K"
+47   47   "7700K"
+48   48   "7675K"
+49   49   "7650K"
+50   50   "7625K"
+51   51   "7600K"
+52   52   "7575K"
+53   53   "7550K"
+54   54   "7525K"
+55   55   "7500K"
+56   56   "7475K"
+57   57   "7450K"
+58   58   "7425K"
+59   59   "7400K"
+60   60   "7375K"
+61   61   "7350K"
+62   62   "7325K"
+63   63   "7300K"
+64   64   "7275K"
+65   65   "7250K"
+66   66   "7225K"
+67   67   "7200K"
+68   68   "7175K"
+69   69   "7150K"
+70   70   "7125K"
+71   71   "7100K"
+72   72   "7075K"
+73   73   "7050K"
+74   74   "7025K"
+75   75   "7000K"
+76   76   "6975K"
+77   77   "6950K"
+78   78   "6925K"
+79   79   "6900K"
+80   80   "6875K"
+81   81   "6850K"
+82   82   "6825K"
+83   83   "6800K"
+84   84   "6775K"
+85   85   "6750K"
+86   86   "6725K"
+87   87   "6700K"
+88   88   "6675K"
+89   89   "6650K"
+90   90   "6625K"
+91   91   "6600K"
+92   92   "6575K"
+93   93   "6550K"
+94   94   "6525K"
+95   95   "6500K"
+96   96   "6475K"
+97   97   "6450K"
+98   98   "6425K"
+99   99   "6400K"
+100   100   "6375K"
+101   101   "6350K"
+102   102   "6325K"
+103   103   "6300K"
+104   104   "6275K"
+105   105   "6250K"
+106   106   "6225K"
+107   107   "6200K"
+108   108   "6175K"
+109   109   "6150K"
+110   110   "6125K"
+111   111   "6100K"
+112   112   "6075K"
+113   113   "6050K"
+114   114   "6025K"
+115   115   "6000K"
+116   116   "5975K"
+117   117   "5950K"
+118   118   "5925K"
+119   119   "5900K"
+120   120   "5875K"
+121   121   "5850K"
+122   122   "5825K"
+123   123   "5800K"
+124   124   "5775K"
+125   125   "5750K"
+126   126   "5725K"
+127   127   "5700K"
+128   128   "5675K"
+129   129   "5650K"
+130   130   "5625K"
+131   131   "5600K"
+132   132   "5575K"
+133   133   "5550K"
+134   134   "5525K"
+135   135   "5500K"
+136   136   "5475K"
+137   137   "5450K"
+138   138   "5425K"
+139   139   "5400K"
+140   140   "5375K"
+141   141   "5350K"
+142   142   "5325K"
+143   143   "5300K"
+144   144   "5275K"
+145   145   "5250K"
+146   146   "5225K"
+147   147   "5200K"
+148   148   "5175K"
+149   149   "5150K"
+150   150   "5125K"
+151   151   "5100K"
+152   152   "5075K"
+153   153   "5050K"
+154   154   "5025K"
+155   155   "5000K"
+156   156   "4975K"
+157   157   "4950K"
+158   158   "4925K"
+159   159   "4900K"
+160   160   "4875K"
+161   161   "4850K"
+162   162   "4825K"
+163   163   "4800K"
+164   164   "4775K"
+165   165   "4750K"
+166   166   "4725K"
+167   167   "4700K"
+168   168   "4675K"
+169   169   "4650K"
+170   170   "4625K"
+171   171   "4600K"
+172   172   "4575K"
+173   173   "4550K"
+174   174   "4525K"
+175   175   "4500K"
+176   176   "4475K"
+177   177   "4450K"
+178   178   "4425K"
+179   179   "4400K"
+180   180   "4375K"
+181   181   "4350K"
+182   182   "4325K"
+183   183   "4300K"
+184   184   "4275K"
+185   185   "4250K"
+186   186   "4225K"
+187   187   "4200K"
+188   188   "4175K"
+189   189   "4150K"
+190   190   "4125K"
+191   191   "4100K"
+192   192   "4075K"
+193   193   "4050K"
+194   194   "4025K"
+195   195   "4000K"
+196   196   "3975K"
+197   197   "3950K"
+198   198   "3925K"
+199   199   "3900K"
+200   200   "3875K"
+201   201   "3850K"
+202   202   "3825K"
+203   203   "3800K"
+204   204   "3775K"
+205   205   "3750K"
+206   206   "3725K"
+207   207   "3700K"
+208   208   "3675K"
+209   209   "3650K"
+210   210   "3625K"
+211   211   "3600K"
+212   212   "3575K"
+213   213   "3550K"
+214   214   "3525K"
+215   215   "3500K"
+216   216   "3475K"
+217   217   "3450K"
+218   218   "3425K"
+219   219   "3400K"
+220   220   "3375K"
+221   221   "3350K"
+222   222   "3325K"
+223   223   "3300K"
+224   224   "3275K"
+225   225   "3250K"
+226   226   "3225K"
+227   227   "3200K"
+228   228   "3175K"
+229   229   "3150K"
+230   230   "3125K"
+231   231   "3100K"
+232   232   "3075K"
+233   233   "3050K"
+234   234   "3025K"
+235   235   "3000K"
+236   236   "2975K"
+237   237   "2950K"
+238   238   "2925K"
+239   239   "2900K"
+240   240   "2875K"
+241   241   "2850K"
+242   242   "2825K"
+243   243   "2800K"
+244   244   "2775K"
+245   245   "2750K"
+246   246   "2725K"
+247   247   "2700K"
+248   248   "2675K"
+249   249   "2650K"
+250   250   "2625K"
+251   251   "2600K"
+252   252   "2575K"
+253   253   "2550K"
+254   254   "2525K"
+255   255   "2500K"
+REND
+

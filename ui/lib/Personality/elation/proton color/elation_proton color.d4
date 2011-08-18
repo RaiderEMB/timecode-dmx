@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Proton Color" ShortName="ProtnColor" Company="Elation">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="27-09-04" Author="Phil Rogers" Comment="Created" />
+  <History Date="27-09-04" Author="Tom Peck" Comment="Checked" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour ID to Colour1" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="19-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Time" Name="Time" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Time" Display="'Time %.1f',0.0~16.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Colour1Func" Name="Colour Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Split_Func" Display="'Split Gel'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="4" Name="Macro_Func" Display="'Macro'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="5" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4" If="'Colour1Func'==1" />
+      <Condition Name="Split_Func" ID="5,6,7,8,9" If="'Colour1Func'==2" />
+      <Condition Name="Scroll_Func" ID="10,11,12,13" If="'Colour1Func'==3" />
+      <Condition Name="Macro_Func" ID="14,15" If="'Colour1Func'==4" />
+      <Condition Name="Raw_Func" ID="16" If="'Colour1Func'==5" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~15" Colour="255,255,255" />
+      <Function ID="2" Name="Red" Display="'Red'" Dmx="32~47" Colour="255,0,0" />
+      <Function ID="3" Name="Yellow" Display="'Yellow'" Dmx="64~79" Colour="255,255,0" />
+      <Function ID="4" Name="Blue" Display="'Blue'" Dmx="96~111" Colour="0,0,255" />
+      <Function ID="5" Name="Open" Display="'Open'" Dmx="0~15" Colour="255,255,255" />
+      <Function ID="6" Name="Open/Red" Display="'Open/Red'" Dmx="16~31" Colour="255,255,255" />
+      <Function ID="7" Name="Red/Yellow" Display="'Red/Yellow'" Dmx="48~63" Colour="255,0,0" />
+      <Function ID="8" Name="Yellow/Blue" Display="'Yellow/Blue'" Dmx="80~95" Colour="255,255,0" />
+      <Function ID="9" Name="Blue/Open" Display="'Blue/Open'" Dmx="112~127" Colour="0,0,255" />
+      <Function ID="10" Name="No Scroll" Display="'No Scroll'" Dmx="128~144" Colour="0,0,0" />
+      <Function ID="11" Name="Scroll CW" Display="'Scroll CW %.f%%',100~0" Dmx="176~191" Colour="0,0,0" />
+      <Function ID="12" Name="No Scroll" Display="'No Scroll'" Dmx="128~144" Colour="0,0,0" />
+      <Function ID="13" Name="Scroll CCW" Display="'Scroll CCW %.f%%',0~100" Dmx="145~159" Colour="0,0,0" />
+      <Function ID="14" Name="No Macro " Display="'No Macro'" Dmx="0~15" Colour="0,0,0" />
+      <Function ID="15" Name="Macro " Display="'Macro'" Dmx="208~255" Colour="0,0,0" />
+      <Function ID="16" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Speed" Display="'Speed %.f%%',100~0" Dmx="255~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="5 DMX, 8bit" Channels="5">
+    <Import PearlRef="ELPrtnColor" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="1" Wheel="4" />
+      <Attribute ID="Dimmer" ChannelOffset="2" Wheel="1" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="4" Wheel="8" />
+      <Attribute ID="Time" ChannelOffset="3" Wheel="5" />
+      <Attribute ID="Speed" ChannelOffset="5" Wheel="25" />
+    </Include>
+  </Mode>
+</Fixture>

@@ -1,0 +1,162 @@
+// Qmaxz - QS250S
+// Avolites Visualiser Extension File
+// Copyright © Avolites Ltd. 2010
+//_________________________________________________________________________________
+// File Name: QMQS25S2.VIS
+// Created by: Personality Builder - Version 2.0.1.0
+// Date: 26/05/2010 13:36:26
+// Exported From: QS250S. Checked by John Rogers.
+//_________________________________________________________________________________
+
+Device QM_QS250Sm2
+
+// VisMode Pulse, works like Speed but alternates direction (bounces)
+// Place before VisMode Value for backwards compatibility
+ChanRef Dimmer
+	Vismode Speed
+	UseBits 1 2 3 4 5 6 7 8
+	DmxOffset 3
+    Mapping 76 107 10 100	//Open Pulse
+    Mapping 108 139 -10 -100	//Close Pulse
+    Mapping 190 219 10 100	//Rnd Open Pulse
+    Mapping 220 249 -10 -100	//Rnd Close Pulse
+End
+
+// Dimmer
+ChanRef Dimmer
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 2
+    Mapping 0 255 0 255
+End
+
+// Shutter
+ChanRef Dimmer
+    Vismode Strobe
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 3
+    Mapping 0 9 0 0
+    Mapping 10 19 1 1
+    Mapping 20 65 30 300		//Strobe
+    Mapping 66 75 1 1
+    Mapping 140 149 1 1
+    Mapping 150 179 30 300		//Random Strobe
+    Mapping 180 189 1 1
+    Mapping 250 255 1 1
+End
+
+// Pan
+ChanRef Pan
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 4
+    Mapping 0 255 -270.000000 270.000000
+End
+
+// Tilt
+ChanRef Tilt
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 5
+    Mapping 0 255 -125.000000 125.000000
+End
+
+// Colour 1
+ChanRef Color Wheel 1
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 6
+    Mapping 0 9 White
+    Mapping 10 19 RGB0,0,180
+    Mapping 20 29 RGB240,240,0
+    Mapping 30 39 RGB120,0,240
+    Mapping 40 49 RGB0,240,0
+    Mapping 50 59 RGB240,120,0
+    Mapping 60 69 RGB0,120,240
+    Mapping 70 79 RGB240,0,0
+    Mapping 80 89 White
+    Mapping 224 225 White
+End
+
+ChanRef Color Wheel 1
+// Colour 1
+    Vismode Speed
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 6
+    Mapping 194 223 50 5
+    Mapping 226 255 -5 -50
+End
+
+// Gobo 2
+ChanRef Gobo 1
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 7
+    Mapping 0 9 Twelve Point Star
+    Mapping 10 19 Number One
+    Mapping 20 29 Number Two
+    Mapping 30 39 Number Three
+    Mapping 40 49 Number Four
+    Mapping 50 59 Number Five
+    Mapping 60 69 Number Six
+    Mapping 70 79 Number Seven
+    Mapping 80 94 Number Eight
+    Mapping 95 109 Number Eight
+    Mapping 110 124 Number Seven
+    Mapping 125 139 Number Six
+    Mapping 140 154 Number Five
+    Mapping 155 169 Number Four
+    Mapping 170 184 Number Three
+    Mapping 185 199 Number Two
+    Mapping 200 214 Number One
+    Mapping 215 224 Twelve Point Star
+End
+
+ChanRef Gobo 1
+// Gobo 2
+    Vismode Speed
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 7
+    Mapping 225 255 5 50
+End
+
+// Gobo 1
+ChanRef Gobo 2
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 8
+    Mapping 0 19 Twelve Point Star
+    Mapping 20 39 Number One
+    Mapping 40 59 Number Two
+    Mapping 60 79 Number Three
+    Mapping 80 99 Number Four
+    Mapping 100 119 Number Five
+    Mapping 120 144 Number Six
+    Mapping 145 159 Number Six
+    Mapping 160 174 Number Five
+    Mapping 175 189 Number Four
+    Mapping 190 204 Number Three
+    Mapping 205 219 Number Two
+    Mapping 220 234 Number One
+    Mapping 235 255 Twelve Point Star
+End
+
+// Gobo 1 Rot
+ChanRef Gobo 2 Rotate
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 9
+    Mapping 0 125 -180 180
+    Mapping 126 128 Twelve Point Star
+	Mapping 191 193 Twelve Point Star
+End
+
+ChanRef Gobo 2 Rotate
+// Gobo 1 Rot
+    Vismode Speed
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 9
+    Mapping 129 190 20 5
+    Mapping 194 255 -5 -20
+End
+

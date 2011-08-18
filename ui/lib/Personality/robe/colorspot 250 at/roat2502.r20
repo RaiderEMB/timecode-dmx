@@ -1,0 +1,297 @@
+; 'Robe Colorspot 250 AT', 14 DMX Channels, filename: RB_250M2.R20
+;
+;   Date       By                Description
+;   29-01-04   Greg Brown        Created
+;   02-02-04   Lena Gallagher    Checked
+;   10-08-04   Phil Rogers       Added Range Tables
+;   20-01-05   Phil              Renamed to Robe standards
+;   30-09-05   Edward Spencer    Added preset focus tables for gobo and colour
+;   26-10-05   E Spencer	 revised device name
+;   31-08-06   D.Milligan	 Changed GoboRot range table to listen to correct DMX channel
+;   31-08-06   D.Milligan        Corrected Range Tables
+;   31-08-06   D.Milligan        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  RO_SP250AT2                          mode=Mode 2, 8bit  14 DMX Channels
+NAME "Robe" "ColorSpot 250 AT, Mode 2"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  14  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   530  280
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Mode 2, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=498
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+DMX
+2    61   L   13   100   1N   O   1   "Shutter"          32    32    32
+1     1   H   14   100   1N   H   1   "Dimmer"          255   255   255
+3    61   s    1   100   1N   E   1   "Pan"             127   127   127
+0     0   L    2   100   1N   E   1   "Pan Low"         127   127   127
+3     1   s    3   100   1N   F   1   "Tilt"            127   127   127
+0     0   L    4   100   1N   F   1   "Tilt Low"        127   127   127
+4     1   I    7   100   1N   A   1   "Colour"            0     0     0
+6     1   I    8   100   1N   I   1   "Gobo"              0     0     0
+7     1   L    9   100   1N   K   1   "Gobo Rot"          0     0     0
+5    61   L   12   100   1N   L   1   "Focus"           255   255   255
+6    61   I   10   100   1N   P   1   "Prism"             0     0     0
+0     0   L   11   100   1N   P   1   "Prism_Spin"        0     0     0
+8     1   I    5   100   1N   0   1   "P/T Speed"         0     0     0
+8    61   I    6   100   1N   0   1   "Control"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Robe Colorspot 250 AT
+Mode 2, 8bit
+
+    Wheel A      Wheel B
+-----------------------------
+ 1  Dimmer       --
+ 2  --           Shutter
+ 3  Tilt         Pan
+ 4  Colour       --
+ 5  --           Focus
+ 6  Gobo         Prism
+ 7  Gobo Rot     Prism Spin
+ 8  P/T Speed    Control
+ 9  --           --
+ 10 --           --
+ 11 --           --
+ 12 --           --
+ 13 --           --
+ 14 --           --
+ 15 --           --
+ 16 --           --
+ 17 --           --
+ 18 --           --
+ 19 --           --
+ 20 --           --
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+PFTABLE "Colour" -1   7
+"Open"            1   00
+"Red"             2   17
+"Yellow"	  3   46
+"Green"		  4   51
+"L Blue"	  5   22
+"Blue"		  6   69
+"Pink"  	  7   5D
+"UV"		  8   3A
+"Dark Green" 	  9   0B
+"Deep Red"	 10   75
+PFEND
+
+PFTABLE "Gobo"  -1   8
+"Open"          11   0
+"Gobo1"         12   5
+"Gobo2"         13  0A
+"Gobo3"         14  0E
+"Gobo4"         15  12
+"Gobo5"         16  16
+"Gobo6"         17  1A
+"Gobo7"         18  1E
+PFEND
+;----------------------------------------------------------------------------
+; Macros
+MACRO "Lamp Off" 1  6   13
+"data"           0  0   19
+"delay"          1  14
+"data"           0  EB  19
+"delay"          1  32
+"data"           0  0   0
+MEND
+MACRO "Reset"    2  6   13
+"data"           0  0   19
+"delay"          1  14
+"data"           0  CD  19
+"delay"          1  32
+"data"           0  0   0
+MEND
+MACRO "Lamp On"  3  6   13
+"data"           0  0   19
+"delay"          1  14
+"data"           0  87  19
+"delay"          1  32
+"data"           0  0   0
+MEND
+
+
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+RANGE 5  ;P/T Speed
+0   0    "Tracking"
+1   255  "%3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 6  ;Control
+0   49   "Safe"
+50  59   "P/T Speed M"
+60  69   "P/T Time Mo"
+70  79   "BO on P/T"
+80  89   "Disable BO "
+90  99   "BO on Color"
+100 109  "Disable BO "
+110 119  "BO on Gobo"
+120 129  "Disable BO "
+130 139  "Lamp ON, Re"
+140 149  "P/T Reset"
+150 159  "Color Reset"
+160 169  "Gobo Reset"
+170 179  "Dimmer Rese"
+180 189  "Focus Reset"
+190 199  "Prism Reset"
+200 209  "Total Reset"
+210 229  "Safe"
+230 239  "Lamp Off"
+240 255  "Safe"
+REND
+
+RANGE 7  ;Colour
+0   10  "Open/G %3d%%"0+(((c-a)*100)/(b-a))
+11  22  "Grn/Re %3d%%"0+(((c-a)*100)/(b-a))
+23  33  "Red/Az %3d%%"0+(((c-a)*100)/(b-a))
+34  45  "Az/Mag %3d%%"0+(((c-a)*100)/(b-a))
+46  57  "Mag/UV %3d%%"0+(((c-a)*100)/(b-a))
+58  69  "UV/Yel %3d%%"0+(((c-a)*100)/(b-a))
+70  80  "Yel/Gr %3d%%"0+(((c-a)*100)/(b-a))
+81  92  "Grn/Pi %3d%%"0+(((c-a)*100)/(b-a))
+93  104 "Pink/B %3d%%"0+(((c-a)*100)/(b-a))
+105 116 "Blue/R %3d%%"0+(((c-a)*100)/(b-a))
+117 127 "Red/Op %3d%%"0+(((c-a)*100)/(b-a))
+128 129 "Open"
+130 135 "Dark Green"
+136 141 "Red"
+142 147 "Light Azure"
+148 153 "Magenta"
+154 159 "UV"
+160 165 "Yellow"
+166 171 "Green"
+172 177 "Pink"
+178 183 "Blue"
+184 189 "Deep Red"
+190 215 "Scr CW %3d%%"100-(((c-a)*100)/(b-a))
+216 217 "No Scroll"
+218 243 "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+244 249 "Rand. Audio"
+250 255 "Random %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 8  ;Gobo
+0   3    "Open"
+4   7    "Gobo 1"
+8   11   "Gobo 2"
+12  15   "Gobo 3"
+16  19   "Gobo 4"
+20  23   "Gobo 5"
+24  27   "Gobo 6"
+28  31   "Gobo 7"
+32  35   "Gobo 1"
+36  39   "Gobo 2"
+40  43   "Gobo 3"
+44  47   "Gobo 4"
+48  51   "Gobo 5"
+52  52   "Gobo 6"
+55  56   "Gobo 7"
+60  69   "Gobo 1 %3d%%"0+(((c-a)*100)/(b-a))
+70  79   "Gobo 2 %3d%%"0+(((c-a)*100)/(b-a))
+80  89   "Gobo 3 %3d%%"0+(((c-a)*100)/(b-a))
+90  99   "Gobo 4 %3d%%"0+(((c-a)*100)/(b-a))
+100 109  "Gobo 5 %3d%%"0+(((c-a)*100)/(b-a))
+110 119  "Gobo 6 %3d%%"0+(((c-a)*100)/(b-a))
+120 129  "Gobo 7 %3d%%"0+(((c-a)*100)/(b-a))
+130 139  "Gobo 1 %3d%%"0+(((c-a)*100)/(b-a))
+140 149  "Gobo 2 %3d%%"0+(((c-a)*100)/(b-a))
+150 159  "Gobo 3 %3d%%"0+(((c-a)*100)/(b-a))
+160 169  "Gobo 4 %3d%%"0+(((c-a)*100)/(b-a))
+170 179  "Gobo 5 %3d%%"0+(((c-a)*100)/(b-a))
+180 189  "Gobo 6 %3d%%"0+(((c-a)*100)/(b-a))
+190 199  "Gobo 7 %3d%%"0+(((c-a)*100)/(b-a))
+200 201  "Open"
+202 221  "Scr CW %3d%%"100-(((c-a)*100)/(b-a))
+222 223  "No Scroll"
+224 243  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+244 249  "Rand, Audio"
+250 255  "Random %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 10  ;Prism
+0   19    "Open"
+20  159  "Prism"
+160 167  "Macro 1"
+168 175  "Macro 2"
+176 183  "Macro 3"
+184 191  "Macro 4"
+192 199  "Macro 5"
+200 207  "Macro 6"
+208 215  "Macro 7"
+216 223  "Macro 8"
+224 231  "Macro 9"
+232 239  "Macro 10"
+240 247  "Macro 11"
+248 255  "Macro 12"
+REND
+
+RANGE 11  ;Prism_Spin
+0   0    "No Spin"
+1   127  "Spn CW %3d%%"100-(((c-a)*100)/(b-a))
+128 129  "No Spin"
+130 255  "Sp CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 13 ;Shutter
+0   31   "Closed"
+32  63   "Open"
+64  95   "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+96  127  "Open"
+128 143  "Op Pul %3d%%"0+(((c-a)*100)/(b-a))
+144 159  "Cl Pul %3d%%"100-(((c-a)*100)/(b-a))
+160 191  "Open"
+192 223  "RndStb %3d%%"0+(((c-a)*100)/(b-a))
+224 255  "Open"
+REND
+

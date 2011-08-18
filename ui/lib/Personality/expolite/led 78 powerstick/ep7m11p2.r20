@@ -1,0 +1,338 @@
+; 'Expolite LED 78 Powerstick Mode 11, 156 DMX', 156 DMX Channels, filename: EP7M11P2.R20
+;  Copyright © Avolites Ltd. 2009
+;
+;   Date       By                Description
+;   03-08-09   Pers Creator      Created - Exported from Diamond 4 file.
+;   03-08-09   David Hunt        Checked
+;   25-08-09   Jonathan Moreton  Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  EP_L78M11P2                         mode=Mode 11, 156 DMX  72 DMX Channels
+NAME "Expolite" "LED 78 Pwrstk Mode 11, 156 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  72  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Mode 11, 156 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=440
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+10    1   s    1   100   1N   T   1   "Red13"           255   255     0
+0     0   L    2   100   1N   T   1   "Red13 Low"       255   255     0
+10   61   s    3   100   1N   U   1   "Green13"         255   255     0
+0     0   I    4   100   1N   U   1   "Green13 Low"     255   255     0
+9    61   s    5   100   1N   V   1   "Blue13"          255     0   230
+0     0   L    6   100   1N   V   1   "Blue13 Low"      255     0   230
+8     1   s    7   100   1N   0   1   "Red14"           255   255     0
+0     0   L    8   100   1N   0   1   "Red14 Low"       255   255     0
+8    61   s    9   100   1N   0   1   "Green14"         255   255     0
+0     0   I   10   100   1N   0   1   "Green14 Low"     255   255     0
+9     1   s   11   100   1N   0   1   "Blue14"          255     0   230
+0     0   L   12   100   1N   0   1   "Blue14 Low"      255     0   230
+7     1   s   13   100   1N   0   1   "Red15"           255   255     0
+0     0   L   14   100   1N   0   1   "Red15 Low"       255   255     0
+7    61   s   15   100   1N   0   1   "Green15"         255   255     0
+0     0   L   16   100   1N   0   1   "Green15 Low"     255   255     0
+6    61   s   17   100   1N   0   1   "Blue15"          255     0   230
+0     0   L   18   100   1N   0   1   "Blue15 Low"      255     0   230
+5     1   s   19   100   1N   0   1   "Red16"           255   255     0
+0     0   L   20   100   1N   0   1   "Red16 Low"       255   255     0
+5    61   s   21   100   1N   0   1   "Green16"         255   255     0
+0     0   I   22   100   1N   0   1   "Green16 Low"     255   255     0
+6     1   s   23   100   1N   0   1   "Blue16"          255     0   230
+0     0   L   24   100   1N   0   1   "Blue16 Low"      255     0   230
+4     1   s   25   100   1N   0   1   "Red17"           255   255     0
+0     0   I   26   100   1N   0   1   "Red17 Low"       255   255     0
+4    61   s   27   100   1N   0   1   "Green17"         255   255     0
+0     0   I   28   100   1N   0   1   "Green17 Low"     255   255     0
+3    61   s   29   100   1N   0   1   "Blue17"          255     0   230
+0     0   L   30   100   1N   0   1   "Blue17 Low"      255     0   230
+2     1   s   31   100   1N   0   1   "Red18"           255   255     0
+0     0   L   32   100   1N   0   1   "Red18 Low"       255   255     0
+2    61   s   33   100   1N   0   1   "Green18"         255   255     0
+0     0   L   34   100   1N   0   1   "Green18 Low"     255   255     0
+3     1   s   35   100   1N   0   1   "Blue18"          255     0   230
+0     0   L   36   100   1N   0   1   "Blue18 Low"      255     0   230
+20    1   s   37   100   1N   0   1   "Red19"           255   255     0
+0     0   L   38   100   1N   0   1   "Red19 Low"       255   255     0
+20   61   s   39   100   1N   0   1   "Green19"         255   255     0
+0     0   L   40   100   1N   0   1   "Green19 Low"     255   255     0
+19   61   s   41   100   1N   0   1   "Blue19"          255     0   230
+0     0   L   42   100   1N   0   1   "Blue19 Low"      255     0   230
+18    1   s   43   100   1N   0   1   "Red20"           255   255     0
+0     0   L   44   100   1N   0   1   "Red20 Low"       255   255     0
+18   61   s   45   100   1N   0   1   "Green20"         255   255     0
+0     0   L   46   100   1N   0   1   "Green20 Low"     255   255     0
+19    1   s   47   100   1N   0   1   "Blue20"          255     0   230
+0     0   L   48   100   1N   0   1   "Blue20 Low"      255     0   230
+17    1   s   49   100   1N   0   1   "Red21"           255   255     0
+0     0   L   50   100   1N   0   1   "Red21 Low"       255   255     0
+17   61   s   51   100   1N   0   1   "Green21"         255   255     0
+0     0   L   52   100   1N   0   1   "Green21 Low"     255   255     0
+16   61   s   53   100   1N   0   1   "Blue21"          255     0   230
+0     0   L   54   100   1N   0   1   "Blue21 Low"      255     0   230
+15    1   s   55   100   1N   0   1   "Red22"           255   255     0
+0     0   L   56   100   1N   0   1   "Red22 Low"       255   255     0
+15   61   s   57   100   1N   0   1   "Green22"         255   255     0
+0     0   L   58   100   1N   0   1   "Green22 Low"     255   255     0
+16    1   s   59   100   1N   0   1   "Blue22"          255     0   230
+0     0   L   60   100   1N   0   1   "Blue22 Low"      255     0   230
+14    1   s   61   100   1N   0   1   "Red23"           255   255     0
+0     0   L   62   100   1N   0   1   "Red23 Low"       255   255     0
+14   61   s   63   100   1N   0   1   "Green23"         255   255     0
+0     0   L   64   100   1N   0   1   "Green23 Low"     255   255     0
+13   61   s   65   100   1N   0   1   "Blue23"          255     0   230
+0     0   L   66   100   1N   0   1   "Blue23 Low"      255     0   230
+12    1   s   67   100   1N   0   1   "Red24"           255   255     0
+0     0   L   68   100   1N   0   1   "Red24 Low"       255   255     0
+12   61   s   69   100   1N   0   1   "Green24"         255   255     0
+0     0   L   70   100   1N   0   1   "Green24 Low"     255   255     0
+13    1   s   71   100   1N   0   1   "Blue24"          255     0   230
+0     0   L   72   100   1N   0   1   "Blue24 Low"      255     0   230
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Expolite
+LED 78 Powerstick
+Mode 11, 156 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Red13
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Green13
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Blue13
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Red14
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Green14
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Blue14
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Red15
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;Green15
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;Blue15
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 19  ;Red16
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 21  ;Green16
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 23  ;Blue16
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 25  ;Red17
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 27  ;Green17
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 29  ;Blue17
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 31  ;Red18
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 33  ;Green18
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 35  ;Blue18
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 37  ;Red19
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 39  ;Green19
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 41  ;Blue19
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 43  ;Red20
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 45  ;Green20
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 47  ;Blue20
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 49  ;Red21
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 51  ;Green21
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 53  ;Blue21
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 55  ;Red22
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 57  ;Green22
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 59  ;Blue22
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 61  ;Red23
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 63  ;Green23
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 65  ;Blue23
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 67  ;Red24
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 69  ;Green24
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 71  ;Blue24
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

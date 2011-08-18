@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Kolorado Mk2 2500" ShortName="Kaleido2" Company="Griven">
+  <Copyright Notice="© Avolites Ltd. 2010" />
+  <History Date="12-05-03" Author="Oliver Waits" Comment="Created" />
+  <History Date="11-02-04" Author="L.Gallagher" Comment="Error Found 1. No macros found" />
+  <History Date="11-02-04" Author="L.Gallagher" Comment="Error Found 2. YCM - (colourmix mode only)" />
+  <History Date="11-02-04" Author="L.Gallagher" Comment="Error Found 3. Colur - (colourtable mode only" />
+  <History Date="07-07-06" Author="Ed" Comment="Fixed All colour mix attributes to be Cmixes" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour ID to Colour1" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <History Date="10-08-10" Author="John Rogers" Comment="Added fixture type and " />
+  <Manual Filename="Kolorado Mk2 2500.pdf" Summary="" />
+  <Control>
+    <Attribute ID="LampOn" Name="Lamp On/Off" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Lamp On" Display="'Lamp On'" Dmx="0~127" />
+      <Function ID="2" Name="Lamp Off" Display="'Lamp Off'" Dmx="128~255" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="2" />
+      <Function ID="1" Name="Dimmer" Display="'Value= %.f',0~100" Dmx="0~127" SetControl="Shutter:3" Intensity="0~0" />
+      <Function ID="2" Name="Open" Display="'Open'" Dmx="128~159" Intensity="0~0" />
+      <Function ID="3" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="160~239" Intensity="0~0" />
+      <Function ID="4" Name="Open" Display="'Open'" Dmx="240~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" SetControl="Dimmer:3" Intensity="0~0" />
+      <Function ID="2" Name="Strobe" Display="'Strobe %.1f%%',0.0~100.0" Dmx="1~255" SetControl="Dimmer:3" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:255" Lowlight="1:0" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:255" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:255" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="LTP" Display="'Color %.f',0~100" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+  </Control>
+  <Mode Name="Colour Mixing" Channels="6">
+    <Import PearlRef="" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="2" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="3" Wheel="4" />
+      <Attribute ID="Yellow" ChannelOffset="4" Wheel="10" />
+      <Attribute ID="Cyan" ChannelOffset="5" Wheel="11" />
+      <Attribute ID="Magenta" ChannelOffset="6" Wheel="12" />
+      <Attribute ID="LampOn" ChannelOffset="1" Wheel="28" />
+    </Include>
+  </Mode>
+  <Mode Name="Colour Table" Channels="4">
+    <Import PearlRef="" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="2" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="3" Wheel="4" />
+      <Attribute ID="Colour1" ChannelOffset="4" Wheel="7" />
+      <Attribute ID="LampOn" ChannelOffset="1" Wheel="28" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Cyan:1:0,Magenta:1:0,Yellow:1:0" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Cyan:1:0,Magenta:1:100,Yellow:1:100" />
+      <Palette ID="3" Name="Amber" Number="3" Page="1" SetControl="Cyan:1:0,Magenta:1:50,Yellow:1:100" />
+      <Palette ID="4" Name="Yellow" Legend="Yell" Number="4" Page="1" SetControl="Cyan:1:0,Magenta:1:0,Yellow:1:100" />
+      <Palette ID="5" Name="Lime" Number="0" Page="1" SetControl="Cyan:1:50,Magenta:1:0,Yellow:1:100" />
+      <Palette ID="6" Name="Green" Number="5" Page="1" SetControl="Cyan:1:100,Magenta:1:0,Yellow:1:100" />
+      <Palette ID="7" Name="Aqua" Number="0" Page="1" SetControl="Cyan:1:100,Magenta:1:0,Yellow:1:50" />
+      <Palette ID="8" Name="Cyan" Number="6" Page="1" SetControl="Cyan:1:100,Magenta:1:0,Yellow:1:0" />
+      <Palette ID="9" Name="Light Blue" Number="0" Page="1" SetControl="Cyan:1:100,Magenta:1:50,Yellow:1:0" />
+      <Palette ID="10" Name="Blue" Number="7" Page="1" SetControl="Cyan:1:100,Magenta:1:100,Yellow:1:0" />
+      <Palette ID="11" Name="Purple" Legend="Purpl" Number="0" Page="1" SetControl="Cyan:1:50,Magenta:1:100,Yellow:1:0" />
+      <Palette ID="12" Name="Magenta" Legend="Mag" Number="10" Page="1" SetControl="Cyan:1:0,Magenta:1:100,Yellow:1:0" />
+      <Palette ID="13" Name="Rose" Number="0" Page="1" SetControl="Cyan:1:0,Magenta:1:100,Yellow:1:50" />
+      <Palette ID="14" Name="Lavender" Legend="Lav" Number="8" Page="1" SetControl="Cyan:1:29,Magenta:1:57,Yellow:1:6" />
+      <Palette ID="15" Name="Ultra Violet" Legend="UV" Number="9" Page="1" SetControl="Cyan:1:80,Magenta:1:100,Yellow:1:0" />
+    </Group>
+  </Palettes>
+</Fixture>

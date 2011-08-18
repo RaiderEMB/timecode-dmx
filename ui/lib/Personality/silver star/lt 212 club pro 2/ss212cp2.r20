@@ -1,0 +1,306 @@
+; 'Silver Star LT 212 Club Pro 2', 14 DMX Channels, filename: SS212CP2.R20
+;  Copyright © Avolites Ltd. 2009
+;
+;   Date       By                Description
+;   09-06-09   Pers Creator      Created - Exported from Diamond 4 file.
+;   09-06-09   David Hunt        Checked
+;   10-06-09   Jonathan Moreton  Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  SS_LT212CP2                         mode=14 DMX, 8bit  14 DMX Channels
+NAME "Silver Star" "LT 212 Club Pro 2"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  14  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 14 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=498
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+10    1   L    1   100   1N   0   1   "Control"           0     0     0
+4     1   I    2   100   1N   A   1   "Colour"          252     0     0
+6     1   I    3   100   1N   0   1   "Gobo Func"         0     0     0
+6    61   I    4   100   1N   I   1   "Gobo"              0     0     0
+8    61   L    5   100   1N   0   1   "Speed"           255     0     0
+9     1   I    6   100   1N   P   1   "Rotate"            0     0     0
+9    61   L    7   100   1N   R   1   "Dot Rotating"      0     0     0
+3    61   L    8   100   1N   E   1   "Pan/Tilt"         32     0     0
+10   61   L    9   100   1N   0   1   "Extend"            0     0     0
+5     1   L   10   100   1N   Q   1   "Zoom"             42     0     0
+18   61   L   11   100   1N   0   1   "Draw Speed"      255     0     0
+8     1   L   12   100   1N   0   1   "P/T Speed"         0     0     0
+18    1   L   13   100   1N   0   1   "Colour Speed"      0     0     0
+20    1   I   14   100   1N   0   1   "Size"              0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Silver Star
+LT 212 Club Pro 2
+14 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Colour"     -1   2
+"Open"                1  FE
+"Red"                 2  40
+"Yellow"              3  6C
+"Yellow"              4  6C
+"Green"               5  96
+"Green"               6  96
+"Closed"              7  14
+"Red"                 9  40
+"Red"                10  40
+"Open"                8  FE
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Control
+0   63   "Auto Music"
+64  127  "Auto Mode"
+128 191  "Music Edit"
+192 255  "Manual Edit"
+REND
+
+RANGE 2  ;Colour
+0   40   "Closed"
+41  86   "Red"
+87  128  "Yellow"
+129 170  "Green"
+171 212  "RGY Sc %3d%%"(c-a)*100/(b-a)
+213 251  "Flow %3d%%"(c-a)*100/(b-a)
+252 255  "Open"
+REND
+
+RANGE 3  ;Gobo Func
+0   42   "Group 1"
+43  85   "Group 2"
+86  128  "Group 3"
+129 171  "Group 4"
+172 214  "Group 5"
+215 255  "Group 6"
+REND
+
+RANGE 4  ;Gobo
+0   7    "Gobo 1"
+8   15   "Gobo 2"
+16  23   "Gobo 3"
+24  31   "Gobo 4"
+32  39   "Gobo 5"
+40  47   "Gobo 6"
+48  55   "Gobo 7"
+56  63   "Gobo 8"
+64  71   "Gobo 9"
+72  79   "Gobo 10"
+80  87   "Gobo 11"
+88  95   "Gobo 12"
+96  103  "Gobo 13"
+104 111  "Gobo 14"
+112 119  "Gobo 15"
+120 127  "Gobo 16"
+128 135  "Gobo 17"
+136 143  "Gobo 18"
+144 151  "Gobo 19"
+152 159  "Gobo 20"
+160 167  "Gobo 21"
+168 175  "Gobo 22"
+176 183  "Gobo 23"
+184 191  "Gobo 24"
+192 199  "Gobo 25"
+200 207  "Gobo 26"
+208 215  "Gobo 27"
+216 223  "Gobo 28"
+224 231  "Gobo 29"
+232 239  "Gobo 30"
+240 247  "Gobo 31"
+248 255  "Gobo 32"
+REND
+
+RANGE 5  ;Speed
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Rotate
+0   63   "Safe"
+64  127  "Hori %3d%%"(c-a)*100/(b-a)
+128 191  "Vert %3d%%"(c-a)*100/(b-a)
+192 255  "H&V %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 7  ;Dot Rotating
+0   63   "Safe"
+64  191  "Rot %3d%%"(c-a)*100/(b-a)
+192 255  "Rot&Dot %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 8  ;Pan/Tilt
+0   63   "Safe"
+64  127  "Tilt %3d%%"(c-a)*100/(b-a)
+128 191  "Pan %3d%%"(c-a)*100/(b-a)
+192 255  "P/T %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 9  ;Extend
+0   63   "Safe"
+64  127  "Hori %3d%%"(c-a)*100/(b-a)
+128 191  "Vert %3d%%"(c-a)*100/(b-a)
+192 255  "H&V %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 10  ;Zoom
+0   85   "Open"
+86  169  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+170 255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 11  ;Draw Speed
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;P/T Speed
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 13  ;Colour Speed
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 14  ;Size
+0   0    "Safe"
+1   6    "Size 0"
+7   12   "Size 1"
+13  18   "Size 2"
+19  24   "Size 3"
+25  30   "Size 4"
+31  36   "Size 5"
+37  42   "Size 6"
+43  47   "Size 7"
+48  53   "Size 8"
+54  59   "Size 9"
+60  65   "Size 10"
+66  71   "Size 11"
+72  77   "Size 12"
+78  83   "Size 13"
+84  89   "Size 14"
+90  95   "Size 15"
+96  101  "Size 16"
+102 107  "Size 17"
+108 113  "Size 18"
+114 119  "Size 19"
+120 125  "Size 20"
+126 130  "Size 21"
+131 136  "Size 22"
+137 142  "Size 23"
+143 148  "Size 24"
+149 154  "Size 25"
+155 160  "Size 26"
+161 166  "Size 27"
+167 172  "Size 28"
+173 178  "Size 29"
+179 184  "Size 30"
+185 190  "Size 31"
+191 196  "Size 32"
+197 202  "Size 33"
+203 208  "Size 34"
+209 213  "Size 35"
+214 219  "Size 36"
+220 225  "Size 37"
+226 231  "Size 38"
+232 237  "Size 39"
+238 243  "Size 40"
+244 249  "Size 41"
+250 255  "Size 42"
+REND
+

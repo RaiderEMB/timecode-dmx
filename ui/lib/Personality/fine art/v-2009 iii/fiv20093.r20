@@ -1,0 +1,235 @@
+; "Fine Art V-2009", 20 DMX channels, filename :FIV20093.r20
+;
+;   Date      By                Description
+;   11-08-05  Ed Spencer       Created from V-2009
+;   11-08-05  Phil Rogers      Checked
+;   15-08-05  Ed Spencer       Added range tables after accquiring full DMX spec
+;   16-08-05  Phil Rogers      Checked
+;   01-09-05  Ed Spencer       Fixed problem with shutter locate values and range tables
+;                              As well as the macros and the locate values of CMY
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  FI_V-2009_3                             20 DMX channels
+NAME "Fine Art" "V-2009 III"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  20  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   450  255
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the curernt result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+""
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=492
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt, 
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom, 
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX
+2   1   L   1  100  1N  G  1  "Iris"      255 255 255
+4   1   I   2  100  1N  A  1  "Colour"      0   0   0
+1   1   H   3  100  1N  H  1  "Dimmer"      0   0   0
+2  61   L   4  100  1N  O  1  "Shutter"   255 255 255
+3  61   s   5  100  1N  E  1  "Pan"       128  -1  -1
+0   0   L  18  100  1N  E  1  "PanLow"    128  -1  -1
+3   1   s   6  100  1N  F  1  "Tilt"      128  -1  -1
+0   0   L  19  100  1N  F  1  "TiltLow"   128  -1  -1
+5   1   L   7  100  1N  L  1  "Focus"     128 128 128
+5  61   L   8  100  1N  Q  1  "Zoom"      128   0   0
+8   1   I   9  100  1N  P  1  "Prism"       0   0   0
+8  61   L  10  100  1N  R  1  "PrismRot"    0   0   0
+6   1   I  11  100  1N  I  1  "Gobo1"       0   0   0
+6  61   I  12  100  1N  J  1  "Gobo2"       0   0   0
+7  61   L  13  100  1N  K  1  "Gobo2Rot"    0   0   0
+10  1   L  14  100  1N  B  1  "Cyan"      255   0 255
+10 61   L  15  100  1N  C  1  "Magenta"   255   0 255
+9  61   L  16  100  1N  D  1  "Yellow"    255 255   0
+4  61   I  17  100  1N  0  1  "Frost"       0   0   0
+20  1   I  20  100  1N  0  1  "Control"   255   0   0
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+ Fine Art V-2009
+    Version 3
+
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+; Positions
+PFTABLE "Positions" -1  5  6
+"Middle"    21  80  80
+"Left"      22  50  80
+"Right"     23  b0  80
+"Top"       24  80  50
+"Bottom"    25  80  b0
+"TLeft"     26  50  50
+"TRight"    27  b0  b0
+"BLeft"     28  50  b0
+"BRight"    29  b0  50
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Lamp On"       1  20
+"data"                0  ff
+"delay"               1  32
+MEND
+
+MACRO "Lamp Off"      2  20
+"data"                0   1
+"delay"               1  32
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 4  ;Shutter
+0   9    "Closed"
+10  249  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+250 255  "Open"
+REND
+
+RANGE 2  ;Colour
+0   0    "Open"
+1   16   "Opn/Rd %3d%%"0+(((c-a)*100)/(b-a))
+17  17   "Red"
+18  31   "Red/Y %3d%%"0+(((c-a)*100)/(b-a))
+32  32   "Yellow"
+33  48   "Yel/Pu %3d%%"0+(((c-a)*100)/(b-a))
+49  49   "Purple"
+50  65   "Pu/Gn %3d%%"0+(((c-a)*100)/(b-a))
+66  66   "Green"
+67  80   "Gn/Or %3d%%"0+(((c-a)*100)/(b-a))
+81  81   "Orange"
+82  97   "Or/Bl %3d%%"0+(((c-a)*100)/(b-a))
+98  98   "Blue"
+99  114  "Bl/Pk %3d%%"0+(((c-a)*100)/(b-a))
+115 115  "Pink"
+116 127  "Pk/Bl %3d%%"0+(((c-a)*100)/(b-a))
+128 255  "Scr CW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 9  ;Prism
+0   51   "Open"
+52  103  "9 sides Prism"
+104 155  "Cylinder mirror"
+156 207  "Slant Prism"
+208 255  "4 Sides Prism"
+REND
+
+RANGE 10  ;Prism Rot
+0   127  "Index %3d%%"0+(((c-a)*100)/(b-a))
+128 190  "Sp CCW %3d%%"100-(((c-a)*100)/(b-a))
+191 255  "Spn CW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 11  ;Gobo1
+0   25    "Open"
+26  51    "Gobo1"
+52  77    "Gobo2"
+78  103   "Gobo3"
+104 127   "Gobo4"
+128 255   "Scr CW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 12  ;Gobo2
+0   51    "Open"
+52  103   "Gobo1"
+104 155   "Gobo2"
+156 207   "Gobo3"
+208 255   "Gobo4"
+REND
+
+RANGE 13  ;Gobo Rot
+0   127  "Index %3d%%"0+(((c-a)*100)/(b-a))
+128 190  "Sp CCW %3d%%"100-(((c-a)*100)/(b-a))
+191 255  "Spn CW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 20  ;Control
+0   127   "Lamp Off"
+128 255   "Lamp On"
+REND
+

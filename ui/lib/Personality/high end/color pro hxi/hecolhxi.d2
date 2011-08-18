@@ -1,0 +1,209 @@
+;-----------------------------------------------------------------------|
+; The CYBERLIGHT ColorPro HXi Personality for the Diamond II            | 
+;-----------------------------------------------------------------------|
+;       History :-                                                      |
+;-----------------------------------------------------------------------|
+;   Revision |  Date     |  By    | Description                         |
+;------------|-----------|--------|-------------------------------------|
+;       1.0  |  08-08-01 | Edward | Created from Pearl                  |
+;---------------------------------------------------------------------- |
+
+
+DEVICE=HE_ColorHXi             ; Device Name (upto 11 chars after '='
+DEVICE23=9 Channels           ; 22 chars after '='
+			      ; extra information for softkey prompt lines 2&3
+			      ; a total of 22 chars, split into 2 lines of 11
+
+; Device information
+;                                   __ Number of lines of DMX info.
+;                                  |   __ Number of lines of wheel info
+;                                  |  |
+;                                  |  |
+;                                  |  |
+HSTART  1  9 1b05  0   0 ff  0  0  9 10
+;        | |  |    |   |  |  |  |
+;        | |  |    |   |  |  |  |__ Line number for flash button DMX info
+;        | |  |    |   |  |  |      from DMX definition (1..x)
+;        | |  |    |   |  |  |__ Button release value
+;        | |  |    |   |  |__ Button ON value (ff means use swop/add fader)
+;        | |  |    |   |__ The TILT arc in Degrees
+;        | |  |    |__ The Pan arc in degrees
+;        | |  |__ Date in PC format (1b05==5/08/93)
+;        | |__ Number of DMX slots used
+;        |__ Patch direction (1-backward, 0 forward, 2 for moving head)
+
+
+TEXTSTART               ; Upto 21 lines of 28 characters (use the template)
+                            ;
+                            ;
+   High End                 ;
+ Color Pro HXi              ;
+  9 Channels                ;
+                            ;
+TEXTEND
+
+
+;------------------------------------------------------------
+
+; For the Attribute Dictionary refer to file 'dict.per'
+
+;------------------------------------------------------------
+; DMX information
+; No unused lines allowed between keyword 'DSTART' and last DMX definition
+
+DSTART                          ; DMX defintion
+1  1  0 0   0 0      ; DIMMER
+2  2 40 0  24 0      ; SHUTTER
+3  2 40 0 136 0      ; COLOR MODE
+4  2  0 0   8 0      ; CYAN
+5  2  0 0   7 0      ; MAGENTA
+6  2  0 0   9 0      ; YELLOW
+7  2  0 0  15 0      ; IRIS
+8  2 40 0  25 0      ; SPEED
+9  2 40 0  52 0      ; CONTROL
+;| |  | |  |  |
+;| |  | |  |  |__ Spare (always 0 for now)
+;| |  | |  |__ Attribute name (See list above)
+;| |  | |__ Curve (0 means no curve otherwise curve number)
+;| |  |__ Flags (7=inverted, 6=instant, 5=16-bit)
+;| |__ Channel type (1=HTP, 2=LTP, 0=Dummy(for 16-bit defines)
+;|__ DMX offset (1..255, 0 means DIMMER will be patched seperately)
+
+
+;------------------------------------------------------------
+; WHEEL information
+; No unused lines allowed between keyword 'WSTART' and last DMX definition
+
+
+WSTART
+8 ffff ffff 4   0 0  8   0 1  0  1  0  0  0  0  0  ; 1. DIMMER
+8 ffff ffff 1  24 0  7   0 1  1  2  0  0  0  0  0  ; 2. SHUTTER
+8 ffff 2828 1 136 0  9   0 1  2  3  0  0  0  0  0  ; 3. COLOR MODE
+8 ffff ffff 1   8 0  2   0 1  3  4  0  0  0  0  0  ; 4. CYAN
+8 ffff ffff 1   7 0  3   0 1  4  5  0  0  0  0  0  ; 5. MAGENTA
+8 ffff ffff 1   9 0  4   0 1  5  6  0  0  0  0  0  ; 6. YELLOW
+8 ffff 8282 1  15 0  1   0 1  6  7  0  0  0  0  0  ; 7. IRIS
+8 ffff ffff 1  25 0 41   0 1  7  8  0  0  0  0  0  ; 8. SPEED
+8 ffff    0 1  52 0 42   0 1  8  9  0  0  0  0  0  ; 9. CONTROL
+8 ffff ffff 2 103 0 13 103 3  3  4  6  5  0  0  0  ;10. LEE
+;|   |   |  |   | |  |  |  |  |  |  |  |  |  |  |__ List of Table channels as 
+;|   |   |  |   | |  |  |  |  |  |_______________ line numbers from DMX def.
+;|   |   |  |   | |  |  |  |  |                   0 means unused channel
+;|   |   |  |   | |  |  |  |  |__ DMX line (minus 1) pertainig to this wheel
+;|   |   |  |   | |  |  |  |__ Number of chanels under control OR Table width
+;|   |   |  |   | |  |  |__ Table type (Attribute number) 0 means NOT a table
+;|   |   |  |   | |  |__ Wheel number (1..8 on bank1, 9..16 on bank2 et cetera)
+;|   |   |  |   | |__ 0 for 8 bits, 1 for 16 bits
+;|   |   |  |   |__  Attribute name from above list (0..MAX)
+;|   |   |  |__ Wheel type (1-offset, 2-Table, 3-Pan/Tilt, 4-Dimmer)
+;|   |   |__ Default value (left shifted as necessary)
+;|   |__ AND mask, where more than wheel controls same DMX slot
+;|__ Wheel multiplication =16-(bits used)
+;	eg. for 8 bit channels it is 8, for 12 bit channels it is 4
+; 
+;--------------------------------------------------------------------
+; TABLES
+; Each Table is enclosed by the keywords "TSTART" and "*** TEND ***"
+; The legend is 16 chars long
+; The correct number of values must be supplied (8-bits) with spaces in
+; between
+
+; LEE TABLE
+TSTART     3    103
+lee101                	228	0      	216
+lee102                	16      1       160
+lee103                 	255    	134     176
+lee104                 	186    	14      130
+lee105                 	193    	193     100
+lee106                 	172    	1       4
+lee107                 	250    	135     128
+lee108                 	94     	44      52
+lee109                 	236  	120     134
+lee110                 	173    	1       120
+lee111                 	229    	102     105
+lee113                 	212    	94     	1
+lee115                 	94     	104    	237
+lee116                 	50     	108    	236
+lee117                 	156    	139    	254
+lee118                 	94     	138    	222
+lee119                 	64     	232    	116
+lee120                 	1      	221    	89
+lee121                 	128    	89     	184
+lee122                 	110    	86     	193
+lee124                 	83     	82     	206
+lee126                 	210    	186    	51
+lee127                 	103    	96     	95
+lee128                 	155    	107    	81
+lee129                 	0      	0      	0
+lee130                 	0      	0      	0
+lee131                 	112    	106    	210
+lee132                 	2      	230    	167
+lee134                 	125    	84     	110
+lee135                 	203    	6      	79
+lee136                 	252    	149    	155
+lee137                 	178    	249    	150
+lee138                 	227    	105    	214
+lee139                 	0      	0      	0
+lee140                 	141    	138    	255
+lee141                 	70     	153    	233
+lee142                 	145    	209    	142
+lee143                 	114    	147    	234
+lee144                 	117    	141    	243
+lee145                 	0      	0      	0
+lee147                 	213    	93     	123
+lee148                 	146    	83     	48
+lee151                 	254    	117    	134
+lee152                 	254    	117    	147
+lee153                 	254    	117    	134
+lee154                 	254    	126    	152
+lee156                 	249    	99     	123
+lee158                 	246    	34     	100
+lee159                 	216    	126    	168
+lee161                 	140    	231    	218
+lee162                 	240    	111    	144
+lee164                 	165    	71     	71
+lee165                 	123    	212    	248
+lee166                 	0      	0      	0
+lee169                 	212    	149    	157
+lee170                 	166    	140    	133
+lee172                 	88     	123    	252
+lee174                 	170    	231    	211
+lee176                 	255    	116    	125
+lee179                 	170    	0      	112
+lee180                 	123    	255    	111
+lee181                 	78     	255    	87
+lee182                 	236    	4      	4
+lee183                 	84     	131    	192
+lee184                 	234    	155    	166
+lee185                 	249    	141    	157
+lee186                 	249    	130    	151
+lee187                 	249    	119    	151
+lee188                 	187    	126    	153
+lee189                 	224    	144    	185
+lee190                 	178    	131    	168
+lee191                 	178    	121    	159
+*** TEND ***
+
+;--------------------------------------------------------------------
+
+
+
+MACRO "HOME" 1  2  9
+20   0  41
+ 1   0   0
+MEND
+
+MACRO "LAMP ON" 2  2  9
+20   0  53
+ 1   0   0
+MEND
+
+MACRO "LAMP OFF" 3  2  9
+20   0  5e
+ 1   0   0
+MEND
+
+MACRO "SHUTDOWN" 4   2  9
+20   0  7d
+ 1   0   0
+MEND

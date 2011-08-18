@@ -1,0 +1,177 @@
+TODO, DIP SWITCHES
+; "Coemar NAT MM2500", 18 DMX channels, filename :cmmm2500.r96
+;
+;   Date      By        Description
+; 10-03-97    DBT       Created
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MM2500
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE    1  18   M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR	2  360 360
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;	+,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;	& means logical AND
+;	| means logical OR 
+;	R means reverse the bits of the curernt result (operates on a byte)
+;	^ means logical Exclusive OR (operates on a byte)
+;	> means shift to the right
+;	< shift to the left
+;	r followed by number means get the value of that parameter 
+;	d DMX address
+;	n Fixture name, a 0 terminated character string
+;	h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+""
+""
+""
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=495
+;
+; DMX number must be divisible by this	
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel, BCD=Color Mix, E=Pan, F=Tilt, 
+;					 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 charcaters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX
+3   61  L   1   100 1N  E  1  "Pan"        128   -1   -1
+3   1   L   2   100 1N  F  1  "Tilt"       128   -1   -1
+1   1   H   3   100 1N  0  1  "Dimmer"     255  255  255
+2   61  L   4   100 1N  0  1  "Shutter"    127  127  127
+2   1   L   5   100 1N  0  1  "Iris"         0   -1   -1
+5   1   L   6   100 1N  0  1  "Zoom"         0   -1   -1
+5   61  L   7   100 1N  0  1  "Focus"        0    0    0
+6   1   I   8   100 1N  0  1  "Gobo_1"       0    0    0
+7   1   I   9   100 1N  0  1  "G1_Spin"      0    0    0
+6   61  I  10   100 1N  0  1  "Gobo_2"       0    0    0
+7   61  I  11   100 1N  0  1  "G2_Spin"      0    0    0
+9    1  I  12   100 1N  0  1  "Prism"        0    0    0
+8   61  I  13   100 1N  0  1  "Ef_Spin"      0    0    0
+4   1   I  14   100 1N  0  1  "Color"        0    0   32
+10   1  L  15   100 1I  B  1  "Cyan"       255  255  255
+10  61  L  16   100 1I  D  1  "Magenta"    255  255    0
+9   61  L  17   100 1I  C  1  "Yellow"     255  255    0
+11   1  I  18   100 1N  0  1  "Control"    255  255  255
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+  MM 2500
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1 Dimmer   --
+ 2 Iris     Strobe
+ 3 Tilt     Pan
+ 4 Color    --
+ 5 Zoom     Focus
+ 6 Gobo_1   Gobo_2
+ 7 G1_Spin  G2_Spin
+ 8 --       Ef_spin
+ 9 Prism    yellow
+10 Cyan     Magenta 
+11 Control  --
+
+INPUT and/or note DMX 
+number.
+Press a channel grab 
+to make patch
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+; Positions
+
+PFTABLE "Positions" -1  1  2
+"Middle"    21 80  80
+"Left"      22 50  80
+"Right"     23 b0  80
+"Top"       24 80  50
+"Bottom"    25 80  b0
+"TLeft"     26 50  50
+"TRight"    27 b0  b0
+"BLeft"     28 50  b0
+"BRight"    29 b0  50
+PFEND
+
+; A color table color wheel, cyan, magenta, yellow
+PFTABLE "Color" -1 14  15 16 17
+"White"          1  0  ff ff ff
+"Red"            2  0  ff  0  0
+"Amber"          3  0  ff 80  0
+"Yellow"         4  0  ff ff  0
+"Green"          5  0   0 ff  0
+"Cyan"           6  0   0 ff ff
+"Blue"           7  0   0 5a ff
+"Lavender"       8  0  69 5a ff
+"UV"             9  0   0 69 ff
+"Magenta"       10  0  ff  0 ff
+PFEND
+
+
+; Gobo table
+PFTABLE "Gobos" -1   8  10   9  11 
+"Gobo 1"        11   0   0   0   0
+"Gobo 2"        12  20   0   0   0
+"Gobo 3"        13  40   0   0   0
+"Gobo 4"        14  50   0   0   0
+"Gobo 5"        15  70   0   0   0
+"Gobo 6"        16  80   0   0   0
+"Gobo 7"        17   0  20   0   0
+"Gobo 8"        18   0  40   0   0
+"Gobo 9"        19   0  50   0   0
+"Gobo 10"       20   0  70   0   0
+PFEND
+

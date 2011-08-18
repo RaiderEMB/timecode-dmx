@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="A.R.C.250" ShortName="ARC  250" Company="DTS">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="05-12-03" Author="Oliver Waits" Comment="Created" />
+  <History Date="09-12-03" Author="Greg Brown" Comment="Checked" />
+  <History Date="10-02-04" Author="L.Gallagher" Comment="Error Found 1. Reset - not tested" />
+  <History Date="10-02-04" Author="L.Gallagher" Comment="Error Found 2. Colour - Rainbow 1 wrong setting" />
+  <History Date="12-07-04" Author="Fixed error 1. 2 is a problem with the DMX spec (gives wrong middle value)" Comment="Edited" />
+  <History Date="26-07-04" Author="Phil Rogers" Comment="Renamed as A.R.C 250" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour ID to Colour1" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~19" Colour="0,0,0" />
+      <Function ID="2" Name="Green" Display="'Green'" Dmx="20~39" Colour="0,255,0" />
+      <Function ID="3" Name="Cyan" Display="'Cyan'" Dmx="40~59" Colour="0,255,255" />
+      <Function ID="4" Name="Pink" Display="'Pink'" Dmx="60~79" Colour="255,0,255" />
+      <Function ID="5" Name="Orange" Display="'Orange'" Dmx="80~99" Colour="255,128,0" />
+      <Function ID="6" Name="Magenta" Display="'Pink'" Dmx="100~119" Colour="255,0,255" />
+      <Function ID="7" Name="Red" Display="'Red'" Dmx="120~139" Colour="255,0,0" />
+      <Function ID="8" Name="Blue" Display="'Blue'" Dmx="140~159" Colour="0,0,255" />
+      <Function ID="9" Name="Yellow" Display="'Yellow'" Dmx="160~179" Colour="255,255,0" />
+      <Function ID="10" Name="Rainbow 1" Display="'Rainbow 1'" Dmx="180~199" Colour="0,0,0" />
+      <Function ID="11" Name="Rainbow 2" Display="'Rainbow 2'" Dmx="200~209" Colour="0,0,0" />
+      <Function ID="12" Name="Rainbow 3" Display="'Rainbow 3'" Dmx="210~219" Colour="0,0,0" />
+      <Function ID="13" Name="Rainbow 4" Display="'Rainbow 4'" Dmx="220~229" Colour="0,0,0" />
+      <Function ID="14" Name="Rainbow 5" Display="'Rainbow 5'" Dmx="230~239" Colour="0,0,0" />
+      <Function ID="15" Name="Rainbow 6" Display="'Rainbow 6'" Dmx="240~249" Colour="0,0,0" />
+      <Function ID="16" Name="Rainbow 7" Display="'Rainbow 7'" Dmx="250~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" Intensity="0~0" />
+      <Function ID="2" Name="Strobe 1/6" Display="'Strobe 1/6'" Dmx="10~49" Intensity="0~0" />
+      <Function ID="3" Name="Strobe 2/6" Display="'Strobe 2/6'" Dmx="50~99" Intensity="0~0" />
+      <Function ID="4" Name="Strobe 3/6" Display="'Strobe 3/6'" Dmx="100~149" Intensity="0~0" />
+      <Function ID="5" Name="Strobe 4/6" Display="'Strobe 4/6'" Dmx="150~199" Intensity="0~0" />
+      <Function ID="6" Name="Strobe 5/6" Display="'Strobe 5/6'" Dmx="200~249" Intensity="0~0" />
+      <Function ID="7" Name="Strobe 6/6" Display="'Strobe 6/6'" Dmx="250~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Zoom" Name="Zoom" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="45 Degrees" Display="'45 Degrees'" Dmx="0~85" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="64 Degrees" Display="'64 Degrees'" Dmx="171~255" Iris="0~0" Zoom="0~0" />
+      <Function ID="3" Name="Reset" Display="'Reset'" Dmx="128~128" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="4 Channels" Channels="4">
+    <Import PearlRef="" DiamondRef="" />
+    <Physical>
+      <Bulb Type="CDM-T 150 or MSD250 discharge lamp" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="40,60" />
+      <Weight Kg="15.5" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="3" Wheel="4" />
+      <Attribute ID="Colour1" ChannelOffset="2" Wheel="7" />
+      <Attribute ID="Zoom" ChannelOffset="4" Wheel="19" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Reset">
+      <Set Channel="Zoom:3" Delay="7000" />
+      <Set Channel="Zoom:1" Delay="0" />
+    </Macro>
+  </Macro>
+</Fixture>

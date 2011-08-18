@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Cyclo 3" ShortName="Cyclo 3" Company="Martin">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="06-11-02" Author="D.Shelton" Comment="Created" />
+  <History Date="04-03-03" Author="D.Shelton" Comment="Updated ID's for Shape Generator" />
+  <History Date="23-05-05" Author="Phil Rogers" Comment="Added mode with virtual dimmer" />
+  <History Date="23-05-05" Author="Phil Rogers" Comment="Revised high/lowlight values" />
+  <History Date="11-05-06" Author="Ed" Comment="Fixed 3DMX mode to use Red Green and Blue and not Red1 Green1 or Blue1" />
+  <History Date="27-07-06" Author="Phil" Comment="Fixed V Dimmer channels for Green &amp; Blue" />
+  <History Date="09-01-09" Author="Jonathan Moreton" Comment="Updated and tidied" />
+  <History Date="09-02-09" Author="David Hunt" Comment="Checked" />
+  <History Date="17-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:70" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+  </Control>
+  <Mode Name="Cyclo 3" Channels="3">
+    <Import PearlRef="MT_CYCLO3L" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="1" Wheel="10" VirtualControl="Dimmer" />
+      <Attribute ID="Green" ChannelOffset="2" Wheel="11" VirtualControl="Dimmer" />
+      <Attribute ID="Blue" ChannelOffset="3" Wheel="12" VirtualControl="Dimmer" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Red:1:100,Green:1:100,Blue:1:100" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:0" />
+      <Palette ID="3" Name="Amber" Number="3" Page="1" SetControl="Red:1:100,Green:1:50,Blue:1:0" />
+      <Palette ID="4" Name="Yellow" Number="4" Page="1" SetControl="Red:1:100,Green:1:100,Blue:1:0" />
+      <Palette ID="5" Name="Lime" Number="0" Page="1" SetControl="Red:1:50,Green:1:100,Blue:1:0" />
+      <Palette ID="6" Name="Green" Number="5" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:0" />
+      <Palette ID="7" Name="Aqua" Number="0" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:50" />
+      <Palette ID="8" Name="Cyan" Number="6" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:100" />
+      <Palette ID="9" Name="Light Blue" Number="0" Page="1" SetControl="Red:1:0,Green:1:50,Blue:1:100" />
+      <Palette ID="10" Name="Blue" Number="7" Page="1" SetControl="Red:1:0,Green:1:0,Blue:1:100" />
+      <Palette ID="11" Name="Purple" Number="9" Page="1" SetControl="Red:1:50,Green:1:0,Blue:1:100" />
+      <Palette ID="12" Name="Magenta" Number="10" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:100" />
+      <Palette ID="13" Name="Rose" Number="0" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:50" />
+      <Palette ID="14" Name="Lavender" Number="8" Page="1" SetControl="Red:1:71,Green:1:43,Blue:1:94" />
+      <Palette ID="15" Name="Ultra Violet" Number="0" Page="1" SetControl="Red:1:20,Green:1:0,Blue:1:100" />
+    </Group>
+  </Palettes>
+</Fixture>

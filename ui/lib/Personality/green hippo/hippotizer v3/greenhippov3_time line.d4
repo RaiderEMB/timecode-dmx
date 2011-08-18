@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Hippotizer Time Line V3" ShortName="HippoTime" Company="Green Hippo">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="05-02-08" Author="Ion Balan" Comment="Created" />
+  <History Date="05-02-08" Author="Ion Balan" Comment="Checked" />
+  <History Date="05-03-09" Author="Jonathan Moreton" Comment="Updated attribute IDs, changed recall cue dmx range" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Time_Line_Sel" Name="Time Line Sel" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1" Clear="1:0" />
+      <Function ID="1" Name="Timeline" Display="'%.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Playback_Cmd" Name="Playback Cmd" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" Clear="1" />
+      <Function ID="1" Name="Nothing" Display="'Nothing'" Dmx="0~9" />
+      <Function ID="2" Name="Play" Display="'Play'" Dmx="10~19" />
+      <Function ID="3" Name="Pause" Display="'Pause'" Dmx="20~29" />
+      <Function ID="4" Name="Stop" Display="'Stop'" Dmx="30~39" />
+      <Function ID="5" Name="GoCue &amp;Play" Display="'GoCue and     Play'" Dmx="40~49" />
+      <Function ID="6" Name="GoCue&amp;Pause" Display="'GoCue and     Pause'" Dmx="50~59" />
+    </Attribute>
+    <Attribute ID="Recall_Cue" Name="Recall Cue" Description="" Group="S" Size="2">
+      <Locate Locate="1:0" PowerOn="1" Clear="1:0" />
+      <Function ID="1" Name="Recall Cue" Display="'Recall Cue %.2f',0.00~655.00" Dmx="0~65500" />
+    </Attribute>
+  </Control>
+  <Mode Name="4 DMX, 16bit" Channels="4">
+    <Import PearlRef="HippoTime" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Time_Line_Sel" ChannelOffset="1" Wheel="4" />
+      <Attribute ID="Playback_Cmd" ChannelOffset="2" Wheel="5" />
+      <Attribute ID="Recall_Cue" ChannelOffset="3,4" Wheel="6" />
+    </Include>
+  </Mode>
+</Fixture>

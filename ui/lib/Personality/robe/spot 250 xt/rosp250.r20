@@ -1,0 +1,253 @@
+; "Robe Spot 250 XT", 16 DMX channels, filename :rosp250.r20
+;
+;   Date        By                Description
+;   10-09-05    P.Rogers          Created from Futurelight MH640
+;   26-09-05    E Spencer         Compared file to spec and made lots of changes
+;   31-08-06    D.Miligan	  Checked
+;   05-01-09    David Hunt        Fixed errors in range tables
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  RO_SP250                                   16 DMX channels
+NAME "Robe" "Spot 250 XT"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  16  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   530  280
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+
+DEVICEADDRESS
+;
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=497
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+DMX
+3   61   s   1   100   1N   E   1   "Pan"         128    0    0 
+0    0   L   3   100   1N   E   1   "Pan_Low"     128    0    0 
+3    1   s   2   100   1N   F   1   "Tilt"        128    0    0 
+0    0   L   4   100   1N   F   1   "Tilt_Low"    128    0    0 
+8    1   I   5   100   1N   0   1   "Speed_p/t"     0    0    0
+11   1   I   6   100   1N   0   1   "Control"       0    0    0
+4    1   I   7   100   1N   A   1   "Colour"        0    0  106
+11  61   L   8   100   1N   0   1   "NotUsed"       0    0    0 
+9    1   I   9   100   1N   P   1   "Effect"        0    0    0
+9   61   L   10  100   1N   R   1   "Effect Rot"    0    0    0
+6    1   I   11  100   1N   I   1   "Gobo1"         0    0    0
+6   61   L   12  100   1N   K   1   "Gobo1 Rot"     0    0    0
+12  61   L   13  100   1N   0   1   "NotUsed"       0    0    0
+5   61   L   14  100   1N   L   1   "Focus"         0    0    0
+2   61   L   15  100   1N   O   1   "Shutter"      35   35   35
+1    1   H   16  100   1N   H   1   "Dimmer"      255  255  255
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+Robe Spot 250 XT
+(16 ch)
+ Bank      Faders
+   Bottom    Top
+---------------------
+ 1 Dimmer    --
+ 2 --        Shutter
+ 3 Tilt      Pan
+ 4 Colour    ColorMac
+ 5 --        Focus
+ 6 Gobo      --
+ 7 --        --
+ 8 Speed p/t SpeedCMY
+ 9 Effect    Yellow
+10 --        --
+11 Control   NotUsed
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+;
+; Positions
+PFTABLE "Positions" -1  1  2
+"Middle"    21  80  80
+"Left"      22  50  80
+"Right"     23  b0  80
+"Top"       24  80  50
+"Bottom"    25  80  b0
+"TLeft"     26  50  50
+"TRight"    27  b0  b0
+"BLeft"     28  50  b0
+"BRight"    29  b0  50
+PFEND
+
+; A color table cyan, magenta, yellow
+PFTABLE "Color" -1   8   9  10
+"White"          1   0   0   0   
+"Red"            2   0  ff  ff   
+"Amber"          3   0  e1  ff   
+"Yellow"         4   0   0  ff   
+"Green"          5  ff   0  ff    
+"Cyan"           6  ff   0   0   
+"Blue"           7  ff  9b   0   
+"Lavender"       8  96  c8   0   
+"UV"             9  ff  ff  64   
+"Magenta"       10   0  ff   0   
+PFEND
+
+; Macros
+MACRO "LAMP ON" 1   6   
+"data"          0   87
+"delay"         1   20
+"data"          0   0
+MEND
+;
+MACRO "RESET" 2    6
+"data"        0   87
+"delay"       1   20
+"data"        0    0
+MEND
+;
+MACRO "LAMP OFF" 3    6
+"data"           0   eb
+"delay"          1   50
+"data"           0    0
+MEND
+;
+MACRO "FAN MAX" 4    6
+"data"           0   0
+MEND
+;
+MACRO "FAN MIN" 5    6
+"data"           0   7f
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+
+RANGE 5  ;Speed_p/t
+0   0    "Max Speed"
+1   249  "Vctr Md %3d%%"100-(((c-a)*100)/(b-a))
+250 255  "MSp BOwPTC"
+REND
+
+Range 6  ;Control
+0   127  "Max Speed"
+128 139  "Lmp On, Rs"
+140 229  "No Func"
+230 239  "Lamp Off"
+240 255  "No Func"
+REND
+
+Range 7  ;Colour
+0   0    "Open"
+1   9    "Op/Tur"
+10  10   "Turquoise"
+11  20   "Tur/Red"
+21  21   "Red"
+22  31   "Red/Cy"
+32  32   "Cyan"
+33  43   "Cy/Gr"
+44  44   "Green"
+45  52   "Gr/Mag"
+53  53   "Magenta"
+54  63   "Mag/Lbl"
+64  64   "LightBlue"
+65  73   "Lbl/Yel"
+74  74   "Yellow"
+75  84   "Yel/Gr"
+85  85   "Green"
+86  95   "Gr/Pi"
+96  96   "Pink"
+97  105  "Pi/Bl"
+106 106  "Blue"
+107 116  "Bl/Or"
+117 117  "Orange"
+118 127  "Or/Op"
+128 189  "CW Scr %3d%%"100-(((c-a)*100)/(b-a))
+190 193  "No Scroll"
+194 255  "CCW Scr %3d%%"0-(((c-a)*100)/(b-a))
+REND
+
+Range 9  ;Effect
+0   95   "Open"
+96  159  "Prism"
+160 167  "Macro 1"
+168 176  "Macro 2"
+176 183  "Macro 3"
+184 191  "Macro 4"
+192 199  "Macro 5"
+200 207  "Macro 6"
+208 215  "Macro 7"
+216 223  "Macro 8"
+224 231  "Macro 9"
+232 239  "Macro 10"
+240 247  "Macro 11"
+248 255  "Macro 12"
+REND
+
+Range 10 ;Effect Rot
+0   0    "Safe"
+1   126  "CW Spn %3d%%"100-(((c-a)*100)/(b-a))
+127 128  "No Spin"
+129 255  "CCW Sp %3d%%"0-(((c-a)*100)/(b-a))
+REND
+
+Range 11 ;Gobo1
+0   31   "Open"
+32  63   "Gobo 1"
+64  95   "Gobo 2"
+96  127  "Gobo 3"
+128 159  "Gobo 4"
+160 191  "Gobo 5"
+192 223  "Gobo 6"
+224 255  "CW Scr %3d%%"0-(((c-a)*100)/(b-a))
+REND
+
+Range 12 ;Gobo Rot
+0   127  "Index"
+128 190  "CW Spn %3d%%"100-(((c-a)*100)/(b-a))
+191 192  "No Rot"
+193 255  "CCW Sp %3d%%"0-(((c-a)*100)/(b-a))
+REND
+
+Range 15 ;Shutter
+0   31   "Closed"
+32  63   "Open"
+64  95   "Strobe %3d%%"0-(((c-a)*100)/(b-a))
+96  127  "No Func"
+128 159  "Pulse"
+160 191  "No Func"
+192 223  "Rnd Stb %3d%%"0-(((c-a)*100)/(b-a))
+224 255  "No Func"
+REND
+

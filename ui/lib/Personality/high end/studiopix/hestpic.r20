@@ -1,0 +1,323 @@
+; 'High End StudioPix Image Control,23 DMX', 23 DMX Channels, filename: HESTPIC.R20
+;  Copyright © Avolites Ltd. 2011
+;
+;   Date       By                Description
+;   29-10-08   David Hunt        Created
+;   18-11-08   Jonathan Moreton  Checked
+;   28-01-09   D4 Personality Fixer 2009Changed Wheel assignment Numbers
+;   02-02-09   D4 Personality Fixer 2009Changed Function Names
+;   02-02-09   D4 Personality Fixer 2009Changed Wheel assignment Numbers
+;   02-02-09   D4 Personality Fixer 2009Changed Wheel assignment Numbers
+;   02-02-09   D4 Personality Fixer 2009Changed Wheel assignment Numbers
+;   02-02-09   D4 Personality Fixer 2009Changed Wheel assignment Numbers
+;   17-02-09   D4 Personality Fixer 2009Changed Wheel assignment Numbers
+;   18-02-09   D4 Personality Fixer 2009Changed Wheel assignment Numbers
+;   18-06-11   Nic Morris        Fixed power on and locate.  Renamed Frame function.  Increased wheel resolution.
+;   18-06-11   Nic Morris        Added Red1,Green1,Blue1 and replaced where appropriate.
+;   18-06-11   Nic Morris        Changed Global Transition to variable range.  Simplified Scale, Trans Speed, Xpos and Ypos.
+;   18-06-11   Nic Morris        Added v-dim to single cell mode.  Changed single cell mode to 8-bit.
+;   18-06-11   Nic Morris        Combined Motion and Global Control modes into 'Standard'.  Removed 21 cell mode.
+;   18-06-11   Nic Morris        Renamed modes.  Added multi-cell options.  Hidden patch modes to simplify in v5
+;   18-06-11   Nic Morris        Adjusted wheel mapping.  Fixed bug report errors.
+;   19-06-11   Nic Morris        Added cell coordinates.  Separated from Showpix personality.
+;   19-06-11   Pers Creator      Created - Exported from Diamond 4 file.
+;   19-06-11   Nic Morris        Checked.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  HE_STPIC                            mode=Image Control,23 DMX  23 DMX Channels
+NAME "High End" "StudioPix Image Control,23 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  23  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   400  240
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+""
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=489
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+6     1   L    1   100   1N   0   1   "Media Folder"      1     0     0
+6    61   L    2   100   1N   0   1   "Media File"        0     0     0
+2    61   L    3   100   1N   0   1   "Frame"             0     0     0
+7    61   L    4   100   1N   0   1   "Play Mode"         0     0     0
+8    61   L    5   100   1N   0   1   "Play Speed"        0     0     0
+5     1   L    6   100   1N   Q   1   "Scale"           127     0     0
+5    61   L    7   100   1N   0   1   "Rotate"            0     0     0
+3    61   L    8   100   1N   E   1   "X Pos"           127     0     0
+3     1   L    9   100   1N   F   1   "Y Pos"           127     0     0
+2     1   L   10   100   1N   0   1   "Colour Effec"      0     0     0
+10    1   s   11   100   1N   T   1   "Red"             255   255     0
+0     0   L   12   100   1N   T   1   "Red Low"         255   255     0
+10   61   s   13   100   1N   U   1   "Green"           255   255     0
+0     0   L   14   100   1N   U   1   "Green Low"       255   255     0
+9    61   s   15   100   1N   V   1   "Blue"            255     0   230
+0     0   L   16   100   1N   V   1   "Blue Low"        255     0   230
+4    61   L   17   100   1N   0   1   "Trans Colour"      0     0     0
+4     1   L   18   100   1N   0   1   "Backgrnd Col"      0     0     0
+7     1   L   19   100   1N   0   1   "Frm Trans Mo"      0     0     0
+8     1   L   20   100   1N   0   1   "Trans Speed"     127     0     0
+9     1   L   21   100   1N   0   1   "Effect"            0     0     0
+19    1   L   22   100   1N   0   1   "Effect Mod 1"      0     0     0
+19   61   L   23   100   1N   0   1   "Effect Mod 2"      0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+High End StudioPix
+Image Control,23 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Colour"     -1  11  13  15
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  80   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  80   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Media Folder
+0   0    "Reserved"
+1   1    "Lenses"
+2   2    "Backgrounds"
+3   3    "Chasing"
+4   4    "Marquee"
+5   5    "Atmospheric"
+6   6    "Elegant"
+7   7    "Shimmer"
+8   8    "Fiery"
+9   9    "Spinning"
+10  10   "Icons"
+11  11   "Realistic"
+12  12   "Flashing"
+13  40   "Reserved"
+251 251  "Pixellage"
+255 255  "Pixel Mappi"
+REND
+
+RANGE 3  ;Frame
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Play Mode
+0   0    "Loop Forwar"
+1   1    "Loop Revers"
+2   2    "Once Forwar"
+3   3    "Once Revers"
+4   4    "Random"
+5   5    "Bounce"
+6   6    "Static Fram"
+7   7    "Loop Forwar"
+8   8    "Loop Revers"
+9   9    "Once Forwar"
+10  10   "Once Revers"
+11  11   "Random w In"
+12  12   "Bounce w In"
+13  255  "Reserved"
+REND
+
+RANGE 6  ;Scale
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Rotate
+0   128  "Inde %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+129 191  "Spin C %3d%%"100-((c-a)*100/(b-a))
+192 192  "No Spin"
+193 255  "Spin C %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 8  ;X Pos
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Y Pos
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Colour Effect 
+0   0    "RGB"
+1   1    "CMY"
+2   2    "Black and W"
+3   3    "Inv Black a"
+4   4    "RGB + Non B"
+5   5    "RGB to GBR"
+6   6    "RGB to BRG"
+7   7    "RGB to BGR"
+8   8    "RGB to RBG"
+9   9    "RGB to GRB"
+10  10   "RGB Invert"
+11  11   "RGB Invert "
+12  12   "RGB Invert "
+13  13   "Solarize 1"
+14  14   "Solarize 2"
+15  15   "Solarize 3"
+16  16   "Solarize 4"
+17  17   "Colour Cycl"
+18  18   "Random Colo"
+19  19   "Scale"
+20  20   "Compress to"
+21  21   "Add Colour "
+22  22   "Replace    "
+23  23   "Rainbow Col"
+24  255  "Reserved"
+REND
+
+RANGE 11  ;Red
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Green
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;Blue
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;Trans Colour
+0   0    "Image Trans"
+1   1    "Transparent"
+2   2    "Transparent"
+3   254  "Tran %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+255 255  "No Transpar"
+REND
+
+RANGE 18  ;Backgrnd Colour
+0   0    "Safe"
+1   255  "B/G  %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 19  ;Frm Trans Mode
+0   0    "Normal"
+1   1    "Fade"
+2   2    "SnapFade"
+3   3    "FadeSnap"
+4   4    "Strobe"
+5   5    "Trails"
+6   255  "Reserved"
+REND
+
+RANGE 20  ;Trans Speed
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 21  ;Effect
+0   0    "Open"
+1   1    "Strobe"
+2   2    "Pan/Tilt Sy"
+3   3    "Shake"
+4   4    "Bar Scan"
+5   5    "Target Scan"
+6   6    "Curtain Sca"
+7   7    "Mirror"
+8   8    "Brightness "
+9   9    "Filters"
+10  10   "Flip"
+11  255  "Reserved"
+REND
+
+RANGE 22  ;Effect Mod 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 23  ;Effect Mod 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

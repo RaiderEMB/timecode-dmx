@@ -1,0 +1,138 @@
+;-----------------------------------------------------------------------|
+; The High End Showgun, 30 DMX channels                                 |
+;-----------------------------------------------------------------------|
+; History  :-                                                           |
+;-----------------------------------------------------------------------|
+; Revision |  Date     |  By        | Description                       |
+;----------|-----------|------------|-----------------------------------|
+; 1.0      |  11-02-10 |John Rogers | Created from Mac 700              |
+;-----------------------------------------------------------------------|
+
+DEVICE=HE_SHOWGUN                 ; Device Name (upto 11 chars after '=')
+DEVICE23=30 DMX, 16but              ; 22 chars after '='
+            ; extra information for softkey prompt lines 2&3
+                        ; a total of 22 chars, split into 2 lines of 11
+
+; Device information
+;                                  __ Number of lines of DMX info.
+;                                 |  __ Number of lines of wheel info
+;                                 | |
+;                                 | |
+;                                 | |
+HSTART 3 30 1b05 438 305 ff 0 2  30 20
+;      |  |  |    |   |  |  | |
+;      |  |  |    |   |  |  | |__ Line number for flash button DMX info
+;      |  |  |    |   |  |  |      from DMX definition (1..x)
+;      |  |  |    |   |  |  |__ Button release value
+;      |  |  |    |   |  |__ Button ON value (ff means use swop/add fader)
+;      |  |  |    |   |__ The TILT arc in Degrees
+;      |  |  |    |__ The Pan arc in degrees
+;      |  |  |__ Date in PC format (1b05==5/08/93)
+;      |  |__ Number of DMX slots used
+;      |__ Patch direction (1-backward, 0 forward, (3 for moving head, 1 for Moving Mirror))
+
+
+
+TEXTSTART          ; Upto 21 lines of 28 characters (use the template below)
+                               ;
+			High End           ;
+			Showgun            ;
+                               ;
+          30 DMX, 16bit        ;
+                               ;
+TEXTEND
+
+
+;------------------------------------------------------------
+
+; For the Attribute Dictionary refer to file 'dict.per'
+
+;------------------------------------------------------------
+; DMX information
+; No unused lines allowed between keyword 'DSTART' and last DMX definition
+
+DSTART               ; DMX defintion
+1  2 20 0  13 0      ; Pan			
+2  0  0 0 123 0      ; Pan Low
+3  2 20 0  14 0      ; Tilt
+4  0  0 0 124 0      ; Tilt Low
+5  2  0 0 147 0      ; Colour Function
+6  2  0 0   8 0      ; Cyan
+7  2  0 0   7 0      ; Magenta
+8  2  0 0   9 0      ; Yellow
+9  2  0 0  11 0      ; Gobo Wheel Pos
+10 2  0 0  49 0      ; Gobo Rot Func
+11 2 20 0  64 0      ; Gobo Rot
+12 0  0 0 184 0      ; Gobo Rot Low
+13 2  0 0 132 0      ; Soft Edge
+14 2  0 0  43 0      ; Zoom
+15 2  0 0  12 0      ; Focus
+16 2  0 0  15 0      ; Iris
+17 2  0 0  24 0      ; Shutter/Control
+18 2  0 0  17 0      ; Shutter
+19 1  0 0   0 0      ; Dimmer
+20 2  0 0  25 0      ; MSpeed
+21 2  0 0 107 0      ; Macro
+22 2  0 0  52 0      ; Control
+23 2  0 0  47 0      ; LED Track Dim
+24 2  0 0 136 0      ; LED Track Func
+25 2 20 0   5 0      ; LED Track Red
+26 0  0 0  38 0      ; LED Track Red Low
+27 2 20 0  10 0      ; LED Track Green
+28 0  0 0  39 0      ; LED Track Green Low
+29 2 20 0   6 0      ; LED Track Blue
+30 0  0 0  76 0      ; LED Track Blue Low
+;| |  | |  | |
+;| |  | |  | |__ Spare (always 0 for now)
+;| |  | |  |__ Attribute name (See list above)
+;| |  | |__ Curve (0 means no curve otherwise curve number)
+;| |  |__ Flags (7=inverted, 40=instant, 20=16-bit)
+;| |__ Channel type (1=HTP, 2=LTP, 0=Dummy(for 16-bit defines)
+;|_ DMX offset (1..255, 0 means DIMMER will be patched seperately)
+
+
+;------------------------------------------------------------
+; WHEEL information
+; No unused lines allowed between keyword 'WSTART' and last DMX definition
+
+WSTART
+4 ffff 8080 3  13 1  5  0 2  0  1  0  0  0  0  0  ; Pan
+4 ffff 8080 3  14 1  6  0 2  2  3  0  0  0  0  0  ; Tilt
+8 ffff    0 1 147 0  9  0 1  4  5  0  0  0  0  0  ; Colour Function
+8 ffff    0 1   8 0 10  0 1  5  6  0  0  0  0  0  ; CYAN
+8 ffff    0 1   7 0 11  0 1  6  7  0  0  0  0  0  ; MAGENTA
+8 ffff    0 1   9 0 12  0 1  7  8  0  0  0  0  0  ; YELLOW
+8 ffff    0 1  11 0 17  0 1  8  9  0  0  0  0  0  ; Gobo Wheel Pos
+8 ffff    0 1  49 0 19  0 1  9 10  0  0  0  0  0  ; Gobo Rot Func
+4 ffff    0 1  64 1 20  0 2 10 11  0  0  0  0  0  ; Gobo Rot
+8 ffff    0 1 132 0  4  0 1 12 13  0  0  0  0  0  ; Soft Edge
+8 ffff 8080 1  43 0  3  0 1 13 14  0  0  0  0  0  ; Zoom
+8 ffff 8080 1  12 0  2  0 1 14 15  0  0  0  0  0  ; FOCUS
+8 ffff ffff 1  15 0  1  0 1 15 16  0  0  0  0  0  ; IRIS
+8 ffff    0 1  24 0 42  0 1 16 17  0  0  0  0  0  ; SHUTTER/Control
+8 ffff ffff 1  17 0  7  0 1 17 18  0  0  0  0  0  ; Shutter
+8 ffff ffff 4   0 0  8  0 1 18 19  0  0  0  0  0  ; DIMMER
+8 ffff    0 1  25 0 25  0 1 19 20  0  0  0  0  0  ; MSpeed
+8 ffff    0 1 107 0 26  0 1 20 21  0  0  0  0  0  ; Macro
+8 ffff    0 1  52 0 41  0 1 21 22  0  0  0  0  0  ; Control
+8 ffff ffff 1  47 0 27  0 1 22 23  0  0  0  0  0  ; LED Track Dim
+8 ffff    0 1 136 0 28  0 1 23 24  0  0  0  0  0  ; LED Track Func
+4 ffff    0 1  38 1 29  0 2 24 25  0  0  0  0  0  ; LED Track Red
+4 ffff    0 1  39 1 30  0 2 26 27  0  0  0  0  0  ; LED Track Green
+4 ffff    0 1  76 1 31  0 2 28 29  0  0  0  0  0  ; LED Track Blue
+;A BBB CCCC D EEE F GG  H I JJ KK  L  L  L  L  L		;Name
+;|   |    | |   | |  |  | |  |  |  |  |  |  |  |__L. List of Table channels as
+;|   |    | |   | |  |  | |  |  |___K. line numbers from DMX def.
+;|   |    | |   | |  |  | |  |         0 means unused channel
+;|   |    | |   | |  |  | |  |__J. DMX line (minus 1) pertainig to this wheel
+;|   |    | |   | |  |  | |__I. Number of chanels under control OR Table width
+;|   |    | |   | |  |  |__H. Table type (Attribute number) 0 means NOT a table
+;|   |    | |   | |  |__G. Wheel number (1..8 on bank1, 9..16 on bank2 et cetera)
+;|   |    | |   | |__F. 0 for 8 bits, 1 for 16 bits
+;|   |    | |   |__E.  Attribute name from above list (0..MAX)
+;|   |    | |__D. Wheel type (1-offset, 2-Table, 3-Pan/Tilt, 4-Dimmer)
+;|   |    |__C. Default/Locate value (left shifted as necessary)
+;|   |__B. AND mask, where more than wheel controls same DMX slot
+;|__A. Wheel multiplication =16-(bits used)
+;	eg. for 8 bit channels it is 8, for 12 bit channels it is 4
+

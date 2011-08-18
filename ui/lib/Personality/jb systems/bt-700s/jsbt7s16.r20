@@ -1,0 +1,293 @@
+; 'JB Systems BT-700S', 16 DMX Channels, filename: JSBT7S16.R20
+;
+;   Date       By                Description
+;   30-12-07   Pers Creator      Created - Exported from Diamond 4 file.
+;   30-12-07   Gregory Haynes    Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  JS_BT700S16                         mode=16 DMX, 8bit  16 DMX Channels
+NAME "JB Systems" "BT-700S, 16 DMX 8bit"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  16  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   540  270
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 16 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=496
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    4   100   1N   H   1   "Dimmer"          255     0     0
+2    61   I    5   100   1N   O   1   "Shutter"           8     0     0
+3    61   L    1   100   1N   E   1   "Pan"             128     0     0
+3     1   L    2   100   1N   F   1   "Tilt"            128     0     0
+4     1   I    6   100   1N   A   1   "Colour 1"          0     0     0
+4    61   I    7   100   1N   N   1   "Colour 2"          0    46    19
+6     1   I    8   100   1N   I   1   "Gobo 1"            0     0     0
+7     1   L    9   100   1N   K   1   "Gobo 1 Rot"        0     0     0
+6    61   I   10   100   1N   J   1   "Gobo 2"            0     0     0
+5    61   L   14   100   1N   L   1   "Focus"           127     0     0
+2     1   L   15   100   1N   G   1   "Iris"              0     0     0
+9     1   I   12   100   1N   P   1   "Prism"             0     0     0
+9    61   L   13   100   1N   R   1   "Prism Rot"         0     0     0
+8     1   L    3   100   1N   0   1   "P/T Speed"         0     0     0
+10   61   I   11   100   1N   0   1   "Reserved"          0     0     0
+10    1   I   16   100   1N   0   1   "Control"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+JB Systems BT-700S
+16 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Pan/Tilt"   -1   1   2
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Lamp On"       1  16
+"data"                0  86
+"delay"               1  32
+"data"                0   0
+MEND
+
+MACRO "Lamp Off"      2  16
+"data"                0  EA
+"delay"               1  32
+"data"                0   0
+MEND
+
+MACRO "Reset"         3  16
+"data"                0  CC
+"delay"               1  32
+"data"                0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 5  ;Shutter
+0   7    "Closed"
+8   15   "Open"
+16  131  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+132 185  "Gb1 Sh %3d%%"0+(((c-a)*100)/(b-a))
+186 239  "Gb2 Sh %3d%%"0+(((c-a)*100)/(b-a))
+240 247  "Rnd St %3d%%"0+(((c-a)*100)/(b-a))
+248 255  "Open"
+REND
+
+RANGE 6  ;Colour 1
+0   9    "Open"
+10  18   "Light Blue"
+19  27   "Pink"
+28  36   "UV"
+37  45   "Light Green"
+46  54   "CTO"
+55  63   "CTB"
+64  73   "Op/Bl %3d%%"0+(((c-a)*100)/(b-a))
+74  82   "Bl/Pi %3d%%"0+(((c-a)*100)/(b-a))
+83  91   "Pi/UV %3d%%"0+(((c-a)*100)/(b-a))
+92  100  "UV/Gr %3d%%"0+(((c-a)*100)/(b-a))
+101 109  "Gr/CTO %3d%%"0+(((c-a)*100)/(b-a))
+110 118  "CTO/B %3d%%"0+(((c-a)*100)/(b-a))
+119 127  "CTB/Op %3d%%"0+(((c-a)*100)/(b-a))
+128 191  "Sc CW %3d%%"0+(((c-a)*100)/(b-a))
+192 255  "Sc CCW %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 7  ;Colour 2
+0   9    "Open"
+10  18   "Green"
+19  27   "Blue"
+28  36   "Orange"
+37  45   "Magenta"
+46  54   "Lt Yellow"
+55  63   "Red"
+64  73   "Op/Gr %3d%%"0+(((c-a)*100)/(b-a))
+74  82   "Gr/Bl %3d%%"0+(((c-a)*100)/(b-a))
+83  91   "Bl/Or %3d%%"0+(((c-a)*100)/(b-a))
+92  100  "Or/Ma %3d%%"0+(((c-a)*100)/(b-a))
+101 109  "Ma/Ye  %3d%%"0+(((c-a)*100)/(b-a))
+110 118  "Ye/Re %3d%%"0+(((c-a)*100)/(b-a))
+119 127  "Re/Op %3d%%"0+(((c-a)*100)/(b-a))
+128 167  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+168 207  "Sc CW %3d%%"100-(((c-a)*100)/(b-a))
+208 215  "Macro 1"
+216 223  "Macro 2"
+224 231  "Macro 3"
+232 239  "Macro 4"
+240 247  "Macro 5"
+248 255  "Macro 6"
+REND
+
+RANGE 8  ;Gobo 1
+0   21   "Open"
+22  42   "Gobo 1"
+43  63   "Gobo 2"
+64  84   "Gobo 3"
+85  105  "Gobo 4"
+106 127  "Gobo 5"
+128 191  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+192 255  "Sc CW %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 9  ;Gobo 1 Rot
+0   127  "Index %3d%%"0+(((c-a)*100)/(b-a))
+128 191  "Sp CCW %3d%%"0+(((c-a)*100)/(b-a))
+192 255  "Sp CW %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 10  ;Gobo 2
+0   21   "Open"
+22  42   "Gobo 1"
+43  63   "Gobo 2"
+64  84   "Gobo 3"
+85  105  "Gobo 4"
+106 127  "Gobo 5"
+128 191  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+192 255  "Sc CW %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 15  ;Iris
+0   255  "%3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 12  ;Prism
+0   7    "Open"
+8   15   "Prism"
+16  39   "Macro 1"
+40  63   "Macro 2"
+64  87   "Macro 3"
+88  111  "Macro 4"
+112 135  "Macro 5"
+136 159  "Macro 6"
+160 183  "Macro 7"
+184 207  "Macro 8"
+208 231  "Macro 9"
+232 255  "Macro 10"
+REND
+
+RANGE 13  ;Prism Rot
+0   127  "Index %3d%%"0+(((c-a)*100)/(b-a))
+128 191  "Sp CCW %3d%%"0+(((c-a)*100)/(b-a))
+192 255  "Sp CW %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 3  ;P/T Speed
+0   255  "%3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+
+RANGE 16  ;Control
+0   69   "No Func"
+70  79   "BO on PT"
+80  89   "No BO on PT"
+90  99   "BO on Col"
+100 109  "No BO on Co"
+110 119  "BO on Gb"
+120 129  "No BO on Gb"
+130 139  "Lamp On"
+140 199  "No Func"
+200 209  "Reset"
+210 229  "No Func"
+230 239  "Lamp Off"
+240 255  "No Func"
+REND
+

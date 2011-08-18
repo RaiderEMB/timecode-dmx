@@ -1,0 +1,184 @@
+; 'Proel Dream Light 250 Spot', 8 DMX Channels, filename: PLDL25M1.R20
+;
+;   Date       By                Description
+;   13-08-04   Pers Creator      Created - Exported from Diamond 4 file.
+;   13-08-04   Tom               Checked
+;   01-11-04   Phil Rogers       Added manufacturer prefix to device name
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  PLDmLt250M1                           mode=8 DMX, 8bit  8 DMX Channels
+NAME "Proel" "Dream Light 250 Spot, 8 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  8  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0   0   0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 8 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=504
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+4     1   I    1   100   1N   A   1   "Colour"            0    84    24
+6     1   I    2   100   1N   I   1   "Gobo"              0     0     0
+7     1   L    3   100   1N   K   1   "Gobo Rot"          0     0     0
+2    61   H    4   100   1N   O   1   "Shutter"         255   255   255
+3    61   L    5   100   1N   E   1   "Pan"             128     0     0
+3     1   L    6   100   1N   F   1   "Tilt"            128     0     0
+9     1   I    7   100   1N   P   1   "Prism"             0     0     0
+5    61   L    8   100   1N   L   1   "Focus"             0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Proel Dream Light 250 Spot
+8 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Colour
+0   23   "Open"
+24  33   "Blue"
+34  43   "Light Blue"
+44  53   "Purple"
+54  63   "Pink"
+64  73   "Deep Green"
+74  83   "Green"
+84  93   "Yellow"
+94  103  "Orange"
+104 113  "Red"
+114 136  "No Scroll"
+137 184  "Scr CW %3d%%"0+(((c-a)*100)/(b-a))
+185 207  "No Scroll"
+208 255  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 2  ;Gobo
+0   43    "Open"
+45  67   "Gobo 1"
+68  89   "Gobo 2"
+90  111  "Gobo 3"
+112 133  "Gobo 4"
+134 155  "Gobo 5"
+156 177  "Gobo 6"
+178 199  "Gobo 7"
+200 219  "No Scroll"
+220 227  "Scr CW %3d%%"100-(((c-a)*100)/(b-a))
+228 247  "No Scroll"
+248 255  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 3  ;Gobo Rot
+0   31   "No Spin"
+32  127  "Spn CW %3d%%"0+(((c-a)*100)/(b-a))
+128 159  "No Spin"
+160 255  "Sp CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 4  ;Shutter
+0   8    "Closed"
+248 255  "Open"
+9   54   "Open"
+53  247  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 7  ;Prism
+0   85    "Open"
+86  171  "Prism"
+172 214  "Spin C %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 8  ;Focus
+0   255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+

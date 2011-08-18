@@ -1,0 +1,412 @@
+; "Coemar I Spot Flex", 28 DMX channels, filename :CMISFLEX.r20
+;
+;   Date      By           Description
+;   14-04-03  D.Shelton    Created
+;   15-05-03  D.Shelton    Updated Colour Preset Focus's
+;   02-09-04  Phil Rogers  Added range tables
+;   02-09-04  Phil Rogers  Renamed Zap and ColEffect attributes to Strobe and Colour 2
+;   02-11-04  Phil Rogers   Edited device name.
+;   04-09-06  D.Milligan   Revised Range tables and DMX chart
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  CM_ISPFLEX                                   28 DMX channels
+NAME "Coemar" "I-Spot Flex"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE    1  28   M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR	2  360 360
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+""
+""
+""
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=485
+;
+; DMX number must be divisible by this	
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+DMX
+3  61  s   1   100 1N  E  1  "Pan"        128   -1   -1
+0   0  L   2   100 1N  E  1  "Pan Low"    128   -1   -1
+3   1  s   3   100 1N  F  1  "Tilt"       128   -1   -1
+0   0  L   4   100 1N  F  1  "Tilt Low"   128   -1   -1
+8  61  L   5   100 1N  0  1  "M.Speed"      0    0    0
+1   1  H   6   100 1N  H  1  "Dimmer"     255  255  255
+2  61  L   7   100 1N  O  1  "Shutter"    255  255  255
+2   1  L   8   100 1N  G  1  "Iris"         0    0    0
+5  61  L   9   100 1N  L  1  "Focus"      128  128  128
+5   1  L  10   100 1N  Q  1  "Zoom"       128  128  128
+6   1  I  11   100 1N  I  1  "Gobo1"        0    0    0
+7   1  L  12   100 1N  0  1  "Gobo1Index"   0    0    0
+7  61  L  13   100 1N  K  1  "Gobo1Rot"     0    0    0
+16  1  I  14   100 1N  J  1  "Gobo2"        0    0    0
+17  1  L  15   100 1N  0  1  "Gobo2Index"   0    0    0
+17 61  L  16   100 1N  M  1  "Gobo2Rot"     0    0    0
+19  1  I  17   100 1N  0  1  "Effect"       0    0    0
+19 61  L  18   100 1N  R  1  "EffectRot"    0    0    0
+9   1  L  19   100 1N  P  1  "Prism"        0    0    0
+4   1  I  20   100 1N  A  1  "Colour 1"     0    0    0
+4  61  I  21   100 1N  N  1  "Colour 2"     0    0    0
+10  1  L  22   100 1N  B  1  "Cyan"         0    0    0
+10 61  L  23   100 1N  C  1  "Magenta"      0    0    0
+9  61  L  24   100 1N  D  1  "Yellow"       0    0    0
+14  1  L  25   100 1N  0  1  "CTO"          0    0    0
+15  1  L  26   100 1N  0  1  "Strobe"       0    0    0
+11 61  L  27   100 1N  0  1  "Power"        0    0    0
+11  1  I  28   100 1N  0  1  "Control"      0    0    0
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+     Coemar
+  I Spot Flex
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1 Dimmer   --
+ 2 Iris     Shutter
+ 3 Tilt     Pan
+ 4 Colour 1 Colour 2
+ 5 Zoom     Focus
+ 6 Gobo1    --
+ 7 Gobo1Idx Gobo1Rot
+ 8 --       M.Speed
+ 9 Prism    Yellow
+10 Cyan     Magenta
+11 Control  Power
+12 --       --
+13 --       --
+14 CTO      --
+15 Strobe   --
+16 Gobo2    --
+17 Gobo2Idx Gobo2Rot
+18 --       --
+19 Effect   EffectRot
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+; Positions
+
+PFTABLE "Positions" -1  1  3
+"Middle"    21 80  80
+"Left"      22 50  80
+"Right"     23 b0  80
+"Top"       24 80  50
+"Bottom"    25 80  b0
+"TLeft"     26 50  50
+"TRight"    27 b0  b0
+"BLeft"     28 50  b0
+"BRight"    29 b0  50
+PFEND
+
+; A color table cyan, magenta, yellow
+PFTABLE "Color" -1  22  23  24
+"White"          1   0   0   0
+"Red"            2   0  ff  ff
+"Amber"          3   0  e1  ff
+"Yellow"         4   0   0  ff
+"Green"          5  ff   0  ff
+"Cyan"           6  ff   0   0
+"Blue"           7  ff  9b   0
+"Lavender"       8  96  c8   0
+"UV"             9  ff  ff  64
+"Magenta"       10   0  ff   0
+"lee 101"       -1   0   4  f9
+"lee 102"       -1   0  1f  da
+"lee 103"       -1   0  19  5e
+"lee 104"       -1   0  3e  ff
+"lee 105"       -1   0  a7  ff
+"lee 106" 	-1   0  ff  d4
+"lee 107" 	-1   0  6d  7d
+"lee 108" 	-1   0  64  8b
+"lee 109" 	-1   0  60  7d
+"lee 110" 	-1   0  77  86
+"lee 111" 	-1   0  95  5b
+"lee 113" 	-1   0  ff  d0
+"lee 115" 	-1  f0   7  b3
+"lee 116" 	-1  ff   0  cb
+"lee 117" 	-1  99   f  5b
+"lee 118" 	-1  ef   0  76
+"lee 119" 	-1  ff  71  1a
+"lee 120" 	-1  ff  19  19
+"lee 121" 	-1  cc   1  eb
+"lee 122"	-1  cc   d  e7
+"lee 124" 	-1  f4   0  eb
+"lee 126" 	-1  2c  ff  19
+"lee 127" 	-1  46  bb  c0
+"lee 128" 	-1   0  ff  7c
+"lee 131" 	-1  ff   0  c2
+"lee 132"	-1  ff   9  15
+"lee 134"	-1   0  84  db
+"lee 135"	-1   0  f9  f9
+"lee 136" 	-1   0  1b  2b
+"lee 137" 	-1  29  12  1e
+"lee 138" 	-1  87  18  df
+"lee 139" 	-1  ef   0  ff
+"lee 140" 	-1  93   4  66
+"lee 141" 	-1  f1   0  64
+"lee 142" 	-1  74  17   d
+"lee 143" 	-1  d1   0  5a
+"lee 144" 	-1  d7   7  78
+"lee 147" 	-1   0  6c  bb
+"lee 148" 	-1   0  ff  c7
+"lee 151" 	-1   0  34  64
+"lee 152" 	-1   0  2f  6a
+"lee 153" 	-1   0  42  67
+"lee 154" 	-1   0  43  7f
+"lee 156" 	-1  26  5f  a9
+"lee 157" 	-1   0  cb  bb
+"lee 158" 	-1   0  ce  ff
+"lee 159" 	-1   0  11  3c
+"lee 161" 	-1  a0   0  31
+"lee 162"       -1   0  23  49
+"lee 164"       -1   0  ff  f0
+"lee 165"       -1  bf   0  35
+"lee 166"       -1   0  e0  a0
+"lee 169" 	-1   0  18  3c
+"lee 170" 	-1  19  41  33
+"lee 172" 	-1  ff   0  9e
+"lee 174" 	-1  68   0  28
+"lee 176" 	-1   0  8d  bb
+"lee 179" 	-1   0  87  ff
+"lee 180" 	-1  86  8a   0
+"lee 181" 	-1  ff  fe   f
+"lee 182" 	-1   0  ff  df
+"lee 183" 	-1  f1   0  57
+"lee 184" 	-1  2d  46  7d
+"lee 185" 	-1  4a  29  96
+"lee 187" 	-1  2c  35  85
+"lee 188" 	-1  2a  30  8c
+"lee 189" 	-1  50  1f  76
+"lee 190" 	-1  3d  21  67
+"lee 191" 	-1  46  36  73
+PFEND
+
+PFTABLE "Gobo"  -1 11  14
+"Open"              11   00 00
+"Gobo 1"            12   28 00
+"Gobo 2"            13   4b 00
+"Gobo 3"            14   7d 00
+"Gobo 4"            15   af 00
+"Gobo 5"            16   e1 00
+"Gobo 6"            17   fa 00
+"Gobo 7"            18   00 28
+"Gobo 8"            19   00 4b
+"Gobo 9"            20   00 7d
+PFEND
+
+
+;Macros
+MACRO "LAMP OFF" 1 28
+"data"           0 14
+"delay"          1 60
+"data"           0 00
+MEND
+
+MACRO "PT RESET" 2 28
+"data"           0 32
+"delay"          1 60
+"data"           0 00
+MEND
+
+MACRO "MOTOR RESET" 3 28
+"data"           0 64
+"delay"          1 60
+"data"           0 00
+MEND
+
+MACRO "LAMP ON CONFIG" 4 28
+"data"           0 96
+"delay"          1 60
+"data"           0 00
+MEND
+
+
+MACRO "LAMP ON STANDARD" 5 28
+"data"          0 ff
+"delay"         1 60
+"data"          0 00
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+RANGE 5  ;M-Speed
+0   10   "Standard"
+11  200  "%3d%%"0+(((c-a)*100)/(b-a))
+201 255  "Fast"
+REND
+
+RANGE 7  ;Shutter
+0   9   "Closed"
+10  66  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+67  68  "Open"
+69  125 "O Pls %3d%%"0+(((c-a)*100)/(b-a))
+126 127 "Open"
+128 184 "C Pls %3d%%"0+(((c-a)*100)/(b-a))
+185 187 "Open"
+188 244 "Rnd S %3d%%"0+(((c-a)*100)/(b-a))
+245 255 "Open"
+REND
+
+RANGE 8  ;Iris
+0   9   "Open"
+10  124 "%3d%%"100-(((c-a)*100)/(b-a))
+125 129 "100%%"
+130 255 "Pls %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 11  ;Gobo 1
+0   10  "Open"
+11  57  "Gobo 1"
+58  104 "Gobo 2"
+105 151 "Gobo 3"
+152 198 "Gobo 4"
+199 245 "Gobo 5"
+246 255 "Gobo 6"
+REND
+
+RANGE 14  ;Gobo 2
+0   10  "Open"
+11  57  "Gobo 1"
+58  104 "Gobo 2"
+105 151 "Gobo 3"
+152 198 "Gobo 4"
+199 245 "Gobo 5"
+246 255 "Gobo 6"
+REND
+
+RANGE 12  ;Gobo 1 Index
+0   10  "No Index"
+11  255 "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 13  ;Gobo 1 Rot
+0   10  "No Spin"
+11  131 "Sp CW %3d%%"100-(((c-a)*100)/(b-a))
+132 134 "No Spin"
+135 255 "Sp CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 15  ;Gobo 2 Index
+0   10  "No Index"
+11  255 "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 16  ;Gobo 2 Rot
+0   10  "No Spin"
+11  131 "Sp CW %3d%%"100-(((c-a)*100)/(b-a))
+132 134 "No Spin"
+135 255 "Sp CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 17  ;Effect
+0   10  "Open"
+11  57  "Effect 1"
+58  104 "Effect 2"
+105 151 "Effect 3"
+152 198 "Effect 4"
+199 245 "Effect 5"
+246 255 "Effect 6"
+REND
+
+RANGE 18  ;Effect Rot
+0   10  "No Index"
+11  128 "%3d%%"0+(((c-a)*100)/(b-a))
+129 189 "Sp CW %3d%%"100-(((c-a)*100)/(b-a))
+190 192 "No Spin"
+193 255 "Sp CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 19  ;Prism
+0   10  "No Prism"
+11  20  "Prism 1"
+21  70  "P1 CW %3d%%"100-(((c-a)*100)/(b-a))
+71  74  "P1 No Spin"
+75  119 "P1 CCW %3d%%"0+(((c-a)*100)/(b-a))
+120 123 "P1 No Spin"
+124 132 "Prism 2"
+133 175 "P2 CW %3d%%"100-(((c-a)*100)/(b-a))
+176 180 "P2 No Spin"
+181 255 "P2 CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 20  ;Colour 1
+0   5   "Open"
+6   15  "Colour 1"
+16  25  "Colour 2"
+26  35  "Colour 3"
+36  45  "Colour 4"
+46  127 "Index %3d%%"100-(((c-a)*100)/(b-a))
+128 191 "Sc CW %3d%%"100-(((c-a)*100)/(b-a))
+192 255 "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 21  ;Colour 2
+0   5   "Open"
+6   15  "Colour 1"
+16  25  "Colour 2"
+26  35  "Colour 3"
+36  45  "Colour 4"
+46  127 "Index %3d%%"100-(((c-a)*100)/(b-a))
+128 191 "Sc CW %3d%%"100-(((c-a)*100)/(b-a))
+192 255 "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 26  ;Strobe
+0   10  "Open"
+11  249 "%3d%%"0+(((c-a)*100)/(b-a))
+250 255 "BlkO w P/T"
+REND
+
+
+RANGE 28  ;Control
+0   10  "Safe"
+11  32  "Lamp Off"
+33  76  "P/T Reset"
+77  120  "Reset"
+121 195 "Lamp On"
+196 255 "Lamp On Aj"
+REND
+

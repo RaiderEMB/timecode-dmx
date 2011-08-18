@@ -1,0 +1,109 @@
+TODO, DIP SWITCHES, PF TABLES + LOCATE FIXTURE
+; "Vrialite VLM (mode3)", 10 DMX channels, filename :VLM_10C.R20
+;
+;   Date      By        Description
+;   23-09-98  P.Bari    Created
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  VLM_10Chan                                   10 DMX channels
+NAME "Varilite" "Mirror, 10 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE   1  10   M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR	1  170 110
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+""
+""
+""
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=503
+;
+; DMX number must be divisible by this	
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+DMX  ;    Bank/fader to DMX relationship
+3  61   s   1   100 1N  E   1   "Pan"      128    -1   -1
+0   0   L   2   100 1N  E   1   "Pan Low"  128    -1   -1
+3   1   s   3   100 1N  F   1   "Tilt"     128    -1   -1
+0   0   L   4   100 1N  F   1   "Tilt Low" 128    -1   -1
+8  61   L   5   100 1N  0   1   "Speed X"    0     0    0
+8   1   L   6   100 1N  0   1   "Speed Y"    0     0    0
+11 61   L   7   100 1N  0   1   "Dummy"      0     0    0
+12 61   L   8   100 1N  0   1   "Dummy"      0     0    0
+12  1   L   9   100 1N  0   1   "Dummy"      0     0    0
+11  1   I  10   100 1N  0   1   "Reset"      0     0    0
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+ VL Mirror (mode3)
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1 --       --
+ 2 --       --
+ 3 Tilt     Pan
+ 4 --       --
+ 5 --       --
+ 6 --       --       
+ 7 --       --
+ 8 Speed    Speed
+ 9 --       --
+10 --       --
+11 Reset    --
+
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+; Positions
+PFTABLE "Positions" -1 1  3
+"Middle"    21 80  80
+"Left"      22 50  80
+"Right"     23 b0  80
+"Top"       24 80  50
+"Bottom"    25 80  b0
+"TLeft"     26 50  50
+"TRight"    27 b0  b0
+"BLeft"     28 50  b0
+"BRight"    29 b0  50
+PFEND
+
+

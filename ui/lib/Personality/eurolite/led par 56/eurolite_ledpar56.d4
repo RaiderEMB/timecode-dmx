@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="LED Par 56" ShortName="LED  Par56" Company="Eurolite">
+  <Copyright Notice="© Avolites Ltd. 2010" />
+  <History Date="02-05-06" Author="Ed" Comment="Created" />
+  <History Date="02-05-06" Author="Ed" Comment="Checked" />
+  <History Date="10-02-10" Author="John Rogers" Comment="Added RGB Mode to support new version of the same fixture. Added palettes." />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Mode" Name="Mode" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'Dimmer %.1f%%',0.0~100.0" Dmx="0~31" Update="Red, Green, Blue, SpeedStrobe" />
+      <Function ID="2" Name="Increasing" Display="'Increasing'" Dmx="32~63" Update="Red, Green, Blue, SpeedStrobe" />
+      <Function ID="3" Name="Decreasing" Display="'Decreasing'" Dmx="64~95" Update="Red, Green, Blue, SpeedStrobe" />
+      <Function ID="4" Name="Up then Down" Display="'Up then Down'" Dmx="96~127" Update="Red, Green, Blue, SpeedStrobe" />
+      <Function ID="5" Name="Auto Mix" Display="'Auto Mix'" Dmx="128~159" Update="Red, Green, Blue, SpeedStrobe" />
+      <Function ID="6" Name="3 Colour Flash" Display="'3 Colour Flash'" Dmx="160~191" Update="Red, Green, Blue, SpeedStrobe" />
+      <Function ID="7" Name="7 Colour Flash" Display="'7 Colour Flash'" Dmx="192~223" Update="Red, Green, Blue, SpeedStrobe" />
+      <Function ID="8" Name="Sound" Display="'Sound'" Dmx="224~255" Update="Red, Green, Blue, SpeedStrobe" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="Dimmer" ID="1" If="'Mode'==1||'Mode'==2||'Mode'==3||'Mode'==4" />
+      <Condition Name="Auto Mix" ID="2" If="'Mode'==5||'Mode'==6'Mode'==7'Mode'==8" />
+      <Else ID="1,2" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+      <Function ID="2" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="Dimmer" ID="1" If="'Mode'==1||'Mode'==2||'Mode'==3||'Mode'==4" />
+      <Condition Name="Auto Mix" ID="2" If="'Mode'==5||'Mode'==6'Mode'==7'Mode'==8" />
+      <Else ID="1,2" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+      <Function ID="2" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Condition Name="Dimmer" ID="1" If="'Mode'==1||'Mode'==2||'Mode'==3||'Mode'==4" />
+      <Condition Name="Auto Mix" ID="2" If="'Mode'==5||'Mode'==6'Mode'==7'Mode'==8" />
+      <Else ID="1,2" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+      <Function ID="2" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Macro" Name="Macro" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~15" Update="SpeedStrobe" />
+      <Function ID="2" Name="Macro On" Display="'Macro On'" Dmx="16~255" Update="SpeedStrobe" />
+    </Attribute>
+    <Attribute ID="SpeedStrobe" Name="Speed / Strobe" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Dimmer" ID="1,2" If="'Mode'==1" />
+      <Condition Name="Increasing" ID="3" If="'Mode'==2||'Mode'==3||'Mode'==4||'Mode'==5||'Mode'==6||'Mode'==7" />
+      <Condition Name="Sound" ID="4" If="'Mode'==8" />
+      <Condition Name="Macro On" ID="5" If="'Macro'==2" />
+      <Else ID="1,2,3,4,5" />
+      <Function ID="1" Name="No Strobe" Display="'No Strobe'" Dmx="0~15" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="16~255" />
+      <Function ID="3" Name="Speed" Display="'Speed %.f%%',100~0" Dmx="0~255" />
+      <Function ID="4" Name="No Func" Display="'No Func'" Dmx="0~0" />
+      <Function ID="5" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="16~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="6 DMX, 8bit" Channels="6">
+    <Import PearlRef="EX_LEDPar56" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Red" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="4" Wheel="12" />
+      <Attribute ID="Mode" ChannelOffset="1" Wheel="28" />
+      <Attribute ID="Macro" ChannelOffset="5" Wheel="29" />
+      <Attribute ID="SpeedStrobe" ChannelOffset="6" Wheel="30" />
+    </Include>
+  </Mode>
+  <Mode Name="RGB, 6 DMX" Channels="6">
+    <Import PearlRef="EXP56RGB" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Red" ChannelOffset="1" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="2" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="3" Wheel="12" />
+      <Attribute ID="Macro" ChannelOffset="4" Wheel="29" />
+      <Attribute ID="SpeedStrobe" ChannelOffset="5" Wheel="30" />
+      <Attribute ID="Mode" ChannelOffset="6" Wheel="28" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Red:1:100,Green:1:100,Blue:1:100" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:0" />
+      <Palette ID="3" Name="Amber" Number="3" Page="1" SetControl="Red:1:100,Green:1:50,Blue:1:0" />
+      <Palette ID="4" Name="Yellow" Legend="Yell" Number="4" Page="1" SetControl="Red:1:100,Green:1:100,Blue:1:0" />
+      <Palette ID="5" Name="Lime" Number="0" Page="1" SetControl="Red:1:50,Green:1:100,Blue:1:0" />
+      <Palette ID="6" Name="Green" Number="5" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:0" />
+      <Palette ID="7" Name="Aqua" Number="0" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:50" />
+      <Palette ID="8" Name="Cyan" Number="6" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:100" />
+      <Palette ID="9" Name="Light Blue" Number="0" Page="1" SetControl="Red:1:0,Green:1:50,Blue:1:100" />
+      <Palette ID="10" Name="Blue" Number="7" Page="1" SetControl="Red:1:0,Green:1:0,Blue:1:100" />
+      <Palette ID="11" Name="Purple" Legend="Purpl" Number="9" Page="1" SetControl="Red:1:50,Green:1:0,Blue:1:100" />
+      <Palette ID="12" Name="Magenta" Legend="Mag" Number="10" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:100" />
+      <Palette ID="13" Name="Rose" Number="0" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:50" />
+      <Palette ID="14" Name="Lavender" Legend="Lav" Number="8" Page="1" SetControl="Red:1:71,Green:1:43,Blue:1:94" />
+      <Palette ID="15" Name="Ultra Violet" Legend="UV" Number="0" Page="1" SetControl="Red:1:20,Green:1:0,Blue:1:100" />
+    </Group>
+  </Palettes>
+</Fixture>

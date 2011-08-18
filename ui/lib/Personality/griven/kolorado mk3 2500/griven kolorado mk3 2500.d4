@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Kolorado MK3 2500" ShortName="GRKM3_2500" Company="Griven">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="01-07-08" Author="David Hunt" Comment="Created" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~0" />
+      <Function ID="2" Name="Lamp On" Display="'Lamp On'" Dmx="1~1" />
+      <Function ID="3" Name="Lamp Off" Display="'Lamp Off'" Dmx="255~255" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="8bit HTP" Display="'%.1f%%',0.0~100.0" Dmx="0~100" Intensity="0~0" />
+      <Function ID="2" Name="Closed" Display="'Closed'" Dmx="101~127" Intensity="0~0" />
+      <Function ID="3" Name="Pulse" Display="'Pulse %.f%%',0~100" Dmx="128~244" Intensity="0~0" />
+      <Function ID="4" Name="Closed" Display="'Closed'" Dmx="245~250" Intensity="0~0" />
+      <Function ID="5" Name="Open" Display="'Open'" Dmx="251~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:20" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+  </Control>
+  <Mode Name="5 DMX, 8bit" Channels="5">
+    <Import PearlRef="GKM32500" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="2" Wheel="4" />
+      <Attribute ID="Yellow" ChannelOffset="3" Wheel="12" />
+      <Attribute ID="Cyan" ChannelOffset="4" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="5" Wheel="11" />
+      <Attribute ID="Control" ChannelOffset="1" Wheel="28" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Control:2" Delay="5000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp Off">
+      <Set Channel="Control:3" Delay="5000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+  </Macro>
+</Fixture>

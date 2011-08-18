@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Chameleon" ShortName="Chameleon" Company="Coemar">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="06-01-04" Author="Oliver" Comment="Created" />
+  <History Date="14-01-04" Author="Pete" Comment="Checked on Fixture" />
+  <History Date="30-07-04" Author="Phil Rogers" Comment="Added fixture type and cut short name to prevent overflow onto 2nd line." />
+  <History Date="11-08-05" Author="Ed" Comment="Error: Sound channel should locate and power on between 1 and 127" />
+  <History Date="12-08-05" Author="Ed" Comment="Fixed sound channel" />
+  <History Date="10-04-06" Author="Ed Spencer" Comment="Moved Rainbow into Effect group" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Rainbow" Name="Rainbow" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="8bit HTP" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="8bit HTP" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="8bit HTP" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:0" />
+      <Function ID="1" Name="8bit HTP" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Strobe" Name="Strobe" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="8bit HTP" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Sound" Name="Sound" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Off" Display="'Off'" Dmx="1~127" />
+      <Function ID="2" Name="On" Display="'On'" Dmx="128~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="6 DMX, 8bit" Channels="6">
+    <Import PearlRef="CM_Chameln" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Strobe" ChannelOffset="5" Wheel="4" />
+      <Attribute ID="Red" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="4" Wheel="12" />
+      <Attribute ID="Rainbow" ChannelOffset="1" Wheel="22" />
+      <Attribute ID="Sound" ChannelOffset="6" Wheel="28" />
+    </Include>
+  </Mode>
+</Fixture>

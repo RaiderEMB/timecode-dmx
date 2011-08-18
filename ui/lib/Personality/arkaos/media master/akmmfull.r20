@@ -1,0 +1,571 @@
+; 'Arkaos MediaMaster Full Full', 43 DMX Channels, filename: AKMMFULL.R20
+;  Copyright © Avolites Ltd. 2009
+;
+;   Date       By                Description
+;   28-01-09   Pers Creator      Created - Exported from Diamond 4 file.
+;   28-01-09   Jonathan Moreton  Checked
+;   29-01-09   David Hunt        Checked
+;   09-05-11   John Rogers       Edited manufacturer under NAME.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  AK_MMFull                           mode=Full  43 DMX Channels
+NAME "ArKaos" "MediaMaster Full Full"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  43  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Full"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=469
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+3    61   s   37   100   1N   E   1   "Pan"             128     0     0
+0     0   L   38   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s   39   100   1N   F   1   "Tilt"            128     0     0
+0     0   L   40   100   1N   F   1   "Tilt Low"        128     0     0
+10    1   L   24   100   1N   T   1   "Red"             255   255     0
+10   61   L   25   100   1N   U   1   "Green"           255   255     0
+9    61   L   26   100   1N   V   1   "Blue"            255     0   229
+5     1   I    2   100   1N   0   1   "Visual Lib"        0     0     0
+5    61   I    3   100   1N   0   1   "File"              1     0     0
+9     1   I    4   100   1N   0   1   "Effect Lib"        0     0     0
+19    1   I    5   100   1N   0   1   "Effect"            0     0     0
+19   61   L    6   100   1N   0   1   "Fx Param 1"      128     0     0
+20    1   L    7   100   1N   0   1   "Fx Param 2"      128     0     0
+20   61   L    8   100   1N   0   1   "Fx Param 3"      128     0     0
+18    1   L    9   100   1N   0   1   "Fx Param 4"      128     0     0
+17    1   I   10   100   1N   O   1   "Text"              0     0     0
+8    61   I   11   100   1N   0   1   "Shape"             0     0     0
+17   61   L   12   100   1N   0   1   "Tiling"            0     0     0
+16    1   I   13   100   1N   0   1   "Copy Mode"         0     0     0
+2     1   I   14   100   1N   0   1   "Mask Mode"         0     0     0
+12    1   L   15   100   1N   0   1   "Mask Center"       0     0     0
+12   61   L   16   100   1N   0   1   "Mask Width"       51     0     0
+2    61   L   17   100   1N   0   1   "Mask Smooth"      18     0     0
+8     1   L   18   100   1N   0   1   "Speed"            64     0     0
+4    61   I   19   100   1N   0   1   "Loop Mode"         0     0     0
+14    1   s   20   100   1N   0   1   "Loop Start"        0     0     0
+0     0   L   21   100   1N   0   1   "Loop Sta Low"      0     0     0
+14   61   s   22   100   1N   0   1   "Loop End"        255     0     0
+0     0   L   23   100   1N   0   1   "Loop End Low"    255     0     0
+13    1   s   27   100   1N   0   1   "Scale X"         255     0     0
+0     0   L   28   100   1N   0   1   "Scale X Low"     255     0     0
+13   61   s   29   100   1N   0   1   "Scale Y"         255     0     0
+0     0   L   30   100   1N   0   1   "Scale Y Low"     255     0     0
+6     1   s   31   100   1N   0   1   "Rot X"           128     0     0
+0     0   L   32   100   1N   0   1   "Rot X Low"       128     0     0
+6    61   s   33   100   1N   0   1   "Rot Y"           128     0     0
+0     0   I   34   100   1N   0   1   "Rot Y Low"       128     0     0
+7     1   s   35   100   1N   0   1   "Rot Z"           128     0     0
+0     0   L   36   100   1N   0   1   "Rot Z Low"       128     0     0
+4     1   s   41   100   1N   0   1   "Pos Z"           128     0     0
+0     0   L   42   100   1N   0   1   "Position Low"    128     0     0
+16   61   I   43   100   1N   0   1   "Transition"        0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Arkaos MediaMaster
+Full
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Pan/Tilt"   -1  37  39
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1  24  25  26
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 37  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 39  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 24  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 25  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 26  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Visual Library
+0   0    "User Fold 0"
+1   1    "User Fold 1"
+2   2    "User Fold 2"
+3   3    "User Fold 3"
+4   4    "User Fold 4"
+5   5    "User Fold 5"
+6   6    "User Fold 6"
+7   7    "User Fold 7"
+8   8    "User Fold 8"
+9   9    "User Fold 9"
+10  10   "User Fol 10"
+11  11   "User Fol 11"
+12  12   "User Fol 12"
+13  13   "User Fol 13"
+14  14   "User Fol 14"
+15  15   "User Fol 15"
+16  16   "User Fol 16"
+17  17   "User Fol 17"
+18  18   "User Fol 18"
+19  19   "User Fol 19"
+20  20   "User Fol 20"
+21  21   "User Fol 21"
+22  22   "User Fol 22"
+23  23   "User Fol 23"
+24  24   "User Fol 24"
+25  25   "User Fol 25"
+26  26   "User Fol 26"
+27  27   "User Fol 27"
+28  28   "User Fol 28"
+29  29   "User Fol 29"
+30  30   "User Fol 30"
+31  31   "User Fol 31"
+32  32   "User Fol 32"
+33  33   "User Fol 33"
+34  34   "User Fol 34"
+35  35   "User Fol 35"
+36  36   "User Fol 36"
+37  37   "User Fol 37"
+38  38   "User Fol 38"
+39  39   "User Fol 39"
+40  40   "User Fol 40"
+41  41   "User Fol 41"
+42  42   "User Fol 42"
+43  43   "User Fol 43"
+44  44   "User Fol 44"
+45  45   "User Fol 45"
+46  46   "User Fol 46"
+47  47   "User Fol 47"
+48  48   "User Fol 48"
+49  49   "User Fol 49"
+50  50   "User Fol 50"
+51  51   "User Fol 51"
+52  52   "User Fol 52"
+53  53   "User Fol 53"
+54  54   "User Fol 54"
+55  55   "User Fol 55"
+56  56   "User Fol 56"
+57  57   "User Fol 57"
+58  58   "User Fol 58"
+59  59   "User Fol 59"
+60  60   "User Fol 60"
+61  61   "User Fol 61"
+62  62   "User Fol 62"
+63  63   "User Fol 63"
+64  64   "User Fol 64"
+65  65   "User Fol 65"
+66  66   "User Fol 66"
+67  67   "User Fol 67"
+68  68   "User Fol 68"
+69  69   "User Fol 69"
+70  70   "User Fol 70"
+71  71   "User Fol 71"
+72  72   "User Fol 72"
+73  73   "User Fol 73"
+74  74   "User Fol 74"
+75  75   "User Fol 75"
+76  76   "User Fol 76"
+77  77   "User Fol 77"
+78  78   "User Fol 78"
+79  79   "User Fol 79"
+80  80   "User Fol 80"
+81  81   "User Fol 81"
+82  82   "User Fol 82"
+83  83   "User Fol 83"
+84  84   "User Fol 84"
+85  85   "User Fol 85"
+86  86   "User Fol 86"
+87  87   "User Fol 87"
+88  88   "User Fol 88"
+89  89   "User Fol 89"
+90  90   "User Fol 90"
+91  91   "User Fol 91"
+92  92   "User Fol 92"
+93  93   "User Fol 93"
+94  94   "User Fol 94"
+95  95   "User Fol 95"
+96  96   "User Fol 96"
+97  97   "User Fol 97"
+98  98   "User Fol 98"
+99  99   "User Fol 99"
+100 100  "User Fo 100"
+101 101  "User Fo 101"
+102 102  "User Fo 102"
+103 103  "User Fo 103"
+104 104  "User Fo 104"
+105 105  "User Fo 105"
+106 106  "User Fo 106"
+107 107  "User Fo 107"
+108 108  "User Fo 108"
+109 109  "User Fo 109"
+110 110  "User Fo 110"
+111 111  "User Fo 111"
+112 112  "User Fo 112"
+113 113  "User Fo 113"
+114 114  "User Fo 114"
+115 115  "User Fo 115"
+116 116  "User Fo 116"
+117 117  "User Fo 117"
+118 118  "User Fo 118"
+119 119  "User Fo 119"
+120 120  "User Fo 120"
+121 121  "User Fo 121"
+122 122  "User Fo 122"
+123 123  "User Fo 123"
+124 124  "User Fo 124"
+125 125  "User Fo 125"
+126 126  "User Fo 126"
+127 127  "User Fo 127"
+128 128  "User Fo 128"
+129 129  "User Fo 129"
+130 130  "User Fo 130"
+131 131  "User Fo 131"
+132 132  "User Fo 132"
+133 133  "User Fo 133"
+134 134  "User Fo 134"
+135 135  "User Fo 135"
+136 136  "User Fo 136"
+137 137  "User Fo 137"
+138 138  "User Fo 138"
+139 139  "User Fo 139"
+140 140  "User Fo 140"
+141 141  "User Fo 141"
+142 142  "User Fo 142"
+143 143  "User Fo 143"
+144 144  "User Fo 144"
+145 145  "User Fo 145"
+146 146  "User Fo 146"
+147 147  "User Fo 147"
+148 148  "User Fo 148"
+149 149  "User Fo 149"
+150 150  "User Fo 150"
+151 151  "User Fo 151"
+152 152  "User Fo 152"
+153 153  "User Fo 153"
+154 154  "User Fo 154"
+155 155  "User Fo 155"
+156 156  "User Fo 156"
+157 157  "User Fo 157"
+158 158  "User Fo 158"
+159 159  "User Fo 159"
+160 160  "User Fo 160"
+161 161  "User Fo 161"
+162 162  "User Fo 162"
+163 163  "User Fo 163"
+164 164  "User Fo 164"
+165 165  "User Fo 165"
+166 166  "User Fo 166"
+167 167  "User Fo 167"
+168 168  "User Fo 168"
+169 169  "User Fo 169"
+170 170  "User Fo 170"
+171 171  "User Fo 171"
+172 172  "User Fo 172"
+173 173  "User Fo 173"
+174 174  "User Fo 174"
+175 175  "User Fo 175"
+176 176  "User Fo 176"
+177 177  "User Fo 177"
+178 178  "User Fo 178"
+179 179  "User Fo 179"
+180 180  "User Fo 180"
+181 181  "User Fo 181"
+182 182  "User Fo 182"
+183 183  "User Fo 183"
+184 184  "User Fo 184"
+185 185  "User Fo 185"
+186 186  "User Fo 186"
+187 187  "User Fo 187"
+188 188  "User Fo 188"
+189 189  "User Fo 189"
+190 190  "User Fo 190"
+191 191  "User Fo 191"
+192 192  "User Fo 192"
+193 193  "User Fo 193"
+194 194  "User Fo 194"
+195 195  "User Fo 195"
+196 196  "User Fo 196"
+197 197  "User Fo 197"
+198 198  "User Fo 198"
+199 199  "User Fo 199"
+200 200  "User Fo 200"
+201 201  "User Fo 201"
+202 202  "User Fo 202"
+203 203  "User Fo 203"
+204 204  "User Fo 204"
+205 205  "User Fo 205"
+206 206  "User Fo 206"
+207 207  "User Fo 207"
+208 208  "User Fo 208"
+209 209  "User Fo 209"
+210 210  "User Fo 210"
+211 211  "User Fo 211"
+212 212  "User Fo 212"
+213 213  "User Fo 213"
+214 214  "User Fo 214"
+215 215  "User Fo 215"
+216 216  "User Fo 216"
+217 217  "User Fo 217"
+218 218  "User Fo 218"
+219 219  "User Fo 219"
+220 220  "User Fo 220"
+221 221  "User Fo 221"
+222 222  "User Fo 222"
+223 223  "User Fo 223"
+224 224  "User Fo 224"
+225 225  "User Fo 225"
+226 226  "User Fo 226"
+227 227  "User Fo 227"
+228 228  "User Fo 228"
+229 229  "User Fo 229"
+230 230  "User Fo 230"
+231 231  "User Fo 231"
+232 232  "User Fo 232"
+233 233  "User Fo 233"
+234 234  "User Fo 234"
+235 235  "User Fo 235"
+236 236  "User Fo 236"
+237 237  "User Fo 237"
+238 238  "User Fo 238"
+239 239  "User Fo 239"
+240 241  "Generators"
+242 249  "Audio Flash"
+250 250  "FlashTxts 1"
+251 251  "FlashTxts 2"
+252 252  "FlashTxts 3"
+253 253  "FlashTxts 4"
+254 254  "Cameras"
+255 255  "Masks"
+REND
+
+RANGE 3  ;File
+0   0    "Prev. Layer"
+REND
+
+RANGE 4  ;Effect Library
+0   15   "3D"
+16  31   "Colour"
+32  47   "Blur"
+48  63   "Split"
+64  79   "Artistic"
+80  95   "3D (C)"
+96  111  "Colour (C)"
+112 127  "Blur (C)"
+128 143  "Split (C)"
+144 159  "Artistic (C)"
+REND
+
+RANGE 5  ;Effect
+0   0    "Open"
+REND
+
+RANGE 11  ;Shape
+0   31   "Plane"
+32  63   "Cube"
+64  95   "Sphere"
+REND
+
+RANGE 12  ;Tiling
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Copy Mode
+0   31   "Copy"
+32  63   "Add"
+64  95   "Subtract"
+96  127  "Multiply"
+128 159  "Minimum"
+160 191  "Maximum"
+REND
+
+RANGE 14  ;Mask Mode
+0   31   "Safe"
+32  63   "LumaKey BR"
+64  95   "LumaKey BP"
+96  127  "ChromaKey B"
+128 255  "ChromaKey B"
+REND
+
+RANGE 15  ;Mask Center
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Mask Width
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;Mask Smooth
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 18  ;Speed
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 19  ;Loop Mode
+0   31   "Loop Fwd"
+32  63   "Loop Bkwd"
+64  95   "Once Fwd"
+96  127  "Once Bkwd"
+128 159  "Ping Pong"
+160 191  "First Frame"
+192 223  "Last Frame"
+REND
+
+RANGE 20  ;Loop Start
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 22  ;Loop End
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 27  ;Scale X
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 29  ;Scale Y
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 31  ;Rotation X
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 33  ;Rotation Y
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 35  ;Rotation Z
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 41  ;Position Z
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Droplet" ShortName="Drplt" Company="Xilver">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="22-07-04" Author="Phil" Comment="Created" />
+  <History Date="23-07-04" Author="Tom" Comment="Checked" />
+  <History Date="06-04-06" Author="Ed" Comment="Moved duration into Special group" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~249" />
+      <Function ID="2" Name="Reset" Display="'Reset'" Dmx="250~255" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="PT_Speed" Name="P/T Speed" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="P/T Speed" Display="'%.f%%',100~0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~4" Intensity="0~0" />
+      <Function ID="2" Name="Strobe Hz" Display="'Strobe %.1f Hz',1.0~25.0" Dmx="5~204" Intensity="0~0" />
+      <Function ID="3" Name="Strobe Hz" Display="'Strobe %.1f Hz',25.0~50.0" Dmx="205~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Duration" Name="Duration" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~4" />
+      <Function ID="2" Name="Strobe Duration" Display="'Str Dur %.f%%',0~100" Dmx="5~255" />
+    </Attribute>
+    <Attribute ID="Hue" Name="Hue" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Hue" Display="'%.f',0~255" Dmx="0~10" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Saturation" Name="Saturation" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Saturation" Display="'%.f%%',0~100" Dmx="0~10" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+  </Control>
+  <Mode Name="HSI Compact" Channels="7">
+    <Import PearlRef="XVDropletHC" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="360" TiltMax="260" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="7" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="4" Wheel="4" />
+      <Attribute ID="Pan" ChannelOffset="2" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="3" Wheel="3" />
+      <Attribute ID="Hue" ChannelOffset="5" Wheel="8" />
+      <Attribute ID="Saturation" ChannelOffset="6" Wheel="9" />
+      <Attribute ID="Control" ChannelOffset="1" Wheel="28" />
+    </Include>
+  </Mode>
+  <Mode Name="RGB Compact" Channels="8">
+    <Import PearlRef="XVDropletRC" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="360" TiltMax="260" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="8" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="4" Wheel="4" />
+      <Attribute ID="Pan" ChannelOffset="2" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="3" Wheel="3" />
+      <Attribute ID="Red" ChannelOffset="5" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="6" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="7" Wheel="12" />
+      <Attribute ID="Control" ChannelOffset="1" Wheel="28" />
+    </Include>
+  </Mode>
+  <Mode Name="HSI Normal" Channels="11">
+    <Import PearlRef="XVDropletHN" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="360" TiltMax="260" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="11" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="7" Wheel="4" />
+      <Attribute ID="Pan" ChannelOffset="2,5" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="3,6" Wheel="3" />
+      <Attribute ID="Hue" ChannelOffset="9" Wheel="8" />
+      <Attribute ID="Saturation" ChannelOffset="10" Wheel="9" />
+      <Attribute ID="Duration" ChannelOffset="8" Wheel="5" />
+      <Attribute ID="Control" ChannelOffset="1" Wheel="28" />
+      <Attribute ID="PT_Speed" ChannelOffset="4" Wheel="25" />
+    </Include>
+  </Mode>
+  <Mode Name="RGB Normal" Channels="12">
+    <Import PearlRef="XVDropletRN" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="360" TiltMax="260" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="12" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="7" Wheel="4" />
+      <Attribute ID="Pan" ChannelOffset="2, 5" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="3,6" Wheel="3" />
+      <Attribute ID="Red" ChannelOffset="9" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="10" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="11" Wheel="12" />
+      <Attribute ID="Duration" ChannelOffset="8" Wheel="5" />
+      <Attribute ID="Control" ChannelOffset="1" Wheel="28" />
+      <Attribute ID="PT_Speed" ChannelOffset="4" Wheel="25" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Reset">
+      <Set Channel="Control:2" Delay="6000" />
+      <Set Channel="Control:1" Delay="1000" />
+    </Macro>
+  </Macro>
+</Fixture>

@@ -1,0 +1,142 @@
+;"Abstract Twister 4", 2 DMX channels, filename :abtwist4.r20
+;
+;   Date      By        Description
+;   18-01-02  Edward    Created
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  AB_Twister4                                    2 DMX channels
+NAME "Abstract" "Twister 4"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE    1   2  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  1  160  100
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;	+,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;	& means logical AND
+;	| means logical OR 
+;	R means reverse the bits of the curernt result (operates on a byte)
+;	^ means logical Exclusive OR (operates on a byte)
+;	> means shift to the right
+;	< shift to the left
+;	r followed by number means get the value of that parameter 
+;	d DMX address
+;	n Fixture name, a 0 terminated character string
+;	h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+""
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=511
+;
+; DMX number must be divisible by this	
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt, 
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom, 
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX
+3   1   L   1  100 1N  F   1  "Rotation"      128   -1   -1
+4   1   H   2  100 1N  A   1  "Col/Gobo"        0    0    0
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+ Abstract Twister 4
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1 --       --
+ 2 --       --
+ 3 Rotation --
+ 4 Color/Gobo
+ 5 --       --
+ 6 --       --        
+
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+
+
+PFTABLE "ColGobos" -1 2
+"B-Out"          1  0
+"Open"           2  0a
+"Rd_.Tunnel"     3  1a
+"Blu_Slash"      4  2b
+"Grn_Segment"    5  3b
+"Yel_Triangle"   6  4b
+"Cyn_Tunnel"     7  5b
+"Ora_Bubbles"    8  6c
+"Pink_Stars"     9  7c
+"MultiCol"      10  8c
+PFEND
+
+PFEND "Strobe" -1 2
+"Open"          81  18
+"BlackOut"      82   0
+"Strobe1"       83  ee
+"Strobe2"       84  f2
+"Strobe3"       85  f6
+"Strobe4"       86  fa
+"Strobe5"       86  ff
+PFEND
+

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="MF5" ShortName="MF5" Company="Triton Blue">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="13-09-07" Author="Ion Balan" Comment="Created" />
+  <History Date="13-09-07" Author="D.Milligan" Comment="Checked" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Colour1Func" Name="Colour 1 Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Index_Func" Display="'Index'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour 1" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Index_Func" ID="1" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="2,3,4,5" If="'Colour1Func'==2" />
+      <Condition Name="Raw DMX" ID="6" If="'Colour1Func'==3" />
+      <Else ID="1,2,3,4,5,6" />
+      <Function ID="1" Name="Index" Display="'Index %.f%%',0~100" Dmx="0~127" Colour="0,0,0" />
+      <Function ID="2" Name="Open" Display="'Open'" Dmx="0~0" Colour="255,255,255" />
+      <Function ID="3" Name="Scroll CW" Display="'Scroll CW %.f%%',100~0" Dmx="128~187" Colour="0,0,0" />
+      <Function ID="4" Name="No Scroll" Display="'No Scroll'" Dmx="188~193" Colour="0,0,0" />
+      <Function ID="5" Name="Scroll CCW" Display="'Scroll CCW %.f%%',0~100" Dmx="194~255" Colour="0,0,0" />
+      <Function ID="6" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Gobo1Func" Name="Gobo 1 Func" Description="" Group="G" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Gobo1, Gobo1Rot" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Shake_Func" Display="'Shake'" Dmx="0~0" Update="Gobo1, Gobo1Rot" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Control_Func" Display="'Control'" Dmx="0~0" Update="Gobo1, Gobo1Rot" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Gobo1, Gobo1Rot" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo1" Name="Gobo 1" Description="" Group="G">
+      <Locate Locate="1" PowerOn="1" Clear="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6" If="'Gobo1Func'==1" />
+      <Condition Name="Shake_Func" ID="7,8,9,10,11,12" If="'Gobo1Func'==2" />
+      <Condition Name="Control_Func" ID="13,14" If="'Gobo1Func'==3" />
+      <Condition Name="Raw_Func" ID="15" If="'Gobo1Func'==4" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="8~19" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Gobo 1" Display="'Gobo 1'" Dmx="20~39" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Gobo 2" Display="'Gobo 2'" Dmx="40~59" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="Gobo 3" Display="'Gobo 3'" Dmx="60~79" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="5" Name="Gobo 4" Display="'Gobo 4'" Dmx="80~99" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="6" Name="Gobo 5" Display="'Gobo 5'" Dmx="100~120" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="7" Name="Closed" Display="'Closed'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="8" Name="Gobo 1" Display="'Gobo 1 %.f%%',0~100" Dmx="121~147" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="9" Name="Gobo 2" Display="'Gobo 2 %.f%%',0~100" Dmx="148~174" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="10" Name="Gobo 3" Display="'Gobo 3 %.f%%',0~100" Dmx="175~201" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="11" Name="Gobo 4" Display="'Gobo 4 %.f%%',0~100" Dmx="202~228" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="12" Name="Gobo 5" Display="'Gobo 5 %.f%%',0~100" Dmx="229~255" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="13" Name="Closed" Display="'Closed'" Dmx="0~3" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="14" Name="Reset_All" Display="'Reset All'" Dmx="4~7" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="15" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo1Rot" Name="Gobo 1 Rot" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Fixed_Func" ID="1,2" If="'Gobo1Func'==1||'Gobo1Func'==2||'Gobo1Func'==3" />
+      <Condition Name="Raw_Func" ID="3" If="'Gobo1Func'==4" />
+      <Else ID="1,2,3" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~7" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Spin CW" Display="'Spin CW %.1f%%',0.0~100.0" Dmx="8~255" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Prism_Func" Name="Prism Func" Description="" Group="E" Size="0">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Prism" />
+      <Function ID="2" Name="Spin_Func" Display="'Spin'" Dmx="0~0" Update="Prism" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Prism" />
+    </Attribute>
+    <Attribute ID="Prism" Name="Prism" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Fixed_Func" ID="1,2" If="'Prism_Func'==1" />
+      <Condition Name="Spin_Func" ID="3,4,5,6" If="'Prism_Func'==2" />
+      <Condition Name="Raw_Func" ID="7" If="'Prism_Func'==3" />
+      <Else ID="1,2,3,4,5,6,7" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" />
+      <Function ID="2" Name="Prism" Display="'Prism'" Dmx="128~135" />
+      <Function ID="3" Name="No Spin" Display="'No Spin'" Dmx="0~7" />
+      <Function ID="4" Name="Spin CW" Display="'Spin CW %.f%%',100~0" Dmx="8~127" />
+      <Function ID="5" Name="No Spin" Display="'No Spin'" Dmx="128~135" />
+      <Function ID="6" Name="Spin CCW" Display="'Spin CCW %.f%%',0~100" Dmx="136~255" />
+      <Function ID="7" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Macros" Name="Macros" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="No Macro" Display="'No Macro'" Dmx="0~23" />
+      <Function ID="2" Name="Macro 1" Display="'Macro 1'" Dmx="24~47" />
+      <Function ID="3" Name="Macro 2" Display="'Macro 2'" Dmx="48~71" />
+      <Function ID="4" Name="Macro 3" Display="'Macro 3'" Dmx="72~95" />
+      <Function ID="5" Name="Macro 4" Display="'Macro 4'" Dmx="96~119" />
+      <Function ID="6" Name="Macro 5" Display="'Macro 5'" Dmx="120~143" />
+      <Function ID="7" Name="Macro 6" Display="'Macro 6'" Dmx="144~167" />
+      <Function ID="8" Name="Macro 7" Display="'Macro 7'" Dmx="168~191" />
+      <Function ID="9" Name="Macro 8" Display="'Macro 8'" Dmx="192~215" />
+      <Function ID="10" Name="Macro 9" Display="'Macro 9'" Dmx="216~239" />
+      <Function ID="11" Name="Macro 10" Display="'Macro 10'" Dmx="240~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="5 DMX, 8bit" Channels="5">
+    <Import PearlRef="TT_MF5" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="8" />
+      <Attribute ID="Gobo1Func" Wheel="13" />
+      <Attribute ID="Gobo1" ChannelOffset="2" Wheel="14" />
+      <Attribute ID="Gobo1Rot" ChannelOffset="3" Wheel="15" />
+      <Attribute ID="Prism_Func" Wheel="22" />
+      <Attribute ID="Prism" ChannelOffset="4" Wheel="23" />
+      <Attribute ID="Macros" ChannelOffset="5" Wheel="28" />
+    </Include>
+  </Mode>
+</Fixture>

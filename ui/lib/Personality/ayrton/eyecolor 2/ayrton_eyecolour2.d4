@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="EyeColour 2" ShortName="Eye  Col2" Company="Ayrton">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="21-08-06" Author="D.Milligan" Comment="Created" />
+  <History Date="22-08-06" Author="Ed" Comment="Checked" />
+  <History Date="22-08-06" Author="D.Milligan" Comment="Revised device name" />
+  <History Date="28-09-06" Author="D.Milligan" Comment="Added ranges for channels. Removed dimmer channel invert." />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~15" Intensity="0~0" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="16~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8,9" If="'Colour1Func'==1" />
+      <Condition Name="Split_Func" ID="10,11,12,13,14,15,16" If="'Colour1Func'==2" />
+      <Condition Name="Scroll_Func" ID="17,18" If="'Colour1Func'==3" />
+      <Condition Name="Raw DMX" ID="19" If="'Colour1Func'==4" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~7" Colour="255,255,255" />
+      <Function ID="2" Name="Red" Display="'Red'" Dmx="8~8" Colour="255,0,0" />
+      <Function ID="3" Name="Yellow" Display="'Yellow'" Dmx="32~32" Colour="255,255,0" />
+      <Function ID="4" Name="Green" Display="'Green'" Dmx="56~56" Colour="0,255,0" />
+      <Function ID="5" Name="Cyan" Display="'Cyan'" Dmx="92~92" Colour="0,255,255" />
+      <Function ID="6" Name="Blue" Display="'Blue'" Dmx="120~120" Colour="0,0,255" />
+      <Function ID="7" Name="Magenta" Display="'Magenta'" Dmx="148~148" Colour="255,0,255" />
+      <Function ID="8" Name="Red" Display="'Red'" Dmx="180~180" Colour="255,0,0" />
+      <Function ID="9" Name="Open" Display="'Open'" Dmx="196~196" Colour="255,255,255" />
+      <Function ID="10" Name="Red/Yel" Display="'Red/Yel'" Dmx="9~31" Colour="0,0,0" />
+      <Function ID="11" Name="Yel/Gr" Display="'Yel/Gr'" Dmx="33~55" Colour="0,0,0" />
+      <Function ID="12" Name="Gr/Cy" Display="'Gr/Cy'" Dmx="57~91" Colour="0,0,0" />
+      <Function ID="13" Name="Cy/Bl" Display="'Cy/Bl'" Dmx="93~119" Colour="0,0,0" />
+      <Function ID="14" Name="Bl/Mag" Display="'Bl/Mag'" Dmx="121~147" Colour="0,0,0" />
+      <Function ID="15" Name="Mag/Red" Display="'Mag/Red'" Dmx="149~179" Colour="0,0,0" />
+      <Function ID="16" Name="Red/Op" Display="'Red/Op'" Dmx="181~195" Colour="0,0,0" />
+      <Function ID="17" Name="No Scroll" Display="'No Scroll'" Dmx="197~200" Colour="0,0,0" />
+      <Function ID="18" Name="Scroll CW" Display="'Scroll CW %.f%%',0~100" Dmx="200~255" Colour="0,0,0" />
+      <Function ID="19" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1Func" Name="Colour 1 Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Split_Func" Display="'Split Gel'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="4" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+  </Control>
+  <Mode Name="Mode 1, 16bit" Channels="10">
+    <Import PearlRef="ATN_EyeC2M1" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="530" TiltMax="530" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="9" Wheel="4" />
+      <Attribute ID="Dimmer" ChannelOffset="10" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="1,2" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="3,4" Wheel="3" />
+      <Attribute ID="Red" ChannelOffset="5" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="6" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="7" Wheel="12" />
+      <Attribute ID="Colour1" ChannelOffset="8" Wheel="8" />
+    </Include>
+  </Mode>
+  <Mode Name="Mode 2, 8bit" Channels="8">
+    <Import PearlRef="ATN_EyeC2M2" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="530" TiltMax="530" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="7" Wheel="4" />
+      <Attribute ID="Dimmer" ChannelOffset="8" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="1" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="2" Wheel="3" />
+      <Attribute ID="Red" ChannelOffset="3" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="4" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="5" Wheel="12" />
+      <Attribute ID="Colour1" ChannelOffset="6" Wheel="8" />
+    </Include>
+  </Mode>
+</Fixture>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="LED-T40HV Color Tube" ShortName="ColorTube" Company="Chauvet">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="27-07-04" Author="Phil Rogers" Comment="Created" />
+  <History Date="02-08-04" Author="Tom Peck" Comment="Created" />
+  <History Date="19-07-06" Author="Ed" Comment="Checked after a change by D4 Pers fixer" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Colour1Func" Name="Colour 1 Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1, Colour2" Colour="0,0,0" />
+      <Function ID="2" Name="Macro_Func" Display="'Macro'" Dmx="0~0" Update="Colour1, Colour2" Colour="0,0,0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1, Colour2" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour 1" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8" If="'Colour1Func'==1" />
+      <Condition Name="Macro_Func" ID="10,11,12,13,14,15,16,17,18,19,20,21" If="'Colour1Func'==2" />
+      <Condition Name="Raw_Func" ID="9" If="'Colour1Func'==3" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="91~103" Update="Colour2" Colour="255,255,255" />
+      <Function ID="2" Name="Off" Display="'Off'" Dmx="0~0" Update="Colour2" Colour="0,0,0" />
+      <Function ID="3" Name="Red" Display="'Red'" Dmx="13~25" Update="Colour2" Colour="255,0,0" />
+      <Function ID="4" Name="Green" Display="'Green'" Dmx="26~38" Update="Colour2" Colour="0,255,0" />
+      <Function ID="5" Name="Yellow" Display="'Yellow'" Dmx="39~51" Update="Colour2" Colour="255,255,0" />
+      <Function ID="6" Name="Blue" Display="'Blue'" Dmx="52~64" Update="Colour2" Colour="0,0,255" />
+      <Function ID="7" Name="Purple" Display="'Purple'" Dmx="65~77" Update="Colour2" Colour="128,0,255" />
+      <Function ID="8" Name="Cyan" Display="'Cyan'" Dmx="78~90" Update="Colour2" Colour="0,255,255" />
+      <Function ID="9" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Update="Colour2" Colour="0,0,0" />
+      <Function ID="10" Name="Color Change" Display="'Color Change'" Dmx="104~116" Update="Colour2" Colour="0,0,0" />
+      <Function ID="11" Name="Slow Flow 1" Display="'Slow Flow 1'" Dmx="117~129" Update="Colour2" Colour="0,0,0" />
+      <Function ID="12" Name="Slow Flow 2" Display="'Slow Flow 2'" Dmx="130~142" Update="Colour2" Colour="0,0,0" />
+      <Function ID="13" Name="Roll Chase 1" Display="'Roll Chase 1'" Dmx="143~155" Update="Colour2" Colour="0,0,0" />
+      <Function ID="14" Name="Roll Chase 2" Display="'Roll Chase 2'" Dmx="156~168" Update="Colour2" Colour="0,0,0" />
+      <Function ID="15" Name="Multicolour" Display="'Multicolour'" Dmx="169~181" Update="Colour2" Colour="0,0,0" />
+      <Function ID="16" Name="Fast Flow 1" Display="'Fast Flow 1'" Dmx="182~194" Update="Colour2" Colour="0,0,0" />
+      <Function ID="17" Name="Fast Flow 2" Display="'Fast Flow 2'" Dmx="195~207" Update="Colour2" Colour="0,0,0" />
+      <Function ID="18" Name="2 Col Chase" Display="'2 Col Chase'" Dmx="208~220" Update="Colour2" Colour="0,0,0" />
+      <Function ID="19" Name="2 Col Flow" Display="'2 Col Flow'" Dmx="221~233" Update="Colour2" Colour="0,0,0" />
+      <Function ID="20" Name="Colour Fade" Display="'Colour Fade'" Dmx="234~246" Update="Colour2" Colour="0,0,0" />
+      <Function ID="21" Name="Auto Run" Display="'Auto Run'" Dmx="247~255" Update="Colour2" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour2" Name="Colour 2" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1" If="'Colour1Func'==1" />
+      <Condition Name="Raw_Func" ID="2" If="'Colour1Func'==3" />
+      <Condition Name="Color Change" ID="3" If="'Colour1'==10" />
+      <Condition Name="Slow Flow 1" ID="4" If="'Colour1'==11" />
+      <Condition Name="Slow Flow 2" ID="5" If="'Colour1'==12" />
+      <Condition Name="Roll Chase 1" ID="6" If="'Colour1'==13" />
+      <Condition Name="Roll Chase 2" ID="7" If="'Colour1'==14" />
+      <Condition Name="Multicolour" ID="8" If="'Colour1'==15" />
+      <Condition Name="Fast Flow 1" ID="9" If="'Colour1'==16" />
+      <Condition Name="Fast Flow 2" ID="10" If="'Colour1'==17" />
+      <Condition Name="2 Col Chase" ID="13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33" If="'Colour1'==18||'Colour1'==19" />
+      <Condition Name="Colour Fade" ID="11" If="'Colour1'==20" />
+      <Condition Name="Auto Run" ID="12" If="'Colour1'==21" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33" />
+      <Function ID="1" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+      <Function ID="3" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="4" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="5" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="6" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="7" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="8" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="9" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="10" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="11" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="12" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="13" Name="Red/Green" Display="'Red/Green'" Dmx="0~11" Colour="255,0,0" />
+      <Function ID="14" Name="Red/Yellow" Display="'Red/Yellow'" Dmx="12~23" Colour="255,0,0" />
+      <Function ID="15" Name="Red/Blue" Display="'Red/Blue'" Dmx="24~35" Colour="255,0,0" />
+      <Function ID="16" Name="Red/Purple" Display="'Red/Purple'" Dmx="36~47" Colour="255,0,0" />
+      <Function ID="17" Name="Red/Cyan" Display="'Red/Cyan'" Dmx="48~59" Colour="255,0,0" />
+      <Function ID="18" Name="Red/Open" Display="'Red/Open'" Dmx="60~71" Colour="255,0,0" />
+      <Function ID="19" Name="Green/Yellow" Display="'Green/Yellow'" Dmx="72~83" Colour="0,255,0" />
+      <Function ID="20" Name="Green/Blue" Display="'Green/Blue'" Dmx="84~95" Colour="0,255,0" />
+      <Function ID="21" Name="Green/Purple" Display="'Green/Purple'" Dmx="96~107" Colour="0,255,0" />
+      <Function ID="22" Name="Green/Cyan" Display="'Green/Cyan'" Dmx="108~119" Colour="0,255,0" />
+      <Function ID="23" Name="Green/Open" Display="'Green/Open'" Dmx="120~131" Colour="0,255,0" />
+      <Function ID="24" Name="Yellow/Blue" Display="'Yellow/Blue'" Dmx="132~143" Colour="255,255,0" />
+      <Function ID="25" Name="Yellow/Purple" Display="'Yellow/Purple'" Dmx="144~155" Colour="255,255,0" />
+      <Function ID="26" Name="Yellow/Cyan" Display="'Yellow/Cyan'" Dmx="156~167" Colour="255,255,0" />
+      <Function ID="27" Name="Yellow/Open" Display="'Yellow/Open'" Dmx="168~179" Colour="255,255,0" />
+      <Function ID="28" Name="Blue/Purple" Display="'Blue/Purple'" Dmx="180~191" Colour="0,0,255" />
+      <Function ID="29" Name="Blue/Cyan" Display="'Blue/Cyan'" Dmx="192~203" Colour="0,0,255" />
+      <Function ID="30" Name="Blue/Open" Display="'Blue/Open'" Dmx="204~215" Colour="0,0,255" />
+      <Function ID="31" Name="Purple/Cyan" Display="'Purple/Cyan'" Dmx="216~227" Colour="128,0,255" />
+      <Function ID="32" Name="Purple/Open" Display="'Purple/Open'" Dmx="228~239" Colour="128,0,255" />
+      <Function ID="33" Name="Cyan/Open" Display="'Cyan/Open'" Dmx="240~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Speed" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Speed" Display="'%.f%%',0~100" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Effect" Name="Effect" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Strobe Hz" Display="'Strobe %.1f Hz',0.0~20.0" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="4 DMX, 8bit" Channels="4">
+    <Import PearlRef="CH_ColTube" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="8" />
+      <Attribute ID="Colour2" ChannelOffset="4" Wheel="9" />
+      <Attribute ID="Effect" ChannelOffset="3" Wheel="23" />
+      <Attribute ID="Speed" ChannelOffset="2" Wheel="25" />
+    </Include>
+  </Mode>
+</Fixture>

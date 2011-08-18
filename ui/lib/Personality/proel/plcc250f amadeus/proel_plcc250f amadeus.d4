@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="PLCC250F Amadeus" ShortName="AmdsF" Company="Proel">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="12-02-07" Author="D.Milligan" Comment="Created" />
+  <History Date="12-02-07" Author="D.Milligan" Comment="Checked" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Colour1Func" Name="Colour 1 Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour 1" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="9,10" If="'Colour1Func'==2" />
+      <Condition Name="Raw_Func" ID="11" If="'Colour1Func'==3" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~16" Colour="255,255,255" />
+      <Function ID="2" Name="Red" Display="'Red'" Dmx="17~33" Colour="255,0,0" />
+      <Function ID="3" Name="Yellow" Display="'Yellow'" Dmx="34~50" Colour="255,255,0" />
+      <Function ID="4" Name="Purple" Display="'Purple'" Dmx="51~67" Colour="128,0,255" />
+      <Function ID="5" Name="Green" Display="'Green'" Dmx="68~84" Colour="0,255,0" />
+      <Function ID="6" Name="Orange" Display="'Orange'" Dmx="85~101" Colour="255,128,0" />
+      <Function ID="7" Name="Cyan" Display="'Cyan'" Dmx="102~118" Colour="0,255,255" />
+      <Function ID="8" Name="Magenta" Display="'Magenta'" Dmx="119~135" Colour="255,0,255" />
+      <Function ID="9" Name="Open" Display="'Open'" Dmx="0~16" Colour="255,255,255" />
+      <Function ID="10" Name="Scroll CW" Display="'Scroll CW %.1f%%',0.0~100.0" Dmx="136~255" Colour="0,0,0" />
+      <Function ID="11" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Iris" Name="Iris" Description="" Group="B">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Iris" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="2" PowerOn="1" Clear="1" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~14" Intensity="0~0" />
+      <Function ID="2" Name="Open" Display="'Open'" Dmx="15~29" Intensity="0~0" />
+      <Function ID="3" Name="Strobe %" Display="'Strobe %.1f%%',0.0~100.0" Dmx="30~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="3 DMX, 8bit" Channels="3">
+    <Import PearlRef="PL_PLCC250F" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="3" Wheel="4" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="8" />
+      <Attribute ID="Iris" ChannelOffset="2" Wheel="21" />
+    </Include>
+  </Mode>
+</Fixture>

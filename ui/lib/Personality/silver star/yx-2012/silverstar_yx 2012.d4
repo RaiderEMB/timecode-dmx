@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="YX 2012" ShortName="YX   2012" Company="Silver Star">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="16-11-05" Author="Ed" Comment="Created" />
+  <History Date="16-11-05" Author="Ed" Comment="Checked" />
+  <History Date="11-04-06" Author="Ed Spencer" Comment="Moved Size into beam group" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour ID to Colour1" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <History Date="19-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="PT_Speed" Name="P/T Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Speed" Display="'%.f%%',100~0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Auto" Display="'Auto'" Dmx="0~127" />
+      <Function ID="2" Name="Manual" Display="'Manual'" Dmx="128~255" />
+    </Attribute>
+    <Attribute ID="Colour1Func" Name="Colour Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Rand_Func" Display="'Rand'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="4" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8,9" If="'Colour1Func'==1" />
+      <Condition Name="Rand_Func" ID="10,11,12" If="'Colour1Func'==2" />
+      <Condition Name="Scroll_Func" ID="13,14" If="'Colour1Func'==3" />
+      <Condition Name="Raw_Func" ID="15" If="'Colour1Func'==4" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15" />
+      <Function ID="1" Name="No Beam" Display="'No Beam'" Dmx="0~22" Colour="255,255,255" />
+      <Function ID="2" Name="White" Display="'White'" Dmx="23~45" Colour="255,255,255" />
+      <Function ID="3" Name="Red" Display="'Red'" Dmx="46~68" Colour="255,0,0" />
+      <Function ID="4" Name="Yellow" Display="'Yellow'" Dmx="69~91" Colour="255,255,0" />
+      <Function ID="5" Name="Green" Display="'Green'" Dmx="92~114" Colour="0,255,0" />
+      <Function ID="6" Name="Cyan" Display="'Cyan'" Dmx="115~137" Colour="0,255,255" />
+      <Function ID="7" Name="Blue" Display="'Blue'" Dmx="138~160" Colour="0,0,255" />
+      <Function ID="8" Name="Purple" Display="'Purple'" Dmx="161~183" Colour="128,0,255" />
+      <Function ID="9" Name="Basic Cols" Display="'Basic Cols %.f%%',0~100" Dmx="184~206" Colour="255,255,255" />
+      <Function ID="10" Name="Safe" Display="'Safe'" Dmx="0~22" Colour="0,0,0" />
+      <Function ID="11" Name="Rand Col C" Display="'Rand Col C'" Dmx="207~229" Colour="255,255,255" />
+      <Function ID="12" Name="Rand M C" Display="'Rand M C'" Dmx="230~252" Colour="255,255,255" />
+      <Function ID="13" Name="No Scroll" Display="'No Scroll'" Dmx="0~22" Colour="0,0,0" />
+      <Function ID="14" Name="Scroll CW" Display="'Scroll CW'" Dmx="253~255" Colour="0,0,0" />
+      <Function ID="15" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Pattern" Name="Pattern" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Speed" Display="'%.f%%',100~0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Rotate" Name="Rotate" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="No Func" Display="'No Func'" Dmx="0~63" />
+      <Function ID="2" Name="Horiz Rot" Display="'Horiz Rot'" Dmx="64~127" />
+      <Function ID="3" Name="Vert Rot" Display="'Vert Rot'" Dmx="128~191" />
+      <Function ID="4" Name="Rot" Display="'Rot'" Dmx="192~255" />
+    </Attribute>
+    <Attribute ID="Dot_Rot" Name="Dot &amp; Rot" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="No Func" Display="'No Func'" Dmx="0~63" />
+      <Function ID="2" Name="Rot" Display="'Rot'" Dmx="64~127" />
+      <Function ID="3" Name="Dotting" Display="'Dotting'" Dmx="128~191" />
+      <Function ID="4" Name="Dot &amp; Rot" Display="'Dot &amp; Rot'" Dmx="192~255" />
+    </Attribute>
+    <Attribute ID="Move" Name="Move" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="No Func" Display="'No Func'" Dmx="0~63" />
+      <Function ID="2" Name="Horiz Move" Display="'Horiz Move'" Dmx="64~127" />
+      <Function ID="3" Name="Vert Move" Display="'Vert Move'" Dmx="128~191" />
+      <Function ID="4" Name="Movement" Display="'Movement'" Dmx="192~255" />
+    </Attribute>
+    <Attribute ID="Extend" Name="Extend" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="No Func" Display="'No Func'" Dmx="0~63" />
+      <Function ID="2" Name="Horiz Ext" Display="'Horiz Ext'" Dmx="64~127" />
+      <Function ID="3" Name="Vert Ext" Display="'Vert Ext'" Dmx="128~191" />
+      <Function ID="4" Name="Extend" Display="'Extend'" Dmx="192~255" />
+    </Attribute>
+    <Attribute ID="Zoom" Name="Zoom" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="No Func" Display="'No Func'" Dmx="0~85" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Zoom SL" Display="'Zoom SL %.1f%%',0.0~100.0" Dmx="86~169" Iris="0~0" Zoom="0~0" />
+      <Function ID="3" Name="Zoom LS" Display="'Zoom LS %.1f%%',100.0~0.0" Dmx="170~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Draw_Speed" Name="Draw Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Speed" Display="'%.f%%',100~0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Scan_Speed" Name="Scan Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Speed" Display="'%.f%%',100~0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Col_Speed" Name="Col Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Speed" Display="'%.f%%',100~0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Size" Name="Size" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="18 DMX, 16bit" Channels="18">
+    <Import PearlRef="" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="530" TiltMax="256" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Pan" ChannelOffset="1,2" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="3,4" Wheel="3" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="7" Wheel="8" />
+      <Attribute ID="Zoom" ChannelOffset="14" Wheel="19" />
+      <Attribute ID="Size" ChannelOffset="18" Wheel="20" />
+      <Attribute ID="Pattern" ChannelOffset="8" Wheel="22" />
+      <Attribute ID="Rotate" ChannelOffset="10" Wheel="23" />
+      <Attribute ID="Dot_Rot" ChannelOffset="11" Wheel="24" />
+      <Attribute ID="PT_Speed" ChannelOffset="5" Wheel="26" />
+      <Attribute ID="Control" ChannelOffset="6" Wheel="28" />
+      <Attribute ID="Speed" ChannelOffset="9" Wheel="25" />
+      <Attribute ID="Move" ChannelOffset="12" Wheel="29" />
+      <Attribute ID="Extend" ChannelOffset="13" Wheel="21" />
+      <Attribute ID="Draw_Speed" ChannelOffset="15" Wheel="55" />
+      <Attribute ID="Scan_Speed" ChannelOffset="16" Wheel="27" />
+      <Attribute ID="Col_Speed" ChannelOffset="17" Wheel="56" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Auto">
+      <Set Channel="Control:1" Delay="1000" />
+    </Macro>
+    <Macro Name="Manual">
+      <Set Channel="Control:2" Delay="1000" />
+    </Macro>
+  </Macro>
+</Fixture>

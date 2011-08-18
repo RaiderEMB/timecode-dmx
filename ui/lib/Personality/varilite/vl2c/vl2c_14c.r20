@@ -1,0 +1,278 @@
+TODO, Range table,
+; "VARI*LITE 2C Projection Luminaire" 14 DMX channels, filename :vl2c_14c.r20
+;
+;   Date      By           Description
+;   05-08-99  Jan Opseth   Created 
+;   16-05-05  Phil Rogers  Revised macro lines
+;   14-11-05  Ed	   Moved Control to bank 20
+;-------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  VL2C_14Chan                                    14 DMX channels
+NAME "Varilite" "VL2C"
+; 
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE    1   14   M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   370 270
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+""
+""
+""
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=498
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+DMX  ;    Bank/fader to DMX relationship
+1   1   H   1   100 1N  H  1  "Intensity"   255  255  255
+3   61  s   2   100 1N  E  1  "Pan"         128   -1   -1
+0   0   L   3   100 1N  E  1  "Pan Low"     128   -1   -1
+3   1   s   4   100 1N  F  1  "Tilt"        128   -1   -1
+0   0   L   5   100 1N  F  1  "Tilt Low"    128   -1   -1
+4   1   I   6   100 1N  0  1  "Wheel_1"       0    0    0
+4  61   I   7   100 1N  N  1  "Wheel_2"       0    0    0
+5   1   L   8   100 1N  Q  1  "Beam"        128    0    0
+5   61  L   9   100 1N  L  1  "Edge"        128    0    0
+6   61  L   10  100 1N  J  1  "Gobo_Wheel"    0    0    0
+8    1  L   11  100 1N  0  1  "Focus Time"  255  255  255
+8   61  L   12  100 1N  0  1  "Edge Time"   255  255  255
+7   61  L   13  100 1N  0  1  "Beam  Time"   255  255  255
+20   1  I   14  100 1N  0  1  "Control"        0    0    0
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+VL2C 14 Channel 
+Assignment to wheels
+     A       B
+---------------------
+ 1 Intensity  --
+ 2  --      --
+ 3 Tilt     Pan
+ 4 Color1   Color2
+ 5 Beam     Edge
+ 6 Gobo     --
+ 7 --       Beam t.
+ 8 Focus t. Edge t.
+ 9 --       --
+10 --       --
+11 Control  --
+Thumbwheel 1-498 are
+controlled by 
+universe 1 and thumb.
+501-993 are controlled
+by universe 2.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+; color table color wheel
+PFTABLE "Colors" -1 6 7
+"Open"         1  0   0
+"Deep Red"     2  0  57
+"Amber"        3  0  8C
+"Yellow"       4  0  98
+"U Violet"     5  57  0       
+"Royal Blue"   6  98  0  
+"Blue"         7  A5  0  
+"Lavender"     8  33  0
+"Cyan"         9  98 E5
+"Magenta"     10   0 19
+PFEND
+
+; color table LEE/V*L/LUX/GAM 
+PFTABLE "VARI*Color" 30 6 7
+"Dark Red"	-1 4C 4C 
+"Med Red"	-1 4C 8C
+"Primary Red"	-1  0 57
+"Orange"	-1  0 72
+"Dark Orange"	-1 25 65
+"Med. Amber"	-1 FF 65 
+"DeepGolden"	-1 FF 72
+"Canary"	-1 25 8C
+"Light Amber"	-1  0 8C
+"LEE Orange"	-1 25 98
+"Chrome Oran"	-1 FF 8C
+"BrightYello"	-1 19 98
+"Dark Straw"	-1  0 98
+"Deep Amber"	-1  0 98
+"LightYello"	-1 25 B2
+"Straw"		-1 19 A5
+"Light Starw"	-1 25 FF
+"No ColGreen"	-1  0 FF
+"Pale Ye-Gre"	-1 E5 CC
+"Fern Green"	-1 D8 E5
+"Yellow-Gree"	-1 A5 98
+"Lime-Green"	-1 B2 B2
+"Prim.Green"	-1 A5 B2
+"LightGreen"	-1 98 B2
+"Moss Geen"	-1 98 CC
+"Lt.Blue-Gr"	-1 B2 E5
+"Kelly Green"	-1 CC E5
+"Dark Green"	-1 A5 D8
+"Fluor Green"	-1 98 D8
+"Dark Fl.Gre"	-1 8C FF
+"BlueGrassGr"	-1 A5 E5
+"Med.Bl.Gree"	-1 98 E5
+"D.PeacockGr"	-1 8C D8
+"Peacock Gre"	-1 A5 FF
+"D.Turquiose"	-1 B2 FF
+"Light Aqua"	-1 A5 FF
+"Aqua"		-1 8C E5
+"Full CTB"	-1 FF  0
+"Pale Blue"	-1 B2  0
+"LEELigtblue"	-1 A5  0
+"Med. Blue"	-1 98  0
+"Sea Blue"	-1 B2 25
+"Icy Blue"	-1 A5 25
+"Just Blue"	-1 8C  0
+"PrimaryBlue"	-1 98 33
+"D.SteelBlue"	-1 72 FF
+"Deep Blue"	-1 72  0
+"Dark Blue"	-1 8C 4C
+"Royal Blue"	-1 65 4C
+"DARK UV"	-1 57 19
+"Indigo"	-1 57  0
+"Congo Blue"	-1 65 19
+"Darkest Lav"	-1 CC 19
+"Drk.RosePur"	-1 33 4C
+"Deep Lavend"	-1 CC 4C
+"Deep Lav2"	-1 FF 33
+"Lilac"		-1 D8 4C
+"Spec.DLaven"	-1 A5 33
+"Cool Lavend"	-1 B2 33
+"Pale Lavend"	-1 D8 33
+"Mercury Vap"	-1 FF 4C
+"Medium Viol"	-1 FF 4C
+"Dark Lavend"	-1 19 4C
+"Pale Lilac"	-1 25 4C
+"Periwinkle"	-1  0 33
+"Dusty laven"	-1 FF 25
+"NoCol Lilac"	-1 19 25
+"Dark Rose"	-1 33 19
+"Dark Fushia"	-1 E5 19
+"DarkFolPink"	-1 FF 19
+"Magenta"	-1 FF 19
+"Hot Pink"	-1  0 19
+"Mauve"		-1 19 19
+"NoColPink"	-1  0 25
+"Coolbastamb"	-1  0 25
+"Dusty Rose"	-1 25 25
+PFEND
+
+
+ 
+
+; Positions
+PFTABLE "Positions" -1 2 4
+"Strike"    21 80  80
+"Left"      22 50  80
+"Right"     23 b0  80
+"Top"       24 80  50
+"Bottom"    25 80  b0
+"TLeft"     26 50  50
+"TRight"    27 b0  b0
+"BLeft"     28 50  b0
+"BRight"    29 b0  50
+PFEND
+
+
+; Static Gobo table 
+PFTABLE "Gobos" -1  10  
+"Open"          11  0  
+"Bathtubdrai"	12  25
+"Ray"   	13  3F
+"Med Circle"	14  57
+"Radialbreak"	15  72
+"Pinhole"	16  8C
+"VerticBars"	17  A5
+"Paddlewheel"	18  BF
+"VerticalSlo"	19  D8
+"HorizSlot"	20  FF     
+PFEND
+;
+;
+;RANGE 7 ; COLOR
+;  0  10  "White"
+; 11  20  "Col1+White"
+; 21  30  "Color1"
+; 31  40  "Col2+Col1"
+; 41  50  "Color2"
+; 51  60  "Col3+Col2"
+; 61  70  "Color3"
+; 71  80  "Col4+Col3"
+; 81  90  "Color4"
+; 91 100  "Col5+Col4"
+;101 110  "Color5"
+;111 120  "Col6+Col5"
+;121 130  "Color6"
+;131 140  "Col7+Col6"
+;141 150  "Color7"
+;151 160  "Col8+Col7"
+;161 170  "Color8"
+;171 180  "Col9+Col8"
+;181 190  "Color9"
+;191 200  "Col10+Col9"
+;201 210  "Color10"
+;211 220  "Col11+Col10"
+;221 230  "Col11"
+;231 240  "White+Col11"
+;241 255  "Spin %3d%%"(c-a)*100/(b-a)
+;REND
+
+MACRO "Lamp Off"      1  11  12  13  14
+"data"                0   0   0   0   0
+"delay"               1   A
+"data"                0   0   0   0  A8
+"delay"               1  32
+"data"                0   0   0   0   0
+MEND
+
+MACRO "Reset"         2  11  12  13  14
+"data"                0   0   0   0   0
+"delay"               1   A
+"data"                0   0   0   0  54
+"delay"               1  32
+"data"                0   0   0   0   0
+MEND
+
+MACRO "Lamp On"       3  11  12  13  14
+"data"                0   0   0   0   0
+"delay"               1   A
+"data"                0   0   0   0  FC
+"delay"               1  32
+"data"                0   0   0   0   0
+MEND
+

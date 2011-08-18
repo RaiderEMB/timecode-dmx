@@ -1,0 +1,250 @@
+; 'Silver Star YX-2108 Wash 250W SP', 15 DMX Channels, filename: SS2108SP.R20
+;
+;   Date       By                Description
+;   17-08-06   D.Milligan        Created - Exported from Diamond 4 file.
+;   18-08-06   D.Milligan        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  SS_YX2108SP                            mode=15 DMX, 16bit  15 DMX Channels
+NAME "Silver Star" "YX2108SP"
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  15  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   530   280
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 16 DMX, 16bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=497
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L   15   100   1N   O   1   "Shutter"          32     0     0
+1     1   H   16   100   1N   H   1   "Dimmer"          255     0     0
+3    61   s    1   100   1N   E   1   "Pan"             128     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        128     0     0
+4     1   I    7   100   1N   0   1   "Colour"            0     0     0
+10    1   L    8   100   1N   B   1   "Cyan"              0     0   255
+10   61   L    9   100   1N   C   1   "Magenta"           0     0   255
+9    61   L   10   100   1N   D   1   "Yellow"            0   255    51
+20    1   L   11   100   1N   0   1   "CMY Speed"         0     0     0
+20   61   I   12   100   1N   0   1   "Colour Macro"      0     0     0
+9     1   I   13   100   1N   P   1   "Effect"            0     0     0
+8    61   L    5   100   1N   0   1   "P/T Speed"         0     0     0
+8     1   I    6   100   1N   0   1   "Control"           0     0     0
+18    1   L   14   100   1N   0   1   "Reserved"          0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Silver Star YX-2108
+Wash 250W SP
+15 DMX, 16bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Lamp On"       1   6
+"data"                0  86
+"delay"               1  28
+"data"                0  40
+"delay"               1   A
+MEND
+
+MACRO "Lamp Off"      2   6
+"data"                0  EA
+"delay"               1  28
+"data"                0  40
+"delay"               1   A
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 15  ;Shutter
+0   31   "Closed"
+32  63   "Open"
+64  95   "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+96  127  "Open"
+128 159  "Pulse %3d%%"0+(((c-a)*100)/(b-a))
+160 191  "Open"
+192 223  "Rnd St %3d%%"0+(((c-a)*100)/(b-a))
+224 255  "Open"
+REND
+
+RANGE 16  ;Dimmer
+0   255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 7  ;Colour
+0   17   "Open"
+18  35   "Red"
+36  53   "Blue"
+54  72   "Green"
+73  90   "3200K"
+91  108  "5600K"
+109 127  "UV"
+128 190  "Sc CW %3d%%"0+(((c-a)*100)/(b-a))
+191 192  "No Scroll"
+193 255  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 8  ;Cyan
+0   255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 9  ;Magenta
+0   255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 10  ;Yellow
+0   255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 11  ;CMY Speed
+0   255  "Speed %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 12  ;Colour Macro
+0   9    "Open"
+8   15   "Colour1"
+16  23   "Colour2"
+24  31   "Colour3"
+32  39   "Colour4"
+40  47   "Colour5"
+48  55   "Colour6"
+56  63   "Colour7"
+64  71   "Colour8"
+72  79   "Colour9"
+80  87   "Colour10"
+88  95   "Colour11"
+96  103  "Colour12"
+104 111  "Colour13"
+112 119  "Colour14"
+120 127  "Colour15"
+128 135  "Colour16"
+136 143  "Colour17"
+144 151  "Colour18"
+152 159  "Colour19"
+160 167  "Colour20"
+168 175  "Colour21"
+176 183  "Colour22"
+184 191  "Colour23"
+192 199  "Colour24"
+200 207  "Colour25"
+208 215  "Colour26"
+216 223  "Colour27"
+224 231  "Colour28"
+232 239  "Colour29"
+240 247  "Colour30"
+248 255  "Colour31"
+REND
+
+RANGE 13  ;Effect
+0   70   "Open"
+71  180  "Beam %3d%%"0+(((c-a)*100)/(b-a))
+181 255  "Frost %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 5  ;P/T Speed
+0   255  "%3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 6  ;Control
+0   127  "Safe"
+128 139  "Lamp On"
+140 229  "Safe"
+230 239  "Lamp Off"
+239 255  "Safe"
+REND
+
+RANGE 14 ;Reserved
+0   255  "No Func"
+REND
+

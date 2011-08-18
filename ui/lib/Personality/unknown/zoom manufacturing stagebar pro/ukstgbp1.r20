@@ -1,0 +1,177 @@
+; 'Zoom Manufacturing Stagebar Pro 1W Mode 1, 34 DMX', 34 DMX Channels, filename: ZMStgbP1.R20
+;  Copyright © Avolites Ltd. 2008
+;
+;   Date       By                Description
+;   03-04-08   Pers Creator      Created - Exported from Diamond 4 file.
+;   03-04-08   Gregory Haynes    Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  ZM_StgbrPr1                         mode=Mode 1, 34 DMX  34 DMX Channels
+NAME "Zoom Manufacturing" "Stagebar Pro 1W Mode 1, 34 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  34  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Mode 1, 34 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=478
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+9     1   H    5   100   1N   H   1   "Dimmer"          255     0     0
+7     1   H    9   100   1N   0   1   "Dimmer 2"        255     0     0
+5     1   H   13   100   1N   0   1   "Dimmer 3"        255     0     0
+3     1   H   17   100   1N   0   1   "Dimmer 4"        255     0     0
+19    1   H   21   100   1N   0   1   "Dimmer 5"        255     0     0
+17    1   H   25   100   1N   0   1   "Dimmer 6"        255     0     0
+15    1   H   29   100   1N   0   1   "Dimmer 7"        255     0     0
+13    1   H   33   100   1N   0   1   "Dimmer 8"        255     0     0
+2    61   L   34   100   1N   O   1   "Shutter"           0     0     0
+10    1   L    2   100   1N   T   1   "Red"             255   255     0
+10   61   L    3   100   1N   U   1   "Green"           255   255     0
+9    61   L    4   100   1N   V   1   "Blue"            255     0   229
+8     1   L    6   100   1N   0   1   "Red 2"           255   255     0
+8    61   L    7   100   1N   0   1   "Green 2"         255   255     0
+7    61   L    8   100   1N   0   1   "Blue 2"          255     0   229
+6     1   L   10   100   1N   0   1   "Red 3"           255   255     0
+6    61   L   11   100   1N   0   1   "Green 3"         255   255     0
+5    61   L   12   100   1N   0   1   "Blue 3"          255     0   229
+4     1   L   14   100   1N   0   1   "Red 4"           255   255     0
+4    61   L   15   100   1N   0   1   "Green 4"         255   255     0
+3    61   L   16   100   1N   0   1   "Blue 4"          255     0   229
+20    1   L   18   100   1N   0   1   "Red 5"           255   255     0
+20   61   L   19   100   1N   0   1   "Green 5"         255   255     0
+19   61   L   20   100   1N   0   1   "Blue 5"          255     0   229
+18    1   L   22   100   1N   0   1   "Red 6"           255   255     0
+18   61   L   23   100   1N   0   1   "Green 6"         255   255     0
+17   61   L   24   100   1N   0   1   "Blue 6"          255     0   229
+16    1   L   26   100   1N   0   1   "Red 7"           255   255     0
+16   61   L   27   100   1N   0   1   "Green 7"         255   255     0
+15   61   L   28   100   1N   0   1   "Blue 7"          255     0   229
+14    1   L   30   100   1N   0   1   "Red 8"           255   255     0
+14   61   L   31   100   1N   0   1   "Green 8"         255   255     0
+13   61   L   32   100   1N   0   1   "Blue 8"          255     0   229
+11    1   I    1   100   1N   0   1   "Mode"              0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Zoom Manufacturing
+Stagebar Pro 1W
+Mode 1, 34 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Colour"     -1   2   3   4   6  10  14  18  22  26  30   7  11  15  19  23  27  31   8  12  16  20  24  28  32
+"Open"                1  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF
+"Red"                 2  FF   0   0  FF  FF  FF  FF  FF  FF  FF   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+"Amber"               3  FF  66   0  FF  FF  FF  FF  FF  FF  FF  66  66  66  66  66  66  66   0   0   0   0   0   0   0
+"Yellow"              4  FF  FF   0  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF   0   0   0   0   0   0   0
+"Green"               5   0  FF   0   0   0   0   0   0   0   0  FF  FF  FF  FF  FF  FF  FF   0   0   0   0   0   0   0
+"Cyan"                6   0  FF  FF   0   0   0   0   0   0   0  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF
+"Blue"                7   0   0  FF   0   0   0   0   0   0   0   0   0   0   0   0   0   0  FF  FF  FF  FF  FF  FF  FF
+"Lavender"            8  A6  A6  F2  A6  A6  A6  A6  A6  A6  A6  A6  A6  A6  A6  A6  A6  A6  F2  F2  F2  F2  F2  F2  F2
+"Purple"              9  7F   0  FF  7F  7F  7F  7F  7F  7F  7F   0   0   0   0   0   0   0  FF  FF  FF  FF  FF  FF  FF
+"Magenta"            10  FF   0  FF  FF  FF  FF  FF  FF  FF  FF   0   0   0   0   0   0   0  FF  FF  FF  FF  FF  FF  FF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Mode
+0   30   "34 Ch"
+31  70   "18 Ch"
+71  100  "10 Ch"
+101 130  "6 Ch"
+131 190  "6 Ch"
+191 255  "5 Ch"
+REND
+

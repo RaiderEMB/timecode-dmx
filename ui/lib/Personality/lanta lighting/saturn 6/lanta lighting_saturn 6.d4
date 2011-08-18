@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Saturn 6" ShortName="Sat   6" Company="Lanta Lighting">
+  <Copyright Notice="© Avolites Ltd. 2010" />
+  <History Date="03-03-10" Author="John Rogers" Comment="Created" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Programs" Name="Programs" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" Highlight="1" Lowlight="1" />
+      <Function ID="1" Name="Colour Mix" Display="'Colour Mix'" Dmx="0~10" Update="Red, Green, Blue, Orange" />
+      <Function ID="2" Name="Clock 1" Display="'Clock 1'" Dmx="11~24" Update="Red, Green, Blue, Orange" />
+      <Function ID="3" Name="Clock 2" Display="'Clock 2'" Dmx="25~39" Update="Red, Green, Blue, Orange" />
+      <Function ID="4" Name="Star 1" Display="'Star 1'" Dmx="40~54" Update="Red, Green, Blue, Orange" />
+      <Function ID="5" Name="Star 2" Display="'Star 2'" Dmx="55~69" Update="Red, Green, Blue, Orange" />
+      <Function ID="6" Name="Star 3" Display="'Star 3'" Dmx="70~84" Update="Red, Green, Blue, Orange" />
+      <Function ID="7" Name="Clock 3" Display="'Clock 3'" Dmx="85~99" Update="Red, Green, Blue, Orange" />
+      <Function ID="8" Name="Fan 1" Display="'Fan 1'" Dmx="100~114" Update="Red, Green, Blue, Orange" />
+      <Function ID="9" Name="Dots 1" Display="'Dots 1'" Dmx="115~129" Update="Red, Green, Blue, Orange" />
+      <Function ID="10" Name="Fan 2" Display="'Fan 2'" Dmx="130~144" Update="Red, Green, Blue, Orange" />
+      <Function ID="11" Name="Fan 3" Display="'Fan 3'" Dmx="145~159" Update="Red, Green, Blue, Orange" />
+      <Function ID="12" Name="Fan 4" Display="'Fan 4'" Dmx="160~174" Update="Red, Green, Blue, Orange" />
+      <Function ID="13" Name="Clock 4" Display="'Clock 4'" Dmx="175~189" Update="Red, Green, Blue, Orange" />
+      <Function ID="14" Name="Fan 5" Display="'Fan 5'" Dmx="190~204" Update="Red, Green, Blue, Orange" />
+      <Function ID="15" Name="Fan 6" Display="'Fan 6'" Dmx="205~219" Update="Red, Green, Blue, Orange" />
+      <Function ID="16" Name="Dots 2" Display="'Dots 2'" Dmx="220~234" Update="Red, Green, Blue, Orange" />
+      <Function ID="17" Name="Sound 1" Display="'Sound 1'" Dmx="235~249" Update="Red, Green, Blue, Orange" />
+      <Function ID="18" Name="Sound 2" Display="'Sound 2'" Dmx="250~255" Update="Red, Green, Blue, Orange" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="Colour Mix" ID="1" If="'Programs'==1" />
+      <Else ID="2" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+      <Function ID="2" Name="Speed" Display="'Speed %.1f%%',100.0~0.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="Colour Mix" ID="1" If="'Programs'==1" />
+      <Else ID="2" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Condition Name="Colour Mix" ID="1" If="'Programs'==1" />
+      <Else ID="2" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+      <Function ID="2" Name="No Func" Display="'No Function'" Dmx="0~0" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Orange" Name="Orange" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" />
+      <Condition Name="Colour Mix" ID="1" If="'Programs'==1" />
+      <Else ID="2" />
+      <Function ID="1" Name="Orange C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,128,0" />
+      <Function ID="2" Name="No Func" Display="'No Function'" Dmx="0~0" Colour="0,0,0" />
+    </Attribute>
+  </Control>
+  <Mode Name="6 DMX, 8bit" Channels="6">
+    <Import PearlRef="LH_Saturn_6" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="3" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="4" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="5" Wheel="12" />
+      <Attribute ID="Orange" ChannelOffset="6" Wheel="40" />
+      <Attribute ID="Programs" ChannelOffset="2" Wheel="13" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Red:1:100,Green:1:100,Blue:1:100" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:0" />
+      <Palette ID="3" Name="Amber" Number="3" Page="1" SetControl="Red:1:100,Green:1:50,Blue:1:0" />
+      <Palette ID="4" Name="Yellow" Legend="Yell" Number="4" Page="1" SetControl="Red:1:100,Green:1:100,Blue:1:0" />
+      <Palette ID="5" Name="Lime" Number="0" Page="1" SetControl="Red:1:50,Green:1:100,Blue:1:0" />
+      <Palette ID="6" Name="Green" Number="5" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:0" />
+      <Palette ID="7" Name="Aqua" Number="0" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:50" />
+      <Palette ID="8" Name="Cyan" Number="6" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:100" />
+      <Palette ID="9" Name="Light Blue" Number="0" Page="1" SetControl="Red:1:0,Green:1:50,Blue:1:100" />
+      <Palette ID="10" Name="Blue" Number="7" Page="1" SetControl="Red:1:0,Green:1:0,Blue:1:100" />
+      <Palette ID="11" Name="Purple" Legend="Purpl" Number="9" Page="1" SetControl="Red:1:50,Green:1:0,Blue:1:100" />
+      <Palette ID="12" Name="Magenta" Legend="Mag" Number="10" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:100" />
+      <Palette ID="13" Name="Rose" Number="0" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:50" />
+      <Palette ID="14" Name="Lavender" Legend="Lav" Number="8" Page="1" SetControl="Red:1:71,Green:1:43,Blue:1:94" />
+      <Palette ID="15" Name="Ultra Violet" Legend="UV" Number="0" Page="1" SetControl="Red:1:20,Green:1:0,Blue:1:100" />
+    </Group>
+  </Palettes>
+</Fixture>

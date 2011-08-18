@@ -1,0 +1,191 @@
+; 'Case Eureka 3D', 16 DMX Channels, filename: CSEURKLV.R20
+;
+;   Date       By                Description
+;   16-12-04   Pers Creator      Created - Exported from Diamond 4 file.
+;   17-12-04   Tom Peck          Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  CS_EurekaLv                         mode=16 DMX, 16bit  16 DMX Channels
+NAME "Case" "Eureka 3D, Live Extension"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  16  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0   0   0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 16 DMX, 16bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=496
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   I    1   100   1N   H   1   "Override"          4     0     0
+2    61   I    2   100   1N   0   1   "Change Mode"     127     0     0
+6     1   I    3   100   1N   P   1   "Texture Bank"      0     0     0
+6    61   I    4   100   1N   0   1   "Texture"           0     0     0
+7     1   s    5   100   1N   I   1   "Video Start"       0     0     0
+0     0   L    6   100   1N   I   1   "Video St Low"      0     0     0
+7    61   s    7   100   1N   K   1   "Video End"       255     0     0
+0     0   L    8   100   1N   K   1   "Video En Low"    255     0     0
+8     1   L    9   100   1N   0   1   "Speed"            76     0     0
+15    1   L   10   100   1N   0   1   "No Func"           0     0     0
+15   61   L   11   100   1N   0   1   "No Func"           0     0     0
+16    1   L   12   100   1N   0   1   "No Func"           0     0     0
+16   61   L   13   100   1N   0   1   "No Func"           0     0     0
+17    1   L   14   100   1N   0   1   "No Func"           0     0     0
+17   61   L   15   100   1N   0   1   "No Func"           0     0     0
+18    1   L   16   100   1N   0   1   "No Func"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Case Eureka 3D
+16 DMX, 16bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Override
+0   4    "Off"
+5   250  "No Func"
+251 255  "On"
+REND
+
+RANGE 2  ;Change Mode
+0   127  "UnMute"
+128 255  "Mute"
+REND
+
+RANGE 3  ;Texture Bank
+0   0    "Bank 1"
+13  13   "Bank 2"
+25  25   "Bank 3"
+37  37   "Bank 4"
+49  49   "Bank 5"
+61  61   "Bank 6"
+74  74   "Bank 7"
+86  86   "Bank 8"
+99  99   "Bank 9"
+110 110  "Bank 10"
+123 123  "Bank 11"
+135 135  "Bank 12"
+147 147  "Bank 13"
+159 159  "Bank 14"
+171 171  "Bank 15"
+183 183  "Bank 16"
+196 196  "Bank 17"
+208 208  "Bank 18"
+220 220  "Bank 19"
+232 232  "Bank 20"
+REND
+
+RANGE 4  ;Texture
+0   0    "Bank 1"
+13  13   "Bank 2"
+25  25   "Bank 3"
+37  37   "Bank 4"
+49  49   "Bank 5"
+61  61   "Bank 6"
+74  74   "Bank 7"
+86  86   "Bank 8"
+99  99   "Bank 9"
+110 110  "Bank 10"
+123 123  "Bank 11"
+135 135  "Bank 12"
+147 147  "Bank 13"
+159 159  "Bank 14"
+171 171  "Bank 15"
+183 183  "Bank 16"
+196 196  "Bank 17"
+208 208  "Bank 18"
+220 220  "Bank 19"
+232 232  "Bank 20"
+REND

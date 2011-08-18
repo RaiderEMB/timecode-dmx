@@ -1,0 +1,194 @@
+; 'KAM DMX Laser Tri160 FScan', 12 DMX Channels, filename: KAMFSCAN.R20
+;  Copyright © Avolites Ltd. 2009
+;
+;   Date       By                Description
+;   25-11-09   Pers Creator      Created - Exported from Diamond 4 file.
+;   25-11-09   Steve Cohu        Checked.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  KAT160,12CH                         mode=Standard, 12 DMX, 8bit  12 DMX Channels
+NAME "KAM" "DMX Laser Tri160 FScan"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  12  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Standard, 12 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=500
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    1   100   1N   O   1   "Mode"            128     0     0
+6     1   L    2   100   1N   I   1   "Gobo"             54     0     0
+7     1   L    3   100   1N   J   1   "Pattern"           0     0     0
+3     1   L    4   100   1N   F   1   "Vertical"         64     0     0
+3    61   L    5   100   1N   E   1   "Horizontal"       64     0     0
+4     1   L    6   100   1N   0   1   "Vertical Sp"      64     0     0
+4    61   L    7   100   1N   0   1   "Horizont Sp"      64     0     0
+6    61   I    8   100   1N   K   1   "Gobo Rot"          0     0     0
+5     1   L    9   100   1N   Q   1   "Zoom"             42     0     0
+5    61   L   10   100   1N   L   1   "Size"            127     0     0
+9     1   I   11   100   1N   P   1   "Dotting"           0     0     0
+9    61   L   12   100   1N   0   1   "Draw"              0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+KAM
+DMX Laser Tri160 FScan
+Standard, 12 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Mode
+0   63   "Sound      "
+64  127  "Automatic"
+128 191  "Manual "
+192 255  "Auto / Man"
+REND
+
+RANGE 2  ;Gobo
+0   35   "Blackout"
+36  71   "Red %3d%%"(c-a)*100/(b-a)
+72  107  "Green %3d%%"(c-a)*100/(b-a)
+108 144  "Yellow %3d%%"(c-a)*100/(b-a)
+145 179  "RGB %3d%%"(c-a)*100/(b-a)
+180 215  "Random %3d%%"(c-a)*100/(b-a)
+216 251  "Mixed %3d%%"(c-a)*100/(b-a)
+252 255  "Mixed  %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 4  ;Vertical
+0   127  "Pos  %3d%%"(c-a)*100/(b-a)
+128 191  "Auto D %3d%%"(c-a)*100/(b-a)
+192 255  "Auto U %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 5  ;Horizontal
+0   127  "Pos  %3d%%"(c-a)*100/(b-a)
+128 191  "Auto R %3d%%"(c-a)*100/(b-a)
+192 255  "Auto L %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 6  ;Vertical Spin
+0   127  "Pos  %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 255  "Auto %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;HorizontalSpin
+0   127  "Pos  %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 255  "Auto %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Gobo Rot
+0   127  "Index %3d%%"(c-a)*100/(b-a)
+128 191  "CCW %3d%%"(c-a)*100/(b-a)
+192 255  "CW %3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 9  ;Zoom
+0   85   "Manual%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+86  170  "In %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+171 255  "Out %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Size
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;Draw
+0   127  "%3d%%"(c-a)*100/(b-a)
+128 255  "%3d%%"(c-a)*100/(b-a)
+REND
+

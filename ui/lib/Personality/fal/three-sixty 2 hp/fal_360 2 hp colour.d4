@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="360 2 HP Colour" ShortName="360 2HPCol" Company="Fal">
+  <Copyright Notice="© Avolites Ltd. 2011" />
+  <History Date="21-05-04" Author="L Gallagher" Comment="Created" />
+  <History Date="24-05-04" Author="Greg Brown" Comment="Checked" />
+  <History Date="07-07-06" Author="Ed" Comment="Changed CMY Mixing attributes to proper CMIXes" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <History Date="15-10-08" Author="Jonathan Moreton" Comment="Updated manufacturer name" />
+  <History Date="04-02-11" Author="John Rogers" Comment="Fixed Incorrect Channel Count error in 10 DMX mode." />
+  <Manual Filename="/manual/Fixtures/FAL" Summary="" />
+  <Control>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:0" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:0" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:0" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:60" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="255~255" Intensity="0~0" />
+      <Function ID="2" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="8~150" Intensity="0~0" />
+      <Function ID="3" Name="Strobe" Display="'Strobe %.1f%%',1.0~100.0" Dmx="151~246" Intensity="0~0" />
+      <Function ID="4" Name="Closed" Display="'Closed'" Dmx="0~7" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Beam" Name="Beam" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:0" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Lens" Display="'Lens'" Dmx="255~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Not_Used" Name="Not Used" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="8bit HTP" Display="'%.1f%%',0.0~100.0" Dmx="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="10 DMX, 16Bit" Channels="10">
+    <Import PearlRef="FAL_3602HP2" DiamondRef="Fal_360_3" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="Phillips MSD 200575W" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="24.5" />
+      <Size Height="580mm" Width="410mm" Depth="340mm" />
+      <Focus Type="Mirror" PanMax="450" TiltMax="270" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="4" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="5,9" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="6,10" Wheel="3" />
+      <Attribute ID="Cyan" ChannelOffset="1" Wheel="10" />
+      <Attribute ID="Yellow" ChannelOffset="2" Wheel="12" />
+      <Attribute ID="Magenta" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Beam" ChannelOffset="7" Wheel="19" />
+      <Attribute ID="Not_Used" ChannelOffset="8" Wheel="57" />
+    </Include>
+  </Mode>
+  <Mode Name="8 DMX, 8bit" Channels="8">
+    <Import PearlRef="FAL_3602HP1" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="Phillips MSD 200575W" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="24.5" />
+      <Size Height="580mm" Width="410mm" Depth="340mm" />
+      <Focus Type="Mirror" PanMax="450" TiltMax="270" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="4" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="5" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="6" Wheel="3" />
+      <Attribute ID="Cyan" ChannelOffset="1" Wheel="10" />
+      <Attribute ID="Yellow" ChannelOffset="2" Wheel="12" />
+      <Attribute ID="Magenta" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Beam" ChannelOffset="7" Wheel="19" />
+      <Attribute ID="Not_Used" ChannelOffset="8" Wheel="57" />
+    </Include>
+  </Mode>
+</Fixture>

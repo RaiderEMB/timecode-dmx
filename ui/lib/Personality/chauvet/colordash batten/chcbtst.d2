@@ -1,0 +1,271 @@
+;-----------------------------------------------------------------------|
+;  Chauvet COLORdash Batten Arc 1+D, personality for the Diamond II     |
+;-----------------------------------------------------------------------|
+;   History :-                                                          |
+;-----------------------------------------------------------------------|
+;   Revision |  Date     |  By       | Description                      |
+;------------|-----------|-----------|----------------------------------|
+;   1.0      |  16-07-09 | J.Moreton | Created                          |
+;            |  17-07-09 | David Hunt| Checked                          |
+;---------------------------------------------------------------------- |
+
+
+DEVICE=CH_ColDBtSt      ; Device Name (upto 11 chars) must be enclosed in single
+DEVICE23=Stage         ; 22 chars after '='
+                        ; extra information for softkey prompt lines 2&3
+                        ; a total of 22 chars, split into 2 lines of 11
+
+;                                  __ Number of lines of DMX info.
+;                                 |   __ Number of lines of wheel info
+;                                 |  |
+;                                 |  |
+;                                 |  |
+HSTART  3  10 1b05  0   0 ff 0 8  10  10
+;       |  |  |    |   |  |  | |
+;       |  |  |    |   |  |  | |__ Line number for flash button DMX info
+;       |  |  |    |   |  |  |     from DMX definition (1..x)
+;       |  |  |    |   |  |  |__ Button release value
+;       |  |  |    |   |  |__ Button ON value (ff means use swop/add fader)
+;       |  |  |    |   |__ The TILT arc in Degrees
+;       |  |  |    |__ The Pan arc in degrees
+;       |  |  |__ Date in PC format (1b05==5/08/93)
+;       |  |__ Number of DMX slots used
+;       |__ Patch direction (1-backward, 2 forward)
+
+
+
+
+TEXTSTART       ; Upto 21 lines of 28 characters
+                            ;
+          Chauvet           ;
+    COLORdash  Batten       ;
+           Stage            ;
+       10 DMX, 8 bit        ;
+       PERSONALITY          ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+TEXTEND
+
+
+;------------------------------------------------------------
+
+; For the Attribute Dictionary refer to file 'dict.per'
+
+;------------------------------------------------------------
+; DMX information
+; No unused lines allowed between keyword 'DSTART' and last DMX definition
+
+DSTART              ; DMX Picture
+1  1  1 0   0 0     ; Dimmer
+2  2  0 0   5 0     ; Red
+3  2  0 0  10 0     ; Green
+4  2  0 0   6 0     ; Blue
+5  2  0 0   4 0     ; R G B
+6  2  0 0  24 0     ; Shutter
+7  2  0 0  52 0     ; Control
+8  2  0 0  25 0     ; Speed 
+9  2  0 0 171 0     ; ID Control
+10 2  0 0  86 0     ; Block Sel
+;| |  | |   | |
+;| |  | |   | |__ Spare (always 0 for now)
+;| |  | |   |__ Attribute name (See list above)
+;| |  | |__ Curve (0 means no curve otherwise curve number)
+;| |  |__ Flags (7=inverted, 40=instant, 20=16-bit)
+;| |__ Channel type (1=HTP, 2=LTP, 0=Dummy(for 16-bit defines)
+;|__ DMX offset (1..255, 0 means DIMMER will be patched seperately)
+
+
+;------------------------------------------------------------
+; WHEEL information
+
+WSTART
+8 ffff ffff 4   0 0  8   0 1  0  1  0  0  0  0  0      ; 1. Dimmer
+8 ffff ffff 1   5 0  9   0 1  1  2  0  0  0  0  0      ; 2. Red
+8 ffff ffff 1  10 0 10   0 1  2  3  0  0  0  0  0      ; 3. Green
+8 ffff ffff 1   6 0 11   0 1  3  4  0  0  0  0  0      ; 4. Blue
+8 ffff    0 2   4 0 12   4 1  4  5  0  0  0  0  0      ; 5. R G B
+8 ffff    0 1  24 0  7   0 1  5  6  0  0  0  0  0      ; 6. Shutter
+8 ffff    0 2  52 0 41  52 1  6  7  0  0  0  0  0      ; 7. Control
+8 ffff    0 1  25 0 42   0 1  7  8  0  0  0  0  0      ; 8. Speed
+8 ffff    0 2 171 0 43 171 1  8  9  0  0  0  0  0      ; 9. Id Control
+8 ffff    0 2  86 0 4   86 1  9 10  0  0  0  0  0      ; 10. Block Sel
+;|   |    | |  | |  |   |  |  |  |  |  |  |  |  |__ List of Table channels as
+;|   |    | |  | |  |   |  |  |  |_______________ line numbers from DMX def.
+;|   |    | |  | |  |   |  |  |                  ff or 0 means unused channel
+;|   |    | |  | |  |   |  |  |__ DMX line pertainnig to this wheel (-1)
+;|   |    | |  | |  |   |  |__ Number of chanels under control (Table width)
+;|   |    | |  | |  |   |__ Table type (Attribute number) 0 means NOT a table
+;|   |    | |  | |  |__ Wheel number (1..8 on bank1, 9..16 on bank2 et cetera)
+;|   |    | |  | |__ 0 for 8 bits, 1 for 16 bits
+;|   |    | |  |__  Attribute name from above list (0..MAX)
+;|   |    | |__ Wheel type (1-offset, 2-Table, 3-Pan/Tilt, 4-Dimmer)
+;|   |    |__ Default value (left shifted as necessary)
+;|   |__ AND mask, where more than wheel controls same DMX slot
+;|__ Wheel multiplication =16-(bits used)
+;    eg. for 8 bit channels it is 8, for 12 bit channels it is 4
+
+
+
+
+;--------------------------------------------------------------------
+; TABLES
+; Each Table is enclosed by the keywords "TSTART" and "*** TEND ***"
+; The legend is 16 chars long
+; The correct number of values must be supplied (8-bits) with spaces in
+; between
+
+; FUNCTION TABLE
+;         __ Table width (upto 6 allowed)
+;        |  __ Type of Table from attribute list
+;        | |
+TSTART   1 4
+Open               5
+_R_G_BFLUP_0      23
+_R_G_BDNFL_0      48
+_R_G_B_0FLUP      73
+_R_G_B_0DNFL      98
+_R_G_BUP_0DN     123
+_R_G_BFL_0DN     148
+_R_G_BFL_0UP     173
+_R_G_BDNDNFL     198
+W1 3200k         213
+W2 3400k         218
+W3 4200k         223
+W4 4900k         228
+W5 5600k         233
+W6 5900k         238
+W7 6500k         243
+W8 7200k         248
+W9 8500k         253
+*** TEND ***
+
+TSTART   1 52
+Safe               5
+Fans Off          15
+Fans Low          25
+Fans Normal       35
+Fans High         45
+Fans Auto         55
+Auto 1            65
+Auto 2            75
+Auto 3            85
+Auto 4            95
+Auto 5           105
+Auto 6           115
+Auto 7           125
+Auto 8           135
+Auto 9           145
+Auto 10          155
+Cust 1           165
+Cust 2           174
+Cust 3           184
+Cust 4           194
+Cust 5           203
+Cust 6           212
+Cust 7           222
+Cust 8           232
+Cust 9           241
+Cust 10          250
+*** TEND ***
+
+TSTART  1 171
+ID 1-6             5
+ID 1              15
+ID 2              25 
+ID 3              35
+ID 4              45
+ID 5              55
+ID 6              65
+ID 7              75
+ID 8              85
+ID 9              95
+ID 10            105
+ID 11            115
+ID 12            125
+ID 13            135
+ID 14            145
+ID 15            155
+ID 16            165
+ID 17            175
+ID 18            185
+ID 19            195
+ID 20            205
+ID 21            210
+ID 22            211
+ID 23            212
+ID 24            213
+ID 25            214
+ID 26            215
+ID 27            216
+ID 28            217
+ID 29            218
+ID 30            219
+ID 31            220
+ID 32            221
+ID 33            222
+ID 34            223
+ID 35            224
+ID 36            225
+ID 37            226
+ID 38            227
+ID 39            228
+ID 40            229
+ID 41            230
+ID 42            231
+ID 43            232
+ID 44            233
+ID 45            234
+ID 46            235
+ID 47            236
+ID 48            237
+ID 49            238
+ID 50            239
+ID 51            240
+ID 52            241
+ID 53            242
+ID 54            243
+ID 55            244
+ID 56            245
+ID 57            246
+ID 58            247
+ID 59            248
+ID 60            249
+ID 61            250
+ID 62            251
+ID 63            252
+ID 64            253
+ID 65            254
+ID 66            255
+*** TEND ***
+
+TSTART   1 86
+Blk 1,2,3,4        4
+Blk 1             19
+Blk 2             39
+Blk 3             59
+Blk 4             79
+Blk 1,2           99
+Blk 3,4          119
+Blk 1,4          139
+Blk 2,3          159
+Blk 1,2,3        179
+Blk 2,3,4        199
+Blk 1,3,4        219
+Blk 1,2,4        242
+*** TEND ***
+
+;--------------------------------------------------------------------
+

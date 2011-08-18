@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Image Scan" ShortName="Image Scan" Company="Martin">
+  <Copyright Notice="© Avolites Ltd. 2011" />
+  <History Date="10-05-11" Author="Nic Morris" Comment="Created" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Shutter_Func" Name="Shutter Func" Description="" Group="I" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Shutter" Display="'Shutter'" Dmx="0~0" Update="Shutter" Intensity="0~0" />
+      <Function ID="2" Name="Control" Display="'Control'" Dmx="0~0" Update="Shutter" Intensity="0~0" />
+      <Function ID="3" Name="Raw DMX" Display="'Raw DMX'" Dmx="0~0" Update="Shutter" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="2" PowerOn="2" />
+      <Condition Name="Control" ID="3,4,5,6" If="'Shutter_Func'==2" />
+      <Condition Name="Shutter" ID="1,2" If="'Shutter_Func'==1" />
+      <Else ID="7" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~9" Intensity="0~0" />
+      <Function ID="2" Name="Open" Display="'Open'" Dmx="10~138" Intensity="0~0" />
+      <Function ID="3" Name="Safe" Display="'Safe'" Dmx="140~202" Intensity="0~0" />
+      <Function ID="4" Name="Reset" Display="'Reset'" Dmx="203~235" Intensity="0~0" />
+      <Function ID="5" Name="Lamp On" Display="'Lamp On'" Dmx="236~252" Intensity="0~0" />
+      <Function ID="6" Name="Lamp Off" Display="'Lamp Off'" Dmx="253~255" Intensity="0~0" />
+      <Function ID="7" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Focus" Name="Focus" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Focus" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo1Rot" Name="Gobo Rot" Description="" Group="G" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Index" ID="1" If="'Gobo1Func'==1" />
+      <Condition Name="Spin" ID="2,3,4,5" If="'Gobo1Func'==2" />
+      <Else ID="6" />
+      <Function ID="1" Name="Index" Display="'Index %.f%%',0~100" Dmx="51400~63993" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="No Spin" Display="'No Spin'" Dmx="0~1028" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Spin CW" Display="'Spin CW %.f%%',100~0" Dmx="24415~47288" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="No Spin" Display="'No Spin'" Dmx="47545~51143" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="5" Name="Spin CCW" Display="'Spin CCW %.f%%',0~100" Dmx="1285~24158" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="6" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~65535" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="PT_Speed" Name="P/T Speed" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Tracking" Display="'Tracking'" Dmx="0~4" />
+      <Function ID="2" Name="Vector" Display="'Vector %.1f%%',0.0~100.0" Dmx="255~5" />
+    </Attribute>
+    <Attribute ID="Gobo1Func" Name="Gobo Func" Description="" Group="G" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Index" Display="'Index'" Dmx="0~0" Update="Gobo1Rot" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Spin" Display="'Spin'" Dmx="0~0" Update="Gobo1Rot" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Raw DMX" Display="'Raw DMX'" Dmx="0~0" Update="Gobo1Rot" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="Mode 1, 7 DMX" Channels="7">
+    <Import PearlRef="MT_ImgScan" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Moving Mirror" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter_Func" Wheel="4" />
+      <Attribute ID="Shutter" ChannelOffset="1" Wheel="5" />
+      <Attribute ID="Pan" ChannelOffset="5" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="6" Wheel="3" />
+      <Attribute ID="Gobo1Func" Wheel="13" />
+      <Attribute ID="Gobo1Rot" ChannelOffset="3,4" Wheel="15" />
+      <Attribute ID="Focus" ChannelOffset="2" Wheel="20" />
+      <Attribute ID="PT_Speed" ChannelOffset="7" Wheel="25" />
+    </Include>
+  </Mode>
+  <Mode Name="Mode 2, 9 DMX" Channels="9">
+    <Import PearlRef="MT_ImgScanH" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Moving Mirror" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter_Func" Wheel="4" />
+      <Attribute ID="Shutter" ChannelOffset="1" Wheel="5" />
+      <Attribute ID="Pan" ChannelOffset="5,6" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="7,8" Wheel="3" />
+      <Attribute ID="Gobo1Func" Wheel="13" />
+      <Attribute ID="Gobo1Rot" ChannelOffset="3,4" Wheel="15" />
+      <Attribute ID="Focus" ChannelOffset="2" Wheel="20" />
+      <Attribute ID="PT_Speed" ChannelOffset="9" Wheel="25" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Reset">
+      <Set Channel="Shutter_Func:2,Shutter:4" Delay="6000" />
+      <Set Channel="Shutter_Func:1,Shutter:2" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Shutter_Func:2,Shutter:5" Delay="6000" />
+      <Set Channel="Shutter_Func:1,Shutter:2" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp Off">
+      <Set Channel="Shutter_Func:2,Shutter:6" Delay="6000" />
+      <Set Channel="Shutter_Func:1,Shutter:2" Delay="0" />
+    </Macro>
+  </Macro>
+  <Palettes>
+    <Group Name="Position">
+      <Palette ID="1" Name="Middle" Number="21" Page="1" SetControl="Pan:1:50,Tilt:1:50" />
+      <Palette ID="2" Name="Left" Number="22" Page="1" SetControl="Pan:1:31,Tilt:1:50" />
+      <Palette ID="3" Name="Right" Number="23" Page="1" SetControl="Pan:1:69,Tilt:1:50" />
+      <Palette ID="4" Name="Top" Number="24" Page="1" SetControl="Pan:1:50,Tilt:1:31" />
+      <Palette ID="5" Name="Bottom" Number="25" Page="1" SetControl="Pan:1:50,Tilt:1:69" />
+      <Palette ID="6" Name="TLeft" Number="26" Page="1" SetControl="Pan:1:31,Tilt:1:31" />
+      <Palette ID="7" Name="TRight" Number="27" Page="1" SetControl="Pan:1:69,Tilt:1:69" />
+      <Palette ID="8" Name="BLeft" Number="28" Page="1" SetControl="Pan:1:31,Tilt:1:69" />
+      <Palette ID="9" Name="BRight" Number="29" Page="1" SetControl="Pan:1:69,Tilt:1:31" />
+    </Group>
+  </Palettes>
+</Fixture>

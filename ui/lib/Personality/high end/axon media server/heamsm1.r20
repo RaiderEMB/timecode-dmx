@@ -1,0 +1,338 @@
+; 'High End Axon Media Server', 35 DMX Channels, filename: HEAMSM1.R20
+;
+;   Date       By                Description
+;   27-10-05   Pers Creator      Created - Exported from Diamond 4 file.
+;   09-01-06   Ed Spencer	 Fixed X Ratio and Y Ratio Locate values
+;   09-01-06   Ed Spencer	 Added lower bit channel for viewpoint Pos Z channel 33
+;   22-06-06   Ed Spencer	 Fixed Clash with wheels and Zpos locate value
+;   13-12-07   Ion Balan	 Created from DL2 file
+;   11-12-08   David Hunt        Fixed range table problems
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  HE_AxonMS-1                                 mode=1. Global Layer  35 DMX Channels
+NAME "High End" "Axon Media Server First Patch"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  35  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   400   240
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 2. Global Layer"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=477
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1  1  H 1  100 1N H 1 "Global Int"	255 0   0
+6  1  I 2  100 1N P 1 "G Effect 1"	0   0   0
+6  61 I 3  100 1N 0 1 "G Eff 1 M1"	0   0   0
+7  1  I 4  100 1N 0 1 "G Eff 1 M2"	0   0   0
+7  61 I 5  100 1N 0 1 "G Eff 1 M3"	0   0   0
+16 1  I 6  100 1N 0 1 "G Effect 2"	0   0   0
+16 61 I 7  100 1N 0 1 "G Eff 2 M1"	0   0   0
+17 1  I 8  100 1N 0 1 "G Eff 2 M2"	0   0   0
+17 61 I 9  100 1N 0 1 "G Eff 2 M3"	0   0   0
+18 61 I 10 100 1N 0 1 "Mask Select"	0   0   0
+19 1  I 11 100 1N 0 1 "Mask Size"	255 0   0
+19 61 I 12 100 1N 0 1 "Mask Edge"	0   0   0
+9  1  L 13 100 1N 0 1 "Top Edge"	0   0   0
+10 61 L 14 100 1N 0 1 "Right Edge"	0   0   0
+9  61 L 15 100 1N 0 1 "Bottom Edge"	0   0   0
+10 1  L 16 100 1N 0 1 "Left Edge"	0   0   0
+4  1  L 17 100 1N 0 1 "Top Left X"	0   0   0
+5  1  L 18 100 1N 0 1 "Top Left Y"	0   0   0
+4  61 L 19 100 1N 0 1 "Top Right X"	0   0   0
+5  61 L 20 100 1N 0 1 "Top Right Y"	0   0   0
+14 1  L 21 100 1N 0 1 "Bottom R X"	0   0   0
+14 61 L 22 100 1N 0 1 "Bottom R Y"	0   0   0
+15 1  L 23 100 1N 0 1 "Bottom L X"	0   0   0
+15 61 L 24 100 1N 0 1 "Bottom L Y"	0   0   0
+13 1  L 25 100 1N 0 1 "X Ratio"		128 0   0
+13 61 L 26 100 1N 0 1 "Y Ratio"		128 0   0
+18 1  I 27 100 1N 0 1 "Viewpoint M"	0   0   0
+3  1  s 28 100 1N E 1 "View Pos X"	128 0   0
+0  0  L 29 100 1N E 1 "View Pos Low"	128 0   0
+3 61  s 30 100 1N F 1 "View Pos Y"	128 0   0
+0  0  L 31 100 1N F 1 "View Pos Low"	128 0   0
+12 1  L 32 100 1N 0 1 "View Pos Z"	128 0   0
+0  0  L 33 100 1N 0 1 "View Pos Low"	0   0   0
+8  1  I 34 100 1N K 1 "Glob Cont Md"	0   0   0
+8  61 I 35 100 1N I 1 "Global Cont"	0   0   0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+High End Catalyst DL2
+2. Global Layer
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 32    ;View Pos Z
+0   127 "In Fro %3d%%"100-(((c-a)*100)/(b-a))
+128 128 "Centre"
+129 255 "Behind %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 2  ;G Effect 1
+0 0 "Safe"
+1 1 "CMY Sim"
+2 2 "CMY Pix"
+3 3 "CMY non Bla"
+4 4 "RGB Pix"
+5 5 "RGB Pix 2"
+6 6 "RGB non Bla"
+7 7 "RGB to GBR"
+8 8 "RGB to BRG"
+9 9 "Solarize 1"
+10 10 "Solarize 2"
+11 11 "Solarize 3"
+12 12 "Solarize 4"
+13 13 "DotP Resamp"
+14 14 "Col Cyc"
+15 15 "All or Noth"
+16 16 "Solid RGB"
+17 17 "Invert RGB"
+18 18 "Inv S RGB G"
+19 19 "Inv S RGB B"
+20 20 "Edge Col"
+21 21 "Edge BW"
+22 22 "Horiz Rippl"
+23 23 "Vert Ripple"
+24 24 "Circ Ripple"
+25 25 "Asymet Ripp"
+26 26 "Chroma Fine"
+27 27 "Chroma Med"
+28 28 "Chroma Coar"
+29 29 "Inv Chro Fi"
+30 30 "Inv Chro Me"
+31 31 "Inv Chro Co"
+32 32 "Scan Line"
+33 33 "Trans Wipes"
+34 127 "Reserved"
+128 128 "Mask col"
+129 129 "Edge Fade C"
+130 255 "Reserv %3d"130+(((c-a)*125)/(b-a))
+REND
+
+RANGE 6 ;G Effect 2
+0 0 "Safe"
+1 1 "CMY Sim"
+2 2 "CMY Pix"
+3 3 "CMY non Bla"
+4 4 "RGB Pix"
+5 5 "RGB Pix 2"
+6 6 "RGB non Bla"
+7 7 "RGB to GBR"
+8 8 "RGB to BRG"
+9 9 "Solarize 1"
+10 10 "Solarize 2"
+11 11 "Solarize 3"
+12 12 "Solarize 4"
+13 13 "DotP Resamp"
+14 14 "Col Cyc"
+15 15 "All or Noth"
+16 16 "Solid RGB"
+17 17 "Invert RGB"
+18 18 "Inv S RGB G"
+19 19 "Inv S RGB B"
+20 20 "Edge Col"
+21 21 "Edge BW"
+22 22 "Horiz Rippl"
+23 23 "Vert Ripple"
+24 24 "Circ Ripple"
+25 25 "Asymet Ripp"
+26 26 "Chroma Fine"
+27 27 "Chroma Med"
+28 28 "Chroma Coar"
+29 29 "Inv Chro Fi"
+30 30 "Inv Chro Me"
+31 31 "Inv Chro Co"
+32 32 "Scan Line"
+33 33 "Trans Wipes"
+34 127 "Reserved"
+128 128 "Mask col"
+129 129 "Edge Fade C"
+130 255 "Reserv %3d"130+(((c-a)*125)/(b-a))
+REND
+
+RANGE 10 ;Mask Select
+0 0 "Rd Cl out i"
+1 1 "Rd Cl in ou"
+2 2 "Rect Cl out"
+3 3 "Rect Cl in "
+4 4 "Check Var1"
+5 5 "Check Var3"
+6 6 "Rad Wipe 1"
+7 7 "Rad Wipe 2"
+8 8 "Rad Wipe 3"
+9 9 "Rad Wipe 4"
+10 10 "Triangles 1"
+11 11 "Triangles 2"
+12 12 "Rect Wrap"
+13 13 "Tiles Cl in"
+14 14 "Horiz Doors"
+15 15 "H Doors Cl "
+16 16 "Vert Doors "
+17 17 "Vert Wipe C"
+18 18 "Rect Tile i"
+19 19 "Rect Tile i"
+20 20 "Vert P Cl o"
+21 21 "Vert P Cl o"
+22 22 "Vert Diamon"
+23 23 "Vert Diamon"
+24 24 "H Diamonds "
+25 25 "H Diamonds "
+26 26 "Pinwheel"
+27 27 "O Iris Cl o"
+28 28 "O Iris Cl i"
+29 29 "Osc Iris Cl"
+30 127 "Reserv %3d"30+(((c-a)*97)/(b-a))
+128 128 "Strobe, Cl "
+129 129 "R Iris Cl i"
+130 130 "Rect Cl out"
+131 131 "Rect Cl in "
+132 132 "Check var 1"
+133 133 "Check var 2"
+134 134 "Rad Wipe 1"
+135 135 "Rad Wipe 2"
+136 136 "Rad Wipe 3"
+137 137 "Rad Wipe 4"
+138 138 "Triangles 1"
+139 139 "Triangles 2"
+140 140 "Rect Wrap"
+141 141 "Tiles Cl in"
+142 142 "Horiz Doors"
+143 143 "H Doors opp"
+144 144 "Doors cl ou"
+145 145 "V Wipe Cl i"
+146 146 "Rect tile i"
+147 147 "Rect tile i"
+148 148 "Vert Pan Cl"
+149 149 "Vert Pan Cl"
+150 150 "V Diamonds "
+151 151 "V Diamonds "
+152 152 "H Diamonds "
+153 153 "H Diamonds "
+154 154 "Pinwheel"
+155 155 "O iris Cl o"
+156 156 "O iris Cl i"
+157 157 "Osc iris Cl"
+158 255 "Reserv %3d"158+(((c-a)*97)/(b-a))
+REND
+
+RANGE 27 ;Viewpoint M
+0 0 "Centre Of U"
+1 1 "Object 1"
+2 2 "Object 2"
+3 3 "Object 3"
+4 4 "Centre Of U"
+5 5 "Object 1"
+6 6 "Object 2"
+7 7 "Object 3"
+8 8 "Centre Of U"
+9 9 "Object 1"
+10 10 "Object 2"
+11 11 "Object 3"
+12 255 "Reserv %3d"12+(((c-a)*243)/(b-a))
+REND
+
+RANGE 34 ;Global Control M
+0   254 "Reserv %3d"0+(((c-a)*254)/(b-a))
+255 255 "Stats"
+REND
+
+RANGE 35 ;Global Control
+0 0 "No Ctrl"
+1 3 "Alt font Co"
+4 255 "Reserv %3d"4+(((c-a)*251)/(b-a))
+REND
+

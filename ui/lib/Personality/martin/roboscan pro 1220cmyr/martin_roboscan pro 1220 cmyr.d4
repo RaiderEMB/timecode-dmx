@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="RoboScan Pro 1220 CMYR" ShortName="1220 CMYR" Company="Martin">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="27-04-09" Author="Jonathan Moreton" Comment="Created" />
+  <History Date="29-04-09" Author="David Hunt" Comment="Checked" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Shutter_Func" Name="Shutter Func" Description="" Group="I" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Shutter_Func" Display="'Shutter'" Dmx="0~0" Update="Shutter" Intensity="0~0" />
+      <Function ID="2" Name="Control_LoFF_Func" Display="'Control       (LoFF On)'" Dmx="0~0" Update="Shutter" Intensity="0~0" />
+      <Function ID="3" Name="Control_Func" Display="'Control       (LoFF Off)'" Dmx="0~0" Update="Shutter" Intensity="0~0" />
+      <Function ID="4" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Shutter" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Shutter_Func" ID="1,2" If="'Shutter_Func'==1" />
+      <Condition Name="Control_LoFF_Func" ID="3,4,5,7,8" If="'Shutter_Func'==2" />
+      <Condition Name="Control_Func" ID="3,6,7,8" If="'Shutter_Func'==3" />
+      <Else ID="9" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~49" Intensity="0~0" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="50~177" Intensity="0~0" />
+      <Function ID="3" Name="Safe" Display="'Safe'" Dmx="178~199" Intensity="0~0" />
+      <Function ID="4" Name="Fan Low" Display="'Fan Low'" Dmx="200~243" Intensity="0~0" />
+      <Function ID="5" Name="Lamp Off" Display="'Lamp Off'" Dmx="244~247" Intensity="0~0" />
+      <Function ID="6" Name="Fan Low" Display="'Fan Low'" Dmx="200~247" Intensity="0~0" />
+      <Function ID="7" Name="Reset" Display="'Reset'" Dmx="248~251" Intensity="0~0" />
+      <Function ID="8" Name="Lamp On" Display="'Lamp On'" Dmx="252~255" Intensity="0~0" />
+      <Function ID="9" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Colour1Func" Name="Colour 1 Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Split_Func" Display="'Split Gel'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="4" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour 1" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8,9,10" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="30,31,32,33" If="'Colour1Func'==2" />
+      <Condition Name="Split_Func" ID="11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29" If="'Colour1Func'==3" />
+      <Else ID="34" />
+      <Function ID="11" Name="Open" Display="'Open'" Dmx="0~0" Colour="255,255,255" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" Colour="255,255,255" />
+      <Function ID="12" Name="Open/Amber" Display="'Open/Amber    %.f%%',0~100" Dmx="1~9" Colour="255,255,255" />
+      <Function ID="13" Name="Amber" Display="'Amber'" Dmx="10~10" Colour="255,100,0" />
+      <Function ID="15" Name="Fern Green" Display="'Fern Green'" Dmx="20~20" Colour="0,255,0" />
+      <Function ID="17" Name="Light Blue" Display="'Light Blue'" Dmx="30~30" Colour="0,128,255" />
+      <Function ID="19" Name="Flame Red" Display="'Flame Red'" Dmx="40~40" Colour="255,0,0" />
+      <Function ID="21" Name="Primary Green" Display="'Primary Green'" Dmx="50~50" Colour="0,255,0" />
+      <Function ID="23" Name="Blue" Display="'Blue'" Dmx="60~60" Colour="0,0,255" />
+      <Function ID="25" Name="Orange" Display="'Orange'" Dmx="70~70" Colour="255,128,0" />
+      <Function ID="27" Name="Turquoise" Display="'Turquoise'" Dmx="80~80" Colour="0,255,128" />
+      <Function ID="10" Name="Purple" Display="'Purple'" Dmx="90~97" Colour="128,0,255" />
+      <Function ID="6" Name="Primary Green" Display="'Primary Green'" Dmx="122~129" Colour="0,255,0" />
+      <Function ID="7" Name="Blue" Display="'Blue'" Dmx="114~121" Colour="0,0,255" />
+      <Function ID="8" Name="Orange" Display="'Orange'" Dmx="106~113" Colour="255,128,0" />
+      <Function ID="9" Name="Turquoise" Display="'Turquoise'" Dmx="98~105" Colour="0,255,128" />
+      <Function ID="2" Name="Amber" Display="'Amber'" Dmx="154~161" Colour="255,100,0" />
+      <Function ID="3" Name="Fern Green" Display="'Fern Green'" Dmx="146~153" Colour="0,255,0" />
+      <Function ID="4" Name="Light Blue" Display="'Light Blue'" Dmx="138~145" Colour="0,128,255" />
+      <Function ID="5" Name="Flame Red" Display="'Flame Red'" Dmx="130~137" Colour="255,0,0" />
+      <Function ID="14" Name="Amber/Fern Green" Display="'Amber/Fern    Green %.f%%',0~100" Dmx="11~19" Colour="255,100,0" />
+      <Function ID="16" Name="Fern Green/Light Blue" Display="'Green/Light   Blue %.f%%',0~100" Dmx="21~29" Colour="0,255,0" />
+      <Function ID="18" Name="Light Blue/Flame Red" Display="'Light Blue/   Flame Red %.f%%',0~100" Dmx="31~39" Colour="0,128,255" />
+      <Function ID="20" Name="Flame Red/Primary Green" Display="'Red/Primary   Green %.f%%',0~100" Dmx="41~49" Colour="255,0,0" />
+      <Function ID="22" Name="Primary Green/Blue " Display="'Primary Green/Blue  %.f%%',0~100" Dmx="51~59" Colour="0,255,0" />
+      <Function ID="24" Name="Blue/Orange" Display="'Blue/Orange   %.f%%',0~100" Dmx="61~69" Colour="0,0,255" />
+      <Function ID="26" Name="Orange/Turquoise" Display="'Orange/       Turquoise %.f%%',0~100" Dmx="71~79" Colour="255,128,0" />
+      <Function ID="30" Name="No Scroll" Display="'No Scroll'" Dmx="0~0" Colour="255,255,255" />
+      <Function ID="31" Name="Scroll CW" Display="'Scroll CW     %.f%%',100~0" Dmx="162~208" Colour="0,0,0" />
+      <Function ID="32" Name="No Scroll" Display="'No Scroll'" Dmx="0~0" Colour="255,255,255" />
+      <Function ID="33" Name="Scroll CCW" Display="'Scroll CCW    %.f%%',0~100" Dmx="209~255" Colour="0,0,0" />
+      <Function ID="34" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+      <Function ID="28" Name="Turquoise/Purple" Display="'Turquoise/    Purple %.f%%',0~100" Dmx="81~89" Colour="0,255,128" />
+      <Function ID="29" Name="Purple" Display="'Purple'" Dmx="90~97" Colour="128,0,255" />
+    </Attribute>
+    <Attribute ID="Colour2Func" Name="Colour 2 Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour2" Colour="0,0,0" />
+      <Function ID="2" Name="Split_Func" Display="'Split Gel'" Dmx="0~0" Update="Colour2" Colour="0,0,0" />
+      <Function ID="3" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour2" Colour="0,0,0" />
+      <Function ID="4" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour2" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour2" Name="Colour 2" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8,9,10" If="'Colour2Func'==1" />
+      <Condition Name="Split_Func" ID="11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29" If="'Colour2Func'==2" />
+      <Condition Name="Scroll_Func" ID="30,31,32,33" If="'Colour2Func'==3" />
+      <Else ID="34" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" Colour="255,255,255" />
+      <Function ID="2" Name="CTO" Display="'CTO'" Dmx="154~161" Colour="255,240,200" />
+      <Function ID="3" Name="CTB" Display="'CTB'" Dmx="146~153" Colour="230,230,255" />
+      <Function ID="4" Name="Orange" Display="'Orange'" Dmx="138~145" Colour="255,128,0" />
+      <Function ID="5" Name="Red" Display="'Red'" Dmx="130~137" Colour="255,0,0" />
+      <Function ID="6" Name="UV" Display="'UV'" Dmx="122~129" Colour="180,0,255" />
+      <Function ID="7" Name="Dark Blue" Display="'Deep Blue'" Dmx="114~121" Colour="0,0,180" />
+      <Function ID="8" Name="Dark Lavender" Display="'Dark Lavender'" Dmx="106~113" Colour="128,0,255" />
+      <Function ID="9" Name="Pink" Display="'Pink'" Dmx="98~105" Colour="255,150,150" />
+      <Function ID="10" Name="Light Green" Display="'Light Green'" Dmx="90~97" Colour="128,255,0" />
+      <Function ID="11" Name="Open" Display="'Open'" Dmx="0~0" Colour="255,255,255" />
+      <Function ID="12" Name="Open/CTO" Display="'Open/CTO      %.f%%',0~100" Dmx="1~9" Colour="255,255,255" />
+      <Function ID="13" Name="CTO" Display="'CTO'" Dmx="10~10" Colour="255,240,200" />
+      <Function ID="14" Name="CTO/CTB" Display="'CTO/CTB       %.f%%',0~100" Dmx="11~19" Colour="255,240,200" />
+      <Function ID="15" Name="CTB" Display="'CTB'" Dmx="20~20" Colour="230,230,255" />
+      <Function ID="16" Name="CTB/Orange" Display="'CTB/Orange    %.f%%',0~100" Dmx="21~29" Colour="230,230,255" />
+      <Function ID="17" Name="Orange" Display="'Orange'" Dmx="30~30" Colour="255,128,0" />
+      <Function ID="18" Name="Orange/Red" Display="'Orange/Red    %.f%%',0~100" Dmx="31~39" Colour="255,128,0" />
+      <Function ID="19" Name="Red" Display="'Red'" Dmx="40~40" Colour="255,0,0" />
+      <Function ID="20" Name="Red/UV" Display="'Red/UV        %.f%%',0~100" Dmx="41~49" Colour="255,0,0" />
+      <Function ID="21" Name="UV" Display="'UV'" Dmx="50~50" Colour="180,0,255" />
+      <Function ID="22" Name="UV/Dark Blue" Display="'UV/Dark Blue  %.f%%',0~100" Dmx="51~59" Colour="180,0,255" />
+      <Function ID="23" Name="Dark Blue" Display="'Deep Blue'" Dmx="60~60" Colour="0,0,180" />
+      <Function ID="24" Name="Dark Blue/Purple" Display="'Dark Blue/    Purple %.f%%',0~100" Dmx="61~69" Colour="0,0,180" />
+      <Function ID="25" Name="Pink" Display="'Pink'" Dmx="80~80" Colour="255,150,150" />
+      <Function ID="26" Name="Pink/Light Green" Display="'Pink/Light Green %.f%%',0~100" Dmx="81~89" Colour="255,150,150" />
+      <Function ID="27" Name="Dark Lavender" Display="'Dark Lavender'" Dmx="70~70" Colour="128,0,255" />
+      <Function ID="28" Name="Dark Lavender/Pink" Display="'Dark Lavender/Pink %.f%%',0~100" Dmx="71~79" Colour="128,0,255" />
+      <Function ID="29" Name="Light Green" Display="'Light Green'" Dmx="90~97" Colour="128,255,0" />
+      <Function ID="30" Name="No Scroll" Display="'No Scroll'" Dmx="0~0" Colour="255,255,255" />
+      <Function ID="31" Name="Scroll CW" Display="'Scroll CW     %.f%%',100~0" Dmx="162~208" Colour="0,0,0" />
+      <Function ID="32" Name="No Scroll" Display="'No Scroll'" Dmx="0~0" Colour="255,255,255" />
+      <Function ID="33" Name="Scroll CCW" Display="'Scroll CCW    %.f%%',0~100" Dmx="209~255" Colour="0,0,0" />
+      <Function ID="34" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:20" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="Gobo1Func" Name="Gobo 1 Func" Description="" Group="G" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Gobo1" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Split_Func" Display="'Split Gel'" Dmx="0~0" Update="Gobo1" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Gobo1" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo1" Name="Gobo 1" Description="" Group="G">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8,9,10" If="'Gobo1Func'==1" />
+      <Condition Name="Split_Func" ID="11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29" If="'Gobo1Func'==2" />
+      <Else ID="30" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Gobo 1" Display="'Stars'" Dmx="245~255" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Gobo 2" Display="'Star'" Dmx="237~244" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="Gobo 3" Display="'Dots'" Dmx="229~236" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="5" Name="Gobo 4" Display="'Cone'" Dmx="221~228" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="6" Name="Gobo 5" Display="'Pling'" Dmx="213~220" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="7" Name="Gobo 6" Display="'Dot-Circle'" Dmx="205~212" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="8" Name="Gobo 7" Display="'Bells'" Dmx="197~204" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="9" Name="Gobo 8" Display="'Flower'" Dmx="189~196" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="10" Name="Gobo 9" Display="'Turbine'" Dmx="180~188" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="11" Name="Open" Display="'Open'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="12" Name="Open/Gobo 1" Display="'Open/Stars    %.f%%',0~100" Dmx="1~19" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="13" Name="Gobo 1" Display="'Stars'" Dmx="20~20" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="14" Name="Gobo 1/Gobo 2" Display="'Stars/Star    %.f%%',0~100" Dmx="21~39" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="15" Name="Gobo 2" Display="'Star'" Dmx="40~40" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="16" Name="Gobo 2/Gobo 3" Display="'Star/Dots     %.f%%',0~100" Dmx="41~59" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="17" Name="Gobo 3" Display="'Dots'" Dmx="60~60" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="18" Name="Gobo 3/Gobo 4" Display="'Dots/Cone     %.f%%',0~100" Dmx="61~79" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="19" Name="Gobo 4" Display="'Cone'" Dmx="80~80" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="20" Name="Gobo 4/Gobo 5" Display="'Cone/Pling    %.f%%',0~100" Dmx="81~99" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="21" Name="Gobo 5" Display="'Pling'" Dmx="100~100" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="22" Name="Gobo 5/Gobo 6" Display="'Pling/Dot-    Circle %.f%%',0~100" Dmx="101~119" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="23" Name="Gobo 6" Display="'Dot-Circle'" Dmx="120~120" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="24" Name="Gobo 6/Gobo 7" Display="'Dot-Circle/   Bells %.f%%',0~100" Dmx="121~139" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="25" Name="Gobo 7" Display="'Bells'" Dmx="140~140" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="26" Name="Gobo 7/Gobo 8" Display="'Bells/Flower  %.f%%',0~100" Dmx="141~159" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="27" Name="Gobo 8" Display="'Flower'" Dmx="160~160" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="28" Name="Gobo 8/Gobo 9" Display="'Flower/Turbine %.f%%',0~100" Dmx="161~179" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="29" Name="Gobo 9" Display="'Turbine'" Dmx="180~180" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="30" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo2Func" Name="Gobo 2 Func" Description="" Group="G" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func_Ind" Display="'Fixed Index'" Dmx="0~0" Update="Gobo2, Gobo2Rot" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Fixed_Func_Spin" Display="'Fixed Spin'" Dmx="0~0" Update="Gobo2, Gobo2Rot" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo2" Name="Gobo 2" Description="" Group="G">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func_Ind" ID="1,2,3,4,5" If="'Gobo2Func'==1" />
+      <Condition Name="Fixed_Func_Spin" ID="6,7,8,9,10" If="'Gobo2Func'==2" />
+      <Else ID="11" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~24" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Gobo 1" Display="'Gobo 1'" Dmx="25~49" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Gobo 2" Display="'Gobo 2'" Dmx="50~74" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="Gobo 3" Display="'Gobo 3'" Dmx="75~99" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="5" Name="Gobo 4" Display="'Gobo 4'" Dmx="100~125" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="6" Name="Open" Display="'Open'" Dmx="0~24" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="7" Name="Gobo 1" Display="'Gobo 1'" Dmx="126~157" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="8" Name="Gobo 2" Display="'Gobo 2'" Dmx="158~189" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="9" Name="Gobo 3" Display="'Gobo 3'" Dmx="190~221" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="10" Name="Gobo 4" Display="'Gobo 4'" Dmx="222~255" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="11" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo2Rot" Name="Gobo 2 Rot" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Fixed_Func_Ind" ID="1" If="'Gobo2Func'==1" />
+      <Condition Name="Fixed_Func_Spin" ID="2,3,4,5" If="'Gobo2Func'==2" />
+      <Else ID="6" />
+      <Function ID="1" Name="Index" Display="'Index %.1f%%',0.0~100.0" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="No Spin" Display="'No Spin'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Spin CW" Display="'Spin CW %.f%%',100~0" Dmx="128~254" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="No Spin" Display="'No Spin'" Dmx="255~255" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="5" Name="Spin CCW" Display="'Spin CCW %.f%%',0~100" Dmx="1~127" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="6" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Focus" Name="Focus" Description="" Group="B">
+      <Locate Locate="2:50" PowerOn="2:50" />
+      <Function ID="1" Name="Default" Display="'Default'" Dmx="0~9" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Focus" Display="'%.1f%%',0.0~100.0" Dmx="10~177" Iris="0~0" Zoom="0~0" />
+      <Function ID="3" Name="Far Focus" Display="'Far Focus'" Dmx="175~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Iris" Name="Iris" Description="" Group="B">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Iris" Display="'%.1f%%',0.0~100.0" Dmx="157~0" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Closed" Display="'Closed'" Dmx="158~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Prism_Func" Name="Prism Func" Description="" Group="E" Size="0">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Prism_Func" Display="'Prism'" Dmx="0~0" Update="Prism" />
+      <Function ID="2" Name="Frost_Func" Display="'Frost'" Dmx="0~0" Update="Prism" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Prism" />
+    </Attribute>
+    <Attribute ID="Prism" Name="Prism" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Prism_Func" ID="1,2,4" If="'Prism_Func'==1" />
+      <Condition Name="Frost_Func" ID="1,3" If="'Prism_Func'==2" />
+      <Else ID="5" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~49" />
+      <Function ID="2" Name="3 Facet Prism" Display="'3 Facet Prism'" Dmx="50~99" />
+      <Function ID="3" Name="Frost" Display="'%.1f%%',0.0~100.0" Dmx="100~149" />
+      <Function ID="4" Name="5 Facet Prism" Display="'5 Facet Prism'" Dmx="150~255" />
+      <Function ID="5" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="PT_Speed" Name="P/T Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Tracking" Display="'Tracking'" Dmx="0~0" />
+      <Function ID="2" Name="Speed" Display="'%.1f%%',100.0~0.0" Dmx="1~251" />
+      <Function ID="3" Name="BO on P/T" Display="'BO on P/T'" Dmx="252~255" />
+    </Attribute>
+    <Attribute ID="Speed_Func" Name="Speed Func" Description="" Group="S" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Dimmer,CMY,Beam_Func" Display="'Dimmer, CMY,  Beam'" Dmx="0~0" Update="Speed" />
+      <Function ID="2" Name="Colour1-2,Gobo1,Prism_Func" Display="'Colour1-2,    Gobo1,Prism'" Dmx="0~0" Update="Speed" />
+      <Function ID="3" Name="Rot Gobos,Index_Func" Display="'Rot Gobos,    Index'" Dmx="0~0" Update="Speed" />
+      <Function ID="4" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Speed" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Condition Name="Rot Gobos,Index_Func" ID="4,5" If="'Speed_Func'==3" />
+      <Condition Name="Dimmer,CMY,Beam_Func" ID="1,2,3" If="'Speed_Func'==1" />
+      <Condition Name="Colour1-2,Gobo1,Prism_Func" ID="1,2,5" If="'Speed_Func'==2" />
+      <Else ID="6" />
+      <Function ID="1" Name="Tracking" Display="'Tracking'" Dmx="0~0" />
+      <Function ID="2" Name="Speed" Display="'%.1f%%',100.0~0.0" Dmx="1~251" />
+      <Function ID="3" Name="Fast Speed" Display="'Fast Speed'" Dmx="252~255" />
+      <Function ID="5" Name="BO on P/T" Display="'BO on P/T'" Dmx="252~255" />
+      <Function ID="4" Name="Shutter Open on P/T" Display="'Shutter Open  on P/T'" Dmx="0~251" />
+      <Function ID="6" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="Mode 1 " Channels="15">
+    <Import PearlRef="MT_RP1220C1" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter_Func" Wheel="4" />
+      <Attribute ID="Shutter" ChannelOffset="1" Wheel="5" />
+      <Attribute ID="Dimmer" ChannelOffset="2" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="14" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="15" Wheel="3" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="3" Wheel="8" />
+      <Attribute ID="Colour2Func" Wheel="37" />
+      <Attribute ID="Colour2" ChannelOffset="4" Wheel="38" />
+      <Attribute ID="Cyan" ChannelOffset="5" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="6" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="7" Wheel="12" />
+      <Attribute ID="Gobo1Func" Wheel="13" />
+      <Attribute ID="Gobo1" ChannelOffset="8" Wheel="14" />
+      <Attribute ID="Gobo2Func" Wheel="16" />
+      <Attribute ID="Gobo2" ChannelOffset="9" Wheel="17" />
+      <Attribute ID="Gobo2Rot" ChannelOffset="10" Wheel="18" />
+      <Attribute ID="Focus" ChannelOffset="11" Wheel="19" />
+      <Attribute ID="Iris" ChannelOffset="12" Wheel="20" />
+      <Attribute ID="Prism_Func" Wheel="22" />
+      <Attribute ID="Prism" ChannelOffset="13" Wheel="23" />
+    </Include>
+  </Mode>
+  <Mode Name="Mode 2" Channels="17">
+    <Import PearlRef="MT_RP1220C2" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter_Func" Wheel="4" />
+      <Attribute ID="Shutter" ChannelOffset="1" Wheel="5" />
+      <Attribute ID="Dimmer" ChannelOffset="2" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="14,15" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="16,17" Wheel="3" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="3" Wheel="8" />
+      <Attribute ID="Colour2Func" Wheel="37" />
+      <Attribute ID="Colour2" ChannelOffset="4" Wheel="38" />
+      <Attribute ID="Cyan" ChannelOffset="5" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="6" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="7" Wheel="12" />
+      <Attribute ID="Gobo1Func" Wheel="13" />
+      <Attribute ID="Gobo1" ChannelOffset="8" Wheel="14" />
+      <Attribute ID="Gobo2Func" Wheel="16" />
+      <Attribute ID="Gobo2" ChannelOffset="9" Wheel="17" />
+      <Attribute ID="Gobo2Rot" ChannelOffset="10" Wheel="18" />
+      <Attribute ID="Focus" ChannelOffset="11" Wheel="19" />
+      <Attribute ID="Iris" ChannelOffset="12" Wheel="20" />
+      <Attribute ID="Prism_Func" Wheel="22" />
+      <Attribute ID="Prism" ChannelOffset="13" Wheel="23" />
+    </Include>
+  </Mode>
+  <Mode Name="Mode 3" Channels="17">
+    <Import PearlRef="MT_RP1220C3" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter_Func" Wheel="4" />
+      <Attribute ID="Shutter" ChannelOffset="1" Wheel="5" />
+      <Attribute ID="Dimmer" ChannelOffset="2" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="14" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="15" Wheel="3" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="3" Wheel="8" />
+      <Attribute ID="Colour2Func" Wheel="37" />
+      <Attribute ID="Colour2" ChannelOffset="4" Wheel="38" />
+      <Attribute ID="Cyan" ChannelOffset="5" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="6" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="7" Wheel="12" />
+      <Attribute ID="Gobo1Func" Wheel="13" />
+      <Attribute ID="Gobo1" ChannelOffset="8" Wheel="14" />
+      <Attribute ID="Gobo2Func" Wheel="16" />
+      <Attribute ID="Gobo2" ChannelOffset="9" Wheel="17" />
+      <Attribute ID="Gobo2Rot" ChannelOffset="10" Wheel="18" />
+      <Attribute ID="Focus" ChannelOffset="11" Wheel="19" />
+      <Attribute ID="Iris" ChannelOffset="12" Wheel="20" />
+      <Attribute ID="Prism_Func" Wheel="22" />
+      <Attribute ID="Prism" ChannelOffset="13" Wheel="23" />
+      <Attribute ID="PT_Speed" ChannelOffset="16" Wheel="27" />
+      <Attribute ID="Speed_Func" Wheel="25" />
+      <Attribute ID="Speed" ChannelOffset="17" Wheel="26" />
+    </Include>
+  </Mode>
+  <Mode Name="Mode 4" Channels="19">
+    <Import PearlRef="MT_RP1220C4" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter_Func" Wheel="4" />
+      <Attribute ID="Shutter" ChannelOffset="1" Wheel="5" />
+      <Attribute ID="Dimmer" ChannelOffset="2" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="14,15" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="16,17" Wheel="3" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="3" Wheel="8" />
+      <Attribute ID="Colour2Func" Wheel="37" />
+      <Attribute ID="Colour2" ChannelOffset="4" Wheel="38" />
+      <Attribute ID="Cyan" ChannelOffset="5" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="6" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="7" Wheel="12" />
+      <Attribute ID="Gobo1Func" Wheel="13" />
+      <Attribute ID="Gobo1" ChannelOffset="8" Wheel="14" />
+      <Attribute ID="Gobo2Func" Wheel="16" />
+      <Attribute ID="Gobo2" ChannelOffset="9" Wheel="17" />
+      <Attribute ID="Gobo2Rot" ChannelOffset="10" Wheel="18" />
+      <Attribute ID="Focus" ChannelOffset="11" Wheel="19" />
+      <Attribute ID="Iris" ChannelOffset="12" Wheel="20" />
+      <Attribute ID="Prism_Func" Wheel="22" />
+      <Attribute ID="Prism" ChannelOffset="13" Wheel="23" />
+      <Attribute ID="PT_Speed" ChannelOffset="18" Wheel="27" />
+      <Attribute ID="Speed_Func" Wheel="25" />
+      <Attribute ID="Speed" ChannelOffset="19" Wheel="26" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Lamp Off">
+      <Set Channel="Shutter:5" Delay="6000" />
+      <Set Channel="Shutter:1" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Shutter:7" Delay="5000" />
+      <Set Channel="Shutter:1" Delay="0" />
+    </Macro>
+    <Macro Name="Reset">
+      <Set Channel="Shutter:6" Delay="5000" />
+      <Set Channel="Shutter:1" Delay="0" />
+    </Macro>
+  </Macro>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Cyan:1:0,Magenta:1:0,Yellow:1:0" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Cyan:1:0,Magenta:1:100,Yellow:1:100" />
+      <Palette ID="3" Name="Amber" Number="3" Page="1" SetControl="Cyan:1:0,Magenta:1:50,Yellow:1:100" />
+      <Palette ID="4" Name="Yellow" Legend="Yell" Number="4" Page="1" SetControl="Cyan:1:0,Magenta:1:0,Yellow:1:100" />
+      <Palette ID="5" Name="Lime" Number="0" Page="1" SetControl="Cyan:1:50,Magenta:1:0,Yellow:1:100" />
+      <Palette ID="6" Name="Green" Number="5" Page="1" SetControl="Cyan:1:100,Magenta:1:0,Yellow:1:100" />
+      <Palette ID="7" Name="Aqua" Number="0" Page="1" SetControl="Cyan:1:100,Magenta:1:0,Yellow:1:50" />
+      <Palette ID="8" Name="Cyan" Number="6" Page="1" SetControl="Cyan:1:100,Magenta:1:0,Yellow:1:0" />
+      <Palette ID="9" Name="Light Blue" Number="0" Page="1" SetControl="Cyan:1:100,Magenta:1:50,Yellow:1:0" />
+      <Palette ID="10" Name="Blue" Number="7" Page="1" SetControl="Cyan:1:100,Magenta:1:100,Yellow:1:0" />
+      <Palette ID="11" Name="Purple" Legend="Purpl" Number="0" Page="1" SetControl="Cyan:1:50,Magenta:1:100,Yellow:1:0" />
+      <Palette ID="12" Name="Magenta" Legend="Mag" Number="10" Page="1" SetControl="Cyan:1:0,Magenta:1:100,Yellow:1:0" />
+      <Palette ID="13" Name="Rose" Number="0" Page="1" SetControl="Cyan:1:0,Magenta:1:100,Yellow:1:50" />
+      <Palette ID="14" Name="Lavender" Legend="Lav" Number="8" Page="1" SetControl="Cyan:1:29,Magenta:1:57,Yellow:1:6" />
+      <Palette ID="15" Name="Ultra Violet" Legend="UV" Number="9" Page="1" SetControl="Cyan:1:80,Magenta:1:100,Yellow:1:0" />
+    </Group>
+    <Group Name="Gobo">
+      <Palette ID="1" Name="Open" Number="11" Page="1" SetControl="Gobo1:1,Gobo1Func:1,Gobo2:6,Gobo2Func:2" />
+      <Palette ID="2" Name="Gobo 1" Number="12" Page="1" SetControl="Gobo1:2,Gobo1Func:1,Gobo2:6,Gobo2Func:2" />
+      <Palette ID="3" Name="Gobo 2" Number="13" Page="1" SetControl="Gobo1:3,Gobo1Func:1,Gobo2:6,Gobo2Func:2" />
+      <Palette ID="4" Name="Gobo 3" Number="14" Page="1" SetControl="Gobo1:4,Gobo1Func:1,Gobo2:6,Gobo2Func:2" />
+      <Palette ID="5" Name="Gobo 4" Number="15" Page="1" SetControl="Gobo1:5,Gobo1Func:1,Gobo2:6,Gobo2Func:2" />
+      <Palette ID="6" Name="Gobo 5" Number="16" Page="1" SetControl="Gobo1:6,Gobo1Func:1,Gobo2:6,Gobo2Func:2" />
+      <Palette ID="7" Name="Gobo 6" Number="17" Page="1" SetControl="Gobo1:7,Gobo1Func:1,Gobo2:6,Gobo2Func:2" />
+      <Palette ID="8" Name="Gobo 7" Number="18" Page="1" SetControl="Gobo1:8,Gobo1Func:1,Gobo2:6,Gobo2Func:2" />
+      <Palette ID="9" Name="Gobo 8" Number="19" Page="1" SetControl="Gobo1:9,Gobo1Func:1,Gobo2:6,Gobo2Func:2" />
+      <Palette ID="10" Name="Gobo 9" Number="0" Page="1" SetControl="Gobo1:10,Gobo1Func:1,Gobo2:6,Gobo2Func:2" />
+      <Palette ID="11" Name="Gobo 1" Number="0" Page="1" SetControl="Gobo1:1,Gobo1Func:1,Gobo2:7,Gobo2Func:2" />
+      <Palette ID="12" Name="Gobo 2" Number="0" Page="1" SetControl="Gobo1:1,Gobo1Func:1,Gobo2:8,Gobo2Func:2" />
+      <Palette ID="13" Name="Gobo 3" Number="0" Page="1" SetControl="Gobo1:1,Gobo1Func:1,Gobo2:9,Gobo2Func:2" />
+    </Group>
+    <Group Name="Position">
+      <Palette ID="1" Name="Middle" Number="21" Page="1" SetControl="Pan:1:50,Tilt:1:50" />
+      <Palette ID="2" Name="Left" Number="22" Page="1" SetControl="Pan:1:31,Tilt:1:50" />
+      <Palette ID="3" Name="Right" Number="23" Page="1" SetControl="Pan:1:69,Tilt:1:50" />
+      <Palette ID="4" Name="Top" Number="24" Page="1" SetControl="Pan:1:50,Tilt:1:31" />
+      <Palette ID="5" Name="Bottom" Number="25" Page="1" SetControl="Pan:1:50,Tilt:1:69" />
+      <Palette ID="6" Name="TLeft" Number="26" Page="1" SetControl="Pan:1:31,Tilt:1:31" />
+      <Palette ID="7" Name="TRight" Number="27" Page="1" SetControl="Pan:1:69,Tilt:1:69" />
+      <Palette ID="8" Name="BLeft" Number="28" Page="1" SetControl="Pan:1:31,Tilt:1:69" />
+      <Palette ID="9" Name="BRight" Number="29" Page="1" SetControl="Pan:1:69,Tilt:1:31" />
+    </Group>
+  </Palettes>
+</Fixture>

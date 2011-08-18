@@ -1,0 +1,508 @@
+; 'Robe Digital Spot 7000 v1.2 2. Common Effects', 35 DMX Channels, filename: RODSP7KC.R20
+;  Copyright © Avolites Ltd. 2009
+;
+;   Date       By                Description
+;   23-03-09   Pers Creator      Created - Exported from Diamond 4 file.
+;   23-03-09   David Hunt        Checked
+;   12-05-10   John Rogers       Edited range tables to fix issues with Expert Classic.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  RO_DSpt7KC                          mode=2. Common Effects  35 DMX Channels
+NAME "Robe" "DigiSp7000 v1.2 2.Common FX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  35  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   530  280
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 2. Common Effects"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=449
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L   18   100   1N   O   1   "Shutter"           0     0     0
+10    1   L   11   100   1N   B   1   "Cyan"              0     0   255
+10   61   L   12   100   1N   C   1   "Magenta"           0     0   255
+9    61   L   13   100   1N   D   1   "Yellow"            0   255    51
+14    1   L   14   100   1N   0   1   "CTF"               0     0     0
+3    61   I    1   100   1N   A   1   "Kstone TL X"       0     0     0
+3     1   L    2   100   1N   0   1   "Kstone TL Y"       0     0     0
+4    61   I    3   100   1N   N   1   "Kstone TR X"       0     0     0
+4     1   L    4   100   1N   0   1   "Kstone TR Y"       0     0     0
+7    61   L    5   100   1N   H   1   "Kstone BR X"       0     0     0
+7     1   L    6   100   1N   0   1   "Kstone BR Y"       0     0     0
+6    61   L    7   100   1N   0   1   "Kstone BL X"       0     0     0
+6     1   L    8   100   1N   0   1   "Kstone BL Y"       0     0     0
+20    1   L    9   100   1N   0   1   "Kstone X Rat"    128     0     0
+20   61   L   10   100   1N   0   1   "Kstone Y Rat"    128     0     0
+5     1   s   16   100   1N   Q   1   "Global Iris"       0     0     0
+0     0   L   17   100   1N   Q   1   "Global I Low"      0     0     0
+19    1   L   28   100   1N   0   1   "Global Eff 1"      0     0     0
+8     1   L   29   100   1N   0   1   "Glob FX 1 P1"      0     0     0
+8    61   L   30   100   1N   0   1   "Glob FX 1 P2"      0     0     0
+9     1   L   31   100   1N   0   1   "Glob FX 1 P3"      0     0     0
+19   61   L   32   100   1N   0   1   "Global Eff 2"      0     0     0
+18    1   I   33   100   1N   0   1   "Glob FX 2 P1"      0     0     0
+18   61   I   34   100   1N   0   1   "Glob FX 2 P2"      0     0     0
+17   61   L   35   100   1N   0   1   "Glob FX 2 P3"      0     0     0
+5    61   L   15   100   1N   L   1   "Digi Irs Sel"      0     0     0
+12    1   L   19   100   1N   0   1   "Banner L Pos"      0     0     0
+12   61   L   20   100   1N   0   1   "Banner L Rot"    128     0     0
+13    1   L   21   100   1N   0   1   "Banner R Pos"      0     0     0
+13   61   L   22   100   1N   0   1   "Banner R Rot"    128     0     0
+15    1   L   23   100   1N   0   1   "Banner T Pos"      0     0     0
+15   61   L   24   100   1N   0   1   "Banner T Rot"    128     0     0
+16    1   L   25   100   1N   0   1   "Banner B Pos"      0     0     0
+16   61   L   26   100   1N   0   1   "Banner B Rot"    128     0     0
+17    1   L   27   100   1N   0   1   "Banner A Rot"    128     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Robe
+Digital Spot 7000 v1.2
+2. Common Effects
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 18  ;Shutter
+0   30   "Open"
+31  80   "Strobe %3d%%"(c-a)*100/(b-a)
+81  110  "Open"
+111 140  "Rnd St %3d%%"(c-a)*100/(b-a)
+141 149  "Open"
+150 154  "Iris Gobo 1"
+155 159  "Iris Gobo 2"
+160 164  "Iris Gobo 3"
+165 169  "Iris Gobo 4"
+170 189  "Reserved"
+190 194  "Banner Gb 1"
+195 199  "Banner Gb 2"
+200 204  "Banner Gb 3"
+205 209  "Banner Gb 4"
+210 244  "Reserved"
+245 255  "Closed"
+REND
+
+RANGE 11  ;Cyan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;Magenta
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Yellow
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;CTF
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 1  ;Keystone TL X
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Keystone TL Y
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Keystone TR X
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Keystone TR Y
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Keystone BR X
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Keystone BR Y
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Keystone BL X
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Keystone BL Y
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Keystone X Ratio
+0   127  "L-C %3d%%"100-((c-a)*100/(b-a))
+128 128  "Centre"
+129 255  "C-R %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Keystone Y Ratio
+0   127  "B-C %3d%%"100-((c-a)*100/(b-a))
+128 128  "Center"
+129 255  "C-T %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Global Iris
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 28  ;Global Eff 1
+0   0    "Open"
+1   1    "Ovlp Ed 10"
+2   2    "Ovlp Ed 0"
+3   3    "Ovlp Ed 15"
+4   4    "Ovlp Ed 20"
+5   5    "Ovlp Ed 25"
+6   6    "Ovlp Ed 30"
+7   7    "Ovlp Ed 35"
+8   10   "Reserved"
+11  11   "OvlpPCC 10"
+12  12   "OvlpPCC 0"
+13  13   "OvlpPCC 15"
+14  14   "OvlpPCC 20"
+15  15   "OvlpPCC 25"
+16  16   "OvlpPCC 30"
+17  17   "OvlpPCC 35"
+18  255  "Reserved"
+REND
+
+RANGE 29  ;Glob Eff 1 P1
+0   0    "Safe"
+1   109  "Non Mr %3d%%"(c-a)*100/(b-a)
+110 127  "Reserved"
+128 163  "H Mr %3d%%"(c-a)*100/(b-a)
+164 199  "V Mr %3d%%"(c-a)*100/(b-a)
+200 235  "H&V %3d%%"(c-a)*100/(b-a)
+236 255  "Reserved"
+REND
+
+RANGE 30  ;Glob Eff 1 P2
+0 255    "Segment"(c-a)*255/(b-a)
+REND
+
+RANGE 31  ;Glob Eff 1 P3
+0   171  "%3d%%"(c-a)*100/(b-a)
+172 255  "Reserved"
+REND
+
+RANGE 32  ;Global Eff 2
+0   0    "Open"
+1   1    "Vert In Crn"
+2   2    "Vert Out Cr"
+3   3    "Hori In Crn"
+4   4    "Hori Out Cr"
+5   5    "Vert Convex"
+6   6    "Vert Concav"
+7   7    "Hori Convex"
+8   8    "Hori Concav"
+9   9    "Ortographic"
+10  10   "Rectangle"
+11  11   "Sq On Cir"
+12  19   "Reserved"
+20  20   "Pic Merge"
+21  255  "Reserved"
+REND
+
+RANGE 15  ;Digi Iris Sel
+0   0    "Cir OtIn Sh"
+1   1    "Cir OtIn F1"
+2   2    "Cir OtIn F2"
+3   3    "Cir OtIn F3"
+4   4    "Cir OtIn F4"
+5   5    "Cir InOt Sh"
+6   6    "Cir InOt F1"
+7   7    "Cir InOt F2"
+8   8    "Cir InOt F3"
+9   9    "Cir InOt F4"
+10  10   "HEl OtIn Sh"
+11  11   "HEl OtIn F1"
+12  12   "HEl OtIn F2"
+13  13   "HEl OtIn F3"
+14  14   "HEl OtIn F4"
+15  15   "HEl InOt Sh"
+16  16   "HEl InOt F1"
+17  17   "HEl InOt F2"
+18  18   "HEl InOt F3"
+19  19   "HEl InOt F4"
+20  20   "VEl OtIn Sh"
+21  21   "VEl OtIn F1"
+22  22   "VEl OtIn F2"
+23  23   "VEl OtIn F3"
+24  24   "VEl OtIn F4"
+25  25   "VEl InOt Sh"
+26  26   "VEl InOt F1"
+27  27   "VEl InOt F2"
+28  28   "VEl InOt F3"
+29  29   "VEl InOt F4"
+30  30   "CW Wipe Shp"
+31  31   "CW Wipe F1"
+32  32   "CW Wipe F2"
+33  33   "CW Wipe F3"
+34  34   "CW Wipe F4"
+35  35   "CCW Wipe Sh"
+36  36   "CCW Wipe F1"
+37  37   "CCW Wipe F2"
+38  38   "CCW Wipe F3"
+39  39   "CCW Wipe F4"
+40  40   "Wedge TD Sh"
+41  41   "Wedge TD F1"
+42  42   "Wedge TD F2"
+43  43   "Wedge TD F3"
+44  44   "Wedge TD F4"
+45  45   "Wedge BU Sh"
+46  46   "Wedge BU F1"
+47  47   "Wedge BU F2"
+48  48   "Wedge BU F3"
+49  49   "Wedge BU F4"
+50  50   "Rad LB Shp"
+51  51   "Rad LB F1"
+52  52   "Rad LB F2"
+53  53   "Rad LB F3"
+54  54   "Rad LB F4"
+55  55   "Rad BL Shp"
+56  56   "Rad BL F1"
+57  57   "Rad BL F2"
+58  58   "Rad BL F3"
+59  59   "Rad BL F4"
+60  60   "Rad TL Shp"
+61  61   "Rad TL F1"
+62  62   "Rad TL F2"
+63  63   "Rad TL F3"
+64  64   "Rad TL F4"
+65  65   "Rad LT Shp"
+66  66   "Rad LT F1"
+67  67   "Rad LT F2"
+68  68   "Rad LT F3"
+69  69   "Rad LT F4"
+70  70   "VBD OtIn Sh"
+71  71   "VBD OtIn F1"
+72  72   "VBD OtIn F2"
+73  73   "VBD OtIn F3"
+74  74   "VBD OtIn F4"
+75  75   "VBD InOt Sh"
+76  76   "VBD InOt F1"
+77  77   "VBD InOt F2"
+78  78   "VBD InOt F3"
+79  79   "VBD InOt F4"
+80  80   "HBD OtIn Sh"
+81  81   "HBD OtIn F1"
+82  82   "HBD OtIn F2"
+83  83   "HBD OtIn F3"
+84  84   "HBD OtIn F4"
+85  85   "HBD InOt Sh"
+86  86   "HBD InOt F1"
+87  87   "HBD InOt F2"
+88  88   "HBD InOt F3"
+89  89   "HBD InOt F4"
+90  90   "H 1W B TLBR"
+91  91   "H 1W B BRTL"
+92  92   "H 1W B TRBL"
+93  93   "H 1W B BLTR"
+94  94   "H 2W B TLBR"
+95  95   "H 2W B BRTL"
+96  96   "H 2W B TRBL"
+97  97   "H 2W B BLTR"
+98  98   "V 1W B TLBR"
+99  99   "V 1W B BRTL"
+100 100  "V 1W B TRBL"
+101 101  "V 1W B BLTR"
+102 102  "V 2W B TLBR"
+103 103  "V 2W B BRTL"
+104 104  "V 2W B TRBL"
+105 105  "V 2W B BLTR"
+106 106  "HBd 4x TB"
+107 107  "HBd 4x BT"
+108 108  "VBd 4x LR"
+109 109  "VBd 4x RL"
+110 110  "HBd 8x TB"
+111 111  "HBd 8x BT"
+112 112  "VBd 8x LR"
+113 113  "VBd 8x RL"
+114 114  "HBd 16x TB"
+115 115  "HBd 16x BT"
+116 116  "VBd 16x LR"
+117 117  "VBd 16x RL"
+118 118  "HBd 32x TB"
+119 119  "HBd 32x BT"
+120 120  "VBd 32x LR"
+121 121  "VBd 32x RL"
+122 122  "HXing 4x"
+123 123  "HXing 4x I"
+124 124  "VXing 4x"
+125 125  "VXing 4x I"
+126 126  "HXing 8x"
+127 127  "HXing 8x I"
+128 128  "VXing 8x"
+129 129  "VXing 8x I"
+130 130  "HXing 16x"
+131 131  "HXing 16x I"
+132 132  "VXing 32x"
+133 133  "VXing 32x I"
+134 134  "Chk 3x4 LR"
+135 135  "Chk 3x4 RL"
+136 136  "Chk 4x4 LR"
+137 137  "Chk 4x4 RL"
+138 138  "Chk 5x8 LR"
+139 139  "Chk 5x8 RL"
+140 140  "Chk 9x8 LR"
+141 141  "Chk 9x8 RL"
+142 142  "Chk 9x16 LR"
+143 143  "Chk 9x16 RL"
+144 144  "Chk10x32 LR"
+145 145  "Chk10x32 RL"
+146 146  "2DC BL C TR"
+147 147  "2DC TR C BL"
+148 148  "Gd 8x8 BRTL"
+149 149  "Gd8x8BRTL I"
+150 150  "Gd 8x8 TRBL"
+151 151  "Gd8x8TRBL I"
+152 152  "Gd16x16BRTL"
+153 153  "G16x16BRTLI"
+154 154  "Gd16x16TLBR"
+155 155  "G16x16TLBRI"
+156 156  "Gd32x32BRTL"
+157 157  "G32x32BRTLI"
+158 158  "Gd32x32TLBR"
+159 159  "G32x32TLBRI"
+160 160  "4 Slid Tria"
+161 255  "Reserved"
+REND
+
+RANGE 19  ;Banner L Pos
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 20  ;Banner L Rot
+0   127  "%2d.%d%%"(c-a)*50/(b-a),10*((c-a)*50%(b-a))/(b-a)
+128 128  "50.00%"
+129 255  "%3d.%d%%"50+((c-a)*50/(b-a)),10*(50+((c-a)*50%(b-a)))/(b-a)
+REND
+
+RANGE 21  ;Banner R Pos
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 22  ;Banner R Rot
+0   127  "%2d.%d%%"(c-a)*50/(b-a),10*((c-a)*50%(b-a))/(b-a)
+128 128  "50.00%"
+129 255  "%3d.%d%%"50+((c-a)*50/(b-a)),10*(50+((c-a)*50%(b-a)))/(b-a)
+REND
+
+RANGE 23  ;Banner T Pos
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 24  ;Banner T Rot
+0   127  "%2d.%d%%"(c-a)*50/(b-a),10*((c-a)*50%(b-a))/(b-a)
+128 128  "50.00%"
+129 255  "%3d.%d%%"50+((c-a)*50/(b-a)),10*(50+((c-a)*50%(b-a)))/(b-a)
+REND
+
+RANGE 25  ;Banner B Pos
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 26  ;Banner B Rot
+0   127  "%2d.%d%%"(c-a)*50/(b-a),10*((c-a)*50%(b-a))/(b-a)
+128 128  "50.00%"
+129 255  "%3d.%d%%"50+((c-a)*50/(b-a)),10*(50+((c-a)*50%(b-a)))/(b-a)
+REND
+
+RANGE 27  ;Banner A Rot
+0   127  "%2d.%d%%"(c-a)*50/(b-a),10*((c-a)*50%(b-a))/(b-a)
+128 128  "50.00%"
+129 255  "%3d.%d%%"50+((c-a)*50/(b-a)),10*(50+((c-a)*50%(b-a)))/(b-a)
+REND
+

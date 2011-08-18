@@ -1,0 +1,367 @@
+TODO, CHECK RESOLUTION VALS
+; "High End Technobeam Hi Res", 18 DMX channels, filename :hetecbmh.r20
+;
+;   Date      By          Description
+;   23.02.98  P.Bari      Created
+;   08-03-02  A. Simmons  Updated Color Palettes
+;   12-08-04  Phil        Added range tables
+;   23-08-04  Phil        Removed un-necessary range tables
+;   05-11-04  Phil        Changed gobo spin attribute type. Was same as gobo
+;   11-12-08  David Hunt  Corrected duplicated dmx values
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  HE_TechbmHi                                   18 DMX channels
+NAME "High End" "Technobeam, 18 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE    1  18   M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR	1  170 108
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;	+,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;	& means logical AND
+;	| means logical OR 
+;	R means reverse the bits of the curernt result (operates on a byte)
+;	^ means logical Exclusive OR (operates on a byte)
+;	> means shift to the right
+;	< shift to the left
+;	r followed by number means get the value of that parameter 
+;	d DMX address
+;	n Fixture name, a 0 terminated character string
+;	h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=495
+;
+; DMX number must be divisible by this	
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt, 
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom, 
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX
+3  61 s  1 100 1N E 0 "Pan"		128  -1  -1
+0  0  L  2 100 1N E 0 "Pan Low"		128  -1  -1
+3  1  s  3 100 1N F 0 "Tilt"		128  -1  -1
+0  0  L  4 100 1N F 0 "Tilt Low"	128  -1  -1
+4  61 I  5 100 1N 0 0 "Color Spin"	0     0   0
+4  1  I  6 100 1N A 0 "Color Wheel"	0     0  28
+6  61 I  7 100 1N 0 0 "Gobo Spin"	0     0   0
+6  1  I  8 100 1N I 0 "Gobo"		0     0   0
+7  1  S  9 100 1N K 0 "Gobo Rot"	128 128 128
+0  0  I 10 100 1N K 0 "Gobo Rot Low"	128 128 128
+9  1  I 11 100 1N R 0 "Effects"		0     0   0
+8  1  I 12 100 1N 0 0 "Effect Speed"	128 128 128
+5  61 L 13 100 1N L 0 "Focus"		255 255 255
+2  61 I 14 100 1N O 0 "Shutter"		255 255 255
+1  1  H 15 100 1N H 0 "Dimmer"		255 255 255
+8  61 L 16 100 1N 0 0 "MSpeed"		0     0   0
+11 1  I 17 100 1N 0 0 "Macros"		0     0   0
+11 61 I 18 100 1N 0 0 "Control"		0     0   0
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+  Techobeam 18 Chan
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1 Dimmer   --
+ 2   --    Shutter
+ 3 Tilt    Pan
+ 4 Color   Color Rot
+ 5   --    Focus
+ 6 Litho   Litho Spin       
+ 7 Lit. Rot  --
+ 8 Ef.Spd  M.Speed
+ 9 Effects   --
+10   --      --
+11 Macros  Control
+
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+; Positions
+PFTABLE "Positions" -1 1 3
+"Middle"    21 80  80
+"Left"      22 50  80
+"Right"     23 b0  80
+"Top"       24 80  50
+"Bottom"    25 80  b0
+"TLeft"     26 50  50
+"TRight"    27 b0  b0
+"BLeft"     28 50  b0
+PFEND
+
+PFTABLE "LaserBeam" -1 17
+"Off"       29  00
+"On"        30  ff
+PFEND
+
+; Color table
+PFTABLE "Colors" -1  6
+"White"     1  0
+"Cyan"      2  68
+"Magenta"   3  28
+"Yellow"    4  40
+"Red"       5  50
+"Green"     6  30
+"Congo"     7  48
+"Amber"     8  38
+"Lavender"  9  58
+"Pink"     10  18
+PFEND
+
+; Litho table
+PFTABLE "Lithos" -1 8
+"Open"     11  0
+"3DBlocks" 12  20
+"RipWheel" 13  9c
+"Gatlin"   14  d8
+"TBLumoil" 15  78
+"Square"   16  62
+"Triangle" 17  34
+"TBLumiol" 18  81
+"Wedges"   19  bb
+"Open"     20  0
+PFEND
+
+MACRO "HOME" 1  14  18
+"data"       0   0  40
+"delay"      1  20
+"data"       0   0   0
+MEND
+
+MACRO "SHUTDOWN" 2  14  18
+"data"           0   0  80
+"delay"          1  20
+"data"           0   0   0
+MEND
+
+MACRO "RESTRIKE" 3  14  18
+"data"           0   0  ff
+"delay"          1  20
+"data"           0   0   0
+MEND
+
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 14  ;Shutter
+248 255  "Open"
+0   7    "Closed"
+8   67   "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+68  127  "Random %3d%%"0+(((c-a)*100)/(b-a))
+128 187  "Pulse  %3d%%"0+(((c-a)*100)/(b-a))
+188 247  "Pulse  %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 5  ;Colour Func
+0   15   "Full: Index"
+16  31   "Full: Forwa"
+32  47   "Full: Rever"
+48  63   "Full: Conti"
+64  79   "Full: Slow "
+80  95   "Full: Fast "
+96  111  "Full: Rando"
+112 127  "Full: Blink"
+128 143  "MSpeed: Ind"
+144 159  "MSpeed: For"
+160 175  "MSpeed: Rev"
+176 191  "MSpeed: Con"
+192 207  "MSpeed: Slo"
+208 223  "MSpeed: Fas"
+224 239  "MSpeed: Ran"
+240 255  "MSpeed: Bli"
+REND
+
+RANGE 6  ;Colour
+0   23   "Open"
+24  31   "Pink"
+32  39   "Aqua"
+40  47   "Dk Magenta"
+48  55   "Green"
+56  63   "Amber"
+64  71   "Yellow"
+72  79   "Dk Blue"
+80  87   "Red"
+88  95   "Indigo"
+96  103  "Orange"
+104 111  "Lt Blue"
+112 127  "CTO"
+128 143  "Open"
+144 151  "Pink"
+152 159  "Aqua"
+160 167  "Dk Magenta"
+168 175  "Green"
+176 183  "Amber"
+184 191  "Yellow"
+192 199  "Dk Blue"
+200 207  "Red"
+208 215  "Indigo"
+216 223  "Orange"
+224 231  "Lt Blue"
+232 247  "CTO"
+248 255  "Open"
+REND
+
+RANGE 7  ;Gobo Func
+0   15   "Full: Index"
+16  31   "Full: Spin "
+32  47   "Full: Spin "
+48  63   "Full: Scan"
+64  79   "Full: BO In"
+80  95   "Full: Rando"
+112 127  "Full: Scrol"
+128 143  "MSpeed: Ind"
+144 159  "MSpeed: Spi"
+160 175  "MSpeed: Spi"
+176 191  "MSpeed: Sca"
+192 207  "MSpeed: BO "
+208 223  "MSpeed: Ran"
+240 255  "MSpeed: Scr"
+REND
+
+RANGE 8  ;Gobo
+0   15   "Open"
+16  47   "3D Blocks"
+48  79   "Round Trian"
+80  111  "Silcsquare"
+112 143  "TB-Lumoil"
+144 175  "Rip Wheel"
+176 207  "Technowedge"
+208 239  "Gatlin"
+240 255  "Open"
+REND
+
+RANGE 11  ;Effect
+0   36   "Open"
+67  73   "Prism"
+74  109  "Lenticular"
+110 146  "Slow Glass"
+147 182  "Frost"
+220 255  "Open"
+REND
+
+RANGE 12  ;EffectRot
+0   120  "Sp CW %3d%%"100-(((c-a)*100)/(b-a))
+121 134  "No Spin"
+135 255  "Sp CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 16  ;MSpeed
+0   3    "Crossfade"
+4   255  "%3d"253-(((c-a)*253)/(b-a))
+REND
+
+RANGE 17  ;Macro
+0   7    "No Macro/ L"
+8   11   "Macro 1"
+12  15   "Macro 2"
+16  19   "Macro 3"
+20  23   "Macro 4"
+24  27   "Macro 5"
+28  31   "Macro 6"
+32  35   "Macro 7"
+36  39   "Macro 8"
+40  43   "Macro 9"
+44  47   "Macro 10"
+48  51   "Macro 11"
+52  55   "Macro 12"
+56  59   "Macro 13"
+60  63   "Macro 14"
+64  67   "Macro 15"
+68  71   "Macro 16"
+72  75   "Macro 17"
+76  79   "Macro 18"
+80  83   "Macro 19"
+84  87   "Macro 20"
+88  91   "Macro 21"
+92  95   "Macro 22"
+96  99   "Macro 23"
+100 103  "Macro 24"
+104 107  "Macro 25"
+108 111  "Macro 26"
+112 115  "Macro 27"
+116 119  "Macro 28"
+120 127  "LAD Off, No"
+128 247  "LAD Modulat"
+248 255  "LAD ON"
+REND
+
+RANGE 18  ;Control
+0   7    "Safe"
+10  19   "Disable MSp"
+24  26   "Display OFF"
+32  34   "Display DIM"
+40  42   "Display BRI"
+64  66   "Reset"
+80  82   "Lamp ON"
+96  98   "Lamp OFF"
+128 130  "Shutdown"
+REND
+
+
+

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Galaxian Sky" ShortName="GalaxSky" Company="American DJ">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="15-07-09" Author="David Hunt" Comment="Created" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="2" PowerOn="2" />
+      <Function ID="1" Name="Laser Off" Display="'Laser Off'" Dmx="0~7" Intensity="0~0" />
+      <Function ID="2" Name="Laser On" Display="'Laser On'" Dmx="8~15" Intensity="0~0" />
+      <Function ID="3" Name="Dashes" Display="'Dashes'" Dmx="16~131" Intensity="0~0" />
+      <Function ID="4" Name="Dotted" Display="'Dotted'" Dmx="132~247" Intensity="0~0" />
+      <Function ID="5" Name="Laser On" Display="'Laser On'" Dmx="248~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Pattern" Name="Pattern" Description="" Group="E">
+      <Locate Locate="1:1" PowerOn="1:1" />
+      <Function ID="1" Name="Pattern" Display="'Pattern %.f',1~20" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Movement" Name="Movement" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="None" Display="'None'" Dmx="0~9" />
+      <Function ID="2" Name="Left To Right" Display="'Left To Right %.f%%',100~0" Dmx="10~120" />
+      <Function ID="3" Name="None" Display="'None'" Dmx="121~134" />
+      <Function ID="4" Name="Up and Down" Display="'Up and Down   %.f%%',0~100" Dmx="135~245" />
+      <Function ID="5" Name="None" Display="'None'" Dmx="246~255" />
+    </Attribute>
+    <Attribute ID="Rotation" Name="Rotation" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="No Spin" Display="'No Spin'" Dmx="0~9" />
+      <Function ID="2" Name="Spin CCW" Display="'Spin CCW %.f%%',100~0" Dmx="10~120" />
+      <Function ID="3" Name="No Spin" Display="'No Spin'" Dmx="121~134" />
+      <Function ID="4" Name="Spin CW" Display="'Spin CW %.f%%',0~100" Dmx="135~245" />
+      <Function ID="5" Name="No Spin" Display="'No Spin'" Dmx="246~255" />
+    </Attribute>
+    <Attribute ID="Zoom" Name="Zoom" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Zoom" Display="'%.1f%%',0.0~100.0" Dmx="0~127" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Speed" Display="'Speed %.f%%',100~0" Dmx="128~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="5 DMX, 8bit" Channels="5">
+    <Import PearlRef="ADJ_GalSky" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Mirror" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Movement" ChannelOffset="3" Wheel="2" />
+      <Attribute ID="Rotation" ChannelOffset="4" Wheel="3" />
+      <Attribute ID="Zoom" ChannelOffset="5" Wheel="19" />
+      <Attribute ID="Pattern" ChannelOffset="2" Wheel="23" />
+    </Include>
+  </Mode>
+</Fixture>

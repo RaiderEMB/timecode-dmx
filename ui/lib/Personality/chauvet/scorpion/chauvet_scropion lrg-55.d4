@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Scorpion LRG-55" ShortName="Scorpion55" Company="Chauvet">
+  <Copyright Notice="© Avolites Ltd. 2008" />
+  <History Date="05-08-08" Author="David Hunt" Comment="Created" />
+  <History Date="28-01-09" Author="D4 Personality Fixer 2009" Comment="Changed Wheel assignment Numbers" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Safe" Display="'Laser Off'" Dmx="0~10" Update="P_Selection" />
+      <Function ID="2" Name="Dynamic Patterns" Display="'Dynamic Patterns'" Dmx="11~120" Update="P_Selection" />
+      <Function ID="3" Name="Static Patterns" Display="'Static Patterns'" Dmx="121~250" Update="P_Selection" />
+      <Function ID="4" Name="Sound Active Mode" Display="'Sound Active Mode'" Dmx="251~255" Update="P_Selection" />
+    </Attribute>
+    <Attribute ID="P_Selection" Name="Pattern Sel" Description="" Group="S">
+      <Locate Locate="1:30" PowerOn="1:1" />
+      <Condition Name="Dynamic Patterns" ID="2" If="'Control'==2" />
+      <Condition Name="Static Patterns" ID="1" If="'Control'==3" />
+      <Else ID="3" />
+      <Function ID="1" Name="Pattern" Display="'Pattern %.f',1~51" Dmx="0~255" Update="DP_Speed, SP_Size" />
+      <Function ID="2" Name="Pattern" Display="'Pattern %.f',1~43" Dmx="0~255" Update="DP_Speed, SP_Size" />
+      <Function ID="3" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Update="DP_Speed, SP_Size" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Pan" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Tilt" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="PT_Speed" Name="P/T Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',100.0~0.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="DP_Speed" Name="Dyn Pat Spd" Description="" Group="S">
+      <Locate Locate="1:19" PowerOn="1:0" />
+      <Condition Name="Dynamic Patterns" ID="1" If="'P_Selection'==1" />
+      <Else ID="2" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',100.0~0.0" Dmx="0~255" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="SP_Size" Name="Stat Pat Size" Description="" Group="S">
+      <Locate Locate="1:50" PowerOn="1:0" />
+      <Condition Name="Static Patterns" ID="1" If="'P_Selection'==2" />
+      <Else ID="2" />
+      <Function ID="1" Name="Size" Display="'Size %.f%%',0~100" Dmx="0~255" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Green &amp; Red On" Display="'Green &amp; Red On'" Dmx="0~100" Colour="255,255,0" />
+      <Function ID="2" Name="Green" Display="'Green'" Dmx="101~200" Colour="0,255,0" />
+      <Function ID="3" Name="Red" Display="'Red'" Dmx="201~255" Colour="255,0,0" />
+    </Attribute>
+  </Control>
+  <Mode Name="8 DMX, 8bit" Channels="8">
+    <Import PearlRef="CH_ScLRG55" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Pan" ChannelOffset="3" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="4" Wheel="3" />
+      <Attribute ID="Colour1" ChannelOffset="8" Wheel="8" />
+      <Attribute ID="Control" ChannelOffset="1" Wheel="28" />
+      <Attribute ID="P_Selection" ChannelOffset="2" Wheel="29" />
+      <Attribute ID="PT_Speed" ChannelOffset="5" Wheel="25" />
+      <Attribute ID="DP_Speed" ChannelOffset="6" Wheel="27" />
+      <Attribute ID="SP_Size" ChannelOffset="7" Wheel="26" />
+    </Include>
+  </Mode>
+</Fixture>

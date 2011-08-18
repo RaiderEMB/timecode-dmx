@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Ireos Pro" ShortName="IreosPro" Company="Space Cannon">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="08-12-04" Author="Phil Rogers" Comment="Created" />
+  <History Date="19-01-05" Author="Phil" Comment="Added more detail to control and macros" />
+  <History Date="23-02-05" Author="Phil" Comment="Control locate value changed to Lamp On." />
+  <History Date="07-03-06" Author="Ed" Comment="Re-verted dimmer" />
+  <History Date="06-04-06" Author="Ed" Comment="Moved delay to special group" />
+  <History Date="12-04-06" Author="Ed Spencer" Comment="Moved Synchro into special group" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:20" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="Zoom" Name="Zoom" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Zoom" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="3" PowerOn="1:0" />
+      <Function ID="1" Name="Safe (Parked)" Display="'Safe (Parked)'" Dmx="64~191" />
+      <Function ID="2" Name="Lamp Off" Display="'Lamp Off'" Dmx="0~63" />
+      <Function ID="3" Name="Lamp On" Display="'Lamp On'" Dmx="192~255" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Generic Range" Display="'%.f',0~255" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Strobe" Name="Strobe" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Generic Range" Display="'%.f',0~255" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Synchro" Name="Synchro" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Generic Range" Display="'%.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Delay" Name="Delay" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Generic Range" Display="'%.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Reset" Name="Reset" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~0" />
+      <Function ID="2" Name="Reset" Display="'Reset'" Dmx="255~255" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Speed" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Generic Range" Display="'%.f',0~255" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="16 DMX, 16bit" Channels="16">
+    <Import PearlRef="SC_IreosPro" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="355" TiltMax="260" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="6" Wheel="4" />
+      <Attribute ID="Dimmer" ChannelOffset="7" Wheel="1" />
+      <Attribute ID="Strobe" ChannelOffset="8" Wheel="5" />
+      <Attribute ID="Pan" ChannelOffset="9,10" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="11,12" Wheel="3" />
+      <Attribute ID="Magenta" ChannelOffset="1" Wheel="11" />
+      <Attribute ID="Cyan" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Yellow" ChannelOffset="3" Wheel="12" />
+      <Attribute ID="Zoom" ChannelOffset="4" Wheel="19" />
+      <Attribute ID="Synchro" ChannelOffset="13" Wheel="22" />
+      <Attribute ID="Delay" ChannelOffset="14" Wheel="23" />
+      <Attribute ID="Control" ChannelOffset="5" Wheel="28" />
+      <Attribute ID="Reset" ChannelOffset="15" Wheel="29" />
+      <Attribute ID="Speed" ChannelOffset="16" Wheel="25" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Reset">
+      <Set Channel="Reset:2" Delay="16000" />
+      <Set Channel="Reset:1" Delay="100" />
+    </Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Control:3" Delay="100" />
+    </Macro>
+    <Macro Name="Lamp Off">
+      <Set Channel="Control:2" Delay="100" />
+    </Macro>
+  </Macro>
+</Fixture>

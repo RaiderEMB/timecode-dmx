@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Club Color Wash 250" ShortName="C ColW 250" Company="Showtec">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="17-04-07" Author="D.Milligan" Comment="Created" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Colour1Func" Name="Colour 1 Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Index_Func" Display="'Index'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Split_Func" Display="'Split Gel'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="4" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour 1" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Index_Func" ID="1" If="'Colour1Func'==1" />
+      <Condition Name="Split_Func" ID="2,3,4,5,6,7,8" If="'Colour1Func'==2" />
+      <Condition Name="Scroll_Func" ID="9,10" If="'Colour1Func'==3" />
+      <Condition Name="Raw_Func" ID="11" If="'Colour1Func'==4" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11" />
+      <Function ID="1" Name="Index" Display="'Index %.f%%',0~100" Dmx="0~124" Colour="0,0,0" />
+      <Function ID="2" Name="Op/Re" Display="'Op/Re %.f%%',0~100" Dmx="0~18" Colour="255,255,255" />
+      <Function ID="3" Name="Re/Ye" Display="'Re/Ye %.f%%',0~100" Dmx="19~36" Colour="255,0,0" />
+      <Function ID="4" Name="Ye/LB" Display="'Ye/LB %.f%%',0~100" Dmx="37~54" Colour="255,255,0" />
+      <Function ID="5" Name="LB/Or" Display="'LB/Or %.f%%',0~100" Dmx="55~70" Colour="0,128,255" />
+      <Function ID="6" Name="Or/Ol" Display="'Or/Ol %.f%%',0~100" Dmx="81~90" Colour="255,128,0" />
+      <Function ID="7" Name="Ol/Pi" Display="'Ol/Pi %.f%%',0~100" Dmx="91~108" Colour="128,128,0" />
+      <Function ID="8" Name="Pi/DB" Display="'Pi/DB %.f%%',0~100" Dmx="109~124" Colour="255,150,150" />
+      <Function ID="9" Name="Open" Display="'Open'" Dmx="0~0" Colour="255,255,255" />
+      <Function ID="10" Name="Scroll CW" Display="'Scroll CW %.f%%',0~100" Dmx="144~255" Colour="0,0,0" />
+      <Function ID="11" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" Clear="1:0" />
+      <Function ID="1" Name="Dim" Display="'Dim %.1f%%',0.0~100.0" Dmx="0~138" Intensity="0~0" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="139~199" Intensity="0~0" />
+      <Function ID="3" Name="Rnd Strobe" Display="'Rnd Strobe %.f%%',0~100" Dmx="200~249" Intensity="0~0" />
+      <Function ID="4" Name="Open" Display="'Open'" Dmx="250~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="2 DMX, 8bit" Channels="2">
+    <Import PearlRef="SH_CColW250" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="2" Wheel="4" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="8" />
+    </Include>
+  </Mode>
+</Fixture>

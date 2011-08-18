@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="40K Lighting Strike Control Off" ShortName="40kLSC Off" Company="Lightning Srikes">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="19-10-05" Author="Ed" Comment="Created" />
+  <History Date="19-10-05" Author="Ed" Comment="Checked" />
+  <History Date="20-10-05" Author="Ed" Comment="Added Ranges for control and swapped channels around" />
+  <History Date="28-01-09" Author="D4 Personality Fixer 2009" Comment="Changed manufacturer from Lightning Strike to Lightning Srikes" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="4" PowerOn="4" />
+      <Function ID="1" Name="Constant" Display="'Constant'" Dmx="0~63" />
+      <Function ID="2" Name="Slow" Display="'Slow'" Dmx="64~127" />
+      <Function ID="3" Name="Medium" Display="'Medium'" Dmx="128~191" />
+      <Function ID="4" Name="Safe" Display="'Safe'" Dmx="192~255" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="2 DMX, 8bit" Channels="2">
+    <Import PearlRef="" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Control" ChannelOffset="2" Wheel="4" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Effect On">
+      <Set Channel="Control:2" Delay="1000" />
+    </Macro>
+    <Macro Name="Effect Off">
+      <Set Channel="Control:1" Delay="1000" />
+    </Macro>
+    <Macro Name="Dimmer Max">
+      <Set Channel="Dimmer:1:100" Delay="1000" />
+    </Macro>
+    <Macro Name="Dimmer Min">
+      <Set Channel="Dimmer:1:0" Delay="1000" />
+    </Macro>
+  </Macro>
+</Fixture>

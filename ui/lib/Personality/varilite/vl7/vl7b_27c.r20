@@ -1,0 +1,383 @@
+; "Vari*lite 7B", 27 DMX channels, filename :vl7b_27c.r20
+;
+;  Date   By    Description
+;  18-06-99 J.Opseth Created
+;  12-09-99 J.Opseth LEE and LUX tables added
+;  22-08-01 EDWARD  CREATED FROM VL7b 24 Chans
+;  11-08-04 Phil   Added Range Tabes
+;   04-09-07  D.Milligan Moved Lee and Lux tables to bank 11
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE VL7B_27Ch                  27 DMX channels
+NAME "Varilite" "VL7B, 27 DMX"
+; 
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1 27  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR 2 360 270
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+DEVICEADDRESS
+"Handle %2d"h
+"Fixture %11s"n
+"DMX   %03d"d
+""
+"Mode 10"
+""
+""
+""
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=486
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+DMX ;  Bank/fader to DMX relationship
+1  1  H  1  100 1N H 1 "Dimmer"   255 255 255
+3 61  s  2  100 1N E 1 "Pan"     128  -1  -1
+0  0  L  3  100 1N E 1 "Pan Low"   128  -1  -1
+3  1  s  4  100 1N F 1 "Tilt"    128  -1  -1
+0  0  L  5  100 1N F 1 "Tilt Low"  128  -1  -1
+4  1  I  6  100 1N A 1 "Color1 X"   0  0  40
+4 61  I  7  100 1N 0 1 "Color1 Y"   0  0  0
+9  1  I  8  100 1N N 1 "Color2 X"   0  0  0
+9 61  I  9  100 1N 0 1 "Color2 Y"   0  0  0
+5 61  L 10  100 1N L 1 "Focus"     0  0  0
+5  1  L 11  100 1N Q 1 "Zoom"     0  0  0
+2 61  L 12  100 1N O 1 "Strobe"    0  0  0
+6 61  I 13  100 1N J 1 "Gobo rot"   0  0  0
+7  1  I 14  100 1N M 1 "Gobo Index"  0  0  0
+12 1  I 15  100 1N 0 1 "Shutter1Left" 0  0  0
+12 61  I 16  100 1N 0 1 "Shutter1Righ" 0  0  0
+13 1  I 17  100 1N 0 1 "Shutter2Left" 0  0  0
+13 61  I 18  100 1N 0 1 "Shutter2Righ" 0  0  0
+14 1  I 19  100 1N 0 1 "Shutter3Left" 0  0  0
+14 61  I 20  100 1N 0 1 "Shutter3Righ" 0  0  0
+15 1  I 21  100 1N 0 1 "Shutter4Left" 0  0  0
+15 61  I 22  100 1N 0 1 "Shutter4Righ" 0  0  0
+16 1  I 23  100 1N 0 1 "Shutter Rot" 128  0  0
+18 1  I 24  100 1N 0 1 "Focus Time" 255 255 255
+18 61  I 25  100 1N 0 1 "Color Time" 255 255 255
+19 1  I 26  100 1N 0 1 "Beam Time" 255 255 255
+20 1  I 27  100 1N 0 1 "Control"   255 255 255
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+VL7B 27 Chan (16 bit)
+---------------------
+ 1 Dimmer  --
+ 2 --   Strobe
+ 3 Tilt   Pan
+ 4 Col1 X  Col1 Y
+ 5 Zoom   Focus
+ 6 --   Gobo Rot
+ 7 G. Index --
+ 8 --    --
+ 9 Col2 X  Col2 Y
+11 Control --
+12 Shut1L  Shut1R
+13 Shut2L  Shut2R
+14 Shut3L  Shut3R
+15 Shut4L  Shut4R
+16 Shutt rot.--
+17 --    --
+18 Focus_TIME_Color
+19 Beam TIME
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+; color table color wheel
+PFTABLE "Colors" -1 6
+"Col1"      1 0
+"Col2"      2 16
+"Col3"      3 2a
+"Col4"      4 3f
+"Col5"      5 53
+"Col6"      6 67
+"Col7"      7 7c
+"Col8"      8 90
+"Col9"      9 a5
+"Col10"     10 b9
+"Col11"     -1 cd
+"Col12"     -1 ec
+PFEND
+
+; Positions
+PFTABLE "Positions" -1 2 4
+"Middle"  21 80 80
+"Left"   22 50 80
+"Right"   23 b0 80
+"Top"    24 80 50
+"Bottom"  25 80 b0
+"TLeft"   26 50 50
+"TRight"  27 b0 b0
+"BLeft"   28 50 b0
+"BRight"  29 b0 50
+PFEND
+
+
+; Gobo table color wheel
+PFTABLE "Gobos" -1 14
+"Open"      11 0
+"Gobo1"      12 16
+"Gobo2"      13 2a
+"Gobo3"      14 3f
+"Gobo4"      15 53
+"Gobo5"      16 67
+"Gobo6"      17 7c
+"Gobo7"      18 90
+"Gobo8"      19 a5
+"Gobo9"      20 b9
+"Gobo10"     -1 cd
+"Gobo11"     -1 ec
+PFEND
+
+
+PFTABLE "LEE-Colors" 11 6 7 8 9
+; Input		Color1 Saturation1 Color2 Saturation2
+"LEE 101"	-1 B8 D6 FF FF
+"LEE 104"	-1 CF C7 FF FF
+"LEE 105"	-1 E2 DB FF FF
+"LEE 111"	-1 FE C5 9B 6E
+"LEE 113"	-1 FF F4 56 FF
+"LEE 115" 	-1 44 D1 24 44
+"LEE 116"	-1 41 DD 0 AA
+"LEE 117"	-1 68 84 BE 11
+"LEE 118"	-1 48 A7 17 9B
+"LEE 120"	-1 18 FF 8D 92
+"LEE 122"	-1 86 C7 CE B2
+"LEE 124"	-1 5D E5 0 0
+"LEE 128"	-1 FF DC 5A FF
+"LEE 132"	-1 0 47 18 FF
+"LEE 139"	-1 79 FF F2 FF 
+"LEE 141"	-1 70 72 1C C5
+"LEE 161"	-1 43 87 1A 69
+"LEE 162"	-1 CC 8F C3 FF
+"LEE 164"	-1 FF FF FF FF
+"LEE 176"	-1 DF B9 B9 A2
+"LEE 179"	-1 D9 D1 F2 FF
+"LEE 180"	-1 0 B7 A3 9B
+"LEE 181"	-1 0 FF AC FF
+"LEE 204"	-1 D4 C4 CD 9A
+"LEE 213"	-1 96 8F FF 10
+PFEND
+
+PFTABLE "LUX-Colors" 26 6 7 8 9
+; Input		Color1 Saturation1 Color2 Saturation2
+"LUX 01"	-1 DF B9 B9 A2
+"LUX 02"	-1 DA AC F0 74
+"LUX 03"	-1 E0 A8 C9 B8
+"LUX 04"	-1 DC A7 CB 97
+"LUX 09"	-1 D1 B5 C7 8C
+"LUX 12"	-1 CB AA FF FF
+"LUX 15"	-1 D9 D1 F2 FF
+"LUX 17"	-1 DC C0 CB 8F 
+"LUX 19"	-1 FF FF FF FF 
+"LUX 21"	-1 ED D4 FF FF
+"LUX 22"	-1 FF DF FF FF
+"LUX 32"	-1 FA D6 0 0
+"LUX 33"	-1 D9 97 86 6B
+"LUX 34"	-1 F6 CD 9B 55
+"LUX 41"	-1 FF F4 0 0
+"LUX 52"	-1 FF 91 A9 6A
+"LUX 54"	-1 FF 71 B4 80
+"LUX 55"	-1 F0 87 83 46
+"LUX 59"	-1 07 FF 58 19
+"LUX 60"	-1 FF 9D 77 FF
+"LUX 68"	-1 0 63 10 B8
+"LUX 69"	-1 38 B6 17 A4
+"LUX 73"	-1 69 9F 07 88
+"LUX 83"	-1 26 D7 78 D9
+"LUX 94"	-1 79 CB 0 DD
+"LUX 359"	-1 0 CA 53 73
+PFEND
+
+
+MACRO "Reset"         1  24  25  26  27
+"data"                0   0   0   0   0
+"delay"               1   A
+"data"                0   0   0   0  54
+"delay"               1  32
+"data"                0   0   0   0   0
+"delay"               1   A
+MEND
+
+MACRO "Lamp Off"      2  24  25  26  27
+"data"                0   0   0   0   0
+"delay"               1   A
+"data"                0   0   0   0  A8
+"delay"               1  32
+"data"                0   0   0   0   0
+"delay"               1   A
+MEND
+
+MACRO "Lamp On"       3  24  25  26  27
+"data"                0   0   0   0   0
+"delay"               1   A
+"data"                0   0   0   0  FC
+"delay"               1  32
+"data"                0   0   0   0   0
+"delay"               1   A
+MEND
+
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1 ;Dimmer
+0  255 "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 5 ;Colour1X
+0  255 "%3d"0+(((c-a)*255)/(b-a))
+REND
+
+RANGE 6 ;Colour1Y
+0  255 "%3d"0+(((c-a)*255)/(b-a))
+REND
+
+RANGE 7 ;Colour1X
+0  255 "%3d"0+(((c-a)*255)/(b-a))
+REND
+
+RANGE 8 ;Colour1Y
+0  255 "%3d"0+(((c-a)*255)/(b-a))
+REND
+
+RANGE 9 ;Iris
+0  255 "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 10 ;Focus
+0  255 "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 11 ;Zoom
+0  255 "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 12 ;Strobe
+0  255 "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 13 ;Gobo1
+0  26  "Open"
+27 52  "Gobo1"
+53 76  "Gobo2"
+77 101 "Gobo3"
+103 128 "Gobo4"
+129 153 "Gobo5"
+156 255 "Open"
+REND
+
+RANGE 14 ;Gobo2Rot
+0  201  "Idx %3d%%"0+(((c-a)*100)/(b-a))
+205 228  "Spn CW %3d%%"100-(((c-a)*100)/(b-a))
+229 230  "No Spin"
+231 155  "Sp CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 15 ;Shutter1 Left
+0  255 "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 16 ;Shutter1 Right
+0  255 "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 17 ;Shutter2 Left
+0  255 "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 18 ;Shutter2 Right
+0  255 "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 19 ;Shutter3 Left
+0  255 "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 20 ;Shutter3 Right
+0  255 "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 21 ;Shutter4 Left
+0  255 "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 22 ;Shutter4 Right
+0  255 "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 23 ;Shutter Rot
+0  255 "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 24 ;Focus Time
+0  0  "Tracking"
+1  53  "%3d%%"100-(((c-a)*4)/(b-a))
+54  178  "%3d%%"96-(((c-a)*16)/(b-a))
+179 199 "%3d%%"80-(((c-a)*13)/(b-a))
+200 254 "%3d%%"67(((c-a)*67)/(b-a))
+255 255 "Follow Cue"
+REND
+
+RANGE 25 ;Colour Time
+0  0  "Tracking"
+1  53  "%3d%%"100-(((c-a)*4)/(b-a))
+54  178  "%3d%%"96-(((c-a)*16)/(b-a))
+179 199 "%3d%%"80-(((c-a)*13)/(b-a))
+200 254 "%3d%%"67(((c-a)*67)/(b-a))
+255 255 "Follow Cue"
+REND
+
+RANGE 26 ;Beam Time
+0  0  "Tracking"
+1  53  "%3d%%"100-(((c-a)*4)/(b-a))
+54  178  "%3d%%"96-(((c-a)*16)/(b-a))
+179 199 "%3d%%"80-(((c-a)*13)/(b-a))
+200 254 "%3d%%"67(((c-a)*67)/(b-a))
+255 255 "Follow Cue"
+REND
+
+RANGE 27 ;Control
+0  0  "Safe"
+1  4  "Disp On"
+5  80  "Safe"
+81  87  "Reset"
+88  164 "Safe"
+165 171 "Lamp Off"
+172 248 "Safe"
+149 255 "Lamp On"
+REND

@@ -1,0 +1,233 @@
+;-----------------------------------------------------------------------|
+; The Clay Paky Stage Zoom 1200 Personality for the Diamond II          |
+;-----------------------------------------------------------------------|
+;       History :-                                                      |
+;-----------------------------------------------------------------------|
+;   Revision |  Date     |  By    | Description                         |
+;------------|-----------|--------|-------------------------------------|
+;       1.0  |  29-09-98 | P.Bari | Created                             |
+;---------------------------------------------------------------------- |
+
+
+DEVICE=CPStgZoom              ; Device Name (upto 11 chars after '='
+DEVICE23=17 channels   V1.0   ; 22 chars after '='
+                              ; extra information for softkey prompt lines 2&3
+                              ; a total of 22 chars, split into 2 lines of 11
+
+; Device information
+;                                   __ Number of lines of DMX info.
+;                                  |   __ Number of lines of wheel info
+;                                  |  |
+;                                  |  |
+;                                  |  |
+HSTART  2 17 1b05 450 252  ff 0  4 17 19
+;       |  |  |    |   |   |  |  |
+;       |  |  |    |   |   |  |  |__ Line number for flash button DMX info
+;       |  |  |    |   |   |  |      from DMX definition (1..x)
+;       |  |  |    |   |   |  |__ Button release value
+;       |  |  |    |   |   |__ Button ON value (ff means use swop/add fader)
+;       |  |  |    |   |__ The TILT arc in Degrees
+;       |  |  |    |__ The Pan arc in degrees
+;       |  |  |__ Date in PC format (1b05==5/08/93)
+;       |  |__ Number of DMX slots used
+;      |__ Patch direction (1-backward, 0 forward, (3 for moving head, 1 for Moving Mirror))
+
+
+TEXTSTART                 ; Upto 21 lines of 28 characters (use the template)
+                            ;
+                            ;
+   CLAY PAKY STAGE ZOOM     ;
+       PERSONALITY          ;
+                            ;
+TEXTEND
+
+
+;------------------------------------------------------------
+
+; For the Attribute Dictionary refer to file 'dict.per'
+
+;------------------------------------------------------------
+; DMX information
+; No unused lines allowed between keyword 'DSTART' and last DMX definition
+
+DSTART                          ; DMX defintion
+1  2  0 0 15 0      ; IRIS
+2  2  0 0 38 0      ; COLOR WHEEL
+3  2  0 0 40 0      ; FROST
+4  1  0 0  0 0      ; DIMMER
+5  2  0 0 13 0      ; PAN
+6  2  0 0 14 0      ; TILT
+7  2  0 0 43 0      ; ZOOM
+8  2  0 0 12 0      ; FOCUS
+9  2  0 0 16 0      ; PRISM
+10 2  0 0 78 0      ; PRISMRot
+11 2 40 0 36 0      ; GOBO1
+12 2 40 0 37 0      ; GOBO2
+13 2 40 0 49 0      ; GOBO MODE
+14 2  0 0  5 0      ; RED
+15 2  0 0 10 0      ; GREEN
+16 2  0 0  6 0      ; BLUE
+17 2  0 0 52 0      ; CONTROL
+;| |  | |  | |
+;| |  | |  | |__ Spare (always 0 for now)
+;| |  | |  |__ Attribute name (See list above)
+;| |  | |__ Curve (0 means no curve otherwise curve number)
+;| |  |__ Flags (7=inverted, 6=instant, 5=16-bit)
+;| |__ Channel type (1=HTP, 2=LTP, 0=Dummy(for 16-bit defines)
+;|__ DMX offset (1..255, 0 means DIMMER will be patched seperately)
+
+
+;------------------------------------------------------------
+; WHEEL information
+; No unused lines allowed between keyword 'WSTART' and last DMX definition
+WSTART
+8 ffff ffff 1  15 0  1   0 1  0  1  0  0  0  0  0  ; 1. IRIS
+8 ffff    0 1  38 0  9   0 1  1  2  0  0  0  0  0  ; 2. COLOR WHEEL
+8 ffff    0 1  40 0 26   0 1  2  3  0  0  0  0  0  ; 3. FROST
+8 ffff 8080 4   0 0  8   0 1  3  4  0  0  0  0  0  ; 4. DIMMER
+6 ffff 8080 3  13 0  5   0 1  4  5  0  0  0  0  0  ; 5. PAN
+6 ffff 8080 3  14 0  6   0 1  5  6  0  0  0  0  0  ; 6. TILT
+8 ffff    0 1  43 0  7   0 1  6  7  0  0  0  0  0  ; 7. ZOOM
+8 ffff a0a0 1  12 0  2   0 1  7  8  0  0  0  0  0  ; 8. FOCUS
+8 ffff    0 1  16 0 25   0 1  8  9  0  0  0  0  0  ; 9. PRISM
+8 ffff    0 1  78 0 27   0 1  9 10  0  0  0  0  0  ; 10. PRISM ROT
+8 ffff    0 1  36 0 17   0 1 10 11  0  0  0  0  0  ; 11. GOBO1
+8 ffff    0 1  37 0 19   0 1 11 12  0  0  0  0  0  ; 12. GOBO2
+8 ffff    0 1  49 0 20   0 1 12 13  0  0  0  0  0  ; 13. GOBO MODE
+8 ffff ffff 1   5 0 10   0 1 13 14  0  0  0  0  0  ; 14. RED
+8 ffff ffff 1  10 0 11   0 1 14 15  0  0  0  0  0  ; 15. GREEN
+8 ffff ffff 1   6 0 12   0 1 15 16  0  0  0  0  0  ; 16. BLUE
+8 ffff ffff 2  52 0 33  52 1 16 17  0  0  0  0  0  ; 17. CONTROL TABLE
+8 ffff ffff 2 103 0  3 103 3 13 14 16 15  0  0  0  ; 18. LEE
+8 ffff    0 2  11 0  4  11 2 10 11 12  0  0  0  0  ; 19. GOBO TABLE
+;|   |    | |   | |  |   | |  |  |  |  |  |  |  |__ List of Table channels as
+;|   |    | |   | |  |   | |  |  |_______________ line numbers from DMX def.
+;|   |    | |   | |  |   | |  |                   0 means unused channel
+;|   |    | |   | |  |   | |  |__ DMX line (minus 1) pertainig to this wheel
+;|   |    | |   | |  |   | |__ Number of chanels under control OR Table width
+;|   |    | |   | |  |   |__ Table type (Attribute number) 0 means NOT a table
+;|   |    | |   | |  |__ Wheel number (1..8 on bank1, 9..16 on bank2 et cetera)
+;|   |    | |   | |__ 0 for 8 bits, 1 for 16 bits
+;|   |    | |   |__  Attribute name from above list (0..MAX)
+;|   |    | |__ Wheel type (1-offset, 2-Table, 3-Pan/Tilt, 4-Dimmer)
+;|   |    |__ Default value (left shifted as necessary)
+;|   |__ AND mask, where more than wheel controls same DMX slot
+;|___Wheel multiplication =16-(bits used)
+;   eg. for 8 bit channels it is 8, for 12 bit channels it is 4
+;
+;--------------------------------------------------------------------
+; TABLES
+; Each Table is enclosed by the keywords "TSTART" and "*** TEND ***"
+; The legend is 16 chars long
+; The correct number of values must be supplied (8-bits) with spaces in
+; between
+
+
+; GOBO TABLE
+TSTART    2   11
+01. O.W.                 0    0
+02. GOBO-1              64    0
+03. GOBO-2             128    0
+04. GOBO-3             191    0
+05. GOBO-4             255    0
+06. GOBO-5               0   64
+07. GOBO-6               0  128
+08. GOBO-6               0  191
+09. GOBO-7               0  255
+*** TEND ***
+
+;CONTROL TABLE
+TSTART    1   52
+01. ON                      255
+02. ON                      255
+03. ON                      255
+04. ON                      255
+05. ON                      255
+06. OFF                       0
+07. OFF                       0
+08. OFF                       0
+09. OFF                       0
+10. OFF                       0
+*** TEND ***
+
+; lee color table
+TSTART 3   103
+lee101                   255       0         216     
+lee102                   234       29        190     
+lee103                   255       93        215     
+lee104                   255       0         198     
+lee105                   245       44        154     
+lee106                   148       16        16      
+lee107                   255       112       178     
+lee108                   255       56        181     
+lee109                   255       88        185     
+lee110                   255       88        174     
+lee111                   255       76        77      
+lee113                   246       51        0       
+lee115                   35        45        253     
+lee116                   0         49        236     
+lee117                   200       131       249     
+lee118                   32        97        248     
+lee119                   12        239       216     
+lee120                   0         241       152     
+lee121                   179       1         255     
+lee122                   99        20        255     
+lee124                   30        0         226     
+lee126                   250       209       13      
+lee127                   227       62        64      
+lee128                   255       129       2       
+lee129                   0         0         0       
+lee130                   255       255       255     
+lee131                   59        46        217     
+lee132                   31        218       255     
+lee134                   255       33        129     
+lee135                   255       0         27      
+lee136                   255       184       214     
+lee137                   216       184       210     
+lee138                   215       51        233     
+lee139                   39        0         250     
+lee140                   121       87        244     
+lee141                   28        115       248     
+lee142                   135       135       193     
+lee143                   58        81        211     
+lee144                   68        86        224     
+lee145                   0         0         0       
+lee147                   245       44        154     
+lee148                   229       40        27      
+lee151                   251       150       201     
+lee152                   251       89        208     
+lee153                   251       89        195     
+lee154                   251       89        206     
+lee156                   242       53        171     
+lee158                   255       21        65      
+lee159                   255       144       224     
+lee161                   140       196       226     
+lee162                   255       123       217     
+lee164                   69        170       226     
+lee165                   97        190       241     
+lee166                   247       40        40      
+lee169                   255       180       224     
+lee170                   200       113       173     
+lee172                   26        74        240     
+lee174                   221       216       238     
+lee176                   239       70        130     
+lee179                   255       0         176     
+lee180                   87        181       72      
+lee181                   0         196       33      
+lee182                   215       0         0       
+lee183                   7         96        243     
+*** TEND ***
+
+MACRO "RESET" 1  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17
+20  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+MEND
+
+MACRO "SWITCH-ON" 2  17
+1 ff
+MEND
+
+MACRO "SWITCH-OFF"  3  17
+1 0
+MEND
+
+;--------------------------------------------------------------------

@@ -1,0 +1,1704 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Catalyst" ShortName="Catalyst" Company="High End">
+  <Copyright Notice="© Avolites Ltd. 2011" />
+  <History Date="13-12-04" Author="Phil Rogers" Comment="Created from v3.2" />
+  <History Date="14-12-04" Author="Tom" Comment="Checked" />
+  <History Date="04-03-05" Author="Dave Trounce" Comment="Error 1: Could do with merging with other Catalyst personalities." />
+  <History Date="05-04-06" Author="Ed" Comment="Changed Aspect Ratio to beam" />
+  <History Date="06-04-06" Author="Ed" Comment="Moved all keystoning to Beam group" />
+  <History Date="10-04-06" Author="Ed Spencer" Comment="Moved Param 1 and 2 into special group" />
+  <History Date="11-04-06" Author="Ed Spencer" Comment="Moved Scale into beam group" />
+  <History Date="12-04-06" Author="Ed Spencer" Comment="Moved trail into Effect group and moved visual Effect into effect group" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <History Date="28-09-09" Author="Gregory Haynes" Comment="Changed Dimmer power on value to 0" />
+  <History Date="28-01-11" Author="Gregory Haynes" Comment="Updated keystone attributes for Titan attribute control" />
+  <History Date="28-01-11" Author="Gregory Haynes" Comment="Merged Catalyst personalities into one file" />
+  <History Date="09-02-11" Author="John Rogers" Comment="Edited ranges types in Mask Rotate. Corrected Blue locate value." />
+  <History Date="09-02-11" Author="John Rogers" Comment="Corrected Highlight/Lowlight values." />
+  <History Date="01-03-11" Author="John Rogers" Comment="Inverted ranges of Keystone X3, Y1 X4 and Y4 attributes." />
+  <History Date="01-03-11" Author="John Rogers" Comment="Added Layer Select and Video Switcher modes." />
+  <History Date="03-08-11" Author="Nic Morris" Comment="Changed Gobo size, Scale, xpos and ypos to single 16bit raw range in response to customer." />
+  <History Date="03-08-11" Author="Nic Morris" Comment="Removed X Rot update from Y Rot Func.  Adjusted rotate functions.  Increased wheel resolution." />
+  <History Date="03-08-11" Author="Nic Morris" Comment="Fixed power on and locate.  Removed non-existant attributes from Colour Eff update." />
+  <History Date="03-08-11" Author="Nic Morris" Comment="Removed parameter update from visual eff.  There was nothing to update." />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Library" Name="Library" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Library" Display="'Library %.f',0~253" Dmx="0~253" Update="File" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Use layer" Display="'Use layer'" Dmx="254~254" Update="File" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Video Input" Display="'Video Input'" Dmx="255~255" Update="File" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="File" Name="File" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Reference" ID="2" If="'Library'==2" />
+      <Condition Name="Video Input" ID="3" If="'Library'==3" />
+      <Else ID="1" />
+      <Function ID="1" Name="File" Display="'File %.f',0~255" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Use Layer" Display="'Use Layer %.f',0~255" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Video Input" Display="'Video Input %.f',0~255" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="In_Frame" Name="In Frame" Description="" Group="G" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="In Frame" Display="'Frame: %.f',0~65535" Dmx="0~65535" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Out_Frame" Name="Out Frame" Description="" Group="G" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Out Frame" Display="'Frame: %.f',0~65535" Dmx="0~65535" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Play_Mode" Name="Play Mode" Description="" Group="G">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Display In Frame" Display="'Display In    Frame'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Display Out Frame" Display="'Display Out   Frame'" Dmx="1~1" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Play loop forward" Display="'Play loop     forward'" Dmx="2~2" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="Play loop reverse" Display="'Play loop     reverse'" Dmx="3~3" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="5" Name="Play once forward" Display="'Play once     forward'" Dmx="4~4" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="6" Name="Play once reverse" Display="'Play once     reverse'" Dmx="5~5" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="7" Name="Stop" Display="'Stop'" Dmx="6~6" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="8" Name="Random" Display="'Random'" Dmx="7~7" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="9" Name="Play Sine" Display="'Play Sine'" Dmx="8~8" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="10" Name="Loop Forward Intensity &gt; 0" Display="'Loop Forward  Intensity &gt; 0'" Dmx="10~10" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="11" Name="Loop Backward Intensity &gt; 0" Display="'Loop Backward Intensity &gt; 0'" Dmx="11~11" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="12" Name="Once Forward Intensity &gt; 0" Display="'Once Forward  Intensity &gt; 0'" Dmx="12~12" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="13" Name="Once Backwards Intensity &gt; 0" Display="'Once BackwardsIntensity &gt; 0'" Dmx="13~13" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="14" Name="Random when Intensity &gt; 0" Display="'Random when   Intensity &gt; 0'" Dmx="14~14" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="15" Name="PlaySine when Intensity &gt; 0" Display="'PlaySine when Intensity &gt; 0'" Dmx="15~15" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="16" Name="Sync to MIDI" Display="'Sync to MIDI'" Dmx="20~20" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="17" Name="Sync to RS422 No.1" Display="'Sync to RS422 No.1'" Dmx="30~30" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="18" Name="Sync to RS422 No.2" Display="'Sync to RS422 No.2'" Dmx="31~31" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="19" Name="Sync to RS422 No.3" Display="'Sync to RS422 No.3'" Dmx="32~32" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="20" Name="Loop Retrigger" Display="'Loop Retrigger'" Dmx="40~40" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="21" Name="Loop Backward Retrigger" Display="'Loop Backward Retrigger'" Dmx="41~41" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="22" Name="Once Retrigger" Display="'Once Retrigger'" Dmx="42~42" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="23" Name="Once Backward Retriger" Display="'Once Backward Retriger'" Dmx="43~43" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="24" Name="Play Sine Retrigger" Display="'Play Sine     Retrigger'" Dmx="44~44" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="25" Name="Play Audio" Display="'Play Audio'" Dmx="70~70" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="26" Name="Play Audio Loop" Display="'Play Audio    Loop'" Dmx="71~71" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="27" Name="Sync to Master" Display="'Sync to Master %.f',1~20" Dmx="80~99" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="28" Name="Sync to MIDI" Display="'Sync to MIDI'" Dmx="100~100" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="29" Name="Sync to Deck" Display="'Sync to Deck'" Dmx="101~101" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="30" Name="Sync to Sony 1" Display="'Sync to Sony 1'" Dmx="103~103" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="31" Name="Sync to Sony 2" Display="'Sync to Sony 2'" Dmx="104~104" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="32" Name="Sync to Sony 3" Display="'Sync to Sony 3'" Dmx="105~105" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="33" Name="Reserved" Display="'Reserved %.f',106~255" Dmx="106~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Play_Mode2" Name="Play Mode" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Disp In Frm" Display="'Disp In Frm'" Dmx="0~4" />
+      <Function ID="2" Name="Disp Out Frm" Display="'Disp Out Frm'" Dmx="5~9" />
+      <Function ID="3" Name="Play Loop Fwd" Display="'Play Loop Fwd'" Dmx="10~19" />
+      <Function ID="4" Name="Play Loop Rev" Display="'Play Loop Rev'" Dmx="20~29" />
+      <Function ID="5" Name="Play Once Fwd" Display="'Play Once Fwd'" Dmx="30~39" />
+      <Function ID="6" Name="Play Once Rev" Display="'Play Once Rev'" Dmx="40~49" />
+      <Function ID="7" Name="Stop" Display="'Stop'" Dmx="50~59" />
+      <Function ID="8" Name="Random" Display="'Random'" Dmx="60~69" />
+      <Function ID="9" Name="PlaySine" Display="'PlaySine'" Dmx="70~79" />
+      <Function ID="10" Name="Synchronize" Display="'Synchronize %.f',0~19" Dmx="80~99" />
+      <Function ID="11" Name="Reserved" Display="'Reserved'" Dmx="100~255" />
+    </Attribute>
+    <Attribute ID="Playback_Speed" Name="Playback Speed" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Normal Speed" Display="'Normal Speed'" Dmx="0~0" />
+      <Function ID="2" Name="Pause" Display="'Pause'" Dmx="1~1" />
+      <Function ID="3" Name="Speed" Display="'Speed %.f%%',0~200" Dmx="2~255" />
+    </Attribute>
+    <Attribute ID="Gobo_Frame" Name="Gobo Frame" Description="" Group="G" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Gobo Library" Display="'Gobo Lib %.1f%%',0.0~100.0" Dmx="0~65535" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo_Size" Name="Gobo Size" Description="" Group="G" Size="2">
+      <Locate Locate="1:36864" PowerOn="1:36864" />
+      <Function ID="1" Name="Gobo Size" Display="'%.f',0~65535" Dmx="0~65535" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo_Rotate" Name="Gobo Rotate" Description="" Group="G" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Index" Display="'Index %.1f°',-720.0~720.0" Dmx="16384~49152" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="No Spin" Display="'No Spin'" Dmx="16383~16383" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Spin CW" Display="'Spin CW %.2f%%',100.00~0.00" Dmx="65535~49154" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="No Spin" Display="'No Spin'" Dmx="16383~16383" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="5" Name="Spin CCW" Display="'Spin CCW %.2f%%',0.00~100.00" Dmx="16382~0" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="X_Rot" Name="X Rot" Description="" Group="P" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Spin" ID="2,3,4,5" If="'XRot_Func'==2" />
+      <Else ID="1" />
+      <Function ID="1" Name="Index" Display="'Index %.1f°',-720.0~720.0" Dmx="16384~49152" />
+      <Function ID="2" Name="No Spin" Display="'No Spin'" Dmx="16383~16383" />
+      <Function ID="3" Name="Spin CW" Display="'Spin CW %.2f%%',100.00~0.00" Dmx="65535~49154" />
+      <Function ID="4" Name="No Spin" Display="'No Spin'" Dmx="16383~16383" />
+      <Function ID="5" Name="Spin CCW" Display="'Spin CCW %.2f%%',0.00~100.00" Dmx="16382~0" />
+    </Attribute>
+    <Attribute ID="Y_Rot" Name="Y Rot" Description="" Group="P" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Spin" ID="2,3,4,5" If="'YRot_Func'==2" />
+      <Else ID="1" />
+      <Function ID="1" Name="Index" Display="'Index %.1f°',-720.0~720.0" Dmx="16384~49152" />
+      <Function ID="2" Name="No Spin" Display="'No Spin'" Dmx="16383~16383" />
+      <Function ID="3" Name="Spin CW" Display="'Spin CW %.2f%%',100.00~0.00" Dmx="65535~49154" />
+      <Function ID="4" Name="No Spin" Display="'No Spin'" Dmx="16383~16383" />
+      <Function ID="5" Name="Spin CCW" Display="'Spin CCW %.2f%%',0.00~100.00" Dmx="16382~0" />
+    </Attribute>
+    <Attribute ID="Z_Rot" Name="Z Rot" Description="" Group="P" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Spin" ID="2,3,4,5" If="'ZRot_Func'==2" />
+      <Else ID="1" />
+      <Function ID="1" Name="Index" Display="'Index %.1f°',-720.0~720.0" Dmx="16384~49152" />
+      <Function ID="2" Name="No Spin" Display="'No Spin'" Dmx="16383~16383" />
+      <Function ID="3" Name="Spin CW" Display="'Spin CW %.2f%%',100.00~0.00" Dmx="65535~49154" />
+      <Function ID="4" Name="No Spin" Display="'No Spin'" Dmx="16383~16383" />
+      <Function ID="5" Name="Spin CCW" Display="'Spin CCW %.2f%%',0.00~100.00" Dmx="16382~0" />
+    </Attribute>
+    <Attribute ID="Scale" Name="Scale" Description="" Group="G" Size="2">
+      <Locate Locate="1:36864" PowerOn="1:36864" />
+      <Function ID="1" Name="Scale" Display="'%.f',0~65535" Dmx="0~65535" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="X_Pos" Name="X Pos" Description="" Group="P" Size="2">
+      <Locate Locate="1:32768" PowerOn="1:32768" />
+      <Function ID="1" Name="X-Pos" Display="'%.f',0~65535" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Y_Pos" Name="Y Pos" Description="" Group="P" Size="2">
+      <Locate Locate="1:32768" PowerOn="1:32768" />
+      <Function ID="1" Name="Y-Pos" Display="'%.f',0~65535" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Aspect_Ratio" Name="Aspect Ratio" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Horizontal:" Display="'Horizontal: %.1f%%',0.0~100.0" Dmx="0~128" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Vertical:" Display="'Vertical: %.1f%%',0.0~100.0" Dmx="129~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Movement_Speed" Name="Movement Speed" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Speed" Display="'Speed %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Mask_Select" Name="Mask Select" Description="" Group="B" Size="2">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Mask" Display="'No Mask'" Dmx="0~0" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Circle" Display="'Circle %.f%%',0~100" Dmx="1~99" Iris="0~0" Zoom="0~0" />
+      <Function ID="3" Name="Rectangle Width" Display="'Width %.f%%',100~0" Dmx="100~125" Iris="0~0" Zoom="0~0" />
+      <Function ID="4" Name="Rectangle Height" Display="'Height %.f%%',100~0" Dmx="127~149" Iris="0~0" Zoom="0~0" />
+      <Function ID="5" Name="Square" Display="'Square %.f%%',0~100" Dmx="151~199" Iris="0~0" Zoom="0~0" />
+      <Function ID="6" Name="Reserved" Display="'Reserved %.f',200~65535" Dmx="200~65535" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Mask_Rotate" Name="Mask Rotate" Description="" Group="B" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Index" Display="'Index %.1f°',-720.0~720.0" Dmx="16384~49152" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="No Spin" Display="'No Spin'" Dmx="16383~16383" Iris="0~0" Zoom="0~0" />
+      <Function ID="3" Name="Spin CW" Display="'Spin CW %.2f%%',100.00~0.00" Dmx="65535~49154" Iris="0~0" Zoom="0~0" />
+      <Function ID="4" Name="No Spin" Display="'No Spin'" Dmx="16383~16383" Iris="0~0" Zoom="0~0" />
+      <Function ID="5" Name="Spin CCW" Display="'Spin CCW %.2f%%',0.00~100.00" Dmx="16382~0" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:100" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="Black/White" ID="2" If="'CEff'==13||'CEff'==14||'CEff'==15||'CEff'==17||'CEff'==24||'CEff'==25||'CEff'==26||'CEff'==27||'CEff'==28||'CEff'==29||'CEff'==30||'CEff'==31||'CEff'==32||'CEff'==33||'CEff'==34||'CEff'==35||'CEff'==42||'CEff'==43" />
+      <Condition Name="Mask" ID="3" If="'CEff'==18||'CEff'==19||'CEff'==20||'CEff'==21||'CEff'==22||'CEff'==23" />
+      <Condition Name="Gamma" ID="4" If="'CEff'==36||'CEff'==37" />
+      <Condition Name="Color Gain Sep" ID="5" If="'CEff'==38" />
+      <Condition Name="Convert to YUV" ID="6" If="'CEff'==40" />
+      <Condition Name="Saturation" ID="7" If="'CEff'==41||'CEff'==42" />
+      <Condition Name="Fade to Hue" ID="8" If="'CEff'==57" />
+      <Else ID="1" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+      <Function ID="2" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="3" Name="Mask" Display="'Mask %.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+      <Function ID="4" Name="Gamma" Display="'Gamma %.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+      <Function ID="5" Name="Col Gain" Display="'Col Gain %.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+      <Function ID="6" Name="Intensity" Display="'Intensity %.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+      <Function ID="7" Name="Saturation" Display="'Saturation %.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+      <Function ID="8" Name="Fade %" Display="'Fade %.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:100" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="Black/White" ID="2" If="'CEff'==13||'CEff'==14||'CEff'==15||'CEff'==17||'CEff'==24||'CEff'==25||'CEff'==26||'CEff'==27||'CEff'==28||'CEff'==29||'CEff'==30||'CEff'==31||'CEff'==32||'CEff'==33||'CEff'==34||'CEff'==42||'CEff'==43||'CEff'==35" />
+      <Condition Name="Mask" ID="8" If="'CEff'==18||'CEff'==19||'CEff'==20||'CEff'==21||'CEff'==22||'CEff'==23" />
+      <Condition Name="Gamma" ID="3" If="'CEff'==36" />
+      <Condition Name="Col Gain Sep" ID="4" If="'CEff'==37" />
+      <Condition Name="Convert to YUV" ID="5" If="'CEff'==39" />
+      <Condition Name="Saturation" ID="7" If="'CEff'==40||'CEff'==41" />
+      <Condition Name="Fade to Hue" ID="6" If="'CEff'==56" />
+      <Else ID="1" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+      <Function ID="2" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="3" Name="Gamma" Display="'Gamma %.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+      <Function ID="4" Name="Col Gain" Display="'Col Gain %.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+      <Function ID="5" Name="U" Display="'U %.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+      <Function ID="6" Name="Hue" Display="'Hue %.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+      <Function ID="7" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="8" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:100" Highlight="1:0" Lowlight="1:90" />
+      <Condition Name="Black/White" ID="2" If="'CEff'==13||'CEff'==14||'CEff'==15||'CEff'==17||'CEff'==24||'CEff'==25||'CEff'==26||'CEff'==27||'CEff'==28||'CEff'==29||'CEff'==30||'CEff'==31||'CEff'==32||'CEff'==33||'CEff'==34||'CEff'==42||'CEff'==43||'CEff'==35" />
+      <Condition Name="Mask" ID="3" If="'CEff'==18||'CEff'==19||'CEff'==20||'CEff'==21||'CEff'==22||'CEff'==23" />
+      <Condition Name="Gamma Color" ID="4" If="'CEff'==36" />
+      <Condition Name="Color Gain Sep" ID="5" If="'CEff'==37" />
+      <Condition Name="Convert to YUV" ID="6" If="'CEff'==39" />
+      <Condition Name="Saturation" ID="7" If="'CEff'==40||'CEff'==41" />
+      <Condition Name="Fade to Hue" ID="8" If="'CEff'==56" />
+      <Else ID="1" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+      <Function ID="2" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="3" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="4" Name="Gamma" Display="'Gamma %.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+      <Function ID="5" Name="Col Gain" Display="'Col Gain %.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+      <Function ID="6" Name="V" Display="'V %.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+      <Function ID="7" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="8" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Gradient_Red" Name="Red Gradient" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Red" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Gradient_Green" Name="Green Gradient" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Green" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Gradient_Blue" Name="Blue Gradient" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Blue" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Strobe" Name="Strobe" Description="" Group="I">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Strobe" Display="'No Strobe'" Dmx="0~0" Intensity="0~0" />
+      <Function ID="2" Name="Variable Strobe" Display="'%.1f%%',0.0~100.0" Dmx="1~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Strobing" Name="Strobing" Description="" Group="I">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Strobe" Display="'No Strobe'" Dmx="0~0" Intensity="0~0" />
+      <Function ID="2" Name="Strobe 1" Display="'Strobe 1 %.f%%',0~100" Dmx="1~24" Intensity="0~0" />
+      <Function ID="3" Name="Strobe 2" Display="'Strobe 2 %.f%%',0~100" Dmx="25~49" Intensity="0~0" />
+      <Function ID="4" Name="Strobe 3" Display="'Strobe 3 %.f%%',0~100" Dmx="50~74" Intensity="0~0" />
+      <Function ID="5" Name="Strobe 4" Display="'Strobe 4 %.f%%',0~100" Dmx="75~99" Intensity="0~0" />
+      <Function ID="6" Name="Flicker/Black" Display="'Flicker/Black %.f%%',0~100" Dmx="100~124" Intensity="0~0" />
+      <Function ID="7" Name="Random" Display="'Random %.f%%',0~100" Dmx="125~149" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Trail" Name="Trail" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Trail" Display="'%.1f%%',0.0~100.0" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="CEff" Name="Colour Eff" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="RGB Subtract" Display="'RGB Subtract'" Dmx="0~0" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="2" Name="RGB Sub Hi Cnt" Display="'RGB Sub Hi Cnt'" Dmx="1~1" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="3" Name="RGB Sub VHi C" Display="'RGB Sub VHi C'" Dmx="2~2" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="4" Name="Trnsprnt Blcks" Display="'Trnsprnt Blcks'" Dmx="3~3" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="5" Name="Trnsprnt Whts" Display="'Trnsprnt Whts'" Dmx="4~4" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="6" Name="RGB Sub Inv." Display="'RGB Sub Inv.'" Dmx="10~10" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="7" Name="RGB Sub Inv. Hi Ct" Display="'RGB Sub Inv.  Hi Ct'" Dmx="11~11" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="8" Name="RBG Sub S.Hi C" Display="'RBG Sub S.Hi C'" Dmx="12~12" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="9" Name="Invert Whatever" Display="'Invert        Whatever'" Dmx="13~13" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="10" Name="RGB Sub InvertCMY" Display="'RGB Sub Invert CMY'" Dmx="14~14" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="11" Name="RGB Sub Invert CMY Hi Cont" Display="'RGB Sub Invert CMY Hi Cont'" Dmx="15~15" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="12" Name="RGB Sub Invert CMY Sup Hi Cont" Display="'RGB Sub Invert CMY Sup Hi Cont'" Dmx="16~16" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="13" Name="Black/White" Display="'Black/White'" Dmx="20~20" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="14" Name="BW High Contrast" Display="'BW High       Contrast'" Dmx="21~21" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="15" Name="BW S. Hi Contr" Display="'BW S. Hi Contr'" Dmx="22~22" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="16" Name="BW Var. S. Hi C" Display="'BW Var. S. Hi Contrast'" Dmx="23~23" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="17" Name="Inv. B/W" Display="'Inv. B/W'" Dmx="24~24" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="18" Name="Mask" Display="'Mask'" Dmx="30~30" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="19" Name="Invert Mask 1" Display="'Invert Mask 1'" Dmx="31~31" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="20" Name="Invert Mask 2" Display="'Invert Mask 2'" Dmx="32~32" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="21" Name="Mask Fading" Display="'Mask Fading'" Dmx="35~35" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="22" Name="Invert Mask 1 Fading" Display="'Invert Mask 1 Fading'" Dmx="36~36" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="23" Name="Invert Mask 2 Fading" Display="'Invert Mask 2 Fading'" Dmx="37~37" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="24" Name="Alpha Inv as Red" Display="'Alpha Inv as  Red'" Dmx="40~40" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="25" Name="Alpha Inv as Green" Display="'Alpha Inv as  Green'" Dmx="41~41" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="26" Name="Alpha Inv as Blue" Display="'Alpha Inv as  Blue'" Dmx="42~42" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="27" Name="Alpha Inv as Color" Display="'Alpha Inv as  Color'" Dmx="43~43" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="28" Name="Alpha as Red" Display="'Alpha as Red'" Dmx="44~44" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="29" Name="Alpha as Green" Display="'Alpha as Green'" Dmx="45~45" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="30" Name="Alpha as Blue" Display="'Alpha as Blue'" Dmx="46~46" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="31" Name="Alpha as Color" Display="'Alpha as Color'" Dmx="47~47" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="32" Name="Lookup Colour" Display="'Lookup Colour'" Dmx="50~50" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="33" Name="Lookup 2 Fls C" Display="'Lookup 2 Fls C'" Dmx="51~51" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="34" Name="Lookup 3 BW" Display="'Lookup 3 BW'" Dmx="52~52" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="35" Name="Gamma BW" Display="'Gamma BW'" Dmx="60~60" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="36" Name="Gamma Color" Display="'Gamma Color'" Dmx="61~61" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="37" Name="Gamma Col Sep." Display="'Gamma Col Sep.'" Dmx="62~62" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="38" Name="Color Gain Sep" Display="'Color Gain Sep'" Dmx="63~63" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="39" Name="Quant Col Sep" Display="'Quant Col Sep'" Dmx="65~65" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="40" Name="Convert to YUV" Display="'Convert to YUV'" Dmx="70~70" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="41" Name="Saturation" Display="'Saturation'" Dmx="71~71" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="42" Name="Mega Saturat'n" Display="'Mega Saturat'" Dmx="72~72" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="43" Name="Solarize" Display="'Solarize'" Dmx="73~73" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="44" Name="Solarize Inv." Display="'Solarize Inv.'" Dmx="74~74" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="45" Name="RGB Lyr Blnd 1" Display="'RGB Lyr Blnd 1'" Dmx="80~80" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="46" Name="RGB Lyr Blnd 2" Display="'RGB Lyr Blnd 2'" Dmx="81~81" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="47" Name="RGB Lyr Blnd 3" Display="'RGB Lyr Blnd 3'" Dmx="82~82" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="48" Name="RGB Lyr Blnd 4" Display="'RGB Lyr Blnd 4'" Dmx="83~83" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="49" Name="RGB Lyr Blnd 5" Display="'RGB Lyr Blnd 5'" Dmx="84~84" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="50" Name="RGB Lyr Blnd 6" Display="'RGB Lyr Blnd 6'" Dmx="85~85" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="51" Name="RGB Lyr Blnd 7" Display="'RGB Lyr Blnd 7'" Dmx="86~86" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="52" Name="RGB Lyr Bld 10" Display="'RGB Lyr Bld 10'" Dmx="89~89" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="53" Name="RGB Lyr Bld 11" Display="'RGB Lyr Bld 11'" Dmx="90~90" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="54" Name="RGB Lyr Bld 12" Display="'RGB Lyr Bld 12'" Dmx="91~91" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="55" Name="Tint" Display="'Tint'" Dmx="100~100" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="56" Name="Tint Inverse" Display="'Tint Inverse'" Dmx="101~101" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="57" Name="Fade to Hue" Display="'Fade to Hue'" Dmx="102~102" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="58" Name="RGB &gt; GBR" Display="'RGB &gt; GBR'" Dmx="103~103" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="59" Name="RGB &gt; BGR" Display="'RGB &gt; BGR'" Dmx="104~104" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="60" Name="RGB &gt; GRB" Display="'RGB &gt; GRB'" Dmx="105~105" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="61" Name="RGB User 1" Display="'RGB User 1 %.f',200~219" Dmx="200~219" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="62" Name="HSC User 2" Display="'HSC User 2 %.f',220~239" Dmx="220~239" Update="Red,Green,Blue" Colour="0,0,0" />
+      <Function ID="63" Name="Reserved" Display="'Reserved %.f',240~255" Dmx="240~255" Update="Red,Green,Blue" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="VEff" Name="Visual Eff." Description="" Group="E">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Non-Inf Plane" Display="'Non-Inf Plane'" Dmx="0~0" />
+      <Function ID="2" Name="Inf Plane" Display="'Inf Plane'" Dmx="1~1" />
+      <Function ID="3" Name="Unity Scale" Display="'Unity Scale'" Dmx="2~2" />
+      <Function ID="4" Name="Movie Perspective" Display="'Movie         Perspective'" Dmx="3~3" />
+      <Function ID="5" Name="Full Screen" Display="'Full Screen'" Dmx="4~4" />
+      <Function ID="6" Name="KeyStone TM1" Display="'KeyStone TM1'" Dmx="5~5" />
+      <Function ID="7" Name="Rot Keystone" Display="'Rot Keystone'" Dmx="6~6" />
+      <Function ID="8" Name="Setup Keystone" Display="'Setup Keystone'" Dmx="9~9" />
+      <Function ID="9" Name="Filled Sphere" Display="'Filled Sphere'" Dmx="10~10" />
+      <Function ID="10" Name="Wirefrm Sphere" Display="'Wirefrm Sphere'" Dmx="11~11" />
+      <Function ID="11" Name="Points Sphere" Display="'Points Sphere'" Dmx="12~12" />
+      <Function ID="12" Name="Lit Sphere" Display="'Lit Sphere'" Dmx="13~13" />
+      <Function ID="13" Name="Disc" Display="'Disc'" Dmx="14~14" />
+      <Function ID="14" Name="Disc Wireframe" Display="'Disc Wireframe'" Dmx="15~15" />
+      <Function ID="15" Name="Disc Points" Display="'Disc Points'" Dmx="16~16" />
+      <Function ID="16" Name="Disc Silhouette" Display="'Disc          Silhouette'" Dmx="17~17" />
+      <Function ID="17" Name="Kaleidoscope" Display="'Kaleidoscope'" Dmx="20~20" />
+      <Function ID="18" Name="Mgic Lntrn(No black)" Display="'Mgic Lntrn   (No black)'" Dmx="21~21" />
+      <Function ID="19" Name="Stretched" Display="'Stretched'" Dmx="22~22" />
+      <Function ID="20" Name="Panaroma Slices" Display="'Panaroma      Slices'" Dmx="23~23" />
+      <Function ID="21" Name="Magic Lantern 2" Display="'Magic Lantern 2'" Dmx="24~24" />
+      <Function ID="22" Name="Split Horiz" Display="'Split Horiz'" Dmx="25~25" />
+      <Function ID="23" Name="Split Vert" Display="'Split Vert'" Dmx="26~26" />
+      <Function ID="24" Name="Cube 4 Sides" Display="'Cube 4 Sides'" Dmx="30~30" />
+      <Function ID="25" Name="Cube 6 Sides" Display="'Cube 6 Sides'" Dmx="31~31" />
+      <Function ID="26" Name="Col Cube 6" Display="'Col Cube 6'" Dmx="32~32" />
+      <Function ID="27" Name="Cube (4 Layers)" Display="'Cube          (4 Layers)'" Dmx="33~33" />
+      <Function ID="28" Name="Simul Tiles" Display="'Simul Tiles'" Dmx="40~40" />
+      <Function ID="29" Name="Simul Tiles Rnd Col." Display="'Simul Tiles   Rnd Col.'" Dmx="41~41" />
+      <Function ID="30" Name="Cons Tiles" Display="'Cons Tiles'" Dmx="42~42" />
+      <Function ID="31" Name="Cons Tiles Rnd C" Display="'Cons Tiles Rnd C'" Dmx="43~43" />
+      <Function ID="32" Name="Cons Tiles Rnd Frm" Display="'Cons Tiles Rnd Frm'" Dmx="44~44" />
+      <Function ID="33" Name="Rnd Flicker" Display="'Rnd Flicker'" Dmx="45~45" />
+      <Function ID="34" Name="Rnd Col Flick" Display="'Rnd Col Flick'" Dmx="46~46" />
+      <Function ID="35" Name="Rect Shutt" Display="'Rect Shutt'" Dmx="60~60" />
+      <Function ID="36" Name="Rect Col Shut" Display="'Rect Col Shut'" Dmx="61~61" />
+      <Function ID="37" Name="N-Sided Shape" Display="'N-Sided Shape'" Dmx="62~62" />
+      <Function ID="38" Name="Shutter-Black" Display="'Shutter-Black'" Dmx="70~70" />
+      <Function ID="39" Name="Shutter-Col." Display="'Shutter-Col.'" Dmx="71~71" />
+      <Function ID="40" Name="Iris Shuttered" Display="'Iris Shuttered'" Dmx="72~72" />
+      <Function ID="41" Name="Teapot" Display="'Teapot'" Dmx="100~100" />
+      <Function ID="42" Name="Sound ch1" Display="'Sound ch1'" Dmx="110~110" />
+      <Function ID="43" Name="Sound ch2" Display="'Sound ch2'" Dmx="111~111" />
+      <Function ID="44" Name="Sound ch3" Display="'Sound ch3'" Dmx="112~112" />
+      <Function ID="45" Name="Sound ch4" Display="'Sound ch4'" Dmx="113~113" />
+      <Function ID="46" Name="Col. Sphere" Display="'Col. Sphere'" Dmx="120~120" />
+      <Function ID="47" Name="Spectrograph" Display="'Spectrograph'" Dmx="123~123" />
+      <Function ID="48" Name="Midigraph" Display="'Midigraph'" Dmx="124~124" />
+      <Function ID="49" Name="PixelMad out" Display="'PixelMad out'" Dmx="130~130" />
+      <Function ID="50" Name="Marble Test" Display="'Marble Test'" Dmx="133~133" />
+      <Function ID="51" Name="Model" Display="'Model %.f',160~179" Dmx="160~179" />
+      <Function ID="52" Name="Kinesys" Display="'Kinesys'" Dmx="180~180" />
+      <Function ID="53" Name="Kaleidoscope" Display="'Kaleidoscope'" Dmx="181~181" />
+      <Function ID="54" Name="Wrap Rotate" Display="'Wrap Rotate'" Dmx="182~182" />
+      <Function ID="55" Name="Wave Horiz" Display="'Wave Horiz'" Dmx="183~183" />
+      <Function ID="56" Name="Wave Vert" Display="'Wave Vert'" Dmx="184~184" />
+      <Function ID="57" Name="Wave Diagonal" Display="'Wave Diagonal'" Dmx="185~185" />
+      <Function ID="58" Name="Pixelize" Display="'Pixelize'" Dmx="186~186" />
+      <Function ID="59" Name="Pixel Lights Round" Display="'Pixel Lights  Round'" Dmx="187~187" />
+      <Function ID="60" Name="Pixel Lights Square" Display="'Pixel Lights  Square'" Dmx="188~188" />
+      <Function ID="61" Name="Wipes" Display="'Wipes'" Dmx="189~189" />
+      <Function ID="62" Name="Wipes Drag" Display="'Wipes Drag'" Dmx="190~190" />
+      <Function ID="63" Name="C Border" Display="'C Border'" Dmx="195~195" />
+      <Function ID="64" Name="C Border Setup" Display="'C Border Setup'" Dmx="196~196" />
+      <Function ID="65" Name="C Border Centred" Display="'C Border      Centred'" Dmx="197~197" />
+      <Function ID="66" Name="C Border C Setup" Display="'C Border      C Setup'" Dmx="198~198" />
+      <Function ID="67" Name="C Shutter" Display="'C Shutter'" Dmx="199~199" />
+      <Function ID="68" Name="C Shutter Setup" Display="'C Shutter     Setup'" Dmx="200~200" />
+      <Function ID="69" Name="C Shutter Centred" Display="'C Shutter     Centred'" Dmx="201~201" />
+      <Function ID="70" Name="C Shutter C Setup" Display="'C Shutter     C Setup'" Dmx="202~202" />
+      <Function ID="71" Name="Shrink and Stretch" Display="'Shrink and    Stretch'" Dmx="203~203" />
+      <Function ID="72" Name="Crop Soft Edge" Display="'Crop Soft Edge'" Dmx="204~204" />
+      <Function ID="73" Name="Square P1" Display="'Square P1'" Dmx="210~210" />
+      <Function ID="74" Name="Square Coloured" Display="'Square        Coloured'" Dmx="211~211" />
+      <Function ID="75" Name="Square Col Fade" Display="'Square ColFade'" Dmx="212~212" />
+      <Function ID="76" Name="Square Movie" Display="'Square Movie'" Dmx="213~213" />
+      <Function ID="77" Name="Mirror Movie" Display="'Mirror Movie'" Dmx="214~214" />
+      <Function ID="78" Name="Mirror Movie 2" Display="'Mirror Movie 2'" Dmx="215~215" />
+      <Function ID="79" Name="Artnet Squares BW" Display="'Artnet Squares BW'" Dmx="216~216" />
+      <Function ID="80" Name="Artnet Squares Colour" Display="'Artnet Squares Colour'" Dmx="217~217" />
+      <Function ID="81" Name="Midi Notes" Display="'Midi Notes'" Dmx="218~218" />
+      <Function ID="82" Name="Sound Metres" Display="'Sound Metres'" Dmx="219~219" />
+    </Attribute>
+    <Attribute ID="Parameter_1" Name="Parameter 1" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Parameter 1" Display="'%.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Parameter_2" Name="Parameter 2" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Parameter 2" Display="'%.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Crossfade" Name="Crossfade" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Crossfade" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Color_Rotate" Name="Color Rotate" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Color Grad Direction" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Effect_Func" Name="FX Function" Description="" Group="E">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Gobo" Display="'Gobo'" Dmx="0~4" Update="VisualEffect1, VisualEffect2" />
+      <Function ID="2" Name="Wobble" Display="'Wobble'" Dmx="5~9" Update="VisualEffect1, VisualEffect2" />
+      <Function ID="3" Name="Tile" Display="'Tile'" Dmx="10~19" Update="VisualEffect1, VisualEffect2" />
+      <Function ID="4" Name="Invert" Display="'Invert'" Dmx="20~29" Update="VisualEffect1, VisualEffect2" />
+      <Function ID="5" Name="K Correction" Display="'K Correction'" Dmx="30~39" Update="VisualEffect1, VisualEffect2" />
+      <Function ID="6" Name="Reserved" Display="'Reserved'" Dmx="40~255" Update="VisualEffect1, VisualEffect2" />
+    </Attribute>
+    <Attribute ID="VisualEffect1" Name="Vis Effect 1" Description="" Group="E">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Gobo" ID="1,2,3,4,5,6,7,8" If="'Effect_Func'==1" />
+      <Condition Name="Wobble" ID="9,10" If="'Effect_Func'==2" />
+      <Condition Name="Tile" ID="11,12,13,14,15,16,17,18" If="'Effect_Func'==3" />
+      <Condition Name="Invert" ID="19,20" If="'Effect_Func'==4" />
+      <Condition Name="K Correction" ID="21" If="'Effect_Func'==5||'Effect_Func'==6" />
+      <Else ID="22" />
+      <Function ID="1" Name="Transp on Blk" Display="'Transp on Blk'" Dmx="0~1" />
+      <Function ID="2" Name="Blk on White" Display="'Blk on White'" Dmx="2~2" />
+      <Function ID="3" Name="Transparent" Display="'Transparent'" Dmx="3~3" />
+      <Function ID="4" Name="Blk on Transp" Display="'Blk on Transp'" Dmx="4~4" />
+      <Function ID="5" Name="Transp on White" Display="'Transp on White'" Dmx="5~5" />
+      <Function ID="6" Name="Outline" Display="'Outline'" Dmx="6~6" />
+      <Function ID="7" Name="Transp on 50%" Display="'Transp on 50%'" Dmx="7~7" />
+      <Function ID="8" Name="Transp on 75%" Display="'Transp on 75%'" Dmx="8~8" />
+      <Function ID="9" Name="No Wobble" Display="'No Wobble'" Dmx="0~0" />
+      <Function ID="10" Name="Wobble X" Display="'Wobble X %.f%%',0~100" Dmx="1~255" />
+      <Function ID="11" Name="1x X-Axis" Display="'1x X-Axis'" Dmx="0~32" />
+      <Function ID="12" Name="2x X-Axis" Display="'2x X-Axis'" Dmx="33~64" />
+      <Function ID="13" Name="3x X-Axis" Display="'3x X-Axis'" Dmx="65~96" />
+      <Function ID="14" Name="4x X-Axis" Display="'4x X-Axis'" Dmx="97~128" />
+      <Function ID="15" Name="5x X-Axis" Display="'5x X-Axis'" Dmx="129~160" />
+      <Function ID="16" Name="6x X-Axis" Display="'6x X-Axis'" Dmx="161~192" />
+      <Function ID="17" Name="7x X-Axis" Display="'7x X-Axis'" Dmx="193~244" />
+      <Function ID="18" Name="8x X-Axis" Display="'8x X-Axis'" Dmx="225~255" />
+      <Function ID="19" Name="Normal" Display="'Normal'" Dmx="0~0" />
+      <Function ID="20" Name="Effects" Display="'Effect %.f',1~29" Dmx="1~29" />
+      <Function ID="21" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+      <Function ID="22" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="VisualEffect2" Name="Vis Effect 2" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Wobble" ID="2,3" If="'Effect_Func'==2" />
+      <Condition Name="Tile" ID="4,5,6,7,8,9,10,11" If="'Effect_Func'==3" />
+      <Condition Name="Invert" ID="12,13,14,15" If="'Effect_Func'==4" />
+      <Condition Name="K Correction" ID="1" If="'Effect_Func'==5||'Effect_Func'==6||'Effect_Func'==1" />
+      <Else ID="16" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+      <Function ID="2" Name="No Wobble" Display="'No Wobble'" Dmx="0~0" />
+      <Function ID="3" Name="Wobble Y" Display="'Wobble Y %.f%%',0~100" Dmx="1~255" />
+      <Function ID="4" Name="1x Y-Axis" Display="'1x Y-Axis'" Dmx="0~32" />
+      <Function ID="5" Name="2x Y-Axis" Display="'2x Y-Axis'" Dmx="33~64" />
+      <Function ID="6" Name="3x Y-Axis" Display="'3x Y-Axis'" Dmx="65~96" />
+      <Function ID="7" Name="4x Y-Axis" Display="'4x Y-Axis'" Dmx="97~128" />
+      <Function ID="8" Name="5x Y-Axis" Display="'5x Y-Axis'" Dmx="129~160" />
+      <Function ID="9" Name="6x Y-Axis" Display="'6x Y-Axis'" Dmx="161~192" />
+      <Function ID="10" Name="7x Y-Axis" Display="'7x Y-Axis'" Dmx="193~244" />
+      <Function ID="11" Name="8x Y-Axis" Display="'8x Y-Axis'" Dmx="225~255" />
+      <Function ID="12" Name="No Color" Display="'No Color'" Dmx="0~1" />
+      <Function ID="13" Name="Cyan" Display="'Cyan'" Dmx="2~50" />
+      <Function ID="14" Name="Magenta" Display="'Magenta'" Dmx="51~100" />
+      <Function ID="15" Name="Yellow" Display="'Yellow'" Dmx="101~150" />
+      <Function ID="16" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Information" Name="Information" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1" />
+      <Function ID="1" Name="Information" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Reserved1" Name="Reserved 1" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Reserved 1" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Reserved2" Name="Reserved 2" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Reserved 2" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Keystone_TL_X" Name="Keystone x1" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Keystone x1" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Keystone_TL_Y" Name="Keystone y1" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Keystone y1" Display="'%.1f%%',100.0~0.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Keystone_BL_X" Name="Keystone x2" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Keystone x2" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Keystone_BL_Y" Name="Keystone y2" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Keystone y2" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Keystone_BR_X" Name="Keystone x3" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Keystone x3" Display="'%.1f%%',100.0~0.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Keystone_BR_Y" Name="Keystone y3" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Keystone y3" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Keystone_TR_X" Name="Keystone x4" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Keystone x4" Display="'%.1f%%',100.0~0.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Keystone_TR_Y" Name="Keystone y4" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Keystone y4" Display="'%.1f%%',100.0~0.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="XRot_Func" Name="XRot Func" Description="" Group="P">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Indexed" Display="'Indexed'" Dmx="0~0" Update="X_Rot" />
+      <Function ID="2" Name="Spin" Display="'Spin'" Dmx="0~0" Update="X_Rot" />
+    </Attribute>
+    <Attribute ID="YRot_Func" Name="YRot Func" Description="" Group="P">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Indexed" Display="'Indexed'" Dmx="0~0" Update="Y_Rot" />
+      <Function ID="2" Name="Spin" Display="'Spin'" Dmx="0~0" Update="Y_Rot" />
+    </Attribute>
+    <Attribute ID="ZRot_Func" Name="ZRot Func" Description="" Group="P">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Indexed" Display="'Indexed'" Dmx="0~0" Update="Z_Rot" />
+      <Function ID="2" Name="Spin" Display="'Spin'" Dmx="0~0" Update="Z_Rot" />
+    </Attribute>
+    <Attribute ID="Layer1" Name="Layer 1" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Effect" Display="'No Effect'" Dmx="0~10" />
+      <Function ID="2" Name="Deselect Layer" Display="'Deselect Layer'" Dmx="11~127" />
+      <Function ID="3" Name="Select Layer" Display="'Select Layer'" Dmx="128~255" />
+    </Attribute>
+    <Attribute ID="Layer2" Name="Layer 2" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Effect" Display="'No Effect'" Dmx="0~10" />
+      <Function ID="2" Name="Deselect Layer" Display="'Deselect Layer'" Dmx="11~127" />
+      <Function ID="3" Name="Select Layer" Display="'Select Layer'" Dmx="128~255" />
+    </Attribute>
+    <Attribute ID="Layer3" Name="Layer 3" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Effect" Display="'No Effect'" Dmx="0~10" />
+      <Function ID="2" Name="Deselect Layer" Display="'Deselect Layer'" Dmx="11~127" />
+      <Function ID="3" Name="Select Layer" Display="'Select Layer'" Dmx="128~255" />
+    </Attribute>
+    <Attribute ID="Layer4" Name="Layer 4" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Effect" Display="'No Effect'" Dmx="0~10" />
+      <Function ID="2" Name="Deselect Layer" Display="'Deselect Layer'" Dmx="11~127" />
+      <Function ID="3" Name="Select Layer" Display="'Select Layer'" Dmx="128~255" />
+    </Attribute>
+    <Attribute ID="Layer5" Name="Layer 5" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Effect" Display="'No Effect'" Dmx="0~10" />
+      <Function ID="2" Name="Deselect Layer" Display="'Deselect Layer'" Dmx="11~127" />
+      <Function ID="3" Name="Select Layer" Display="'Select Layer'" Dmx="128~255" />
+    </Attribute>
+    <Attribute ID="Layer6" Name="Layer 6" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Effect" Display="'No Effect'" Dmx="0~10" />
+      <Function ID="2" Name="Deselect Layer" Display="'Deselect Layer'" Dmx="11~127" />
+      <Function ID="3" Name="Select Layer" Display="'Select Layer'" Dmx="128~255" />
+    </Attribute>
+    <Attribute ID="Layer7" Name="Layer 7" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Effect" Display="'No Effect'" Dmx="0~10" />
+      <Function ID="2" Name="Deselect Layer" Display="'Deselect Layer'" Dmx="11~127" />
+      <Function ID="3" Name="Select Layer" Display="'Select Layer'" Dmx="128~255" />
+    </Attribute>
+    <Attribute ID="Layer8" Name="Layer 8" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Effect" Display="'No Effect'" Dmx="0~10" />
+      <Function ID="2" Name="Deselect Layer" Display="'Deselect Layer'" Dmx="11~127" />
+      <Function ID="3" Name="Select Layer" Display="'Select Layer'" Dmx="128~255" />
+    </Attribute>
+    <Attribute ID="Layer9" Name="Layer 9" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Effect" Display="'No Effect'" Dmx="0~10" />
+      <Function ID="2" Name="Deselect Layer" Display="'Deselect Layer'" Dmx="11~127" />
+      <Function ID="3" Name="Select Layer" Display="'Select Layer'" Dmx="128~255" />
+    </Attribute>
+    <Attribute ID="Layer10" Name="Layer 10" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Effect" Display="'No Effect'" Dmx="0~10" />
+      <Function ID="2" Name="Deselect Layer" Display="'Deselect Layer'" Dmx="11~127" />
+      <Function ID="3" Name="Select Layer" Display="'Select Layer'" Dmx="128~255" />
+    </Attribute>
+    <Attribute ID="Layer11" Name="Layer 11" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Effect" Display="'No Effect'" Dmx="0~10" />
+      <Function ID="2" Name="Deselect Layer" Display="'Deselect Layer'" Dmx="11~127" />
+      <Function ID="3" Name="Select Layer" Display="'Select Layer'" Dmx="128~255" />
+    </Attribute>
+    <Attribute ID="Layer12" Name="Layer 12" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Effect" Display="'No Effect'" Dmx="0~10" />
+      <Function ID="2" Name="Deselect Layer" Display="'Deselect Layer'" Dmx="11~127" />
+      <Function ID="3" Name="Select Layer" Display="'Select Layer'" Dmx="128~255" />
+    </Attribute>
+    <Attribute ID="Reserved3" Name="Reserved 1" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Reserved4" Name="Reserved 2" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Reserved5" Name="Reserved 3" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Reserved6" Name="Reserved 4" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Destination1" Name="Destination 1" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Selection" Display="'No Selection'" Dmx="0~5" />
+      <Function ID="2" Name="Source 1" Display="'Source 1'" Dmx="4~10" />
+      <Function ID="3" Name="Source 2" Display="'Source 2'" Dmx="9~15" />
+      <Function ID="4" Name="Source 3" Display="'Source 3'" Dmx="14~20" />
+      <Function ID="5" Name="Source 4" Display="'Source 4'" Dmx="19~25" />
+      <Function ID="6" Name="Source 5" Display="'Source 5'" Dmx="24~30" />
+      <Function ID="7" Name="Source 6" Display="'Source 6'" Dmx="29~35" />
+      <Function ID="8" Name="Source 7" Display="'Source 7'" Dmx="34~40" />
+      <Function ID="9" Name="Source 8" Display="'Source 8'" Dmx="39~45" />
+      <Function ID="10" Name="Source 9" Display="'Source 9'" Dmx="44~50" />
+      <Function ID="11" Name="Source 10" Display="'Source 10'" Dmx="49~55" />
+      <Function ID="12" Name="Source 11" Display="'Source 11'" Dmx="54~60" />
+      <Function ID="13" Name="Source 12" Display="'Source 12'" Dmx="59~65" />
+      <Function ID="14" Name="Source 13" Display="'Source 13'" Dmx="64~70" />
+      <Function ID="15" Name="Source 14" Display="'Source 14'" Dmx="69~75" />
+      <Function ID="16" Name="Source 15" Display="'Source 15'" Dmx="74~80" />
+      <Function ID="17" Name="Source 16" Display="'Source 16'" Dmx="79~85" />
+      <Function ID="18" Name="Source 17" Display="'Source 17'" Dmx="84~90" />
+      <Function ID="19" Name="Source 18" Display="'Source 18'" Dmx="89~95" />
+      <Function ID="20" Name="Source 19" Display="'Source 19'" Dmx="94~100" />
+      <Function ID="21" Name="Source 20" Display="'Source 20'" Dmx="99~105" />
+      <Function ID="22" Name="Source 21" Display="'Source 21'" Dmx="104~110" />
+      <Function ID="23" Name="Source 22" Display="'Source 22'" Dmx="109~115" />
+      <Function ID="24" Name="Source 23" Display="'Source 23'" Dmx="114~120" />
+      <Function ID="25" Name="Source 24" Display="'Source 24'" Dmx="119~125" />
+      <Function ID="26" Name="Source 25" Display="'Source 25'" Dmx="124~130" />
+      <Function ID="27" Name="Source 26" Display="'Source 26'" Dmx="129~135" />
+      <Function ID="28" Name="Source 27" Display="'Source 27'" Dmx="134~140" />
+      <Function ID="29" Name="Source 28" Display="'Source 28'" Dmx="139~145" />
+      <Function ID="30" Name="Source 29" Display="'Source 29'" Dmx="144~150" />
+      <Function ID="31" Name="Source 30" Display="'Source 30'" Dmx="149~155" />
+      <Function ID="32" Name="Source 31" Display="'Source 31'" Dmx="154~160" />
+      <Function ID="33" Name="Source 32" Display="'Source 32'" Dmx="159~165" />
+      <Function ID="34" Name="Source 33" Display="'Source 33'" Dmx="164~170" />
+      <Function ID="35" Name="Source 34" Display="'Source 34'" Dmx="169~175" />
+      <Function ID="36" Name="Source 35" Display="'Source 35'" Dmx="174~180" />
+      <Function ID="37" Name="Source 36" Display="'Source 36'" Dmx="179~185" />
+      <Function ID="38" Name="Source 37" Display="'Source 37'" Dmx="184~190" />
+      <Function ID="39" Name="Source 38" Display="'Source 38'" Dmx="189~195" />
+      <Function ID="40" Name="Source 39" Display="'Source 39'" Dmx="194~200" />
+      <Function ID="41" Name="Source 40" Display="'Source 40'" Dmx="199~205" />
+      <Function ID="42" Name="Source 41" Display="'Source 41'" Dmx="204~210" />
+      <Function ID="43" Name="Source 42" Display="'Source 42'" Dmx="209~215" />
+      <Function ID="44" Name="Source 43" Display="'Source 43'" Dmx="214~220" />
+      <Function ID="45" Name="Source 44" Display="'Source 44'" Dmx="219~225" />
+      <Function ID="46" Name="Source 45" Display="'Source 45'" Dmx="224~230" />
+      <Function ID="47" Name="Source 46" Display="'Source 46'" Dmx="229~235" />
+      <Function ID="48" Name="Source 47" Display="'Source 47'" Dmx="234~240" />
+      <Function ID="49" Name="Source 48" Display="'Source 48'" Dmx="239~245" />
+      <Function ID="50" Name="Source 49" Display="'Source 49'" Dmx="244~250" />
+      <Function ID="51" Name="Source 50" Display="'Source 50'" Dmx="249~255" />
+    </Attribute>
+    <Attribute ID="Destination2" Name="Destination 2" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Selection" Display="'No Selection'" Dmx="0~5" />
+      <Function ID="2" Name="Source 1" Display="'Source 1'" Dmx="4~10" />
+      <Function ID="3" Name="Source 2" Display="'Source 2'" Dmx="9~15" />
+      <Function ID="4" Name="Source 3" Display="'Source 3'" Dmx="14~20" />
+      <Function ID="5" Name="Source 4" Display="'Source 4'" Dmx="19~25" />
+      <Function ID="6" Name="Source 5" Display="'Source 5'" Dmx="24~30" />
+      <Function ID="7" Name="Source 6" Display="'Source 6'" Dmx="29~35" />
+      <Function ID="8" Name="Source 7" Display="'Source 7'" Dmx="34~40" />
+      <Function ID="9" Name="Source 8" Display="'Source 8'" Dmx="39~45" />
+      <Function ID="10" Name="Source 9" Display="'Source 9'" Dmx="44~50" />
+      <Function ID="11" Name="Source 10" Display="'Source 10'" Dmx="49~55" />
+      <Function ID="12" Name="Source 11" Display="'Source 11'" Dmx="54~60" />
+      <Function ID="13" Name="Source 12" Display="'Source 12'" Dmx="59~65" />
+      <Function ID="14" Name="Source 13" Display="'Source 13'" Dmx="64~70" />
+      <Function ID="15" Name="Source 14" Display="'Source 14'" Dmx="69~75" />
+      <Function ID="16" Name="Source 15" Display="'Source 15'" Dmx="74~80" />
+      <Function ID="17" Name="Source 16" Display="'Source 16'" Dmx="79~85" />
+      <Function ID="18" Name="Source 17" Display="'Source 17'" Dmx="84~90" />
+      <Function ID="19" Name="Source 18" Display="'Source 18'" Dmx="89~95" />
+      <Function ID="20" Name="Source 19" Display="'Source 19'" Dmx="94~100" />
+      <Function ID="21" Name="Source 20" Display="'Source 20'" Dmx="99~105" />
+      <Function ID="22" Name="Source 21" Display="'Source 21'" Dmx="104~110" />
+      <Function ID="23" Name="Source 22" Display="'Source 22'" Dmx="109~115" />
+      <Function ID="24" Name="Source 23" Display="'Source 23'" Dmx="114~120" />
+      <Function ID="25" Name="Source 24" Display="'Source 24'" Dmx="119~125" />
+      <Function ID="26" Name="Source 25" Display="'Source 25'" Dmx="124~130" />
+      <Function ID="27" Name="Source 26" Display="'Source 26'" Dmx="129~135" />
+      <Function ID="28" Name="Source 27" Display="'Source 27'" Dmx="134~140" />
+      <Function ID="29" Name="Source 28" Display="'Source 28'" Dmx="139~145" />
+      <Function ID="30" Name="Source 29" Display="'Source 29'" Dmx="144~150" />
+      <Function ID="31" Name="Source 30" Display="'Source 30'" Dmx="149~155" />
+      <Function ID="32" Name="Source 31" Display="'Source 31'" Dmx="154~160" />
+      <Function ID="33" Name="Source 32" Display="'Source 32'" Dmx="159~165" />
+      <Function ID="34" Name="Source 33" Display="'Source 33'" Dmx="164~170" />
+      <Function ID="35" Name="Source 34" Display="'Source 34'" Dmx="169~175" />
+      <Function ID="36" Name="Source 35" Display="'Source 35'" Dmx="174~180" />
+      <Function ID="37" Name="Source 36" Display="'Source 36'" Dmx="179~185" />
+      <Function ID="38" Name="Source 37" Display="'Source 37'" Dmx="184~190" />
+      <Function ID="39" Name="Source 38" Display="'Source 38'" Dmx="189~195" />
+      <Function ID="40" Name="Source 39" Display="'Source 39'" Dmx="194~200" />
+      <Function ID="41" Name="Source 40" Display="'Source 40'" Dmx="199~205" />
+      <Function ID="42" Name="Source 41" Display="'Source 41'" Dmx="204~210" />
+      <Function ID="43" Name="Source 42" Display="'Source 42'" Dmx="209~215" />
+      <Function ID="44" Name="Source 43" Display="'Source 43'" Dmx="214~220" />
+      <Function ID="45" Name="Source 44" Display="'Source 44'" Dmx="219~225" />
+      <Function ID="46" Name="Source 45" Display="'Source 45'" Dmx="224~230" />
+      <Function ID="47" Name="Source 46" Display="'Source 46'" Dmx="229~235" />
+      <Function ID="48" Name="Source 47" Display="'Source 47'" Dmx="234~240" />
+      <Function ID="49" Name="Source 48" Display="'Source 48'" Dmx="239~245" />
+      <Function ID="50" Name="Source 49" Display="'Source 49'" Dmx="244~250" />
+      <Function ID="51" Name="Source 50" Display="'Source 50'" Dmx="249~255" />
+    </Attribute>
+    <Attribute ID="Destination3" Name="Destination 3" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Selection" Display="'No Selection'" Dmx="0~5" />
+      <Function ID="2" Name="Source 1" Display="'Source 1'" Dmx="4~10" />
+      <Function ID="3" Name="Source 2" Display="'Source 2'" Dmx="9~15" />
+      <Function ID="4" Name="Source 3" Display="'Source 3'" Dmx="14~20" />
+      <Function ID="5" Name="Source 4" Display="'Source 4'" Dmx="19~25" />
+      <Function ID="6" Name="Source 5" Display="'Source 5'" Dmx="24~30" />
+      <Function ID="7" Name="Source 6" Display="'Source 6'" Dmx="29~35" />
+      <Function ID="8" Name="Source 7" Display="'Source 7'" Dmx="34~40" />
+      <Function ID="9" Name="Source 8" Display="'Source 8'" Dmx="39~45" />
+      <Function ID="10" Name="Source 9" Display="'Source 9'" Dmx="44~50" />
+      <Function ID="11" Name="Source 10" Display="'Source 10'" Dmx="49~55" />
+      <Function ID="12" Name="Source 11" Display="'Source 11'" Dmx="54~60" />
+      <Function ID="13" Name="Source 12" Display="'Source 12'" Dmx="59~65" />
+      <Function ID="14" Name="Source 13" Display="'Source 13'" Dmx="64~70" />
+      <Function ID="15" Name="Source 14" Display="'Source 14'" Dmx="69~75" />
+      <Function ID="16" Name="Source 15" Display="'Source 15'" Dmx="74~80" />
+      <Function ID="17" Name="Source 16" Display="'Source 16'" Dmx="79~85" />
+      <Function ID="18" Name="Source 17" Display="'Source 17'" Dmx="84~90" />
+      <Function ID="19" Name="Source 18" Display="'Source 18'" Dmx="89~95" />
+      <Function ID="20" Name="Source 19" Display="'Source 19'" Dmx="94~100" />
+      <Function ID="21" Name="Source 20" Display="'Source 20'" Dmx="99~105" />
+      <Function ID="22" Name="Source 21" Display="'Source 21'" Dmx="104~110" />
+      <Function ID="23" Name="Source 22" Display="'Source 22'" Dmx="109~115" />
+      <Function ID="24" Name="Source 23" Display="'Source 23'" Dmx="114~120" />
+      <Function ID="25" Name="Source 24" Display="'Source 24'" Dmx="119~125" />
+      <Function ID="26" Name="Source 25" Display="'Source 25'" Dmx="124~130" />
+      <Function ID="27" Name="Source 26" Display="'Source 26'" Dmx="129~135" />
+      <Function ID="28" Name="Source 27" Display="'Source 27'" Dmx="134~140" />
+      <Function ID="29" Name="Source 28" Display="'Source 28'" Dmx="139~145" />
+      <Function ID="30" Name="Source 29" Display="'Source 29'" Dmx="144~150" />
+      <Function ID="31" Name="Source 30" Display="'Source 30'" Dmx="149~155" />
+      <Function ID="32" Name="Source 31" Display="'Source 31'" Dmx="154~160" />
+      <Function ID="33" Name="Source 32" Display="'Source 32'" Dmx="159~165" />
+      <Function ID="34" Name="Source 33" Display="'Source 33'" Dmx="164~170" />
+      <Function ID="35" Name="Source 34" Display="'Source 34'" Dmx="169~175" />
+      <Function ID="36" Name="Source 35" Display="'Source 35'" Dmx="174~180" />
+      <Function ID="37" Name="Source 36" Display="'Source 36'" Dmx="179~185" />
+      <Function ID="38" Name="Source 37" Display="'Source 37'" Dmx="184~190" />
+      <Function ID="39" Name="Source 38" Display="'Source 38'" Dmx="189~195" />
+      <Function ID="40" Name="Source 39" Display="'Source 39'" Dmx="194~200" />
+      <Function ID="41" Name="Source 40" Display="'Source 40'" Dmx="199~205" />
+      <Function ID="42" Name="Source 41" Display="'Source 41'" Dmx="204~210" />
+      <Function ID="43" Name="Source 42" Display="'Source 42'" Dmx="209~215" />
+      <Function ID="44" Name="Source 43" Display="'Source 43'" Dmx="214~220" />
+      <Function ID="45" Name="Source 44" Display="'Source 44'" Dmx="219~225" />
+      <Function ID="46" Name="Source 45" Display="'Source 45'" Dmx="224~230" />
+      <Function ID="47" Name="Source 46" Display="'Source 46'" Dmx="229~235" />
+      <Function ID="48" Name="Source 47" Display="'Source 47'" Dmx="234~240" />
+      <Function ID="49" Name="Source 48" Display="'Source 48'" Dmx="239~245" />
+      <Function ID="50" Name="Source 49" Display="'Source 49'" Dmx="244~250" />
+      <Function ID="51" Name="Source 50" Display="'Source 50'" Dmx="249~255" />
+    </Attribute>
+    <Attribute ID="Destination4" Name="Destination 4" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Selection" Display="'No Selection'" Dmx="0~5" />
+      <Function ID="2" Name="Source 1" Display="'Source 1'" Dmx="4~10" />
+      <Function ID="3" Name="Source 2" Display="'Source 2'" Dmx="9~15" />
+      <Function ID="4" Name="Source 3" Display="'Source 3'" Dmx="14~20" />
+      <Function ID="5" Name="Source 4" Display="'Source 4'" Dmx="19~25" />
+      <Function ID="6" Name="Source 5" Display="'Source 5'" Dmx="24~30" />
+      <Function ID="7" Name="Source 6" Display="'Source 6'" Dmx="29~35" />
+      <Function ID="8" Name="Source 7" Display="'Source 7'" Dmx="34~40" />
+      <Function ID="9" Name="Source 8" Display="'Source 8'" Dmx="39~45" />
+      <Function ID="10" Name="Source 9" Display="'Source 9'" Dmx="44~50" />
+      <Function ID="11" Name="Source 10" Display="'Source 10'" Dmx="49~55" />
+      <Function ID="12" Name="Source 11" Display="'Source 11'" Dmx="54~60" />
+      <Function ID="13" Name="Source 12" Display="'Source 12'" Dmx="59~65" />
+      <Function ID="14" Name="Source 13" Display="'Source 13'" Dmx="64~70" />
+      <Function ID="15" Name="Source 14" Display="'Source 14'" Dmx="69~75" />
+      <Function ID="16" Name="Source 15" Display="'Source 15'" Dmx="74~80" />
+      <Function ID="17" Name="Source 16" Display="'Source 16'" Dmx="79~85" />
+      <Function ID="18" Name="Source 17" Display="'Source 17'" Dmx="84~90" />
+      <Function ID="19" Name="Source 18" Display="'Source 18'" Dmx="89~95" />
+      <Function ID="20" Name="Source 19" Display="'Source 19'" Dmx="94~100" />
+      <Function ID="21" Name="Source 20" Display="'Source 20'" Dmx="99~105" />
+      <Function ID="22" Name="Source 21" Display="'Source 21'" Dmx="104~110" />
+      <Function ID="23" Name="Source 22" Display="'Source 22'" Dmx="109~115" />
+      <Function ID="24" Name="Source 23" Display="'Source 23'" Dmx="114~120" />
+      <Function ID="25" Name="Source 24" Display="'Source 24'" Dmx="119~125" />
+      <Function ID="26" Name="Source 25" Display="'Source 25'" Dmx="124~130" />
+      <Function ID="27" Name="Source 26" Display="'Source 26'" Dmx="129~135" />
+      <Function ID="28" Name="Source 27" Display="'Source 27'" Dmx="134~140" />
+      <Function ID="29" Name="Source 28" Display="'Source 28'" Dmx="139~145" />
+      <Function ID="30" Name="Source 29" Display="'Source 29'" Dmx="144~150" />
+      <Function ID="31" Name="Source 30" Display="'Source 30'" Dmx="149~155" />
+      <Function ID="32" Name="Source 31" Display="'Source 31'" Dmx="154~160" />
+      <Function ID="33" Name="Source 32" Display="'Source 32'" Dmx="159~165" />
+      <Function ID="34" Name="Source 33" Display="'Source 33'" Dmx="164~170" />
+      <Function ID="35" Name="Source 34" Display="'Source 34'" Dmx="169~175" />
+      <Function ID="36" Name="Source 35" Display="'Source 35'" Dmx="174~180" />
+      <Function ID="37" Name="Source 36" Display="'Source 36'" Dmx="179~185" />
+      <Function ID="38" Name="Source 37" Display="'Source 37'" Dmx="184~190" />
+      <Function ID="39" Name="Source 38" Display="'Source 38'" Dmx="189~195" />
+      <Function ID="40" Name="Source 39" Display="'Source 39'" Dmx="194~200" />
+      <Function ID="41" Name="Source 40" Display="'Source 40'" Dmx="199~205" />
+      <Function ID="42" Name="Source 41" Display="'Source 41'" Dmx="204~210" />
+      <Function ID="43" Name="Source 42" Display="'Source 42'" Dmx="209~215" />
+      <Function ID="44" Name="Source 43" Display="'Source 43'" Dmx="214~220" />
+      <Function ID="45" Name="Source 44" Display="'Source 44'" Dmx="219~225" />
+      <Function ID="46" Name="Source 45" Display="'Source 45'" Dmx="224~230" />
+      <Function ID="47" Name="Source 46" Display="'Source 46'" Dmx="229~235" />
+      <Function ID="48" Name="Source 47" Display="'Source 47'" Dmx="234~240" />
+      <Function ID="49" Name="Source 48" Display="'Source 48'" Dmx="239~245" />
+      <Function ID="50" Name="Source 49" Display="'Source 49'" Dmx="244~250" />
+      <Function ID="51" Name="Source 50" Display="'Source 50'" Dmx="249~255" />
+    </Attribute>
+    <Attribute ID="Destination5" Name="Destination 5" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Selection" Display="'No Selection'" Dmx="0~5" />
+      <Function ID="2" Name="Source 1" Display="'Source 1'" Dmx="4~10" />
+      <Function ID="3" Name="Source 2" Display="'Source 2'" Dmx="9~15" />
+      <Function ID="4" Name="Source 3" Display="'Source 3'" Dmx="14~20" />
+      <Function ID="5" Name="Source 4" Display="'Source 4'" Dmx="19~25" />
+      <Function ID="6" Name="Source 5" Display="'Source 5'" Dmx="24~30" />
+      <Function ID="7" Name="Source 6" Display="'Source 6'" Dmx="29~35" />
+      <Function ID="8" Name="Source 7" Display="'Source 7'" Dmx="34~40" />
+      <Function ID="9" Name="Source 8" Display="'Source 8'" Dmx="39~45" />
+      <Function ID="10" Name="Source 9" Display="'Source 9'" Dmx="44~50" />
+      <Function ID="11" Name="Source 10" Display="'Source 10'" Dmx="49~55" />
+      <Function ID="12" Name="Source 11" Display="'Source 11'" Dmx="54~60" />
+      <Function ID="13" Name="Source 12" Display="'Source 12'" Dmx="59~65" />
+      <Function ID="14" Name="Source 13" Display="'Source 13'" Dmx="64~70" />
+      <Function ID="15" Name="Source 14" Display="'Source 14'" Dmx="69~75" />
+      <Function ID="16" Name="Source 15" Display="'Source 15'" Dmx="74~80" />
+      <Function ID="17" Name="Source 16" Display="'Source 16'" Dmx="79~85" />
+      <Function ID="18" Name="Source 17" Display="'Source 17'" Dmx="84~90" />
+      <Function ID="19" Name="Source 18" Display="'Source 18'" Dmx="89~95" />
+      <Function ID="20" Name="Source 19" Display="'Source 19'" Dmx="94~100" />
+      <Function ID="21" Name="Source 20" Display="'Source 20'" Dmx="99~105" />
+      <Function ID="22" Name="Source 21" Display="'Source 21'" Dmx="104~110" />
+      <Function ID="23" Name="Source 22" Display="'Source 22'" Dmx="109~115" />
+      <Function ID="24" Name="Source 23" Display="'Source 23'" Dmx="114~120" />
+      <Function ID="25" Name="Source 24" Display="'Source 24'" Dmx="119~125" />
+      <Function ID="26" Name="Source 25" Display="'Source 25'" Dmx="124~130" />
+      <Function ID="27" Name="Source 26" Display="'Source 26'" Dmx="129~135" />
+      <Function ID="28" Name="Source 27" Display="'Source 27'" Dmx="134~140" />
+      <Function ID="29" Name="Source 28" Display="'Source 28'" Dmx="139~145" />
+      <Function ID="30" Name="Source 29" Display="'Source 29'" Dmx="144~150" />
+      <Function ID="31" Name="Source 30" Display="'Source 30'" Dmx="149~155" />
+      <Function ID="32" Name="Source 31" Display="'Source 31'" Dmx="154~160" />
+      <Function ID="33" Name="Source 32" Display="'Source 32'" Dmx="159~165" />
+      <Function ID="34" Name="Source 33" Display="'Source 33'" Dmx="164~170" />
+      <Function ID="35" Name="Source 34" Display="'Source 34'" Dmx="169~175" />
+      <Function ID="36" Name="Source 35" Display="'Source 35'" Dmx="174~180" />
+      <Function ID="37" Name="Source 36" Display="'Source 36'" Dmx="179~185" />
+      <Function ID="38" Name="Source 37" Display="'Source 37'" Dmx="184~190" />
+      <Function ID="39" Name="Source 38" Display="'Source 38'" Dmx="189~195" />
+      <Function ID="40" Name="Source 39" Display="'Source 39'" Dmx="194~200" />
+      <Function ID="41" Name="Source 40" Display="'Source 40'" Dmx="199~205" />
+      <Function ID="42" Name="Source 41" Display="'Source 41'" Dmx="204~210" />
+      <Function ID="43" Name="Source 42" Display="'Source 42'" Dmx="209~215" />
+      <Function ID="44" Name="Source 43" Display="'Source 43'" Dmx="214~220" />
+      <Function ID="45" Name="Source 44" Display="'Source 44'" Dmx="219~225" />
+      <Function ID="46" Name="Source 45" Display="'Source 45'" Dmx="224~230" />
+      <Function ID="47" Name="Source 46" Display="'Source 46'" Dmx="229~235" />
+      <Function ID="48" Name="Source 47" Display="'Source 47'" Dmx="234~240" />
+      <Function ID="49" Name="Source 48" Display="'Source 48'" Dmx="239~245" />
+      <Function ID="50" Name="Source 49" Display="'Source 49'" Dmx="244~250" />
+      <Function ID="51" Name="Source 50" Display="'Source 50'" Dmx="249~255" />
+    </Attribute>
+    <Attribute ID="Destination6" Name="Destination 6" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Selection" Display="'No Selection'" Dmx="0~5" />
+      <Function ID="2" Name="Source 1" Display="'Source 1'" Dmx="4~10" />
+      <Function ID="3" Name="Source 2" Display="'Source 2'" Dmx="9~15" />
+      <Function ID="4" Name="Source 3" Display="'Source 3'" Dmx="14~20" />
+      <Function ID="5" Name="Source 4" Display="'Source 4'" Dmx="19~25" />
+      <Function ID="6" Name="Source 5" Display="'Source 5'" Dmx="24~30" />
+      <Function ID="7" Name="Source 6" Display="'Source 6'" Dmx="29~35" />
+      <Function ID="8" Name="Source 7" Display="'Source 7'" Dmx="34~40" />
+      <Function ID="9" Name="Source 8" Display="'Source 8'" Dmx="39~45" />
+      <Function ID="10" Name="Source 9" Display="'Source 9'" Dmx="44~50" />
+      <Function ID="11" Name="Source 10" Display="'Source 10'" Dmx="49~55" />
+      <Function ID="12" Name="Source 11" Display="'Source 11'" Dmx="54~60" />
+      <Function ID="13" Name="Source 12" Display="'Source 12'" Dmx="59~65" />
+      <Function ID="14" Name="Source 13" Display="'Source 13'" Dmx="64~70" />
+      <Function ID="15" Name="Source 14" Display="'Source 14'" Dmx="69~75" />
+      <Function ID="16" Name="Source 15" Display="'Source 15'" Dmx="74~80" />
+      <Function ID="17" Name="Source 16" Display="'Source 16'" Dmx="79~85" />
+      <Function ID="18" Name="Source 17" Display="'Source 17'" Dmx="84~90" />
+      <Function ID="19" Name="Source 18" Display="'Source 18'" Dmx="89~95" />
+      <Function ID="20" Name="Source 19" Display="'Source 19'" Dmx="94~100" />
+      <Function ID="21" Name="Source 20" Display="'Source 20'" Dmx="99~105" />
+      <Function ID="22" Name="Source 21" Display="'Source 21'" Dmx="104~110" />
+      <Function ID="23" Name="Source 22" Display="'Source 22'" Dmx="109~115" />
+      <Function ID="24" Name="Source 23" Display="'Source 23'" Dmx="114~120" />
+      <Function ID="25" Name="Source 24" Display="'Source 24'" Dmx="119~125" />
+      <Function ID="26" Name="Source 25" Display="'Source 25'" Dmx="124~130" />
+      <Function ID="27" Name="Source 26" Display="'Source 26'" Dmx="129~135" />
+      <Function ID="28" Name="Source 27" Display="'Source 27'" Dmx="134~140" />
+      <Function ID="29" Name="Source 28" Display="'Source 28'" Dmx="139~145" />
+      <Function ID="30" Name="Source 29" Display="'Source 29'" Dmx="144~150" />
+      <Function ID="31" Name="Source 30" Display="'Source 30'" Dmx="149~155" />
+      <Function ID="32" Name="Source 31" Display="'Source 31'" Dmx="154~160" />
+      <Function ID="33" Name="Source 32" Display="'Source 32'" Dmx="159~165" />
+      <Function ID="34" Name="Source 33" Display="'Source 33'" Dmx="164~170" />
+      <Function ID="35" Name="Source 34" Display="'Source 34'" Dmx="169~175" />
+      <Function ID="36" Name="Source 35" Display="'Source 35'" Dmx="174~180" />
+      <Function ID="37" Name="Source 36" Display="'Source 36'" Dmx="179~185" />
+      <Function ID="38" Name="Source 37" Display="'Source 37'" Dmx="184~190" />
+      <Function ID="39" Name="Source 38" Display="'Source 38'" Dmx="189~195" />
+      <Function ID="40" Name="Source 39" Display="'Source 39'" Dmx="194~200" />
+      <Function ID="41" Name="Source 40" Display="'Source 40'" Dmx="199~205" />
+      <Function ID="42" Name="Source 41" Display="'Source 41'" Dmx="204~210" />
+      <Function ID="43" Name="Source 42" Display="'Source 42'" Dmx="209~215" />
+      <Function ID="44" Name="Source 43" Display="'Source 43'" Dmx="214~220" />
+      <Function ID="45" Name="Source 44" Display="'Source 44'" Dmx="219~225" />
+      <Function ID="46" Name="Source 45" Display="'Source 45'" Dmx="224~230" />
+      <Function ID="47" Name="Source 46" Display="'Source 46'" Dmx="229~235" />
+      <Function ID="48" Name="Source 47" Display="'Source 47'" Dmx="234~240" />
+      <Function ID="49" Name="Source 48" Display="'Source 48'" Dmx="239~245" />
+      <Function ID="50" Name="Source 49" Display="'Source 49'" Dmx="244~250" />
+      <Function ID="51" Name="Source 50" Display="'Source 50'" Dmx="249~255" />
+    </Attribute>
+    <Attribute ID="Destination7" Name="Destination 7" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Selection" Display="'No Selection'" Dmx="0~5" />
+      <Function ID="2" Name="Source 1" Display="'Source 1'" Dmx="4~10" />
+      <Function ID="3" Name="Source 2" Display="'Source 2'" Dmx="9~15" />
+      <Function ID="4" Name="Source 3" Display="'Source 3'" Dmx="14~20" />
+      <Function ID="5" Name="Source 4" Display="'Source 4'" Dmx="19~25" />
+      <Function ID="6" Name="Source 5" Display="'Source 5'" Dmx="24~30" />
+      <Function ID="7" Name="Source 6" Display="'Source 6'" Dmx="29~35" />
+      <Function ID="8" Name="Source 7" Display="'Source 7'" Dmx="34~40" />
+      <Function ID="9" Name="Source 8" Display="'Source 8'" Dmx="39~45" />
+      <Function ID="10" Name="Source 9" Display="'Source 9'" Dmx="44~50" />
+      <Function ID="11" Name="Source 10" Display="'Source 10'" Dmx="49~55" />
+      <Function ID="12" Name="Source 11" Display="'Source 11'" Dmx="54~60" />
+      <Function ID="13" Name="Source 12" Display="'Source 12'" Dmx="59~65" />
+      <Function ID="14" Name="Source 13" Display="'Source 13'" Dmx="64~70" />
+      <Function ID="15" Name="Source 14" Display="'Source 14'" Dmx="69~75" />
+      <Function ID="16" Name="Source 15" Display="'Source 15'" Dmx="74~80" />
+      <Function ID="17" Name="Source 16" Display="'Source 16'" Dmx="79~85" />
+      <Function ID="18" Name="Source 17" Display="'Source 17'" Dmx="84~90" />
+      <Function ID="19" Name="Source 18" Display="'Source 18'" Dmx="89~95" />
+      <Function ID="20" Name="Source 19" Display="'Source 19'" Dmx="94~100" />
+      <Function ID="21" Name="Source 20" Display="'Source 20'" Dmx="99~105" />
+      <Function ID="22" Name="Source 21" Display="'Source 21'" Dmx="104~110" />
+      <Function ID="23" Name="Source 22" Display="'Source 22'" Dmx="109~115" />
+      <Function ID="24" Name="Source 23" Display="'Source 23'" Dmx="114~120" />
+      <Function ID="25" Name="Source 24" Display="'Source 24'" Dmx="119~125" />
+      <Function ID="26" Name="Source 25" Display="'Source 25'" Dmx="124~130" />
+      <Function ID="27" Name="Source 26" Display="'Source 26'" Dmx="129~135" />
+      <Function ID="28" Name="Source 27" Display="'Source 27'" Dmx="134~140" />
+      <Function ID="29" Name="Source 28" Display="'Source 28'" Dmx="139~145" />
+      <Function ID="30" Name="Source 29" Display="'Source 29'" Dmx="144~150" />
+      <Function ID="31" Name="Source 30" Display="'Source 30'" Dmx="149~155" />
+      <Function ID="32" Name="Source 31" Display="'Source 31'" Dmx="154~160" />
+      <Function ID="33" Name="Source 32" Display="'Source 32'" Dmx="159~165" />
+      <Function ID="34" Name="Source 33" Display="'Source 33'" Dmx="164~170" />
+      <Function ID="35" Name="Source 34" Display="'Source 34'" Dmx="169~175" />
+      <Function ID="36" Name="Source 35" Display="'Source 35'" Dmx="174~180" />
+      <Function ID="37" Name="Source 36" Display="'Source 36'" Dmx="179~185" />
+      <Function ID="38" Name="Source 37" Display="'Source 37'" Dmx="184~190" />
+      <Function ID="39" Name="Source 38" Display="'Source 38'" Dmx="189~195" />
+      <Function ID="40" Name="Source 39" Display="'Source 39'" Dmx="194~200" />
+      <Function ID="41" Name="Source 40" Display="'Source 40'" Dmx="199~205" />
+      <Function ID="42" Name="Source 41" Display="'Source 41'" Dmx="204~210" />
+      <Function ID="43" Name="Source 42" Display="'Source 42'" Dmx="209~215" />
+      <Function ID="44" Name="Source 43" Display="'Source 43'" Dmx="214~220" />
+      <Function ID="45" Name="Source 44" Display="'Source 44'" Dmx="219~225" />
+      <Function ID="46" Name="Source 45" Display="'Source 45'" Dmx="224~230" />
+      <Function ID="47" Name="Source 46" Display="'Source 46'" Dmx="229~235" />
+      <Function ID="48" Name="Source 47" Display="'Source 47'" Dmx="234~240" />
+      <Function ID="49" Name="Source 48" Display="'Source 48'" Dmx="239~245" />
+      <Function ID="50" Name="Source 49" Display="'Source 49'" Dmx="244~250" />
+      <Function ID="51" Name="Source 50" Display="'Source 50'" Dmx="249~255" />
+    </Attribute>
+    <Attribute ID="Destination8" Name="Destination 8" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Selection" Display="'No Selection'" Dmx="0~5" />
+      <Function ID="2" Name="Source 1" Display="'Source 1'" Dmx="4~10" />
+      <Function ID="3" Name="Source 2" Display="'Source 2'" Dmx="9~15" />
+      <Function ID="4" Name="Source 3" Display="'Source 3'" Dmx="14~20" />
+      <Function ID="5" Name="Source 4" Display="'Source 4'" Dmx="19~25" />
+      <Function ID="6" Name="Source 5" Display="'Source 5'" Dmx="24~30" />
+      <Function ID="7" Name="Source 6" Display="'Source 6'" Dmx="29~35" />
+      <Function ID="8" Name="Source 7" Display="'Source 7'" Dmx="34~40" />
+      <Function ID="9" Name="Source 8" Display="'Source 8'" Dmx="39~45" />
+      <Function ID="10" Name="Source 9" Display="'Source 9'" Dmx="44~50" />
+      <Function ID="11" Name="Source 10" Display="'Source 10'" Dmx="49~55" />
+      <Function ID="12" Name="Source 11" Display="'Source 11'" Dmx="54~60" />
+      <Function ID="13" Name="Source 12" Display="'Source 12'" Dmx="59~65" />
+      <Function ID="14" Name="Source 13" Display="'Source 13'" Dmx="64~70" />
+      <Function ID="15" Name="Source 14" Display="'Source 14'" Dmx="69~75" />
+      <Function ID="16" Name="Source 15" Display="'Source 15'" Dmx="74~80" />
+      <Function ID="17" Name="Source 16" Display="'Source 16'" Dmx="79~85" />
+      <Function ID="18" Name="Source 17" Display="'Source 17'" Dmx="84~90" />
+      <Function ID="19" Name="Source 18" Display="'Source 18'" Dmx="89~95" />
+      <Function ID="20" Name="Source 19" Display="'Source 19'" Dmx="94~100" />
+      <Function ID="21" Name="Source 20" Display="'Source 20'" Dmx="99~105" />
+      <Function ID="22" Name="Source 21" Display="'Source 21'" Dmx="104~110" />
+      <Function ID="23" Name="Source 22" Display="'Source 22'" Dmx="109~115" />
+      <Function ID="24" Name="Source 23" Display="'Source 23'" Dmx="114~120" />
+      <Function ID="25" Name="Source 24" Display="'Source 24'" Dmx="119~125" />
+      <Function ID="26" Name="Source 25" Display="'Source 25'" Dmx="124~130" />
+      <Function ID="27" Name="Source 26" Display="'Source 26'" Dmx="129~135" />
+      <Function ID="28" Name="Source 27" Display="'Source 27'" Dmx="134~140" />
+      <Function ID="29" Name="Source 28" Display="'Source 28'" Dmx="139~145" />
+      <Function ID="30" Name="Source 29" Display="'Source 29'" Dmx="144~150" />
+      <Function ID="31" Name="Source 30" Display="'Source 30'" Dmx="149~155" />
+      <Function ID="32" Name="Source 31" Display="'Source 31'" Dmx="154~160" />
+      <Function ID="33" Name="Source 32" Display="'Source 32'" Dmx="159~165" />
+      <Function ID="34" Name="Source 33" Display="'Source 33'" Dmx="164~170" />
+      <Function ID="35" Name="Source 34" Display="'Source 34'" Dmx="169~175" />
+      <Function ID="36" Name="Source 35" Display="'Source 35'" Dmx="174~180" />
+      <Function ID="37" Name="Source 36" Display="'Source 36'" Dmx="179~185" />
+      <Function ID="38" Name="Source 37" Display="'Source 37'" Dmx="184~190" />
+      <Function ID="39" Name="Source 38" Display="'Source 38'" Dmx="189~195" />
+      <Function ID="40" Name="Source 39" Display="'Source 39'" Dmx="194~200" />
+      <Function ID="41" Name="Source 40" Display="'Source 40'" Dmx="199~205" />
+      <Function ID="42" Name="Source 41" Display="'Source 41'" Dmx="204~210" />
+      <Function ID="43" Name="Source 42" Display="'Source 42'" Dmx="209~215" />
+      <Function ID="44" Name="Source 43" Display="'Source 43'" Dmx="214~220" />
+      <Function ID="45" Name="Source 44" Display="'Source 44'" Dmx="219~225" />
+      <Function ID="46" Name="Source 45" Display="'Source 45'" Dmx="224~230" />
+      <Function ID="47" Name="Source 46" Display="'Source 46'" Dmx="229~235" />
+      <Function ID="48" Name="Source 47" Display="'Source 47'" Dmx="234~240" />
+      <Function ID="49" Name="Source 48" Display="'Source 48'" Dmx="239~245" />
+      <Function ID="50" Name="Source 49" Display="'Source 49'" Dmx="244~250" />
+      <Function ID="51" Name="Source 50" Display="'Source 50'" Dmx="249~255" />
+    </Attribute>
+    <Attribute ID="Destination9" Name="Destination 9" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Selection" Display="'No Selection'" Dmx="0~5" />
+      <Function ID="2" Name="Source 1" Display="'Source 1'" Dmx="4~10" />
+      <Function ID="3" Name="Source 2" Display="'Source 2'" Dmx="9~15" />
+      <Function ID="4" Name="Source 3" Display="'Source 3'" Dmx="14~20" />
+      <Function ID="5" Name="Source 4" Display="'Source 4'" Dmx="19~25" />
+      <Function ID="6" Name="Source 5" Display="'Source 5'" Dmx="24~30" />
+      <Function ID="7" Name="Source 6" Display="'Source 6'" Dmx="29~35" />
+      <Function ID="8" Name="Source 7" Display="'Source 7'" Dmx="34~40" />
+      <Function ID="9" Name="Source 8" Display="'Source 8'" Dmx="39~45" />
+      <Function ID="10" Name="Source 9" Display="'Source 9'" Dmx="44~50" />
+      <Function ID="11" Name="Source 10" Display="'Source 10'" Dmx="49~55" />
+      <Function ID="12" Name="Source 11" Display="'Source 11'" Dmx="54~60" />
+      <Function ID="13" Name="Source 12" Display="'Source 12'" Dmx="59~65" />
+      <Function ID="14" Name="Source 13" Display="'Source 13'" Dmx="64~70" />
+      <Function ID="15" Name="Source 14" Display="'Source 14'" Dmx="69~75" />
+      <Function ID="16" Name="Source 15" Display="'Source 15'" Dmx="74~80" />
+      <Function ID="17" Name="Source 16" Display="'Source 16'" Dmx="79~85" />
+      <Function ID="18" Name="Source 17" Display="'Source 17'" Dmx="84~90" />
+      <Function ID="19" Name="Source 18" Display="'Source 18'" Dmx="89~95" />
+      <Function ID="20" Name="Source 19" Display="'Source 19'" Dmx="94~100" />
+      <Function ID="21" Name="Source 20" Display="'Source 20'" Dmx="99~105" />
+      <Function ID="22" Name="Source 21" Display="'Source 21'" Dmx="104~110" />
+      <Function ID="23" Name="Source 22" Display="'Source 22'" Dmx="109~115" />
+      <Function ID="24" Name="Source 23" Display="'Source 23'" Dmx="114~120" />
+      <Function ID="25" Name="Source 24" Display="'Source 24'" Dmx="119~125" />
+      <Function ID="26" Name="Source 25" Display="'Source 25'" Dmx="124~130" />
+      <Function ID="27" Name="Source 26" Display="'Source 26'" Dmx="129~135" />
+      <Function ID="28" Name="Source 27" Display="'Source 27'" Dmx="134~140" />
+      <Function ID="29" Name="Source 28" Display="'Source 28'" Dmx="139~145" />
+      <Function ID="30" Name="Source 29" Display="'Source 29'" Dmx="144~150" />
+      <Function ID="31" Name="Source 30" Display="'Source 30'" Dmx="149~155" />
+      <Function ID="32" Name="Source 31" Display="'Source 31'" Dmx="154~160" />
+      <Function ID="33" Name="Source 32" Display="'Source 32'" Dmx="159~165" />
+      <Function ID="34" Name="Source 33" Display="'Source 33'" Dmx="164~170" />
+      <Function ID="35" Name="Source 34" Display="'Source 34'" Dmx="169~175" />
+      <Function ID="36" Name="Source 35" Display="'Source 35'" Dmx="174~180" />
+      <Function ID="37" Name="Source 36" Display="'Source 36'" Dmx="179~185" />
+      <Function ID="38" Name="Source 37" Display="'Source 37'" Dmx="184~190" />
+      <Function ID="39" Name="Source 38" Display="'Source 38'" Dmx="189~195" />
+      <Function ID="40" Name="Source 39" Display="'Source 39'" Dmx="194~200" />
+      <Function ID="41" Name="Source 40" Display="'Source 40'" Dmx="199~205" />
+      <Function ID="42" Name="Source 41" Display="'Source 41'" Dmx="204~210" />
+      <Function ID="43" Name="Source 42" Display="'Source 42'" Dmx="209~215" />
+      <Function ID="44" Name="Source 43" Display="'Source 43'" Dmx="214~220" />
+      <Function ID="45" Name="Source 44" Display="'Source 44'" Dmx="219~225" />
+      <Function ID="46" Name="Source 45" Display="'Source 45'" Dmx="224~230" />
+      <Function ID="47" Name="Source 46" Display="'Source 46'" Dmx="229~235" />
+      <Function ID="48" Name="Source 47" Display="'Source 47'" Dmx="234~240" />
+      <Function ID="49" Name="Source 48" Display="'Source 48'" Dmx="239~245" />
+      <Function ID="50" Name="Source 49" Display="'Source 49'" Dmx="244~250" />
+      <Function ID="51" Name="Source 50" Display="'Source 50'" Dmx="249~255" />
+    </Attribute>
+    <Attribute ID="Destination10" Name="Destination 10" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Selection" Display="'No Selection'" Dmx="0~5" />
+      <Function ID="2" Name="Source 1" Display="'Source 1'" Dmx="4~10" />
+      <Function ID="3" Name="Source 2" Display="'Source 2'" Dmx="9~15" />
+      <Function ID="4" Name="Source 3" Display="'Source 3'" Dmx="14~20" />
+      <Function ID="5" Name="Source 4" Display="'Source 4'" Dmx="19~25" />
+      <Function ID="6" Name="Source 5" Display="'Source 5'" Dmx="24~30" />
+      <Function ID="7" Name="Source 6" Display="'Source 6'" Dmx="29~35" />
+      <Function ID="8" Name="Source 7" Display="'Source 7'" Dmx="34~40" />
+      <Function ID="9" Name="Source 8" Display="'Source 8'" Dmx="39~45" />
+      <Function ID="10" Name="Source 9" Display="'Source 9'" Dmx="44~50" />
+      <Function ID="11" Name="Source 10" Display="'Source 10'" Dmx="49~55" />
+      <Function ID="12" Name="Source 11" Display="'Source 11'" Dmx="54~60" />
+      <Function ID="13" Name="Source 12" Display="'Source 12'" Dmx="59~65" />
+      <Function ID="14" Name="Source 13" Display="'Source 13'" Dmx="64~70" />
+      <Function ID="15" Name="Source 14" Display="'Source 14'" Dmx="69~75" />
+      <Function ID="16" Name="Source 15" Display="'Source 15'" Dmx="74~80" />
+      <Function ID="17" Name="Source 16" Display="'Source 16'" Dmx="79~85" />
+      <Function ID="18" Name="Source 17" Display="'Source 17'" Dmx="84~90" />
+      <Function ID="19" Name="Source 18" Display="'Source 18'" Dmx="89~95" />
+      <Function ID="20" Name="Source 19" Display="'Source 19'" Dmx="94~100" />
+      <Function ID="21" Name="Source 20" Display="'Source 20'" Dmx="99~105" />
+      <Function ID="22" Name="Source 21" Display="'Source 21'" Dmx="104~110" />
+      <Function ID="23" Name="Source 22" Display="'Source 22'" Dmx="109~115" />
+      <Function ID="24" Name="Source 23" Display="'Source 23'" Dmx="114~120" />
+      <Function ID="25" Name="Source 24" Display="'Source 24'" Dmx="119~125" />
+      <Function ID="26" Name="Source 25" Display="'Source 25'" Dmx="124~130" />
+      <Function ID="27" Name="Source 26" Display="'Source 26'" Dmx="129~135" />
+      <Function ID="28" Name="Source 27" Display="'Source 27'" Dmx="134~140" />
+      <Function ID="29" Name="Source 28" Display="'Source 28'" Dmx="139~145" />
+      <Function ID="30" Name="Source 29" Display="'Source 29'" Dmx="144~150" />
+      <Function ID="31" Name="Source 30" Display="'Source 30'" Dmx="149~155" />
+      <Function ID="32" Name="Source 31" Display="'Source 31'" Dmx="154~160" />
+      <Function ID="33" Name="Source 32" Display="'Source 32'" Dmx="159~165" />
+      <Function ID="34" Name="Source 33" Display="'Source 33'" Dmx="164~170" />
+      <Function ID="35" Name="Source 34" Display="'Source 34'" Dmx="169~175" />
+      <Function ID="36" Name="Source 35" Display="'Source 35'" Dmx="174~180" />
+      <Function ID="37" Name="Source 36" Display="'Source 36'" Dmx="179~185" />
+      <Function ID="38" Name="Source 37" Display="'Source 37'" Dmx="184~190" />
+      <Function ID="39" Name="Source 38" Display="'Source 38'" Dmx="189~195" />
+      <Function ID="40" Name="Source 39" Display="'Source 39'" Dmx="194~200" />
+      <Function ID="41" Name="Source 40" Display="'Source 40'" Dmx="199~205" />
+      <Function ID="42" Name="Source 41" Display="'Source 41'" Dmx="204~210" />
+      <Function ID="43" Name="Source 42" Display="'Source 42'" Dmx="209~215" />
+      <Function ID="44" Name="Source 43" Display="'Source 43'" Dmx="214~220" />
+      <Function ID="45" Name="Source 44" Display="'Source 44'" Dmx="219~225" />
+      <Function ID="46" Name="Source 45" Display="'Source 45'" Dmx="224~230" />
+      <Function ID="47" Name="Source 46" Display="'Source 46'" Dmx="229~235" />
+      <Function ID="48" Name="Source 47" Display="'Source 47'" Dmx="234~240" />
+      <Function ID="49" Name="Source 48" Display="'Source 48'" Dmx="239~245" />
+      <Function ID="50" Name="Source 49" Display="'Source 49'" Dmx="244~250" />
+      <Function ID="51" Name="Source 50" Display="'Source 50'" Dmx="249~255" />
+    </Attribute>
+    <Attribute ID="Destination11" Name="Destination 11" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Selection" Display="'No Selection'" Dmx="0~5" />
+      <Function ID="2" Name="Source 1" Display="'Source 1'" Dmx="4~10" />
+      <Function ID="3" Name="Source 2" Display="'Source 2'" Dmx="9~15" />
+      <Function ID="4" Name="Source 3" Display="'Source 3'" Dmx="14~20" />
+      <Function ID="5" Name="Source 4" Display="'Source 4'" Dmx="19~25" />
+      <Function ID="6" Name="Source 5" Display="'Source 5'" Dmx="24~30" />
+      <Function ID="7" Name="Source 6" Display="'Source 6'" Dmx="29~35" />
+      <Function ID="8" Name="Source 7" Display="'Source 7'" Dmx="34~40" />
+      <Function ID="9" Name="Source 8" Display="'Source 8'" Dmx="39~45" />
+      <Function ID="10" Name="Source 9" Display="'Source 9'" Dmx="44~50" />
+      <Function ID="11" Name="Source 10" Display="'Source 10'" Dmx="49~55" />
+      <Function ID="12" Name="Source 11" Display="'Source 11'" Dmx="54~60" />
+      <Function ID="13" Name="Source 12" Display="'Source 12'" Dmx="59~65" />
+      <Function ID="14" Name="Source 13" Display="'Source 13'" Dmx="64~70" />
+      <Function ID="15" Name="Source 14" Display="'Source 14'" Dmx="69~75" />
+      <Function ID="16" Name="Source 15" Display="'Source 15'" Dmx="74~80" />
+      <Function ID="17" Name="Source 16" Display="'Source 16'" Dmx="79~85" />
+      <Function ID="18" Name="Source 17" Display="'Source 17'" Dmx="84~90" />
+      <Function ID="19" Name="Source 18" Display="'Source 18'" Dmx="89~95" />
+      <Function ID="20" Name="Source 19" Display="'Source 19'" Dmx="94~100" />
+      <Function ID="21" Name="Source 20" Display="'Source 20'" Dmx="99~105" />
+      <Function ID="22" Name="Source 21" Display="'Source 21'" Dmx="104~110" />
+      <Function ID="23" Name="Source 22" Display="'Source 22'" Dmx="109~115" />
+      <Function ID="24" Name="Source 23" Display="'Source 23'" Dmx="114~120" />
+      <Function ID="25" Name="Source 24" Display="'Source 24'" Dmx="119~125" />
+      <Function ID="26" Name="Source 25" Display="'Source 25'" Dmx="124~130" />
+      <Function ID="27" Name="Source 26" Display="'Source 26'" Dmx="129~135" />
+      <Function ID="28" Name="Source 27" Display="'Source 27'" Dmx="134~140" />
+      <Function ID="29" Name="Source 28" Display="'Source 28'" Dmx="139~145" />
+      <Function ID="30" Name="Source 29" Display="'Source 29'" Dmx="144~150" />
+      <Function ID="31" Name="Source 30" Display="'Source 30'" Dmx="149~155" />
+      <Function ID="32" Name="Source 31" Display="'Source 31'" Dmx="154~160" />
+      <Function ID="33" Name="Source 32" Display="'Source 32'" Dmx="159~165" />
+      <Function ID="34" Name="Source 33" Display="'Source 33'" Dmx="164~170" />
+      <Function ID="35" Name="Source 34" Display="'Source 34'" Dmx="169~175" />
+      <Function ID="36" Name="Source 35" Display="'Source 35'" Dmx="174~180" />
+      <Function ID="37" Name="Source 36" Display="'Source 36'" Dmx="179~185" />
+      <Function ID="38" Name="Source 37" Display="'Source 37'" Dmx="184~190" />
+      <Function ID="39" Name="Source 38" Display="'Source 38'" Dmx="189~195" />
+      <Function ID="40" Name="Source 39" Display="'Source 39'" Dmx="194~200" />
+      <Function ID="41" Name="Source 40" Display="'Source 40'" Dmx="199~205" />
+      <Function ID="42" Name="Source 41" Display="'Source 41'" Dmx="204~210" />
+      <Function ID="43" Name="Source 42" Display="'Source 42'" Dmx="209~215" />
+      <Function ID="44" Name="Source 43" Display="'Source 43'" Dmx="214~220" />
+      <Function ID="45" Name="Source 44" Display="'Source 44'" Dmx="219~225" />
+      <Function ID="46" Name="Source 45" Display="'Source 45'" Dmx="224~230" />
+      <Function ID="47" Name="Source 46" Display="'Source 46'" Dmx="229~235" />
+      <Function ID="48" Name="Source 47" Display="'Source 47'" Dmx="234~240" />
+      <Function ID="49" Name="Source 48" Display="'Source 48'" Dmx="239~245" />
+      <Function ID="50" Name="Source 49" Display="'Source 49'" Dmx="244~250" />
+      <Function ID="51" Name="Source 50" Display="'Source 50'" Dmx="249~255" />
+    </Attribute>
+    <Attribute ID="Destination12" Name="Destination 12" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Selection" Display="'No Selection'" Dmx="0~5" />
+      <Function ID="2" Name="Source 1" Display="'Source 1'" Dmx="4~10" />
+      <Function ID="3" Name="Source 2" Display="'Source 2'" Dmx="9~15" />
+      <Function ID="4" Name="Source 3" Display="'Source 3'" Dmx="14~20" />
+      <Function ID="5" Name="Source 4" Display="'Source 4'" Dmx="19~25" />
+      <Function ID="6" Name="Source 5" Display="'Source 5'" Dmx="24~30" />
+      <Function ID="7" Name="Source 6" Display="'Source 6'" Dmx="29~35" />
+      <Function ID="8" Name="Source 7" Display="'Source 7'" Dmx="34~40" />
+      <Function ID="9" Name="Source 8" Display="'Source 8'" Dmx="39~45" />
+      <Function ID="10" Name="Source 9" Display="'Source 9'" Dmx="44~50" />
+      <Function ID="11" Name="Source 10" Display="'Source 10'" Dmx="49~55" />
+      <Function ID="12" Name="Source 11" Display="'Source 11'" Dmx="54~60" />
+      <Function ID="13" Name="Source 12" Display="'Source 12'" Dmx="59~65" />
+      <Function ID="14" Name="Source 13" Display="'Source 13'" Dmx="64~70" />
+      <Function ID="15" Name="Source 14" Display="'Source 14'" Dmx="69~75" />
+      <Function ID="16" Name="Source 15" Display="'Source 15'" Dmx="74~80" />
+      <Function ID="17" Name="Source 16" Display="'Source 16'" Dmx="79~85" />
+      <Function ID="18" Name="Source 17" Display="'Source 17'" Dmx="84~90" />
+      <Function ID="19" Name="Source 18" Display="'Source 18'" Dmx="89~95" />
+      <Function ID="20" Name="Source 19" Display="'Source 19'" Dmx="94~100" />
+      <Function ID="21" Name="Source 20" Display="'Source 20'" Dmx="99~105" />
+      <Function ID="22" Name="Source 21" Display="'Source 21'" Dmx="104~110" />
+      <Function ID="23" Name="Source 22" Display="'Source 22'" Dmx="109~115" />
+      <Function ID="24" Name="Source 23" Display="'Source 23'" Dmx="114~120" />
+      <Function ID="25" Name="Source 24" Display="'Source 24'" Dmx="119~125" />
+      <Function ID="26" Name="Source 25" Display="'Source 25'" Dmx="124~130" />
+      <Function ID="27" Name="Source 26" Display="'Source 26'" Dmx="129~135" />
+      <Function ID="28" Name="Source 27" Display="'Source 27'" Dmx="134~140" />
+      <Function ID="29" Name="Source 28" Display="'Source 28'" Dmx="139~145" />
+      <Function ID="30" Name="Source 29" Display="'Source 29'" Dmx="144~150" />
+      <Function ID="31" Name="Source 30" Display="'Source 30'" Dmx="149~155" />
+      <Function ID="32" Name="Source 31" Display="'Source 31'" Dmx="154~160" />
+      <Function ID="33" Name="Source 32" Display="'Source 32'" Dmx="159~165" />
+      <Function ID="34" Name="Source 33" Display="'Source 33'" Dmx="164~170" />
+      <Function ID="35" Name="Source 34" Display="'Source 34'" Dmx="169~175" />
+      <Function ID="36" Name="Source 35" Display="'Source 35'" Dmx="174~180" />
+      <Function ID="37" Name="Source 36" Display="'Source 36'" Dmx="179~185" />
+      <Function ID="38" Name="Source 37" Display="'Source 37'" Dmx="184~190" />
+      <Function ID="39" Name="Source 38" Display="'Source 38'" Dmx="189~195" />
+      <Function ID="40" Name="Source 39" Display="'Source 39'" Dmx="194~200" />
+      <Function ID="41" Name="Source 40" Display="'Source 40'" Dmx="199~205" />
+      <Function ID="42" Name="Source 41" Display="'Source 41'" Dmx="204~210" />
+      <Function ID="43" Name="Source 42" Display="'Source 42'" Dmx="209~215" />
+      <Function ID="44" Name="Source 43" Display="'Source 43'" Dmx="214~220" />
+      <Function ID="45" Name="Source 44" Display="'Source 44'" Dmx="219~225" />
+      <Function ID="46" Name="Source 45" Display="'Source 45'" Dmx="224~230" />
+      <Function ID="47" Name="Source 46" Display="'Source 46'" Dmx="229~235" />
+      <Function ID="48" Name="Source 47" Display="'Source 47'" Dmx="234~240" />
+      <Function ID="49" Name="Source 48" Display="'Source 48'" Dmx="239~245" />
+      <Function ID="50" Name="Source 49" Display="'Source 49'" Dmx="244~250" />
+      <Function ID="51" Name="Source 50" Display="'Source 50'" Dmx="249~255" />
+    </Attribute>
+    <Attribute ID="Destination13" Name="Destination 13" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Selection" Display="'No Selection'" Dmx="0~5" />
+      <Function ID="2" Name="Source 1" Display="'Source 1'" Dmx="4~10" />
+      <Function ID="3" Name="Source 2" Display="'Source 2'" Dmx="9~15" />
+      <Function ID="4" Name="Source 3" Display="'Source 3'" Dmx="14~20" />
+      <Function ID="5" Name="Source 4" Display="'Source 4'" Dmx="19~25" />
+      <Function ID="6" Name="Source 5" Display="'Source 5'" Dmx="24~30" />
+      <Function ID="7" Name="Source 6" Display="'Source 6'" Dmx="29~35" />
+      <Function ID="8" Name="Source 7" Display="'Source 7'" Dmx="34~40" />
+      <Function ID="9" Name="Source 8" Display="'Source 8'" Dmx="39~45" />
+      <Function ID="10" Name="Source 9" Display="'Source 9'" Dmx="44~50" />
+      <Function ID="11" Name="Source 10" Display="'Source 10'" Dmx="49~55" />
+      <Function ID="12" Name="Source 11" Display="'Source 11'" Dmx="54~60" />
+      <Function ID="13" Name="Source 12" Display="'Source 12'" Dmx="59~65" />
+      <Function ID="14" Name="Source 13" Display="'Source 13'" Dmx="64~70" />
+      <Function ID="15" Name="Source 14" Display="'Source 14'" Dmx="69~75" />
+      <Function ID="16" Name="Source 15" Display="'Source 15'" Dmx="74~80" />
+      <Function ID="17" Name="Source 16" Display="'Source 16'" Dmx="79~85" />
+      <Function ID="18" Name="Source 17" Display="'Source 17'" Dmx="84~90" />
+      <Function ID="19" Name="Source 18" Display="'Source 18'" Dmx="89~95" />
+      <Function ID="20" Name="Source 19" Display="'Source 19'" Dmx="94~100" />
+      <Function ID="21" Name="Source 20" Display="'Source 20'" Dmx="99~105" />
+      <Function ID="22" Name="Source 21" Display="'Source 21'" Dmx="104~110" />
+      <Function ID="23" Name="Source 22" Display="'Source 22'" Dmx="109~115" />
+      <Function ID="24" Name="Source 23" Display="'Source 23'" Dmx="114~120" />
+      <Function ID="25" Name="Source 24" Display="'Source 24'" Dmx="119~125" />
+      <Function ID="26" Name="Source 25" Display="'Source 25'" Dmx="124~130" />
+      <Function ID="27" Name="Source 26" Display="'Source 26'" Dmx="129~135" />
+      <Function ID="28" Name="Source 27" Display="'Source 27'" Dmx="134~140" />
+      <Function ID="29" Name="Source 28" Display="'Source 28'" Dmx="139~145" />
+      <Function ID="30" Name="Source 29" Display="'Source 29'" Dmx="144~150" />
+      <Function ID="31" Name="Source 30" Display="'Source 30'" Dmx="149~155" />
+      <Function ID="32" Name="Source 31" Display="'Source 31'" Dmx="154~160" />
+      <Function ID="33" Name="Source 32" Display="'Source 32'" Dmx="159~165" />
+      <Function ID="34" Name="Source 33" Display="'Source 33'" Dmx="164~170" />
+      <Function ID="35" Name="Source 34" Display="'Source 34'" Dmx="169~175" />
+      <Function ID="36" Name="Source 35" Display="'Source 35'" Dmx="174~180" />
+      <Function ID="37" Name="Source 36" Display="'Source 36'" Dmx="179~185" />
+      <Function ID="38" Name="Source 37" Display="'Source 37'" Dmx="184~190" />
+      <Function ID="39" Name="Source 38" Display="'Source 38'" Dmx="189~195" />
+      <Function ID="40" Name="Source 39" Display="'Source 39'" Dmx="194~200" />
+      <Function ID="41" Name="Source 40" Display="'Source 40'" Dmx="199~205" />
+      <Function ID="42" Name="Source 41" Display="'Source 41'" Dmx="204~210" />
+      <Function ID="43" Name="Source 42" Display="'Source 42'" Dmx="209~215" />
+      <Function ID="44" Name="Source 43" Display="'Source 43'" Dmx="214~220" />
+      <Function ID="45" Name="Source 44" Display="'Source 44'" Dmx="219~225" />
+      <Function ID="46" Name="Source 45" Display="'Source 45'" Dmx="224~230" />
+      <Function ID="47" Name="Source 46" Display="'Source 46'" Dmx="229~235" />
+      <Function ID="48" Name="Source 47" Display="'Source 47'" Dmx="234~240" />
+      <Function ID="49" Name="Source 48" Display="'Source 48'" Dmx="239~245" />
+      <Function ID="50" Name="Source 49" Display="'Source 49'" Dmx="244~250" />
+      <Function ID="51" Name="Source 50" Display="'Source 50'" Dmx="249~255" />
+    </Attribute>
+    <Attribute ID="Destination14" Name="Destination 14" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Selection" Display="'No Selection'" Dmx="0~5" />
+      <Function ID="2" Name="Source 1" Display="'Source 1'" Dmx="4~10" />
+      <Function ID="3" Name="Source 2" Display="'Source 2'" Dmx="9~15" />
+      <Function ID="4" Name="Source 3" Display="'Source 3'" Dmx="14~20" />
+      <Function ID="5" Name="Source 4" Display="'Source 4'" Dmx="19~25" />
+      <Function ID="6" Name="Source 5" Display="'Source 5'" Dmx="24~30" />
+      <Function ID="7" Name="Source 6" Display="'Source 6'" Dmx="29~35" />
+      <Function ID="8" Name="Source 7" Display="'Source 7'" Dmx="34~40" />
+      <Function ID="9" Name="Source 8" Display="'Source 8'" Dmx="39~45" />
+      <Function ID="10" Name="Source 9" Display="'Source 9'" Dmx="44~50" />
+      <Function ID="11" Name="Source 10" Display="'Source 10'" Dmx="49~55" />
+      <Function ID="12" Name="Source 11" Display="'Source 11'" Dmx="54~60" />
+      <Function ID="13" Name="Source 12" Display="'Source 12'" Dmx="59~65" />
+      <Function ID="14" Name="Source 13" Display="'Source 13'" Dmx="64~70" />
+      <Function ID="15" Name="Source 14" Display="'Source 14'" Dmx="69~75" />
+      <Function ID="16" Name="Source 15" Display="'Source 15'" Dmx="74~80" />
+      <Function ID="17" Name="Source 16" Display="'Source 16'" Dmx="79~85" />
+      <Function ID="18" Name="Source 17" Display="'Source 17'" Dmx="84~90" />
+      <Function ID="19" Name="Source 18" Display="'Source 18'" Dmx="89~95" />
+      <Function ID="20" Name="Source 19" Display="'Source 19'" Dmx="94~100" />
+      <Function ID="21" Name="Source 20" Display="'Source 20'" Dmx="99~105" />
+      <Function ID="22" Name="Source 21" Display="'Source 21'" Dmx="104~110" />
+      <Function ID="23" Name="Source 22" Display="'Source 22'" Dmx="109~115" />
+      <Function ID="24" Name="Source 23" Display="'Source 23'" Dmx="114~120" />
+      <Function ID="25" Name="Source 24" Display="'Source 24'" Dmx="119~125" />
+      <Function ID="26" Name="Source 25" Display="'Source 25'" Dmx="124~130" />
+      <Function ID="27" Name="Source 26" Display="'Source 26'" Dmx="129~135" />
+      <Function ID="28" Name="Source 27" Display="'Source 27'" Dmx="134~140" />
+      <Function ID="29" Name="Source 28" Display="'Source 28'" Dmx="139~145" />
+      <Function ID="30" Name="Source 29" Display="'Source 29'" Dmx="144~150" />
+      <Function ID="31" Name="Source 30" Display="'Source 30'" Dmx="149~155" />
+      <Function ID="32" Name="Source 31" Display="'Source 31'" Dmx="154~160" />
+      <Function ID="33" Name="Source 32" Display="'Source 32'" Dmx="159~165" />
+      <Function ID="34" Name="Source 33" Display="'Source 33'" Dmx="164~170" />
+      <Function ID="35" Name="Source 34" Display="'Source 34'" Dmx="169~175" />
+      <Function ID="36" Name="Source 35" Display="'Source 35'" Dmx="174~180" />
+      <Function ID="37" Name="Source 36" Display="'Source 36'" Dmx="179~185" />
+      <Function ID="38" Name="Source 37" Display="'Source 37'" Dmx="184~190" />
+      <Function ID="39" Name="Source 38" Display="'Source 38'" Dmx="189~195" />
+      <Function ID="40" Name="Source 39" Display="'Source 39'" Dmx="194~200" />
+      <Function ID="41" Name="Source 40" Display="'Source 40'" Dmx="199~205" />
+      <Function ID="42" Name="Source 41" Display="'Source 41'" Dmx="204~210" />
+      <Function ID="43" Name="Source 42" Display="'Source 42'" Dmx="209~215" />
+      <Function ID="44" Name="Source 43" Display="'Source 43'" Dmx="214~220" />
+      <Function ID="45" Name="Source 44" Display="'Source 44'" Dmx="219~225" />
+      <Function ID="46" Name="Source 45" Display="'Source 45'" Dmx="224~230" />
+      <Function ID="47" Name="Source 46" Display="'Source 46'" Dmx="229~235" />
+      <Function ID="48" Name="Source 47" Display="'Source 47'" Dmx="234~240" />
+      <Function ID="49" Name="Source 48" Display="'Source 48'" Dmx="239~245" />
+      <Function ID="50" Name="Source 49" Display="'Source 49'" Dmx="244~250" />
+      <Function ID="51" Name="Source 50" Display="'Source 50'" Dmx="249~255" />
+    </Attribute>
+    <Attribute ID="Destination15" Name="Destination 15" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Selection" Display="'No Selection'" Dmx="0~5" />
+      <Function ID="2" Name="Source 1" Display="'Source 1'" Dmx="4~10" />
+      <Function ID="3" Name="Source 2" Display="'Source 2'" Dmx="9~15" />
+      <Function ID="4" Name="Source 3" Display="'Source 3'" Dmx="14~20" />
+      <Function ID="5" Name="Source 4" Display="'Source 4'" Dmx="19~25" />
+      <Function ID="6" Name="Source 5" Display="'Source 5'" Dmx="24~30" />
+      <Function ID="7" Name="Source 6" Display="'Source 6'" Dmx="29~35" />
+      <Function ID="8" Name="Source 7" Display="'Source 7'" Dmx="34~40" />
+      <Function ID="9" Name="Source 8" Display="'Source 8'" Dmx="39~45" />
+      <Function ID="10" Name="Source 9" Display="'Source 9'" Dmx="44~50" />
+      <Function ID="11" Name="Source 10" Display="'Source 10'" Dmx="49~55" />
+      <Function ID="12" Name="Source 11" Display="'Source 11'" Dmx="54~60" />
+      <Function ID="13" Name="Source 12" Display="'Source 12'" Dmx="59~65" />
+      <Function ID="14" Name="Source 13" Display="'Source 13'" Dmx="64~70" />
+      <Function ID="15" Name="Source 14" Display="'Source 14'" Dmx="69~75" />
+      <Function ID="16" Name="Source 15" Display="'Source 15'" Dmx="74~80" />
+      <Function ID="17" Name="Source 16" Display="'Source 16'" Dmx="79~85" />
+      <Function ID="18" Name="Source 17" Display="'Source 17'" Dmx="84~90" />
+      <Function ID="19" Name="Source 18" Display="'Source 18'" Dmx="89~95" />
+      <Function ID="20" Name="Source 19" Display="'Source 19'" Dmx="94~100" />
+      <Function ID="21" Name="Source 20" Display="'Source 20'" Dmx="99~105" />
+      <Function ID="22" Name="Source 21" Display="'Source 21'" Dmx="104~110" />
+      <Function ID="23" Name="Source 22" Display="'Source 22'" Dmx="109~115" />
+      <Function ID="24" Name="Source 23" Display="'Source 23'" Dmx="114~120" />
+      <Function ID="25" Name="Source 24" Display="'Source 24'" Dmx="119~125" />
+      <Function ID="26" Name="Source 25" Display="'Source 25'" Dmx="124~130" />
+      <Function ID="27" Name="Source 26" Display="'Source 26'" Dmx="129~135" />
+      <Function ID="28" Name="Source 27" Display="'Source 27'" Dmx="134~140" />
+      <Function ID="29" Name="Source 28" Display="'Source 28'" Dmx="139~145" />
+      <Function ID="30" Name="Source 29" Display="'Source 29'" Dmx="144~150" />
+      <Function ID="31" Name="Source 30" Display="'Source 30'" Dmx="149~155" />
+      <Function ID="32" Name="Source 31" Display="'Source 31'" Dmx="154~160" />
+      <Function ID="33" Name="Source 32" Display="'Source 32'" Dmx="159~165" />
+      <Function ID="34" Name="Source 33" Display="'Source 33'" Dmx="164~170" />
+      <Function ID="35" Name="Source 34" Display="'Source 34'" Dmx="169~175" />
+      <Function ID="36" Name="Source 35" Display="'Source 35'" Dmx="174~180" />
+      <Function ID="37" Name="Source 36" Display="'Source 36'" Dmx="179~185" />
+      <Function ID="38" Name="Source 37" Display="'Source 37'" Dmx="184~190" />
+      <Function ID="39" Name="Source 38" Display="'Source 38'" Dmx="189~195" />
+      <Function ID="40" Name="Source 39" Display="'Source 39'" Dmx="194~200" />
+      <Function ID="41" Name="Source 40" Display="'Source 40'" Dmx="199~205" />
+      <Function ID="42" Name="Source 41" Display="'Source 41'" Dmx="204~210" />
+      <Function ID="43" Name="Source 42" Display="'Source 42'" Dmx="209~215" />
+      <Function ID="44" Name="Source 43" Display="'Source 43'" Dmx="214~220" />
+      <Function ID="45" Name="Source 44" Display="'Source 44'" Dmx="219~225" />
+      <Function ID="46" Name="Source 45" Display="'Source 45'" Dmx="224~230" />
+      <Function ID="47" Name="Source 46" Display="'Source 46'" Dmx="229~235" />
+      <Function ID="48" Name="Source 47" Display="'Source 47'" Dmx="234~240" />
+      <Function ID="49" Name="Source 48" Display="'Source 48'" Dmx="239~245" />
+      <Function ID="50" Name="Source 49" Display="'Source 49'" Dmx="244~250" />
+      <Function ID="51" Name="Source 50" Display="'Source 50'" Dmx="249~255" />
+    </Attribute>
+    <Attribute ID="Destination16" Name="Destination 16" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Selection" Display="'No Selection'" Dmx="0~5" />
+      <Function ID="2" Name="Source 1" Display="'Source 1'" Dmx="4~10" />
+      <Function ID="3" Name="Source 2" Display="'Source 2'" Dmx="9~15" />
+      <Function ID="4" Name="Source 3" Display="'Source 3'" Dmx="14~20" />
+      <Function ID="5" Name="Source 4" Display="'Source 4'" Dmx="19~25" />
+      <Function ID="6" Name="Source 5" Display="'Source 5'" Dmx="24~30" />
+      <Function ID="7" Name="Source 6" Display="'Source 6'" Dmx="29~35" />
+      <Function ID="8" Name="Source 7" Display="'Source 7'" Dmx="34~40" />
+      <Function ID="9" Name="Source 8" Display="'Source 8'" Dmx="39~45" />
+      <Function ID="10" Name="Source 9" Display="'Source 9'" Dmx="44~50" />
+      <Function ID="11" Name="Source 10" Display="'Source 10'" Dmx="49~55" />
+      <Function ID="12" Name="Source 11" Display="'Source 11'" Dmx="54~60" />
+      <Function ID="13" Name="Source 12" Display="'Source 12'" Dmx="59~65" />
+      <Function ID="14" Name="Source 13" Display="'Source 13'" Dmx="64~70" />
+      <Function ID="15" Name="Source 14" Display="'Source 14'" Dmx="69~75" />
+      <Function ID="16" Name="Source 15" Display="'Source 15'" Dmx="74~80" />
+      <Function ID="17" Name="Source 16" Display="'Source 16'" Dmx="79~85" />
+      <Function ID="18" Name="Source 17" Display="'Source 17'" Dmx="84~90" />
+      <Function ID="19" Name="Source 18" Display="'Source 18'" Dmx="89~95" />
+      <Function ID="20" Name="Source 19" Display="'Source 19'" Dmx="94~100" />
+      <Function ID="21" Name="Source 20" Display="'Source 20'" Dmx="99~105" />
+      <Function ID="22" Name="Source 21" Display="'Source 21'" Dmx="104~110" />
+      <Function ID="23" Name="Source 22" Display="'Source 22'" Dmx="109~115" />
+      <Function ID="24" Name="Source 23" Display="'Source 23'" Dmx="114~120" />
+      <Function ID="25" Name="Source 24" Display="'Source 24'" Dmx="119~125" />
+      <Function ID="26" Name="Source 25" Display="'Source 25'" Dmx="124~130" />
+      <Function ID="27" Name="Source 26" Display="'Source 26'" Dmx="129~135" />
+      <Function ID="28" Name="Source 27" Display="'Source 27'" Dmx="134~140" />
+      <Function ID="29" Name="Source 28" Display="'Source 28'" Dmx="139~145" />
+      <Function ID="30" Name="Source 29" Display="'Source 29'" Dmx="144~150" />
+      <Function ID="31" Name="Source 30" Display="'Source 30'" Dmx="149~155" />
+      <Function ID="32" Name="Source 31" Display="'Source 31'" Dmx="154~160" />
+      <Function ID="33" Name="Source 32" Display="'Source 32'" Dmx="159~165" />
+      <Function ID="34" Name="Source 33" Display="'Source 33'" Dmx="164~170" />
+      <Function ID="35" Name="Source 34" Display="'Source 34'" Dmx="169~175" />
+      <Function ID="36" Name="Source 35" Display="'Source 35'" Dmx="174~180" />
+      <Function ID="37" Name="Source 36" Display="'Source 36'" Dmx="179~185" />
+      <Function ID="38" Name="Source 37" Display="'Source 37'" Dmx="184~190" />
+      <Function ID="39" Name="Source 38" Display="'Source 38'" Dmx="189~195" />
+      <Function ID="40" Name="Source 39" Display="'Source 39'" Dmx="194~200" />
+      <Function ID="41" Name="Source 40" Display="'Source 40'" Dmx="199~205" />
+      <Function ID="42" Name="Source 41" Display="'Source 41'" Dmx="204~210" />
+      <Function ID="43" Name="Source 42" Display="'Source 42'" Dmx="209~215" />
+      <Function ID="44" Name="Source 43" Display="'Source 43'" Dmx="214~220" />
+      <Function ID="45" Name="Source 44" Display="'Source 44'" Dmx="219~225" />
+      <Function ID="46" Name="Source 45" Display="'Source 45'" Dmx="224~230" />
+      <Function ID="47" Name="Source 46" Display="'Source 46'" Dmx="229~235" />
+      <Function ID="48" Name="Source 47" Display="'Source 47'" Dmx="234~240" />
+      <Function ID="49" Name="Source 48" Display="'Source 48'" Dmx="239~245" />
+      <Function ID="50" Name="Source 49" Display="'Source 49'" Dmx="244~250" />
+      <Function ID="51" Name="Source 50" Display="'Source 50'" Dmx="249~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="40 DMX, 16bit" Channels="40">
+    <Import PearlRef="HE_Cat4" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="23" Wheel="1" />
+      <Attribute ID="Strobing" ChannelOffset="27" Wheel="4" />
+      <Attribute ID="XRot_Func" Wheel="55" />
+      <Attribute ID="ZRot_Func" Wheel="57" />
+      <Attribute ID="YRot_Func" Wheel="56" />
+      <Attribute ID="X_Rot" ChannelOffset="9,10" Wheel="25" />
+      <Attribute ID="Y_Rot" ChannelOffset="11,12" Wheel="26" />
+      <Attribute ID="Z_Rot" ChannelOffset="13,14" Wheel="27" />
+      <Attribute ID="X_Pos" ChannelOffset="17,18" Wheel="2" />
+      <Attribute ID="Y_Pos" ChannelOffset="19,20" Wheel="3" />
+      <Attribute ID="Red" ChannelOffset="24" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="25" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="26" Wheel="12" />
+      <Attribute ID="CEff" ChannelOffset="29" Wheel="7" />
+      <Attribute ID="Library" ChannelOffset="1" Wheel="13" />
+      <Attribute ID="File" ChannelOffset="2" Wheel="14" />
+      <Attribute ID="In_Frame" ChannelOffset="3,4" Wheel="43" />
+      <Attribute ID="Out_Frame" ChannelOffset="5,6" Wheel="44" />
+      <Attribute ID="Play_Mode" ChannelOffset="7" Wheel="15" />
+      <Attribute ID="Scale" ChannelOffset="15,16" Wheel="16" />
+      <Attribute ID="Aspect_Ratio" ChannelOffset="21" Wheel="18" />
+      <Attribute ID="Trail" ChannelOffset="28" Wheel="17" />
+      <Attribute ID="Keystone_TL_X" ChannelOffset="33" Wheel="19" />
+      <Attribute ID="Keystone_TL_Y" ChannelOffset="34" Wheel="20" />
+      <Attribute ID="Keystone_BL_X" ChannelOffset="35" Wheel="49" />
+      <Attribute ID="Keystone_BL_Y" ChannelOffset="36" Wheel="50" />
+      <Attribute ID="Keystone_BR_X" ChannelOffset="37" Wheel="79" />
+      <Attribute ID="Keystone_BR_Y" ChannelOffset="38" Wheel="80" />
+      <Attribute ID="Keystone_TR_X" ChannelOffset="39" Wheel="109" />
+      <Attribute ID="Keystone_TR_Y" ChannelOffset="40" Wheel="110" />
+      <Attribute ID="VEff" ChannelOffset="30" Wheel="22" />
+      <Attribute ID="Parameter_1" ChannelOffset="31" Wheel="23" />
+      <Attribute ID="Parameter_2" ChannelOffset="32" Wheel="24" />
+      <Attribute ID="Playback_Speed" ChannelOffset="8" Wheel="45" />
+      <Attribute ID="Movement_Speed" ChannelOffset="22" Wheel="6" />
+    </Include>
+  </Mode>
+  <Mode Name="56 DMX, 16bit" Channels="56">
+    <Import PearlRef="HE_CatOne" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="33" Wheel="1" />
+      <Attribute ID="Strobe" ChannelOffset="40" Wheel="6" />
+      <Attribute ID="ZRot_Func" Wheel="85" />
+      <Attribute ID="YRot_Func" Wheel="55" />
+      <Attribute ID="XRot_Func" Wheel="25" />
+      <Attribute ID="X_Rot" ChannelOffset="15,16" Wheel="26" />
+      <Attribute ID="Y_Rot" ChannelOffset="17,18" Wheel="56" />
+      <Attribute ID="Z_Rot" ChannelOffset="19,20" Wheel="86" />
+      <Attribute ID="X_Pos" ChannelOffset="23,24" Wheel="2" />
+      <Attribute ID="Y_Pos" ChannelOffset="25,26" Wheel="3" />
+      <Attribute ID="Red" ChannelOffset="34" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="35" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="36" Wheel="12" />
+      <Attribute ID="Gradient_Red" ChannelOffset="37" Wheel="7" />
+      <Attribute ID="Gradient_Green" ChannelOffset="38" Wheel="8" />
+      <Attribute ID="Gradient_Blue" ChannelOffset="39" Wheel="9" />
+      <Attribute ID="Color_Rotate" ChannelOffset="42" Wheel="27" />
+      <Attribute ID="Library" ChannelOffset="1" Wheel="4" />
+      <Attribute ID="File" ChannelOffset="2" Wheel="5" />
+      <Attribute ID="In_Frame" ChannelOffset="3,4" Wheel="16" />
+      <Attribute ID="Out_Frame" ChannelOffset="5,6" Wheel="17" />
+      <Attribute ID="Gobo_Frame" ChannelOffset="9,10" Wheel="13" />
+      <Attribute ID="Gobo_Size" ChannelOffset="11,12" Wheel="14" />
+      <Attribute ID="Gobo_Rotate" ChannelOffset="13,14" Wheel="15" />
+      <Attribute ID="Scale" ChannelOffset="21,22" Wheel="20" />
+      <Attribute ID="Aspect_Ratio" ChannelOffset="28" Wheel="18" />
+      <Attribute ID="Mask_Select" ChannelOffset="29,30" Wheel="29" />
+      <Attribute ID="Mask_Rotate" ChannelOffset="31,32" Wheel="30" />
+      <Attribute ID="Keystone_TL_X" ChannelOffset="46" Wheel="49" />
+      <Attribute ID="Keystone_TL_Y" ChannelOffset="47" Wheel="50" />
+      <Attribute ID="Keystone_BL_X" ChannelOffset="48" Wheel="79" />
+      <Attribute ID="Keystone_BL_Y" ChannelOffset="49" Wheel="80" />
+      <Attribute ID="Keystone_BR_X" ChannelOffset="50" Wheel="109" />
+      <Attribute ID="Keystone_BR_Y" ChannelOffset="51" Wheel="110" />
+      <Attribute ID="Keystone_TR_X" ChannelOffset="52" Wheel="139" />
+      <Attribute ID="Keystone_TR_Y" ChannelOffset="53" Wheel="140" />
+      <Attribute ID="Effect_Func" ChannelOffset="43" Wheel="22" />
+      <Attribute ID="VisualEffect1" ChannelOffset="44" Wheel="23" />
+      <Attribute ID="VisualEffect2" ChannelOffset="45" Wheel="24" />
+      <Attribute ID="Play_Mode2" ChannelOffset="7" Wheel="28" />
+      <Attribute ID="Playback_Speed" ChannelOffset="8" Wheel="45" />
+      <Attribute ID="Movement_Speed" ChannelOffset="27" Wheel="21" />
+      <Attribute ID="Crossfade" ChannelOffset="41" Wheel="34" />
+      <Attribute ID="Information" ChannelOffset="54" Wheel="58" />
+      <Attribute ID="Reserved1" ChannelOffset="55" Wheel="59" />
+      <Attribute ID="Reserved2" ChannelOffset="56" Wheel="60" />
+    </Include>
+  </Mode>
+  <Mode Name="Layer Select" Channels="16">
+    <Import PearlRef="HE_Cat4LSel" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Layer1" ChannelOffset="1" Wheel="25" />
+      <Attribute ID="Layer2" ChannelOffset="2" Wheel="26" />
+      <Attribute ID="Layer3" ChannelOffset="3" Wheel="27" />
+      <Attribute ID="Layer4" ChannelOffset="4" Wheel="55" />
+      <Attribute ID="Layer5" ChannelOffset="5" Wheel="56" />
+      <Attribute ID="Layer6" ChannelOffset="6" Wheel="57" />
+      <Attribute ID="Layer7" ChannelOffset="7" Wheel="85" />
+      <Attribute ID="Layer8" ChannelOffset="8" Wheel="86" />
+      <Attribute ID="Layer9" ChannelOffset="9" Wheel="87" />
+      <Attribute ID="Layer10" ChannelOffset="10" Wheel="115" />
+      <Attribute ID="Layer11" ChannelOffset="11" Wheel="116" />
+      <Attribute ID="Layer12" ChannelOffset="12" Wheel="117" />
+      <Attribute ID="Reserved3" ChannelOffset="13" Wheel="28" />
+      <Attribute ID="Reserved4" ChannelOffset="14" Wheel="29" />
+      <Attribute ID="Reserved5" ChannelOffset="15" Wheel="30" />
+      <Attribute ID="Reserved6" ChannelOffset="16" Wheel="58" />
+    </Include>
+  </Mode>
+  <Mode Name="Video Switcher" Channels="16">
+    <Import PearlRef="" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Destination1" ChannelOffset="1" Wheel="28" />
+      <Attribute ID="Destination2" ChannelOffset="2" Wheel="29" />
+      <Attribute ID="Destination3" ChannelOffset="3" Wheel="30" />
+      <Attribute ID="Destination4" ChannelOffset="4" Wheel="58" />
+      <Attribute ID="Destination5" ChannelOffset="5" Wheel="59" />
+      <Attribute ID="Destination6" ChannelOffset="6" Wheel="60" />
+      <Attribute ID="Destination7" ChannelOffset="7" Wheel="88" />
+      <Attribute ID="Destination8" ChannelOffset="8" Wheel="89" />
+      <Attribute ID="Destination9" ChannelOffset="9" Wheel="90" />
+      <Attribute ID="Destination10" ChannelOffset="10" Wheel="118" />
+      <Attribute ID="Destination11" ChannelOffset="11" Wheel="119" />
+      <Attribute ID="Destination12" ChannelOffset="12" Wheel="120" />
+      <Attribute ID="Destination13" ChannelOffset="13" Wheel="148" />
+      <Attribute ID="Destination14" ChannelOffset="14" Wheel="149" />
+      <Attribute ID="Destination15" ChannelOffset="15" Wheel="150" />
+      <Attribute ID="Destination16" ChannelOffset="16" Wheel="178" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Red:1:100,Green:1:100,Blue:1:100,Gradient_Red:1:100,Gradient_Green:1:100,Gradient_Blue:1:100" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:0,Gradient_Red:1:100,Gradient_Green:1:0,Gradient_Blue:1:0" />
+      <Palette ID="3" Name="Amber" Number="3" Page="1" SetControl="Red:1:100,Green:1:50,Blue:1:0,Gradient_Red:1:100,Gradient_Green:1:50,Gradient_Blue:1:0" />
+      <Palette ID="4" Name="Yellow" Legend="Yell" Number="4" Page="1" SetControl="Red:1:100,Green:1:100,Blue:1:0,Gradient_Red:1:100,Gradient_Green:1:100,Gradient_Blue:1:0" />
+      <Palette ID="5" Name="Lime" Number="0" Page="1" SetControl="Red:1:50,Green:1:100,Blue:1:0,Gradient_Red:1:50,Gradient_Green:1:100,Gradient_Blue:1:0" />
+      <Palette ID="6" Name="Green" Number="5" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:0,Gradient_Red:1:0,Gradient_Green:1:100,Gradient_Blue:1:0" />
+      <Palette ID="7" Name="Aqua" Number="0" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:50,Gradient_Red:1:0,Gradient_Green:1:100,Gradient_Blue:1:50" />
+      <Palette ID="8" Name="Cyan" Number="6" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:100,Gradient_Red:1:0,Gradient_Green:1:100,Gradient_Blue:1:100" />
+      <Palette ID="9" Name="Light Blue" Number="0" Page="1" SetControl="Red:1:0,Green:1:50,Blue:1:100,Gradient_Red:1:0,Gradient_Green:1:50,Gradient_Blue:1:100" />
+      <Palette ID="10" Name="Blue" Number="7" Page="1" SetControl="Red:1:0,Green:1:0,Blue:1:100,Gradient_Red:1:0,Gradient_Green:1:0,Gradient_Blue:1:100" />
+      <Palette ID="11" Name="Purple" Legend="Purpl" Number="9" Page="1" SetControl="Red:1:50,Green:1:0,Blue:1:100,Gradient_Red:1:50,Gradient_Green:1:0,Gradient_Blue:1:100" />
+      <Palette ID="12" Name="Magenta" Legend="Mag" Number="10" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:100,Gradient_Red:1:100,Gradient_Green:1:0,Gradient_Blue:1:100" />
+      <Palette ID="13" Name="Rose" Number="0" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:50,Gradient_Red:1:100,Gradient_Green:1:0,Gradient_Blue:1:50" />
+      <Palette ID="14" Name="Lavender" Legend="Lav" Number="8" Page="1" SetControl="Red:1:71,Green:1:43,Blue:1:94,Gradient_Red:1:71,Gradient_Green:1:43,Gradient_Blue:1:94" />
+      <Palette ID="15" Name="Ultra Violet" Legend="UV" Number="0" Page="1" SetControl="Red:1:20,Green:1:0,Blue:1:100,Gradient_Red:1:20,Gradient_Green:1:0,Gradient_Blue:1:100" />
+    </Group>
+  </Palettes>
+</Fixture>

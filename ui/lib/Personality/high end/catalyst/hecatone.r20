@@ -1,0 +1,122 @@
+; "High End Catalyst", 33 DMX channels, filename :hecatone.r20
+;
+;   Date      By        Description
+;   23-01-02  Edward    Created
+;   06-09-02  D.Shelton Personality split into two and added extra channels
+;   13-09-02  D.Shelton Personality split into three, due to lack of control channels on desk
+;   31-03-05  Phil        Revised device name
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  HE_CatOne                                   33 DMX channels
+NAME "High End" "Catalyst, v 1.2: First Patch"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  33  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR	1   0   0
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=456
+;
+; DMX number must be divisible by this	
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+;
+DMX	
+3   1 I  1 100 1N 0 1 "Library"        0 0 0 ; Library
+3  61 I  2 100 1N 0 1 "File"           0 0 0 ; File
+14  1 L  3 100 1N 0 1 "In Frame"       0 0 0 ; In Frame 
+14 61 L  4 100 1N 0 1 "In Frame Lo"    0 0 0 ; In Frame LOW
+15  1 L  5 100 1N 0 1 "Out Frame"      0 0 0 ; Out Frame 
+15 61 L  6 100 1N 0 1 "Out Frame Lo"   0 0 0 ; Out Frame LOW
+2   1 I  7 100 1N 0 1 "Play"           0 0 0 ; Play Mode
+2  61 L  8 100 1N 0 1 "Play Speed"     0 0 0 ; Play Speed
+6   1 L  9 100 1N 0 1 "Gobo Frame"     0 0 0 ; Gobo Frame
+6  61 L 10 100 1N 0 1 "Gobo FrameLo"   0 0 0 ; Gobo Frame LOW
+7   1 L 11 100 1N 0 1 "Gobo Size"    143 0 0 ; Gobo Size
+7  61 L 12 100 1N 0 1 "Gobo Size Lo" 143 0 0 ; Gobo Size LOW
+8   1 L 13 100 1N 0 1 "Gobo Rot"     128 0 0 ; Gobo Rotate
+8  61 L 14 100 1N 0 1 "Gobo Rot Lo"  128 0 0 ; Gobo Rotate LOW
+11  1 L 15 100 1N 0 1 "X-Axis Rot"   128 0 0 ; X-axis Roate (Vertical Flip)
+11 61 L 16 100 1N 0 1 "X-Axis RotLo" 128 0 0 ; X-axis Roate LOW (Vertical Flip)
+12  1 L 17 100 1N 0 1 "Y-Axis Rot"   128 0 0 ; Y-axis Roate (Horizontal Flip)
+12 61 L 18 100 1N 0 1 "Y-Axis RotLo" 128 0 0 ; Y-axis Roate LOW (Horizontal Flip)
+13  1 L 19 100 1N 0 1 "Z-Axis Rot"   128 0 0 ; Z-axis Roate (Circular Flip)
+13 61 L 20 100 1N 0 1 "Z-Axis RotLo"   0 0 0 ; Z-axis Roate LOW (Circular Flip)
+9   1 L 21 100 1N 0 1 "Scale"        143 0 0 ; Scale
+9  61 L 22 100 1N 0 1 "Scale Lo"     143 0 0 ; Scale LOW
+4   1 L 23 100 1N 0 1 "X Pos"        128 0 0 ; X Position (Pan Left/Right)
+4  61 L 24 100 1N 0 1 "X Pos Lo"     128 0 0 ; X Position LOW (Pan Left/Right)
+5   1 L 25 100 1N 0 1 "Y Pos"        128 0 0 ; Y Position (Pan Up/Down)
+5  61 L 26 100 1N 0 1 "Y Pos Lo"     128 0 0 ; Y Position LOW (Pan Up/Down)
+10 61 L 27 100 1N 0 1 "Move Speed"     0 0 0 ; Movement Speed
+10  1 L 28 100 1N 0 1 "AspectRatio"    0 0 0 ; Aspect Ratio
+16  1 L 29 100 1N 0 1 "Mask"           0 0 0 ; Mask
+16 61 L 30 100 1N 0 1 "Mask Lo"        0 0 0 ; Mask LOW
+17  1 L 31 100 1N 0 1 "Mask Rot"     128 0 0 ; Mask Rotate
+17 61 L 32 100 1N 0 1 "Mask Rot Lo"  128 0 0 ; Mask Rotate LOW
+1   1 H 33 100 1N H 1 "Dimmer"       255 0 0 ; Dimmer
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+  High End CATALYST
+   Bank    Faders
+---------------------
+ 1 Dimmer   --
+ 2 Play     PlaySpd
+ 3 Library  File
+ 4 XPos     XPos Lo
+ 5 YPos     YPos Lo
+ 6 GoboFrm  GoboFrmLo
+ 7 GoboSize GoboSzLo
+ 8 GoboRot  GoboRotLo
+ 9 Scale    Scale Lo
+10 MoveSpd  Asp Rat
+11 X Rot    XRot Lo
+12 Y Rot    YRot Lo
+13 Z Rot    zRot Lo
+14 InFrm    InFrmLo
+15 OutFrm   OutFrmLo
+16 Mask     MaskLo
+17 MaskRot  MaskRotLo
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+

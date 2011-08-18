@@ -1,0 +1,341 @@
+;-----------------------------------------------------------------------|
+; The High End X-Spot Personality for the Diamond II         | 
+;-----------------------------------------------------------------------|
+;       History :-                                                      |
+;-----------------------------------------------------------------------|
+;   Revision |  Date     |  By    | Description                         |
+;------------|-----------|--------|-------------------------------------|
+;       1.0  |  15-11-00 | P.Bari | Created                             |
+;            |  19-12-01 | Edward | Changed wheel order from L1,L2,Efx 
+;				  | to L1, Efx, L2, changed wheel layout
+;---------------------------------------------------------------------- |
+
+
+DEVICE=HE_X_SPOT                ; Device Name (upto 11 chars after '='
+DEVICE23=38 CHANNELS            ; 22 chars after '='
+	             		; extra information for softkey prompt lines 2&3
+						; a total of 22 chars, split into 2 lines of 11
+
+; Device information
+;                                   __ Number of lines of DMX info.
+;                                  |   __ Number of lines of wheel info
+;                                  |  |
+;                                  |  |
+;                                  |  |
+HSTART  1 38 1b05 170 108 ff 0  1 38 38
+;        | |  |    |   |  |  |  |
+;        | |  |    |   |  |  |  |__ Line number for flash button DMX info
+;        | |  |    |   |  |  |      from DMX definition (1..x)
+;        | |  |    |   |  |  |__ Button release value
+;        | |  |    |   |  |__ Button ON value (ff means use swop/add fader)
+;        | |  |    |   |__ The TILT arc in Degrees
+;        | |  |    |__ The Pan arc in degrees
+;        | |  |__ Date in PC format (1b05==5/08/93)
+;        | |__ Number of DMX slots used
+;        |__ Patch direction (0 for mirror, 3 for moving head)
+
+
+TEXTSTART                 ; Upto 21 lines of 28 characters (use the template)
+                                 ;
+                                 ;
+    High End X-SPOT              ;
+      38 Channels                ;
+                                 ;
+TEXTEND
+
+
+;------------------------------------------------------------
+
+; For the Attribute Dictionary refer to file 'dict.per'
+
+;------------------------------------------------------------
+; DMX information
+; No unused lines allowed between keyword 'DSTART' and last DMX definition
+DSTART               ; DMX defintion
+1  2 20 0  13 0      ; PAN
+2  0  0 0   0 0      ; DUMMY (16-bit)
+3  2 20 0  14 0      ; TILT
+4  0  0 0   0 0      ; DUMMY (16-bit)
+5  2 40 0 159 0      ; LAMP CONTROL
+6  2 40 0  24 0      ; SHUTTER
+7  1  0 0   0 0      ; DIMMER
+8  2 40 0  40 0      ; FROST
+9  2  0 0 160 0      ; FOCUS CONTROL
+10 2  0 0  12 0      ; FOCUS
+11 2  0 0  43 0      ; ZOOM
+12 2  0 0  25 0      ; M.SPEED
+13 2 40 0 107 0      ; MACROS
+14 2 40 0  52 0      ; CONTROL
+15 2 40 0 147 0      ; COLOR FUNCTION
+16 2 40 0  38 0      ; COLOR
+17 2 40 0 148 0      ; MIX COLOR FUNCTION
+18 2  0 0   8 0      ; CYAN
+19 2  0 0   7 0      ; MAGENTA
+20 2  0 0   9 0      ; YELLOW
+21 2  0 0 149 0      ; CTO
+22 2  0 0 150 0      ; CTB
+23 2 40 0 151 0      ; GOBO1 FUNCTION
+24 2 40 0  36 0      ; GOBO1
+25 2 40 0 155 0      ; GOBO1 ROT FUNCTION
+26 2 60 0 153 0      ; GOBO1 ROT
+27 0  0 0   0 0      ; DUMMY (16-bit)
+28 2 40 0 157 0      ; EFFECT FUNCTION
+29 2 40 0  51 0      ; EFFECT
+30 2 40 0 158 0      ; EFFECT ROT FUNCTION
+31 2 60 0  41 0      ; EFFECT ROT
+32 0  0 0   0 0      ; DUMMY (16-bit)
+33 2 40 0 152 0      ; GOBO2 FUNCTION
+34 2 40 0  37 0      ; GOBO2
+35 2 40 0 156 0      ; GOBO2 ROT FUNCTION
+36 2 60 0 154 0      ; GOBO2 ROT
+37 0  0 0   0 0      ; DUMMY (16-bit)
+38 2  0 0  15 0      ; IRIS
+;| |  | |   | |
+;| |  | |   | |__ Spare (always 0 for now)
+;| |  | |   |__ Attribute name (See list above)
+;| |  | |__ Curve (0 means no curve otherwise curve number)
+;| |  |__ Flags (7=inverted, 6=instant, 5=16-bit)
+;| |__ Channel type (1=HTP, 2=LTP, 0=Dummy(for 16-bit defines)
+;|__ DMX offset (1..255, 0 means DIMMER will be patched seperately)
+
+
+;------------------------------------------------------------
+; WHEEL information
+; No unused lines allowed between keyword 'WSTART' and last DMX definition
+WSTART
+6 ffff 8080 3  13 1  5  0 1  0  1  0  0  0  0  0  ; 1. PAN
+6 ffff 8080 3  14 1  6  0 1  2  3  0  0  0  0  0  ; 2. TILT
+8 ffff    0 1 159 0 42  0 1  4  5  0  0  0  0  0  ; 3. LAMP CONTROL
+8 ffff ffff 1  24 0  7  0 1  5  6  0  0  0  0  0  ; 4. SHUTTER
+8 ffff ffff 4   0 0  8  0 1  6  7  0  0  0  0  0  ; 5. DIMMER
+8 ffff    0 1  40 0 40  0 1  7  8  0  0  0  0  0  ; 6. FROST
+8 ffff    0 1 160 0  4  0 1  8  9  0  0  0  0  0  ; 7. FOCUS CONTROL
+8 ffff    0 1  12 0  2  0 1  9 10  0  0  0  0  0  ; 8. FOCUS
+8 ffff    0 1  43 0  3  0 1 10 11  0  0  0  0  0  ; 9. ZOOM
+8 ffff    0 1  25 0 43  0 1 11 12  0  0  0  0  0  ;10. M.SPEED
+8 ffff    0 1 107 0 44  0 1 12 13  0  0  0  0  0  ;11. MACROS
+8 ffff    0 1  52 0 41  0 1 13 14  0  0  0  0  0  ;12. CONTROL
+8 ffff    0 1 147 0 13  0 1 14 15  0  0  0  0  0  ;13. COLOR FUNCTION
+8 ffff    0 1  38 0 11  0 1 15 16  0  0  0  0  0  ;14. COLOR
+8 ffff    0 1 148 0 14  0 1 16 17  0  0  0  0  0  ;15. MIX COLOR FUNCTION
+8 ffff ffff 1   8 0  9  0 1 17 18  0  0  0  0  0  ;16. CYAN
+8 ffff ffff 1   7 0 10  0 1 18 19  0  0  0  0  0  ;17. MAGENTA
+8 ffff ffff 1   9 0 12  0 1 19 20  0  0  0  0  0  ;18. YELLOW
+8 ffff    0 1 149 0 37  0 1 20 21  0  0  0  0  0  ;19. CTO
+8 ffff    0 1 150 0 38  0 1 21 22  0  0  0  0  0  ;20. CTB
+8 ffff    0 1 151 0 17  0 1 22 23  0  0  0  0  0  ;21. GOBO1 FUNCTION
+8 ffff    0 1  36 0 18  0 1 23 24  0  0  0  0  0  ;22. GOBO1
+8 ffff    0 1 155 0 19  0 1 24 25  0  0  0  0  0  ;23. GOBO1 ROT FUNCTION
+6 ffff    0 1 153 1 20  0 1 25 26  0  0  0  0  0  ;24. GOBO1 ROT
+8 ffff    0 1 157 0 33  0 1 27 28  0  0  0  0  0  ;29. EFFECT FUNCTION
+8 ffff    0 1  51 0 34  0 1 28 29  0  0  0  0  0  ;30. EFFECT
+8 ffff    0 1 158 0 35  0 1 29 30  0  0  0  0  0  ;31. EFFECT ROT FUNCTION
+6 ffff    0 1  41 1 36  0 1 30 31  0  0  0  0  0  ;32. EFFECT ROT
+8 ffff    0 1 152 0 25  0 1 32 33  0  0  0  0  0  ;25. GOBO2 FUNCTION
+8 ffff    0 1  37 0 26  0 1 33 34  0  0  0  0  0  ;26. GOBO2
+8 ffff    0 1 156 0 27  0 1 34 35  0  0  0  0  0  ;27. GOBO2 ROT FUNCTION
+6 ffff    0 1 154 1 28  0 1 35 36  0  0  0  0  0  ;28. GOBO2 ROT
+8 ffff 8080 1  15 0  1  0 1 37 38  0  0  0  0  0  ;33. IRIS
+8 ffff    0 2  38 0 15 38 2 15 16 15  0  0  0  0  ;34. COLOR table
+8 ffff    0 2  36 0 23 36 2 23 24 23  0  0  0  0  ;35. GOBO1 table
+8 ffff    0 2  37 0 24 37 2 33 34 33  0  0  0  0  ;36. GOBO2 table
+8 ffff    0 2  51 0 39 51 2 28 29 28  0  0  0  0  ;37. EFFECT table
+8 ffff    0 2 103 0 16 103 3 17 18 19 20  0  0  0  ;38. LEE table
+;|   |    | |   | |  |  | |  |  |  |  |  |  |  |__ List of Table channels as 
+;|   |    | |   | |  |  | |  |  |_______________ line numbers from DMX def.
+;|   |    | |   | |  |  | |  |                   0 means unused channel
+;|   |    | |   | |  |  | |  |__ DMX line (minus 1) pertainig to this wheel
+;|   |    | |   | |  |  | |__ Number of chanels under control OR Table width
+;|   |    | |   | |  |  |__ Table type (Attribute number) 0 means NOT a table
+;|   |    | |   | |  |__ Wheel number (1..8 on bank1, 9..16 on bank2 et cetera)
+;|   |    | |   | |__ 0 for 8 bits, 1 for 16 bits
+;|   |    | |   |__  Attribute name from above list (0..MAX)
+;|   |    | |__ Wheel type (1-offset, 2-Table, 3-Pan/Tilt, 4-Dimmer)
+;|   |    |__ Default value (left shifted as necessary)
+;|   |__ AND mask, where more than wheel controls same DMX slot
+;|__ Wheel multiplication =16-(bits used)
+;	eg. for 8 bit channels it is 8, for 12 bit channels it is 4
+; 
+;--------------------------------------------------------------------
+; TABLES
+; Each Table is enclosed by the keywords "TSTART" and "*** TEND ***"
+; The legend is 16 chars long
+; The correct number of values must be supplied (8-bits) with spaces in
+; between
+;--------------------------------------------------------------------
+
+
+;Colour
+TSTART     2    38
+Open                    0     0
+Red                     0    43
+Yellow                  0    81
+Green                   0   119
+Orange                  0   157
+Blue                    0   195
+Stopped                16     0
+Fwd 25%                16    63
+Fwd 50%                16   128
+Fwd 100%               16   255
+Rev 25%                32    63
+Rev 50%                32   128
+Rev 100%               32   255
+*** TEND ***
+
+;Litho1
+TSTART     2   36
+Open                    0   0
+Litho 1                 0   16
+Litho 2                 0   48
+Litho 3                 0   80
+Litho 4                 0   112
+Litho 5                 0   144
+Litho 6                 0   176
+Litho 7                 0   208
+Litho 8                 0   240
+Stopped                16     0
+Fwd 25%                16    63
+Fwd 50%                16   128
+Fwd 100%               16   255
+Rev 25%                32    63
+Rev 50%                32   128
+Rev 100%               32   255
+*** TEND ***
+
+;Litho2
+TSTART     2   37
+Open                    0   0
+Litho 1                 0   16
+Litho 2                 0   48
+Litho 3                 0   80
+Litho 4                 0   112
+Litho 5                 0   144
+Litho 6                 0   176
+Litho 7                 0   208
+Litho 8                 0   240
+Stopped                16     0
+Fwd 25%                16    63
+Fwd 50%                16   128
+Fwd 100%               16   255
+Rev 25%                32    63
+Rev 50%                32   128
+Rev 100%               32   255
+*** TEND ***
+
+
+;Effect
+TSTART     2   51
+Open                    0   0
+Litho 1                 0   16
+Litho 2                 0   48
+Litho 3                 0   80
+Litho 4                 0   112
+Litho 5                 0   144
+Litho 6                 0   176
+Litho 7                 0   208
+Litho 8                 0   240
+Stopped                16     0
+Fwd 25%                16    63
+Fwd 50%                16   128
+Fwd 100%               16   255
+Rev 25%                32    63
+Rev 50%                32   128
+Rev 100%               32   255
+*** TEND ***
+
+
+
+TSTART 3 103
+lee101                222     12      137
+lee102                230     23      122
+lee103                249     112     147
+lee104                195     5       100
+lee105                253     4       41
+lee106                164     8       8
+lee107                231     77      77
+lee108                91      35      35
+lee109                233     94      79
+lee110                255     160     89
+lee111                255     124     42
+lee113                200     61      1
+lee115                60      110     244
+lee116                7       83      244
+lee117                208     210     251
+lee118                29      128     149
+lee119                8       221     111
+lee120                18      162     25
+lee121                156     22      237
+lee122                102     24      217
+lee124                29      14      124
+lee126                109     117     13
+lee127                161     45      31
+lee128                191     103     7
+lee129                0       0       0
+lee130                0       0       0
+lee131                106     106     210
+lee132                34      196     172
+lee134                213     28      74
+lee135                146     7       17
+lee136                213     144     119
+lee137                199     250     147
+lee138                227     100     214
+lee139                0       0       0
+lee140                137     160     241
+lee141                29      163     192
+lee142                160     214     137
+lee143                66      142     123
+lee144                108     167     240
+lee145                0       0       0
+lee147                255     51      86
+lee148                0      0       0
+lee151                240     106     106
+lee152                240     106     114
+lee153                240     106     95
+lee154                240     114     111
+lee156                229     92      97
+lee158                239     6       34
+lee159                242     132     146
+lee161                137     230     197
+lee162                239     103     133
+lee164                225     15      9
+lee165                110     212     201
+lee166                0       0       0
+lee169                217     148     142
+lee170                196     182     99
+lee172                38      119     255
+lee174                177     225     193
+lee176                248     93      80
+lee179                185     9       53
+lee180                97      214     55
+lee181                8       136     17
+lee182                163     4       7
+lee183                0       0      0
+lee184                252     128     143
+lee185                249     151     146
+lee186                249     141     133
+lee187                249     124     133
+lee188                249     120     134
+lee189                224     143     151
+lee190                200     143     151
+lee191                200     119     143
+*** TEND ***
+
+MACRO "HOME" 1  6  14
+20   0  40
+ 1   0   0
+MEND
+
+MACRO "LAMP ON" 2  6  14
+20  0  54
+ 1  0   0
+MEND
+
+MACRO "LAMP OFF" 3  6  14
+20  0  5e
+ 1  0   0
+MEND
+
+MACRO "SHUTDOWN" 4  6  14 10
+20  0  80  a5
+ 1  0   0  a5
+MEND

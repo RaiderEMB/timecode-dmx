@@ -1,0 +1,143 @@
+// Batmink - Visage 808 Moving Head Spot
+// Avolites Visualiser Extension File
+// Copyright © Avolites Ltd. 2010
+//_________________________________________________________________________________
+// File Name: BMV808SE.VIS
+// Created by: Personality_Builder - Version 1.5
+// Date: 12/01/2010 14:45:04
+// Exported From: Visage 808 Moving Head Spot
+// Checked by John Rogers
+//_________________________________________________________________________________
+
+Device BMV808MHS16
+
+// Shutter
+ChanRef Dimmer
+    Vismode Strobe
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 1
+    Mapping 0 19 0 0			//Closed
+    Mapping 20 49 1 1		//Open
+    Mapping 50 72 30 300		//Strobe
+    Mapping 73 79 1 1		//Open
+    Mapping 120 127 1 1		//Open
+    Mapping 128 187 30 300	//Random Strobe
+    Mapping 188 190 1 1		//Open
+    Mapping 203 207 1 1		//Open
+    Mapping 218 245 1 1		//Open
+    Mapping 251 255 1 1		//Open
+End
+
+// VisMode Pulse, works like Speed but alternates direction (bounces)
+// Place before VisMode Value for backwards compatibility
+ChanRef Dimmer
+	Vismode Pulse
+	UseBits 1 2 3 4 5 6 7 8
+	DmxOffset 1
+	Mapping 80 99 10 100		//Open Pulse
+	Mapping 100 119 100 10	//Close Pulse
+	Mapping 191 196 10 100	//Random Open Pulse
+	Mapping 197 202 100 10	//Random Close Pulse
+End
+
+// Dimmer
+ChanRef Dimmer
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+    DmxOffset 2 3
+    Mapping 0 65535 0 255
+End
+
+// Colour
+ChanRef Color Wheel 1
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+    DmxOffset 4 5
+	Mapping 0 2560 White					//Indexing Colour Wheel: Open
+    Mapping 2816 5120 RGB240,0,0			//Red
+    Mapping 5376 7680 RGB0,0,240			//Blue
+    Mapping 7936 10240 RGB240,240,0		//Yellow
+    Mapping 10496 12800 RGB0,240,0		//Green
+    Mapping 13056 15360 RGB240,140,140	//Pink
+    Mapping 15616 17920 RGB220,140,200	//Light Orchid
+    Mapping 18176 20480 RGB240,120,0		//Orange
+    Mapping 20736 23040 RGB240,0,120		//Rose
+    Mapping 23296 25600 White			//Open
+    Mapping 25957 28527 White			//Fixed Colour Wheel: Open
+    Mapping 28784 31611 RGB240,0,0		//Red
+    Mapping 31868 34695 RGB0,0,240		//Blue
+    Mapping 34952 37779 RGB240,240,0		//Yellow
+    Mapping 38036 40863 RGB0,240,0		//Green
+    Mapping 41120 43947 RGB240,140,140	//Pink
+    Mapping 44204 47031 RGB220,140,200	//Light Orchid
+    Mapping 47288 50115 RGB240,120,0		//Orange
+    Mapping 50372 53199 RGB240,0,120		//Rose
+    Mapping 63222 65535 White			//Open
+End
+
+ChanRef Color Wheel 1
+// Colour
+    Vismode Speed
+    UseBits 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+    DmxOffset 4 5
+    Mapping 53456 58082 50 5			//Scroll CW Fast - Slow
+    Mapping 58339 62965 -5 -50			//Scroll CCW Slow - Fast
+End
+
+// Gobo
+ChanRef Gobo 1
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 6
+    Mapping 0 4 Twelve Point Star	//Open
+    Mapping 5 9 Number One
+    Mapping 10 14 Number Two
+    Mapping 15 19 Number Three
+    Mapping 20 24 Number Four
+    Mapping 25 29 Number Five
+    Mapping 30 34 Number Six
+    Mapping 35 42 Number Seven
+End
+
+ChanRef Gobo 1
+// Gobo
+    Vismode Speed
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 6
+    Mapping 210 232 50 5			//Scroll CW Fast - SLow
+    Mapping 233 255 -5 -50		//Scroll CCW Slow - Fast
+End
+
+// Gobo Rot
+ChanRef Gobo 1 Rotate
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+    DmxOffset 7 8
+    Mapping 64768 65535 Twelve Point Star //as Open
+End
+
+ChanRef Gobo 1 Rotate
+// Gobo Rot
+    Vismode Speed
+    UseBits 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+    DmxOffset 7 8
+    Mapping 0 32639 20 5				//Spin CW Fast - Slow
+    Mapping 32896 64764 -5 -20		//Spin CCW Slow - Fast
+End
+
+// Pan
+ChanRef Pan
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+    DmxOffset 12 13
+    Mapping 0 65535 -265.000000 265.000000
+End
+
+// Tilt
+ChanRef Tilt
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+    DmxOffset 14 15
+    Mapping 0 65535 -135.000000 135.000000
+End
+

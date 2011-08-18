@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Fixture Name="CF 1200" ShortName="CF   1200" Company="Coemar">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="11-03-04" Author="L Gallagher" Comment="Created" />
+  <History Date="22-03-04" Author="Greg Brown" Comment="Checked" />
+  <History Date="09-08-04" Author="Phil Rogers" Comment="Revised function/attribute names" />
+  <History Date="11-08-05" Author="Ed" Comment="Error: Shutter should locate and power on to open" />
+  <History Date="11-08-05" Author="Ed" Comment="Error: Zoom should locate and power on to 50%" />
+  <History Date="11-08-05" Author="Ed" Comment="Error: Scroll text on colour is too long" />
+  <History Date="11-08-05" Author="Ed" Comment="Error: Short name not spaced correctly for desk" />
+  <History Date="12-08-05" Author="Ed" Comment="Fixed above problems" />
+  <History Date="14-12-05" Author="Ed" Comment="Fixed Lamp On and Off macros from resetting each time" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour ID to Colour1" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <History Date="19-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <Manual Filename="/manual/Coemar_CF7 Wash Zoom.pdf" Summary="" />
+  <Control>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:50" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1" PowerOn="1" Highlight="2" Lowlight="2" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="255~255" Intensity="0~0" />
+      <Function ID="2" Name="Closed" Display="'Closed'" Dmx="0~9" Intensity="0~0" />
+      <Function ID="3" Name="Strobe" Display="'Strobe %.f%%',0~100" Dmx="10~127" Intensity="0~0" />
+      <Function ID="4" Name="Rnd Strobe" Display="'Rnd Strobe %.f%%',0~100" Dmx="128~247" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Zoom" Name="Zoom" Description="" Group="B">
+      <Locate Locate="2:50" PowerOn="2:50" Highlight="1:50" Lowlight="1:50" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~9" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Zoom" Display="'%.1f%%',100.0~0.0" Dmx="10~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:0" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:0" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:0" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="4:50" PowerOn="4:50" Highlight="4:50" Lowlight="4:50" />
+      <Condition Name="Lamp Ctrl: STRD" ID="1,2,3,4" If="'Control_Func'==1" />
+      <Condition Name="Lamp Ctrl: ON" ID="5,6,7,8" If="'Control_Func'==2" />
+      <Else ID="1,2,3,4,5,6,7,8" />
+      <Function ID="1" Name="Lamp Off" Display="'Lamp Off'" Dmx="0~19" Update="Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens" />
+      <Function ID="2" Name="P/T Reset" Display="'P/T Reset'" Dmx="20~100" Update="Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens" />
+      <Function ID="3" Name="Mtr Rst" Display="'Mtr Rst'" Dmx="101~240" Update="Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens" />
+      <Function ID="4" Name="Lamp On" Display="'Lamp On'" Dmx="241~255" Update="Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens" />
+      <Function ID="5" Name="Lamp On" Display="'Lamp On'" Dmx="0~19" Update="Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens" />
+      <Function ID="6" Name="P/T Reset" Display="'P/T Reset'" Dmx="20~100" Update="Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens" />
+      <Function ID="7" Name="Mtr Rst" Display="'Mtr Rst'" Dmx="101~240" Update="Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens" />
+      <Function ID="8" Name="Lamp On" Display="'Lamp On'" Dmx="241~255" Update="Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens, Focal Lens" />
+    </Attribute>
+    <Attribute ID="Colour1Func" Name="Colour Func" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed" Display="'Fixed'" Dmx="0~0" Update="Colour1, Control" Colour="255,255,255" />
+      <Function ID="2" Name="Index" Display="'Index'" Dmx="0~0" Update="Colour1, Control" Colour="255,255,255" />
+      <Function ID="3" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="4" Name="Raw DMX" Display="'Raw DMX'" Dmx="0~255" Update="Colour1" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed" ID="1,2,3,4,5,6" If="'Colour1Func'==1" />
+      <Condition Name="Index" ID="8,9" If="'Colour1Func'==2" />
+      <Condition Name="Raw DMX" ID="11" If="'Colour1Func'==4" />
+      <Condition Name="Scroll_Func" ID="12,13" If="'Colour1Func'==3" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="2" Name="Colour 1" Display="'Colour 1'" Dmx="25~49" Colour="0,0,0" />
+      <Function ID="3" Name="Colour 2" Display="'Colour 2'" Dmx="50~73" Colour="0,0,0" />
+      <Function ID="4" Name="Colour 3" Display="'Colour 3'" Dmx="74~99" Colour="0,0,0" />
+      <Function ID="5" Name="Colour 4" Display="'Colour 4'" Dmx="100~123" Colour="0,0,0" />
+      <Function ID="6" Name="Colour 5" Display="'Colour 5'" Dmx="124~151" Colour="0,0,0" />
+      <Function ID="8" Name="Open" Display="'Open'" Dmx="0~9" Colour="0,0,0" />
+      <Function ID="9" Name="Index" Display="'Index %.f',0~360" Dmx="10~151" Colour="255,255,255" />
+      <Function ID="11" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,255,255" />
+      <Function ID="12" Name="No Scroll" Display="'No Scroll'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="13" Name="Scroll CW" Display="'Scroll CW %.f%%',0~100" Dmx="152~255" Colour="255,255,255" />
+    </Attribute>
+    <Attribute ID="Control_Func" Name="Control Func" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="STRD" Display="'STRD'" Dmx="0~0" Update="Control" />
+      <Function ID="2" Name="ON" Display="'ON'" Dmx="0~0" Update="Control" />
+    </Attribute>
+    <Attribute ID="Filter_Sel." Name="Filter Sel." Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Open" Display="'Open %.1f%%',0.0~100.0" Dmx="0~15" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Filter 1" Display="'Filter 1 %.1f%%',0.0~100.0" Dmx="16~217" Iris="0~0" Zoom="0~0" />
+      <Function ID="3" Name="Filter 3" Display="'Filter 3 %.1f%%',0.0~100.0" Dmx="218~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="13 DMX, 16Bit" Channels="13">
+    <Import PearlRef="CM_CF1200" DiamondRef="" />
+    <Physical>
+      <Bulb Type="Phillips 1200W MSR/SA" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="23kg" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="370" TiltMax="270" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="5" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="6" Wheel="4" />
+      <Attribute ID="Pan" ChannelOffset="1,2" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="3,4" Wheel="3" />
+      <Attribute ID="Magenta" ChannelOffset="11" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="12" Wheel="12" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="9" Wheel="8" />
+      <Attribute ID="Cyan" ChannelOffset="10" Wheel="10" />
+      <Attribute ID="Zoom" ChannelOffset="7" Wheel="19" />
+      <Attribute ID="Filter_Sel." ChannelOffset="8" Wheel="20" />
+      <Attribute ID="Control" ChannelOffset="13" Wheel="29" />
+      <Attribute ID="Control_Func" Wheel="28" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Lamp Off">
+      <Set Channel="Control:1" Delay="5000" />
+    </Macro>
+    <Macro Name="Reset">
+      <Set Channel="Control:3" Delay="5000" />
+      <Set Channel="Control:2" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Control:4" Delay="5000" />
+    </Macro>
+  </Macro>
+</Fixture>

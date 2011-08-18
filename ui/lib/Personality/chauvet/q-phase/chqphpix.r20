@@ -1,0 +1,363 @@
+; 'Chauvet Q-Phase Pixel, 8bit', 19 DMX Channels, filename: CHQPHPIX.R20
+;  Copyright © Avolites Ltd. 2009
+;
+;   Date       By                Description
+;   21-04-09   Pers Creator      Created - Exported from Diamond 4 file.
+;   21-04-09   David Hunt        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  CH_QPhsPix                          mode=Pixel, 8bit  19 DMX Channels
+NAME "Chauvet" "Q-Phase Pixel, 8bit"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  19  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Pixel, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=493
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   L    1   100   1N   E   1   "Pan"             127     0     0
+3     1   L    2   100   1N   F   1   "Tilt"            127     0     0
+8    61   L    3   100   1N   0   1   "P/T Speed"         0     0     0
+10   61   L    4   100   1N   0   1   "P/T Macro"         0     0     0
+1     1   H    5   100   1N   H   1   "Dimmer"          255     0     0
+2    61   L    6   100   1N   O   1   "Shutter"           0     0     0
+9    61   L    7   100   1N   0   1   "LED Combins"       0     0     0
+10    1   L    8   100   1N   0   1   "Control"           0     0     0
+9     1   L    9   100   1N   P   1   "Effect"            0     0     0
+8     1   L   10   100   1N   0   1   "Effect Speed"      0     0     0
+20    1   L   11   100   1N   0   1   "LED Dim 1"       255     0     0
+19    1   L   12   100   1N   0   1   "LED Dim 2"       255     0     0
+18    1   L   13   100   1N   0   1   "LED Dim 3"       255     0     0
+17    1   L   14   100   1N   0   1   "LED Dim 4"       255     0     0
+16    1   L   15   100   1N   C   1   "LED Dim 5"       255     0     0
+15    1   L   16   100   1N   0   1   "LED Dim 6"       255     0     0
+14    1   L   17   100   1N   0   1   "LED Dim 7"       255     0     0
+13    1   L   18   100   1N   0   1   "LED Dim 8"       255     0     0
+12    1   L   19   100   1N   0   1   "LED Dim 9"       255     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Chauvet Q-Phase
+Pixel, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Pan/Tilt"   -1   1   2
+"Middle"             21  7F  7F
+"Left"               22  4F  7F
+"Right"              23  B0  7F
+"Top"                24  7F  4F
+"Bottom"             25  7F  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "P/T BO Activate"  1   8
+"data"                0  1E
+"delay"               1  32
+"data"                0   A
+MEND
+
+MACRO "P/T BO Deactivate"  2   8
+"data"                0  32
+"delay"               1  32
+"data"                0   A
+MEND
+
+MACRO "Auto 1"        3   8
+"data"                0  46
+"delay"               1  32
+"data"                0   A
+MEND
+
+MACRO "Auto 2"        4   8
+"data"                0  5A
+"delay"               1  32
+"data"                0   A
+MEND
+
+MACRO "Sound 1"       5   8
+"data"                0  6E
+"delay"               1  32
+"data"                0   A
+MEND
+
+MACRO "Sound 2"       6   8
+"data"                0  82
+"delay"               1  32
+"data"                0   A
+MEND
+
+MACRO "Test"          7   8
+"data"                0  AE
+"delay"               1  32
+"data"                0   A
+MEND
+
+MACRO "Reset"         8   8
+"data"                0  D2
+"delay"               1  32
+"data"                0   A
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Pan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Tilt
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;P/T Speed
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 4  ;P/T Macro
+0   19   "No Macro"
+20  39   "Macro 1"
+40  59   "Macro 2"
+60  79   "Macro 3"
+80  99   "Macro 4"
+100 119  "Macro 5"
+120 139  "Macro 6"
+140 159  "Macro 7"
+160 179  "Macro 8"
+180 199  "Macro 9"
+200 219  "Macro 10"
+220 255  "No Macro"
+REND
+
+RANGE 5  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Shutter
+0   11   "Open"
+12  255  "Stb %2d.%d Hz"1+((c-a)*19/(b-a)),10*(1+((c-a)*19%(b-a)))/(b-a)
+REND
+
+RANGE 7  ;LED Combins
+0   5    "Full"
+6   11   "Top Row"
+12  17   "Middle Row"
+18  23   "Bottom Row"
+24  29   "Left Column"
+30  35   "Middle Colm"
+36  41   "Right Colum"
+42  47   "BackSlash"
+48  53   "Forward Sls"
+54  59   "X"
+60  65   "Top Two Row"
+66  71   "T & B Row"
+72  77   "Bot 2 Row"
+78  83   "Left 2 Colm"
+84  89   "L & R Colum"
+90  95   "Rite 2 Colm"
+96  101  "T"
+102 107  "Top Left L"
+108 113  "Top Right L"
+114 119  "Cross"
+120 125  "Left T"
+126 131  "Right T"
+132 137  "Bottom Left"
+138 143  "Bottom T"
+144 149  "Bot Right L"
+150 155  "LED1"
+156 161  "LED2"
+162 167  "LED3"
+168 173  "LED4"
+174 179  "LED5"
+180 185  "LED6"
+186 191  "LED7"
+192 197  "LED8"
+198 203  "LED9"
+204 209  "Corners"
+210 215  "Circle"
+216 221  "Top Y"
+222 227  "Bottom Y"
+228 233  "Left Y"
+234 239  "Right Y"
+240 255  "Circle"
+REND
+
+RANGE 8  ;Control
+0   19   "Safe"
+20  39   "P/T BO Act"
+40  59   "P/T BO Deac"
+60  79   "Auto 1"
+80  99   "Auto 2"
+100 119  "Sound 1"
+120 139  "Sound 2"
+140 169  "Safe"
+170 179  "Test"
+180 199  "Safe"
+200 219  "Reset"
+220 255  "Safe"
+REND
+
+RANGE 9  ;Effect
+0   9    "Open"
+10  19   "Chase 1"
+20  29   "Chase 2"
+30  39   "Chase 3"
+40  49   "Chase 4"
+50  59   "Chase 5"
+60  69   "Chase 6"
+70  79   "Chase 7"
+80  89   "Chase 8"
+90  99   "Chase 9"
+100 109  "Chase 10"
+110 119  "Chase 11"
+120 129  "Chase 12"
+130 139  "Chase 13"
+140 149  "Chase 14"
+150 159  "Chase 15"
+160 169  "Chase 16"
+170 179  "Chase 17"
+180 189  "Chase 18"
+190 199  "Chase 19"
+200 209  "Chase 20"
+210 219  "Chase 21"
+220 229  "Chase 22"
+230 239  "Chase 23"
+240 249  "Chase 24"
+250 255  "Chase 25"
+REND
+
+RANGE 10  ;Effect Speed
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 11  ;LED Dim 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;LED Dim 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;LED Dim 3
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;LED Dim 4
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;LED Dim 5
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;LED Dim 6
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;LED Dim 7
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 18  ;LED Dim 8
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 19  ;LED Dim 9
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

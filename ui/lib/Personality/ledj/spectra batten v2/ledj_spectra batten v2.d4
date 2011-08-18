@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Spectra Batten V2" ShortName="Spec Batv2" Company="LEDJ">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="17-11-08" Author="Jonathan Moreton" Comment="Created" />
+  <History Date="17-11-08" Author="David Hunt" Comment="Checked" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <History Date="07-07-09" Author="Jonathan Moreton" Comment="Updated to Latest Spec" />
+  <History Date="07-07-09" Author="David Hunt" Comment="Checked" />
+  <History Date="09-05-11" Author="John Rogers" Comment="Edited manufacturer name." />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="PG00" Display="'PG00'" Dmx="0~17" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer, Dimmer2, Variation" />
+      <Function ID="2" Name="PG01" Display="'PG01'" Dmx="18~35" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer, Dimmer2, Variation" />
+      <Function ID="3" Name="PG02" Display="'PG02'" Dmx="36~53" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer, Dimmer2, Variation" />
+      <Function ID="4" Name="PG03" Display="'PG03'" Dmx="54~71" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer, Dimmer2, Variation" />
+      <Function ID="5" Name="PG04" Display="'PG04'" Dmx="72~89" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer, Dimmer2, Variation" />
+      <Function ID="6" Name="PG05" Display="'PG05'" Dmx="90~107" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer, Dimmer2, Variation" />
+      <Function ID="7" Name="PG06" Display="'PG06'" Dmx="108~125" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer, Dimmer2, Variation" />
+      <Function ID="8" Name="PG07" Display="'PG07'" Dmx="126~143" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer, Dimmer2, Variation" />
+      <Function ID="9" Name="PG08" Display="'PG08'" Dmx="144~161" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer, Dimmer2, Variation" />
+      <Function ID="10" Name="PG09" Display="'PG09'" Dmx="162~179" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer, Dimmer2, Variation" />
+      <Function ID="11" Name="PG10" Display="'PG10'" Dmx="180~197" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer, Dimmer2, Variation" />
+      <Function ID="12" Name="PG11" Display="'PG11'" Dmx="198~215" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer, Dimmer2, Variation" />
+      <Function ID="13" Name="PG12" Display="'PG12'" Dmx="216~233" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer, Dimmer2, Variation" />
+      <Function ID="14" Name="Sound Activated" Display="'Sound         Activated'" Dmx="234~255" Update="Variation, Shutter" />
+    </Attribute>
+    <Attribute ID="Variation" Name="Variation" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Condition Name="Sound Activated" ID="3" If="'Control'==14" />
+      <Condition Name="PG00" ID="2" If="'Control'==1" />
+      <Else ID="1" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',100.0~0.0" Dmx="0~255" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+      <Function ID="3" Name="Sensitivity" Display="'Sensitivity   %.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Sound Activated" ID="3" If="'Control'==14" />
+      <Else ID="1,2" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~10" Intensity="0~0" />
+      <Function ID="2" Name="Strobe" Display="'%.1f%%',0.0~100.0" Dmx="11~255" Intensity="0~0" />
+      <Function ID="3" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="Red2" Name="Red 2" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green2" Name="Green 2" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue2" Name="Blue 2" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="Red3" Name="Red 3" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green3" Name="Green 3" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue3" Name="Blue 3" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="RGB ,3 DMX" Channels="3">
+    <Import PearlRef="LJ_SpBat1v2" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="1" Wheel="10" VirtualControl="Dimmer" />
+      <Attribute ID="Green" ChannelOffset="2" Wheel="11" VirtualControl="Dimmer" />
+      <Attribute ID="Blue" ChannelOffset="3" Wheel="12" VirtualControl="Dimmer" />
+    </Include>
+  </Mode>
+  <Mode Name="9 DMX, 8bit" Channels="9">
+    <Import PearlRef="LJ_SpBat2v2" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="1" Wheel="10" VirtualControl="Dimmer" />
+      <Attribute ID="Green" ChannelOffset="2" Wheel="11" VirtualControl="Dimmer" />
+      <Attribute ID="Blue" ChannelOffset="3" Wheel="12" VirtualControl="Dimmer" />
+      <Attribute ID="Red2" ChannelOffset="4" Wheel="13" VirtualControl="Dimmer" />
+      <Attribute ID="Green2" ChannelOffset="5" Wheel="14" VirtualControl="Dimmer" />
+      <Attribute ID="Blue2" ChannelOffset="6" Wheel="15" VirtualControl="Dimmer" />
+      <Attribute ID="Red3" ChannelOffset="7" Wheel="16" VirtualControl="Dimmer" />
+      <Attribute ID="Green3" ChannelOffset="8" Wheel="17" VirtualControl="Dimmer" />
+      <Attribute ID="Blue3" ChannelOffset="9" Wheel="18" VirtualControl="Dimmer" />
+    </Include>
+  </Mode>
+  <Mode Name="3 DMX, 8bit" Channels="3">
+    <Import PearlRef="LJ_SpBat3v2" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="3" Wheel="4" />
+      <Attribute ID="Control" ChannelOffset="1" Wheel="28" />
+      <Attribute ID="Variation" ChannelOffset="2" Wheel="25" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Red:1:100,Green:1:100,Blue:1:100,Red2:1:100,Red3:1:100,Green2:1:100,Green3:1:100,Blue2:1:100,Blue3:1:100" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:0,Red2:1:100,Red3:1:100,Green2:1:0,Green3:1:0,Blue2:1:0,Blue3:1:0" />
+      <Palette ID="3" Name="Amber" Number="3" Page="1" SetControl="Red:1:100,Green:1:50,Blue:1:0,Red2:1:100,Red3:1:100,Green2:1:50,Green3:1:50,Blue2:1:0,Blue3:1:0" />
+      <Palette ID="4" Name="Yellow" Legend="Yell" Number="4" Page="1" SetControl="Red:1:100,Green:1:100,Blue:1:0,Red2:1:100,Red3:1:100,Green2:1:100,Green3:1:100,Blue2:1:0,Blue3:1:0" />
+      <Palette ID="5" Name="Lime" Number="0" Page="1" SetControl="Red:1:50,Green:1:100,Blue:1:0,Red2:1:50,Red3:1:50,Green2:1:100,Green3:1:100,Blue2:1:0,Blue3:1:0" />
+      <Palette ID="6" Name="Green" Number="5" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:0,Red2:1:0,Red3:1:0,Green2:1:100,Green3:1:100,Blue2:1:0,Blue3:1:0" />
+      <Palette ID="7" Name="Aqua" Number="0" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:50,Red2:1:0,Red3:1:0,Green2:1:100,Green3:1:100,Blue2:1:50,Blue3:1:50" />
+      <Palette ID="8" Name="Cyan" Number="6" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:100,Red2:1:0,Red3:1:0,Green2:1:100,Green3:1:100,Blue2:1:100,Blue3:1:100" />
+      <Palette ID="9" Name="Light Blue" Number="0" Page="1" SetControl="Red:1:0,Green:1:50,Blue:1:100,Red2:1:0,Red3:1:0,Green2:1:50,Green3:1:50,Blue2:1:100,Blue3:1:100" />
+      <Palette ID="10" Name="Blue" Number="7" Page="1" SetControl="Red:1:0,Green:1:0,Blue:1:100,Red2:1:0,Red3:1:0,Green2:1:0,Green3:1:0,Blue2:1:100,Blue3:1:100" />
+      <Palette ID="11" Name="Purple" Legend="Purpl" Number="9" Page="1" SetControl="Red:1:50,Green:1:0,Blue:1:100,Red2:1:50,Red3:1:50,Green2:1:0,Green3:1:0,Blue2:1:100,Blue3:1:100" />
+      <Palette ID="12" Name="Magenta" Legend="Mag" Number="10" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:100,Red2:1:100,Red3:1:100,Green2:1:0,Green3:1:0,Blue2:1:100,Blue3:1:100" />
+      <Palette ID="13" Name="Rose" Number="0" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:50,Red2:1:100,Red3:1:100,Green2:1:0,Green3:1:0,Blue2:1:50,Blue3:1:50" />
+      <Palette ID="14" Name="Lavender" Legend="Lav" Number="8" Page="1" SetControl="Red:1:71,Green:1:43,Blue:1:94,Red2:1:71,Red3:1:71,Green2:1:43,Green3:1:43,Blue2:1:94,Blue3:1:94" />
+      <Palette ID="15" Name="Ultra Violet" Legend="UV" Number="0" Page="1" SetControl="Red:1:20,Green:1:0,Blue:1:100,Red2:1:20,Red3:1:20,Green2:1:0,Green3:1:0,Blue2:1:100,Blue3:1:100" />
+    </Group>
+  </Palettes>
+</Fixture>

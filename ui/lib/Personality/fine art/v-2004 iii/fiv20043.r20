@@ -1,0 +1,150 @@
+; 'Fine Art V-2004 III', 14 DMX Channels, filename: FIV20043.R20
+;
+;   Date       By                Description
+;   17-04-07   Pers Creator      Created - Exported from Diamond 4 file.
+;   17-04-07   D.Milligan        Checked
+;   20-04-07   D.Milligan        Fixed CTO wheel assignment.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  FI_V-2004III                        mode=14 DMX, 16bit  14 DMX Channels
+NAME "Fine Art" "V-2004 III"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  14  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   450   255
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 14 DMX, 16bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=498
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+10    1   L    1   100   1N   B   1   "Cyan"              0     0   255
+10   61   L    2   100   1N   C   1   "Magenta"           0     0   255
+9    61   L    3   100   1N   D   1   "Yellow"            0   255    51
+2    61   L    4   100   1N   O   1   "Shutter"         255     0     0
+3    61   s    5   100   1N   E   1   "Pan"             128     0     0
+0     0   L   13   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    6   100   1N   F   1   "Tilt"            128     0     0
+0     0   L   14   100   1N   F   1   "Tilt Low"        128     0     0
+4     1   I    7   100   1N   A   1   "Colour 1"          0     0     0
+5    61   L    9   100   1N   L   1   "Focus"           128     0     0
+1     1   H   10   100   1N   H   1   "Dimmer"          255     0     0
+9     1   L   11   100   1N   G   1   "Beam"              0     0     0
+20    1   L   12   100   1N   0   1   "Control"           0     0     0
+4    61   L    8   100   1N   0   1   "CTO"               0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Fine Art V-2004 III
+14 DMX, 16bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Color"  0   1   2   3
+"White"          1  00  00  00
+"Red"            2  7F  DD  F9
+"Amber"          3  4C  FD  C8
+"Yellow"         4  00  E6  23
+"Green"          5  DB  D1  0B
+"Cyan"           6  DC  83  0A
+"Blue"           7  DE  08  D3
+"Lavender"       8  B6  03  E3
+"UltraViolet"    9  FF  79  FB
+"Magenta"       10  79  93  FF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+
+
+

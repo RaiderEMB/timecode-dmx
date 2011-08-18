@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Reflection LEDKO VariWhite" ShortName="LEDKOVarWh" Company="Coemar">
+  <Copyright Notice="© Avolites Ltd. 2011" />
+  <History Date="31-03-11" Author="John Rogers" Comment="Created" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I" Size="2">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~9" Intensity="0~0" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="10~57" Intensity="0~0" />
+      <Function ID="3" Name="Open" Display="'Open'" Dmx="58~59" Intensity="0~0" />
+      <Function ID="4" Name="Close Pulse" Display="'Close Pulse   %.f%%',0~100" Dmx="60~108" Intensity="0~0" />
+      <Function ID="5" Name="Open" Display="'Open'" Dmx="109~110" Intensity="0~0" />
+      <Function ID="6" Name="Open Pulse" Display="'Open Pulse    %.f%%',0~100" Dmx="111~159" Intensity="0~0" />
+      <Function ID="7" Name="Open" Display="'Open'" Dmx="160~161" Intensity="0~0" />
+      <Function ID="8" Name="Rnd Strobe" Display="'Rnd Strobe    %.f%%',0~100" Dmx="162~207" Intensity="0~0" />
+      <Function ID="9" Name="Open" Display="'Open'" Dmx="208~209" Intensity="0~0" />
+      <Function ID="10" Name="Rnd Strobe" Display="'Random Colour Strobe %.f%%',0~100" Dmx="210~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~9" />
+      <Function ID="2" Name="RGB" Display="'RGB'" Dmx="10~40" />
+      <Function ID="3" Name="CMY" Display="'CMY'" Dmx="41~71" />
+      <Function ID="4" Name="Safe" Display="'Safe %.f',72~133" Dmx="72~133" />
+      <Function ID="5" Name="LCD Off" Display="'LCD Off'" Dmx="134~185" />
+      <Function ID="6" Name="LCD On" Display="'LCD On'" Dmx="186~199" />
+      <Function ID="7" Name="LED Hz" Display="'LED Hz (x1000) %.1f Hz',1.0~5.0" Dmx="200~255" />
+    </Attribute>
+    <Attribute ID="White_Tone" Name="White Tone" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Effect" Display="'No Effect'" Dmx="0~9" Colour="0,0,0" />
+      <Function ID="2" Name="7000 K" Display="'7000 K'" Dmx="10~21" Colour="255,255,255" />
+      <Function ID="3" Name="6500 K" Display="'6500 K'" Dmx="22~33" Colour="255,255,255" />
+      <Function ID="4" Name="5500 K" Display="'5500 K'" Dmx="34~45" Colour="255,255,255" />
+      <Function ID="5" Name="5000 K" Display="'5000 K'" Dmx="46~57" Colour="255,255,255" />
+      <Function ID="6" Name="4500 K" Display="'4500 K'" Dmx="58~69" Colour="255,255,255" />
+      <Function ID="7" Name="4000 K" Display="'4000 K'" Dmx="70~81" Colour="255,255,255" />
+      <Function ID="8" Name="3500 K" Display="'3500 K'" Dmx="82~93" Colour="255,255,255" />
+      <Function ID="9" Name="3200 K" Display="'3200 K'" Dmx="94~105" Colour="255,255,255" />
+      <Function ID="10" Name="3000 K" Display="'3000 K'" Dmx="106~117" Colour="255,255,255" />
+      <Function ID="11" Name="White C-Mix" Display="'White C-Mix %.1f%%',0.0~100.0" Dmx="118~255" Colour="255,255,255" />
+    </Attribute>
+  </Control>
+  <Mode Name="5 DMX, 16bit" Channels="5">
+    <Import PearlRef="CM_RLEDKOVW" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1,3" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="4" Wheel="4" />
+      <Attribute ID="White_Tone" ChannelOffset="2" Wheel="7" />
+      <Attribute ID="Control" ChannelOffset="5" Wheel="28" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Shutter">
+      <Palette ID="1" Name="Open" Number="31" Page="1" SetControl="Shutter:1" />
+      <Palette ID="2" Name="Slow Strobe" Legend="Slow Strb" Number="32" Page="1" SetControl="Shutter:2:50" />
+      <Palette ID="3" Name="Fast Strobe" Legend="Fast Strb" Number="33" Page="1" SetControl="Shutter:2:100" />
+      <Palette ID="4" Name="Slow Random Strobe" Legend="Slow R Stb" Number="34" Page="1" SetControl="Shutter:8:50" />
+      <Palette ID="5" Name="Fast Random Strobe" Legend="Fast R Stb" Number="35" Page="1" SetControl="Shutter:8:100" />
+      <Palette ID="6" Name="Slow Pulse" Number="36" Page="1" SetControl="Shutter:6:50" />
+      <Palette ID="7" Name="Fast Pulse" Number="37" Page="1" SetControl="Shutter:6:100" />
+      <Palette ID="8" Name="Closed" Legend="Close" Number="38" Page="1" SetControl="" />
+    </Group>
+  </Palettes>
+</Fixture>

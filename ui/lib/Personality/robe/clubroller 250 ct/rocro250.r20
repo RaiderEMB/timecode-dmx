@@ -1,0 +1,182 @@
+; 'Robe ClubRoller 250 CT', 6 DMX Channels, filename: ROCRO250.R20
+;
+;   Date       By                Description
+;   17-03-05   Pers Creator      Created - Exported from Diamond 4 file.
+;   26-10-05   Ed Spencer	 Revised device name
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  RO_CLUBR250                           mode=6 DMX, 8bit  6 DMX Channels
+NAME "Robe" "ClubRoller 250 CT"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  6  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0   0   0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 6 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=506
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+DMX
+1     1   H    6   100   1N   H   1   "Dimmer"           86     0     0
+3    61   L    1   100   1N   E   1   "Swivel"          127     0     0
+3     1   L    2   100   1N   F   1   "Drum Rot"          0     0     0
+4     1   I    3   100   1N   A   1   "Colour"            0     0     0
+6     1   I    4   100   1N   I   1   "Gobo"              0     0     0
+7     1   L    5   100   1N   K   1   "Gobo Rot"          0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Robe ClubRoller 250 CT
+6 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset"         1   6
+"data"                0  86
+"delay"               1  3C
+"data"                0  5A
+"delay"               1   A
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+RANGE 6  ;Dimmer
+0   5    "Closed"
+6   85   "%3d%%"0+(((c-a)*100)/(b-a))
+86  95   "Open"
+96  127  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+128 139  "Reset"
+140 191  "Prog time t"
+192 223  "Prog aud tr"
+224 255  "Rand aud tr"
+REND
+
+RANGE 2  ;Drum Rot
+0   0    "No Rot"
+1   63   "Rot CW %3d%%"100-(((c-a)*100)/(b-a))
+64  64   "No Rot"
+65  127  "Ro CCW %3d%%"0+(((c-a)*100)/(b-a))
+129 191  "Pulse  %3d%%"100-(((c-a)*100)/(b-a))
+193 243  "Rnd Pl %3d%%"0+(((c-a)*100)/(b-a))
+244 249  "Rnd Audio S"
+250 255  "Audio  %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 3  ;Colour
+0   9    "Open"
+10  21   "Turquoise"
+22  33   "Red"
+34  45   "Cyan"
+46  57   "Light Green"
+58  69   "Magenta"
+70  81   "Light Blue"
+82  93   "Yellow"
+94  105  "Green"
+106 117  "Pink"
+118 129  "Blue"
+130 141  "Orange"
+142 153  "UV"
+154 165  "Red/Blue"
+166 177  "Yellow/Gree"
+178 189  "Blue/Purple"
+190 215  "Scroll %3d%%"100-(((c-a)*100)/(b-a))
+216 217  "No Scroll"
+218 243  "Scroll %3d%%"0+(((c-a)*100)/(b-a))
+250 255  "Audio  %3d%%"100-(((c-a)*100)/(b-a))
+244 249  "Rnd Audio S"
+REND
+
+RANGE 4  ;Gobo
+0   9    "Open"
+10  15   "Gobo 1"
+16  21   "Gobo 2"
+22  27   "Gobo 3"
+28  33   "Gobo 4"
+34  39   "Gobo 5"
+40  45   "Gobo 6"
+46  51   "Gobo 7"
+52  57   "Gobo 8"
+58  63   "Gobo 9"
+64  73   "Gobo 1 %3d%%"0+(((c-a)*100)/(b-a))
+74  83   "Gobo 2 %3d%%"0+(((c-a)*100)/(b-a))
+84  93   "Gobo 3 %3d%%"0+(((c-a)*100)/(b-a))
+94  103  "Gobo 4 %3d%%"0+(((c-a)*100)/(b-a))
+104 113  "Gobo 5 %3d%%"0+(((c-a)*100)/(b-a))
+114 123  "Gobo 6 %3d%%"0+(((c-a)*100)/(b-a))
+124 133  "Gobo 7 %3d%%"0+(((c-a)*100)/(b-a))
+134 143  "Gobo 8 %3d%%"0+(((c-a)*100)/(b-a))
+144 153  "Gobo 9 %3d%%"0+(((c-a)*100)/(b-a))
+154 161  "Open/Gobo 1"
+162 167  "Gobo 1 %3d%%"0+(((c-a)*100)/(b-a))
+168 173  "Gobo 2 %3d%%"0+(((c-a)*100)/(b-a))
+174 179  "Gobo 3 %3d%%"0+(((c-a)*100)/(b-a))
+180 185  "Gobo 4 %3d%%"0+(((c-a)*100)/(b-a))
+186 191  "Gobo 5 %3d%%"0+(((c-a)*100)/(b-a))
+192 197  "Gobo 6 %3d%%"0+(((c-a)*100)/(b-a))
+198 203  "Gobo 7 %3d%%"0+(((c-a)*100)/(b-a))
+204 209  "Gobo 8 %3d%%"0+(((c-a)*100)/(b-a))
+210 217  "Gobo 9 %3d%%"0+(((c-a)*100)/(b-a))
+218 229  "Scr CW %3d%%"100-(((c-a)*100)/(b-a))
+230 231  "No Scroll"
+232 243  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+250 255  "Audio  %3d%%"100-(((c-a)*100)/(b-a))
+244 249  "Rnd Audio S"
+REND
+
+RANGE 5  ;Gobo Rot
+0   127  "Index %3d%%"0+(((c-a)*100)/(b-a))
+128 190  "Spn CW %3d%%"100-(((c-a)*100)/(b-a))
+191 192  "No Spin"
+193 255  "Sp CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+

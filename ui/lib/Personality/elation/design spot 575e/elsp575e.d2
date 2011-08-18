@@ -1,0 +1,261 @@
+;-----------------------------------------------------------------------|
+; The Elation Design Spot 575E     Personality for the Diamond II       | 
+;-----------------------------------------------------------------------|
+;   History :-                                                          |
+;-----------------------------------------------------------------------|
+;   Revision |  Date     |  By        | Description                     |
+;------------|-----------|------------|---------------------------------|
+;   1.0      |  29-01-09 | David Hunt | Created	                        |
+;            |  02-02-09 | J.Moreton  | Checked                         |
+;---------------------------------------------------------------------- |
+
+
+DEVICE=ElDsSp575E          ; Device Name (upto 11 chars after '=')
+DEVICE23=
+						; extra information for softkey prompt lines 2&3
+						; a total of 22 chars, split into 2 lines of 11
+
+; Device information
+;                                    __ Number of lines of DMX info.
+;                                   |    __ Number of lines of wheel info
+;                                   |   |
+;                                   |   |
+;                                   |   |
+HSTART  2  24 1b05   0   0 ff 0  4  24  22
+;       |   |    |   |   |  | |  |
+;       |   |    |   |   |  | |  |__ Line number for flash button DMX info
+;       |   |    |   |   |  | |      from DMX definition (1..x)
+;       |   |    |   |   |  | |__ Button release value
+;       |   |    |   |   |  |__ Button ON value (ff means use swop/add fader)
+;       |   |    |   |   |__ The TILT arc in Degrees
+;       |   |    |   |__ The Pan arc in degrees
+;       |   |    |__ Date in PC format (1b05==5/08/93)
+;       |   |__ Number of DMX slots used
+;       |__ Patch direction (1-backward, 0 forward, 2 for moving head)
+
+TEXTSTART       ; Upto 21 lines of 28 characters (use the template below)
+				 ;
+	Elation                  ;
+    Design Spot 575E             ;
+    24 DMX Channels              ;
+				 ;
+				 ;
+				 ;
+				 ;
+				 ;
+				 ;
+				 ;
+				 ;								 
+				 ;
+				 ;
+				 ;
+				 ;
+				 ;
+				 ;
+				 ;
+				 ;
+TEXTEND
+
+
+;------------------------------------------------------------
+
+; For the Attribute Dictionary refer to file 'dict.per'
+
+;------------------------------------------------------------
+; DMX information
+; No unused lines allowed between keyword 'DSTART' and last DMX definition
+DSTART              ; DMX defintion
+1  2 20 0  13 0      ; Pan
+2  0  0 0   0 0      ; Pan Low
+3  2 20 0  14 0      ; Tilt
+4  0  0 0   0 0      ; Tilt Low
+5  2  0 0   4 0      ; Colour
+6  2  0 0   8 0      ; Cyan
+7  2  0 0   7 0      ; Magenta
+8  2  0 0   9 0      ; Yellow
+9  2  0 0  36 0      ; Gobo 1
+10 2  0 0 153 0      ; Gobo 1 Rot
+11 2  0 0  37 0      ; Gobo 2
+12 2  0 0 154 0      ; Gobo 2 Rot
+13 2  0 0  16 0      ; Prism
+14 2  0 0  12 0      ; Focus
+15 2  0 0  43 0      ; Zoom
+16 2  0 0  24 0      ; Shutter
+17 1  0 0   0 0      ; Dimmer
+18 2  0 0  15 0      ; Iris
+19 2  0 0  40 0      ; Frost
+20 2  0 0  51 0      ; Effect
+21 2  0 0 125 0      ; CMY Speed
+22 2  0 0  48 0      ; Colour Macro
+23 2  0 0  58 0      ; P/T Speed
+24 2  0 0  52 0      ; Control
+;| |  | |  | |
+;| |  | |  | |__ Spare (always 0 for now)
+;| |  | |  |__ Attribute name (See list above)
+;| |  | |__ Curve (0 means no curve otherwise curve number)
+;| |  |__ Flags (7=inverted, 6=instant, 5=16-bit)
+;| |__ Channel type (1=HTP, 2=LTP, 0=Dummy(for 16-bit defines)
+;|_ DMX offset (1..255, 0 means DIMMER will be patched seperately)
+;
+;
+;------------------------------------------------------------
+; WHEEL information
+; No unused lines allowed between keyword 'WSTART' and last DMX definition
+
+WSTART
+6 ffff 8000 3  13 1  5  0 2  0  1  0  0  0  0  0  ; 1. Pan
+6 ffff 8000 3  14 1  6  0 2  2  3  0  0  0  0  0  ; 2. Tilt
+8 ffff    0 1   4 0  9  0 1  4  5  0  0  0  0  0  ; 3. Colour
+8 ffff    0 1   8 0 10  0 1  5  6  0  0  0  0  0  ; 4. Cyan
+8 ffff    0 1   7 0 11  0 1  6  7  0  0  0  0  0  ; 5. Magenta
+8 ffff    0 1   9 0 12  0 1  7  8  0  0  0  0  0  ; 6. Yellow
+8 ffff    0 1  36 0 17  0 1  8  9  0  0  0  0  0  ; 7. Gobo 1
+8 ffff    0 1 153 0 18  0 1  9 10  0  0  0  0  0  ; 8. Gobo 1 Rot
+8 ffff    0 1  37 0 19  0 1 10 11  0  0  0  0  0  ; 9. Gobo 2
+8 ffff    0 1 154 0 20  0 1 11 12  0  0  0  0  0  ; 10. Gobo 2 Rot
+8 ffff    0 1  16 0 25  0 1 12 13  0  0  0  0  0  ; 11. Prism
+8 ffff 8080 1  12 0  1  0 1 13 14  0  0  0  0  0  ; 12. Focus
+8 ffff 8080 1  43 0  2  0 1 14 15  0  0  0  0  0  ; 13. Zoom
+8 ffff ffff 1  24 0  7  0 1 15 16  0  0  0  0  0  ; 14. Shutter
+8 ffff ffff 4   0 0  8  0 1 16 17  0  0  0  0  0  ; 15. Dimmer
+8 ffff    0 1  15 0  3  0 1 17 18  0  0  0  0  0  ; 16. Iris
+8 ffff    0 1  40 0  4  0 1 18 19  0  0  0  0  0  ; 17. Frost
+8 ffff    0 1  51 0 26  0 1 19 20  0  0  0  0  0  ; 18. Effect
+8 ffff    0 1 125 0 42  0 1 20 21  0  0  0  0  0  ; 19. CMY Speed
+8 ffff    0 2  48 0 15 48 1 21 22  0  0  0  0  0  ; 20. Colour Macro
+8 ffff    0 1  58 0 43  0 1 22 23  0  0  0  0  0  ; 21. P/T Speed
+8 ffff    0 2  52 0 41 52 1 23 24  0  0  0  0  0  ; 22. Control
+;|   |    | |  | |  |  | |  |  |  |  |  |  |  |__ List of Table channels as 
+;|   |    | |  | |  |  | |  |  |_______________ line numbers from DMX def.
+;|   |    | |  | |  |  | |  |                   0 means unused channel
+;|   |    | |  | |  |  | |  |__ DMX line (minus 1) pertainig to this wheel
+;|   |    | |  | |  |  | |__ Number of channels under control OR Table width
+;|   |    | |  | |  |  |__ Table type (Attribute number) 0 means NOT a table
+;|   |    | |  | |  |__ Wheel number (1..8 on bank1, 9..16 on bank2 et cetera)
+;|   |    | |  | |__ 0 for 8 bits, 1 for 16 bits
+;|   |    | |  |__  Attribute name from above list (0..MAX)
+;|   |    | |__ Wheel type (1-offset, 2-Table, 3-Pan/Tilt, 4-Dimmer)
+;|   |    |__ Default value (left shifted as necessary)
+;|   |__ AND mask, where more than wheel controls same DMX slot
+;|__ Wheel multiplication =16-(bits used)
+;	eg. for 8 bit channels it is 8, for 12 bit channels it is 4
+; 
+;;--------------------------------------------------------------------
+
+
+
+; Macros
+MACRO "Lamp On"       1  24
+"data"                0  32
+"delay"               1  32
+"data"                0   A
+MEND
+
+MACRO "Lamp Off"      2  24
+"data"                0  46
+"delay"               1  32
+"data"                0   A
+MEND
+
+MACRO "Reset ALL"     3  24
+"data"                0  52
+"delay"               1  32
+"data"                0   A
+MEND
+
+MACRO "Reset P/T"      4  24
+"data"                0  56
+"delay"               1  32
+"data"                0   A
+MEND
+
+MACRO "Reset COLOUR"     5  24
+"data"                0  59
+"delay"               1  32
+"data"                0   A
+MEND
+
+MACRO "Reset GOBO"    6  24
+"data"                0  5C
+"delay"               1  32
+"data"                0   A
+MEND
+
+MACRO "Reset INTENSITY"  7  24
+"data"                0  5F
+"delay"               1  32
+"data"                0   A
+MEND
+
+MACRO "Reset OTHER"   8  24
+"data"                0  62
+"delay"               1  32
+"data"                0   A
+MEND
+
+;--------------------------------------------------------------------
+; TABLES
+; Each Table is enclosed by the keywords "TSTART" and "*** TEND ***"
+; The legend is 16 chars long
+; The correct number of values must be supplied (8-bits) with spaces in
+; between
+
+; FUNCTION TABLE
+;         __ Table width (upto 6 allowed)
+;        |  __ Type of Table from attribute list
+;        | |
+TSTART  1 48
+Off                3
+Macro 1           11
+Macro 2           19
+Macro 3           27
+Macro 4           35
+Macro 5           43
+Macro 6           51
+Macro 7           59
+Macro 8           67
+Macro 9           75
+Macro 10          83
+Macro 11          91
+Macro 12          99
+Macro 13         107
+Macro 14         115
+Macro 15         123
+Macro 16         131
+Macro 17         139
+Macro 18         147
+Macro 19         155
+Macro 20         163
+Macro 21         171
+Macro 22         179
+Macro 23         187
+Macro 24         195
+Macro 25         203
+Macro 26         211
+Macro 27         219
+Macro 28         227
+Macro 29         235
+Macro 30         243
+Random CMY       251
+*** TEND ***
+
+TSTART 1 52
+ColChg Normal      9
+ColChg AnyPos     29
+Lamp On           49
+Lamp Off          69
+Reset All         82
+Reset P/T         86
+Reset Colour      89
+Reset Gobo        92
+Reset Intensity   95
+Reset Other       98
+IntProg 1        109
+IntProg 2        129
+IntProg 3        149
+IntProg 4        169
+IntProg 5        189
+IntProg 6        209
+IntProg 7        229
+Music Control    247
+*** TEND ***

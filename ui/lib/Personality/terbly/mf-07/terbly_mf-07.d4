@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="MF 07" ShortName="MF-07" Company="Terbly">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="15-05-06" Author="Ed" Comment="Created" />
+  <History Date="15-05-06" Author="Ed" Comment="Checked" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour ID to Colour1" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="19-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="11-02-10" Author="Gregory Haynes" Comment="Updated macro timings to 20 seconds" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Colour1Func" Name="Colour Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Index_Func" Display="'Index'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Index_Func" ID="1" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="2,3,4,5" If="'Colour1Func'==2" />
+      <Condition Name="Raw_Func" ID="6" If="'Colour1Func'==3" />
+      <Else ID="1,2,3,4,5,6" />
+      <Function ID="1" Name="Index" Display="'Index %.f%%',0~100" Dmx="0~127" Colour="0,0,0" />
+      <Function ID="2" Name="No Scroll" Display="'No Scroll'" Dmx="188~193" Colour="0,0,0" />
+      <Function ID="3" Name="Scroll CW" Display="'Scroll CW %.f%%',0~100" Dmx="128~187" Colour="0,0,0" />
+      <Function ID="4" Name="No Scroll" Display="'No Scroll'" Dmx="188~193" Colour="0,0,0" />
+      <Function ID="5" Name="Scroll CCW" Display="'Scroll CCW %.f%%',0~100" Dmx="194~255" Colour="0,0,0" />
+      <Function ID="6" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Prism" Name="Prism" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="No Spin" Display="'No Spin'" Dmx="0~7" />
+      <Function ID="2" Name="Spin CW" Display="'Spin CW %.f%%',100~0" Dmx="8~127" />
+      <Function ID="3" Name="No Spin" Display="'No Spin'" Dmx="128~135" />
+      <Function ID="4" Name="Spin CCW" Display="'Spin CCW %.f%%',0~100" Dmx="136~255" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="3:100" PowerOn="1:0" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~9" Intensity="0~0" />
+      <Function ID="2" Name="Reset" Display="'Reset'" Dmx="4~7" Intensity="0~0" />
+      <Function ID="3" Name="8bit HTP" Display="'%.f%%',0~100" Dmx="32~63" Intensity="0~0" />
+      <Function ID="4" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="64~95" Intensity="0~0" />
+      <Function ID="5" Name="Pulse" Display="'Pulse %.f%%',0~100" Dmx="128~159" Intensity="0~0" />
+      <Function ID="6" Name="Rnd Strobe" Display="'Rnd Strobe %.f%%',0~100" Dmx="192~223" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Macro" Name="Macro" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~23" />
+      <Function ID="2" Name="Macro 1" Display="'Macro 1'" Dmx="24~47" />
+      <Function ID="3" Name="Macro 2" Display="'Macro 2'" Dmx="48~71" />
+      <Function ID="4" Name="Macro 3" Display="'Macro 3'" Dmx="72~95" />
+      <Function ID="5" Name="Macro 4" Display="'Macro 4'" Dmx="96~119" />
+      <Function ID="6" Name="Macro 5" Display="'Macro 5'" Dmx="120~143" />
+      <Function ID="7" Name="Macro 6" Display="'Macro 6'" Dmx="144~167" />
+      <Function ID="8" Name="Macro 7" Display="'Macro 7'" Dmx="168~191" />
+      <Function ID="9" Name="Macro 8" Display="'Macro 8'" Dmx="192~215" />
+      <Function ID="10" Name="Macro 9" Display="'Macro 9'" Dmx="216~239" />
+      <Function ID="11" Name="Macro 10" Display="'Macro 10'" Dmx="240~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="4 DMX, 8bit" Channels="4">
+    <Import PearlRef="" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="3" Wheel="4" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="8" />
+      <Attribute ID="Prism" ChannelOffset="2" Wheel="23" />
+      <Attribute ID="Macro" ChannelOffset="4" Wheel="25" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Reset">
+      <Set Channel="Shutter:2" Delay="20000" />
+      <Set Channel="Shutter:1" Delay="0" />
+    </Macro>
+  </Macro>
+</Fixture>

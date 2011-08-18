@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Spectra Batten" ShortName="Spec Battn" Company="LEDJ">
+  <Copyright Notice="© Avolites Ltd. 2008" />
+  <History Date="17-11-08" Author="Jonathan Moreton" Comment="Created" />
+  <History Date="17-11-08" Author="David Hunt" Comment="Checked" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <History Date="09-05-11" Author="John Rogers" Comment="Edited manufacturer name." />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="2" PowerOn="2" />
+      <Function ID="1" Name="Blackout" Display="'Blackout'" Dmx="0~0" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer" />
+      <Function ID="2" Name="Dimmer 1" Display="'Dimmer 1'" Dmx="1~15" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer" />
+      <Function ID="3" Name="Dimmer 2" Display="'Dimmer 2'" Dmx="16~31" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer" />
+      <Function ID="4" Name="Red" Display="'Red'" Dmx="32~47" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer" />
+      <Function ID="5" Name="Green" Display="'Green'" Dmx="48~63" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer" />
+      <Function ID="6" Name="Blue" Display="'Blue'" Dmx="64~79" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer" />
+      <Function ID="7" Name="Purple" Display="'Purple'" Dmx="80~95" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer" />
+      <Function ID="8" Name="Yellow" Display="'Yellow'" Dmx="96~111" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer" />
+      <Function ID="9" Name="Cyan" Display="'Cyan'" Dmx="112~127" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer" />
+      <Function ID="10" Name="Open" Display="'Open'" Dmx="128~143" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer" />
+      <Function ID="11" Name="Colour Chase" Display="'Colour Chase'" Dmx="144~159" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer" />
+      <Function ID="12" Name="Colour Flow" Display="'Colour Flow'" Dmx="160~175" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer" />
+      <Function ID="13" Name="Colour Fade" Display="'Colour Fade'" Dmx="176~191" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer" />
+      <Function ID="14" Name="Multi Colour Flow" Display="'Multi Colour Flow'" Dmx="192~207" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer" />
+      <Function ID="15" Name="Fade Flow" Display="'Fade Flow'" Dmx="208~223" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer" />
+      <Function ID="16" Name="Two Colour Flow" Display="'Two Colour Flow'" Dmx="224~239" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer" />
+      <Function ID="17" Name="Sound Activated" Display="'Sound Activated'" Dmx="240~255" Update="Generic, Shutter, Red, Green, Blue, Red2, Green2, Blue2, Red3, Green3, Blue3, Spd/Dim_Ctrl, Dimmer" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Spd/Dim Ctrl" Description="" Group="I">
+      <Locate Locate="2:100" PowerOn="2:0" />
+      <Condition Name="Red" ID="1" If="'Control'&gt;3&amp;&amp;'Control'&lt;11||'Control'==1" />
+      <Condition Name="Dimmer 1" ID="2" If="'Control'==2||'Control'==3||'Control'==17" />
+      <Else ID="3" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Intensity="0~0" />
+      <Function ID="2" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+      <Function ID="3" Name="Speed" Display="'%.1f%%',100.0~0.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Sound Activated" ID="2" If="'Control'==17||'Control'==1" />
+      <Else ID="1" />
+      <Function ID="1" Name="Strobe" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="Dimmer 1" ID="1" If="'Control'==2||'Control'==3" />
+      <Condition Name="Fade Flow" ID="3" If="'Control'==15||'Control'==16" />
+      <Else ID="2" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+      <Function ID="3" Name="Select Colour 1" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="Dimmer 1" ID="1" If="'Control'==2||'Control'==3" />
+      <Condition Name="Two Colour Flow" ID="3" If="'Control'==16" />
+      <Else ID="2" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+      <Function ID="3" Name="Select Colour 2" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Condition Name="Dimmer 1" ID="1" If="'Control'==2||'Control'==3" />
+      <Else ID="2" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Red2" Name="Red 2" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="Dimmer 1" ID="1" If="'Control'==2" />
+      <Else ID="2" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Green2" Name="Green 2" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="Dimmer 1" ID="1" If="'Control'==2" />
+      <Else ID="2" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Blue2" Name="Blue 2" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Condition Name="Dimmer 1" ID="1" If="'Control'==2" />
+      <Else ID="2" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Red3" Name="Red 3" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="Dimmer 1" ID="1" If="'Control'==2" />
+      <Else ID="2" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Green3" Name="Green 3" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="Dimmer 1" ID="1" If="'Control'==2" />
+      <Else ID="2" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Blue3" Name="Blue 3" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Condition Name="Dimmer 1" ID="1" If="'Control'==2" />
+      <Else ID="2" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+  </Control>
+  <Mode Name="12 DMX, 8bit" Channels="12">
+    <Import PearlRef="LJ_SpecBatn" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="3" Wheel="4" />
+      <Attribute ID="Dimmer" ChannelOffset="2" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="4" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="5" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="6" Wheel="12" />
+      <Attribute ID="Red2" ChannelOffset="7" Wheel="13" />
+      <Attribute ID="Green2" ChannelOffset="8" Wheel="14" />
+      <Attribute ID="Blue2" ChannelOffset="9" Wheel="15" />
+      <Attribute ID="Red3" ChannelOffset="10" Wheel="16" />
+      <Attribute ID="Green3" ChannelOffset="11" Wheel="17" />
+      <Attribute ID="Blue3" ChannelOffset="12" Wheel="18" />
+      <Attribute ID="Control" ChannelOffset="1" Wheel="2" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Control:2,Red:1:100,Green:1:100,Blue:1:100,Red2:1:100,Red3:1:100,Green2:1:100,Green3:1:100,Blue2:1:100,Blue3:1:100" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Control:2,Red:1:100,Green:1:0,Blue:1:0,Red2:1:100,Red3:1:100,Green2:1:0,Green3:1:0,Blue2:1:0,Blue3:1:0" />
+      <Palette ID="3" Name="Amber" Number="3" Page="1" SetControl="Control:2,Red:1:100,Green:1:50,Blue:1:0,Red2:1:100,Red3:1:100,Green2:1:50,Green3:1:50,Blue2:1:0,Blue3:1:0" />
+      <Palette ID="4" Name="Yellow" Number="4" Page="1" SetControl="Control:2,Red:1:100,Green:1:100,Blue:1:0,Red2:1:100,Red3:1:100,Green2:1:100,Green3:1:100,Blue2:1:0,Blue3:1:0" />
+      <Palette ID="5" Name="Lime" Number="0" Page="1" SetControl="Control:2,Red:1:50,Green:1:100,Blue:1:0,Red2:1:50,Red3:1:50,Green2:1:100,Green3:1:100,Blue2:1:0,Blue3:1:0" />
+      <Palette ID="6" Name="Green" Number="5" Page="1" SetControl="Control:2,Red:1:0,Green:1:100,Blue:1:0,Red2:1:0,Red3:1:0,Green2:1:100,Green3:1:100,Blue2:1:0,Blue3:1:0" />
+      <Palette ID="7" Name="Aqua" Number="0" Page="1" SetControl="Control:2,Red:1:0,Green:1:100,Blue:1:50,Red2:1:0,Red3:1:0,Green2:1:100,Green3:1:100,Blue2:1:50,Blue3:1:50" />
+      <Palette ID="8" Name="Cyan" Number="6" Page="1" SetControl="Control:2,Red:1:0,Green:1:100,Blue:1:100,Red2:1:0,Red3:1:0,Green2:1:100,Green3:1:100,Blue2:1:100,Blue3:1:100" />
+      <Palette ID="9" Name="Light Blue" Number="0" Page="1" SetControl="Control:2,Red:1:0,Green:1:50,Blue:1:100,Red2:1:0,Red3:1:0,Green2:1:50,Green3:1:50,Blue2:1:100,Blue3:1:100" />
+      <Palette ID="10" Name="Blue" Number="7" Page="1" SetControl="Control:2,Red:1:0,Green:1:0,Blue:1:100,Red2:1:0,Red3:1:0,Green2:1:0,Green3:1:0,Blue2:1:100,Blue3:1:100" />
+      <Palette ID="11" Name="Purple" Number="9" Page="1" SetControl="Control:2,Red:1:50,Green:1:0,Blue:1:100,Red2:1:50,Red3:1:50,Green2:1:0,Green3:1:0,Blue2:1:100,Blue3:1:100" />
+      <Palette ID="12" Name="Magenta" Number="10" Page="1" SetControl="Control:2,Red:1:100,Green:1:0,Blue:1:100,Red2:1:100,Red3:1:100,Green2:1:0,Green3:1:0,Blue2:1:100,Blue3:1:100" />
+      <Palette ID="13" Name="Rose" Number="0" Page="1" SetControl="Control:2,Red:1:100,Green:1:0,Blue:1:50,Red2:1:100,Red3:1:100,Green2:1:0,Green3:1:0,Blue2:1:50,Blue3:1:50" />
+      <Palette ID="14" Name="Lavender" Number="8" Page="1" SetControl="Control:2,Red:1:71,Green:1:43,Blue:1:94,Red2:1:71,Red3:1:71,Green2:1:43,Green3:1:43,Blue2:1:94,Blue3:1:94" />
+      <Palette ID="15" Name="Ultra Violet" Number="0" Page="1" SetControl="Control:2,Red:1:20,Green:1:0,Blue:1:100,Red2:1:20,Red3:1:20,Green2:1:0,Green3:1:0,Blue2:1:100,Blue3:1:100" />
+    </Group>
+  </Palettes>
+</Fixture>

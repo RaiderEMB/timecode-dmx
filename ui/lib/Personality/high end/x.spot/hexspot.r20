@@ -1,0 +1,599 @@
+; "High End Studio X-SPOT", 38 DMX channels, filename :hexspot.r20
+;
+;   Date      By           Description
+;   10-04-01  P.Bari       Created
+;   14-12-01  Edward	   corrected wheel order to: Litho1, Effect, Litho2 (From L1,L2,Fx)
+;   23-05-03  D.Shelton    Moved Control channels to banks 19 and 20 and moved Effects to 11,12,13.
+;   04-03-04  G.Brown      Moved Control back to Bank 11 as would not work with macros
+;   05-03-04  G.Brown      Corrected wheels on  banks 12 and 13, (both functions on one wheel)
+;   11-08-04  P Rogers     Added Range Tables
+;   13-08-04  P Rogers     Revised Range Tables
+;   31-03-05  Phil Rogers  Revised device name
+;   16-06-05  Phil Rogers  Removed whitespace and unnecessary tables
+;   14-03-06  Ed Spencer   Fixed problem with Yellow channel's locate
+;   19-05-06  Ed Spencer   Removed some comments for disk space
+;   05-02-08  Gregory      Inverted CMY
+;   18-02-09  David Hunt   Fixed effect wheel display problem
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  HE_XSpot                                   38 DMX channels
+NAME "High End" "X.Spot Xtreme"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  38  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2  630 240
+;
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+"  High End"
+"   x.Spot "
+" 38 DMX Chs"
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=478
+;
+; DMX number must be divisible by this 
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+;
+DMX
+3  61 s 1 100 1N E 1 "Pan"		128  -1  -1
+0  0  L 2 100 1N E 1 "Pan Low"		128  -1  -1
+3  1  s 3 100 1N F 1 "Tilt"		128  -1  -1
+0  0  L 4 100 1N F 1 "Tilt Low"		128  -1  -1
+19 61 I 5 100 1N 0 1 "LampCntrl"	0  0  0
+2  61 I 6 100 1N O 1 "Shutter"		255 255 255
+1  1  H 7 100 1N H 1 "Dimmer"		255 255 255
+15 1  L 8 100 1N S 1 "Frost"		0  0  0
+15 61 L 9 100 1N 0 1 "FocusCntrl"	0  0  0
+5  61 L 10 100 1N L 1 "Focus"		0  0  0
+5  1  L 11 100 1N Q 1 "Zoom"		0  0  0
+20 1  I 12 100 1N 0 1 "MSpeed"		0  0  0
+20 61 I 13 100 1N 0 1 "Macros"		0  0  0
+11 1  I 14 100 1N 0 1 "Control"		0  0  0
+4  61 I 15 100 1N 0 1 "ColorFunc"	0  0  0
+4  1  I 16 100 1N A 1 "Color"		0  0  0
+9  1  I 17 100 1N 0 1 "ColMixFunc"	0  0  0
+10 1  L 18 100 1I B 1 "Cyan"		0  0 255
+10 61 L 19 100 1I C 1 "Magenta"	0  0 255
+9  61 L 20 100 1I D 1 "Yellow"	0 255 51
+8  1  L 21 100 1N 0 1 "CTO"		0  0  0
+8  61 L 22 100 1N 0 1 "CTB"		0  0  0
+16 1  I 23 100 1N 0 1 "GoboFunc1"	0  0  0
+6  1  I 24 100 1N I 1 "Gobo1"		0  0  0
+19 1  I 25 100 1N 0 1 "Gobo1_Func"	0  0  0
+7  1  I 26 100 1N K 1 "GRot1Hi"		0  0  0
+17 1  I 27 100 1N 0 1 "GRot1Low"	0  0  0
+12 61 I 28 100 1N 0 1 "EffectFunc"	0  0  0
+14 1  I 29 100 1N P 1 "Effect"		0  0  0
+12 1  I 30 100 1N 0 1 "Eff.RotFunc"	0  0  0
+13 61 I 31 100 1N R 1 "EffectRotHi"	0  0  0
+13 1  I 32 100 1N 0 1 "EffectRotLow"	0  0  0
+16 61 I 33 100 1N 0 1 "GoboFunc2"	0  0  0
+6  61 I 34 100 1N J 1 "Gobo2"		0  0  0
+11 61 I 35 100 1N 0 1 "GRot2_Func"	0  0  0
+7  61 I 36 100 1N M 1 "GRot2Hi"		0  0  0
+17 61 I 37 100 1N 0 1 "GRot2Low"	0  0  0
+2  1  L 38 100 1N G 1 "Iris"		128 128 128
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+  High End x.Spot
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1 Dimmer   --
+ 2 Iris     Shutter
+ 3 Tilt     Pan
+ 4 Color1   ColFunc
+ 5 Zoom     Focus
+ 6 Litho1   Litho2
+ 7 LithoRt1 LithoRt2
+ 8 CTO      CTB
+ 9 Effect   Yellow
+10 Cyan     Magenta
+11 MSpeed   Control
+12 Macros   --
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+PFTABLE "Static Colors" -1 15 16
+"Open"   1   0  0
+"Red"    2   0  2b
+"Yellow" 3   0  51
+"Green"  4   0  77
+"Orange" 5   0  9d
+"Blue"   6   0  c3
+PFEND
+
+
+PFTABLE "Litho1" -1 23 24
+"Open"          7   0  0
+"1Position 2"   8   0  10
+"1Position 3"   9   0  30
+"1Position 4"  10   0  50
+"1Position 5"  11   0  70
+"1Position 6"  12   0  90
+"1Position 7"  13   0  b0
+"1Position 8"  14   0  d0
+"Stopped"      15  10   0
+"Forward  50%" 16  10  7f
+"Forward 100%" 17  10  ff
+"Reverse  50%" 18  20  7f
+"Reverse 100%" 19  20  ff
+PFEND
+
+PFTABLE "Positions" -1 1 3
+"Middle" 21 80  80
+"Left"   22 50  80
+"Right" 23 b0  80
+"Top"   24 80  50
+"Bottom" 25 80  b0
+"TLeft" 26 50  50
+"TRight" 27 b0  b0
+"BLeft" 28 50  b0
+"BRight" 29 b0  50
+PFEND
+
+; Colors
+;INPUT                 Cyan   yellow   magnta
+PFTABLE "LEE"   -1      18      19      20
+"lee 101"	-1      A1      5B      D6
+"lee 102"	-1      9E	6C      FF
+"lee 103"	-1	DB	81	8E
+"lee 104"	-1	FF	60	82
+"lee 105"	-1	FE	52	62
+"lee 106"	-1	85	23	2B
+"lee 107"	-1	E5	86	70
+"lee 108"	-1	E4	83	78
+"lee 109"	-1	FF	87	77
+"lee 110"	-1	FF	85	77
+"lee 111"	-1	C9	80	61
+"lee 113"	-1	97	6C	0
+"lee 115"	-1	73	63	DA
+"lee 116"	-1	1	7B	FF
+"lee 117"	-1	7D	68	FE
+"lee 118"	-1	6D	7D	BD
+"lee 119"	-1	54	ED	CC
+"lee 120"	-1	38	A6	6C
+"lee 121"	-1	5A	2C	91
+"lee 122"	-1	55	34	91
+"lee 124"	-1	0	5F	96
+"lee 126"	-1	B0	8C	2A
+"lee 127"	-1	FF	84	64
+"lee 128"	-1	D8	7D	0
+"lee 129"	-1	F0	F0	F0
+"lee 130"	-1	FF	FF	FF
+"lee 131"	-1	75	6C	C6
+"lee 132"	-1	1	FF	AF
+"lee 134"	-1	AB	6F	75
+"lee 135"	-1	FF	0	46
+"lee 136"	-1	A1	87	EA
+"lee 137"	-1	B1	B1	B8
+"lee 138"	-1	C4	7A	EA
+"lee 139"	-1	5A	3E	A6
+"lee 140"	-1	6B	60	85
+"lee 141"	-1	0	97	AB
+"lee 142"	-1	80	77	BF
+"lee 143"	-1	78	77	FF
+"lee 144"	-1	73	74	FF
+"lee 145"	-1	8C	62	DA
+"lee 147"	-1	FF	73	29
+"lee 148"	-1	B4	6F	3D
+"lee 151"	-1	FF	86	84
+"lee 152"	-1	FF	88	89
+"lee 153"	-1	C0	82	81
+"lee 154"	-1	CC	8A	88
+"lee 156"	-1	95	72	A6
+"lee 158"	-1	87	2D	D5
+"lee 159"	-1	D2	8A	93
+"lee 161"	-1	76	7D	BF
+"lee 162"	-1	96	7D	D4
+"lee 164"	-1	FF	4D	3B
+"lee 165"	-1	75	7A	FF
+"lee 166"	-1	8C	70	6F
+"lee 169"	-1	BC	E3	AD
+"lee 170"	-1	F0	9F	82
+"lee 172"	-1	0	84	FF
+"lee 174"	-1	E5	C1	FF
+"lee 176"	-1	8B	5F	EB
+"lee 179"	-1	91	33	C7
+"lee 180"	-1	94	E4	91
+"lee 181"	-1	76	E1	30
+"lee 182"	-1	90	D	D
+"lee 183"	-1	0	90	FF
+"lee 184"	-1	FF	8F	8A
+"lee 185"	-1	BD	8B	8A
+"lee 186"	-1	FF	93	8D
+"lee 187"	-1	FF	88	88
+"lee 188"	-1	B4	92	A6
+"lee 189"	-1	A8	7F	F0
+"lee 190"	-1	B6	90	B8
+"lee 191"	-1	BA	93	AD
+"lee 192"	-1	FF	86	6F
+"lee 193"	-1	B5	7C	69
+"lee 194"	-1	A8	A3	AC
+"lee 195"	-1	3B	FF	8A
+"lee 196"	-1	7B	6C	FF
+"lee 197"	-1	7D	85	FF
+PFEND
+
+MACRO "RESET" 1   6  14
+"data"    0   0  0
+"delay"   1  10
+"data"    0   0  41
+"delay"   1  32
+"data"    0   0  0
+MEND
+
+MACRO "LAMP ON" 2   6  14
+"data"   0   0  0
+"delay"  1  10
+"data"   0   0  54
+"delay"  1  32
+"data"   0   0  0
+MEND
+
+MACRO "LAMP OFF" 3  6  14
+"data"    0  0  0
+"delay"   1  10
+"data"    0  0  5e
+"delay"   1  32
+"data"    0  0  0
+MEND
+
+MACRO "SHUTDOWN" 4   6  14 10 
+"data"    0   0   0 a5
+"delay"   1  10
+"data"    0   0  80 a5
+"delay"   1  32
+"data"    0   0   0 0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 5 ;Lamp Control
+0  31  "Norm Sht Fn"
+32 63  "Lamp Asst S"
+64 95  "Lamp Funct."
+96 127 "Dual Dimm."
+128 159 "Elect. Dim."
+224 255 "Norm Sht Fu"
+REND
+
+RANGE 6 ;Shutter
+232 255 "Open"
+0  23  "Closed"
+24 49  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+50 75  "Random %3d%%"0+(((c-a)*100)/(b-a))
+76 101 "Rnd Sy %3d%%"0+(((c-a)*100)/(b-a))
+102 127 "Ramp O %3d%%"0+(((c-a)*100)/(b-a))
+128 153 "Ramp S %3d%%"0+(((c-a)*100)/(b-a))
+154 179 "Ramp/R %3d%%"0+(((c-a)*100)/(b-a))
+180 205 "Rnd R/ %3d%%"0+(((c-a)*100)/(b-a))
+206 231 "Rnd S/ %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 15 ;Color Func
+0  15  "Full: Indx"
+16 31  "Full: Fwd S"
+32 47  "Full: Rev S"
+48 63  "Full: Cont."
+64 79  "Full: Slw S"
+80 95  "Full: Fst S"
+96 111 "Full: Rand"
+112 127 "Full: Blink"
+128 143 "MSpd: Indx"
+144 159 "MSpd: Fwd S"
+160 175 "MSpd: Rev S"
+176 191 "MSpd: Cont."
+192 207 "MSpd: Slw S"
+208 223 "MSpd: Fst S"
+224 239 "MSpd: Rand"
+240 255 "MSpd: Blink"
+REND
+
+RANGE 16 ;Colour1
+0  23  "Open"
+24 42  "Open/Blue"
+43 61  "Blue"
+62 80  "Blue/Red"
+81 99  "Red"
+100 118 "Red/Green"
+119 137 "Green"
+138 156 "Grn/Yel"
+157 175 "Yellow"
+176 194 "Yellow/Red"
+195 213 "Red"
+214 232 "Red/Open"
+233 255 "Open"
+REND
+
+RANGE 17 ;CMY Function
+0  15  "Full: Pure"
+16 31  "Full: Cont"
+32 47  "Full: Res"
+48 63  "Full: Spin"
+64 79  "Full: Cyc"
+80 95  "Full: Res"
+96 111 "Full: Rand"
+112 127 "Full: Blnk"
+128 143 "MSpd: Pure"
+144 159 "MSpd: Cont"
+160 175 "Full: Cyc"
+176 191 "MSpd: Spin"
+192 207 "MSpd: Cyc"
+208 223 "MSpd: Res"
+224 239 "MSpd: Rand"
+240 255 "MSpd: Blnk"
+REND
+
+RANGE 21 ;CTO
+0  0  "Open"
+1  169 "CTO %3d%%"0+(((c-a)*100)/(b-a))
+170 170 "Full CTO"
+171 254 "Beam F %3d%%"0+(((c-a)*100)/(b-a))
+255 255 "Open"
+REND
+
+RANGE 22 ;CTB
+0  42  "Beam Flatte"
+43 43  "Open"
+44 212 "CTB %3d%%"0+(((c-a)*100)/(b-a))
+213 213 "Full CTB"
+214 255 "Beam F %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 23 ;G1 Funct.
+0  15  "Full: Indx"
+16 31  "Full: Fw S"
+32 47  "Full: Bk S"
+48 63  "Full: Scan"
+64 79  "Full: Rand"
+80 95  "Full: Blnk"
+96 111 "No Func"
+112 127 "Full: Cont"
+160 175 "MSpd: Bk S"
+176 191 "MSpd: Scan"
+192 207 "MSpd: Rand"
+128 143 "MSpd: Indx"
+144 159 "MSpd: Fw S"
+208 223 "MSpd: Blnk"
+224 239 "No Func"
+240 255 "MSpd: Cont"
+REND
+
+RANGE 24 ;Gobo1
+0  15  "Open"
+16 47  "Xylem"
+48 79  "Fin Fan L/R"
+80 111 "Velvet Fold"
+112 143 "Lumoil"
+144 175 "Broadband"
+176 207 "Parquet"
+208 239 "Tunnel"
+240 255 "Open"
+REND
+
+RANGE 25 ;Rot 1 Funct
+0  15  "Full: Indx"
+16 31  "Full: Fw S"
+32 47  "Full: Bk S"
+48 63  "Full: Scan"
+64 79  "Full: Blnk"
+80 127 "Reserved"
+128 143 "MSpd: Indx"
+144 159 "MSpd: Fw S"
+160 175 "MSpd: Bk S"
+176 191 "MSpd: Scan"
+192 207 "MSpd: Blnk"
+208 255 "Reserved"
+REND
+
+RANGE 33 ;G2 Funct.
+0  15  "Full: Indx"
+16 31  "Full: Fw S"
+32 47  "Full: Bk S"
+48 63  "Full: Scan"
+64 79  "Full: Rand"
+80 95  "Full: Blnk"
+96 111 "No Func"
+112 127 "Full: Cont"
+160 175 "MSpd: Bk S"
+176 191 "MSpd: Scan"
+192 207 "MSpd: Rand"
+128 143 "MSpd: Indx"
+144 159 "MSpd: Fw S"
+208 223 "MSpd: Blnk"
+224 239 "No Func"
+240 255 "MSpd: Cont"
+REND
+
+RANGE 34 ;Gobo2
+0  15  "Open"
+16 47  "Fracture"
+48 79  "Polymeoba"
+80 111 "Dense Folia"
+112 143 "Drain"
+144 175 "Fluffy Clou"
+176 207 "Irregular C"
+208 239 "Valiant"
+240 255 "Open"
+REND
+
+RANGE 35 ;Rot 2 Funct
+0  15  "Full: Indx"
+16 31  "Full: Fw S"
+32 47  "Full: Bk S"
+48 63  "Full: Scan"
+64 79  "Full: Blnk"
+80 127 "Reserved"
+128 143 "MSpd: Indx"
+144 159 "MSpd: Fw S"
+160 175 "MSpd: Bk S"
+176 191 "MSpd: Scan"
+192 207 "MSpd: Blnk"
+208 255 "Reserved"
+REND
+
+RANGE 8 ;Frost
+0  0  "No Frost"
+1  127 "Frost %3d%%"0+(((c-a)*100)/(b-a))
+128 135 "Full Frost"
+136 151 "Frost %3d%%"0+(((c-a)*100)/(b-a))
+152 167 "Rnd Fr %3d%%"0+(((c-a)*100)/(b-a))
+168 183 "Ramp Open"
+184 199 "Ramp Shut"
+200 215 "Ramp Opn/Sh"
+216 231 "Rnd Ramp/Sn"
+232 247 "Rnd Snap/Ra"
+248 255 "Open"
+REND
+
+RANGE 9 ;Focus Control
+0  31  "Zoom Track"
+32 63  "Man. Focus"
+REND
+
+RANGE 38 ;Iris
+0  0  "Closed"
+1  127 "Open %3d%%"0+(((c-a)*100)/(b-a))
+128 135 "Full Open"
+136 151 "Period %3d"0+(((c-a)*10)/(b-a))
+152 167 "Rand S %3d"0+(((c-a)*10)/(b-a))
+168 183 "Ramp O %3d"0+(((c-a)*10)/(b-a))
+200 215 "Ramp O %3d"0+(((c-a)*10)/(b-a))
+184 199 "Ramp S %3d"0+(((c-a)*10)/(b-a))
+216 231 "Rand R %3d"0+(((c-a)*10)/(b-a))
+231 247 "Rand S %3d"0+(((c-a)*10)/(b-a))
+248 255 "Full Open"
+REND
+
+RANGE 28 ;EfxFunction
+0  15  "Full: Indx"
+16 31  "Full: Fwd S"
+32 47  "Full: Rev S"
+48 63  "Full: Scan"
+64 79  "Full: Rand"
+80 95  "Full: Blink"
+112 127 "Full: Cont."
+128 143 "MSpd: Indx"
+144 159 "MSpd: Fwd S"
+160 175 "MSpd: Rev S"
+176 191 "MSpd: Scan"
+192 207 "MSpd: Rand"
+208 223 "MSpd: Blink"
+240 255 "MSpd: Cont."
+REND
+
+RANGE 29 ;Effect
+0  15  "Open"
+16 47  "Slow Glass"
+48 79  "3 Facet Pri"
+80 111 "5 Facet Pri"
+112 143 "Fusion Fire"
+144 175 "Lenticular"
+176 207 "Ligneous"
+208 239 "Psycho Tunn"
+240 255 "Open"
+REND
+
+RANGE 30 ;EfxRotFunction
+0  15  "Full: Indx"
+16 31  "Full: Fwd R"
+32 47  "Full: Rev R"
+48 63  "Full: Scan"
+64 79  "Full: Blink"
+128 143 "MSpd: Indx"
+144 159 "MSpd: Fwd R"
+160 175 "MSpd: Rev R"
+176 191 "MSpd: Scan"
+192 207 "MSpd: Blink"
+REND
+
+RANGE 12 ;MSpeed
+0  3  "Crossfade"
+4  255 "MSpeed %3d"253-(((c-a)*253)/(b-a))
+REND
+
+RANGE 13 ;Macros
+0  5  "No Macro"
+6  62  "Pan Sw %3d%%"0+(((c-a)*100)/(b-a))
+63 65  "No Macro"
+66 122 "Tilt S %3d%%"0+(((c-a)*100)/(b-a))
+123 125 "No Macro"
+126 160 "CW Cir %3d%%"0+(((c-a)*100)/(b-a))
+161 163 "No Macro"
+164 198 "CCW Ci %3d%%"0+(((c-a)*100)/(b-a))
+199 255 "Reserved"
+REND
+
+RANGE 14 ;Control
+0  9  "Safe"
+10 19  "PT MSpd OFF"
+20 29  "Display OFF"
+30 38  "Display Dim"
+39 39  "Safe"
+40 48  "Display Bri"
+49 59  "Safe"
+60 68  "Home ALL"
+69 79  "Safe"
+80 88  "Lamp ON"
+89 89  "Safe"
+90 98  "Lamp OFF"
+99 119 "Safe"
+120 130 "Shutdown"
+131 149 "Reserved"
+150 159 "Safe"
+160 168 "Home P/T"
+169 169 "Safe"
+170 178 "Home Colour"
+179 179 "Safe"
+180 188 "Home Gobo"
+189 189 "Safe"
+190 198 "Home Strb/D"
+199 199 "Safe"
+200 208 "Home F/Z/Fs"
+209 209 "Safe"
+210 218 "Home Iris"
+219 255 "Safe"
+REND
+

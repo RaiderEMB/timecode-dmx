@@ -1,0 +1,865 @@
+; 'Clay Paky AlphaSpot 1200', 23 DMX Channels, filename: CPAS12XT.R20
+;
+;   Date       By                Description
+;   06-07-06   Ed Spencer        Created from non timing version
+;   16-12-08   David Hunt        Fixed duplicate dmx values in range tables
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  CP_AS1200XT                         mode=Extended  27 DMX Channels
+NAME "Clay Paky" "Alpha Spot 1200 Ext, Timing"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  27  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   450   252
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Extended"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=485
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+10    1   L    1   100   1N   B   1   "Cyan"              0     0   255
+10   61   L    2   100   1N   C   1   "Magenta"           0     0   255
+9    61   L    3   100   1N   D   1   "Yellow"            0   255    51
+4     1   L    4   100   1N   0   1   "CTO"               0     0     0
+4    61   I    5   100   1N   0   1   "Colour"            0     0     0
+2    61   L    6   100   1N   O   1   "Shutter"           0     0     0
+1     1   H    7   100   1N   H   1   "Dimmer"          255     0     0
+2     1   L    8   100   1N   G   1   "Iris"              0     0     0
+6     1   I    9   100   1N   I   1   "Gobo 1"            0     0     0
+6    61   I   10   100   1N   J   1   "Gobo 2"            0     0     0
+7    61   s   11   100   1N   M   1   "Gobo 2 Rot"        0     0     0
+0     0   L   12   100   1N   M   1   "Gobo 2 R Low"      0     0     0
+19    1   I   13   100   1N   0   1   "Anim"              0     0     0
+19   61   L   14   100   1N   0   1   "Anim Rot"          0     0     0
+9     1   L   15   100   1N   P   1   "Prism"             0     0     0
+5    61   L   16   100   1N   L   1   "Focus"           127     0     0
+5     1   L   17   100   1N   Q   1   "Zoom"            127     0     0
+3    61   s   18   100   1N   E   1   "Pan"             102     0     0
+0     0   L   19   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s   20   100   1N   F   1   "Tilt"            128     0     0
+0     0   L   21   100   1N   F   1   "Tilt Low"        128     0     0
+8     1   I   22   100   1N   0   1   "Reset"             0     0     0
+8    61   I   23   100   1N   0   1   "Lamp"              0     0     0
+17    1   L   24   100   1N   0   1   "Time 1"          255     0     0
+17   61   L   25   100   1N   0   1   "Time 2"		255     0     0
+18    1   L   26   100   1N   0   1   "Time 3"		255     0     0
+18   61   L   27   100   1N   0   1   "Time 4"		255     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Clay Paky AlphaSpot 1200
+Extended with Timing
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+
+PFTABLE "Color" 29   1   2   3
+"White"          1  00  00  00
+"Red"            2  7F  DD  F9
+"Amber"          3  4C  FD  C8
+"Yellow"         4  00  E6  23
+"Green"          5  DB  D1  0B
+"Cyan"           6  DC  83  0A
+"Blue"           7  DE  08  D3
+"Lavender"       8  B6  03  E3
+"UltraViolet"    9  FF  79  FB
+"Magenta"       10  79  93  FF
+PFEND
+
+PFTABLE "Positions" -1  18  20
+"Middle"            21  80  80
+"Left"      	    22  50  80
+"Right"     	    23  b0  80
+"Top"       	    24  80  50
+"Bottom"    	    25  80  b0
+"TLeft"     	    26  50  50
+"TRight"    	    27  b0  b0
+"BLeft"     	    28  50  b0
+"BRight"    	    29  b0  50
+PFEND
+
+PFTABLE "Gobos"     -1   9  10
+"Open"              11  00  00
+"Gobo 1"      	    12  0C  00
+"Gobo 2"     	    13  13  00
+"Gobo 3"       	    14  1B  00
+"Gobo 4"    	    15  22  00
+"Gobo 5"     	    16  2B  00
+"Gobo 6"    	    17  33  00
+"Gobo 7"     	    18  3C  00
+"Gobo 8"    	    19  44  00
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Lamp On"       1  23
+"data"                0  DA
+"delay"               1  32
+"data"                0   0
+"delay"               1   A
+MEND
+
+MACRO "Lamp Off"      2  23
+"data"                0  3F
+"delay"               1  32
+"data"                0   0
+"delay"               1   A
+MEND
+
+MACRO "Reset"         3  22
+"data"                0  C0
+"delay"               1  32
+"data"                0   0
+"delay"               1   A
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 5  ; Colour wheel 1
+0   8    "Open"
+18  26   "Red"
+36  44   "Yellow"
+54  62   "Violet"
+72  80   "Green"
+90  96   "Orange"
+108 116  "Blue"
+9   17   "Op/Rd %3d%%"0+(((c-a)*100)/(b-a))
+27  35   "Rd/Yl %3d%%"0+(((c-a)*100)/(b-a))
+45  53   "Yl/uv %3d%%"0+(((c-a)*100)/(b-a))
+63  71   "UV/Gn %3d%%"0+(((c-a)*100)/(b-a))
+81  89   "Gn/Or %3d%%"0+(((c-a)*100)/(b-a))
+99  107  "Or/Bl %3d%%"0+(((c-a)*100)/(b-a))
+117 127  "Bl/Op %3d%%"0+(((c-a)*100)/(b-a))
+126 255  "Scroll %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 6  ;Shutter
+0   3    "Closed"
+4   103  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+104 107  "Open"
+108 207  "Pulse %3d%%"0+(((c-a)*100)/(b-a))
+208 212  "Open"
+213 225  "Rnd Slw Stb"
+226 238  "Rnd Med Stb"
+239 251  "Rnd Fst Stb"
+252 255  "Open"
+REND
+
+RANGE 9  ;Gobo 1
+0   7   "White"
+8   15  "Gobo 1"
+16  23  "Gobo 2"
+24  31  "Gobo 3"
+32  39  "Gobo 4"
+40  47  "Gobo 5"
+48  55  "Gobo 6"
+56  63  "Gobo 7"
+64  71  "Gobo 8"
+72  113  "Scr CW %3d%%"100-(((c-a)*100)/(b-a))
+114 117  "No Scroll"
+118 159  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+240 255  "Gobo 7 %3d%%"0+(((c-a)*100)/(b-a))
+160 175  "Gobo 2 %3d%%"0+(((c-a)*100)/(b-a))
+176 191  "Gobo 3 %3d%%"0+(((c-a)*100)/(b-a))
+192 207  "Gobo 4 %3d%%"0+(((c-a)*100)/(b-a))
+208 223  "Gobo 5 %3d%%"0+(((c-a)*100)/(b-a))
+224 239  "Gobo 6 %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 10  ;Gobo 2
+0   17   "Open"
+18  35   "Gobo 1"
+36  53   "Gobo 2"
+54  71   "Gobo 3"
+72  89   "Gobo 4"
+90  107  "Gobo 5"
+108 129  "Gobo 6"
+130 150  "Gobo 1 %3d%%"0+(((c-a)*100)/(b-a))
+151 171  "Gobo 2 %3d%%"0+(((c-a)*100)/(b-a))
+172 192  "Gobo 3 %3d%%"0+(((c-a)*100)/(b-a))
+193 213  "Gobo 4 %3d%%"0+(((c-a)*100)/(b-a))
+214 234  "Gobo 5 %3d%%"0+(((c-a)*100)/(b-a))
+235 255  "Gobo 6 %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 8  ;Iris
+0   131  "%3d%%"0+(((c-a)*100)/(b-a))
+132 171  "Pulse %3d%%"0+(((c-a)*100)/(b-a))
+172 211  "Fst Op %3d%%"0+(((c-a)*100)/(b-a))
+212 251  "Fst Cl %3d%%"0+(((c-a)*100)/(b-a))
+252 255  "Open"
+REND
+
+RANGE 11  ;Gobo Rot
+0   127  "Index %3d%%"0+(((c-a)*100)/(b-a))
+128 190  "Sp CCW %3d%%"100-(((c-a)*100)/(b-a))
+191 192  "No Spin"
+193 255  "Sp CW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 13  ;ANIM
+0   254  "Safe"
+255 225  "On"
+REND
+
+RANGE 14  ;ANIM ROT
+0   124  "Sc CCW %3d%%"100-(((c-a)*100)/(b-a))
+125 130  "No Scroll"
+131 255  "Scr CW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 15  ;FROST/PRISM
+0   50   "White"
+51  101  "Lens"
+102 152  "Lt Frost"
+153 203  "Hv Frost"
+204 255  "Prism"
+REND
+
+RANGE 22  ;RESET
+0   127  "Safe"
+128 255  "Reset"
+REND
+
+RANGE 23  ;LAMP
+0   25    "Safe"
+26  100  "Lamp Off"
+101 179  "Half Lamp"
+180 255  "Lamp On"
+REND
+
+RANGE 24
+0  0 "Full Speed"
+1 1 "0,2 s"
+2 2 "0,4 s"
+3 3 "0,6 s"
+4 4 "0,8 s"
+5 5 "1 s"
+6 6 "1,2 s"
+7 7 "1,4 s"
+8 8 "1,6 s"
+9 9 "1,8 s"
+10 10 "2 s"
+11 11 "2,2 s"
+12 12 "2,4 s"
+13 13 "2,6 s"
+14 14 "2,8 s"
+15 15 "3 s"
+16 16 "3,2 s"
+17 17 "3,4 s"
+18 18 "3,6 s"
+19 19 "3,8 s"
+20 20 "4 s"
+21 21 "4,2 s"
+22 22 "4,4 s"
+23 23 "4,6 s"
+24 24 "4,8 s"
+25 25 "5 s"
+26 26 "5,2 s"
+27 27 "5,4 s"
+28 28 "5,6 s"
+29 29 "5,8 s"
+30 30 "6 s"
+31 31 "6,2 s"
+32 32 "6,4 s"
+33 33 "6,6 s"
+34 34 "6,8 s"
+35 35 "7 s"
+36 36 "7,2 s"
+37 37 "7,4 s"
+38 38 "7,6 s"
+39 39 "7,8 s"
+40 40 "8 s"
+41 41 "8,2 s"
+42 42 "8,4 s"
+43 43 "8,6 s"
+44 44 "8,8 s"
+45 45 "9 s"
+46 46 "9,2 s"
+47 47 "9,4 s"
+48 48 "9,6 s"
+49 49 "9,8 s"
+50 50 "10 s"
+51 51 "10,2 s"
+52 52 "10,4 s"
+53 53 "10,6 s"
+54 55 "11 s"
+56 57 "12 s"
+58 59 "13 s"
+60 62 "14 s"
+63 64 "15 s"
+65 67 "16 s"
+68 69 "17 s"
+70 72 "18 s"
+73 74 "19 s"
+75 77 "20 s"
+78 80 "21 s"
+81 82 "22 s"
+83 85 "23 s"
+86 87 "24 s"
+88 90 "25 s"
+91 92 "26 s"
+93 95 "27 s"
+96 97 "28 s"
+98 100 "29s"
+101 103 "30 s"
+104 105 "31 s"
+106 108 "32 s"
+109 110 "33 s"
+111 113 "34 s"
+114 115 "35 s"
+116 118 "36 s"
+119 120 "37 s"
+121 123 "38 s"
+124 126 "39 s"
+127 128 "40 s"
+129 131 "41 s"
+132 133 "42 s"
+134 136 "43 s"
+137 138 "44 s"
+139 141 "45 s"
+142 143 "46 s"
+144 146 "47 s"
+147 148 "48 s"
+149 151 "49 s"
+152 154 "50 s"
+155 156 "51 s"
+157 159 "52 s"
+160 161 "53 s"
+162 164 "54 s"
+165 166 "55 s"
+167 169 "56 s"
+170 171 "57 s"
+172 174 "58 s"
+175 177 "59 s"
+178 179 "60 s"
+180 182 "65 s"
+183 184 "70 s"
+185 187 "75 s"
+188 189 "80 s"
+190 192 "85 s"
+193 194 "90 s"
+195 197 "95 s"
+198 199 "100 s"
+200 202 "110 s"
+203 205 "120 s"
+206 207 "130 s"
+208 210 "140 s"
+211 212 "150 s"
+213 215 "160 s"
+216 217 "170 s"
+218 220 "180 s"
+221 222 "190 s"
+223 225 "200 s"
+226 228 "210 s"
+229 230 "220 s"
+231 233 "230 s"
+234 235 "240 s"
+236 238 "250 s"
+239 240 "260 s"
+241 243 "270 s"
+244 245 "280 s"
+246 248 "290 s"
+249 250 "300 s"
+251 254 "310 s"
+255 255 "Cue Data"
+REND
+
+RANGE 25
+0  0 "Full Speed"
+1 1 "0,2 s"
+2 2 "0,4 s"
+3 3 "0,6 s"
+4 4 "0,8 s"
+5 5 "1 s"
+6 6 "1,2 s"
+7 7 "1,4 s"
+8 8 "1,6 s"
+9 9 "1,8 s"
+10 10 "2 s"
+11 11 "2,2 s"
+12 12 "2,4 s"
+13 13 "2,6 s"
+14 14 "2,8 s"
+15 15 "3 s"
+16 16 "3,2 s"
+17 17 "3,4 s"
+18 18 "3,6 s"
+19 19 "3,8 s"
+20 20 "4 s"
+21 21 "4,2 s"
+22 22 "4,4 s"
+23 23 "4,6 s"
+24 24 "4,8 s"
+25 25 "5 s"
+26 26 "5,2 s"
+27 27 "5,4 s"
+28 28 "5,6 s"
+29 29 "5,8 s"
+30 30 "6 s"
+31 31 "6,2 s"
+32 32 "6,4 s"
+33 33 "6,6 s"
+34 34 "6,8 s"
+35 35 "7 s"
+36 36 "7,2 s"
+37 37 "7,4 s"
+38 38 "7,6 s"
+39 39 "7,8 s"
+40 40 "8 s"
+41 41 "8,2 s"
+42 42 "8,4 s"
+43 43 "8,6 s"
+44 44 "8,8 s"
+45 45 "9 s"
+46 46 "9,2 s"
+47 47 "9,4 s"
+48 48 "9,6 s"
+49 49 "9,8 s"
+50 50 "10 s"
+51 51 "10,2 s"
+52 52 "10,4 s"
+53 53 "10,6 s"
+54 55 "11 s"
+56 57 "12 s"
+58 59 "13 s"
+60 62 "14 s"
+63 64 "15 s"
+65 67 "16 s"
+68 69 "17 s"
+70 72 "18 s"
+73 74 "19 s"
+75 77 "20 s"
+78 80 "21 s"
+81 82 "22 s"
+83 85 "23 s"
+86 87 "24 s"
+88 90 "25 s"
+91 92 "26 s"
+93 95 "27 s"
+96 97 "28 s"
+98 100 "29s"
+101 103 "30 s"
+104 105 "31 s"
+106 108 "32 s"
+109 110 "33 s"
+111 113 "34 s"
+114 115 "35 s"
+116 118 "36 s"
+119 120 "37 s"
+121 123 "38 s"
+124 126 "39 s"
+127 128 "40 s"
+129 131 "41 s"
+132 133 "42 s"
+134 136 "43 s"
+137 138 "44 s"
+139 141 "45 s"
+142 143 "46 s"
+144 146 "47 s"
+147 148 "48 s"
+149 151 "49 s"
+152 154 "50 s"
+155 156 "51 s"
+157 159 "52 s"
+160 161 "53 s"
+162 164 "54 s"
+165 166 "55 s"
+167 169 "56 s"
+170 171 "57 s"
+172 174 "58 s"
+175 177 "59 s"
+178 179 "60 s"
+180 182 "65 s"
+183 184 "70 s"
+185 187 "75 s"
+188 189 "80 s"
+190 192 "85 s"
+193 194 "90 s"
+195 197 "95 s"
+198 199 "100 s"
+200 202 "110 s"
+203 205 "120 s"
+206 207 "130 s"
+208 210 "140 s"
+211 212 "150 s"
+213 215 "160 s"
+216 217 "170 s"
+218 220 "180 s"
+221 222 "190 s"
+223 225 "200 s"
+226 228 "210 s"
+229 230 "220 s"
+231 233 "230 s"
+234 235 "240 s"
+236 238 "250 s"
+239 240 "260 s"
+241 243 "270 s"
+244 245 "280 s"
+246 248 "290 s"
+249 250 "300 s"
+251 254 "310 s"
+255 255 "Cue Data"
+REND
+
+RANGE 26
+0  0 "Full Speed"
+1 1 "0,2 s"
+2 2 "0,4 s"
+3 3 "0,6 s"
+4 4 "0,8 s"
+5 5 "1 s"
+6 6 "1,2 s"
+7 7 "1,4 s"
+8 8 "1,6 s"
+9 9 "1,8 s"
+10 10 "2 s"
+11 11 "2,2 s"
+12 12 "2,4 s"
+13 13 "2,6 s"
+14 14 "2,8 s"
+15 15 "3 s"
+16 16 "3,2 s"
+17 17 "3,4 s"
+18 18 "3,6 s"
+19 19 "3,8 s"
+20 20 "4 s"
+21 21 "4,2 s"
+22 22 "4,4 s"
+23 23 "4,6 s"
+24 24 "4,8 s"
+25 25 "5 s"
+26 26 "5,2 s"
+27 27 "5,4 s"
+28 28 "5,6 s"
+29 29 "5,8 s"
+30 30 "6 s"
+31 31 "6,2 s"
+32 32 "6,4 s"
+33 33 "6,6 s"
+34 34 "6,8 s"
+35 35 "7 s"
+36 36 "7,2 s"
+37 37 "7,4 s"
+38 38 "7,6 s"
+39 39 "7,8 s"
+40 40 "8 s"
+41 41 "8,2 s"
+42 42 "8,4 s"
+43 43 "8,6 s"
+44 44 "8,8 s"
+45 45 "9 s"
+46 46 "9,2 s"
+47 47 "9,4 s"
+48 48 "9,6 s"
+49 49 "9,8 s"
+50 50 "10 s"
+51 51 "10,2 s"
+52 52 "10,4 s"
+53 53 "10,6 s"
+54 55 "11 s"
+56 57 "12 s"
+58 59 "13 s"
+60 62 "14 s"
+63 64 "15 s"
+65 67 "16 s"
+68 69 "17 s"
+70 72 "18 s"
+73 74 "19 s"
+75 77 "20 s"
+78 80 "21 s"
+81 82 "22 s"
+83 85 "23 s"
+86 87 "24 s"
+88 90 "25 s"
+91 92 "26 s"
+93 95 "27 s"
+96 97 "28 s"
+98 100 "29s"
+101 103 "30 s"
+104 105 "31 s"
+106 108 "32 s"
+109 110 "33 s"
+111 113 "34 s"
+114 115 "35 s"
+116 118 "36 s"
+119 120 "37 s"
+121 123 "38 s"
+124 126 "39 s"
+127 128 "40 s"
+129 131 "41 s"
+132 133 "42 s"
+134 136 "43 s"
+137 138 "44 s"
+139 141 "45 s"
+142 143 "46 s"
+144 146 "47 s"
+147 148 "48 s"
+149 151 "49 s"
+152 154 "50 s"
+155 156 "51 s"
+157 159 "52 s"
+160 161 "53 s"
+162 164 "54 s"
+165 166 "55 s"
+167 169 "56 s"
+170 171 "57 s"
+172 174 "58 s"
+175 177 "59 s"
+178 179 "60 s"
+180 182 "65 s"
+183 184 "70 s"
+185 187 "75 s"
+188 189 "80 s"
+190 192 "85 s"
+193 194 "90 s"
+195 197 "95 s"
+198 199 "100 s"
+200 202 "110 s"
+203 205 "120 s"
+206 207 "130 s"
+208 210 "140 s"
+211 212 "150 s"
+213 215 "160 s"
+216 217 "170 s"
+218 220 "180 s"
+221 222 "190 s"
+223 225 "200 s"
+226 228 "210 s"
+229 230 "220 s"
+231 233 "230 s"
+234 235 "240 s"
+236 238 "250 s"
+239 240 "260 s"
+241 243 "270 s"
+244 245 "280 s"
+246 248 "290 s"
+249 250 "300 s"
+251 254 "310 s"
+255 255 "Cue Data"
+REND
+
+RANGE 27
+0  0 "Full Speed"
+1 1 "0,2 s"
+2 2 "0,4 s"
+3 3 "0,6 s"
+4 4 "0,8 s"
+5 5 "1 s"
+6 6 "1,2 s"
+7 7 "1,4 s"
+8 8 "1,6 s"
+9 9 "1,8 s"
+10 10 "2 s"
+11 11 "2,2 s"
+12 12 "2,4 s"
+13 13 "2,6 s"
+14 14 "2,8 s"
+15 15 "3 s"
+16 16 "3,2 s"
+17 17 "3,4 s"
+18 18 "3,6 s"
+19 19 "3,8 s"
+20 20 "4 s"
+21 21 "4,2 s"
+22 22 "4,4 s"
+23 23 "4,6 s"
+24 24 "4,8 s"
+25 25 "5 s"
+26 26 "5,2 s"
+27 27 "5,4 s"
+28 28 "5,6 s"
+29 29 "5,8 s"
+30 30 "6 s"
+31 31 "6,2 s"
+32 32 "6,4 s"
+33 33 "6,6 s"
+34 34 "6,8 s"
+35 35 "7 s"
+36 36 "7,2 s"
+37 37 "7,4 s"
+38 38 "7,6 s"
+39 39 "7,8 s"
+40 40 "8 s"
+41 41 "8,2 s"
+42 42 "8,4 s"
+43 43 "8,6 s"
+44 44 "8,8 s"
+45 45 "9 s"
+46 46 "9,2 s"
+47 47 "9,4 s"
+48 48 "9,6 s"
+49 49 "9,8 s"
+50 50 "10 s"
+51 51 "10,2 s"
+52 52 "10,4 s"
+53 53 "10,6 s"
+54 55 "11 s"
+56 57 "12 s"
+58 59 "13 s"
+60 62 "14 s"
+63 64 "15 s"
+65 67 "16 s"
+68 69 "17 s"
+70 72 "18 s"
+73 74 "19 s"
+75 77 "20 s"
+78 80 "21 s"
+81 82 "22 s"
+83 85 "23 s"
+86 87 "24 s"
+88 90 "25 s"
+91 92 "26 s"
+93 95 "27 s"
+96 97 "28 s"
+98 100 "29s"
+101 103 "30 s"
+104 105 "31 s"
+106 108 "32 s"
+109 110 "33 s"
+111 113 "34 s"
+114 115 "35 s"
+116 118 "36 s"
+119 120 "37 s"
+121 123 "38 s"
+124 126 "39 s"
+127 128 "40 s"
+129 131 "41 s"
+132 133 "42 s"
+134 136 "43 s"
+137 138 "44 s"
+139 141 "45 s"
+142 143 "46 s"
+144 146 "47 s"
+147 148 "48 s"
+149 151 "49 s"
+152 154 "50 s"
+155 156 "51 s"
+157 159 "52 s"
+160 161 "53 s"
+162 164 "54 s"
+165 166 "55 s"
+167 169 "56 s"
+170 171 "57 s"
+172 174 "58 s"
+175 177 "59 s"
+178 179 "60 s"
+180 182 "65 s"
+183 184 "70 s"
+185 187 "75 s"
+188 189 "80 s"
+190 192 "85 s"
+193 194 "90 s"
+195 197 "95 s"
+198 199 "100 s"
+200 202 "110 s"
+203 205 "120 s"
+206 207 "130 s"
+208 210 "140 s"
+211 212 "150 s"
+213 215 "160 s"
+216 217 "170 s"
+218 220 "180 s"
+221 222 "190 s"
+223 225 "200 s"
+226 228 "210 s"
+229 230 "220 s"
+231 233 "230 s"
+234 235 "240 s"
+236 238 "250 s"
+239 240 "260 s"
+241 243 "270 s"
+244 245 "280 s"
+246 248 "290 s"
+249 250 "300 s"
+251 254 "310 s"
+255 255 "Cue Data"
+REND

@@ -1,0 +1,235 @@
+; 'JB Lighting VaryScan 4 Compact Plus 575 HMI', 8 DMX Channels, filename: VS4C575H.R20
+;  Copyright © Avolites Ltd. 2009
+;
+;   Date       By                Description
+;   01-05-09   Pers Creator      Created - Exported from Diamond 4 file.
+;   01-05-09   David Hunt        Checked
+;   05-05-09   Jonathan Moreton  Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  VSVS4CP575H                         mode=8 DMX, 8bit  8 DMX Channels
+NAME "JB Lighting" "VaryScan 4 Compact Plus 575HMI"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  8  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  1   170   90
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 8 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=504
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    5   100   1N   O   1   "Shutter"         127     0     0
+3    61   L    1   100   1N   E   1   "Pan"             127     0     0
+3     1   L    2   100   1N   F   1   "Tilt"            127     0     0
+4     1   I    4   100   1N   A   1   "Colour"            0     0     0
+6     1   I    3   100   1N   I   1   "Gobo"              0     0     0
+7     1   L    7   100   1N   K   1   "Gobo Rot"          0     0     0
+2     1   L    6   100   1N   G   1   "Iris"            255     0     0
+9     1   I    8   100   1N   P   1   "Effect"            0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+JB Lighting
+VaryScan 4 Compact Plus 575 HMI
+8 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Pan/Tilt"   -1   1   2
+"Middle"             21  7F  7F
+"Left"               22  4F  7F
+"Right"              23  B0  7F
+"Top"                24  7F  4F
+"Bottom"             25  7F  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1   4
+"Open"                1   4
+"Colour 2"            2  14
+"Colour 10"           3  54
+"Colour 4"            4  24
+"Colour 8"            5  44
+"Open"                6   4
+"Colour 12"           7  64
+"Colour 12"           9  64
+"Colour 6"           10  34
+"Colour 6"            8  34
+PFEND
+
+PFTABLE "Gobo"       -1   3   7
+"Open"               11  10   0
+"Gobo 1"             12  30   0
+"Gobo 2"             13  50   0
+"Gobo 3"             14  70   0
+"Gobo 4"             15  90   0
+"Gobo 5"             16  CF   0
+"No Spin"            17   0  E0
+"Spin CW"            18   0  CF
+"Spin CCW"           20   0  F0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 5  ;Shutter
+0   19   "Closed"
+20  127  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 137  "Open"
+138 139  "Op Immed"
+140 243  "Strobe %3d%%"(c-a)*100/(b-a)
+244 255  "Open"
+REND
+
+RANGE 1  ;Pan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Tilt
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Colour
+0   7    "Open"
+8   15   "Colour 1"
+16  23   "Colour 2"
+24  31   "Colour 3"
+32  39   "Colour 4"
+40  47   "Colour 5"
+48  55   "Colour 6"
+56  63   "Colour 7"
+64  71   "Colour 8"
+72  79   "Colour 9"
+80  87   "Colour 10"
+88  95   "Colour 11"
+96  103  "Colour 12"
+104 111  "Colour 13"
+112 119  "Colour 14"
+120 127  "Colour 15"
+128 255  "Scroll %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 3  ;Gobo
+0   31   "Open"
+32  63   "Gobo 1"
+64  95   "Gobo 2"
+96  127  "Gobo 3"
+128 159  "Gobo 4"
+160 254  "Gobo 5"
+255 255  "Reset"
+REND
+
+RANGE 7  ;Gobo Rot
+0   191  "Index %3d%%"(c-a)*100/(b-a)
+192 222  "Sp CW %3d%%"100-((c-a)*100/(b-a))
+223 224  "No Spin"
+225 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 6  ;Iris
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Effect
+0   31   "Open"
+32  63   "Artificial"
+64  95   "Daylight"
+96  111  "Prism"
+112 127  "MP %3d%%"(c-a)*100/(b-a)
+128 159  "FloodFilter"
+160 255  "VFO %3d%%"(c-a)*100/(b-a)
+REND
+

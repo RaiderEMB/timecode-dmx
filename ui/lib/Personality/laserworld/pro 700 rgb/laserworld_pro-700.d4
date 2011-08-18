@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Pro-700 RGB" ShortName="RGB  Laser" Company="Laserworld">
+  <Copyright Notice="© Avolites Ltd. 2010" />
+  <History Date="08-10-10" Author="john rogers" Comment="Created" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="PTSpeed_Func" Name="P/T Speed Func" Description="" Group="S" Size="0">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Speed_Func" Display="'Speed'" Dmx="0~0" Update="PT_Speed" />
+      <Function ID="2" Name="Reset_Func" Display="'Reset'" Dmx="0~0" Update="PT_Speed" />
+    </Attribute>
+    <Attribute ID="PT_Speed" Name="P/T Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Condition Name="Speed_Func" ID="1" If="'PTSpeed_Func'==1" />
+      <Condition Name="Reset_Func" ID="2" If="'PTSpeed_Func'==2" />
+      <Else ID="3" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',100.0~0.0" Dmx="0~252" />
+      <Function ID="2" Name="Reset" Display="'Reset'" Dmx="253~255" />
+      <Function ID="3" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~29" Colour="0,0,0" />
+      <Function ID="2" Name="Open" Display="'Open'" Dmx="30~59" Colour="255,255,255" />
+      <Function ID="3" Name="Yellow" Display="'Yellow'" Dmx="60~89" Colour="255,255,0" />
+      <Function ID="4" Name="Red" Display="'Red'" Dmx="90~119" Colour="255,0,0" />
+      <Function ID="5" Name="Green" Display="'Green'" Dmx="120~149" Colour="0,255,0" />
+      <Function ID="6" Name="Cyan" Display="'Cyan'" Dmx="150~179" Colour="0,255,255" />
+      <Function ID="7" Name="Blue" Display="'Blue'" Dmx="180~209" Colour="0,0,255" />
+      <Function ID="8" Name="Purple" Display="'Purple'" Dmx="210~239" Colour="128,0,255" />
+      <Function ID="9" Name="Scroll" Display="'Scroll %.f%%',0~100" Dmx="240~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Pattern_Group" Name="Pattern Group" Description="" Group="G">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Group 1" Display="'Group 1'" Dmx="0~31" WheelPosition="1" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Group 2" Display="'Group 2'" Dmx="32~63" WheelPosition="2" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Group 3" Display="'Group 3'" Dmx="64~95" WheelPosition="3" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="Group 4" Display="'Group 4'" Dmx="96~127" WheelPosition="4" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="5" Name="Group 5" Display="'Group 5'" Dmx="128~159" WheelPosition="5" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="6" Name="Group 6" Display="'Group 6'" Dmx="160~191" WheelPosition="6" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="7" Name="Group 7" Display="'Group 7'" Dmx="192~223" WheelPosition="7" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="8" Name="Group 8" Display="'Group 8'" Dmx="224~255" WheelPosition="8" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Pattern" Name="Pattern" Description="" Group="G">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Pattern" Display="'%.f',0~255" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="X_Rot" Name="X Roll" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Spin" Display="'Spin %.1f%%',0.0~100.0" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Y_Rot" Name="Y Roll" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Spin" Display="'Spin %.1f%%',0.0~100.0" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Z_Rot" Name="Z Roll" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Spin" Display="'Spin %.1f%%',0.0~100.0" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="X_Pos" Name="X Position" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Y_Pos" Name="Y Position" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="X_Stretch" Name="X Stretch" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Y_Stretch" Name="Y Stretch" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="XY_Stretch" Name="XY Stretch" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Slow_Draw_Speed" Name="Slow Draw" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Point_Draw" Name="Point Draw" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Scan_Speed" Name="Scan Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Pattern_Size" Name="Pattern Size" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Original Size" Display="'Original Size'" Dmx="0~1" WheelPosition="0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Size" Display="'%.f',0~100" Dmx="2~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="20 DMX, 8bit" Channels="18">
+    <Import PearlRef="LZ_P700RGB" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Pan" ChannelOffset="1" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="2" Wheel="3" />
+      <Attribute ID="Colour1" ChannelOffset="4" Wheel="8" />
+      <Attribute ID="Pattern_Group" ChannelOffset="5" Wheel="13" />
+      <Attribute ID="Pattern" ChannelOffset="6" Wheel="14" />
+      <Attribute ID="X_Rot" ChannelOffset="7" Wheel="16" />
+      <Attribute ID="Y_Rot" ChannelOffset="8" Wheel="17" />
+      <Attribute ID="Z_Rot" ChannelOffset="9" Wheel="18" />
+      <Attribute ID="Pattern_Size" ChannelOffset="18" Wheel="15" />
+      <Attribute ID="X_Pos" ChannelOffset="10" Wheel="19" />
+      <Attribute ID="Y_Pos" ChannelOffset="11" Wheel="20" />
+      <Attribute ID="X_Stretch" ChannelOffset="12" Wheel="21" />
+      <Attribute ID="Y_Stretch" ChannelOffset="13" Wheel="49" />
+      <Attribute ID="XY_Stretch" ChannelOffset="14" Wheel="50" />
+      <Attribute ID="PTSpeed_Func" Wheel="28" />
+      <Attribute ID="PT_Speed" ChannelOffset="3" Wheel="29" />
+      <Attribute ID="Slow_Draw_Speed" ChannelOffset="15" Wheel="22" />
+      <Attribute ID="Point_Draw" ChannelOffset="16" Wheel="23" />
+      <Attribute ID="Scan_Speed" ChannelOffset="17" Wheel="24" />
+    </Include>
+  </Mode>
+</Fixture>

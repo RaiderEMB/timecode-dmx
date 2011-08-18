@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="iCYC 250" ShortName="iCYC 250" Company="Coemar">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="16-06-06" Author="Ed" Comment="Created" />
+  <History Date="16-06-06" Author="Ed" Comment="Checked" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:20" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="11~30" />
+      <Function ID="2" Name="Lamp Off" Display="'Lamp Off'" Dmx="0~10" />
+      <Function ID="3" Name="CMY, Dim Reset" Display="'CMY, Dim Reset'" Dmx="31~45" />
+      <Function ID="4" Name="CMY Reset" Display="'CMY Reset'" Dmx="46~60" />
+      <Function ID="5" Name="Program Stop" Display="'Program Stop'" Dmx="61~80" />
+      <Function ID="6" Name="Pause" Display="'Pause %.f%%',0~100" Dmx="81~241" />
+      <Function ID="7" Name="Lamp On" Display="'Lamp On'" Dmx="242~255" />
+    </Attribute>
+    <Attribute ID="Function" Name="Function" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~9" />
+      <Function ID="2" Name="Macro 1" Display="'Macro 1'" Dmx="10~33" />
+      <Function ID="3" Name="Macro 2" Display="'Macro 2'" Dmx="34~56" />
+      <Function ID="4" Name="Macro 3" Display="'Macro 3'" Dmx="57~79" />
+      <Function ID="5" Name="Macro 4" Display="'Macro 4'" Dmx="80~102" />
+      <Function ID="6" Name="Macro 5" Display="'Macro 5'" Dmx="103~125" />
+      <Function ID="7" Name="Macro 6" Display="'Macro 6'" Dmx="126~148" />
+      <Function ID="8" Name="Macro 7" Display="'Macro 7'" Dmx="149~171" />
+      <Function ID="9" Name="Macro 8" Display="'Macro 8'" Dmx="172~194" />
+      <Function ID="10" Name="Macro 9" Display="'Macro 9'" Dmx="195~217" />
+      <Function ID="11" Name="Random" Display="'Random'" Dmx="218~240" />
+      <Function ID="12" Name="All Macros" Display="'All Macros'" Dmx="241~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="6 DMX, 8bit" Channels="6">
+    <Import PearlRef="" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="360" TiltMax="360" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Cyan" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="4" Wheel="12" />
+      <Attribute ID="Function" ChannelOffset="5" Wheel="29" />
+      <Attribute ID="Control" ChannelOffset="6" Wheel="28" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Control:7" Delay="7000" />
+      <Set Channel="Control:1" Delay="1000" />
+    </Macro>
+    <Macro Name="Lamp Off">
+      <Set Channel="Control:2" Delay="7000" />
+      <Set Channel="Control:1" Delay="1000" />
+    </Macro>
+    <Macro Name="Reset">
+      <Set Channel="Control:3" Delay="7000" />
+      <Set Channel="Control:1" Delay="1000" />
+    </Macro>
+  </Macro>
+</Fixture>

@@ -1,0 +1,250 @@
+; 'High End DML 1200 Video Mode', 36 DMX Channels, filename: HE1200VM.R20
+;  Copyright © Avolites Ltd. 2008
+;
+;   Date       By                Description
+;   12-11-08   Pers Creator      Created - Exported from Diamond 4 file.
+;   12-11-08   David Hunt        Checked
+;   21-11-08   Jonathan Moreton  Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  HE_D1200VM                          mode=Video Mode  36 DMX Channels
+NAME "High End" "DML 1200 Video Mode"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  36  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Video Mode"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=476
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+8    61   I    1   100   1N   0   1   "Source Selec"      0     0     0
+2     1   L    2   100   1N   0   1   "Brightness"      128     0     0
+2    61   L    3   100   1N   0   1   "Contrast"        128     0     0
+12   61   L    4   100   1N   0   1   "Saturation"      128     0     0
+8     1   I    5   100   1N   0   1   "Orientation"       0     0     0
+6     1   s    6   100   1N   0   1   "Blanking Lef"      0     0     0
+0     0   L    7   100   1N   0   1   "Blanking Low"      0     0     0
+17   61   s    8   100   1N   0   1   "Blanking Rig"      0     0     0
+0     0   L    9   100   1N   0   1   "Blanking Low"      0     0     0
+17    1   s   10   100   1N   0   1   "Blanking Top"      0     0     0
+0     0   L   11   100   1N   0   1   "Blanking Low"      0     0     0
+6    61   s   12   100   1N   0   1   "Blanking Bot"      0     0     0
+0     0   L   13   100   1N   0   1   "Blanking Low"      0     0     0
+15    1   L   14   100   1N   0   1   "Soft Edge Le"      0     0     0
+16    1   I   15   100   1N   0   1   "Soft Edge Rg"      0     0     0
+15   61   L   16   100   1N   0   1   "Soft Edge To"      0     0     0
+16   61   L   17   100   1N   0   1   "Soft Edge Bo"      0     0     0
+5     1   L   18   100   1N   0   1   "Video Func S"    128     0     0
+5    61   s   19   100   1N   0   1   "Video Param"     128     0     0
+0     0   L   20   100   1N   0   1   "Video Pa Low"      0     0     0
+9     1   I   21   100   1N   0   1   "Warp Func Se"      0     0     0
+4     1   s   22   100   1N   0   1   "Warp Param"      128     0     0
+0     0   L   23   100   1N   0   1   "Warp Par Low"    128     0     0
+14    1   s   24   100   1N   0   1   "Reserved"          0     0     0
+0     0   L   25   100   1N   0   1   "Reserved Low"      0     0     0
+14   61   s   26   100   1N   0   1   "Reserved"          0     0     0
+0     0   L   27   100   1N   0   1   "Reserved Low"      0     0     0
+19    1   s   28   100   1N   0   1   "Reserved"          0     0     0
+0     0   L   29   100   1N   0   1   "Reserved Low"      0     0     0
+19   61   s   30   100   1N   0   1   "Reserved"          0     0     0
+0     0   L   31   100   1N   0   1   "Reserved Low"      0     0     0
+18    1   s   32   100   1N   0   1   "Reserved"          0     0     0
+0     0   L   33   100   1N   0   1   "Reserved Low"      0     0     0
+13   61   s   34   100   1N   0   1   "Reserved"          0     0     0
+0     0   L   35   100   1N   0   1   "Reserved Low"      0     0     0
+13    1   L   36   100   1N   0   1   "Reserved"          0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+High End DML 1200
+Video Mode
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Source Select
+0   31   "Safe"
+32  63   "RGBHV"
+64  95   "HDSDI/SDI"
+96  127  "DVI"
+128 159  "MP"
+160 255  "Res %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 2  ;Brightness
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Contrast
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Saturation
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Orientation
+0   31   "Safe"
+32  63   "Mirror"
+64  95   "Flip"
+96  127  "Flip + Mir"
+128 255  "Res %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 6  ;Blanking Left
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Blanking Right
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Blanking Top
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;Blanking Bottm
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Soft Edge Left
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;Soft Edge Rght
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Soft Edge Top
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;Soft Edge Botm
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 18  ;Video Func Sel
+0   7    "Safe"
+8   255  "Res %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 19  ;Video Param
+0   255  "Res %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 21  ;Warp Func Sel
+0   7    "Safe"
+8   15   "Warp File 1"
+16  23   "Warp File 2"
+24  31   "Warp File 3"
+32  39   "Warp File 4"
+40  47   "Warp File 5"
+48  55   "Warp File 6"
+56  63   "Warp File 7"
+64  71   "Warp File 8"
+72  79   "Warp File 9"
+80  87   "Wrp File 10"
+88  95   "Wrp File 11"
+96  103  "Wrp File 12"
+104 111  "Wrp File 13"
+112 119  "Wrp File 14"
+120 127  "Wrp File 15"
+128 135  "Wrp Param"
+136 247  "Res %3d%%"(c-a)*100/(b-a)
+248 255  "Warp Enable"
+REND
+
+

@@ -1,0 +1,242 @@
+; 'GLP Impression Meisterstuck Compress, 12 DMX', 12 DMX Channels, filename: GLIMSTRC.R20
+;  Copyright © Avolites Ltd. 2011
+;
+;   Date       By                Description
+;   23-06-11   Niclights         Created
+;   23-06-11   Pers Creator      Created - Exported from Diamond 4 file.
+;   23-06-11   Nic Morris        Checked.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  GL_IMSTRC                           mode=Compress, 12 DMX  12 DMX Channels
+NAME "GLP" "Imp Meisterstuck Comp, 12 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  12  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   540  245
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Compress, 12 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=500
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   s    1   100   1N   E   1   "Pan"             128     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        128     0     0
+14    1   L    5   100   1N   A   1   "Colour"            0     0     0
+10    1   L    6   100   1N   T   1   "Red"             255   255     0
+10   61   L    7   100   1N   U   1   "Green"           255   255     0
+9    61   L    8   100   1N   V   1   "Blue"            255     0   230
+4     1   L    9   100   1N   0   1   "White"             0     0     0
+2    61   L   10   100   1N   O   1   "Shutter"         251     0     0
+1     1   H   11   100   1N   H   1   "Dimmer"          255     0     0
+5     1   L   12   100   1N   Q   1   "Zoom"            127     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+GLP
+Impression Meisterstuck
+Compress, 12 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Pan/Tilt"   -1   1   3
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1   6   7   8
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  80   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  80   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Colour
+0   3    "RGB"
+4   7    "Red"
+8   11   "Amber"
+12  15   "Warm Yellow"
+16  19   "Yellow"
+20  23   "Green"
+24  27   "Turquoise"
+28  31   "Cyan"
+32  35   "Blue"
+36  39   "Lavender"
+40  43   "Mauve"
+44  47   "Magenta"
+48  51   "Pink"
+52  55   "White 3200K"
+56  59   "White 5600K"
+60  63   "White 7200K"
+64  67   "Quartet 1"
+68  71   "Quartet 2"
+72  75   "Quartet 3"
+76  79   "Quartet 4"
+80  83   "Quartet 5"
+84  87   "Quartet 6"
+88  91   "Quartet 7"
+92  95   "Quartet 8"
+96  99   "Quartet 9"
+100 103  "Quartet 10"
+104 107  "Quartet 11"
+108 111  "Quartet 12"
+112 115  "Quartet 13"
+116 119  "Quartet 14"
+120 123  "Quartet 15"
+124 127  "Quartet 16"
+128 128  "No Scroll"
+129 223  "Scroll %3d%%"(c-a)*100/(b-a)
+224 255  "Random %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 6  ;Red
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Green
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Blue
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;White
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Shutter
+0   15   "Closed"
+16  47   "Rnd Pu %3d%%"(c-a)*100/(b-a)
+48  79   "Open P %3d%%"(c-a)*100/(b-a)
+80  111  "Close  %3d%%"(c-a)*100/(b-a)
+112 143  "Pulse %3d%%"(c-a)*100/(b-a)
+144 199  "Strobe %3d%%"(c-a)*100/(b-a)
+200 239  "Strobe %3d%%"(c-a)*100/(b-a)
+240 249  "Open"
+250 250  "Reset"
+251 255  "Open"
+REND
+
+RANGE 11  ;Dimmer
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;Zoom
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

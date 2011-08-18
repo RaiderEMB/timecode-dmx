@@ -1,0 +1,180 @@
+; 'Chauvet ColourStrip', 4 DMX Channels, filename: CHColStr.R20
+;  Copyright © Avolites Ltd. 2008
+;
+;   Date       By                Description
+;   15-07-08   Pers Creator      Created - Exported from Diamond 4 file.
+;   15-07-08   David Hunt        Checked
+;   21-07-08   Jonathan Moreton  Checked
+;   20-08-09   Jonathan Moreton  Changed control locate to RGB Mode and swapped red and green range tables
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  CH_ColStr                            mode=4 DMX, 8bit  4 DMX Channels
+NAME "Chauvet" "ColourStrip"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  4  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 4 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=508
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    1   100   1N   O   1   "Control"          215    40    30
+10    1   L    2   100   1N   T   1   "Red"              255     0     0
+10   61   L    3   100   1N   U   1   "Green"            255     0     0
+9    61   L    4   100   1N   V   1   "Blue"             255     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Chauvet ColourStrip
+4 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Colour"     -1   1   2   3   4
+"Open"                1  D2   0   0  FF
+"Red"                 2  D2  F9   0   0
+"Amber"               3  D2  95   0   0
+"Yellow"              4  D2   0   0   0
+"Green"               5  D2   0  7F   0
+"Cyan"                6  D2   0  7F  FF
+"Blue"                7  D2  F9  7F  FF
+"Lavender"            8  D2  57  2C  F2
+"Purple"              9  D2  F9  40  FF
+"Magenta"            10  D2  F9   0  FF
+PFEND                        
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Master
+0   9    "Blackout"
+10  19   "Red"
+20  29   "Green"
+30  39   "Blue"
+40  49   "Yellow"
+50  59   "Purple"
+60  69   "Cyan"
+70  79   "Open"
+80  89   "Col Chg 1"
+90  99   "Col Chg 2"
+100 109  "Col Chg 3"
+110 119  "Col Chg 4"
+120 129  "Col Chg 5"
+130 139  "Col Chg 6"
+140 149  "Col Chs 1"
+150 159  "Col Chs 2"
+160 169  "Col Chs 3"
+170 179  "Col Chs 4"
+180 189  "Col Chs 5"
+190 199  "Col Chs 6"
+200 209  "Col Chs 7"
+210 219  "RGB Mode"
+220 229  "Colour Fade"
+230 255  "Auto Run"
+REND
+
+RANGE 2  ;Red
+0   127  "At Spd %3d%%"100-((c-a)*100/(b-a))
+128 255  "Sound Act"
+REND
+
+RANGE 3  ;Green
+0   249  "Flash  %3d%%"100-((c-a)*100/(b-a))
+250 255  "Sound Act"
+REND
+
+RANGE 4  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+

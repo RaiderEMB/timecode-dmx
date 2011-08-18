@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="FaderBeam" ShortName="FaderBeam" Company="Morpheus">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="02-08-05" Author="Ed" Comment="Created" />
+  <History Date="08-06-06" Author="Ed" Comment="Added ranges for control channel and macros" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Zoom" Name="Zoom" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Zoom" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:20" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~0" />
+      <Function ID="2" Name="Reset Dowser" Display="'Reset Dowser'" Dmx="75~75" />
+      <Function ID="3" Name="Reset Size" Display="'Reset Size'" Dmx="80~80" />
+      <Function ID="4" Name="Reset Pan" Display="'Reset Pan'" Dmx="85~85" />
+      <Function ID="5" Name="Reset Tilt" Display="'Reset Tilt'" Dmx="90~90" />
+      <Function ID="6" Name="Reset Colour" Display="'Reset Colour'" Dmx="95~95" />
+      <Function ID="7" Name="Reset All" Display="'Reset All'" Dmx="128~128" />
+      <Function ID="8" Name="Lamp Off" Display="'Lamp Off'" Dmx="245~245" />
+      <Function ID="9" Name="Lamp On" Display="'Lamp On'" Dmx="250~250" />
+      <Function ID="10" Name="Shutdown" Display="'Shutdown'" Dmx="255~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="10 DMX, 8bit" Channels="10">
+    <Import PearlRef="MoFaderBeam" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="3,4" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="5,6" Wheel="3" />
+      <Attribute ID="Yellow" ChannelOffset="7" Wheel="12" />
+      <Attribute ID="Magenta" ChannelOffset="8" Wheel="11" />
+      <Attribute ID="Cyan" ChannelOffset="9" Wheel="10" />
+      <Attribute ID="Zoom" ChannelOffset="2" Wheel="19" />
+      <Attribute ID="Control" ChannelOffset="10" Wheel="28" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Reset">
+      <Set Channel="Dimmer:1:0,Zoom:1:0,Pan:1:0,Tilt:1:0,Yellow:1:0,Magenta:1:0,Cyan:1:0,Control:1" Delay="1000" />
+      <Set Channel="Control:7" Delay="3000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Control:9" Delay="3000" />
+      <Set Channel="Control:1" Delay="1000" />
+    </Macro>
+    <Macro Name="Lamp Off">
+      <Set Channel="Control:8" Delay="3000" />
+      <Set Channel="Control:1" Delay="1000" />
+    </Macro>
+    <Macro Name="Shutdown">
+      <Set Channel="Control:10" Delay="3000" />
+      <Set Channel="Control:1" Delay="1000" />
+    </Macro>
+  </Macro>
+</Fixture>

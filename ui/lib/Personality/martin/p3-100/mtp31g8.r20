@@ -1,0 +1,201 @@
+; 'Martin P3-100 Global, 8bit', 3 DMX Channels, filename: MTP31G8.R20
+;  Copyright © Avolites Ltd. 2010
+;
+;   Date       By                Description
+;   23-12-10   Pers Creator      Created - Exported from Diamond 4 file.
+;   23-12-10   Nic Morris        Checked.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MT_P3100G8                          mode=Global, 8bit  3 DMX Channels
+NAME "Martin" "P3-100 Global, 8bit"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  3  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Global, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=509
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+9     1   I    1   100   1N   0   1   "Screen Contr"      0     0     0
+6     1   I    2   100   1N   I   1   "Preset Recal"      0     0     0
+4     1   L    3   100   1N   0   1   "CTO"               0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Martin P3-100
+Global, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Screen Control
+0   127  "Live Input"
+128 135  "Freeze"
+136 143  "Blackout"
+144 151  "Device Numb"
+152 159  "White"
+160 167  "Red"
+168 175  "Green"
+176 183  "Blue"
+184 191  "Int Gradien"
+192 199  "Red Gradien"
+200 207  "Green Gradi"
+208 215  "Blue Gradie"
+216 223  "Colour Bars"
+224 231  "Scrolling G"
+232 239  "Scrolling L"
+240 255  "Safe"
+REND
+
+RANGE 2  ;Preset Recall
+0   50   "Safe"
+51  54   "Preset 1"
+55  58   "Preset 2"
+59  62   "Preset 3"
+63  66   "Preset 4"
+67  70   "Preset 5"
+71  74   "Preset 6"
+75  78   "Preset 7"
+79  82   "Preset 8"
+83  86   "Preset 9"
+87  90   "Preset 10"
+91  94   "Preset 11"
+95  98   "Preset 12"
+99  102  "Preset 13"
+103 106  "Preset 14"
+107 110  "Preset 15"
+111 114  "Preset 16"
+115 118  "Preset 17"
+119 122  "Preset 18"
+123 126  "Preset 19"
+127 130  "Preset 20"
+131 134  "Preset 21"
+135 138  "Preset 22"
+139 142  "Preset 23"
+143 146  "Preset 24"
+147 150  "Preset 25"
+151 154  "Preset 26"
+155 158  "Preset 27"
+159 162  "Preset 28"
+163 166  "Preset 29"
+167 170  "Preset 30"
+171 174  "Preset 31"
+175 178  "Preset 32"
+179 182  "Preset 33"
+183 186  "Preset 34"
+187 190  "Preset 35"
+191 194  "Preset 36"
+195 198  "Preset 37"
+199 202  "Preset 38"
+203 206  "Preset 39"
+207 210  "Preset 40"
+211 214  "Preset 41"
+215 218  "Preset 42"
+219 222  "Preset 43"
+223 226  "Preset 44"
+227 230  "Preset 45"
+231 234  "Preset 46"
+235 238  "Preset 47"
+239 242  "Preset 48"
+243 246  "Preset 49"
+247 250  "Preset 50"
+251 255  "Safe"
+REND
+
+RANGE 3  ;CTO
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+

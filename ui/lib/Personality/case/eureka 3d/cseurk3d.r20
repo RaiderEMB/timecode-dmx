@@ -1,0 +1,313 @@
+; 'Case Eureka 3D', 32 DMX Channels, filename: CSEURK3D.R20
+;
+;   Date       By                Description
+;   16-12-04   Pers Creator      Created - Exported from Diamond 4 file.
+;   17-12-04   Tom Peck          Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  CS_Eureka3D                         mode=32 DMX, 16bit  32 DMX Channels
+NAME "Case" "Eureka 3D"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  32  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0   0   0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 32 DMX, 16bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=480
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dim Bground"     255     0     0
+2     1   L    2   100   1N   0   1   "Dim Object"      255     0     0
+15   61   L   27   100   1N   0   1   "No Func"           0     0     0
+3    61   s   17   100   1N   E   1   "X"               128     0     0
+0     0   L   18   100   1N   E   1   "X Low"           128     0     0
+3     1   s   19   100   1N   F   1   "Y"               128     0     0
+0     0   L   20   100   1N   F   1   "Y Low"           128     0     0
+2    61   s   21   100   1N   0   1   "Z"               128     0     0
+0     0   L   22   100   1N   0   1   "Z Low"           128     0     0
+4     1   I   25   100   1N   0   1   "Move Model"        0     0     0
+10    1   L   13   100   1N   T   1   "Red"               0   255     0
+10   61   L   14   100   1N   U   1   "Green"             0   255     0
+9    61   L   15   100   1N   V   1   "Blue"              0     0   229
+6     1   I    3   100   1N   0   1   "Background B"      0     0     0
+6    61   I    4   100   1N   I   1   "Background"        0     0     0
+7     1   I    5   100   1N   0   1   "Object Bank"       0     0     0
+7    61   I    6   100   1N   J   1   "Object"            0     0     0
+4    61   s    7   100   1N   M   1   "Object Level"      0     0     0
+0     0   L    8   100   1N   M   1   "Object L Low"      0     0     0
+8    61   L   11   100   1N   0   1   "Fog Start"         0     0     0
+8     1   L   12   100   1N   0   1   "Fog Stretch"       0     0     0
+5     1   s   23   100   1N   Q   1   "Zoom"              0     0     0
+0     0   L   24   100   1N   Q   1   "Zoom Low"          0     0     0
+19    1   I    9   100   1N   0   1   "Filter"            0     0     0
+19   61   L   10   100   1N   0   1   "Filter Level"      0     0     0
+18    1   I   16   100   1N   0   1   "Preset"            0     0     0
+18   61   L   26   100   1N   0   1   "Sound Gain"        0     0     0
+17    1   L   28   100   1N   0   1   "No Func"           0     0     0
+17   61   L   29   100   1N   0   1   "No Func"           0     0     0
+16    1   L   30   100   1N   0   1   "No Func"           0     0     0
+16   61   L   31   100   1N   0   1   "No Func"           0     0     0
+15    1   L   32   100   1N   0   1   "No Func"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Case Eureka 3D
+32 DMX, 16bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 25  ;Move Model
+0   0    "1"
+13  13   "2"
+25  25   "3"
+37  37   "4"
+49  49   "5"
+61  61   "6"
+74  74   "7"
+86  86   "8"
+99  99   "9"
+110 110  "10"
+123 123  "11"
+135 135  "12"
+147 147  "13"
+159 159  "14"
+171 171  "15"
+183 183  "16"
+196 196  "17"
+208 208  "18"
+220 220  "19"
+232 232  "20"
+REND
+
+RANGE 3  ;Bg Bank
+0   0    "Bank 1"
+13  13   "Bank 2"
+25  25   "Bank 3"
+37  37   "Bank 4"
+49  49   "Bank 5"
+61  61   "Bank 6"
+74  74   "Bank 7"
+86  86   "Bank 8"
+99  99   "Bank 9"
+110 110  "Bank 10"
+123 123  "Bank 11"
+135 135  "Bank 12"
+147 147  "Bank 13"
+159 159  "Bank 14"
+171 171  "Bank 15"
+183 183  "Bank 16"
+196 196  "Bank 17"
+208 208  "Bank 18"
+220 220  "Bank 19"
+232 232  "Bank 20"
+REND
+
+RANGE 4  ;Background
+0   0    "1"
+13  13   "2"
+25  25   "3"
+37  37   "4"
+49  49   "5"
+61  61   "6"
+74  74   "7"
+86  86   "8"
+99  99   "9"
+110 110  "10"
+123 123  "11"
+135 135  "12"
+147 147  "13"
+159 159  "14"
+171 171  "15"
+183 183  "16"
+196 196  "17"
+208 208  "18"
+220 220  "19"
+232 232  "20"
+REND
+
+RANGE 5  ;Object Bank
+0   0    "Bank 1"
+13  13   "Bank 2"
+25  25   "Bank 3"
+37  37   "Bank 4"
+49  49   "Bank 5"
+61  61   "Bank 6"
+74  74   "Bank 7"
+86  86   "Bank 8"
+99  99   "Bank 9"
+110 110  "Bank 10"
+123 123  "Bank 11"
+135 135  "Bank 12"
+147 147  "Bank 13"
+159 159  "Bank 14"
+171 171  "Bank 15"
+183 183  "Bank 16"
+196 196  "Bank 17"
+208 208  "Bank 18"
+220 220  "Bank 19"
+232 232  "Bank 20"
+REND
+
+RANGE 6  ;Object
+0   0    "1"
+13  13   "2"
+25  25   "3"
+37  37   "4"
+49  49   "5"
+61  61   "6"
+74  74   "7"
+86  86   "8"
+99  99   "9"
+110 110  "10"
+123 123  "11"
+135 135  "12"
+147 147  "13"
+159 159  "14"
+171 171  "15"
+183 183  "16"
+196 196  "17"
+208 208  "18"
+220 220  "19"
+232 232  "20"
+244 244  "Special"
+REND
+
+RANGE 9  ;Filter
+0   0    "1"
+13  13   "2"
+25  25   "3"
+37  37   "4"
+49  49   "5"
+61  61   "6"
+74  74   "7"
+86  86   "8"
+99  99   "9"
+110 110  "10"
+123 123  "11"
+135 135  "12"
+147 147  "13"
+159 159  "14"
+171 171  "15"
+183 183  "16"
+196 196  "17"
+208 208  "18"
+220 220  "19"
+232 232  "20"
+244 244  "Special"
+REND
+
+RANGE 16  ;Preset
+0   0    "1"
+13  13   "2"
+25  25   "3"
+37  37   "4"
+49  49   "5"
+61  61   "6"
+74  74   "7"
+86  86   "8"
+99  99   "9"
+110 110  "10"
+123 123  "11"
+135 135  "12"
+147 147  "13"
+159 159  "14"
+171 171  "15"
+183 183  "16"
+196 196  "17"
+208 208  "18"
+220 220  "19"
+232 232  "20"
+REND

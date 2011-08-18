@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="ColorBlast 12" ShortName="ColorBst12" Company="Color Kinetics">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="01-10-03" Author="" Comment="Created" />
+  <History Date="01-11-04" Author="Phil Rogers" Comment="Shortened short name" />
+  <History Date="29-11-06" Author="D.Milligan" Comment="Aded V-Dim mode" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:0" Clear="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:0" Clear="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:0" Clear="1:0" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:50" />
+      <Function ID="1" Name="Dimmer" Display="'%.f%%',0~100" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="Normal" Channels="3">
+    <Import PearlRef="CKColBls12" DiamondRef="" />
+    <Physical>
+      <Bulb Type="LED" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Red" ChannelOffset="1" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="2" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="3" Wheel="12" />
+    </Include>
+  </Mode>
+  <Mode Name="Normal V-Dim" Channels="3">
+    <Import PearlRef="" DiamondRef="" />
+    <Physical>
+      <Bulb Type="LED" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="1" Wheel="10" VirtualControl="Dimmer" />
+      <Attribute ID="Green" ChannelOffset="2" Wheel="11" VirtualControl="Dimmer" />
+      <Attribute ID="Blue" ChannelOffset="3" Wheel="12" VirtualControl="Dimmer" />
+    </Include>
+  </Mode>
+</Fixture>

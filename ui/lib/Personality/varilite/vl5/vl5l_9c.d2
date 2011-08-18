@@ -1,0 +1,337 @@
+;-----------------------------------------------------------------------|
+; The VL5 LTP 9 Chan Personality for the Diamond II                     |
+;-----------------------------------------------------------------------|
+;       History :-                                                      |
+;-----------------------------------------------------------------------|
+;   Revision |  Date     |  By    | Description                         |
+;------------|-----------|--------|-------------------------------------|
+;       1.0  |  19-03-97 |  DBT   | Created                             |
+;       1.1  |  23-05-97 | TS&DBT | Modified Locate fixture             |
+;            |  01-09-05 | Phil   | Added macros                        |
+;---------------------------------------------------------------------- |
+
+DEVICE=VL5L_9Chan               ; Device Name (upto 11 chars after '='
+DEVICE23=LTP INTENS            ; 22 chars after '='
+                     	; extra information for softkey prompt lines 2&3
+						; a total of 22 chars, split into 2 lines of 11
+
+; Device information
+;                                   __ Number of lines of DMX info.
+;                                  |   __ Number of lines of wheel info
+;                                  |  |
+;                                  |  |
+;                                  |  |
+HSTART   3 9 1b05 360 270 ff 0 7  10  7
+;        | |  |    |   |  |  | |
+;        | |  |    |   |  |  | |__ Line number for flash button DMX info
+;        | |  |    |   |  |  |     from DMX definition (1..x)
+;        | |  |    |   |  |  |__ Button release value
+;        | |  |    |   |  |__ Button ON value (ff means use swop/add fader)
+;        | |  |    |   |__ The TILT arc in Degrees
+;        | |  |    |__ The Pan arc in degrees
+;        | |  |__ Date in PC format (1b05==5/08/93)
+;        | |__ Number of DMX slots used
+;      |__ Patch direction (1-backward, 0 forward, (3 for moving head, 1 for Moving Mirror))
+
+
+TEXTSTART		; Upto 21 lines of 28 characters (use the template below)
+                                     ;
+   VL5 PERSONALITY                   ; 
+                                     ;
+     9 CHANNELS                      ;
+                                     ;
+   LTP INTENSITY                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+T 03-01-95                           ;
+TEXTEND
+
+
+;------------------------------------------------------------
+
+; For the Attribute Dictionary refer to file 'dict.per'
+
+;------------------------------------------------------------
+; DMX information
+; No unused lines allowed between keyword 'DSTART' and last DMX definition
+
+DSTART				; DMX defintion
+1 2  0 0 44 0      ; UNUSED
+2 2 20 0 13 0      ; PAN
+3 0  0 0  0 0      ; PAN LOW
+4 2 20 0 14 0      ; TILT
+5 0  0 0  0 0      ; TILT LOW
+6 2  0 0  6 0      ; BLUE
+7 2  0 0 30 0      ; AMBER
+8 2  0 0  7 0      ; MAGENTA
+9 2  0 0 31 0      ; DIFFUSER
+0 2  0 0  0 0	 ; DIMMER
+;| | | |  | |
+;| | | |  | |__ Spare (always 0 for now)
+;| | | |  |__ Attribute name (See list above)
+;| | | |__ Curve (0 means no curve otherwise curve number)
+;| | |__ Flags (7=inverted, 6=instant, 5=16-bit)
+;| |_ Channel type (1=HTP, 2=LTP, 0=Dummy(for 16-bit defines)
+;|__ DMX offset (1..255, 0 means DIMMER will be patched seperately)
+
+
+;------------------------------------------------------------
+; WHEEL information
+; No unused lines allowed between keyword 'WSTART' and last DMX definition
+
+WSTART
+4 ffff 8000 3 13 1  5  0 1  1  2  0  0  0  0  0  ; 1. PAN
+4 ffff 8000 3 14 1  6  0 1  3  4  0  0  0  0  0  ; 2. TILT
+8 ffff    0 1  6 0  1  0 1  5  6  0  0  0  0  0  ; 3. BLUE
+8 ffff    0 1 30 0  2  0 1  6  7  0  0  0  0  0  ; 4. AMBER
+8 ffff    0 1  7 0  4  0 1  7  8  0  0  0  0  0  ; 5. MAGENTA
+8 ffff    0 1 31 0  7  0 1  8  9  0  0  0  0  0  ; 6. DIFFUSER
+8 ffff ffff 4  0 0  8  0 1  9 10  0  0  0  0  0  ; 7. DIMMER
+;|   |    | |  | |  |  | |  |  |  |  |  |  |  |__ List of Table channels as 
+;|   |    | |  | |  |  | |  |  |_______________ line numbers from DMX def.
+;|   |    | |  | |  |  | |  |                   0 means unused channel
+;|   |    | |  | |  |  | |  |__ DMX line (minus 1) pertainig to this wheel
+;|   |    | |  | |  |  | |__ Number of chanels under control OR Table width
+;|   |    | |  | |  |  |__ Table type (Attribute number) 0 means NOT a table
+;|   |    | |  | |  |__ Wheel number (1..8 on bank1, 9..16 on bank2 et cetera)
+;|   |    | |  | |__ 0 for 8 bits, 1 for 16 bits
+;|   |    | |  |__  Attribute name from above list (0..MAX)
+;|   |    | |__ Wheel type (1-offset, 2-Table, 3-Pan/Tilt, 4-Dimmer)
+;|   |    |__ Default value (left shifted as necessary)
+;|   |__ AND mask, where more than wheel controls same DMX slot
+;|__ Wheel multiplication =16-(bits used)
+;    eg. for 8 bit channels it is 8, for 12 bit channels it is 4
+ 
+;--------------------------------------------------------------------
+; TABLES
+; Each Table is enclosed by the keywords "TSTART" and "*** TEND ***"
+; The legend is 16 chars long
+; The correct number of values must be supplied (8-bits) with spaces in
+; between
+
+
+
+
+;--------------------------------------------------------------------
+
+
+; MAGENTA AND REDS
+TSTART  3  7
+01.              000     064     172
+02.              000     107     255
+03.              070     000     207
+04.              000     095     224
+05.              000     101     255
+06.              043     000     192
+07.              000     077     255
+08.              000     198     231
+09.              000     147     255
+10.              000     179     252
+11.              000     181     165
+12.              000     255     214
+13.              000     193     187
+14.              000     171     233
+15.              092     000     000
+16.              089     101     000
+17.              000     091     171
+18.              000     114     173
+19.              000     111     183
+20.              000     095     137
+21.              000     050     156
+22.              000     091     160
+23.              000     134     177
+24.              000     120     188
+25.              000     123     255
+26.              000     166     255
+27.              000     000     255
+28.              106     074     111
+29.              114     065     000
+30.              104     027     000
+31.              143     000     109
+32.              095     067     089
+33.              118     102     000
+*** TEND ***
+
+;1BLUE AND GREEN
+TSTART  3  6
+01.              228     000     071
+02.              255     051     000
+03.              255     100     000
+04.              161     094     000
+05.              255     075     000
+06.              233     000     033
+07.              161     000     041
+08.              140     084     000
+09.              233     000     033
+10.              255     039     000
+11.              160     035     000
+12.              145     075     000
+13.              255     000     255
+14.              197     000     255
+15.              198     000     158
+16.              136     060     000
+17.              166     000     213
+18.              176     000     167
+19.              255     127     000
+20.              255     119     000
+21.              255     155     000
+22.              217     176     000
+23.              244     202     000
+24.              244     215     000
+25.              255     104     000
+26.              255     127     000
+27.              255     176     000
+*** TEND ***
+
+;YELLOW
+TSTART  3  30
+01.              000     196     061
+02.              000     165     033
+03.              064     101     000
+04.              000     000     101
+05.              084     135     000
+06.              000     091     067
+07.              000     116     116
+08.              000     119     113
+09.              057     125     000
+10.              000     111     089
+11.              059     175     000
+12.              000     131     151
+13.              000     117     110
+14.              097     172     000
+15.              000     165     033
+16.              085     139     000
+17.              000     116     118
+18.              000     135     140
+*** TEND ***
+;MISC
+TSTART  3  4
+01.              092     000     000
+02.              158     000     051
+03.              182     000     000
+04.              255     051     000
+05.              255     055     000
+06.              178     000     000
+07.              164     000     075
+08.              215     000     089
+09.              228     000     071
+10.              255     000     000
+11.              094     060     000
+12.              110     075     000
+13.              118     102     000
+14.              140     080     000
+15.              140     084     000
+16.              220     100     000
+17.              255     129     000
+18.              255     160     000
+19.              255     176     000
+20.              231     188     000
+21.              194     172     000
+22.              169     172     000
+23.              244     202     000
+24.              244     215     000
+25.              134     158     000
+26.              149     175     000
+27.              174     187     000
+28.              225     207     000
+29.              236     228     000
+30.              255     255     000
+31.              071     083     000
+32.              093     098     000
+33.              107     115     000
+34.              093     107     000
+35.              064     101     000
+36.              064     115     000
+37.              084     135     000
+38.              130     178     000
+39.              154     223     000
+40.              150     212     000
+41.              000     077     000
+42.              000     081     000
+43.              000     088     000
+44.              003     089     000
+45.              000     143     000
+46.              000     200     000
+47.              096     230     000
+48.              000     255     089
+49.              000     235     086
+50.              000     255     000
+51.              000     081     051
+52.              000     111     083
+53.              000     081     072
+54.              000     116     116
+55.              000     131     151
+56.              000     127     118
+57.              000     175     156
+58.              000     181     165
+59.              000     235     190
+60.              000     255     214
+61.              000     065     087
+62.              000     065     108
+63.              000     114     173
+64.              000     109     164
+65.              000     110     179
+66.              000     160     228
+67.              000     179     247
+68.              000     196     237
+69.              000     218     243
+70.              000     255     255
+71.              000     000     168
+72.              070     000     207
+73.              075     000     255
+74.              061     000     255
+75.              000     000     101
+76.              000     064     172
+77.              000     078     178
+78.              000     109     225
+79.              000     108     255
+80.              000     000     255
+81.              134     000     103
+82.              143     000     109
+83.              198     000     158
+84.              185     000     186
+85.              176     000     197
+86.              173     000     255
+87.              208     000     255
+88.              195     000     255
+89.              173     000     255
+90.              255     000     255
+*** TEND ***
+
+
+
+
+
+
+MACRO "RESET" 1   10
+40   54
+10   0
+MEND
+
+MACRO "LAMP ON" 2   10
+40   FF
+10   0
+MEND
+
+MACRO "LAMP OFF" 3   10
+40   A8
+10   0
+MEND
+
+
+
+
+
+
+

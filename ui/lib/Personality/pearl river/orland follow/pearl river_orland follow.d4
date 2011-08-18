@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Orland Follow" ShortName="OrlndFollw" Company="Pearl River">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="21-01-08" Author="Gregory Haynes" Comment="Created" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Iris" Name="Iris" Description="" Group="B">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Iris" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Colour1Func" Name="Colour Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="9" If="'Colour1Func'==2" />
+      <Else ID="10" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~31" Colour="255,255,255" />
+      <Function ID="2" Name="Red" Display="'Red'" Dmx="32~63" Colour="255,0,0" />
+      <Function ID="3" Name="Yellow" Display="'Yellow'" Dmx="64~95" Colour="255,255,0" />
+      <Function ID="4" Name="Violet" Display="'Violet'" Dmx="96~127" Colour="128,0,255" />
+      <Function ID="5" Name="Green" Display="'Green'" Dmx="128~159" Colour="0,255,0" />
+      <Function ID="6" Name="Orange" Display="'Orange'" Dmx="160~191" Colour="255,128,0" />
+      <Function ID="7" Name="Blue" Display="'Blue'" Dmx="192~223" Colour="0,0,255" />
+      <Function ID="8" Name="Magenta" Display="'Magenta'" Dmx="224~255" Colour="255,0,255" />
+      <Function ID="9" Name="Scroll CW" Display="'Scroll CW %.f%%',100~0" Dmx="255~0" Colour="0,0,0" />
+      <Function ID="10" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="CTO" Name="CTO" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="CTO Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,240,200" />
+    </Attribute>
+    <Attribute ID="Shutter_Func" Name="Shutter Func" Description="" Group="I" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Dimmer_Func" Display="'Dimmer'" Dmx="0~0" Update="Shutter" Intensity="0~0" />
+      <Function ID="2" Name="Strobe_Func" Display="'Strobe'" Dmx="0~0" Update="Shutter" Intensity="0~0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Shutter" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Condition Name="Dimmer_Func" ID="1" If="'Shutter_Func'==1" />
+      <Condition Name="Strobe_Func" ID="2" If="'Shutter_Func'==2" />
+      <Else ID="3" />
+      <Function ID="1" Name="8bit HTP" Display="'Dimmer %.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="0~255" Intensity="0~0" />
+      <Function ID="3" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="4 DMX, 8bit" Channels="4">
+    <Import PearlRef="PR_OrlndFlw" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter_Func" Wheel="4" />
+      <Attribute ID="Shutter" ChannelOffset="4" Wheel="5" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="2" Wheel="8" />
+      <Attribute ID="CTO" ChannelOffset="3" Wheel="9" />
+      <Attribute ID="Iris" ChannelOffset="1" Wheel="21" />
+    </Include>
+  </Mode>
+</Fixture>

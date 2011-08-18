@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Olympus" ShortName="Olmps" Company="Space Cannon">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="19-01-05" Author="Phil Rogers" Comment="Created" />
+  <History Date="10-04-06" Author="Ed Spencer" Comment="Moved No Func into special group" />
+  <History Date="12-04-06" Author="Ed Spencer" Comment="Renamed Synchro ID to match other space cannon personalities and moved it into special group" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="No_Func" Name="No Func" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="No_Func2" Name="No Func" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Strobe" Name="Strobe" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Generic Range" Display="'%.f%%',0~100" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Synchro" Name="Synchro" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Generic Range" Display="'%.f%%',0~100" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Delay" Name="Delay" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Generic Range" Display="'%.f%%',0~100" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="8 DMX, 8bit" Channels="8">
+    <Import PearlRef="SC_Olympus" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Strobe" ChannelOffset="6" Wheel="5" />
+      <Attribute ID="Red" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="1" Wheel="12" />
+      <Attribute ID="Synchro" ChannelOffset="7" Wheel="4" />
+      <Attribute ID="No_Func" ChannelOffset="4" Wheel="28" />
+      <Attribute ID="No_Func2" ChannelOffset="5" Wheel="29" />
+      <Attribute ID="Delay" ChannelOffset="8" Wheel="25" />
+    </Include>
+  </Mode>
+  <Mode Name="8 DMX, w V Dim" Channels="8">
+    <Import PearlRef="SC_Olympus" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" Wheel="1" />
+      <Attribute ID="Strobe" ChannelOffset="6" Wheel="5" />
+      <Attribute ID="Red" ChannelOffset="2" Wheel="10" VirtualControl="Dimmer" />
+      <Attribute ID="Green" ChannelOffset="3" Wheel="11" VirtualControl="Dimmer" />
+      <Attribute ID="Blue" ChannelOffset="1" Wheel="12" VirtualControl="Dimmer" />
+      <Attribute ID="Synchro" ChannelOffset="7" Wheel="4" />
+      <Attribute ID="No_Func" ChannelOffset="4" Wheel="28" />
+      <Attribute ID="No_Func2" ChannelOffset="5" Wheel="29" />
+      <Attribute ID="Delay" ChannelOffset="8" Wheel="25" />
+    </Include>
+  </Mode>
+  <Mode Name="7 DMX, 8bit" Channels="7">
+    <Import PearlRef="SC_Olympus7" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Strobe" ChannelOffset="5" Wheel="5" />
+      <Attribute ID="Red" ChannelOffset="1" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="2" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="3" Wheel="12" />
+      <Attribute ID="Synchro" ChannelOffset="6" Wheel="4" />
+      <Attribute ID="No_Func2" ChannelOffset="4" Wheel="29" />
+      <Attribute ID="Delay" ChannelOffset="7" Wheel="25" />
+    </Include>
+  </Mode>
+  <Mode Name="7 DMX, w V Dim" Channels="7">
+    <Import PearlRef="SC_Olympus7" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" Wheel="1" />
+      <Attribute ID="Strobe" ChannelOffset="5" Wheel="5" />
+      <Attribute ID="Red" ChannelOffset="1" Wheel="10" VirtualControl="Dimmer" />
+      <Attribute ID="Green" ChannelOffset="2" Wheel="11" VirtualControl="Dimmer" />
+      <Attribute ID="Blue" ChannelOffset="3" Wheel="12" VirtualControl="Dimmer" />
+      <Attribute ID="Synchro" ChannelOffset="6" Wheel="4" />
+      <Attribute ID="No_Func2" ChannelOffset="4" Wheel="29" />
+      <Attribute ID="Delay" ChannelOffset="7" Wheel="25" />
+    </Include>
+  </Mode>
+</Fixture>

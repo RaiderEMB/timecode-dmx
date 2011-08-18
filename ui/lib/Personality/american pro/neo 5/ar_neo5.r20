@@ -1,0 +1,271 @@
+; 'American Pro Neo 5', 11 DMX Channels, filename: ARNeo5.R20
+;
+;   Date       By                Description
+;   18-07-08   Pers Creator      Created - Exported from Diamond 4 file.
+;   18-07-08   David Hunt        Checked
+;   20-08-08   Jonathan Moreton  Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  AR_Neo5                              mode=11 DMX, 8bit  11 DMX Channels
+NAME "American Pro" "Neo 5"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  11  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 11 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=501
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+4     1   I    1   100   1N   A   1   "Colour"            0     0     0
+10    1   L    2   100   1N   B   1   "Cyan"              0     0   255
+10   61   L    3   100   1N   C   1   "Magenta"           0     0   255
+9    61   L    4   100   1N   D   1   "Yellow"            0   255    51
+2    61   L    5   100   1N   O   1   "Shutter"          32     0     0
+1     1   H    6   100   1N   H   1   "Dimmer"          255     0     0
+9     1   I    7   100   1N   P   1   "Effect"            0     0     0
+5     1   L    8   100   1N   Q   1   "Zoom"            127     0     0
+4    61   L    9   100   1N   0   1   "Col Macro"         0     0     0
+8     1   L   10   100   1N   0   1   "Speed"             0     0     0
+20    1   L   11   100   1N   0   1   "Control"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+American Pro Neo 5
+11 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Colour"     -1   2   3   4
+"Open"                1   0   0   0
+"Red"                 2   0  FF  FF
+"Amber"               3   0  A6  FF
+"Yellow"              4   0   0  FF
+"Green"               5  FF   0  FF
+"Cyan"                6  FF   0   0
+"Blue"                7  FF  FF   0
+"Lavender"            8  B2  CC   0
+"UltraViolet"         9  CC  FF   0
+"Magenta"            10   0  FF   0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Lamp Off"      1  11
+"data"                0  46
+"delay"               1  32
+"data"                0   A
+MEND
+
+MACRO "Lamp On"       2  11
+"data"                0  32
+"delay"               1  32
+"data"                0   A
+MEND
+
+MACRO "Reset"         3  11
+"data"                0  5A
+"delay"               1  32
+"data"                0   A
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Colour
+0   15   "Open"
+16  31   "Red"
+32  47   "Blue"
+48  63   "Green"
+64  79   "Orange"
+80  95   "CTO"
+96  111  "CTB"
+112 127  "UV Filter"
+128 187  "Sc CW %3d%%"100-((c-a)*100/(b-a))
+188 193  "No Scroll"
+194 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 2  ;Cyan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Magenta
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Yellow
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Shutter
+0   31   "Closed"
+32  63   "Open"
+64  95   "Strobe %3d%%"(c-a)*100/(b-a)
+96  127  "Open"
+128 159  "Pulse %3d%%"(c-a)*100/(b-a)
+160 191  "Open"
+192 223  "Rnd %3d%%"(c-a)*100/(b-a)
+224 255  "Open"
+REND
+
+RANGE 6  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Effect
+0   70   "Full Beam"
+71  230  "Beam Shaper"
+231 255  "Frost Filt"
+REND
+
+RANGE 8  ;Zoom
+0   255  "%2d°"27-((c-a)*8/(b-a))
+REND
+
+RANGE 9  ;Colour Macros
+0   7    "Safe"
+8   15   "Macro 1"
+16  23   "Macro 2"
+24  31   "Macro 3"
+32  39   "Macro 4"
+40  47   "Macro 5"
+48  55   "Macro 6"
+56  63   "Macro 7"
+64  71   "Macro 8"
+72  79   "Macro 9"
+80  87   "Macro 10"
+88  95   "Macro 11"
+96  103  "Macro 12"
+104 111  "Macro 13"
+112 119  "Macro 14"
+120 127  "Macro 15"
+128 135  "Macro 16"
+136 143  "Macro 17"
+144 151  "Macro 18"
+152 159  "Macro 19"
+160 167  "Macro 20"
+168 175  "Macro 21"
+176 183  "Macro 22"
+184 191  "Macro 23"
+192 199  "Macro 24"
+200 207  "Macro 25"
+208 215  "Macro 26"
+216 223  "Macro 27"
+224 231  "Macro 28"
+232 239  "Macro 29"
+240 247  "Macro 30"
+248 255  "Macro 31"
+REND
+
+RANGE 10  ;Speed
+0   225  "%3d%%"100-((c-a)*100/(b-a))
+226 235  "Safe"
+236 245  "Max Spd/BO"
+246 255  "Safe"
+REND
+
+RANGE 11  ;Control
+0   19   "Col Change "
+20  39   "Col Chg Pos"
+40  59   "Lamp On"
+60  79   "Lamp Off"
+80  99   "Mot Reset"
+100 119  "Int Prog 1"
+120 139  "Int Prog 2"
+140 159  "Int Prog 3"
+160 179  "Int Prog 4"
+180 199  "Int Prog 5"
+200 219  "Int Prog 6"
+220 239  "Int Prog 7"
+240 255  "Int Prog 8"
+REND
+

@@ -1,0 +1,247 @@
+//----------------------------------------------------------------------------
+// Martin - Mac 550
+// Avolites Visualiser Extension File
+//----------------------------------------------------------------------------
+// Date          Author             Change
+// 10/02/2004    Unknown            Created
+// 25/01/2005    Phil Rogers        Corrected just about everything!
+// 25/11/2005	 Ed Spencer	    Revised device name
+// 04/08/2006    Ed Spencer	    Fixed refring channel for condition in gobo1 rot speed
+//----------------------------------------------------------------------------
+
+Device MT_Mac550Ex
+
+// Shutter
+ChanRef Dimmer
+    Vismode Strobe
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 1
+    Mapping 0 19 0.000000 0.000000
+    Mapping 20 49 1.000000 1.000000
+    Mapping 50 72 240.000000 30.000000
+    Mapping 73 79 1.000000 1.000000
+    Mapping 80 99 240.000000 30.000000
+    Mapping 100 119 240.000000 30.000000
+    Mapping 120 127 1.000000 1.000000
+    Mapping 128 187 240.000000 30.000000
+    Mapping 188 190 1.000000 1.000000
+    Mapping 191 196 240.000000 30.000000
+    Mapping 197 202 240.000000 30.000000
+    Mapping 203 255 1.000000 1.000000
+End
+
+// Dimmer
+ChanRef Dimmer
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+    DmxOffset 2 3
+    Mapping 0 65535 0.00000 255.0000000
+End
+
+// Colour 1
+ChanRef Color Wheel 1
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 4
+    Mapping 0 16 RGB240,240,240
+    Mapping 17 33 RGB240,0,0
+    Mapping 34 50 RGB240,0,240
+    Mapping 51 67 RGB200,0,240
+    Mapping 68 84 RGB0,0,240
+    Mapping 85 101 RGB0,240,0
+    Mapping 102 118 RGB240,240,0
+    Mapping 119 135 RGB240,200,0
+    Mapping 136 153 RGB200,0,240
+    Mapping 154 158 RGB200,0,240
+    Mapping 159 163 RGB240,200,0
+    Mapping 164 168 RGB240,240,0
+    Mapping 169 173 RGB0,240,0
+    Mapping 174 178 RGB0,0,240
+    Mapping 179 183 RGB200,0,240
+    Mapping 184 188 RGB240,0,240
+    Mapping 189 193 RGB240,0,0
+    Mapping 194 198 RGB240,240,240
+End
+
+
+ChanRef Color Wheel 1
+    Vismode Speed
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 4
+    Mapping 199 219 180.0000 2.00000
+    Mapping 220 240 -2.000000 -180.0000
+    Mapping 241 255 180.000000 2.0000
+End
+
+
+// Colour 2
+ChanRef Color Wheel 2
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 6
+    Mapping 0 16 RGB0255,0,0
+    Mapping 17 33 RGB0,240,0
+    Mapping 34 51 RGB0,0,240
+    Mapping 52 67 RGB240,200,200
+    Mapping 68 84 RGB240,0,0
+    Mapping 85 101 RGB240,240,0
+    Mapping 102 118 RGB0,160,0
+    Mapping 119 135 RGB220,220,240
+    Mapping 136 152 RGB240,220,220
+    Mapping 153 153 RGB240,240,240
+    Mapping 154 158 RGB240,220,220
+    Mapping 159 163 RGB220,220,240
+    Mapping 164 168 RGB0,160,0
+    Mapping 169 173 RGB240,240,0
+    Mapping 174 178 RGB240,0,0
+    Mapping 179 183 RGB240,200,200
+    Mapping 184 188 RGB0,0,240
+    Mapping 189 193 RGB0,240,0
+    Mapping 194 198 RGB0255,0,0
+End
+
+ChanRef Color Wheel 2
+    Vismode Speed
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 6
+    Mapping 199 219 180.0000 2.00000
+    Mapping 220 240 -2.000000 -180.0000
+    Mapping 241 255 180.000000 2.0000
+End
+
+// Gobo 1
+ChanRef Gobo 1
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 8
+    Mapping 0  11 Twelve Point Circle
+    Mapping 12 15 Number One
+    Mapping 16 19 Number Two
+    Mapping 20 23 Number Three
+    Mapping 24 27 Number Four
+    Mapping 28 31 Number Five
+    Mapping 32 35 Number Six
+    Mapping 36 39 Number One
+    Mapping 40 43 Number Two
+    Mapping 44 47 Number Three
+    Mapping 48 51 Number Four
+    Mapping 52 55 Number Five
+    Mapping 56 59 Number Six
+    Mapping 60 71 Number One
+    Mapping 72 83 Number Two
+    Mapping 84 95 Number Three
+    Mapping 96 107 Number Four
+    Mapping 108 119 Number Five
+    Mapping 120 131 Number Six
+    Mapping 132 143 Number Six
+    Mapping 144 155 Number Five
+    Mapping 156 167 Number Four
+    Mapping 168 179 Number Three
+    Mapping 180 191 Number Two
+    Mapping 192 203 Number One
+End
+
+// Gobo 1
+ChanRef Gobo 1
+    Vismode Speed
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 8
+    Mapping 204 229 30.00000 240.00000
+    Mapping 230 255 -240.00000 -30.00000
+End
+
+ChanRef Gobo 1 Rotate
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 10
+    Mapping if 8 0 35 0 255 0.000000 395.000000
+    Mapping if 8 60 131 0 255 0.000000 395.000000
+End
+
+ChanRef Gobo 1 Rotate
+    Vismode Speed
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 10
+    Mapping if 8 36 59 0 2 0.000000 0.000000
+    Mapping if 8 26 59 3 127 2.000000 90.000000
+    Mapping if 8 26 59 128 252 -90.000000 -2.000000
+    Mapping if 8 26 59 253 255 0.000000 0.000000
+    Mapping if 8 132 255 0 2 0.000000 0.000000
+    Mapping if 8 132 255 3 127 2.000000 90.000000
+    Mapping if 8 132 255 128 252 -90.000000 -2.000000
+    Mapping if 8 132 255 253 255 0.000000 0.000000
+End
+
+// Gobo 2
+ChanRef Gobo 2
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 11
+    Mapping 0 10 Twelve Point Circle
+    Mapping 11 21 Number One
+    Mapping 22 32 Number Two
+    Mapping 33 43 Number Three
+    Mapping 44 54 Number Four
+    Mapping 55 65 Number Five
+    Mapping 66 76 Number Six
+    Mapping 77 87 Number Seven
+    Mapping 88 98 Number Eight
+    Mapping 99 109 Number Nine
+    Mapping 110 112 Twelve Point Circle
+    Mapping 113 121 Number Nine
+    Mapping 122 130 Number Eight
+    Mapping 131 139 Number Seven
+    Mapping 140 148 Number Six
+    Mapping 149 157 Number Five
+    Mapping 158 166 Number Four
+    Mapping 167 175 Number Three
+    Mapping 176 184 Number Two
+    Mapping 185 193 Number One
+    Mapping 194 202 Twelve Point Circle
+End
+
+// Gobo 2
+ChanRef Gobo 2
+    Vismode Speed
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 11
+    Mapping 203 221 30.00000 240.00000
+    Mapping 222 240 -240.00000 -30.00000
+    Mapping 241 255 240.00000 30.00000
+End
+
+// Iris
+ChanRef Iris
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 16
+    Mapping 0   215 1.0000000 0.0000000
+    Mapping 216 255 1.00000 1.000000
+End
+
+// Focus
+// Zoom
+ChanRef Zoom
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+    DmxOffset 20,21
+    Mapping 0 65535 30.00000000 12.0000000
+End
+
+
+// Pan
+ChanRef Pan
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+    DmxOffset 22 23
+    Mapping 0 65535 -219.000000 219.000000
+End
+
+// Tilt
+ChanRef Tilt
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+    DmxOffset 24 25
+    Mapping 0 65535 -152 152
+End
+

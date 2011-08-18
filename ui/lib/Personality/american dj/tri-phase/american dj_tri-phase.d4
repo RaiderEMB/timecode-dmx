@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Tri-Phase" ShortName="Tri-Phase" Company="American DJ">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="24-08-09" Author="David Hunt" Comment="Created" />
+  <History Date="26-08-09" Author="Jonathan Moreton" Comment="Checked" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" Colour="255,255,255" />
+      <Function ID="2" Name="Colour " Display="'Colour %.1f%%',0.0~100.0" Dmx="1~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1Rot" Name="Colour Rot" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Spin" Display="'No Spin'" Dmx="0~9" Colour="0,0,0" />
+      <Function ID="2" Name="Spin CW" Display="'Spin CW %.f%%',100~0" Dmx="10~120" Colour="0,0,0" />
+      <Function ID="3" Name="No Spin" Display="'No Spin'" Dmx="121~134" Colour="0,0,0" />
+      <Function ID="4" Name="Spin CCW" Display="'Spin CCW %.f%%',0~100" Dmx="135~245" Colour="0,0,0" />
+      <Function ID="5" Name="No Spin" Display="'No Spin'" Dmx="246~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" Intensity="0~0" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.1f%%',0.0~100.0" Dmx="1~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="4 DMX, 8bit" Channels="4">
+    <Import PearlRef="ADJ_TriPhs" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="3" Wheel="4" />
+      <Attribute ID="Dimmer" ChannelOffset="4" Wheel="1" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="8" />
+      <Attribute ID="Colour1Rot" ChannelOffset="2" Wheel="9" />
+    </Include>
+  </Mode>
+</Fixture>

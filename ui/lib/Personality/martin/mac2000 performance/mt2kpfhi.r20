@@ -1,0 +1,440 @@
+; "Martin Mac 2000 Performace", 31 DMX channels, filename :mt2kpfhi.r20
+;
+;   Date      By        Description
+;  04-01-02  Edward     Created from Mac2000
+;  23-07-02  D.Shelton  Corrected CMY Inversion
+;  09-08-04  P Rogers   Added range tables
+;  17-05-05   Phil      Revised Lee palettes
+;  25-11-05  Ed		Revised device name
+;  03-04-06  Ed		Moved Lee table and colour table to prevent clashing
+;  30-05-06  Ed		Removed some comments for disk space
+;  02-08-06  ED		Added preset palettes for gobo
+;  01-09-06  D.Milligan Revised Gobo palettes position
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MT_Mac2KPFH                                   31 DMX channels
+NAME "Martin" "Mac 2000 Performance, 31 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  31  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   540  305
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Hi-Res Mode"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=482
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+;
+DMX
+2   61   L   1   100   1N   O   1   "Shutter"      35   35   35
+1    1   H   2   100   1N   H   1   "Dimmer"      255  255  255
+10   1   L   3   100   1N   B   1   "Cyan"          0    0    0
+10  61   L   4   100   1N   C   1   "Magenta"       0    0    0
+9   61   L   5   100   1N   D   1   "Yellow"        0    0    0
+4    1   L   6   100   1N   0   1   "CTC"           0    0    0
+6    1   I   7   100   1N   I   1   "Gobo1"         0    0    0
+6   61   S   8   100   1N   K   1   "GoboSpin1"     0    0    0 
+0    0   L   9   100   1N   K   1   "GSpin1_Low"    0    0    0 
+7    1   I  10   100   1N   J   1   "Animation"     0    0    0
+7   61   L  11   100   1N   M   1   "Anim Rot"      0    0    0 
+9    1   I  12   100   1N   P   1   "Effect"        0    0    0 
+2    1   L  13   100   1N   G   1   "Iris"          0   -1   -1
+16   1   I  14   100   1N   0   1   "FrameMacro"    0    0    0
+5   61   L  15   100   1N   L   1   "Focus"       128   -1   -1
+5    1   L  16   100   1N   Q   1   "Zoom"        128   -1   -1
+12   1   L  17   100   1N   0   1   "Frame1"        0    0    0
+12  61   L  18   100   1N   0   1   "Frame1Angle" 128    0    0
+13   1   L  19   100   1N   0   1   "Frame2"        0    0    0
+13  61   L  20   100   1N   0   1   "Frame2Angle" 128    0    0
+14   1   L  21   100   1N   0   1   "Frame3"        0    0    0
+14  61   L  22   100   1N   0   1   "Frame3Angle" 128    0    0
+15   1   L  23   100   1N   0   1   "Frame4"        0    0    0
+15  61   L  24   100   1N   0   1   "Frame4Angle" 128    0    0
+16  61   L  25   100   1N   R   1   "ShutterRot"  128    0    0
+3   61   s  26   100   1N   E   1   "Pan"         128   -1   -1
+0    0   L  27   100   1N   E   1   "Pan Low"     128   -1   -1
+3    1   s  28   100   1N   F   1   "Tilt"        128   -1   -1
+0    0   L  29   100   1N   F   1   "Tilt Low"    128   -1   -1
+8    1   L  30   100   1N   0   1   "Speed_p/t"     0   -1   -1
+8   61   L  31   100   1N   0   1   "Speed"         0   -1   -1
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+  Martin Mac 2000 
+ Performance (16-Bit)
+Bank WheelA  WheelB
+---------------------
+ 1 Dimmer    --
+ 2 Shutter   Iris
+ 3 Tilt      Pan
+ 4 CTC       --
+ 5 Zoom      Focus
+ 6 Gobo1     Gobo1Spin
+ 7 Animate   AnimateRot
+ 8 Speed p/t Speed
+ 9 Effect    Yellow
+10 Cyan      Magenta
+11 --        --
+12 Frame1    Frame1Angle
+13 Frame2    Frame2Angle
+14 Frame3    Frame3Angle
+15 Frame4    Frame4Angle
+16 FramMacro FrameRot
+17 ColorP    Lee
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+; Positions
+PFTABLE "Positions" -1  26  28
+"Middle"  21 80 80
+"Left"   22 50 80
+"Right"   23 b0 80
+"Top"    24 80 50
+"Bottom"  25 80 b0
+"TLeft"   26 50 50
+"TRight"  27 b0 b0
+"BLeft"   28 50 b0
+"BRight"  29 b0 50
+PFEND
+
+
+PFTABLE "Gobos" -1  7
+"Open"    11 00
+"Gobo1"   12 0C
+"Gobo2"   13 11
+"Gobo3"   14 16
+"Gobo4"   15 1B
+"Gobo5"   16 20
+"Gobo6"   17 25
+"Gobo7"   18 2A
+"Gobo8"   19 2F
+PFEND
+
+; A color table cyan, magenta, yellow, colour wheel
+PFTABLE "Color" 34  3  4  5  6
+"White"     1  0  0  0  0
+"Red"      2  0 ff ff  0
+"Amber"     3  0 e1 ff  0
+"Yellow"     4  0  0 ff  0
+"Green"     5 ff  0 ff  0
+"Cyan"      6 ff  0  0  0
+"Blue"      7 ff 9b  0  0
+"Lavender"    8 96 c8  0  0
+"UV"       9 ff ff 64  0
+"Magenta"    10  0 ff  0  0
+PFEND
+
+PFTABLE "Lee"  39  3  4  5  6
+"lee 101"    -1  0  4 f9  0
+"lee 102"    -1  0 1f da  0
+"lee 103"    -1  0 19 5e  0
+"lee 104"    -1  0 5e ff  0
+"lee 105"    -1  0 a7 ff  0
+"lee 106" 	-1  0 ff ff  0
+"lee 107" 	-1  0 9d ad  0
+"lee 108" 	-1  0 64 8b  0
+"lee 109" 	-1  0 60 7d  0
+"lee 110" 	-1  0 77 86  0
+"lee 111" 	-1  0 95 5b  0
+"lee 113" 	-1  0 ff 45  0
+"lee 115" 	-1 f0  7 b3  0
+"lee 116" 	-1 ff  0 cb  0
+"lee 117" 	-1 99  f 5b  0
+"lee 118" 	-1 ef  0 76  0
+"lee 119" 	-1 ff 71 1a  0
+"lee 120" 	-1 ff 19 19  0
+"lee 121" 	-1 cc  1 eb  0
+"lee 122"	-1 cc  d e7  0
+"lee 124" 	-1 f4  0 eb  0
+"lee 126" 	-1 60 ff 3f  0
+"lee 127" 	-1 46 bb c0  0
+"lee 128" 	-1 3e ff 6b  0
+"lee 131" 	-1 ff  0 c2  0
+"lee 132"	-1 ff  9 15  0
+"lee 134"	-1  0 84 db  0
+"lee 135"	-1  0 f9 f9  0
+"lee 136" 	-1  0 1b 2b  0
+"lee 137" 	-1 29 12 1e  0
+"lee 138" 	-1 87 18 df  0
+"lee 139" 	-1 ef  0 ff  0
+"lee 140" 	-1 93  4 66  0
+"lee 141" 	-1 f1  0 64  0
+"lee 142" 	-1 74 17  d  0
+"lee 143" 	-1 d1  0 5a  0
+"lee 144" 	-1 d7  7 78  0
+"lee 147" 	-1  0 6c bb  0
+"lee 148" 	-1  0 ff c7  0
+"lee 151" 	-1  0 34 64  0
+"lee 152" 	-1  0 2f 6a  0
+"lee 153" 	-1  0 42 67  0
+"lee 154" 	-1  0 43 7f  0
+"lee 156" 	-1 26 5f a9  0
+"lee 157" 	-1  0 cb bb  0
+"lee 158" 	-1  0 ce ff  0
+"lee 159" 	-1  0 11 3c  0
+"lee 161" 	-1 a0  0 31  0
+"lee 162"    -1  0 23 49  0
+"lee 164"    -1  0 ff f0  0
+"lee 165"    -1 bf  0 35  0
+"lee 166"    -1  0 e0 a0  0
+"lee 169" 	-1  0 18 3c  0
+"lee 172" 	-1 ff  0 9e  0
+"lee 174" 	-1 68  0 28  0
+"lee 176" 	-1  0 8d bb  0
+"lee 179" 	-1  0 87 ff  0
+"lee 180" 	-1 86 8a  0  0
+"lee 181" 	-1 ff fe  f  0
+"lee 182" 	-1  0 ff df  0
+"lee 183" 	-1 f1  0 57  0
+"lee 184" 	-1 2d 46 7d  0
+"lee 185" 	-1 4a 29 96  0
+"lee 187" 	-1 2c 35 85  0
+"lee 188" 	-1 2a 30 8c  0
+"lee 189" 	-1 50 1f 76  0
+"lee 190" 	-1 3d 21 67  0
+"lee 191" 	-1 46 36 73  0
+PFEND
+
+
+; Macros
+MACRO "LAMP ON" 1  1 
+"data"     0  e6
+"delay"     1  50
+"data"     0  23
+MEND
+
+MACRO "RESET" 2  1
+"data"    0  d2
+"delay"    1  50
+"data"    0  23
+MEND
+
+MACRO "LAMP OFF" 3  1 3 4 5
+"data"      0  ff e6 e7 e8
+"delay"     1  60
+"data"      0  0 0 0 0
+MEND
+
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1 ;Shutter
+0  19  "Closed"
+20 49  "Open"
+50 72  "Strobe %3d"0+(((c-a)*100)/(b-a))
+73 79  "Open Low Pw"
+80 99  "Open P %3d"0+(((c-a)*10)/(b-a))
+100 119 "Clse P %3d"0+(((c-a)*10)/(b-a))
+120 127 "Open"
+128 147 "Rnd Strb F"
+148 167 "Rnd Strb M"
+168 187 "Rnd Strb S"
+188 190 "Open"
+191 193 "ORdn Pls F"
+194 196 "ORnd Pls S"
+197 199 "CRnd Pls F"
+200 202 "CRnd Pls S"
+203 207 "Safe"
+208 217 "Reset Fixtu"
+218 227 "Safe"
+228 237 "Lamp On"
+238 247 "Safe"
+248 255 "Lamp Off"
+REND
+
+RANGE 7  ;Gobo 1
+0  9  "Open"
+10 14  "Jet Fan"
+15 19  "Pipe Dreams"
+20 24  "Double Worm"
+25 29  "Inverted Ki"
+30 34  "Limbo"
+35 39  "Jet Fan"
+40 44  "Pipe Dreams"
+45 49  "Double Worm"
+50 54  "Inverted Ki"
+55 59  "Limbo"
+60 74  "Jet Fa %3d%%"0+(((c-a)*100)/(b-a))
+75 89  "Pipe D %3d%%"0+(((c-a)*100)/(b-a))
+90 104 "Double %3d%%"0+(((c-a)*100)/(b-a))
+105 119 "Invert %3d%%"0+(((c-a)*100)/(b-a))
+120 134 "Limbo %3d%%"0+(((c-a)*100)/(b-a))
+135 149 "Jet Fa %3d%%"0+(((c-a)*100)/(b-a))
+150 164 "Pipe D %3d%%"0+(((c-a)*100)/(b-a))
+165 179 "Double %3d%%"0+(((c-a)*100)/(b-a))
+180 194 "Invert %3d%%"0+(((c-a)*100)/(b-a))
+195 209 "Limbo %3d%%"0+(((c-a)*100)/(b-a))
+210 232 "Scr CW %3d%%"0+(((c-a)*100)/(b-a))
+233 255 "Sc CCW %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 10 ;Animation
+0  9  "Open"
+10 19  "Vert Index"
+20 29  "Horizon Ind"
+30 39  "Vert Rot"
+40 49  "Horizon Rot"
+50 139 "Wheel Scrl "
+140 229 "Wheel Scrl "
+236 239 "Macro 1"
+240 243 "Macro 2"
+244 247 "Macro 3"
+248 251 "Macro 4"
+252 255 "Macro 5"
+REND
+
+RANGE 11 ;Animation Spin
+0  2  "No Spin"
+3  127 "Spin C %3d%%"0+(((c-a)*100)/(b-a))
+253 255 "No Spin"
+128 252 "Spin C %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 13 ;Iris
+0  199 "Open %3d%%"100-(((c-a)*85)/(b-a))
+200 215 "Closed"
+216 229 "Open P %3d%%"100-(((c-a)*100)/(b-a))
+230 243 "Clse P %3d%%"0+(((c-a)*100)/(b-a))
+244 246 "Rdm Pls (F)"
+247 249 "Rdm Pls (S)"
+250 252 "Rdm Pls (F)"
+253 255 "Rdm Pls (S)"
+REND
+
+RANGE 14 ;Framing Macro
+0  2  "No Macro"
+3  255 "Reserv %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 16 ;Zoom
+0  0  "Flood x2.15"
+1  254 "%3d%%"0+(((c-a)*100)/(b-a))
+255 255 "Spot x1.00"
+REND
+
+RANGE 17 ;Frame 1
+0  254 "%3d%%"0+(((c-a)*100)/(b-a))
+255 255 "Blade Close"
+REND
+
+RANGE 18 ;Frame1 Angle
+0  0  "Angle -30"
+1  126 "Angle %3d"-30+(((c-a)*30)/(b-a))
+127 128 "Parellel"
+129 254 "Angle %3d"0+(((c-a)*30)/(b-a))
+255 255 "Angle +30"
+REND
+
+RANGE 19 ;Frame 2
+0  254 "%3d%%"0+(((c-a)*100)/(b-a))
+255 255 "Blade Close"
+REND
+
+RANGE 20 ;Frame2 Angle
+0  0  "Angle -30"
+1  126 "Angle %3d"-30+(((c-a)*30)/(b-a))
+127 128 "Parellel"
+129 254 "Angle %3d"0+(((c-a)*30)/(b-a))
+255 255 "Angle +30"
+REND
+
+RANGE 21 ;Frame 3
+0  254 "%3d%%"0+(((c-a)*100)/(b-a))
+255 255 "Blade Close"
+REND
+
+RANGE 22 ;Frame3 Angle
+0  0  "Angle -30"
+1  126 "Angle %3d"-30+(((c-a)*30)/(b-a))
+127 128 "Parellel"
+129 254 "Angle %3d"0+(((c-a)*30)/(b-a))
+255 255 "Angle +30"
+REND
+
+RANGE 23 ;Frame 4
+0  254 "%3d%%"0+(((c-a)*100)/(b-a))
+255 255 "Blade Close"
+REND
+
+RANGE 24 ;Frame4 Angle
+0  0  "Angle -30"
+1  126 "Angle %3d"-30+(((c-a)*30)/(b-a))
+127 128 "Parellel"
+129 254 "Angle %3d"0+(((c-a)*30)/(b-a))
+255 255 "Angle +30"
+REND
+
+RANGE 25 ;Frame Rotate
+0  0  "Full Right"
+1  126 "Right %3d"-45+(((c-a)*45)/(b-a))
+127 128 "Center"
+129 254 "Left %3d"0+(((c-a)*45)/(b-a))
+255 255 "Full Left"
+REND
+
+RANGE 12 ;Effect
+0  0  "Open"
+1  234 "Frost %3d%%"0+(((c-a)*100)/(b-a))
+235 242 "Wide Angle "
+243 250 "9 Facet Pri"
+251 255 "Open"
+REND
+
+RANGE 30 ;MSpeed
+0  2  "Tracking"
+3  236 "F-S %3d%%"100-(((c-a)*100)/(b-a))
+237 239 "Tracking S"
+240 242 "Tracking M"
+243 245 "Tracking F"
+252 255 "B/O moving"
+246 251 "Fan Sp %3d%%"0+(((c-a)*100)/(b-a))
+REND
+

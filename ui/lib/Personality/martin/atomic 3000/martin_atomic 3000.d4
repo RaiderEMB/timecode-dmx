@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Atomic 3000" ShortName="Atomc3000" Company="Martin">
+  <Copyright Notice="© Avolites Ltd. 2011" />
+  <History Date="12-05-03" Author="Oliver Waits" Comment="Created" />
+  <History Date="09-02-04" Author="Lena Gallagher" Comment="Error Found 1. No macros found" />
+  <History Date="09-02-04" Author="Lena Gallagher" Comment="Error Found 2. Control - Locate at 128, should be good if either HTP or LTP that clears to 0 (Locate)(1 Channel)" />
+  <History Date="09-02-04" Author="Lena Gallagher" Comment="Error Found 3. Dimmer - Locate at 0 (Locate)(3+4Channel)" />
+  <History Date="09-02-04" Author="Lena Gallagher" Comment="Error Found 4. Duration - (3+4Channel)" />
+  <History Date="09-02-04" Author="Lena Gallagher" Comment="Error Found 5. Rate - Needs a single flash position at 0-5 (Locate)(3+4Channel)" />
+  <History Date="09-02-04" Author="Lena Gallagher" Comment="Error Found 6. Speed Eff - (4 Channel)" />
+  <History Date="03-08-04" Author="Phil Rogers" Comment="Adjusted attribute names and shortname." />
+  <History Date="03-08-04" Author="Phil Rogers" Comment="Changed all locate values" />
+  <History Date="01-10-04" Author="Brad White" Comment="Added Martin Color Scroller modes" />
+  <History Date="02-11-04" Author="Phil" Comment="Checked Brad's changes" />
+  <History Date="06-01-05" Author="Phil" Comment="Renamed Ramp Up/Down from &quot;Tooth&quot;!" />
+  <History Date="16-02-05" Author="Dave Trounce" Comment="Tested against manual" />
+  <History Date="16-02-05" Author="Dave Trounce" Comment="Error 1: Fan locates to off." />
+  <History Date="17-02-05" Author="Phil Rogers" Comment="Fixed fan channel" />
+  <History Date="07-04-05" Author="Phil Rogers" Comment="Renamed Colour1Func to Colour1Func" />
+  <History Date="06-04-06" Author="Ed" Comment="Moved Duration into Special group" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour ID to Colour1" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="10-11-08" Author="David Hunt" Comment="Rate and Effect on two wheels each and corrected dimmer" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Modified Attribute Channel Size" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Modified Attribute Channel Size" />
+  <History Date="14-04-09" Author="David Hunt" Comment="Fixed duration channel" />
+  <History Date="05-09-09" Author="Gregory Haynes" Comment="Added Shutter preset palettes" />
+  <History Date="31-07-11" Author="Nic Morris" Comment="Moved raw function into else condition.  Fixed colour index to allow indexing." />
+  <History Date="31-07-11" Author="Nic Morris" Comment="Standardised func names.  Removed duplicate ID's.  Fixed power on and locate." />
+  <History Date="31-07-11" Author="Nic Morris" Comment="Shortened names for Expert LCD.  Increased wheel resolution." />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Intensity" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Duration" Name="Duration" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Duration" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Rate" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Rate" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Effects" Name="Effect" Description="" Group="E">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Effect" Display="'No Effect'" Dmx="0~0" />
+      <Function ID="2" Name="Ramp Up" Display="'Ramp Up %.f%%',0~100" Dmx="6~42" />
+      <Function ID="3" Name="Ramp Down" Display="'Ramp Down %.f%%',0~100" Dmx="43~85" />
+      <Function ID="4" Name="Ramp Up/Dn" Display="'Ramp Up/Dn %.f%%',0~100" Dmx="86~128" />
+      <Function ID="5" Name="Random" Display="'Random %.f%%',0~100" Dmx="129~171" />
+      <Function ID="6" Name="Lightning" Display="'Lightning %.f%%',0~100" Dmx="172~214" />
+      <Function ID="7" Name="Spikes" Display="'Spikes %.f%%',0~100" Dmx="215~255" />
+    </Attribute>
+    <Attribute ID="Strobe" Name="Strobe" Description="" Group="I">
+      <Locate Locate="3" PowerOn="1" />
+      <Function ID="1" Name="Blackout" Display="'Blackout'" Dmx="0~5" Intensity="0~0" />
+      <Function ID="2" Name="Strobe" Display="'Strobe %.1f%%',0.0~100.0" Dmx="6~249" Intensity="0~0" />
+      <Function ID="3" Name="Blinder" Display="'Blinder'" Dmx="250~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Fan_Speed" Name="Fan Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Fan Speed" Display="'%.1f%%',0.0~100.0" Dmx="255~0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed" ID="1,2,3,4,5,6,7,8,9,10,11" If="'Colour1Func'==1" />
+      <Condition Name="Index" ID="12,13,14,15,16,17,18,19,20,21" If="'Colour1Func'==2" />
+      <Else ID="22" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" WheelPosition="0" Colour="255,255,255" />
+      <Function ID="2" Name="Light Yellow" Display="'Yellow'" Dmx="26~26" WheelPosition="1" Colour="255,255,128" />
+      <Function ID="3" Name="Amber" Display="'Amber'" Dmx="51~51" WheelPosition="2" Colour="255,100,0" />
+      <Function ID="4" Name="Orange" Display="'Orange'" Dmx="77~77" WheelPosition="3" Colour="255,128,0" />
+      <Function ID="5" Name="Red" Display="'Red'" Dmx="105~105" WheelPosition="4" Colour="255,0,0" />
+      <Function ID="6" Name="Pink" Display="'Pink'" Dmx="130~130" WheelPosition="5" Colour="255,150,150" />
+      <Function ID="7" Name="Light Magenta" Display="'Light Magenta'" Dmx="156~156" WheelPosition="6" Colour="255,128,255" />
+      <Function ID="8" Name="Light Cyan" Display="'Cyan'" Dmx="181~181" WheelPosition="7" Colour="128,255,255" />
+      <Function ID="9" Name="Turquoise" Display="'Turquoise'" Dmx="207~207" WheelPosition="8" Colour="0,255,128" />
+      <Function ID="10" Name="Light Green" Display="'Light Green'" Dmx="230~230" WheelPosition="9" Colour="128,255,0" />
+      <Function ID="11" Name="Deep Green" Display="'Deep Green'" Dmx="255~255" WheelPosition="10" Colour="0,180,0" />
+      <Function ID="12" Name="Opn/L Yel" Display="'Opn/L Yel %.f%%',0~100" Dmx="0~25" WheelPosition="0" Colour="255,255,255" />
+      <Function ID="13" Name="L Yel/Amb" Display="'L Yel/Amb %.f%%',0~100" Dmx="26~50" WheelPosition="1" Colour="255,255,128" />
+      <Function ID="14" Name="Amb/Orng" Display="'Amb/Orng %.f%%',0~100" Dmx="51~76" WheelPosition="2" Colour="255,100,0" />
+      <Function ID="15" Name="Orng/Red" Display="'Orng/Red %.f%%',0~100" Dmx="77~104" WheelPosition="3" Colour="255,128,0" />
+      <Function ID="16" Name="Red/Pink" Display="'Red/Pink %.f%%',0~100" Dmx="105~129" WheelPosition="4" Colour="255,0,0" />
+      <Function ID="17" Name="Pnk/L Mag" Display="'Pnk/L Mag %.f%%',0~100" Dmx="130~155" WheelPosition="5" Colour="255,150,150" />
+      <Function ID="18" Name="L Mag/Cyan" Display="'L Mag/Cyan %.f%%',0~100" Dmx="156~180" WheelPosition="6" Colour="255,128,255" />
+      <Function ID="19" Name="Cyan/Turq" Display="'Cyan/Turq %.f%%',0~100" Dmx="181~206" WheelPosition="7" Colour="128,255,255" />
+      <Function ID="20" Name="Turq/L Gr" Display="'Turq/L Gr %.f%%',0~100" Dmx="207~229" WheelPosition="8" Colour="0,255,128" />
+      <Function ID="21" Name="L Gr/D Gr" Display="'L Gr/D Gr %.f%%',0~100" Dmx="230~255" WheelPosition="9" Colour="128,255,0" />
+      <Function ID="22" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" WheelPosition="10" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1Func" Name="Colour Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Index" Display="'Index'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Raw DMX" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+  </Control>
+  <Mode Name="1 Channel" Channels="1">
+    <Import PearlRef="" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Strobe" ChannelOffset="1" Wheel="4" />
+    </Include>
+  </Mode>
+  <Mode Name="3 Channel" Channels="3">
+    <Import PearlRef="MT_Atom_3Ch" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Duration" ChannelOffset="2" Wheel="5" />
+      <Attribute ID="Speed" ChannelOffset="3" Wheel="26" />
+    </Include>
+  </Mode>
+  <Mode Name="4 Channel" Channels="4">
+    <Import PearlRef="MT_Atomic3k" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Effects" ChannelOffset="4" Wheel="22" />
+      <Attribute ID="Duration" ChannelOffset="2" Wheel="5" />
+      <Attribute ID="Speed" ChannelOffset="3" Wheel="26" />
+    </Include>
+  </Mode>
+  <Mode Name="5 Channel w Color" Channels="5">
+    <Import PearlRef="" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="5" Wheel="8" />
+      <Attribute ID="Effects" ChannelOffset="4" Wheel="22" />
+      <Attribute ID="Duration" ChannelOffset="2" Wheel="5" />
+      <Attribute ID="Speed" ChannelOffset="3" Wheel="26" />
+    </Include>
+  </Mode>
+  <Mode Name="6 Channel w Col and fan" Channels="6">
+    <Import PearlRef="MT_AtomWScr" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="5" Wheel="8" />
+      <Attribute ID="Effects" ChannelOffset="4" Wheel="22" />
+      <Attribute ID="Duration" ChannelOffset="2" Wheel="5" />
+      <Attribute ID="Speed" ChannelOffset="3" Wheel="26" />
+      <Attribute ID="Fan_Speed" ChannelOffset="6" Wheel="25" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Colour1:1:50" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Colour1:5:50" />
+      <Palette ID="3" Name="Amber" Number="3" Page="1" SetControl="Colour1:3:50" />
+      <Palette ID="4" Name="Light Yellow" Number="4" Page="1" SetControl="Colour1:2:50" />
+      <Palette ID="5" Name="Light Green" Number="0" Page="1" SetControl="Colour1:10:50" />
+      <Palette ID="6" Name="Light Green" Number="5" Page="1" SetControl="Colour1:10:50" />
+      <Palette ID="7" Name="Turquoise" Number="0" Page="1" SetControl="Colour1:9:50" />
+      <Palette ID="8" Name="Light Cyan" Number="6" Page="1" SetControl="Colour1:8:50" />
+      <Palette ID="9" Name="Turquoise" Number="0" Page="1" SetControl="Colour1:9:50" />
+      <Palette ID="11" Name="Light Magenta" Number="9" Page="1" SetControl="Colour1:7:50" />
+      <Palette ID="12" Name="Light Magenta" Number="10" Page="1" SetControl="Colour1:7:50" />
+      <Palette ID="13" Name="Red" Number="0" Page="1" SetControl="Colour1:5:50" />
+      <Palette ID="14" Name="Light Magenta" Number="8" Page="1" SetControl="Colour1:7:50" />
+      <Palette ID="15" Name="Light Magenta" Number="0" Page="1" SetControl="Colour1:7:50" />
+    </Group>
+    <Group Name="Shutter">
+      <Palette ID="1" Name="Open" Number="31" Page="1" SetControl="Duration:1:100,Speed:1:100,Strobe:3,Effects:1" />
+      <Palette ID="2" Name="Slow Strobe" Legend="Slow Strb" Number="32" Page="1" SetControl="Duration:1:25,Speed:1:25,Strobe:2:50,Effects:1" />
+      <Palette ID="3" Name="Fast Strobe" Legend="Fast Strb" Number="33" Page="1" SetControl="Duration:1:25,Speed:1:75,Strobe:2:100,Effects:1" />
+      <Palette ID="4" Name="Slow Random Strobe" Legend="Slow R Stb" Number="34" Page="1" SetControl="Duration:1:0,Speed:1:0,Strobe:1,Effects:5:50" />
+      <Palette ID="5" Name="Fast Random Strobe" Legend="Fast R Stb" Number="35" Page="1" SetControl="Duration:1:0,Speed:1:0,Strobe:1,Effects:5:100" />
+      <Palette ID="6" Name="Slow Pulse" Number="36" Page="1" SetControl="Duration:1:0,Speed:1:0,Strobe:1,Effects:4:50" />
+      <Palette ID="7" Name="Fast Pulse" Number="37" Page="1" SetControl="Duration:1:0,Speed:1:0,Strobe:1,Effects:4:100" />
+      <Palette ID="8" Name="Closed" Legend="Close" Number="38" Page="1" SetControl="Duration:1:0,Speed:1:0,Strobe:1,Effects:1" />
+    </Group>
+  </Palettes>
+</Fixture>

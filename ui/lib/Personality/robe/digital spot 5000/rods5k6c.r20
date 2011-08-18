@@ -1,0 +1,1013 @@
+; 'Robe Digital Spot 5000 v6.1 2. Common Effects', 35 DMX Channels, filename: RODS5K6C.R20
+;  Copyright © Avolites Ltd. 2009
+;
+;   Date       By                Description
+;   23-03-09   Pers Creator      Created - Exported from Diamond 4 file.
+;   23-03-09   David Hunt        Checked
+;   06-04-09   Jonathan Moreton  Checked
+
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  RO_DSpt5K6C                         mode=2. Common Effects  35 DMX Channels
+NAME "Robe" "DigiSp5000 v6.1 2.Common FX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  35  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   530  280
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 2. Common Effects"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=477
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L   18   100   1N   O   1   "Shutter"           0     0     0
+10    1   L   11   100   1N   B   1   "Cyan"              0     0   255
+10   61   L   12   100   1N   C   1   "Magenta"           0     0   255
+9    61   L   13   100   1N   D   1   "Yellow"            0   255    51
+14    1   L   14   100   1N   0   1   "CTF"               0     0     0
+3    61   I    1   100   1N   A   1   "Kstone TL X"       0     0     0
+3     1   L    2   100   1N   0   1   "Kstone TL Y"       0     0     0
+4    61   I    3   100   1N   N   1   "Kstone TR X"       0     0     0
+4     1   L    4   100   1N   0   1   "Kstone TR Y"       0     0     0
+7    61   L    5   100   1N   H   1   "Kstone BR X"       0     0     0
+7     1   L    6   100   1N   0   1   "Kstone BR Y"       0     0     0
+6    61   L    7   100   1N   0   1   "Kstone BL X"       0     0     0
+6     1   L    8   100   1N   0   1   "Kstone BL Y"       0     0     0
+20    1   L    9   100   1N   0   1   "Kstone X Rat"    128     0     0
+20   61   L   10   100   1N   0   1   "Kstone Y Rat"    128     0     0
+5     1   s   16   100   1N   Q   1   "Global Iris"       0     0     0
+0     0   L   17   100   1N   Q   1   "Global I Low"      0     0     0
+19    1   L   28   100   1N   0   1   "Global Eff 1"      0     0     0
+8     1   L   29   100   1N   0   1   "Glob FX 1 P1"      0     0     0
+8    61   L   30   100   1N   0   1   "Glob FX 1 P2"      0     0     0
+9     1   L   31   100   1N   0   1   "Glob FX 1 P3"      0     0     0
+19   61   L   32   100   1N   0   1   "Global Eff 2"      0     0     0
+18    1   I   33   100   1N   0   1   "Glob FX 2 P1"      0     0     0
+18   61   I   34   100   1N   0   1   "Glob FX 2 P2"      0     0     0
+17   61   L   35   100   1N   0   1   "Glob FX 2 P3"      0     0     0
+5    61   L   15   100   1N   L   1   "Digi Irs Sel"      0     0     0
+12    1   L   19   100   1N   0   1   "Banner L Pos"      0     0     0
+12   61   L   20   100   1N   0   1   "Banner L Rot"    128     0     0
+13    1   L   21   100   1N   0   1   "Banner R Pos"      0     0     0
+13   61   L   22   100   1N   0   1   "Banner R Rot"    128     0     0
+15    1   L   23   100   1N   0   1   "Banner T Pos"      0     0     0
+15   61   L   24   100   1N   0   1   "Banner T Rot"    128     0     0
+16    1   L   25   100   1N   0   1   "Banner B Pos"      0     0     0
+16   61   L   26   100   1N   0   1   "Banner B Rot"    128     0     0
+17    1   L   27   100   1N   0   1   "Banner A Rot"    128     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Robe
+Digital Spot 5000 v6.1
+2. Common Effects
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 18  ;Shutter
+0   30   "Open"
+31  80   "Strobe %3d%%"(c-a)*100/(b-a)
+81  110  "Open"
+111 140  "Rnd St %3d%%"(c-a)*100/(b-a)
+141 149  "Open"
+150 154  "Iris Gobo 1"
+155 159  "Iris Gobo 2"
+160 189  "Reserved"
+190 194  "Banner Gb 1"
+195 199  "Banner Gb 2"
+200 244  "Reserved"
+245 255  "Closed"
+REND
+
+RANGE 11  ;Cyan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;Magenta
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Yellow
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;CTF
+0   0    "Open"
+1   1    "14000K"
+2   2    "13000K"
+3   3    "12500K"
+4   4    "12000K"
+5   5    "11500K"
+6   6    "11000K"
+7   7    "10500K"
+8   8    "10000K"
+9   9    "9500K"
+10  10   "9000K"
+11  11   "8600K"
+12  12   "8575K"
+13  13   "8550K"
+14  14   "8525K"
+15  15   "8500K"
+16  16   "8475K"
+17  17   "8450K"
+18  18   "8425K"
+19  19   "8400K"
+20  20   "8375K"
+21  21   "8350K"
+22  22   "8325K"
+23  23   "8300K"
+24  24   "8275K"
+25  25   "8250K"
+26  26   "8225K"
+27  27   "8200K"
+28  28   "8175K"
+29  29   "8150K"
+30  30   "8125K"
+31  31   "8100K"
+32  32   "8075K"
+33  33   "8050K"
+34  34   "8025K"
+35  35   "8000K"
+36  36   "7975K"
+37  37   "7950K"
+38  38   "7925K"
+39  39   "7900K"
+40  40   "7875K"
+41  41   "7850K"
+42  42   "7825K"
+43  43   "7800K"
+44  44   "7775K"
+45  45   "7750K"
+46  46   "7725K"
+47  47   "7700K"
+48  48   "7675K"
+49  49   "7650K"
+50  50   "7625K"
+51  51   "7600K"
+52  52   "7575K"
+53  53   "7550K"
+54  54   "7525K"
+55  55   "7500K"
+56  56   "7475K"
+57  57   "7450K"
+58  58   "7425K"
+59  59   "7400K"
+60  60   "7375K"
+61  61   "7350K"
+62  62   "7325K"
+63  63   "7300K"
+64  64   "7275K"
+65  65   "7250K"
+66  66   "7225K"
+67  67   "7200K"
+68  68   "7175K"
+69  69   "7150K"
+70  70   "7125K"
+71  71   "7100K"
+72  72   "7075K"
+73  73   "7050K"
+74  74   "7025K"
+75  75   "7000K"
+76  76   "6975K"
+77  77   "6950K"
+78  78   "6925K"
+79  79   "6900K"
+80  80   "6875K"
+81  81   "6850K"
+82  82   "6825K"
+83  83   "6800K"
+84  84   "6775K"
+85  85   "6750K"
+86  86   "6725K"
+87  87   "6700K"
+88  88   "6675K"
+89  89   "6650K"
+90  90   "6625K"
+91  91   "6600K"
+92  92   "6575K"
+93  93   "6550K"
+94  94   "6525K"
+95  95   "6500K"
+96  96   "6475K"
+97  97   "6450K"
+98  98   "6425K"
+99  99   "6400K"
+100 100  "6375K"
+101 101  "6350K"
+102 102  "6325K"
+103 103  "6300K"
+104 104  "6275K"
+105 105  "6250K"
+106 106  "6225K"
+107 107  "6200K"
+108 108  "6175K"
+109 109  "6150K"
+110 110  "6125K"
+111 111  "6100K"
+112 112  "6075K"
+113 113  "6050K"
+114 114  "6025K"
+115 115  "6000K"
+116 116  "5975K"
+117 117  "5950K"
+118 118  "5925K"
+119 119  "5900K"
+120 120  "5875K"
+121 121  "5850K"
+122 122  "5825K"
+123 123  "5800K"
+124 124  "5775K"
+125 125  "5750K"
+126 126  "5725K"
+127 127  "5700K"
+128 128  "5675K"
+129 129  "5650K"
+130 130  "5625K"
+131 131  "5600K"
+132 132  "5575K"
+133 133  "5550K"
+134 134  "5525K"
+135 135  "5500K"
+136 136  "5475K"
+137 137  "5450K"
+138 138  "5425K"
+139 139  "5400K"
+140 140  "5375K"
+141 141  "5350K"
+142 142  "5325K"
+143 143  "5300K"
+144 144  "5275K"
+145 145  "5250K"
+146 146  "5225K"
+147 147  "5200K"
+148 148  "5175K"
+149 149  "5150K"
+150 150  "5125K"
+151 151  "5100K"
+152 152  "5075K"
+153 153  "5050K"
+154 154  "5025K"
+155 155  "5000K"
+156 156  "4975K"
+157 157  "4950K"
+158 158  "4925K"
+159 159  "4900K"
+160 160  "4875K"
+161 161  "4850K"
+162 162  "4825K"
+163 163  "4800K"
+164 164  "4775K"
+165 165  "4750K"
+166 166  "4725K"
+167 167  "4700K"
+168 168  "4675K"
+169 169  "4650K"
+170 170  "4625K"
+171 171  "4600K"
+172 172  "4575K"
+173 173  "4550K"
+174 174  "4525K"
+175 175  "4500K"
+176 176  "4475K"
+177 177  "4450K"
+178 178  "4425K"
+179 179  "4400K"
+180 180  "4375K"
+181 181  "4350K"
+182 182  "4325K"
+183 183  "4300K"
+184 184  "4275K"
+185 185  "4250K"
+186 186  "4225K"
+187 187  "4200K"
+188 188  "4175K"
+189 189  "4150K"
+190 190  "4125K"
+191 191  "4100K"
+192 192  "4075K"
+193 193  "4050K"
+194 194  "4025K"
+195 195  "4000K"
+196 196  "3975K"
+197 197  "3950K"
+198 198  "3925K"
+199 199  "3900K"
+200 200  "3875K"
+201 201  "3850K"
+202 202  "3825K"
+203 203  "3800K"
+204 204  "3775K"
+205 205  "3750K"
+206 206  "3725K"
+207 207  "3700K"
+208 208  "3675K"
+209 209  "3650K"
+210 210  "3625K"
+211 211  "3600K"
+212 212  "3575K"
+213 213  "3550K"
+214 214  "3525K"
+215 215  "3500K"
+216 216  "3475K"
+217 217  "3450K"
+218 218  "3425K"
+219 219  "3400K"
+220 220  "3375K"
+221 221  "3350K"
+222 222  "3325K"
+223 223  "3300K"
+224 224  "3275K"
+225 225  "3250K"
+226 226  "3225K"
+227 227  "3200K"
+228 228  "3175K"
+229 229  "3150K"
+230 230  "3125K"
+231 231  "3100K"
+232 232  "3075K"
+233 233  "3050K"
+234 234  "3025K"
+235 235  "3000K"
+236 236  "2975K"
+237 237  "2950K"
+238 238  "2925K"
+239 239  "2900K"
+240 240  "2875K"
+241 241  "2850K"
+242 242  "2825K"
+243 243  "2800K"
+244 244  "2775K"
+245 245  "2750K"
+246 246  "2725K"
+247 247  "2700K"
+248 248  "2675K"
+249 249  "2650K"
+250 250  "2625K"
+251 251  "2600K"
+252 252  "2575K"
+253 253  "2550K"
+254 254  "2525K"
+255 255  "2500K"
+REND
+
+RANGE 1  ;Keystone TL X
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Keystone TL Y
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Keystone TR X
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Keystone TR Y
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Keystone BR X
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Keystone BR Y
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Keystone BL X
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Keystone BL Y
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Keystone X Ratio
+0   127  "L-C %3d%%"100-((c-a)*100/(b-a))
+128 128  "Centre"
+129 255  "C-R %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Keystone Y Ratio
+0   127  "B-C %3d%%"100-((c-a)*100/(b-a))
+128 128  "Center"
+129 255  "C-T %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Global Iris
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 28  ;Global Eff 1
+0   0    "Open"
+1   1    "Ovlp Ed 10"
+2   2    "Ovlp Ed 0"
+3   3    "Ovlp Ed 15"
+4   4    "Ovlp Ed 20"
+5   5    "Ovlp Ed 25"
+6   6    "Ovlp Ed 30"
+7   7    "Ovlp Ed 35"
+8   10   "Reserved"
+11  11   "OvlpPCC 10"
+12  12   "OvlpPCC 0"
+13  13   "OvlpPCC 15"
+14  14   "OvlpPCC 20"
+15  15   "OvlpPCC 25"
+16  16   "OvlpPCC 30"
+17  17   "OvlpPCC 35"
+18  255  "Reserved"
+REND
+
+RANGE 29  ;Glob Eff 1 P1
+0   0    "Safe"
+1   109  "Non Mr %3d%%"(c-a)*100/(b-a)
+110 127  "Reserved"
+128 163  "H Mr %3d%%"(c-a)*100/(b-a)
+164 199  "V Mr %3d%%"(c-a)*100/(b-a)
+200 235  "H&V %3d%%"(c-a)*100/(b-a)
+236 255  "Reserved"
+REND
+
+RANGE 30  ;Glob Eff 1 P2
+0   0    "Segment 1"
+1   1    "Segment 2"
+2   2    "Segment 3"
+3   3    "Segment 4"
+4   4    "Segment 5"
+5   5    "Segment 6"
+6   6    "Segment 7"
+7   7    "Segment 8"
+8   8    "Segment 9"
+9   9    "Segment 10"
+10  10   "Segment 11"
+11  11   "Segment 12"
+12  12   "Segment 13"
+13  13   "Segment 14"
+14  14   "Segment 15"
+15  15   "Segment 16"
+16  16   "Segment 17"
+17  17   "Segment 18"
+18  18   "Segment 19"
+19  19   "Segment 20"
+20  20   "Segment 21"
+21  21   "Segment 22"
+22  22   "Segment 23"
+23  23   "Segment 24"
+24  24   "Segment 25"
+25  25   "Segment 26"
+26  26   "Segment 27"
+27  27   "Segment 28"
+28  28   "Segment 29"
+29  29   "Segment 30"
+30  30   "Segment 31"
+31  31   "Segment 32"
+32  32   "Segment 33"
+33  33   "Segment 34"
+34  34   "Segment 35"
+35  35   "Segment 36"
+36  36   "Segment 37"
+37  37   "Segment 38"
+38  38   "Segment 39"
+39  39   "Segment 40"
+40  40   "Segment 41"
+41  41   "Segment 42"
+42  42   "Segment 43"
+43  43   "Segment 44"
+44  44   "Segment 45"
+45  45   "Segment 46"
+46  46   "Segment 47"
+47  47   "Segment 48"
+48  48   "Segment 49"
+49  49   "Segment 50"
+50  50   "Segment 51"
+51  51   "Segment 52"
+52  52   "Segment 53"
+53  53   "Segment 54"
+54  54   "Segment 55"
+55  55   "Segment 56"
+56  56   "Segment 57"
+57  57   "Segment 58"
+58  58   "Segment 59"
+59  59   "Segment 60"
+60  60   "Segment 61"
+61  61   "Segment 62"
+62  62   "Segment 63"
+63  63   "Segment 64"
+64  64   "Segment 65"
+65  65   "Segment 66"
+66  66   "Segment 67"
+67  67   "Segment 68"
+68  68   "Segment 69"
+69  69   "Segment 70"
+70  70   "Segment 71"
+71  71   "Segment 72"
+72  72   "Segment 73"
+73  73   "Segment 74"
+74  74   "Segment 75"
+75  75   "Segment 76"
+76  76   "Segment 77"
+77  77   "Segment 78"
+78  78   "Segment 79"
+79  79   "Segment 80"
+80  80   "Segment 81"
+81  81   "Segment 82"
+82  82   "Segment 83"
+83  83   "Segment 84"
+84  84   "Segment 85"
+85  85   "Segment 86"
+86  86   "Segment 87"
+87  87   "Segment 88"
+88  88   "Segment 89"
+89  89   "Segment 90"
+90  90   "Segment 91"
+91  91   "Segment 92"
+92  92   "Segment 93"
+93  93   "Segment 94"
+94  94   "Segment 95"
+95  95   "Segment 96"
+96  96   "Segment 97"
+97  97   "Segment 98"
+98  98   "Segment 99"
+99  99   "Segment 100"
+100 100  "Segment 101"
+101 101  "Segment 102"
+102 102  "Segment 103"
+103 103  "Segment 104"
+104 104  "Segment 105"
+105 105  "Segment 106"
+106 106  "Segment 107"
+107 107  "Segment 108"
+108 108  "Segment 109"
+109 109  "Segment 110"
+110 110  "Segment 111"
+111 111  "Segment 112"
+112 112  "Segment 113"
+113 113  "Segment 114"
+114 114  "Segment 115"
+115 115  "Segment 116"
+116 116  "Segment 117"
+117 117  "Segment 118"
+118 118  "Segment 119"
+119 119  "Segment 120"
+120 120  "Segment 121"
+121 121  "Segment 122"
+122 122  "Segment 123"
+123 123  "Segment 124"
+124 124  "Segment 125"
+125 125  "Segment 126"
+126 126  "Segment 127"
+127 128  "Segment 128"
+129 129  "Segment 129"
+130 130  "Segment 130"
+131 131  "Segment 131"
+132 132  "Segment 132"
+133 133  "Segment 133"
+134 134  "Segment 134"
+135 135  "Segment 135"
+136 136  "Segment 136"
+137 137  "Segment 137"
+138 138  "Segment 138"
+139 139  "Segment 139"
+140 140  "Segment 140"
+141 141  "Segment 141"
+142 142  "Segment 142"
+143 143  "Segment 143"
+144 144  "Segment 144"
+145 145  "Segment 145"
+146 146  "Segment 146"
+147 147  "Segment 147"
+148 148  "Segment 148"
+149 149  "Segment 149"
+150 150  "Segment 150"
+151 151  "Segment 151"
+152 152  "Segment 152"
+153 153  "Segment 153"
+154 154  "Segment 154"
+155 155  "Segment 155"
+156 156  "Segment 156"
+157 157  "Segment 157"
+158 158  "Segment 158"
+159 159  "Segment 159"
+160 160  "Segment 160"
+161 161  "Segment 161"
+162 162  "Segment 162"
+163 163  "Segment 163"
+164 164  "Segment 164"
+165 165  "Segment 165"
+166 166  "Segment 166"
+167 167  "Segment 167"
+168 168  "Segment 168"
+169 169  "Segment 169"
+170 170  "Segment 170"
+171 171  "Segment 171"
+172 172  "Segment 172"
+173 173  "Segment 173"
+174 174  "Segment 174"
+175 175  "Segment 175"
+176 176  "Segment 176"
+177 177  "Segment 177"
+178 178  "Segment 178"
+179 179  "Segment 179"
+180 180  "Segment 180"
+181 181  "Segment 181"
+182 182  "Segment 182"
+183 183  "Segment 183"
+184 184  "Segment 184"
+185 185  "Segment 185"
+186 186  "Segment 186"
+187 187  "Segment 187"
+188 188  "Segment 188"
+189 189  "Segment 189"
+190 190  "Segment 190"
+191 191  "Segment 191"
+192 192  "Segment 192"
+193 193  "Segment 193"
+194 194  "Segment 194"
+195 195  "Segment 195"
+196 196  "Segment 196"
+197 197  "Segment 197"
+198 198  "Segment 198"
+199 199  "Segment 199"
+200 200  "Segment 200"
+201 201  "Segment 201"
+202 202  "Segment 202"
+203 203  "Segment 203"
+204 204  "Segment 204"
+205 205  "Segment 205"
+206 206  "Segment 206"
+207 207  "Segment 207"
+208 208  "Segment 208"
+209 209  "Segment 209"
+210 210  "Segment 210"
+211 211  "Segment 211"
+212 212  "Segment 212"
+213 213  "Segment 213"
+214 214  "Segment 214"
+215 215  "Segment 215"
+216 216  "Segment 216"
+217 217  "Segment 217"
+218 218  "Segment 218"
+219 219  "Segment 219"
+220 220  "Segment 220"
+221 221  "Segment 221"
+222 222  "Segment 222"
+223 223  "Segment 223"
+224 224  "Segment 224"
+225 225  "Segment 225"
+226 226  "Segment 226"
+227 227  "Segment 227"
+228 228  "Segment 228"
+229 229  "Segment 229"
+230 230  "Segment 230"
+231 231  "Segment 231"
+232 232  "Segment 232"
+233 233  "Segment 233"
+234 234  "Segment 234"
+235 235  "Segment 235"
+236 236  "Segment 236"
+237 237  "Segment 237"
+238 238  "Segment 238"
+239 239  "Segment 239"
+240 240  "Segment 240"
+241 241  "Segment 241"
+242 242  "Segment 242"
+243 243  "Segment 243"
+244 244  "Segment 244"
+245 245  "Segment 245"
+246 246  "Segment 246"
+247 247  "Segment 247"
+248 248  "Segment 248"
+249 249  "Segment 249"
+250 250  "Segment 250"
+251 251  "Segment 251"
+252 252  "Segment 252"
+253 253  "Segment 253"
+254 254  "Segment 254"
+255 255  "Segment 255"
+REND
+
+RANGE 31  ;Glob Eff 1 P3
+0   171  "Seg %3d%%"(c-a)*100/(b-a)
+172 255  "Reserved"
+REND
+
+RANGE 32  ;Global Eff 2
+0   0    "Open"
+1   1    "Vert In Crn"
+2   2    "Vert Out Cr"
+3   3    "Hori In Crn"
+4   4    "Hori Out Cr"
+5   5    "Vert Convex"
+6   6    "Vert Concav"
+7   7    "Hori Convex"
+8   8    "Hori Concav"
+9   9    "Ortographic"
+10  10   "Rectangle"
+11  11   "Sq On Cir"
+12  19   "Reserved"
+20  20   "Pic Merge"
+21  255  "Reserved"
+REND
+
+RANGE 15  ;Digi Iris Sel
+0   0    "Cir OtIn Sh"
+1   1    "Cir OtIn F1"
+2   2    "Cir OtIn F2"
+3   3    "Cir OtIn F3"
+4   4    "Cir OtIn F4"
+5   5    "Cir InOt Sh"
+6   6    "Cir InOt F1"
+7   7    "Cir InOt F2"
+8   8    "Cir InOt F3"
+9   9    "Cir InOt F4"
+10  10   "HEl OtIn Sh"
+11  11   "HEl OtIn F1"
+12  12   "HEl OtIn F2"
+13  13   "HEl OtIn F3"
+14  14   "HEl OtIn F4"
+15  15   "HEl InOt Sh"
+16  16   "HEl InOt F1"
+17  17   "HEl InOt F2"
+18  18   "HEl InOt F3"
+19  19   "HEl InOt F4"
+20  20   "VEl OtIn Sh"
+21  21   "VEl OtIn F1"
+22  22   "VEl OtIn F2"
+23  23   "VEl OtIn F3"
+24  24   "VEl OtIn F4"
+25  25   "VEl InOt Sh"
+26  26   "VEl InOt F1"
+27  27   "VEl InOt F2"
+28  28   "VEl InOt F3"
+29  29   "VEl InOt F4"
+30  30   "CW Wipe Shp"
+31  31   "CW Wipe F1"
+32  32   "CW Wipe F2"
+33  33   "CW Wipe F3"
+34  34   "CW Wipe F4"
+35  35   "CCW Wipe Sh"
+36  36   "CCW Wipe F1"
+37  37   "CCW Wipe F2"
+38  38   "CCW Wipe F3"
+39  39   "CCW Wipe F4"
+40  40   "Wedge TD Sh"
+41  41   "Wedge TD F1"
+42  42   "Wedge TD F2"
+43  43   "Wedge TD F3"
+44  44   "Wedge TD F4"
+45  45   "Wedge BU Sh"
+46  46   "Wedge BU F1"
+47  47   "Wedge BU F2"
+48  48   "Wedge BU F3"
+49  49   "Wedge BU F4"
+50  50   "Rad LB Shp"
+51  51   "Rad LB F1"
+52  52   "Rad LB F2"
+53  53   "Rad LB F3"
+54  54   "Rad LB F4"
+55  55   "Rad BL Shp"
+56  56   "Rad BL F1"
+57  57   "Rad BL F2"
+58  58   "Rad BL F3"
+59  59   "Rad BL F4"
+60  60   "Rad TL Shp"
+61  61   "Rad TL F1"
+62  62   "Rad TL F2"
+63  63   "Rad TL F3"
+64  64   "Rad TL F4"
+65  65   "Rad LT Shp"
+66  66   "Rad LT F1"
+67  67   "Rad LT F2"
+68  68   "Rad LT F3"
+69  69   "Rad LT F4"
+70  70   "VBD OtIn Sh"
+71  71   "VBD OtIn F1"
+72  72   "VBD OtIn F2"
+73  73   "VBD OtIn F3"
+74  74   "VBD OtIn F4"
+75  75   "VBD InOt Sh"
+76  76   "VBD InOt F1"
+77  77   "VBD InOt F2"
+78  78   "VBD InOt F3"
+79  79   "VBD InOt F4"
+80  80   "HBD OtIn Sh"
+81  81   "HBD OtIn F1"
+82  82   "HBD OtIn F2"
+83  83   "HBD OtIn F3"
+84  84   "HBD OtIn F4"
+85  85   "HBD InOt Sh"
+86  86   "HBD InOt F1"
+87  87   "HBD InOt F2"
+88  88   "HBD InOt F3"
+89  89   "HBD InOt F4"
+90  90   "H 1W B TLBR"
+91  91   "H 1W B BRTL"
+92  92   "H 1W B TRBL"
+93  93   "H 1W B BLTR"
+94  94   "H 2W B TLBR"
+95  95   "H 2W B BRTL"
+96  96   "H 2W B TRBL"
+97  97   "H 2W B BLTR"
+98  98   "V 1W B TLBR"
+99  99   "V 1W B BRTL"
+100 100  "V 1W B TRBL"
+101 101  "V 1W B BLTR"
+102 102  "V 2W B TLBR"
+103 103  "V 2W B BRTL"
+104 104  "V 2W B TRBL"
+105 105  "V 2W B BLTR"
+106 106  "HBd 4x TB"
+107 107  "HBd 4x BT"
+108 108  "VBd 4x LR"
+109 109  "VBd 4x RL"
+110 110  "HBd 8x TB"
+111 111  "HBd 8x BT"
+112 112  "VBd 8x LR"
+113 113  "VBd 8x RL"
+114 114  "HBd 16x TB"
+115 115  "HBd 16x BT"
+116 116  "VBd 16x LR"
+117 117  "VBd 16x RL"
+118 118  "HBd 32x TB"
+119 119  "HBd 32x BT"
+120 120  "VBd 32x LR"
+121 121  "VBd 32x RL"
+122 122  "HXing 4x"
+123 123  "HXing 4x I"
+124 124  "VXing 4x"
+125 125  "VXing 4x I"
+126 126  "HXing 8x"
+127 127  "HXing 8x I"
+128 128  "VXing 8x"
+129 129  "VXing 8x I"
+130 130  "HXing 16x"
+131 131  "HXing 16x I"
+132 132  "VXing 32x"
+133 133  "VXing 32x I"
+134 134  "Chk 3x4 LR"
+135 135  "Chk 3x4 RL"
+136 136  "Chk 4x4 LR"
+137 137  "Chk 4x4 RL"
+138 138  "Chk 5x8 LR"
+139 139  "Chk 5x8 RL"
+140 140  "Chk 9x8 LR"
+141 141  "Chk 9x8 RL"
+142 142  "Chk 9x16 LR"
+143 143  "Chk 9x16 RL"
+144 144  "Chk10x32 LR"
+145 145  "Chk10x32 RL"
+146 146  "2DC BL C TR"
+147 147  "2DC TR C BL"
+148 148  "Gd 8x8 BRTL"
+149 149  "Gd8x8BRTL I"
+150 150  "Gd 8x8 TRBL"
+151 151  "Gd8x8TRBL I"
+152 152  "Gd16x16BRTL"
+153 153  "G16x16BRTLI"
+154 154  "Gd16x16TLBR"
+155 155  "G16x16TLBRI"
+156 156  "Gd32x32BRTL"
+157 157  "G32x32BRTLI"
+158 158  "Gd32x32TLBR"
+159 159  "G32x32TLBRI"
+160 160  "4 Slid Tria"
+161 255  "Reserved"
+REND
+
+RANGE 19  ;Banner L Pos
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 20  ;Banner L Rot
+0   127  "%2d.%d%%"(c-a)*50/(b-a),10*((c-a)*50%(b-a))/(b-a)
+128 128  "50.00%"
+129 255  "%3d.%d%%"50+((c-a)*50/(b-a)),10*(50+((c-a)*50%(b-a)))/(b-a)
+REND
+
+RANGE 21  ;Banner R Pos
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 22  ;Banner R Rot
+0   127  "%2d.%d%%"(c-a)*50/(b-a),10*((c-a)*50%(b-a))/(b-a)
+128 128  "50.00%"
+129 255  "%3d.%d%%"50+((c-a)*50/(b-a)),10*(50+((c-a)*50%(b-a)))/(b-a)
+REND
+
+RANGE 23  ;Banner T Pos
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 24  ;Banner T Rot
+0   127  "%2d.%d%%"(c-a)*50/(b-a),10*((c-a)*50%(b-a))/(b-a)
+128 128  "50.00%"
+129 255  "%3d.%d%%"50+((c-a)*50/(b-a)),10*(50+((c-a)*50%(b-a)))/(b-a)
+REND
+
+RANGE 25  ;Banner B Pos
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 26  ;Banner B Rot
+0   127  "%2d.%d%%"(c-a)*50/(b-a),10*((c-a)*50%(b-a))/(b-a)
+128 128  "50.00%"
+129 255  "%3d.%d%%"50+((c-a)*50/(b-a)),10*(50+((c-a)*50%(b-a)))/(b-a)
+REND
+
+RANGE 27  ;Banner A Rot
+0   127  "%2d.%d%%"(c-a)*50/(b-a),10*((c-a)*50%(b-a))/(b-a)
+128 128  "50.00%"
+129 255  "%3d.%d%%"50+((c-a)*50/(b-a)),10*(50+((c-a)*50%(b-a)))/(b-a)
+REND
+

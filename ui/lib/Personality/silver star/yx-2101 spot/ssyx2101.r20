@@ -1,0 +1,246 @@
+; 'Silver Star YX-2101 Spot 1200', 12 DMX Channels, filename: SSYX2101.R20
+;
+;   Date       By                Description
+;   08-01-08   Pers Creator      Created - Exported from Diamond 4 file.
+;   08-01-08   Gregory Haynes    Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  SS_YX-2101                          mode=12 DMX, 8bit  12 DMX Channels
+NAME "Silver Star" "YX-2101 Spot 1200"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  12  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   450   252
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 12 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=500
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    4   100   1N   O   1   "Shutter"         129     0     0
+3    61   L    5   100   1N   E   1   "Pan"             128     0     0
+3     1   L    6   100   1N   F   1   "Tilt"            128     0     0
+4     1   I    2   100   1N   A   1   "Colour 1"          0    32    96
+4    61   I    3   100   1N   N   1   "Colour 2"          0     0     0
+6     1   I   10   100   1N   I   1   "Gobo 1"            0     0     0
+6    61   I   11   100   1N   J   1   "Gobo 2"            0     0     0
+7    61   L   12   100   1N   M   1   "Gobo 2 Rot"        0     0     0
+2     1   L    1   100   1N   G   1   "Iris"            255     0     0
+5    61   L    9   100   1N   L   1   "Focus"           127     0     0
+9     1   I    7   100   1N   P   1   "Effect"            0     0     0
+9    61   L    8   100   1N   R   1   "Effect Rot"        0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Silver Star
+YX-2101 Spot 1200
+12 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Pan/Tilt"   -1   5   6
+"Middle"             21  7F  7F
+"Left"               22  4F  7F
+"Right"              23  B0  7F
+"Top"                24  7F  4F
+"Bottom"             25  7F  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 4  ;Shutter
+0   128  "Dimmer %3d%%"0+(((c-a)*100)/(b-a))
+129 139  "Open"
+140 243  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+244 255  "Open"
+REND
+
+RANGE 2  ;Colour 1
+0   0    "Open"
+1   15   "Op/Re %3d%%"0+(((c-a)*100)/(b-a))
+16  16   "Red"
+17  31   "Re/Ye %3d%%"0+(((c-a)*100)/(b-a))
+32  32   "Yellow"
+33  47   "Ye/Pu %3d%%"0+(((c-a)*100)/(b-a))
+48  48   "Purple"
+49  63   "Pu/Gr %3d%%"0+(((c-a)*100)/(b-a))
+64  64   "Green"
+65  79   "Gr/Or %3d%%"0+(((c-a)*100)/(b-a))
+80  80   "Orange"
+81  95   "Or/Bl %3d%%"0+(((c-a)*100)/(b-a))
+96  96   "Blue"
+97  111  "Bl/Pi %3d%%"0+(((c-a)*100)/(b-a))
+112 112  "Pink"
+113 127  "Pi/Op %3d%%"0+(((c-a)*100)/(b-a))
+128 255  "Scroll %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 3  ;Colour 2
+0   0    "Open"
+1   31   "Op/Pi %3d%%"0+(((c-a)*100)/(b-a))
+32  32   "Pink"
+33  63   "Pi/Ye %3d%%"0+(((c-a)*100)/(b-a))
+64  64   "Lt Yellow"
+65  95   "Ye/Pu %3d%%"0+(((c-a)*100)/(b-a))
+96  96   "Lt Purple"
+97  127  "Pu/Gr %3d%%"0+(((c-a)*100)/(b-a))
+128 128  "Pale Green"
+129 159  "Gr/Or %3d%%"0+(((c-a)*100)/(b-a))
+160 160  "Lt Orange"
+161 191  "Or/Bl %3d%%"0+(((c-a)*100)/(b-a))
+192 192  "Sky Blue"
+193 223  "SB/LB %3d%%"0+(((c-a)*100)/(b-a))
+224 224  "Light Blue"
+225 255  "Bl/Op %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 10  ;Gobo 1
+0   0    "Open"
+1   47   "Op/G1 %3d%%"0+(((c-a)*100)/(b-a))
+48  48   "Gobo 1"
+49  99   "G1/G2 %3d%%"0+(((c-a)*100)/(b-a))
+100 100  "Gobo 2"
+101 151  "G2/G3 %3d%%"0+(((c-a)*100)/(b-a))
+152 152  "Gobo 3"
+153 203  "G3/G4 %3d%%"0+(((c-a)*100)/(b-a))
+204 204  "Gobo 4"
+205 255  "G4/Op %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 11  ;Gobo 2
+0   47   "Open"
+48  99   "Gobo 1"
+100 151  "Gobo 2"
+152 203  "Gobo 3"
+204 255  "Gobo 4"
+REND
+
+RANGE 12  ;Gobo 2 Rot
+0   127  "Index %3d°"0+(((c-a)*540)/(b-a))
+128 190  "Sp CW %3d%%"100-(((c-a)*100)/(b-a))
+191 192  "No Spin"
+193 255  "Sp CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 7  ;Effect
+0   51   "Open"
+52  103  "CTB"
+104 155  "CTO"
+156 207  "Soft Light"
+208 255  "Prism"
+REND
+
+RANGE 8  ;Effect Rot
+0   10   "No Func"
+11  20   "Quad Prism"
+21  30   "Dbl Prism"
+31  40   "Comet Psm"
+41  50   "Rad Prism"
+51  76   "P4 CW %3d%%"100-(((c-a)*100)/(b-a))
+77  77   "Rad Prism"
+78  101  "P4 CCw %3d%%"0+(((c-a)*100)/(b-a))
+102 127  "P3 CCW %3d%%"100-(((c-a)*100)/(b-a))
+128 128  "Comet Psm"
+129 152  "P3 CW %3d%%"0+(((c-a)*100)/(b-a))
+153 178  "P2 CW %3d%%"100-(((c-a)*100)/(b-a))
+179 179  "Dbl Prism"
+180 203  "P2 CCW %3d%%"0+(((c-a)*100)/(b-a))
+204 229  "P1 CCW %3d%%"100-(((c-a)*100)/(b-a))
+230 230  "Quad Prism"
+231 255  "P1 CW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+

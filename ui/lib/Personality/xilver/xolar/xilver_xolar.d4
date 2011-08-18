@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Xolar" ShortName="Xolar" Company="Xilver">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="15-03-06" Author="Ed" Comment="Created" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Frequency" Name="Frequency" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Frequency" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Duty" Name="Duty" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Duty" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+  </Control>
+  <Mode Name="6 DMX, 8bit" Channels="6">
+    <Import PearlRef="" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="3" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="4" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="5" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="6" Wheel="12" />
+      <Attribute ID="Frequency" ChannelOffset="1" Wheel="28" />
+      <Attribute ID="Duty" ChannelOffset="2" Wheel="29" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="All In">
+      <Set Channel="Red:1:100,Green:1:100,Blue:1:100" Delay="500" />
+    </Macro>
+    <Macro Name="All Out">
+      <Set Channel="Red:1:0,Green:1:0,Blue:1:0" Delay="500" />
+    </Macro>
+  </Macro>
+</Fixture>

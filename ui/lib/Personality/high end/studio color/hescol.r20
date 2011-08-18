@@ -1,0 +1,228 @@
+; "High End Studio Color", 16 DMX channels, filename :hescol.r20
+;
+;   Date      By          Description
+;   20-06-96  S. Anwar    Created
+;   15-01-98  P.Bari      Revised attributes
+;   13-09-01  Edward      Revised Max DMX no,
+;   08-03-02  A. Simmons  Updated Color Palettes 
+;   17-05-05  Phil        Moved Lee palettes to separate table
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  HE_StudCol                                   16 DMX channels
+NAME "High End" "Studio Color"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  16  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR	2  360 270
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+"  High End"
+"Studio Color"
+" 16 DMX Chs"
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=497
+;
+; DMX number must be divisible by this	
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+;
+DMX	
+3  61 s  1 100 1N E 1 "Pan"        128  -1  -1  ; PAN
+0   0 L  2 100 1N E 1 "Pan Low"    128  -1  -1  ; PAN Low
+3   1 s  3 100 1N F 1 "Tilt"       128  -1  -1  ; TILT
+0   0 L  4 100 1N F 1 "Tilt Low"   128  -1  -1  ; TILT Low
+4   1 I  5 100 1N 0 1 "Colour Fnc"   0   0   0  ; Col func
+4  61 I  6 100 1N A 1 "Colour"       0   0   0  ; Color
+10  1 L  7 100 1I B 1 "Cyan"         0 255 255  ; Cyan
+10 61 L  8 100 1I C 1 "Magenta"      0 255   0  ; Magenta
+9  61 L  9 100 1I D 1 "Yellow"       0 255   0  ; Yellow
+6   1 I 10 100 1N G 1 "Lens"         0   0   0  ; Lens
+6  61 I 11 100 1N S 1 "Frost"        0   0   0  ; Frost
+2  61 I 12 100 1N O 1 "Shutter"    255 255 255  ; Shutter
+1   1 H 13 100 1N H 1 "Dimmer"     255 255 255  ; DIMMER
+8   1 L 14 100 1N 0 1 "P/T Speed"  255 255 255  ; MOTOR SPEED
+11  1 I 15 100 1N 0 1 "Control"      0   0   0  ; Control
+11 61 I 16 100 1N 0 1 "Checksum"     0   0   0  ; Control
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+    STUDIO COLOR    
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1 Dimmer   --
+ 2 --       Shutter
+ 3 Tilt     Pan
+ 4 Colour   ColFunc
+ 5 --       --  
+ 6 Lens     -- 
+ 7 --       --
+ 8 P/T Spd  --      
+ 9 Frost    Yellow
+10 Cyan     Magenta
+11 Control  Checksum
+
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+; A color table color wheel, cyan, magenta, yellow
+PFTABLE "Color" -1  5  6   7  8  9
+"White"          1  0  0  ff ff ff
+"Cyan"           2  0  0   0 ff ff
+"Magenta"        3  0  0  ff  0 ff
+"Yellow"         4  0  0  ff ff  0
+"Red"            5  0  0  ff  0  0
+"Green"          6  0  0   0 ff  0
+"Congo"          7  0  0   0  0 ff
+"Amber"          8  0  0  ff 29  0
+"Lavender"       9  0  0  36 1c ff
+"Pink"          10  0  0  ff 36 cf
+PFEND
+
+PFTABLE "Lee" 29  5  6   7  8  9
+"lee 101"	-1   0   0	DE	C	89
+"lee 102"	-1   0   0	E6	17	7A
+"lee 103"	-1   0   0	F9	70	93
+"lee 104"	-1   0   0	C3	5	64
+"lee 105"	-1   0   0	FD	4	29
+"lee 106"	-1   0   0	A4	8	8
+"lee 107"	-1   0   0	E7	4D	4D
+"lee 108"	-1   0   0	5B	23	23
+"lee 109"	-1   0   0	E9	5E	4F
+"lee 110"	-1   0   0	FF	A0	59
+"lee 111"	-1   0   0	FF	7C	2A
+"lee 113"	-1   0   0	C8	3D	1
+"lee 115"	-1   0   0	3C	6E	F4
+"lee 116"	-1   0   0	7	53	F4
+"lee 117"	-1   0   0	D0	D2	FB
+"lee 118"	-1   0   0	1D	80	95
+"lee 119"	-1   0   0	8	DD	6F
+"lee 120"	-1   0   0	12	A2	19
+"lee 121"	-1   0   0	9C	16	ED
+"lee 122"	-1   0   0	66	18	D9
+"lee 124"	-1   0   0	1D	E	7C
+"lee 126"	-1   0   0	6D	75	D
+"lee 127"	-1   0   0	A1	2D	1F
+"lee 128"	-1   0   0	BF	67	7
+"lee 129"	-1   0   0	0	0	0
+"lee 130"	-1   0   0	0	0	0
+"lee 131"	-1   0   0	6A	6A	D2
+"lee 132"	-1   0   0	22	C4	AC
+"lee 134"	-1   0   0	D5	1C	4A
+"lee 135"	-1   0   0	92	7	11
+"lee 136"	-1   0   0	D5	90	77
+"lee 137"	-1   0   0	C7	FA	93
+"lee 138"	-1   0   0	E3	64	D6
+"lee 139"	-1   0   0	0	0	0
+"lee 140"	-1   0   0	89	A0	F1
+"lee 141"	-1   0   0	1D	A3	C0
+"lee 142"	-1   0   0	A0	D6	89
+"lee 143"	-1   0   0	42	8E	7B
+"lee 144"	-1   0   0	6C	A7	F0
+"lee 145"	-1   0   0	0	0	0
+"lee 147"	-1   0   0	FF	33	56
+"lee 148"	-1   0   0	0	0	0
+"lee 151"	-1   0   0	F0	6A	6A
+"lee 152"	-1   0   0	F0	6A	72
+"lee 153"	-1   0   0	F0	6A	5F
+"lee 154"	-1   0   0	F0	72	6F
+"lee 156"	-1   0   0	E5	5C	61
+"lee 158"	-1   0   0	EF	6	22
+"lee 159"	-1   0   0	F2	84	92
+"lee 161"	-1   0   0	89	E6	C5
+"lee 162"	-1   0   0	EF	67	85
+"lee 164"	-1   0   0	E1	F	9
+"lee 165"	-1   0   0	6E	D4	C9
+"lee 166"	-1   0   0	0	0	0
+"lee 169"	-1   0   0	D9	94	8E
+"lee 170"	-1   0   0	C4	B6	63
+"lee 172"	-1   0   0	26	77	FF
+"lee 174"	-1   0   0	B1	E1	C1
+"lee 176"	-1   0   0	F8	5D	50
+"lee 179"	-1   0   0	B9	9	35
+"lee 180"	-1   0   0	61	D6	37
+"lee 181"	-1   0   0	8	88	11
+"lee 182"	-1   0   0	A3	4	7
+"lee 183"	-1   0   0	0	0	0
+"lee 184"	-1   0   0	FC	80	8F
+"lee 185"	-1   0   0	F9	97	92
+"lee 186"	-1   0   0	F9	8D	85
+"lee 187"	-1   0   0	F9	7C	85
+"lee 188"	-1   0   0	F9	78	86
+"lee 189"	-1   0   0	E0	8F	97
+"lee 190"	-1   0   0	C8	8F	97
+"lee 191"	-1   0   0	C8	77	8F
+PFEND
+
+; Gobo
+
+ 
+; Positions
+PFTABLE "Positions" -1 1 3
+"Middle"    21 80  80
+"Left"      22 50  80
+"Right"     23 b0  80
+"Top"       24 80  50
+"Bottom"    25 80  b0
+"TLeft"     26 50  50
+"TRight"    27 b0  b0
+"BLeft"     28 50  b0
+"BRight"    29 b0  50
+PFEND
+
+MACRO "HOME" 1  12  15
+"data"       0   0  40
+"delay"      1  20
+"data"       0   0   0
+MEND
+
+MACRO "SHUTDOWN" 2  12  15
+"data"           0   0  80
+"delay"          1  20
+"data"           0   0   0
+MEND
+
+MACRO "RESTRIKE" 3  12  15
+"data"           0   0  ff
+"delay"          1  20
+"data"           0   0   0
+MEND
+

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="LED Mani" ShortName="LED  Mani" Company="Neo Neon">
+  <Copyright Notice="© Avolites Ltd. 2008" />
+  <History Date="11-07-08" Author="David Hunt" Comment="Created" />
+  <History Date="28-07-08" Author="Jonathan Moreton" Comment="Changed Manufacturer and Fixture Name" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="RGB" Display="'RGB'" Dmx="0~24" Update="Red, Green, Blue, Shutter, Dimmer" />
+      <Function ID="2" Name="Auto Pro 1" Display="'Auto Pro 1'" Dmx="25~49" Update="Red, Green, Blue, Shutter, Dimmer" />
+      <Function ID="3" Name="Auto Pro 2" Display="'Auto Pro 2'" Dmx="50~74" Update="Red, Green, Blue, Shutter, Dimmer" />
+      <Function ID="4" Name="Auto Pro 3" Display="'Auto Pro 3'" Dmx="75~99" Update="Red, Green, Blue, Shutter, Dimmer" />
+      <Function ID="5" Name="Auto Pro 4" Display="'Auto Pro 4'" Dmx="100~124" Update="Red, Green, Blue, Shutter, Dimmer" />
+      <Function ID="6" Name="Auto Pro 5" Display="'Auto Pro 5'" Dmx="125~149" Update="Red, Green, Blue, Shutter, Dimmer" />
+      <Function ID="7" Name="Auto Pro 6" Display="'Auto Pro 6'" Dmx="150~174" Update="Red, Green, Blue, Shutter, Dimmer" />
+      <Function ID="8" Name="Auto Pro 7" Display="'Auto Pro 7'" Dmx="175~199" Update="Red, Green, Blue, Shutter, Dimmer" />
+      <Function ID="9" Name="Auto Pro 8" Display="'Auto Pro 8'" Dmx="200~224" Update="Red, Green, Blue, Shutter, Dimmer" />
+      <Function ID="10" Name="Auto Pro" Display="'Auto Pro'" Dmx="225~255" Update="Red, Green, Blue, Shutter, Dimmer" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="RGB" ID="1" If="'Control'==1" />
+      <Else ID="2" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="RGB" ID="1" If="'Control'==1" />
+      <Else ID="2" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Condition Name="RGB" ID="1" If="'Control'==1" />
+      <Else ID="2" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="RGB" ID="1,2" If="'Control'==1" />
+      <Else ID="3" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~15" Intensity="0~0" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.1f%%',100.0~0.0" Dmx="16~255" Intensity="0~0" />
+      <Function ID="3" Name="Auto Speed" Display="'Auto Sp %.1f%%',100.0~0.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="255~0" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="PT_Speed" Name="P/T Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',100.0~0.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Pan1" Name="Pan" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="8bit" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Tilt1" Name="Tilt" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="8bit" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="11 DMX, 16bit" Channels="11">
+    <Import PearlRef="NN_LEDMANI1" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="540" TiltMax="260" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="5" Wheel="4" />
+      <Attribute ID="Dimmer" ChannelOffset="6" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="7,10" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="8,11" Wheel="3" />
+      <Attribute ID="Red" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="4" Wheel="12" />
+      <Attribute ID="Control" ChannelOffset="1" Wheel="28" />
+      <Attribute ID="PT_Speed" ChannelOffset="9" Wheel="25" />
+    </Include>
+  </Mode>
+  <Mode Name="9 DMX, 8bit" Channels="9">
+    <Import PearlRef="NN_LEDMANI2" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="540" TiltMax="260" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="5" Wheel="4" />
+      <Attribute ID="Dimmer" ChannelOffset="6" Wheel="1" />
+      <Attribute ID="Pan1" ChannelOffset="7" Wheel="2" />
+      <Attribute ID="Tilt1" ChannelOffset="8" Wheel="3" />
+      <Attribute ID="Red" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="4" Wheel="12" />
+      <Attribute ID="Control" ChannelOffset="1" Wheel="28" />
+      <Attribute ID="PT_Speed" ChannelOffset="9" Wheel="25" />
+    </Include>
+  </Mode>
+</Fixture>

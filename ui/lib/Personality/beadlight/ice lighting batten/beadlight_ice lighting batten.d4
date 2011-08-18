@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Ice Lighting Batten" ShortName="IceLtBaten" Company="Beadlight">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="17-08-04" Author="Phil Rogers" Comment="Created" />
+  <History Date="23-08-04" Author="Tom" Comment="Checked" />
+  <History Date="17-03-05" Author="Phil Rogers" Comment="Updated to production protocol" />
+  <History Date="21-03-05" Author="Tom" Comment="Checked" />
+  <History Date="11-05-05" Author="Phil Rogers" Comment="Added network On/Off functions" />
+  <History Date="16-08-05" Author="Phil" Comment="Revised DMX values for library and sequence channels" />
+  <History Date="07-04-06" Author="Ed" Comment="Moved Library into Special group" />
+  <History Date="12-04-06" Author="Ed Spencer" Comment="Moved Step into special group" />
+  <History Date="19-04-06" Author="Ed" Comment="Changed manufacturer" />
+  <History Date="28-01-09" Author="D4 Personality Fixer 2009" Comment="Changed manufacturer from Bead light to Beadlight" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Library" Name="Library" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="RGB Mix" Display="'RGB Mix'" Dmx="0~0" Update="Effect, Speed, Shutter, Red, Green, Blue, Sequence, Step" />
+      <Function ID="2" Name="Library Ctrl" Display="'Library %.f',1~149" Dmx="1~149" Update="Effect, Speed, Shutter, Red, Green, Blue, Sequence, Step" />
+      <Function ID="3" Name="Network Mode ON" Display="'Network Mode ON'" Dmx="150~150" Update="Sequence, Speed, Step, Red, Green, Blue" />
+      <Function ID="4" Name="Network Mode OFF" Display="'Network Mode OFF'" Dmx="200~200" Update="Sequence, Speed, Step, Red, Green, Blue" />
+    </Attribute>
+    <Attribute ID="Sequence" Name="Sequence" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="RGB Mix" ID="1" If="'Library'==1" />
+      <Condition Name="Library Ctrl" ID="2" If="'Library'==2" />
+      <Condition Name="Network Mode ON" ID="3,4" If="'Library'==3" />
+      <Condition Name="Network Mode OFF" ID="5,6" If="'Library'==4" />
+      <Else ID="1,2" />
+      <Function ID="1" Name="No Func" Display="'No Func'" Dmx="0~0" />
+      <Function ID="2" Name="Sequence" Display="'Sequence %.f',1~149" Dmx="1~149" />
+      <Function ID="3" Name="Safe" Display="'Safe'" Dmx="0~0" />
+      <Function ID="4" Name="Network Mode ON" Display="'Network Mode ON'" Dmx="150~150" Update="Sequence, Speed, Step, Red, Green, Blue" />
+      <Function ID="5" Name="Safe" Display="'Safe'" Dmx="0~0" />
+      <Function ID="6" Name="Network Mode OFF" Display="'Network Mode OFF'" Dmx="200~200" Update="Sequence, Speed, Step, Red, Green, Blue" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Speed" Description="" Group="S">
+      <Locate Locate="2:50" PowerOn="2:50" />
+      <Condition Name="RGB Mix" ID="1" If="'Library'==1||'Library'==3||'Library'==4" />
+      <Condition Name="Library Ctrl" ID="2" If="'Library'==2" />
+      <Else ID="1,2" />
+      <Function ID="1" Name="No Func" Display="'No Func'" Dmx="0~0" />
+      <Function ID="2" Name="Speed" Display="'Speed %.f%%',0~100" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Step" Name="Step" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="RGB Mix" ID="1" If="'Library'==1||'Library'==3||'Library'==4" />
+      <Condition Name="Library Ctrl" ID="2,3" If="'Library'==2" />
+      <Else ID="1,2" />
+      <Function ID="2" Name="Frame 1" Display="'Frame 1'" Dmx="0~127" />
+      <Function ID="1" Name="No Func" Display="'No Func'" Dmx="0~0" />
+      <Function ID="3" Name="Frame 2" Display="'Frame 2'" Dmx="128~255" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="RGB Mix" ID="1" If="'Library'==1||'Library'==3||'Library'==4" />
+      <Condition Name="Library Ctrl" ID="2" If="'Library'==2" />
+      <Else ID="1,2" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+      <Function ID="2" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="255,255,255" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="RGB Mix" ID="1" If="'Library'==1||'Library'==3||'Library'==4" />
+      <Condition Name="Library Ctrl" ID="2" If="'Library'==2" />
+      <Else ID="1,2" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+      <Function ID="2" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="255,255,255" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Condition Name="RGB Mix" ID="1" If="'Library'==1||'Library'==3||'Library'==4" />
+      <Condition Name="Library Ctrl" ID="2" If="'Library'==2" />
+      <Else ID="1,2" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+      <Function ID="2" Name="No Func" Display="'No Func'" Dmx="0~0" Colour="255,255,255" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="8 DMX, 8bit" Channels="8">
+    <Import PearlRef="BL_ILBtLTP" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="8" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="5" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="6" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="7" Wheel="12" />
+      <Attribute ID="Sequence" ChannelOffset="2" Wheel="23" />
+      <Attribute ID="Step" ChannelOffset="4" Wheel="24" />
+      <Attribute ID="Library" ChannelOffset="1" Wheel="22" />
+      <Attribute ID="Speed" ChannelOffset="3" Wheel="25" />
+    </Include>
+  </Mode>
+</Fixture>

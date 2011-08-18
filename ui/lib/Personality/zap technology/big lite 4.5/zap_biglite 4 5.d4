@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Big Lite 4.5" ShortName="BigLt4.5" Company="Zap Technology">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="03-02-06" Author="Ed" Comment="Created" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <History Date="25-06-08" Author="Jonathan Moreton" Comment="Changed Shutter to Mech Dimmer, Dimmer to Elec Dimmer &amp; changed channels for Cyan &amp; Magenta" />
+  <History Date="02-07-08" Author="Jonathan Moreton" Comment="Changed Macros to correct macro settings " />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" Update="Speed" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="No Strobe" Display="'No Strobe'" Dmx="0~0" Intensity="0~0" />
+      <Function ID="2" Name="Strobe" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Speed" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Always Do" ID="1,2" If="'Pan'==1" />
+      <Else ID="3" />
+      <Function ID="1" Name="Tracking" Display="'Tracking'" Dmx="0~1" Update="Speed" />
+      <Function ID="2" Name="Speed" Display="'Speed %.1f%%',0.0~100.0" Dmx="1~255" Update="Speed" />
+      <Function ID="3" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Elec_Dimmer" Name="Elec Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="8bit HTP" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="5" PowerOn="5" Highlight="5" Lowlight="5" />
+      <Condition Name="Normal" ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15" If="'ControlFunc'==1" />
+      <Condition Name="Raw Func" ID="16" If="'ControlFunc'==2" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16" />
+      <Function ID="1" Name="Functional Cols Linear" Display="'Functional    Cols Linear'" Dmx="0~0" />
+      <Function ID="2" Name="Functional Cols Cut" Display="'Functional    Cols Cut'" Dmx="0~0" />
+      <Function ID="3" Name="X Reflector" Display="'X Reflector'" Dmx="30~30" />
+      <Function ID="4" Name="Y Reflector" Display="'Y Reflector'" Dmx="35~35" />
+      <Function ID="5" Name="Security Adj" Display="'Security Adj'" Dmx="40~40" />
+      <Function ID="6" Name="Lamp On" Display="'Lamp On'" Dmx="100~100" />
+      <Function ID="7" Name="Lamp Reset" Display="'Lamp Reset'" Dmx="175~175" />
+      <Function ID="8" Name="Scroller 1 Reset" Display="'Scroller 1    Reset'" Dmx="180~180" />
+      <Function ID="9" Name="Scroller 2 Reset" Display="'Scroller 2    Reset'" Dmx="185~185" />
+      <Function ID="10" Name="Scroller 3 Reset" Display="'Scroller 3    Reset'" Dmx="190~190" />
+      <Function ID="11" Name="Shutter Reset" Display="'Shutter Reset'" Dmx="195~195" />
+      <Function ID="12" Name="Focus/ Zm Reset" Display="'Focus/ Zoom   Reset'" Dmx="200~200" />
+      <Function ID="13" Name="Head Reset" Display="'Head Reset'" Dmx="205~205" />
+      <Function ID="14" Name="Reset All" Display="'Reset All'" Dmx="210~210" />
+      <Function ID="15" Name="Lamp Off" Display="'Lamp Off'" Dmx="240~240" />
+      <Function ID="16" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:20" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Mech Dimmer" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Focus" Name="Focus" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Focus" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="ControlFunc" Name="Control Func" Description="" Group="S" Size="0">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Normal" Display="'Normal'" Dmx="0~0" Update="Control" />
+      <Function ID="2" Name="Raw Func" Display="'Raw Func'" Dmx="0~0" Update="Control" />
+    </Attribute>
+  </Control>
+  <Mode Name="13 DMX, 16bit" Channels="13">
+    <Import PearlRef="ZP_BigLite" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="580" TiltMax="270" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="5" Wheel="5" />
+      <Attribute ID="Elec_Dimmer" ChannelOffset="7" Wheel="4" />
+      <Attribute ID="Dimmer" ChannelOffset="12" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="1,2" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="3,4" Wheel="3" />
+      <Attribute ID="Cyan" ChannelOffset="10" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="9" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="11" Wheel="12" />
+      <Attribute ID="Focus" ChannelOffset="13" Wheel="20" />
+      <Attribute ID="Speed" ChannelOffset="6" Wheel="25" />
+      <Attribute ID="Control" ChannelOffset="8" Wheel="29" />
+      <Attribute ID="ControlFunc" Wheel="28" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Speed:3:86" Delay="1000" />
+      <Set Channel="Control:6" Delay="1000" />
+      <Set Channel="Speed:3:171" Delay="5000" />
+      <Set Channel="Speed:3:0" Delay="500" />
+      <Set Channel="Speed:1,Control:5" Delay="0" />
+    </Macro>
+    <Macro Name="Reset">
+      <Set Channel="Speed:3:86" Delay="1000" />
+      <Set Channel="Control:14" Delay="1000" />
+      <Set Channel="Speed:3:171" Delay="5000" />
+      <Set Channel="Speed:3:0" Delay="500" />
+      <Set Channel="Speed:1,Control:5" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp Off">
+      <Set Channel="Speed:3:86" Delay="1000" />
+      <Set Channel="Control:15" Delay="1000" />
+      <Set Channel="Speed:3:171" Delay="5000" />
+      <Set Channel="Speed:3:0" Delay="500" />
+      <Set Channel="Speed:1,Control:5" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp Reset">
+      <Set Channel="Speed:3:86" Delay="1000" />
+      <Set Channel="Control:7" Delay="1000" />
+      <Set Channel="Speed:3:171" Delay="5000" />
+      <Set Channel="Speed:3:0" Delay="500" />
+      <Set Channel="Speed:1,Control:5" Delay="0" />
+    </Macro>
+    <Macro Name="Scroller 1 Reset">
+      <Set Channel="Speed:3:86" Delay="1000" />
+      <Set Channel="Control:8" Delay="1000" />
+      <Set Channel="Speed:3:171" Delay="5000" />
+      <Set Channel="Speed:3:0" Delay="500" />
+      <Set Channel="Speed:1,Control:5" Delay="0" />
+    </Macro>
+    <Macro Name="Scroller 2 Reset">
+      <Set Channel="Speed:3:86" Delay="1000" />
+      <Set Channel="Control:9" Delay="1000" />
+      <Set Channel="Speed:3:171" Delay="5000" />
+      <Set Channel="Speed:3:0" Delay="500" />
+      <Set Channel="Speed:1,Control:5" Delay="0" />
+    </Macro>
+    <Macro Name="Scroller 3 Reset">
+      <Set Channel="Speed:3:86" Delay="1000" />
+      <Set Channel="Control:10" Delay="1000" />
+      <Set Channel="Speed:3:171" Delay="5000" />
+      <Set Channel="Speed:3:0" Delay="500" />
+      <Set Channel="Speed:1,Control:5" Delay="0" />
+    </Macro>
+    <Macro Name="Shutter Reset">
+      <Set Channel="Speed:3:86" Delay="1000" />
+      <Set Channel="Control:11" Delay="1000" />
+      <Set Channel="Speed:3:171" Delay="5000" />
+      <Set Channel="Speed:3:0" Delay="500" />
+      <Set Channel="Speed:1,Control:5" Delay="0" />
+    </Macro>
+    <Macro Name="Focus/Zoom Reset">
+      <Set Channel="Speed:3:86" Delay="1000" />
+      <Set Channel="Control:12" Delay="1000" />
+      <Set Channel="Speed:3:171" Delay="5000" />
+      <Set Channel="Speed:3:0" Delay="500" />
+      <Set Channel="Speed:1,Control:5" Delay="0" />
+    </Macro>
+    <Macro Name="Head Reset">
+      <Set Channel="Speed:3:86" Delay="1000" />
+      <Set Channel="Control:13" Delay="1000" />
+      <Set Channel="Speed:3:171" Delay="5000" />
+      <Set Channel="Speed:3:0" Delay="500" />
+      <Set Channel="Speed:1,Control:5" Delay="0" />
+    </Macro>
+  </Macro>
+</Fixture>

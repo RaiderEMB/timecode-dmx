@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="LED Tube" ShortName="LED  Tube" Company="Showtec">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="17-09-04" Author="Phil Rogers" Comment="Created" />
+  <History Date="20-09-04" Author="Phil Rogers" Comment="Revised DMX channels according to new spec" />
+  <History Date="20-09-04" Author="Greg Brown" Comment="Checked" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour ID to Colour1" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" Highlight="5" Lowlight="6" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="230~231" Colour="255,255,255" />
+      <Function ID="2" Name="Closed" Display="'Closed'" Dmx="0~28" Colour="0,0,0" />
+      <Function ID="3" Name="Red" Display="'Red'" Dmx="29~57" Colour="255,0,0" />
+      <Function ID="4" Name="Green" Display="'Green'" Dmx="58~86" Colour="0,255,0" />
+      <Function ID="5" Name="Yellow" Display="'Yellow'" Dmx="87~115" Colour="255,255,0" />
+      <Function ID="6" Name="Blue" Display="'Blue'" Dmx="116~144" Colour="0,0,255" />
+      <Function ID="7" Name="Purple" Display="'Purple'" Dmx="145~173" Colour="128,0,255" />
+      <Function ID="8" Name="Cyan" Display="'Cyan'" Dmx="174~202" Colour="0,255,255" />
+      <Function ID="9" Name="Scroll CW" Display="'Scroll'" Dmx="232~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Col_Effect" Name="Col Effect" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Slow Flow 1" Display="'Slow Flow 1'" Dmx="0~12" />
+      <Function ID="2" Name="Slow Flow 2" Display="'Slow Flow 2'" Dmx="13~25" />
+      <Function ID="3" Name="Roll Chase 1" Display="'Roll Chase 1'" Dmx="26~38" />
+      <Function ID="4" Name="Roll Chase 2" Display="'Roll Chase 2'" Dmx="39~51" />
+      <Function ID="5" Name="Multi-Colour" Display="'Multi-Colour'" Dmx="52~64" />
+      <Function ID="6" Name="Fast Flow 1" Display="'Fast Flow 1'" Dmx="65~77" />
+      <Function ID="7" Name="Fast Flow 2" Display="'Fast Flow 2'" Dmx="78~90" />
+      <Function ID="8" Name="2 Colour Chase" Display="'2 Colour Chase'" Dmx="91~103" />
+      <Function ID="9" Name="2 Colour Flow" Display="'2 Colour Flow'" Dmx="104~116" />
+      <Function ID="10" Name="Colour Fade" Display="'Colour Fade'" Dmx="117~129" />
+      <Function ID="11" Name="B+W Flow" Display="'B+W Flow'" Dmx="130~142" />
+      <Function ID="12" Name="R+G Flow" Display="'R+G Flow'" Dmx="143~155" />
+      <Function ID="13" Name="G+B Flow" Display="'G+B Flow'" Dmx="156~168" />
+      <Function ID="14" Name="R+B Flow" Display="'R+B Flow'" Dmx="169~181" />
+      <Function ID="15" Name="R+G Chase" Display="'R+G Chase'" Dmx="182~194" />
+      <Function ID="16" Name="R+B Chase" Display="'R+B Chase'" Dmx="195~207" />
+      <Function ID="17" Name="R+W Chase" Display="'R+W Chase'" Dmx="208~220" />
+      <Function ID="18" Name="B+G Chase" Display="'B+G Chase'" Dmx="221~233" />
+      <Function ID="19" Name="W+G Chase" Display="'W+G Chase'" Dmx="234~246" />
+      <Function ID="20" Name="Rainbow Chase" Display="'Rainbow Chase'" Dmx="247~255" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" Intensity="0~0" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="1~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Speed" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Speed" Display="'%.f%%',100~0" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="4 DMX, 8bit" Channels="4">
+    <Import PearlRef="SH_LEDTube" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="3" Wheel="4" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="7" />
+      <Attribute ID="Col_Effect" ChannelOffset="4" Wheel="8" />
+      <Attribute ID="Speed" ChannelOffset="2" Wheel="25" />
+    </Include>
+  </Mode>
+</Fixture>

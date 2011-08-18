@@ -1,0 +1,234 @@
+X; "Clay Paky Stage Color 1200 ", 12 DMX channels, filename :cpsc1200.r20
+;
+;   Date      By                   Description
+;   30-11-01  Edward               Created from hi res 575
+;   22-04-02  Edward               Modified attributes 
+;   07-06-04  Greg Brown           Lamp Control Locate changed from 0 - 255
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  CPSCol1200                                   12 DMX channels
+NAME "Clay Paky" "Stage Color 1200 8bit"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE	1	12	M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR	2  450 252
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;	+,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;	& means logical AND
+;	| means logical OR 
+;	R means reverse the bits of the curernt result (operates on a byte)
+;	^ means logical Exclusive OR (operates on a byte)
+;	> means shift to the right
+;	< shift to the left
+;	r followed by number means get the value of that parameter 
+;	d DMX address
+;	n Fixture name, a 0 terminated character string
+;	h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+"Set option 3 ON"
+"        "
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=501
+;
+; DMX number must be divisible by this	
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt, 
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom, 
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX
+10  1   L   1   100 1N  B   1  "Cyan"          255   255     0
+10 61   L   2   100 1N  C   1  "Magenta"       255   255     0
+9  61   L   3   100 1N  D   1  "Yellow"        255   255   255
+2  61   L   4   100 1N  O   1  "Strobe"        255   255   255
+3  61   s   5   100 1N  E   1  "Pan"           128    -1    -1
+3   1   s   6   100 1N  F   1  "Tilt"          128    -1    -1
+4   1   I   7   100 1N  A   1  "Color"           0     0     0
+2   1   L   8   100 1N  G   1  "BeamShp"         0     0     0
+9   1   I   9   100 1N  S   1  "Frost"           0     0     0
+4  61   L  10   100 1N  0   1  "WarmFilter"      0     0     0
+1   1   H  11   100 1N  H   1  "Dimmer"        255   255   255
+11  1   L  12   100 1N  0   1  "LampCtrl"      255   255   255
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+    Clay Paky 
+Stage Color 1200
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1 Dimmer   --
+ 2 BeamShp  Strobe
+ 3 Tilt     Pan
+ 4 Colour   WarmFilter
+ 5 --       --
+ 6 --       --
+ 7 --       --
+ 8 --       --
+ 9 Frost    Yellow
+10 Cyan     Magenta
+11 LampControl --
+
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+; Positions
+PFTABLE "Positions" -1 5 6
+"Middle"    21 80  80
+"Left"      22 50  80
+"Right"     23 b0  80
+"Top"       24 80  50
+"Bottom"    25 80  b0
+"TLeft"     26 50  50
+"TRight"    27 b0  b0
+"BLeft"     28 50  b0
+"BRight"    29 b0  50
+PFEND
+
+; A color table        cyan,  yellow, magenta 
+PFTABLE "Color" 29       1       3       2
+"White"          1      ff      ff      ff
+"Red"            2      80      22       6
+"Amber"          3      b3       2      37
+"Yellow"         4      ff      19      dc
+"Green"          5      24      2e      f4
+"Cyan"           6      23      7c      f5
+"Blue"           7      21      f7      2c
+"Lavender"       8      49      fc      1c
+"UltraViolet"    9       0      86       4
+"Magenta"       10      86      6c       0
+"lee 101"	-1	FF	0	D8
+"lee 102"	-1	EA	1D	BE
+"lee 103"	-1	FF	5D	D7
+"lee 104"	-1	FF	0	C6
+"lee 105"	-1	F5	2C	9A
+"lee 106"	-1	94	10	10
+"lee 107"	-1	FF	70	B2
+"lee 108"	-1	FF	38	B5
+"lee 109"	-1	FF	58	B9
+"lee 110"	-1	FF	58	AE
+"lee 111"	-1	FF	4C	4D
+"lee 113"	-1	F6	33	0
+"lee 115"	-1	23	2D	FD
+"lee 116"	-1	0	31	EC
+"lee 117"	-1	C8	83	F9
+"lee 118"	-1	20	61	F8
+"lee 119"	-1	C	EF	D8
+"lee 120"	-1	0	F1	98
+"lee 121"	-1	B3	1	FF
+"lee 122"	-1	63	14	FF
+"lee 124"	-1	1E	0	E2
+"lee 126"	-1	FA	D1	D
+"lee 127"	-1	E3	3E	40
+"lee 128"	-1	FF	81	2
+"lee 129"	-1	0	0	0
+"lee 130"	-1	FF	FF	FF
+"lee 131"	-1	3B	2E	D9
+"lee 132"	-1	1F	DA	FF
+"lee 134"	-1	FF	21	81
+"lee 135"	-1	FF	0	1B
+"lee 136"	-1	FF	B8	D6
+"lee 137"	-1	D8	B8	D2
+"lee 138"	-1	D7	33	E9
+"lee 139"	-1	27	0	FA
+"lee 140"	-1	79	57	F4
+"lee 141"	-1	1C	73	F8
+"lee 142"	-1	87	87	C1
+"lee 143"	-1	3A	51	D3
+"lee 144"	-1	44	56	E0
+"lee 145"	-1	0	0	0
+"lee 147"	-1	F5	2C	9A
+"lee 148"	-1	E5	28	1B
+"lee 151"	-1	FB	96	C9
+"lee 152"	-1	FB	59	D0
+"lee 153"	-1	FB	59	C3
+"lee 154"	-1	FB	59	CE
+"lee 156"	-1	F2	35	AB
+"lee 158"	-1	FF	15	41
+"lee 159"	-1	FF	90	E0
+"lee 161"	-1	8C	C4	E2
+"lee 162"	-1	FF	7B	D9
+"lee 164"	-1	45	AA	E2
+"lee 165"	-1	61	BE	F1
+"lee 166"	-1	F7	28	28
+"lee 169"	-1	FF	B4	E0
+"lee 170"	-1	C8	71	AD
+"lee 172"	-1	1A	4A	F0
+"lee 174"	-1	DD	D8	EE
+"lee 176"	-1	EF	46	82
+"lee 179"	-1	FF	0	B0
+"lee 180"	-1	57	B5	48
+"lee 181"	-1	0	C4	21
+"lee 182"	-1	D7	0	0
+"lee 183"	-1	7	60	F3
+"lee 184"	-1	0	0	0
+"lee 185"	-1	0	0	0
+"lee 186"	-1	0	0	0
+"lee 187"	-1	0	0	0
+"lee 188"	-1	0	0	0
+"lee 189"	-1	0	0	0
+"lee 190"	-1	0	0	0
+PFEND
+
+
+MACRO "RESET" 1  1  2  3  4  5  6  7  8  9 10 11 12 
+"data"        0  0  0  0  0  0  0  0  0  0  0  0  0 
+"delay"       1 20
+MEND

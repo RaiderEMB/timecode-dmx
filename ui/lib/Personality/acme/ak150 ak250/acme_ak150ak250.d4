@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="AK150 + AK250" ShortName="AK150AK250" Company="ACME">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="05-01-06" Author="Ed" Comment="Created" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour ID to Colour1" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="19-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="19-07-06" Author="Ed" Comment="Checked" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Colour1Func" Name="Colour Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="19,20" If="'Colour1Func'==2" />
+      <Condition Name="Raw_Func" ID="21" If="'Colour1Func'==3" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,19,20,21,18" />
+      <Function ID="1" Name="Blackout" Display="'Blackout'" Dmx="0~7" Colour="0,0,0" />
+      <Function ID="2" Name="White" Display="'White'" Dmx="8~15" Colour="255,255,255" />
+      <Function ID="3" Name="3200K" Display="'3200K'" Dmx="16~22" Colour="255,240,200" />
+      <Function ID="4" Name="Red" Display="'Red'" Dmx="23~30" Colour="255,0,0" />
+      <Function ID="5" Name="Carmine" Display="'Carmine'" Dmx="31~37" Colour="255,100,0" />
+      <Function ID="6" Name="Orange" Display="'Orange'" Dmx="38~45" Colour="255,128,0" />
+      <Function ID="7" Name="Yellow" Display="'Yellow'" Dmx="46~52" Colour="255,255,0" />
+      <Function ID="8" Name="Amber" Display="'Amber'" Dmx="53~60" Colour="255,100,0" />
+      <Function ID="9" Name="Aqua" Display="'Aqua'" Dmx="61~67" Colour="0,255,255" />
+      <Function ID="10" Name="Green" Display="'Green'" Dmx="68~75" Colour="0,255,0" />
+      <Function ID="11" Name="Deep Green" Display="'Deep Green'" Dmx="76~82" Colour="0,180,0" />
+      <Function ID="12" Name="Light Green" Display="'Light Green'" Dmx="83~90" Colour="128,255,0" />
+      <Function ID="13" Name="Cyan" Display="'Cyan'" Dmx="91~97" Colour="0,255,255" />
+      <Function ID="14" Name="Blue" Display="'Blue'" Dmx="98~105" Colour="0,0,255" />
+      <Function ID="15" Name="Smalt" Display="'Smalt'" Dmx="106~112" Colour="255,255,255" />
+      <Function ID="16" Name="Purple" Display="'Purple'" Dmx="113~120" Colour="128,0,255" />
+      <Function ID="17" Name="Pink" Display="'Pink'" Dmx="121~127" Colour="255,150,150" />
+      <Function ID="19" Name="Blackout" Display="'Blackout'" Dmx="0~7" Colour="0,0,0" />
+      <Function ID="20" Name="Scroll CW" Display="'Scroll CW %.f%%',0~100" Dmx="128~247" Colour="0,0,0" />
+      <Function ID="21" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+      <Function ID="18" Name="White" Display="'White'" Dmx="248~255" Colour="255,255,255" />
+    </Attribute>
+  </Control>
+  <Mode Name="1 DMX, 8bit" Channels="1">
+    <Import PearlRef="" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="8" />
+    </Include>
+  </Mode>
+</Fixture>

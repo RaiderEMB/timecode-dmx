@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Spyro" ShortName="Spyro" Company="Geni">
+  <Copyright Notice="© Avolites Ltd. 2008" />
+  <History Date="26-09-08" Author="Jonathan Moreton" Comment="Created" />
+  <History Date="02-10-08" Author="David Hunt" Comment="Checked" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Colour1Func" Name="Colour Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Strobe_Func" Display="'Strobe'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="4" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8,9,10,11" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="12,13" If="'Colour1Func'==2" />
+      <Condition Name="Strobe_Func" ID="14" If="'Colour1Func'==3" />
+      <Else ID="15" />
+      <Function ID="1" Name="Off" Display="'Off'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="2" Name="Open" Display="'Open'" Dmx="1~15" Colour="255,255,255" />
+      <Function ID="3" Name="Pink" Display="'Pink'" Dmx="16~31" Colour="255,150,150" />
+      <Function ID="4" Name="Yellow" Display="'Yellow'" Dmx="32~47" Colour="255,255,0" />
+      <Function ID="5" Name="Blue" Display="'Blue'" Dmx="48~63" Colour="0,0,255" />
+      <Function ID="6" Name="Green" Display="'Green'" Dmx="64~79" Colour="0,255,0" />
+      <Function ID="7" Name="Orange" Display="'Orange'" Dmx="80~95" Colour="255,128,0" />
+      <Function ID="8" Name="Peach Pink" Display="'Peach Pink'" Dmx="96~111" Colour="255,200,200" />
+      <Function ID="9" Name="Red" Display="'Red'" Dmx="112~127" Colour="255,0,0" />
+      <Function ID="10" Name="Dark Blue" Display="'Deep Blue'" Dmx="128~143" Colour="0,0,180" />
+      <Function ID="11" Name="Dark Purple" Display="'Dark Purple'" Dmx="144~159" Colour="128,0,255" />
+      <Function ID="12" Name="No Scroll" Display="'No Scroll'" Dmx="0~0" Colour="255,255,255" />
+      <Function ID="13" Name="Scroll" Display="'Scroll %.f%%',100~0" Dmx="160~191" Colour="0,0,0" />
+      <Function ID="14" Name="Strobe" Display="'Strobe %.f%%',0~100" Dmx="192~255" Colour="0,0,0" />
+      <Function ID="15" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Effect_Rot" Name="Effect Rot" Description="" Group="E">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Spin" Display="'No Spin'" Dmx="0~7" />
+      <Function ID="2" Name="Spin CW" Display="'Spin CW %.f%%',0~100" Dmx="8~131" />
+      <Function ID="3" Name="No Spin" Display="'No Spin'" Dmx="0~7" />
+      <Function ID="4" Name="Spin CCW" Display="'Spin CCW %.f%%',100~0" Dmx="132~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="2 DMX, 8bit" Channels="2">
+    <Import PearlRef="GN_Spyro" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="8" />
+      <Attribute ID="Effect_Rot" ChannelOffset="2" Wheel="24" />
+    </Include>
+  </Mode>
+</Fixture>

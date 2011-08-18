@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="PaintCan" ShortName="Paint Can" Company="Elektralite">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="07-06-07" Author="D.Milligan" Comment="Created" />
+  <History Date="07-06-07" Author="D.Milligan" Comment="Checked" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Colour1Func" Name="Colour 1 Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Index_Func" Display="'Index'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="4" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour 1" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6" If="'Colour1Func'==1" />
+      <Condition Name="Index_Func" ID="7" If="'Colour1Func'==2" />
+      <Condition Name="Scroll_Func" ID="8,9,10,11" If="'Colour1Func'==3" />
+      <Condition Name="Raw_Func" ID="12" If="'Colour1Func'==4" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~21" Colour="0,0,0" />
+      <Function ID="2" Name="Open" Display="'Open'" Dmx="22~43" Colour="255,255,255" />
+      <Function ID="3" Name="Red" Display="'Red'" Dmx="44~65" Colour="255,0,0" />
+      <Function ID="4" Name="Blue" Display="'Blue'" Dmx="66~87" Colour="0,0,255" />
+      <Function ID="5" Name="Green" Display="'Green'" Dmx="88~109" Colour="0,255,0" />
+      <Function ID="6" Name="5600K" Display="'5600K'" Dmx="110~127" Colour="230,230,255" />
+      <Function ID="7" Name="Index" Display="'Index %.f%%',0~100" Dmx="0~127" Colour="0,0,0" />
+      <Function ID="8" Name="Open" Display="'Open'" Dmx="22~43" Colour="255,255,255" />
+      <Function ID="9" Name="Scroll CW" Display="'Scroll CW %.f%%',100~0" Dmx="128~187" Colour="0,0,0" />
+      <Function ID="10" Name="No Scroll" Display="'No Scroll'" Dmx="188~193" Colour="0,0,0" />
+      <Function ID="11" Name="Scroll CCW" Display="'Scroll CCW %.f%%',0~100" Dmx="194~255" Colour="0,0,0" />
+      <Function ID="12" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:20" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',100.0~0.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Zoom" Name="Zoom" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Zoom" Display="'%.1f%%',100.0~0.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Col Normal" Display="'Col Normal'" Dmx="0~19" />
+      <Function ID="2" Name="Col Indexing" Display="'Col Indexing'" Dmx="20~39" />
+      <Function ID="3" Name="Safe" Display="'Safe'" Dmx="40~79" />
+      <Function ID="4" Name="Reset" Display="'Reset'" Dmx="80~99" />
+      <Function ID="5" Name="Macro 1" Display="'Macro 1'" Dmx="100~119" />
+      <Function ID="6" Name="Macro 2" Display="'Macro 2'" Dmx="120~139" />
+      <Function ID="7" Name="Macro 3" Display="'Macro 3'" Dmx="140~159" />
+      <Function ID="8" Name="Macro 4" Display="'Macro 4'" Dmx="160~179" />
+      <Function ID="9" Name="Macro 5" Display="'Macro 5'" Dmx="180~199" />
+      <Function ID="10" Name="Macro 6" Display="'Macro 6'" Dmx="200~219" />
+      <Function ID="11" Name="Macro 7" Display="'Macro 7'" Dmx="220~239" />
+      <Function ID="12" Name="Macro 8" Display="'Macro 8'" Dmx="240~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="8 DMX, 8bit" Channels="8">
+    <Import PearlRef="EK_PAINTCAN" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="6" Wheel="1" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="8" />
+      <Attribute ID="Cyan" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="4" Wheel="12" />
+      <Attribute ID="Zoom" ChannelOffset="7" Wheel="19" />
+      <Attribute ID="Speed" ChannelOffset="5" Wheel="25" />
+      <Attribute ID="Control" ChannelOffset="8" Wheel="28" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Reset">
+      <Set Channel="Control:4" Delay="8000" />
+      <Set Channel="Control:1" Delay="1000" />
+    </Macro>
+  </Macro>
+</Fixture>

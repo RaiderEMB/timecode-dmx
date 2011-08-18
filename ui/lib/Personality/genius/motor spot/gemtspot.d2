@@ -1,0 +1,153 @@
+;-----------------------------------------------------------------------
+; The Genius Motor Spot        personality                                   | 
+;-----------------------------------------------------------------------|
+;   History :-                                                          |
+;-----------------------------------------------------------------------|
+;   Revision |  Date     |  By    | Description                         |
+;------------|-----------|--------|-------------------------------------|
+;   1.0      | 1-08-01   | Edward | Created  from Pearl                 |
+;   1.1      | 1-11-04   | Phil   | Shortened device name               |
+;-----------------------------------------------------------------------
+
+
+DEVICE=GE_MtrSpot              ; Device name, upto 11 chars after '=')
+DEVICE23=(6 Channel)            ; 22 chars after '='
+                                ; extra information for softkey prompt lines 2&3
+                                ; a total of 22 chars, split into 2 lines of 11
+
+; Device information
+;                                 __ Number of lines of DMX info.
+;                                |  __ Number of lines of wheel info
+;                                | |
+HSTART   1 6 1b05 150 80 ff 0 1  6  6
+;        | |  |    |   |  |  | |
+;        | |  |    |   |  |  | |__ Line number for flash button DMX info
+;        | |  |    |   |  |  |     from DMX definition
+;        | |  |    |   |  |  |__ Button release value
+;        | |  |    |   |  |__ Button ON value (ff means use swop/add fader)
+;        | |  |    |   |__ The TILT arc in Degrees
+;        | |  |    |__ The Pan arc in degrees
+;        | |  |__ Date in PC format (1b05==5/08/93)
+;        | |__ Number of DMX slots used
+;        |__ Patch direction (1-backward, 2 forward)
+
+
+TEXTSTART       ; Upto 21 lines of 28 characters (use the template below)
+                                     ;
+     Genius Motor Spot             ;
+                                     ;
+       6 Chans                      ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+TEXTEND
+
+
+;------------------------------------------------------------
+; DMX information
+; No unused lines allowed between keyword 'DSTART' and last DMX definition
+
+DSTART              ; DMX defintion
+1  1  0 0  44 0      ; DUMMY
+2  2 40 0  38 0      ; COLOUR
+3  2  0 0  36 0      ; Gobo1
+4  2  0 0  17 0      ; Strobe
+5  2 20 0  13 0      ; Pan
+6  2 20 0  14 0      ; Tilt 
+;| |  | |  | |
+;| |  | |  | |__ Spare (always 0 for now)
+;| |  | |  |__ Attribute name (See list above)
+;| |  | |__ Curve (0 means no curve otherwise curve number)
+;| |  |__ Flags (ask shad)
+;| |__ Channel type (1=HTP, 2=LTP)
+;|__ DMX offset (1..255, 0 means DIMMER will be patched seperately)
+;
+;
+;------------------------------------------------------------
+; WHEEL information
+; No unused lines allowed between keyword 'WSTART' and last WHEEL definition
+
+WSTART
+8 ffff    0 4  44 0 41  0 1  0  1 0  0  0 0 0      ; DUMMY 
+8 ffff    0 1  38 0  9  0 1  1  2 0  0  0 0 0      ; Colour
+8 ffff    0 1  36 0  4  0 1  2  3 0  0  0 0 0      ; Gobo1
+8 ffff    0 1  17 0  7  0 1  3  4 0  0  0 0 0      ; Strobe
+8 ffff 8080 3  13 0  5  0 1  4  5 0  0  0 0 0      ; Pan
+8 ffff 8080 3  14 0  6  0 1  5  6 0  0  0 0 0      ; Tilt
+8 ffff    0 2   4 0  2  4 1  1  2 0  0  0 0 0      ; Colour TABLE
+8 ffff    0 2  11 0  3 11 1  2  3 0  0  0 0 0      ; GOBO TABLE
+;|   |    | |  | |  |  | | | |  |  |  | | |
+;|   |    | |  | |  |  | | | |  |  |  | | |__ List of Table channels as
+;|   |    | |  | |  |  | | | |_______________ line numbers from DMX def.
+;|   |    | |  | |  |  | | |                  ff or 0 means unused channel
+;|   |    | |  | |  |  | | |__ DMX line pertaining to this wheel (-1)
+;|   |    | |  | |  |  | |__ Number of chanels under control (Table width)
+;|   |    | |  | |  |  |__ Table type (Attribute number) 0 means NOT a table
+;|   |    | |  | |  |__ Wheel number (1..8 on bank1, 9..16 on bank2 et cetera)
+;|   |    | |  | |__ 0 for 8 bits, 1 for 16 bits
+;|   |    | |  |__  Attribute name from above list (0..MAX)
+;|   |    | |__ Wheel type (1-offset, 2-Table, 3-Pan/Tile, 4-Dimmer)
+;|   |    |__ Default value (left shifted as necessary)
+;|   |__ AND mask, where more than wheel controls same DMX slot
+;|__ Wheel multiplication =16-(bits used)
+;    eg. for 8 bit channels it is 8, for 12 bit channels it is 4
+
+TSTART 1 4
+Color  1          04 
+Color  2          14
+Color  3          24
+Color  4          34
+Color  5          44
+Color  6          54
+Color  7          64
+Color  8          74
+Color  9          84
+Color 10          94
+Color 11         104
+Color 12         114
+Color 13         124
+Color 14         134
+Color 15         144
+Color 16         154
+*** TEND ***
+
+; Gobo
+TSTART 1 4
+Blackout          04
+Gobo  1           14
+Gobo  2           24
+Gobo  3           34
+Gobo  4           44
+Gobo  5           54
+Gobo  6           64
+Gobo  7           74
+Gobo  8           84
+Gobo  9           94
+Gobo 10          104
+Gobo 11          114
+Gobo 12          124
+Gobo 13          134
+Gobo 14          144
+Gobo 15          154
+Gobo 16          164
+Gobo 17          174
+Gobo 18          184
+Gobo 19          194
+*** TEND ***
+
+
+
+
+

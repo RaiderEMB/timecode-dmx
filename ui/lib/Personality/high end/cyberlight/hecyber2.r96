@@ -1,0 +1,351 @@
+; "High End Cyberlight mode 2", 20 DMX channels, filename :hecyber2.r20
+;
+;   Date      By        Description
+;   26-05-94  Salzedo   created
+;   10-08-94  Anwar     revised dmx slots
+;   07-09-94  J.B.Toby  revised for Pearl use/relocation of channels
+;   11-11-94  J.B.Toby  revised to match PerManML
+;   22-05-96  S. Anwar  Pan/Tilt channel identification & Resolution inserted
+;   04-03-96  S. Anwar  Revised for Sapphire 96
+;   02-12-97  Giles     Colour Table Revision
+;   08-01-98  P.Bari    Updated attribute types
+;   24-02-98  P.Bari    Tables revised for mode 2
+;   14-04-99  C.West    Gobo1 rotate changed to gobo2 rotate
+;---------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  HE_Cyber2                           mode=2  20 DMX channels
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  20  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  1  170 108
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the curernt result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+"Dip Switch  1234 5678"
+"Personality 0000 0010"
+"Address     %b%b%b%b %b001"d/20%2,d/40%2,d/80%2,d/160%2,d/320%2
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=481
+;
+; DMX number must be divisible by this
+DIVBY=20
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt, 
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom, 
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 charcaters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX
+3  61   s    1  100 1N  E   1   "Pan"           128   -1   -1  ; PAN
+0   0   L    2  100 1N  E   1   "Pan_Low"       128   -1   -1  ; PAN Low
+3   1   s    3  100 1N  F   1   "Tilt"          128   -1   -1  ; TILT
+0   0   L    4  100 1N  F   1   "Tilt_Low"      128   -1   -1  ; TILT Low
+4   1   I    5  100 1N  A   1   "Color_Wheel"     0    0    0  ; COLOUR WHEEL
+10  1   L    6  100 1N  B   1   "Cyan"          255  255  255  ; CYAN
+10 61   L    7  100 1N  D   1   "Magenta"       255  255    0  ; MAGENTA
+9  61   L    8  100 1N  C   1   "Yellow"        255  255    0  ; YELLOW
+6   1   I    9  100 1N  I   1   "Gobo_1"          0    0    0  ; GOBO 1
+6  61   I   10  100 1N  J   1   "Gobo_2"          0    0    0  ; GOBO 2
+7  61   I   11  100 1N  M   1   "Gobo_Spin"       0    0    0  ; GOBO SPIN
+5   1   L   12  100 1N  Q   1   "Zoom"            0    0    0  ; ZOOM
+5  61   L   13  100 1N  L   1   "Focus"         188   -1   -1  ; FOCUS
+2   1   L   14  100 1N  G   1   "Iris "         255  255  255  ; IRIS
+9   1   I   15  100 1N  R   1   "Effects"         0    0    0  ; EFFECT WHEEL
+7   1   I   16  100 1N  S   1   "Frost"         255  255  255  ; FROST
+2  61   L   17  100 1N  O   1   "Shutter"       255  255  255  ; SHUTTER
+1   1   H   18  100 1N  H   1   "Dimmer"        255  255  255  ; DIMMER
+8   1   L   19  100 1N  0   1   "Motor_Speed"   255  255  255  ; MOTOR SPEED
+11  1   I   20  100 1N  0   1   "Control"         0    0    0  ; Control
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+ Cyberlight Mode 2
+   Encoder Banks
+  Wheel A  Wheel B
+---------------------
+ 1 Dimmer    --
+ 2 Iris     Shutter
+ 3 Tilt     Pan
+ 4 Color 1   --
+ 5 Focus    Zoom
+ 6 Gobo 1   Gobo 2
+ 7 Frost    Gobo Spn
+ 8 M-Speed   --
+ 9 Effect   Yellow
+10 Cyan     Magenta
+11 Control   --
+
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+; A color table , cyan, yellow,magenta
+PFTABLE "Color" 29      5      6       8       7
+"White"          1      0     ff      ff      ff
+"Red"            2      0     ff      0       0
+"Amber"          3      0     ff      80      0
+"Yellow"         4      0     ff      ff      0
+"Green"          5      0     0       ff      0
+"Cyan"           6      0     0       ff      ff
+"Blue"           7      0     0       5a      ff
+"Lavender"       8      0     69      5a      ff
+"UV"             9      0     0       69      ff
+"Magenta"       10      0     ff      0       ff
+"lee 101"       -1      0     E4      0       D8
+"lee 102"       -1      0     A7      51      A0
+"lee 103"       -1      0     FF      86      B0
+"lee 104"       -1      0     BA      E       82
+"lee 105"       -1      0     C1      C1      64
+"lee 106"       -1      0     AC      1       4
+"lee 107"       -1      0     FA      87      80
+"lee 108"       -1      0     5E      2C      34
+"lee 109"       -1      0     EC      78      86
+"lee 110"       -1      0     AD      1       78
+"lee 111"       -1      0     E5      66      69
+"lee 113"       -1      0     D4      5E      1
+"lee 115"       -1      0     5E      68      ED
+"lee 116"       -1      0     32      6C      EC
+"lee 117"       -1      0     9C      8B      FE
+"lee 118"       -1      0     5E      8A      DE
+"lee 119"       -1      0     40      E8      74
+"lee 120"       -1      0     1       DD      59
+"lee 121"       -1      0     80      59      B8
+"lee 122"       -1      0     6E      56      C1
+"lee 124"       -1      0     53      52      CE
+"lee 126"       -1      0     D2      BA      33
+"lee 127"       -1      0     67      60      5F
+"lee 128"       -1      0     9B      6B      51
+"lee 129"       -1      0     0       0       0
+"lee 130"       -1      0     0       0       0
+"lee 131"       -1      0     70      6A      D2
+"lee 132"       -1      0     2       E6      A7
+"lee 134"       -1      0     7D      54      6E
+"lee 135"       -1      0     CB      6       4F
+"lee 136"       -1      0     FC      95      9B
+"lee 137"       -1      0     B2      F9      96
+"lee 138"       -1      0     E3      69      D6
+"lee 139"       -1      0     0       0       0
+"lee 140"       -1      0     8D      8A      FF
+"lee 141"       -1      0     46      99      E9
+"lee 142"       -1      0     91      D1      8E
+"lee 143"       -1      0     72      93      EA
+"lee 144"       -1      0     75      93      F3
+"lee 145"       -1      0     0       0       0
+"lee 147"       -1      0     D5      5D      7B
+"lee 148"       -1      0     92      53      30
+"lee 151"       -1      0     FE      75      86
+"lee 152"       -1      0     FE      75      93
+"lee 153"       -1      0     FE      75      86
+"lee 154"       -1      0     FE      7E      98
+"lee 156"       -1      0     F9      63      7B
+"lee 158"       -1      0     F6      22      64
+"lee 159"       -1      0     D8      7E      A8
+"lee 161"       -1      0     8C      E7      DA
+"lee 162"       -1      0     F0      6F      90
+"lee 164"       -1      0     A5      47      47
+"lee 165"       -1      0     7B      D4      F8
+"lee 166"       -1      0     0       0       0
+"lee 169"       -1      0     D4      95      9D
+"lee 170"       -1      0     A6      8C      85
+"lee 172"       -1      0     58      7B      FC
+"lee 174"       -1      0     AA      E7      D3
+"lee 176"       -1      0     FF      74      7D
+"lee 179"       -1      0     AA      0       70
+"lee 180"       -1      0     7B      FF      6F
+"lee 181"       -1      0     4E      FF      57
+"lee 182"       -1      0     EC      4       4
+"lee 183"       -1      0     54      83      C0
+"lee 184"       -1      0     EA      9B      A6
+"lee 185"       -1      0     F9      8D      9D
+"lee 186"       -1      0     F9      82      97
+"lee 187"       -1      0     F9      77      97
+"lee 188"       -1      0     BB      7E      99
+"lee 189"       -1      0     E0      90      B8
+"lee 190"       -1      0     B2      83      A8
+"lee 191"       -1      0     B2      79      9F
+PFEND
+
+; Gobo
+PFTABLE "Gobos"   -1  9 10 11
+"Gobo 1.1"        11 bd  0  0
+"Gobo 1.2"        12 b5  0  0
+"Gobo 1.3"        13 ad  0  0
+"Gobo 1.4"        14 a6  0  0
+"Gobo 1.5"        15 9e  0  0
+"Gobo 1.6"        16 96  0  0
+"Gobo 1.7"        17 8f  0  0
+"Wedges"          18  0 80  0
+"Dot_Dash"        19  0 75  0
+"Dougnut"         20  0 6b  0
+"Frozen"          -1  0 63  0
+PFEND
+
+; Positions
+PFTABLE "Positions" -1  1   3
+"Middle"            21 80  80
+"Left"              22 50  80
+"Right"             23 b0  80
+"Top"               24 80  50
+"Bottom"            25 80  b0
+"TLeft"             26 50  50
+"TRight"            27 b0  b0
+"BLeft"             28 50  b0
+"BRight"            29 b0  50
+PFEND
+
+MACRO "HOME" 1  18  20
+"data"       0   0  40
+"delay"      1  40
+"data"       0   0   0
+MEND
+
+MACRO "SHUTDOWN" 2  18  20
+"data"           0   0  80
+"delay"          1  40
+"data"           0   0   0
+MEND
+
+; Static Gobo Table
+PFTABLE "StaticGobo" 27  9
+"Gobo1_M"            -1 bd
+"Gobo2_M"            -1 b5
+"Gobo3_M"            -1 ad
+"Gobo4_M"            -1 a6
+"Gobo5_M"            -1 9e
+"Gobo6_M"            -1 96
+"Gobo7_M"            -1 8f
+"Gobo8_M"            -1 85
+"Gobo1_Mshk"         -1 ba
+"Gobo2_Mshk"         -1 b3
+"Gobo3_Mshk"         -1 aa
+"Gobo4_Mshk"         -1 a3
+"Gobo5_Mshk"         -1 9c
+"Gobo6_Mshk"         -1 91
+"Gobo7_Mshk"         -1 8a
+"Gobo8_Mshk"         -1 82
+"->->Fast"           -1 7f
+"->->Med"            -1 4d
+"->->Slow"           -1 42
+"<-<-Slow"           -1 3f
+"<-<-Med"            -1 33
+"<-<-Fast"           -1  5
+PFEND
+
+
+; Colour Wheel Table
+PFTABLE "FixedCols" 28  5
+"Col_1_M"           -1 bd
+"Col_2_M"           -1 b5
+"Col_3_M"           -1 ad
+"Col_4_M"           -1 a6
+"Col_5_M"           -1 9e
+"Col_6_M"           -1 96
+"Col_7_M"           -1 8f
+"Col_8_M"           -1 85
+"Col_1_2_M"         -1 ba
+"Col_2_3_M"         -1 b3
+"Col_3_4_M"         -1 aa
+"Col_4_5_M"         -1 a3
+"Col_5_6_M"         -1 9c
+"Col_6_7_M"         -1 91
+"Col_7_8_M"         -1 8a
+"Col_8_1_M"         -1 82
+"->->Fast"          -1 7f
+"->->Med"           -1 4d
+"->->Slow"          -1 42
+"<-<-Slow"          -1 3f
+"<-<-Med"           -1 33
+"<-<-Fast"          -1  5
+PFEND
+
+
+; Effects Table attatched to 14
+PFTABLE "Effects"  14  15
+"E1-Open-M"        -1  45
+"E2_Prism_M"       -1  14
+"E3_cymTri_M"      -1  24
+"E4_Yellow_M"      -1  36
+"E5_Magenta_M"     -1  54
+"E6_Wide_M"        -1  5e
+"E7_Diff_M"        -1  70
+"E8_Cyan_M"        -1  80
+PFEND
+
+; Rotating Gobo table on button 30
+PFTABLE  "GoboSpin"  30  10
+"Gobo1 >> M"         -1  63
+"Gobo2 >> M"         -1  6b
+"Gobo3 >> M"         -1  75
+"Gobo4 >> M"         -1  80
+"Gobo1 << M"         -1  3d
+"Gobo2 << M"         -1  47
+"Gobo3 << M"         -1  52
+"Gobo4 << M"         -1  5c
+"Gobo1<->M"          -1   d
+"Gobo2<->M"          -1  1a
+"Gobo3<->M"          -1  2b
+"Gobo4<->M"          -1  33
+PFEND 

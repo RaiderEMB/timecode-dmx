@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Stage Color 1000" ShortName="StCol 1000" Company="Clay Paky">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="08-01-03" Author="D.Shelton" Comment="Created" />
+  <History Date="04-03-03" Author="D.Shelton" Comment="Updated ID's for Shape Generator" />
+  <History Date="15-07-03" Author="D.Shelton" Comment="Added head type" />
+  <History Date="20-08-03" Author="D.Shelton" Comment="Updated Pan/Tilt Channels" />
+  <History Date="12-01-04" Author="L.Gallagher" Comment="Error Found 1. No macros found" />
+  <History Date="12-01-04" Author="L.Gallagher" Comment="Error Found 2. Pan + Tilt - 8 bit mode set as fine not course (Locate)" />
+  <History Date="12-01-04" Author="L.Gallagher" Comment="Error Found 3. Frost Eff - No reference to eff positions at 86, 172, 255" />
+  <History Date="12-01-04" Author="L.Gallagher" Comment="Error Found 4. Pan F + Tilt F - 16 bit only" />
+  <History Date="25-07-05" Author="D Trounce" Comment="Error: Frost channel needs to have beam shape as well as frost" />
+  <History Date="25-07-05" Author="D Troucne" Comment="Error: 8 bit mode: Pan is not working correctly" />
+  <History Date="27-07-05" Author="E Spencer" Comment="Fixed pan and tilt problems: changed max resolution to 16 bit on both channels" />
+  <History Date="27-07-05" Author="E Spencer" Comment="Fixed frost to include beam shape" />
+  <History Date="06-04-06" Author="Ed" Comment="Moved frost into Beam group" />
+  <History Date="07-07-06" Author="Ed" Comment="Changed CMY Mixing attributes to proper CMIXes" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <Manual Filename="/manual/Clay Paky_Stage Color 1000.pdf" Summary="Creator:Clay Paky, 09-07-2001" />
+  <Control>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:0" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:0" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:0" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="3" PowerOn="3" Highlight="3" Lowlight="3" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~25" Intensity="0~0" />
+      <Function ID="2" Name="Strobe" Display="'Strobe %.f%%',0~100" Dmx="26~230" Intensity="0~0" />
+      <Function ID="3" Name="Open" Display="'Open'" Dmx="231~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour " Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" Highlight="1" Lowlight="1" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~41" Colour="0,0,0" />
+      <Function ID="2" Name="Blue" Display="'Blue'" Dmx="42~85" Colour="0,0,0" />
+      <Function ID="3" Name="Yellow" Display="'Yellow'" Dmx="86~128" Colour="0,0,0" />
+      <Function ID="4" Name="Green" Display="'Green'" Dmx="129~171" Colour="0,0,0" />
+      <Function ID="5" Name="Magenta" Display="'Magenta'" Dmx="172~214" Colour="0,0,0" />
+      <Function ID="6" Name="UV" Display="'UV'" Dmx="215~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Frost" Name="Frost" Description="" Group="B">
+      <Locate Locate="1" PowerOn="1" Highlight="1:0" Lowlight="1:0" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Oval 1" Display="'Oval 1 %.f%%',0~100" Dmx="1~84" Iris="0~0" Zoom="0~0" />
+      <Function ID="3" Name="Oval 2" Display="'Oval 2 %.f%%',0~100" Dmx="85~171" Iris="0~0" Zoom="0~0" />
+      <Function ID="4" Name="Frost" Display="'%.1f%%',0.0~100.0" Dmx="172~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:50" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f %%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="9 DMX, 8 Bit" Channels="9">
+    <Import PearlRef="CPCol1000" DiamondRef="CPCol1000" />
+    <Physical>
+      <Bulb Type="HMI 1200 lamp" Lumens="110000" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="43.9" />
+      <Size Height="0.225" Width="0.435" Depth="1.230" />
+      <Focus Type="Head" PanMax="450" TiltMax="252" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="4" Wheel="4" />
+      <Attribute ID="Dimmer" ChannelOffset="9" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="5" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="6" Wheel="3" />
+      <Attribute ID="Cyan" ChannelOffset="1" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="2" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="3" Wheel="12" />
+      <Attribute ID="Colour1" ChannelOffset="7" Wheel="7" />
+      <Attribute ID="Frost" ChannelOffset="8" Wheel="22" />
+    </Include>
+  </Mode>
+  <Mode Name="11 DMX, 16 Bit" Channels="11">
+    <Import PearlRef="CPCol1000Hi" DiamondRef="CPCol1000Hi" />
+    <Physical>
+      <Bulb Type="HMI 1200 lamp" Lumens="110000" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="43.9" />
+      <Size Height="0.225" Width="0.435" Depth="1.230" />
+      <Focus Type="Head" PanMax="450" TiltMax="252" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="4" Wheel="4" />
+      <Attribute ID="Dimmer" ChannelOffset="9" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="5,10" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="6,11" Wheel="3" />
+      <Attribute ID="Cyan" ChannelOffset="1" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="2" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="3" Wheel="12" />
+      <Attribute ID="Colour1" ChannelOffset="7" Wheel="7" />
+      <Attribute ID="Frost" ChannelOffset="8" Wheel="22" />
+    </Include>
+  </Mode>
+</Fixture>

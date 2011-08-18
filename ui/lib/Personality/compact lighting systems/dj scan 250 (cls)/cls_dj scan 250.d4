@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="DJ Scan 250" ShortName="DJ SC250" Company="Compact Lighting Systems">
+  <Copyright Notice="© Avolites Ltd. 2011" />
+  <History Date="08-02-06" Author="Ed" Comment="Created" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour ID to Colour1" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <History Date="19-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="20-07-06" Author="Ed" Comment="Checked" />
+  <History Date="14-10-08" Author="Jonathan Moreton" Comment="Updated manufacturer name" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <History Date="12-02-11" Author="Nic Morris" Comment="Added highlight and palettes" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Colour1Func" Name="Colour Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" Highlight="3" Lowlight="7" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="9,10" If="'Colour1Func'==2" />
+      <Condition Name="Raw_Func" ID="11" If="'Colour1Func'==3" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" Colour="255,255,255" />
+      <Function ID="2" Name="Red" Display="'Red'" Dmx="19~19" Colour="255,0,0" />
+      <Function ID="3" Name="Yellow" Display="'Yellow'" Dmx="36~36" Colour="255,255,0" />
+      <Function ID="4" Name="Purple" Display="'Purple'" Dmx="54~54" Colour="128,0,255" />
+      <Function ID="5" Name="Green" Display="'Green'" Dmx="72~72" Colour="0,255,0" />
+      <Function ID="6" Name="Orange" Display="'Orange'" Dmx="90~90" Colour="255,128,0" />
+      <Function ID="7" Name="Blue" Display="'Blue'" Dmx="108~108" Colour="0,0,255" />
+      <Function ID="8" Name="Pink" Display="'Pink'" Dmx="127~127" Colour="255,150,150" />
+      <Function ID="9" Name="No Scroll" Display="'No Scroll'" Dmx="0~0" Colour="0,0,0" />
+      <Function ID="10" Name="Scroll CW" Display="'Scroll CW %.f%%',0~100" Dmx="128~255" Colour="0,0,0" />
+      <Function ID="11" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~49" Intensity="0~0" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="50~127" Intensity="0~0" />
+      <Function ID="3" Name="Black" Display="'Black'" Dmx="128~143" Intensity="0~0" />
+      <Function ID="4" Name="Open" Display="'Open'" Dmx="144~175" Intensity="0~0" />
+      <Function ID="5" Name="Gobo 1" Display="'Gobo 1'" Dmx="176~191" Intensity="0~0" />
+      <Function ID="6" Name="Gobo 2" Display="'Gobo 2'" Dmx="192~207" Intensity="0~0" />
+      <Function ID="7" Name="Gobo 3" Display="'Gobo 3'" Dmx="208~223" Intensity="0~0" />
+      <Function ID="8" Name="Gobo 4" Display="'Gobo 4'" Dmx="224~239" Intensity="0~0" />
+      <Function ID="9" Name="Gobo 5" Display="'Gobo 5'" Dmx="240~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="4 DMX, 8bit" Channels="4">
+    <Import PearlRef="" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="4" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="1" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="2" Wheel="3" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="3" Wheel="8" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Position">
+      <Palette ID="1" Name="Middle" Number="21" Page="1" SetControl="Pan:1:50,Tilt:1:50" />
+      <Palette ID="2" Name="Left" Number="22" Page="1" SetControl="Pan:1:31,Tilt:1:50" />
+      <Palette ID="3" Name="Right" Number="23" Page="1" SetControl="Pan:1:69,Tilt:1:50" />
+      <Palette ID="4" Name="Top" Number="24" Page="1" SetControl="Pan:1:50,Tilt:1:31" />
+      <Palette ID="5" Name="Bottom" Number="25" Page="1" SetControl="Pan:1:50,Tilt:1:69" />
+      <Palette ID="6" Name="TLeft" Number="26" Page="1" SetControl="Pan:1:31,Tilt:1:31" />
+      <Palette ID="7" Name="TRight" Number="27" Page="1" SetControl="Pan:1:69,Tilt:1:69" />
+      <Palette ID="8" Name="BLeft" Number="28" Page="1" SetControl="Pan:1:31,Tilt:1:69" />
+      <Palette ID="9" Name="BRight" Number="29" Page="1" SetControl="Pan:1:69,Tilt:1:31" />
+    </Group>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Colour1:1" />
+      <Palette ID="2" Name="Colour 1" Number="2" Page="1" SetControl="Colour1:2" />
+      <Palette ID="3" Name="Colour 2" Number="3" Page="1" SetControl="Colour1:3" />
+      <Palette ID="4" Name="Colour 3" Number="4" Page="1" SetControl="Colour1:4" />
+      <Palette ID="5" Name="Colour 4" Number="5" Page="1" SetControl="Colour1:5" />
+      <Palette ID="6" Name="Colour 5" Number="6" Page="1" SetControl="Colour1:6" />
+      <Palette ID="7" Name="Colour 6" Number="7" Page="1" SetControl="Colour1:7" />
+      <Palette ID="8" Name="Colour 7" Number="8" Page="1" SetControl="Colour1:8" />
+      <Palette ID="9" Name="Colour 8" Number="9" Page="1" SetControl="Colour1:9" />
+      <Palette ID="10" Name="Colour 9" Number="10" Page="1" SetControl="Colour1:10:50" />
+    </Group>
+  </Palettes>
+</Fixture>

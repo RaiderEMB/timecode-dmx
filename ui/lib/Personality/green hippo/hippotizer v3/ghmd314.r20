@@ -1,0 +1,784 @@
+; 'Green Hippo Hippotizer Media Layer V3', 50 DMX Channels, filename: GHMD314.R20
+;  Copyright © Avolites Ltd. 2011
+;
+;   Date       By                Description
+;   28-04-11   Pers Creator      Created - Exported from Diamond 4 file.
+;   28-04-11   John Rogers       Checked.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  GH3MDL                              mode=Media Layer  48 DMX Channels
+NAME "Green Hippo" "Hippotizer Media Layer V3"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  48  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Media Layer"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=464
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"            0     0     0
+18   61   L    2   100   1N   0   1   "Mixer Mode"      120     0     0
+10    1   L    3   100   1N   T   1   "Red"             127   255     0
+10   61   L    4   100   1N   U   1   "Green"           127   255     0
+9    61   L    5   100   1N   V   1   "Blue"            127     0   229
+20   61   L    6   100   1N   0   1   "Brightness"      127     0     0
+20    1   L    7   100   1N   0   1   "Contrast"        127     0     0
+19   61   L    8   100   1N   0   1   "Negative"          0     0     0
+5    61   s    9   100   1N   0   1   "Rotation"         64     0     0
+0     0   L   10   100   1N   0   1   "Rotation Low"     64     0     0
+3    61   s   11   100   1N   E   1   "X-Pos"           128     0     0
+0     0   L   12   100   1N   E   1   "X-Pos Low"       128     0     0
+3     1   s   13   100   1N   F   1   "Y-Pos"           128     0     0
+0     0   L   14   100   1N   F   1   "Y-Pos Low"       128     0     0
+2    61   L   15   100   1N   0   1   "Aspect Ratio"    128     0     0
+5     1   s   16   100   1N   Q   1   "Zoom"            128     0     0
+0     0   L   17   100   1N   Q   1   "Zoom Low"        128     0     0
+2     1   L   18   100   1N   0   1   "Aspect Mode"       0     0     0
+11    1   L   19   100   1N   0   1   "Effect 1"          0     0     0
+12    1   L   20   100   1N   0   1   "Effect 1 Lev"      0     0     0
+13    1   L   21   100   1N   0   1   "Eff 1 Param1"      0     0     0
+14    1   L   22   100   1N   0   1   "Eff 1 Param2"      0     0     0
+15    1   L   23   100   1N   0   1   "Eff 1 Param3"      0     0     0
+16    1   L   24   100   1N   0   1   "Eff 1 Param4"      0     0     0
+17    1   L   25   100   1N   0   1   "Eff 1 Param5"      0     0     0
+11   61   L   26   100   1N   0   1   "Effect 2"          0     0     0
+12   61   L   27   100   1N   0   1   "Effect 2 Lev"      0     0     0
+13   61   L   28   100   1N   0   1   "Eff 2 Param1"      0     0     0
+14   61   L   29   100   1N   0   1   "Eff 2 Param2"      0     0     0
+15   61   L   30   100   1N   0   1   "Eff 2 Param3"      0     0     0
+16   61   L   31   100   1N   0   1   "Eff 2 Param4"      0     0     0
+17   61   L   32   100   1N   0   1   "Eff 2 Param5"      0     0     0
+6     1   L   33   100   1N   0   1   "Source"            0     0     0
+7     1   L   34   100   1N   0   1   "Bank"              0     0     0
+7    61   L   35   100   1N   0   1   "Clip"              0     0     0
+6    61   L   36   100   1N   0   1   "Play Mode"        10     0     0
+18    1   L   37   100   1N   0   1   "Speed"            64     0     0
+4     1   s   38   100   1N   0   1   "In Point"          0     0     0
+0     0   L   39   100   1N   0   1   "In Point Low"      0     0     0
+4    61   s   40   100   1N   0   1   "Out Point"       255     0     0
+0     0   L   41   100   1N   0   1   "Out Poin Low"    255     0     0
+8    61   L   42   100   1N   0   1   "Live Input"        0     0     0
+8     1   L   48   100   1N   0   1   "Relay Select"      0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Green Hippo
+Hippotizer  V3
+Media Layer 1
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Mixer Mode
+0   0    "Additive Di"
+10  10   "Subtractive"
+20  20   "Darken"
+30  30   "Lighten"
+40  40   "Softlight"
+50  50   "Softlight I"
+60  60   "Hardlight"
+70  70   "Overlay"
+80  80   "Difference"
+90  90   "Gobo"
+100 100  "Screen"
+110 110  "Opaque"
+120 120  "Sprite"
+130 130  "Luminance K"
+140 140  "Mask"
+150 150  "Alpha"
+REND
+
+RANGE 3  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Brightness
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Contrast
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Negative
+0   0    "Off"
+255 255  "On"
+REND
+
+RANGE 9  ;Rotation
+128 191  "Spin C %3d%%"100-((c-a)*100/(b-a))
+192 192  "No Spin"
+192 255  "Spin %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;X-Pos
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Y-Pos
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;Aspect Ratio
+0   127  "Vertic %3d%%"300-((c-a)*200/(b-a))
+128 128  "Normal"
+255 255  "Full       "
+129 255  "Horizo %3d%%"100+((c-a)*200/(b-a))
+REND
+
+RANGE 16  ;Zoom
+0   255  "%3d.%d%%"(c-a)*200/(b-a),10*((c-a)*200%(b-a))/(b-a)
+REND
+
+RANGE 18  ;Aspect Mode
+0   0    "Auto Scale"
+255 255  "Pixel 1:1"
+REND
+
+RANGE 19  ;Effect 1
+0   0    "Open"
+1   1    "Blur"
+2   2    "Radial Blur"
+3   3    "Motion Blur"
+4   4    "Mask"
+5   5    "Sat/Hue/Bri"
+6   6    "Multi Image"
+7   7    "Inverse Lum"
+8   8    "XY-Shifter"
+9   9    "Shutter"
+10  10   "ChromaKey"
+11  11   "Johans Effe"
+12  12   "Scroller"
+13  13   "RGB Tint"
+14  14   "Colour Stud"
+15  15   "Strobe"
+16  16   "Neon"
+17  17   "CTB/CTO"
+18  18   "DuoTone"
+19  19   "RGB Pallett"
+20  20   "Bloom"
+21  21   "Interlace"
+22  22   "Random     "
+24  24   "MegaZoom"
+25  25   "Noise"
+27  27   "Rings"
+28  28   "Cube Style"
+29  29   "Bump"
+30  30   "LED"
+31  31   "Pixelate"
+32  32   "Film"
+33  33   "Halftone"
+34  34   "Recursion  "
+35  35   "Colour Chan"
+36  36   "Colour     "
+37  37   "Plasma"
+38  38   "Flower 1"
+39  39   "Flip"
+40  40   "Kaleidoscop"
+41  41   "Roto Zoom"
+42  42   "Glass"
+43  43   "Aqua"
+44  44   "Tunnel"
+45  45   "Planes"
+46  46   "FluidDistor"
+47  47   "Polarwave"
+48  48   "Twisted"
+49  49   "Rectangles"
+50  50   "Ripple"
+51  51   "Wave"
+52  52   "Jitter"
+53  53   "Stripes"
+54  54   "Infinite Zo"
+55  55   "Digits"
+56  56   "Pixel Dust"
+57  57   "Bounce"
+58  58   "Infinity"
+59  59   "RBMultiMirr"
+60  60   "Zoom Area"
+61  61   "Left"
+62  62   "Right"
+63  63   "Left & Righ"
+64  64   "Top"
+65  65   "Bottom"
+66  66   "Top & Botto"
+67  67   "Pan"
+68  68   "Soft Edge F"
+69  69   "DropShadow"
+70  70   "LMM Mask"
+71  71   "Crop /     "
+72  72   "SEDual Pan"
+73  73   "SE Pan V"
+74  74   "Displace Mi"
+75  75   "Magnifier"
+76  76   "Curtain Dow"
+77  77   "Burnout"
+78  78   "Moving Blur"
+79  79   "DeGapper"
+82  82   "Cady Colour"
+83  83   "Idiot Strob"
+84  84   "Neil Gamma"
+91  91   "Blinder"
+92  92   "Fader"
+93  93   "Line       "
+94  94   "RGB Key"
+95  95   "RGB Split"
+109 109  "Pufferizer"
+110 110  "Alpha Trans"
+111 111  "Displacemen"
+120 120  "Strobefreez"
+121 121  "Plane XYZ"
+122 122  "Cube"
+123 123  "Sphere"
+124 124  "Pyramid"
+125 125  "Curve"
+126 126  "Plane Anima"
+127 127  "Multi Plane"
+128 128  "Cubes Anima"
+129 129  "Sphere"
+133 133  "Spin"
+134 134  "R-Cube"
+135 135  "Tubes"
+136 136  "Frame"
+137 137  "Water"
+138 138  "Head"
+139 139  "9 Wall"
+140 140  "3x3"
+REND
+
+RANGE 20  ;Effect 1 Level
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 26  ;Effect 2
+0   0    "Open"
+1   1    "Blur"
+2   2    "Radial Blur"
+3   3    "Motion Blur"
+4   4    "Mask"
+5   5    "Sat/Hue/Bri"
+6   6    "Multi Image"
+7   7    "Inverse Lum"
+8   8    "XY-Shifter"
+9   9    "Shutter"
+10  10   "ChromaKey"
+11  11   "Johans Effe"
+12  12   "Scroller"
+13  13   "RGB Tint"
+14  14   "Colour Stud"
+15  15   "Strobe"
+16  16   "Neon"
+17  17   "CTB/CTO"
+18  18   "DuoTone"
+19  19   "RGB Pallett"
+20  20   "Bloom"
+21  21   "Interlace"
+22  22   "Random     "
+24  24   "MegaZoom"
+25  25   "Noise"
+27  27   "Rings"
+28  28   "Cube Style"
+29  29   "Bump"
+30  30   "LED"
+31  31   "Pixelate"
+32  32   "Film"
+33  33   "Halftone"
+34  34   "Recursion  "
+35  35   "Colour Chan"
+36  36   "Colour     "
+37  37   "Plasma"
+38  38   "Flower 1"
+39  39   "Flip"
+40  40   "Kaleidoscop"
+41  41   "Roto Zoom"
+42  42   "Glass"
+43  43   "Aqua"
+44  44   "Tunnel"
+45  45   "Planes"
+46  46   "FluidDistor"
+47  47   "Polarwave"
+48  48   "Twisted"
+49  49   "Rectangles"
+50  50   "Ripple"
+51  51   "Wave"
+52  52   "Jitter"
+53  53   "Stripes"
+54  54   "Infinite Zo"
+55  55   "Digits"
+56  56   "Pixel Dust"
+57  57   "Bounce"
+58  58   "Infinity"
+59  59   "RBMultiMirr"
+60  60   "Zoom Area"
+61  61   "Left"
+62  62   "Right"
+63  63   "Left & Righ"
+64  64   "Top"
+65  65   "Bottom"
+66  66   "Top & Botto"
+67  67   "Pan"
+68  68   "Soft Edge F"
+69  69   "DropShadow"
+70  70   "LMM Mask"
+71  71   "Crop /     "
+72  72   "SEDual Pan"
+73  73   "SE Pan V"
+74  74   "Displace Mi"
+75  75   "Magnifier"
+76  76   "Curtain Dow"
+77  77   "Burnout"
+78  78   "Moving Blur"
+79  79   "DeGapper"
+82  82   "Cady Colour"
+83  83   "Idiot Strob"
+84  84   "Neil Gamma"
+91  91   "Blinder"
+92  92   "Fader"
+93  93   "Line"
+94  94   "RGB Key"
+95  95   "RGB Split"
+109 109  "Pufferizer"
+110 110  "Alpha Trans"
+111 111  "Displacemen"
+120 120  "Strobefreez"
+121 121  "Plane XYZ"
+122 122  "Cube"
+123 123  "Sphere"
+124 124  "Pyramid"
+125 125  "Curve"
+126 126  "Plane Anima"
+127 127  "Multi Plane"
+128 128  "Cubes Anima"
+129 129  "Sphere"
+133 133  "Spin"
+134 134  "R-Cube"
+135 135  "Tubes"
+136 136  "Frame"
+137 137  "Water"
+138 138  "Head"
+139 139  "9 Wall"
+140 140  "3x3"
+REND
+
+RANGE 27  ;Effect 2 Level
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 33  ;Source
+0   0    "Media Play"
+10  10   "Live Input"
+20  20   "Generator"
+30  30   "Relays"
+40  40   "ScreenThief"
+50  50   "Text Engine"
+REND
+0   0    "0"
+1   1    "1"
+2   2    "2"
+3   3    "3"
+4   4    "4"
+5   5    "5"
+6   6    "6"
+7   7    "7"
+8   8    "8"
+9   9    "9"
+10  10   "10"
+11  11   "11"
+12  12   "12"
+13  13   "13"
+14  14   "14"
+15  15   "15"
+16  16   "16"
+17  17   "17"
+18  18   "18"
+19  19   "19"
+20  20   "20"
+21  21   "21"
+22  22   "22"
+23  23   "23"
+24  24   "24"
+25  25   "25"
+26  26   "26"
+27  27   "27"
+28  28   "28"
+29  29   "29"
+30  30   "30"
+31  31   "31"
+32  32   "32"
+33  33   "33"
+34  34   "34"
+35  35   "35"
+36  36   "36"
+37  37   "37"
+38  38   "38"
+39  39   "39"
+40  40   "40"
+41  41   "41"
+42  42   "42"
+43  43   "43"
+44  44   "44"
+45  45   "45"
+46  46   "46"
+47  47   "47"
+48  48   "48"
+49  49   "49"
+50  50   "50"
+51  51   "51"
+52  52   "52"
+53  53   "53"
+54  54   "54"
+55  55   "55"
+56  56   "56"
+57  57   "57"
+58  58   "58"
+59  59   "59"
+60  60   "60"
+61  61   "61"
+62  62   "62"
+63  63   "63"
+64  64   "64"
+65  65   "65"
+66  66   "66"
+67  67   "67"
+68  68   "68"
+69  69   "69"
+70  70   "70"
+71  71   "71"
+72  72   "72"
+73  73   "73"
+74  74   "74"
+75  75   "75"
+76  76   "76"
+77  77   "77"
+78  78   "78"
+79  79   "79"
+80  80   "80"
+81  81   "81"
+82  82   "82"
+83  83   "83"
+84  84   "84"
+85  85   "85"
+86  86   "86"
+87  87   "87"
+88  88   "88"
+89  89   "89"
+90  90   "90"
+91  91   "91"
+92  92   "92"
+93  93   "93"
+94  94   "94"
+95  95   "95"
+96  96   "96"
+97  97   "97"
+98  98   "98"
+99  99   "99"
+100 100  "100"
+101 101  "101"
+102 102  "102"
+103 103  "103"
+104 104  "104"
+105 105  "105"
+106 106  "106"
+107 107  "107"
+108 108  "108"
+109 109  "109"
+110 110  "110"
+111 111  "111"
+112 112  "112"
+113 113  "113"
+114 114  "114"
+115 115  "115"
+116 116  "116"
+117 117  "117"
+118 118  "118"
+119 119  "119"
+120 120  "120"
+121 121  "121"
+122 122  "122"
+123 123  "123"
+124 124  "124"
+125 125  "125"
+126 126  "126"
+127 127  "127"
+128 128  "128"
+129 129  "129"
+130 130  "130"
+131 131  "131"
+132 132  "132"
+133 133  "133"
+134 134  "134"
+135 135  "135"
+136 136  "136"
+137 137  "137"
+138 138  "138"
+139 139  "139"
+140 140  "140"
+141 141  "141"
+142 142  "142"
+143 143  "143"
+144 144  "144"
+145 145  "145"
+146 146  "146"
+147 147  "147"
+148 148  "148"
+149 149  "149"
+150 150  "150"
+151 151  "151"
+152 152  "152"
+153 153  "153"
+154 154  "154"
+155 155  "155"
+156 156  "156"
+157 157  "157"
+158 158  "158"
+159 159  "159"
+160 160  "160"
+161 161  "161"
+162 162  "162"
+163 163  "163"
+164 164  "164"
+165 165  "165"
+166 166  "166"
+167 167  "167"
+168 168  "168"
+169 169  "169"
+170 170  "170"
+171 171  "171"
+172 172  "172"
+173 173  "173"
+174 174  "174"
+175 175  "175"
+176 176  "176"
+177 177  "177"
+178 178  "178"
+179 179  "179"
+180 180  "180"
+181 181  "181"
+182 182  "182"
+183 183  "183"
+184 184  "184"
+185 185  "185"
+186 186  "186"
+187 187  "187"
+188 188  "188"
+189 189  "189"
+190 190  "190"
+191 191  "191"
+192 192  "192"
+193 193  "193"
+194 194  "194"
+195 195  "195"
+196 196  "196"
+197 197  "197"
+198 198  "198"
+199 199  "199"
+200 200  "200"
+201 201  "201"
+202 202  "202"
+203 203  "203"
+204 204  "204"
+205 205  "205"
+206 206  "206"
+207 207  "207"
+208 208  "208"
+209 209  "209"
+210 210  "210"
+211 211  "211"
+212 212  "212"
+213 213  "213"
+214 214  "214"
+215 215  "215"
+216 216  "216"
+217 217  "217"
+218 218  "218"
+219 219  "219"
+220 220  "220"
+221 221  "221"
+222 222  "222"
+223 223  "223"
+224 224  "224"
+225 225  "225"
+226 226  "226"
+227 227  "227"
+228 228  "228"
+229 229  "229"
+230 230  "230"
+231 231  "231"
+232 232  "232"
+233 233  "233"
+234 234  "234"
+235 235  "235"
+236 236  "236"
+237 237  "237"
+238 238  "238"
+239 239  "239"
+240 240  "240"
+241 241  "241"
+242 242  "242"
+243 243  "243"
+244 244  "244"
+245 245  "245"
+246 246  "246"
+247 247  "247"
+248 248  "248"
+249 249  "249"
+250 250  "250"
+251 251  "251"
+252 252  "252"
+253 253  "253"
+254 254  "254"
+255 255  "255"
+REND
+
+RANGE 36  ;Play Mode
+0   0    "Fwd"
+10  10   "Fwd Loop"
+20  20   "Bwd"
+30  30   "Bwd Loop"
+40  40   "Ping Pong"
+50  50   "Random"
+60  60   "In"
+70  70   "Out"
+80  119  "Reserved"
+REND
+
+RANGE 37  ;Speed
+0   255  "%3d%%"(c-a)*400/(b-a)
+REND
+
+RANGE 38  ;In Point
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 40  ;Out Point
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 42  ;Live Input
+0   0    "Input 1"
+10  10   "Input 2"
+20  20   "Input 3"
+30  30   "Input 4"
+40  40   "Input 5"
+50  50   "Input 6"
+60  60   "Input 7"
+70  70   "Input 8"
+80  80   "Input 9"
+REND
+
+RANGE 48  ;Relay Select
+0   0    "Master"
+10  10   "Relay 1"
+20  20   "Relay 2"
+30  30   "Relay 3"
+40  40   "Relay 4"
+50  50   "Relay 5"
+60  60   "Relay 6"
+70  70   "Relay 7"
+80  80   "Relay 8"
+REND
+

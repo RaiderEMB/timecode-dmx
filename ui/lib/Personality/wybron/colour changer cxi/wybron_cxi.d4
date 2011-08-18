@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="CXI" ShortName="WB_CXI" Company="Wybron">
+  <Copyright Notice="© Avolites Ltd. 2011" />
+  <History Date="04-11-03" Author="Oliver Waits" Comment="Created" />
+  <History Date="04-11-03" Author="Greg" Comment="Checked:OK" />
+  <History Date="26-05-06" Author="Ed" Comment="Fixed Pending dimmer" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <History Date="04-02-11" Author="John Rogers" Comment="Fixed Incorrect Channel Count error." />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Gel1" Name="Gel String1" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Cyan/Mag." Display="'Cyan/Mag. %.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Gel2" Name="Gel String2" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Mag./Yellow" Display="'Mag./Yellow %.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+  </Control>
+  <Mode Name="With Dimmer" Channels="2">
+    <Import PearlRef="WB_CXICMx+D" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="0" Wheel="1" />
+      <Attribute ID="Gel1" ChannelOffset="1" Wheel="10" />
+      <Attribute ID="Gel2" ChannelOffset="2" Wheel="11" />
+    </Include>
+  </Mode>
+  <Mode Name="Without Dimmer" Channels="2">
+    <Import PearlRef="WB_CXICIndx" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Gel1" ChannelOffset="1" Wheel="10" />
+      <Attribute ID="Gel2" ChannelOffset="2" Wheel="11" />
+    </Include>
+  </Mode>
+</Fixture>

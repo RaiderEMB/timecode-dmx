@@ -1,0 +1,164 @@
+;-----------------------------------------------------------------------|
+; The Clay Paky Stage Profile Plus SV 				|
+;-----------------------------------------------------------------------|
+;       History :-                                                      |
+;-----------------------------------------------------------------------|
+;   Revision |  Date     |  By    | Description                         |
+;------------|-----------|--------|-------------------------------------|
+;       1.0  |  20-05-02 | Edward | Created
+;---------------------------------------------------------------------- |
+
+
+DEVICE=CPProfPlusH              ; Device Name (upto 11 chars after '='
+DEVICE23=33 channels          ; 22 chars after '='
+**USE WITH JAN 2001         ; extra information for softkey prompt lines 2&3
+software or later**       ; a total of 22 chars, split into 2 lines of 11
+
+; Device information
+;                                   __ Number of lines of DMX info.
+;                                  |   __ Number of lines of wheel info
+;                                  |  |
+;                                  |  |
+;                                  |  |
+HSTART  2 33 1b05 450 252  ff 0  4 33 29
+;       |  |  |    |   |   |  |  |
+;       |  |  |    |   |   |  |  |__ Line number for flash button DMX info
+;       |  |  |    |   |   |  |      from DMX definition (1..x)
+;       |  |  |    |   |   |  |__ Button release value
+;       |  |  |    |   |   |__ Button ON value (ff means use swop/add fader)
+;       |  |  |    |   |__ The TILT arc in Degrees
+;       |  |  |    |__ The Pan arc in degrees
+;       |  |  |__ Date in PC format (1b05==5/08/93)
+;       |  |__ Number of DMX slots used
+;      |__ Patch direction (1-backward, 0 forward, (3 for moving head, 1 for Moving Mirror))
+
+
+TEXTSTART                 ; Upto 21 lines of 28 characters (use the template)
+                             ;
+        CLAY PAKY            ;
+   Stage Profile Plus SV     ;
+                             ;
+** Use Jan 2001 software **  ;
+           or later           ;
+                             ;
+TEXTEND
+
+
+;------------------------------------------------------------
+
+; For the Attribute Dictionary refer to file 'dict.per'
+
+;------------------------------------------------------------
+; DMX information
+; No unused lines allowed between keyword 'DSTART' and last DMX definition
+
+DSTART                          ; DMX defintion
+1  2  0 0  15 0      ; Iris
+2  2  0 0  43 0      ; Zoom
+3  2  0 0  12 0      ; Focus
+4  1  0 0   0 0      ; Dimmer
+5  2 20 0  13 0      ; Pan
+6  0  0 0   0 0      ; Pan Lo
+7  2 20 0  14 0      ; Tilt
+8  0  0 0   0 0      ; Tilt Lo
+9  2  0 0  67 0      ; Blade 1A
+10 2  0 0  68 0      ; Blade 1B
+11 2  0 0  69 0      ; Blade 2A
+12 2  0 0  70 0      ; Blade 2B
+13 2  0 0  71 0      ; Blade 3A
+14 2  0 0  72 0      ; Blade 3B
+15 2  0 0  73 0      ; Blade 4A
+16 2  0 0  74 0      ; Blade 4B
+17 2  0 0  75 0      ; Blade Rot
+18 2  0 0  17 0      ; Strobe
+19 2  0 0 146 0      ; CTC
+20 2 40 0  16 0      ; Prism
+21 2  0 0  40 0      ; Frost
+22 2  0 0  82 0      ; Lens
+23 2 40 0  36 0      ; Gobo1
+24 2 20 0 101 0      ; Gobo1 Rot
+25 2 40 0  37 0      ; Gobo2
+26 2 20 0  99 0      ; Gobo2 Rot
+27 2  0 0   8 0      ; Cyan
+28 2  0 0   7 0      ; Magenta
+29 2  0 0   9 0      ; Yellow
+30 2  0 0 147 0      ; Control
+31 2  0 0  80 0      ; Reset
+32 0  0 0   0 0      ; Gobo1 Rot lo
+33 0  0 0   0 0      ; Gobo2 Rot lo
+;| |  | |  | |
+;| |  | |  | |__ Spare (always 0 for now)
+;| |  | |  |__ Attribute name (See list above)
+;| |  | |__ Curve (0 means no curve otherwise curve number)
+;| |  |__ Flags (7=inverted, 6=instant, 5=16-bit)
+;| |__ Channel type (1=HTP, 2=LTP, 0=Dummy(for 16-bit defines)
+;|__ DMX offset (1..255, 0 means DIMMER will be patched seperately)
+
+
+;------------------------------------------------------------
+; WHEEL information
+; No unused lines allowed between keyword 'WSTART' and last DMX definition
+WSTART
+8 ffff ffff 1  15 0  1   0 1  0  1  0  0  0  0  0  ; 1. Iris
+8 ffff    0 1  43 0  3   0 1  1  2  0  0  0  0  0  ; 2. Zoom
+8 ffff    0 1  12 0  2   0 1  2  3  0  0  0  0  0  ; 3. Focus
+8 ffff 8080 4   0 0  8   0 1  3  4  0  0  0  0  0  ; 4. Dimmer
+8 ffff 8080 3  13 0  5   0 1  4  5  0  0  0  0  0  ; 5. Pan
+8 ffff 8080 3  14 0  6   0 1  6  7  0  0  0  0  0  ; 6. Tilt
+8 ffff    0 1  67 0 25   0 1  8  9  0  0  0  0  0  ; 7. Blade 1A
+8 ffff    0 1  68 0 26   0 1  9 10  0  0  0  0  0  ; 8. Blade 1B
+8 ffff    0 1  69 0 27   0 1 10 11  0  0  0  0  0  ; 9. Blade 2A
+8 ffff    0 1  70 0 28   0 1 11 12  0  0  0  0  0  ; 10. Blade 2B
+8 ffff    0 1  71 0 29   0 1 12 13  0  0  0  0  0  ; 11. Blade 3A
+8 ffff    0 1  72 0 30   0 1 13 14  0  0  0  0  0  ; 12. Blade 3B
+8 ffff    0 1  73 0 31   0 1 14 15  0  0  0  0  0  ; 13. Blade 4A
+8 ffff    0 1  74 0 32   0 1 15 16  0  0  0  0  0  ; 14. Blade 4B
+8 ffff    0 1  75 0 40   0 1 16 17  0  0  0  0  0  ; 15. Blade Rot
+8 ffff    0 1  17 0  4   0 1 17 18  0  0  0  0  0  ; 16. Strobe
+8 ffff    0 1 146 0 12   0 1 18 19  0  0  0  0  0  ; 17. CTC
+8 ffff    0 1  16 0 33   0 1 19 20  0  0  0  0  0  ; 18. Prism
+8 ffff    0 1  40 0 35   0 1 20 21  0  0  0  0  0  ; 19. Frost
+8 ffff    0 1  82 0 34   0 1 21 22  0  0  0  0  0  ; 20. Lens
+8 ffff    0 1  36 0 17   0 1 22 23  0  0  0  0  0  ; 21. Gobo1 
+8 ffff    0 1 101 0 18   0 1 23 24  0  0  0  0  0  ; 22. Gobo1 Rot
+8 ffff    0 1  37 0 19   0 1 24 25  0  0  0  0  0  ; 23. Gobo2 
+8 ffff    0 1  99 0 20   0 1 25 26  0  0  0  0  0  ; 24. Gobo2 Rot
+8 ffff    0 1   8 0  9   0 1 26 27  0  0  0  0  0  ; 25. Cyan
+8 ffff    0 1   7 0 10   0 1 27 28  0  0  0  0  0  ; 26. Magenta
+8 ffff    0 1   9 0 11   0 1 28 29  0  0  0  0  0  ; 27. Yellow
+8 ffff 8080 1 147 0 41   0 1 29 30  0  0  0  0  0  ; 28. Control
+8 ffff    0 1  80 0 42   0 1 30 31  0  0  0  0  0  ; 29. Reset
+;|   |    | |   | |  |   | |  |  |  |  |  |  |  |__ List of Table channels as
+;|   |    | |   | |  |   | |  |  |_______________ line numbers from DMX def.
+;|   |    | |   | |  |   | |  |                   0 means unused channel
+;|   |    | |   | |  |   | |  |__ DMX line (minus 1) pertainig to this wheel
+;|   |    | |   | |  |   | |__ Number of chanels under control OR Table width
+;|   |    | |   | |  |   |__ Table type (Attribute number) 0 means NOT a table
+;|   |    | |   | |  |__ Wheel number (1..8 on bank1, 9..16 on bank2 et cetera)
+;|   |    | |   | |__ 0 for 8 bits, 1 for 16 bits
+;|   |    | |   |__  Attribute name from above list (0..MAX)
+;|   |    | |__ Wheel type (1-offset, 2-Table, 3-Pan/Tilt, 4-Dimmer)
+;|   |    |__ Default value (left shifted as necessary)
+;|   |__ AND mask, where more than wheel controls same DMX slot
+;|___Wheel multiplication =16-(bits used)
+;   eg. for 8 bit channels it is 8, for 12 bit channels it is 4
+;
+;--------------------------------------------------------------------
+; TABLES
+; Each Table is enclosed by the keywords "TSTART" and "*** TEND ***"
+; The legend is 16 chars long
+; The correct number of values must be supplied (8-bits) with spaces in
+; between
+
+
+
+
+MACRO "SWITCH-ON" 1  30
+1 ff
+MEND
+
+MACRO "SWITCH-OFF"  2  30
+1 0
+MEND
+
+;--------------------------------------------------------------------

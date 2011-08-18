@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Catalyst Mirror" ShortName=" Cat Miror" Company="High End">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="13-12-02" Author="D.Shelton" Comment="Created" />
+  <History Date="16-12-02" Author="D.Shelton" Comment="Updated referencing of 16-bit channels" />
+  <History Date="06-01-03" Author="D.Shelton" Comment="Standardised Display of Channels" />
+  <History Date="04-03-03" Author="D.Shelton" Comment="Updated ID's for Shape Generator" />
+  <History Date="15-07-03" Author="D.Shelton" Comment="Added head type" />
+  <History Date="06-04-06" Author="Ed" Comment="Moved control to special group" />
+  <History Date="10-04-06" Author="Ed" Comment="Moved MSpeed into Special group" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <Manual Filename="/manual/High-End_Catalyst.pdf" Summary="Created:Courtney Christian, 02/09/1999" />
+  <Control>
+    <Attribute ID="Pan" Name="Mirror 1" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Mirror 2" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="MSpeed" Name="MSpeed" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" Highlight="1" Lowlight="1" />
+      <Function ID="1" Name="Crossfade" Display="'Crossfade'" Dmx="0~3" />
+      <Function ID="2" Name="MSpeed" Display="'%3.2f Sec',253.0~0.0" Dmx="4~255" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" Highlight="1" Lowlight="1" />
+      <Function ID="1" Name="Reserved" Display="'Reserved'" Dmx="90~98" />
+      <Function ID="2" Name="Shutdown" Display="'Shutdown'" Dmx="120~130" />
+      <Function ID="3" Name="Reserved" Display="'Reserved'" Dmx="140~149" />
+      <Function ID="4" Name="Home" Display="'Home'" Dmx="160~168" />
+      <Function ID="5" Name="Reserved" Display="'Reserved'" Dmx="170~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="6 DMX" Channels="6">
+    <Import PearlRef="HE_CatMir" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Mirror" PanMax="270" TiltMax="360" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Pan" ChannelOffset="1,2" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="3,4" Wheel="3" />
+      <Attribute ID="MSpeed" ChannelOffset="5" Wheel="25" />
+      <Attribute ID="Control" ChannelOffset="6" Wheel="28" />
+    </Include>
+  </Mode>
+</Fixture>

@@ -1,0 +1,205 @@
+; 'Robe ColorWash 1200E AT', 17 DMX Channels, filename: ROCW12M1.R20
+;
+;   Date       By                Description
+;   26-08-04   Pers Creator      Created - Exported from Diamond 4 file.
+;   26-08-04   Tom               Checked
+;   26-08-04   Tom               Checked
+;   21-01-05   Phil              Renamed to use Robe's standard naming
+;   01-08-05   E.Spencer         Changed device name to match Vis files
+;   26-10-05   E.Spencer	 Revised device name
+;   23-01-06   E Spencer	 Changed Fresnel locate value to 0
+;   26-01-06   E Spencer	 Changed Zoom locate value
+;   05-01-09   David Hunt        Fixed duplicate dmx values in range tables
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  RO_WS120AT1                          mode=Mode 1, 17 DMX  17 DMX Channels
+NAME "Robe" "ColorWash 1200E AT, Mode 1"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  17  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   530   280
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Mode 1, 17 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=495
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+DMX
+3    61   s    1   100   1N   E   1   "Pan"             128     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        128     0     0
+18    1   L    5   100   1N   0   1   "P/T Speed"         0     0     0
+12    1   I    6   100   1N   0   1   "Control"           0     0     0
+4     1   I    7   100   1N   A   1   "Colour 1"          0     0     0
+4    61   I    8   100   1N   N   1   "Colour 2"          0     0     0
+10    1   L    9   100   1N   B   1   "Cyan"              0     0   255
+10   61   L   10   100   1N   C   1   "Magenta"           0     0   255
+9    61   L   11   100   1N   D   1   "Yellow"            0   255    51
+20    1   L   12   100   1N   0   1   "CTC"               0     0     0
+8    61   L   13   100   1N   0   1   "Speed"             0     0     0
+16   61   I   14   100   1N   0   1   "Fresnel"           0     0     0
+5     1   L   15   100   1N   Q   1   "Zoom"            128     0     0
+2    61   L   16   100   1N   O   1   "Shutter"          32     0     0
+1     1   H   17   100   1N   H   1   "Dimmer"          255     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Robe ColorWash 1200E AT
+Mode 1, 17 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Lamp On"       1   6
+"data"                0  86
+"delay"               1  28
+"data"                0  18
+MEND
+
+MACRO "Lamp Off"      2   6
+"data"                0  E6
+"delay"               1  28
+"data"                0  18
+MEND
+
+MACRO "Reset"         3   6
+"data"                0  CC
+"delay"               1  32
+"data"                0  18
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+RANGE 5  ;P/T Speed
+0   0    "Tracking"
+1   255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 6  ;Control
+0   49   "Safe"
+50  59   "P/T Speed"
+60  69   "P/T Time"
+70  79   "BlkO w P/T"
+80  89   "No BO w P/T"
+90  99   "BlkO w Col"
+100 109  "No BO w Col"
+130 139  "Lamp On"
+140 149  "P/T Reset"
+150 159  "Colour Rese"
+160 169  "Zoom/Fsnl R"
+170 179  "Dim/Strb Re"
+200 209  "Reset"
+230 239  "Lamp Off"
+REND
+
+RANGE 7  ;Colour 1
+128 129  "Open"
+130 139  "Deep Red"
+140 149  "Deep Blue"
+150 159  "Green"
+160 169  "Orange"
+170 179  "CTO"
+180 189  "UV"
+0   0    "Open"
+1   17   "Open/R %3d%%"0+(((c-a)*100)/(b-a))
+18  36   "Red/Bl %3d%%"100-(((c-a)*100)/(b-a))
+37  54   "Blue/G %3d%%"0+(((c-a)*100)/(b-a))
+55  72   "Grn/Or %3d%%"0+(((c-a)*100)/(b-a))
+73  90   "Orng/C %3d%%"0+(((c-a)*100)/(b-a))
+91  109  "CTO/UV %3d%%"0+(((c-a)*100)/(b-a))
+110 127  "UV/Ope %3d%%"0+(((c-a)*100)/(b-a))
+190 215  "Sc CW %3d%%"100-(((c-a)*100)/(b-a))
+216 217  "No Scroll"
+218 243  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+250 255  "Rnd Sel"
+244 249  "Audio Sel"
+REND
+
+RANGE 8  ;Colour 2
+128 129  "Open"
+130 139  "Red Ring"
+140 149  "Blue Dot"
+150 159  "Yellow Ring"
+160 169  "Blue/Red"
+170 179  "Green/Orang"
+180 189  "Yel/Blu/Orn"
+0   0    "Open"
+1   17   "Open/R %3d%%"0+(((c-a)*100)/(b-a))
+18  36   "Red/Bl %3d%%"100-(((c-a)*100)/(b-a))
+37  54   "Blue/Y %3d%%"0+(((c-a)*100)/(b-a))
+55  72   "Yel/B- %3d%%"0+(((c-a)*100)/(b-a))
+73  90   "B-R/G- %3d%%"0+(((c-a)*100)/(b-a))
+91  109  "G-O/YB %3d%%"0+(((c-a)*100)/(b-a))
+110 127  "YBOM/O %3d%%"0+(((c-a)*100)/(b-a))
+216 217  "No Scroll"
+190 215  "Sc CW %3d%%"100-(((c-a)*100)/(b-a))
+218 243  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+250 255  "Rnd Sel"
+244 249  "Audio Sel"
+REND
+
+RANGE 14  ;Fresnel
+0   85   "%3d%%"0+(((c-a)*100)/(b-a))
+87  171  "Alt %3d%%"0+(((c-a)*100)/(b-a))
+172 213  "Ramp 1 %3d%%"0+(((c-a)*100)/(b-a))
+214 255  "Ramp 2 %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 16  ;Shutter
+32  63   "Open"
+0   31   "Closed"
+64  127  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+128 143  "Open P "0+(((c-a)*100)/(b-a))
+144 159  "Close  %3d%%"0+(((c-a)*100)/(b-a))
+160 191  "Elec S %3d%%"0+(((c-a)*100)/(b-a))
+192 223  "Rnd St %3d%%"0+(((c-a)*100)/(b-a))
+224 255   "Open"
+REND

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="TopScan" ShortName="Top  Scan" Company="Genius">
+  <Copyright Notice="© Avolites Ltd. 2010" />
+  <History Date="21-09-10" Author="Personality Builder" Comment="Imported from Pearl Personality: GETOPSCN.R20" />
+  <History Date="21-09-10" Author="John Rogers" Comment="Checked" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Color" Name="Color" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Gobo1" Name="Gobo 1" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'%.1f%%',0.0~100.0" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:0" />
+      <Function ID="1" Name="Pan" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:0" />
+      <Function ID="1" Name="Tilt" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Gobo2" Name="Gobo 2" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'%.1f%%',0.0~100.0" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo2Rot" Name="Gobo 2 Rot" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'%.1f%%',0.0~100.0" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Effect" Name="Effect" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="EffectRot" Name="Effect Rot" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Focus" Name="Focus" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:0" />
+      <Function ID="1" Name="Focus" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Raw DMX" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="14 Channels" Channels="14">
+    <Import PearlRef="GE_Topscan" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Mirror" PanMax="150" TiltMax="80" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="4" Wheel="4" />
+      <Attribute ID="Pan" ChannelOffset="5,13" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="6,14" Wheel="3" />
+      <Attribute ID="Color" ChannelOffset="2" Wheel="8" />
+      <Attribute ID="Gobo1" ChannelOffset="3" Wheel="13" />
+      <Attribute ID="Gobo2" ChannelOffset="7" Wheel="16" />
+      <Attribute ID="Gobo2Rot" ChannelOffset="8" Wheel="17" />
+      <Attribute ID="Focus" ChannelOffset="11" Wheel="20" />
+      <Attribute ID="Effect" ChannelOffset="9" Wheel="22" />
+      <Attribute ID="EffectRot" ChannelOffset="10" Wheel="23" />
+      <Attribute ID="Control" ChannelOffset="12" Wheel="28" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="LAMP ON">
+      <Set Channel="Dimmer:1:50" Delay="9600" />
+      <Set Channel="Dimmer:1:50" Delay="0" />
+    </Macro>
+    <Macro Name="RESET">
+      <Set Channel="Dimmer:1:100" Delay="6400" />
+      <Set Channel="Dimmer:1:50" Delay="0" />
+    </Macro>
+    <Macro Name="LAMP OFF">
+      <Set Channel="Dimmer:1:0" Delay="9600" />
+      <Set Channel="Dimmer:1:0" Delay="0" />
+    </Macro>
+  </Macro>
+  <Palettes>
+    <Group Name="Color">
+      <Palette ID="1" Name="White" Number="1" Page="1" SetControl="Color:1:0" />
+      <Palette ID="1" Name="Yellow" Number="2" Page="1" SetControl="Color:1:10" />
+      <Palette ID="1" Name="Red" Number="3" Page="1" SetControl="Color:1:18" />
+      <Palette ID="1" Name="Green" Number="4" Page="1" SetControl="Color:1:25" />
+      <Palette ID="1" Name="Blue" Number="5" Page="1" SetControl="Color:1:33" />
+      <Palette ID="1" Name="Magenta" Number="6" Page="1" SetControl="Color:1:41" />
+      <Palette ID="1" Name="DarkGreen" Number="7" Page="1" SetControl="Color:1:49" />
+      <Palette ID="1" Name="Gold" Number="8" Page="1" SetControl="Color:1:57" />
+      <Palette ID="1" Name="Orange" Number="9" Page="1" SetControl="Color:1:65" />
+      <Palette ID="1" Name="LightGreen" Number="10" Page="1" SetControl="Color:1:73" />
+    </Group>
+    <Group Name="Positions">
+      <Palette ID="1" Name="Middle" Number="21" Page="1" SetControl="Pan:1:50,Tilt:1:50" />
+      <Palette ID="1" Name="Left" Number="22" Page="1" SetControl="Pan:1:31,Tilt:1:50" />
+      <Palette ID="1" Name="Right" Number="23" Page="1" SetControl="Pan:1:69,Tilt:1:50" />
+      <Palette ID="1" Name="Top" Number="24" Page="1" SetControl="Pan:1:50,Tilt:1:31" />
+      <Palette ID="1" Name="Bottom" Number="25" Page="1" SetControl="Pan:1:50,Tilt:1:69" />
+      <Palette ID="1" Name="TLeft" Number="26" Page="1" SetControl="Pan:1:31,Tilt:1:31" />
+      <Palette ID="1" Name="TRight" Number="27" Page="1" SetControl="Pan:1:69,Tilt:1:69" />
+      <Palette ID="1" Name="BLeft" Number="28" Page="1" SetControl="Pan:1:31,Tilt:1:69" />
+      <Palette ID="1" Name="BRight" Number="29" Page="1" SetControl="Pan:1:69,Tilt:1:31" />
+    </Group>
+    <Group Name="Gobos">
+      <Palette ID="1" Name="Open" Number="11" Page="1" SetControl="Gobo1:1:0,Gobo2:1:0,Gobo2Rot:1:0" />
+      <Palette ID="1" Name="Gobo1" Number="12" Page="1" SetControl="Gobo1:1:13,Gobo2:1:0,Gobo2Rot:1:0" />
+      <Palette ID="1" Name="Gobo2" Number="13" Page="1" SetControl="Gobo1:1:21,Gobo2:1:0,Gobo2Rot:1:0" />
+      <Palette ID="1" Name="Gobo3" Number="14" Page="1" SetControl="Gobo1:1:30,Gobo2:1:0,Gobo2Rot:1:0" />
+      <Palette ID="1" Name="Gobo4" Number="15" Page="1" SetControl="Gobo1:1:38,Gobo2:1:0,Gobo2Rot:1:0" />
+      <Palette ID="1" Name="Gobo5" Number="16" Page="1" SetControl="Gobo1:1:47,Gobo2:1:0,Gobo2Rot:1:0" />
+      <Palette ID="1" Name="Gobo6" Number="17" Page="1" SetControl="Gobo1:1:56,Gobo2:1:0,Gobo2Rot:1:0" />
+      <Palette ID="1" Name="Gobo7" Number="18" Page="1" SetControl="Gobo1:1:64,Gobo2:1:0,Gobo2Rot:1:0" />
+      <Palette ID="1" Name="Gobo8" Number="19" Page="1" SetControl="Gobo1:1:73,Gobo2:1:0,Gobo2Rot:1:0" />
+      <Palette ID="1" Name="Gobo9" Number="20" Page="1" SetControl="Gobo1:1:82,Gobo2:1:0,Gobo2Rot:1:0" />
+    </Group>
+  </Palettes>
+</Fixture>

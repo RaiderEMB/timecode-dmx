@@ -1,0 +1,223 @@
+;-----------------------------------------------------------------------|
+; The MARTIN MAC 2000 Profile 20 DMX channels                           |
+;-----------------------------------------------------------------------|
+; History  :-                                                           |
+;-----------------------------------------------------------------------|
+; Revision |  Date     |  By    | Description                           |
+;----------|-----------|--------|---------------------------------------|
+; 1.0      |  23-02-04 |G.Brown | Created  Greg Brown                   |
+; 1.0      |  01-03-04 |O.Waits | Checked  Oliver Waits                 |
+;-----------------------------------------------------------------------|
+
+DEVICE=MMac2000Lo                 ; Device Name (upto 11 chars after '='
+DEVICE23=20-Channels              ; 22 chars after '='
+                                  ; extra information for softkey prompt lines 2&3
+                                  ; a total of 22 chars, split into 2 lines of 11
+
+; Device information
+;                                  __ Number of lines of DMX info.
+;                                 |  __ Number of lines of wheel info
+;                                 | |
+;                                 | |
+;                                 | |
+HSTART 3 20 1b05 438 305 ff 0 2  20 21
+;      |  |  |    |   |  |  | |
+;      |  |  |    |   |  |  | |__ Line number for flash button DMX info
+;      |  |  |    |   |  |  |      from DMX definition (1..x)
+;      |  |  |    |   |  |  |__ Button release value
+;      |  |  |    |   |  |__ Button ON value (ff means use swop/add fader)
+;      |  |  |    |   |__ The TILT arc in Degrees
+;      |  |  |    |__ The Pan arc in degrees
+;      |  |  |__ Date in PC format (1b05==5/08/93)
+;      |  |__ Number of DMX slots used
+;      |__ Patch direction (1-backward, 0 forward, (3 for moving head, 1 for Moving Mirror))
+
+
+
+TEXTSTART          ; Upto 21 lines of 28 characters (use the template below)
+                               ;
+ MARTIN MAC 2000 Lo            ;
+                               ;
+ 20-DMX CHANNELS               ;
+TEXTEND
+
+
+;------------------------------------------------------------
+
+; For the Attribute Dictionary refer to file 'dict.per'
+
+;------------------------------------------------------------
+; DMX information
+; No unused lines allowed between keyword 'DSTART' and last DMX definition
+
+DSTART               ; DMX defintion
+1  2  0 0  24 0      ; SHUTTER
+2  1  0 0   0 0      ; DIMMER
+3  2  0 0   8 0      ; CYAN
+4  2  0 0   7 0      ; MAGENTA
+5  2  0 0   9 0      ; YELLOW
+6  2  0 0 161 0      ; CTC
+7  2 40 0  38 0      ; COLOR
+8  2 40 0  36 0      ; GOBO1
+9  2  0 0 101 0      ; GOBO ROT1
+10 2 40 0  37 0      ; GOBO2
+11 2  0 0  99 0      ; GOBO ROT2
+12 2 40 0  51 0      ; EFFECT
+13 2 40 0  41 0      ; EFFECT ROT
+14 2  0 0  15 0      ; IRIS
+15 2  0 0  12 0      ; FOCUS
+16 2  0 0  43 0      ; ZOOM
+17 2  0 0  13 0      ; PAN
+18 2  0 0  14 0      ; TILT
+19 2 40 0  58 0      ; SPEED P/T
+20 2 40 0  25 0      ; SPEED
+;| |  | |  |  |
+;| |  | |  |  |__ Spare (always 0 for now)
+;| |  | |  |__ Attribute name (See list above)
+;| |  | |__ Curve (0 means no curve otherwise curve number)
+;| |  |__ Flags (7=inverted, 6=instant, 5=16-bit)
+;| |__ Channel type (1=HTP, 2=LTP, 0=Dummy(for 16-bit defines)
+;|_ DMX offset (1..255, 0 means DIMMER will be patched seperately)
+
+
+;------------------------------------------------------------
+; WHEEL information
+; No unused lines allowed between keyword 'WSTART' and last DMX definition
+
+WSTART
+8 ffff 2323 1  24 0  7  0 1  0  1  0  0  0  0  0  ; 1. SHUTTER
+8 ffff ffff 4   0 0  8  0 1  1  2  0  0  0  0  0  ; 2. DIMMER
+8 ffff    0 1   8 0  9  0 1  2  3  0  0  0  0  0  ; 3. CYAN
+8 ffff    0 1   7 0 10  0 1  3  4  0  0  0  0  0  ; 4. MAGENTA
+8 ffff    0 1   9 0 11  0 1  4  5  0  0  0  0  0  ; 5. YELLOW
+8 ffff    0 1 161 0 12  0 1  5  6  0  0  0  0  0  ; 6. CTC
+8 ffff    0 1  38 0  3  0 1  6  7  0  0  0  0  0  ; 7. COLOR
+8 ffff    0 1  36 0 19  0 1  7  8  0  0  0  0  0  ; 8. GOBO1
+8 ffff    0 1 101 0 17  0 1  8  9  0  0  0  0  0  ; 9. GOBO1 ROT
+8 ffff    0 1  37 0 20  0 1  9 10  0  0  0  0  0  ;10. GOBO2
+8 ffff    0 1  99 0 18  0 1 10 11  0  0  0  0  0  ;11. GOBO2 ROT
+8 ffff    0 1  51 0 26  0 1 11 12  0  0  0  0  0  ;12. EFFECT
+8 ffff    0 1  41 0 27  0 1 12 13  0  0  0  0  0  ;13. EFFECT ROT
+8 ffff    0 1  15 0  2  0 1 13 14  0  0  0  0  0  ;14. IRIS
+8 ffff 4646 1  12 0  1  0 1 14 15  0  0  0  0  0  ;15. FOCUS
+8 ffff    0 1  43 0 25  0 1 15 16  0  0  0  0  0  ;16. ZOOM
+8 ffff 8080 3  13 0  5  0 1 16 17  0  0  0  0  0  ;17. PAN
+8 ffff 8080 3  14 0  6  0 1 17 18  0  0  0  0  0  ;18. TILT
+8 ffff    0 1  58 0 41  0 1 18 19  0  0  0  0  0  ;19. SPEED P/T
+8 ffff    0 1  25 0 42  0 1 19 20  0  0  0  0  0  ;20. SPEED
+8 ffff    0 2 103 0  4 103 3 2  3  5  4  0  0  0  ;21. LEE
+;|   |    | |  |  |  |  | |  |  |  |  |  |  |  |__ List of Table channels as
+;|   |    | |  |  |  |  | |  |  |_______________ line numbers from DMX def.
+;|   |    | |  |  |  |  | |  |                   0 means unused channel
+;|   |    | |  |  |  |  | |  |__ DMX line (minus 1) pertainig to this wheel
+;|   |    | |  |  |  |  | |__ Number of chanels under control OR Table width
+;|   |    | |  |  |  |  |__ Table type (Attribute number) 0 means NOT a table
+;|   |    | |  |  |  |__ Wheel number (1..8 on bank1, 9..16 on bank2 et cetera)
+;|   |    | |  |  |__ 0 for 8 bits, 1 for 16 bits
+;|   |    | |  |__  Attribute name from above list (0..MAX)
+;|   |    | |__ Wheel type (1-offset, 2-Table, 3-Pan/Tilt, 4-Dimmer)
+;|   |    |__ Default value (left shifted as necessary)
+;|   | _ AND mask, where more than wheel controls same DMX slot
+;|__ Wheel multiplication =16-(bits used)
+;    eg. for 8 bit channels it is 8, for 12 bit channels it is 4
+
+;--------------------------------------------------------------------
+; TABLES
+; Each Table is enclosed by the keywords "TSTART" and "*** TEND ***"
+; The legend is 16 chars long
+; The correct number of values must be supplied (8-bits) with spaces in
+; between
+
+;                      cyan   yellow   Magenta
+TSTART 3 103
+lee101               222     12      137
+lee102               230     23      122
+lee103               249     112     147
+lee104               195     5       100
+lee105               253     4       41
+lee106               164     8       8
+lee107               231     77      77
+lee108               91      35      35
+lee109               233     94      79
+lee110               255     160     89
+lee111               255     124     42
+lee113               200     61      1
+lee115               60      110     244
+lee116               7       83      244
+lee117               208     210     251
+lee118               29      128     149
+lee119               8       221     111
+lee120               18      162     25
+lee121               156     22      237
+lee122               102     24      217
+lee124               29      14      124
+lee126               109     117     13
+lee127               161     45      31
+lee128               191     103     7
+lee129               0       0       0
+lee130               0       0       0
+lee131               106     106     210
+lee132               34      196     172
+lee134               213     28      74
+lee135               146     7       17
+lee136               213     144     119
+lee137               199     250     147
+lee138               227     100     214
+lee139               0       0       0
+lee140               137     160     241
+lee141               29      163     192
+lee142               160     214     137
+lee143               66      142     123
+lee144               108     167     240
+lee145               0       0       0
+lee147               255     51      86
+lee148               0       0       0
+lee151               240     106     106
+lee152               240     106     114
+lee153               240     106     95
+lee154               240     114     111
+lee156               229     92      97
+lee158               239     6       34
+lee159               242     132     146
+lee161               137     230     197
+lee162               239     103     133
+lee164               225     15      9
+lee165               110     212     201
+lee166               0       0       0
+lee169               217     148     142
+lee170               196     182     99
+lee172               38      119     255
+lee174               177     225     193
+lee176               248     93      80
+lee179               185     9       53
+lee180               97      214     55
+lee181               8       136     17
+lee182               163     4       7
+lee183               0       0       0
+lee184               252     128     143
+lee185               249     151     146
+lee186               249     141     133
+lee187               249     124     133
+lee188               249     120     134
+lee189               224     143     151
+lee190               200     143     151
+lee191               200     119     143
+*** TEND ***
+
+MACRO "LAMP ON" 1 1
+32 e6
+1  23
+MEND
+
+MACRO "RESET" 2 1
+14 d2
+1  0
+MEND
+
+MACRO "LAMP OFF" 3  1  7  8 10
+60 ff  a1  39  39
+1  0   0   0   0
+MEND
+;--------------------------------------------------------------------
+
+

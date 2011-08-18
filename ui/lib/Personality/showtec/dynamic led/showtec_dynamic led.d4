@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Dynamic LED" ShortName="DynamicLED" Company="Showtec">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="04-08-09" Author="David Hunt" Comment="Created" />
+  <History Date="25-08-09" Author="Jonathan Moreton" Comment="Checked - Adjusted Dimmer set open to 0" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="2:100" PowerOn="2:0" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" Intensity="0~0" />
+      <Function ID="2" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="128~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Open" Display="'Open %.f%%',0~100" Dmx="1~127" Intensity="0~0" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="0~127" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Enable Other Channels" Display="'Enable Other  Channels'" Dmx="0~0" />
+      <Function ID="2" Name="Program 1" Display="'Program 1'" Dmx="1~9" />
+      <Function ID="3" Name="Program 2" Display="'Program 2'" Dmx="10~18" />
+      <Function ID="4" Name="Program 3" Display="'Program 3'" Dmx="19~29" />
+      <Function ID="5" Name="Program 4" Display="'Program 4'" Dmx="30~38" />
+      <Function ID="6" Name="Program 5" Display="'Program 5'" Dmx="39~49" />
+      <Function ID="7" Name="Program 6" Display="'Program 6'" Dmx="50~59" />
+      <Function ID="8" Name="Program 7" Display="'Program 7'" Dmx="60~69" />
+      <Function ID="9" Name="Program 8" Display="'Program 8'" Dmx="70~79" />
+      <Function ID="10" Name="Program 9" Display="'Program 9'" Dmx="80~89" />
+      <Function ID="11" Name="Program 10" Display="'Program 10'" Dmx="90~99" />
+      <Function ID="12" Name="Program 11" Display="'Program 11'" Dmx="100~109" />
+      <Function ID="13" Name="Program 12" Display="'Program 12'" Dmx="110~119" />
+      <Function ID="14" Name="Program 13" Display="'Program 13'" Dmx="120~129" />
+      <Function ID="15" Name="Program 14" Display="'Program 14'" Dmx="130~139" />
+      <Function ID="16" Name="Program 15" Display="'Program 15'" Dmx="140~149" />
+      <Function ID="17" Name="Program 16" Display="'Program 16'" Dmx="150~159" />
+      <Function ID="18" Name="Program 17" Display="'Program 17'" Dmx="160~169" />
+      <Function ID="19" Name="Program 18" Display="'Program 18'" Dmx="170~179" />
+      <Function ID="20" Name="Program 19" Display="'Program 19'" Dmx="180~189" />
+      <Function ID="21" Name="Program 20" Display="'Program 20'" Dmx="190~199" />
+      <Function ID="22" Name="Program 21" Display="'Program 21'" Dmx="200~209" />
+      <Function ID="23" Name="Program 22" Display="'Program 22'" Dmx="210~219" />
+      <Function ID="24" Name="Program 23" Display="'Program 23'" Dmx="220~229" />
+      <Function ID="25" Name="Program 24" Display="'Program 24'" Dmx="230~239" />
+      <Function ID="26" Name="Program 25" Display="'Program 25'" Dmx="240~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="5 DMX, 8bit" Channels="5">
+    <Import PearlRef="SH_DynLED" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="1" Wheel="4" />
+      <Attribute ID="Blue" ChannelOffset="2" Wheel="12" />
+      <Attribute ID="Red" ChannelOffset="3" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="4" Wheel="11" />
+      <Attribute ID="Control" ChannelOffset="5" Wheel="28" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Red:1:100,Green:1:100,Blue:1:100" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:0" />
+      <Palette ID="3" Name="Amber" Number="3" Page="1" SetControl="Red:1:100,Green:1:50,Blue:1:0" />
+      <Palette ID="4" Name="Yellow" Legend="Yell" Number="4" Page="1" SetControl="Red:1:100,Green:1:100,Blue:1:0" />
+      <Palette ID="5" Name="Lime" Number="0" Page="1" SetControl="Red:1:50,Green:1:100,Blue:1:0" />
+      <Palette ID="6" Name="Green" Number="5" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:0" />
+      <Palette ID="7" Name="Aqua" Number="0" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:50" />
+      <Palette ID="8" Name="Cyan" Number="6" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:100" />
+      <Palette ID="9" Name="Light Blue" Number="0" Page="1" SetControl="Red:1:0,Green:1:50,Blue:1:100" />
+      <Palette ID="10" Name="Blue" Number="7" Page="1" SetControl="Red:1:0,Green:1:0,Blue:1:100" />
+      <Palette ID="11" Name="Purple" Legend="Purpl" Number="9" Page="1" SetControl="Red:1:50,Green:1:0,Blue:1:100" />
+      <Palette ID="12" Name="Magenta" Legend="Mag" Number="10" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:100" />
+      <Palette ID="13" Name="Rose" Number="0" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:50" />
+      <Palette ID="14" Name="Lavender" Legend="Lav" Number="8" Page="1" SetControl="Red:1:71,Green:1:43,Blue:1:94" />
+      <Palette ID="15" Name="Ultra Violet" Legend="UV" Number="0" Page="1" SetControl="Red:1:20,Green:1:0,Blue:1:100" />
+    </Group>
+  </Palettes>
+</Fixture>

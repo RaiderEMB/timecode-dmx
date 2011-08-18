@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Mojo Spin Master I" ShortName="Mojo Spin1" Company="Geni">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="11-01-05" Author="Phil" Comment="Created" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Effect_Func" Name="Effect Func" Description="" Group="E" Size="0">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed_Func'" Dmx="0~0" Update="Effect" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll_Func'" Dmx="0~0" Update="Effect" />
+      <Function ID="3" Name="Strobe_Func" Display="'Strobe_Func'" Dmx="0~0" Update="Effect" />
+      <Function ID="4" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Effect" />
+    </Attribute>
+    <Attribute ID="Rot_Func" Name="Rot Func" Description="" Group="P" Size="0">
+      <Locate Locate="1:50" PowerOn="1:0" />
+      <Function ID="1" Name="Index_Func" Display="'Index'" Dmx="0~0" Update="Rot" />
+      <Function ID="2" Name="Spin_Func" Display="'Spin'" Dmx="0~0" Update="Rot" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Rot" />
+    </Attribute>
+    <Attribute ID="Rot" Name="Rot" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:0" />
+      <Condition Name="Index_Func" ID="1" If="'Rot_Func'==1" />
+      <Condition Name="Spin_Func" ID="2,3,4,5" If="'Rot_Func'==2" />
+      <Condition Name="Raw_Func" ID="6" If="'Rot_Func'==3" />
+      <Else ID="1,2,3,4,5,6" />
+      <Function ID="1" Name="Index" Display="'Index %.f%%',0~100" Dmx="0~28527" />
+      <Function ID="2" Name="No Spin" Display="'No Spin'" Dmx="0~0" />
+      <Function ID="3" Name="Spin CW" Display="'Spin CW %.f%%',100~0" Dmx="47288~65535" />
+      <Function ID="4" Name="No Spin" Display="'No Spin'" Dmx="0~0" />
+      <Function ID="5" Name="Spin CCW" Display="'Spin CCW %.f%%',0~100" Dmx="28784~47031" />
+      <Function ID="6" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Spin" Name="Spin" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:0" />
+      <Function ID="1" Name="No Spin" Display="'No Spin'" Dmx="0~3" />
+      <Function ID="2" Name="Spin CW" Display="'Spin CW %.f%%',100~0" Dmx="128~255" />
+      <Function ID="3" Name="No Spin" Display="'No Spin'" Dmx="0~3" />
+      <Function ID="4" Name="Spin CCW" Display="'Spin CCW %.f%%',0~100" Dmx="4~127" />
+    </Attribute>
+    <Attribute ID="Effect" Name="Effect" Description="" Group="E">
+      <Locate Locate="2" PowerOn="2" Highlight="7" Lowlight="9" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16" If="'Effect_Func'==1" />
+      <Condition Name="Scroll_Func" ID="17,18" If="'Effect_Func'==2" />
+      <Condition Name="Strobe_Func" ID="19,20" If="'Effect_Func'==3" />
+      <Condition Name="Raw DMX" ID="21" If="'Effect_Func'==4" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~0" />
+      <Function ID="2" Name="Open" Display="'Open'" Dmx="10~19" />
+      <Function ID="3" Name="Red Triangle" Display="'Red Triangle'" Dmx="20~29" />
+      <Function ID="4" Name="GWY Bar" Display="'GWY Bar'" Dmx="30~39" />
+      <Function ID="5" Name="Blue Bubbles" Display="'Blue Bubbles'" Dmx="40~49" />
+      <Function ID="6" Name="4-Col Square" Display="'4-Col Square'" Dmx="50~59" />
+      <Function ID="7" Name="Yellow Ring" Display="'Yellow Ring'" Dmx="60~69" />
+      <Function ID="8" Name="Green Flowers" Display="'Green Flowers'" Dmx="70~79" />
+      <Function ID="9" Name="Blue/Purple  Arc" Display="'Blue/Purple  Arc'" Dmx="80~89" />
+      <Function ID="10" Name="Purple Hearts" Display="'Purple Hearts'" Dmx="90~99" />
+      <Function ID="11" Name="Blue Stars" Display="'Blue Stars'" Dmx="100~109" />
+      <Function ID="12" Name="White Clouds" Display="'White Clouds'" Dmx="110~119" />
+      <Function ID="13" Name="White Roundlet" Display="'White Roundlet'" Dmx="120~129" />
+      <Function ID="14" Name="Orange Candle" Display="'Orange Candle'" Dmx="130~139" />
+      <Function ID="15" Name="Green Tropics" Display="'Green Tropics'" Dmx="140~149" />
+      <Function ID="16" Name="Red Lips" Display="'Red Lips'" Dmx="150~159" />
+      <Function ID="17" Name="No Scroll" Display="'No Scroll'" Dmx="10~19" />
+      <Function ID="18" Name="Scroll" Display="'Scroll %.f%%',0~100" Dmx="160~208" />
+      <Function ID="19" Name="Open" Display="'Open'" Dmx="10~19" />
+      <Function ID="20" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="209~255" />
+      <Function ID="21" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="3 DMX, 8bit" Channels="3">
+    <Import PearlRef="GN_MojoSpn1" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Rot_Func" Wheel="1" />
+      <Attribute ID="Rot" ChannelOffset="2,3" Wheel="2" />
+      <Attribute ID="Effect_Func" Wheel="22" />
+      <Attribute ID="Effect" ChannelOffset="1" Wheel="23" />
+    </Include>
+  </Mode>
+</Fixture>

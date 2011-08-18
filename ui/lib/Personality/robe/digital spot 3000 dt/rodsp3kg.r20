@@ -1,0 +1,498 @@
+; 'Robe Digital Spot 3000 v1.2 3-6. Gobo Layer', 28 DMX Channels, filename: RODSP3KG.R20
+;  Copyright © Avolites Ltd. 2009
+;
+;   Date       By                Description
+;   23-03-09   Pers Creator      Created - Exported from Diamond 4 file.
+;   23-03-09   David Hunt        Checked
+;   29-04-09   David Hunt        Removed some range tables to allow to work with expert
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  RO_DSpt7KG                          mode=3-6. Gobo Layer  28 DMX Channels
+NAME "Robe" "DigiSp3000 v1.2 3-6.Gobo Layer"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  28  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   530  280
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 3-6. Gobo Layer"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=484
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "GL Dimmer"         0     0     0
+3    61   s   20   100   1N   E   1   "Gobo Pan "       128     0     0
+0     0   L   21   100   1N   E   1   "Gobo Pan Low"    128     0     0
+3     1   s   22   100   1N   F   1   "Gobo Tilt"       128     0     0
+0     0   L   23   100   1N   F   1   "Gobo Til Low"    128     0     0
+4     1   L    2   100   1N   0   1   "Gobo Folder"       0     0     0
+6     1   L    3   100   1N   K   1   "Gobo"              0     0     0
+7    61   L    8   100   1N   M   1   "Gobo Control"      0     0     0
+7     1   s   10   100   1N   0   1   "Gobo Rot"        128     0     0
+0     0   L   11   100   1N   0   1   "Gobo Rot Low"    128     0     0
+15    1   s   24   100   1N   Q   1   "Gobo Zoom X"     128     0     0
+0     0   L   25   100   1N   Q   1   "Gobo Zoo Low"    128     0     0
+15   61   s   26   100   1N   L   1   "Gobo Zoom Y"     128     0     0
+0     0   L   27   100   1N   L   1   "Gobo Zoo Low"    128     0     0
+19    1   L   12   100   1N   0   1   "Gobo FX 1"         0     0     0
+8     1   L   13   100   1N   0   1   "Gb FX 1 P1"        0     0     0
+8    61   L   14   100   1N   0   1   "Gb FX 1 P2"        0     0     0
+9     1   L   15   100   1N   0   1   "Gb FX 1 P3"        0     0     0
+19   61   L   16   100   1N   0   1   "Gobo FX 2"         0     0     0
+18    1   I   17   100   1N   0   1   "Gb FX 2 P1"        0     0     0
+18   61   I   18   100   1N   0   1   "Gb FX 2 P2"        0     0     0
+17   61   L   19   100   1N   0   1   "Gb FX 2 P3"        0     0     0
+10    1   s    4   100   1N   0   1   "Gobo In Frm"       0     0     0
+0     0   L    5   100   1N   0   1   "Gobo In  Low"      0     0     0
+6    61   s    6   100   1N   J   1   "Gobo Out Frm"    255     0     0
+0     0   I    7   100   1N   J   1   "Gobo Out Low"    255     0     0
+17    1   L    9   100   1N   0   1   "Gobo PlaySpd"      0     0     0
+10   61   L   28   100   1N   0   1   "Gobo Sync ID"      0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Robe
+Digital Spot 3000 v1.2
+3-6. Gobo Layer
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;GL Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 20  ;Gobo Pan 
+0   127  "%2d.%02d%%"(c-a)*50/(b-a),100*((c-a)*50%(b-a))/(b-a)
+128 128  "50.00%"
+129 255  "%3d.%d%%"50+((c-a)*50/(b-a)),10*(50+((c-a)*50%(b-a)))/(b-a)
+REND
+
+RANGE 22  ;Gobo Tilt
+0   127  "%2d.%02d%%"(c-a)*50/(b-a),100*((c-a)*50%(b-a))/(b-a)
+128 128  "50.00%"
+129 255  "%3d.%d%%"50+((c-a)*50/(b-a)),10*(50+((c-a)*50%(b-a)))/(b-a)
+REND
+
+RANGE 8  ;Gobo Control
+0   0    "Loop (Dim)"
+1   1    "Once (Dim)"
+2   2    "Pause"
+3   3    "Loop"
+4   4    "Once"
+5   5    "No Function"
+6   6    "Scrub In"
+7   7    "Scrub Out"
+8   9    "No Function"
+10  10   "Loop (Dim)"
+11  11   "Once (Dim)"
+12  12   "Pause"
+13  13   "Loop"
+14  14   "Once"
+15  15   "No Function"
+16  16   "Scrub In"
+17  17   "Scrub Out"
+18  19   "No Function"
+20  20   "Loop (Dim)"
+21  21   "Once (Dim)"
+22  22   "Pause"
+23  23   "Loop"
+24  24   "Once"
+25  25   "No Function"
+26  26   "Scrub In"
+27  27   "Scrub Out"
+28  29   "Reserved"
+30  30   "Loop (Dim)"
+31  31   "Once (Dim)"
+32  32   "Pause"
+33  33   "Loop"
+34  34   "Once"
+35  35   "No Function"
+36  36   "Scrub In"
+37  37   "Scrub Out"
+38  39   "Reserved"
+40  40   "Loop (Dim)"
+41  41   "Once (Dim)"
+42  42   "Pause"
+43  43   "Loop"
+44  44   "Once"
+45  45   "No Function"
+46  46   "Scrub In"
+47  47   "Scrub Out"
+48  49   "Reserved"
+50  50   "Loop (Dim)"
+51  51   "Once (Dim)"
+52  52   "Pause"
+53  53   "Loop"
+54  54   "Once"
+55  55   "No Function"
+56  56   "Scrub In"
+57  57   "Scrub Out"
+58  59   "Reserved"
+60  60   "Loop (Dim)"
+61  61   "Once (Dim)"
+62  62   "Pause"
+63  63   "Loop"
+64  64   "Once"
+65  65   "No Function"
+66  66   "Scrub In"
+67  67   "Scrub Out"
+68  69   "Reserved"
+70  70   "Loop (Dim)"
+71  71   "Once (Dim)"
+72  72   "Pause"
+73  73   "Loop"
+74  74   "Once"
+75  75   "No Function"
+76  76   "Scrub In"
+77  77   "Scrub Out"
+78  79   "Reserved"
+80  80   "Loop (Dim)"
+81  81   "Once (Dim)"
+82  82   "Pause"
+83  83   "Loop"
+84  84   "Once"
+85  85   "No Function"
+86  86   "Scrub In"
+87  87   "Scrub Out"
+88  89   "Reserved"
+90  90   "Loop (Dim)"
+91  91   "Once (Dim)"
+92  92   "Pause"
+93  93   "Loop"
+94  94   "Once"
+95  95   "No Function"
+96  96   "Scrub In"
+97  97   "Scrub Out"
+98  99   "Reserved"
+100 100  "Loop (Dim)"
+101 101  "Once (Dim)"
+102 102  "Pause"
+103 103  "Loop"
+104 104  "Once"
+105 105  "No Function"
+106 106  "Scrub In"
+107 107  "Scrub Out"
+108 109  "Reserved"
+110 110  "Loop (Dim)"
+111 111  "Once (Dim)"
+112 112  "Pause"
+113 113  "Loop"
+114 114  "Once"
+115 115  "No Function"
+116 116  "Scrub In"
+117 117  "Scrub Out"
+118 255  "Reserved"
+REND
+
+RANGE 10  ;Gobo Rot
+0   63   "Sp CW %3d%%"100-((c-a)*100/(b-a))
+64  127  "Index %3d%%"100-((c-a)*50/(b-a))
+128 128  "Centre"
+129 192  "Ind %3d.%d%%"50+((c-a)*50/(b-a)),10*(50+((c-a)*50%(b-a)))/(b-a)
+193 255  "Sp CCW %3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 24  ;Gobo Zoom X
+0   127  "%2d.%02d%%"(c-a)*50/(b-a),100*((c-a)*50%(b-a))/(b-a)
+128 128  "50.00"
+129 255  "%3d.%d%%"50+((c-a)*50/(b-a)),10*(50+((c-a)*50%(b-a)))/(b-a)
+REND
+
+RANGE 26  ;Gobo Zoom Y
+0   127  "%2d.%02d%%"(c-a)*50/(b-a),100*((c-a)*50%(b-a))/(b-a)
+128 128  "50.00"
+129 255  "%3d.%d%%"50+((c-a)*50/(b-a)),10*(50+((c-a)*50%(b-a)))/(b-a)
+REND
+
+RANGE 12  ;Gobo Effect 1
+0   0    "Open"
+1   1    "Zm Sinus"
+2   2    "Zm Bump Fad"
+3   3    "Zm Fade Bum"
+4   4    "Reserved"
+5   5    "Zm in Fade"
+6   6    "Zm out Fade"
+7   7    "Sc XY Sin"
+8   10   "Reserved"
+11  11   "XY Circ CCW"
+12  12   "XY Circ CW"
+13  13   "XY Scroll u"
+14  14   "XY Scroll d"
+15  15   "XY Scroll L"
+16  16   "XY Scroll R"
+17  17   "RL Diag dow"
+18  18   "RL Diag up"
+19  19   "LR Diag Dow"
+20  20   "LR Diag Up"
+21  21   "X Rot"
+22  22   "Y Rot"
+23  23   "XY Rot"
+24  24   "XY Inv Rot"
+25  25   "X Inv Y Rot"
+26  26   "Tile XY"
+27  27   "Tile XY"
+28  28   "XYZ Rot Cub"
+29  29   "XYZ Rot Sp"
+30  30   "X Rot Cylin"
+31  31   "Y Rot Cyli"
+32  32   "Reserved"
+33  33   "Kaleidoscop"
+34  34   "Squeeze In"
+35  35   "Squeeze Out"
+36  36   "Bend X"
+37  37   "Bend Y"
+38  38   "Tile Frame"
+39  39   "Frame"
+40  40   "Pln Flip X"
+41  41   "Pln Flip Y"
+42  42   "Pln Flip XY"
+43  43   "Pl Mr X Top"
+44  44   "Pl Mr X Bot"
+45  45   "Pl Mr Y Left"
+46  46   "Pl Mr Y Rght"
+47  47   "Pl Mr XY S1"
+48  48   "Pl Mr XY S2"
+49  49   "Pl Mr XY S3"
+50  50   "Pl Mr XY S4"
+51  51   "Plane Tl 2x"
+52  52   "Plane Tl 3x"
+53  53   "Plane Tl 4x"
+54  54   "Plane Tl 5x"
+55  55   "Plane X 2x"
+56  56   "Pln X 2x In"
+57  57   "Plane X 3x"
+58  58   "Pln X 3x In"
+59  59   "Plane X 4x"
+60  60   "Pln X 4x In"
+61  61   "Plane X 5x"
+62  62   "Pln X 5x In"
+63  63   "Pln Xer 5x"
+64  64   "PlnXer5x In"
+65  65   "Plane Bar"
+66  66   "Pln Bar Inv"
+67  67   "Pln Bar LR"
+68  68   "Pln Bar TB"
+69  70   "Reserved"
+71  71   "Gobo Disc"
+72  72   "Gb Dsc FlpX"
+73  73   "Gb Dsc FlpY"
+74  74   "Gb D Flp XY"
+75  75   "Gb D Mrr X"
+76  76   "Gb D Mrr Y"
+77  77   "Gb D Mrr XY"
+78  79   "Reserved"
+80  80   "PlnMrrX T I"
+81  81   "PlnMrrX B I"
+82  82   "PlnMrrY L I"
+83  83   "PlnMrrY R I"
+84  84   "PlnMrrXY In"
+85  85   "PlnMrrXInY"
+86  86   "PlnMrrX,YIn"
+87  99   "Reserved"
+100 100  "Sq Static"
+101 101  "Sq Dynamic"
+102 102  "Rht Tri St"
+103 103  "Rht Tri Dyn"
+104 104  "Iso Tri St"
+105 105  "Iso Tri Dyn"
+106 106  "Tri 1 St"
+107 107  "Tri 1 Dyn"
+108 108  "Tri 2 St"
+109 109  "Tri 2 Dyn"
+110 255  "Reserved"
+REND
+
+RANGE 13  ;Gb Effect 1 P1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Gb Effect 1 P2
+0   128  "Seg  %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+129 255  "Spd %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;Gb Effect 1 P3
+0   127  "Bkwrd  %3d%%"100-((c-a)*100/(b-a))
+128 128  "No Movement"
+129 255  "Fwrd %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Gobo Effect 2
+0   0    "Open"
+1   1    "Col to BW"
+2   2    "Col to BW I"
+3   3    "BW to BW In"
+4   4    "Inversion"
+5   5    "Blk Mask"
+6   6    "Blk Mask In"
+7   7    "Contrast"
+8   8    "Brightness"
+9   9    "RGB-GBR"
+10  10   "RGB-BRG"
+11  11   "RGB-RBG"
+12  12   "BW to BW In"
+13  13   "Col to In T"
+14  14   "Co to BW T"
+15  15   "Cycle"
+16  16   "Cycle In"
+17  17   "Reserved"
+18  18   "Reserved"
+19  19   "Col Key"
+20  20   "Col Key In"
+21  21   "Key Blk"
+22  22   "Key Blk In"
+23  23   "Key Wht"
+24  24   "Key Wht In"
+25  25   "White ash"
+26  26   "Black ash"
+27  27   "Alpha ash"
+28  28   "Invert ash"
+29  29   "BW ash"
+30  30   "BW to BW In"
+31  31   "Grad Wpe X"
+32  32   "Grad Wpe Y"
+33  39   "Reserved"
+40  40   "Gaussian"
+41  41   "Mean"
+42  42   "Laplacain"
+43  43   "Emboss"
+44  44   "Sharpness"
+45  49   "Reserved"
+50  50   "RGB Subtrac"
+51  51   "RGB Add All"
+52  52   "RGB Add Non"
+53  53   "RGB Sub/Add"
+54  54   "RGB to RBG"
+55  55   "RGB to GRB"
+56  56   "RGB to GBR"
+57  57   "RGB to BRG"
+58  58   "RGB to BGR"
+59  59   "RGB Invert"
+60  60   "RGBtoBRG In"
+61  61   "RGBtoGBR In"
+62  62   "Col to Alp"
+63  63   "ColtoAlp In"
+64  67   "Reserved"
+68  68   "RGB Scale"
+69  69   "Brhtss Scl"
+70  255  "Reserved"
+REND
+
+RANGE 17  ;Gb Effect 2 P1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 18  ;Gb Effect 2 P2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 19  ;Gb Effect 2 P3
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Gobo In Frame
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Gobo Out Frame
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Gobo Play Spd
+0   0    "Normal"
+1   127  "%4d%%"-100+((c-a)*100/(b-a))
+128 128  "Normal %1d%%"(c-a)*0/(b-a)
+129 255  "%3d%%"(c-a)*100/(b-a)
+REND
+

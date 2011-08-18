@@ -1,0 +1,241 @@
+; "High End ColorPro HXi", 9 DMX channels, filename :hecolp.r20
+;
+;   Date      By          Description
+;   21-02-00  P.Bari      Created
+;   04-03-02  A. Simmons  Fixed CYM Flag Patch
+;   08-03-02  A. Simmons  Updated Color Palettes
+;---------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  HE_ColorHXi                                    9 DMX channels
+NAME "High End" "Color Pro Hxi"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  9  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  1   0   0
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the curernt result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+"Dip Switch  1234 5678"
+"Personality 0000 0010"
+"Address     %b%b%b%b %b001"d/20%2,d/40%2,d/80%2,d/160%2,d/320%2
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=504
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt, 
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom, 
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX
+1   1 H 1 100 1N H 1 "Dimmer"    255 255 255 ; DIMMER
+2  61 L 2 100 1N O 1 "Shutter"   255 255 255 ; SHUTTER
+4   1 I 3 100 1N 0 1 "ColorMode"  40  40  40 ; COLOR MODE       
+10  1 L 4 100 1N B 1 "Cyan"      255 255 255 ; CYAN
+10 61 L 5 100 1N C 1 "Magenta"   255 255   0 ; MAGENTA
+9  61 L 6 100 1N D 1 "Yellow"    255 255   0 ; YELLOW
+2   1 L 7 100 1N L 1 "Iris"      130  -1  -1 ; IRIS
+8   1 I 8 100 1N 0 1 "Speed"     255 255 255 ; SPEED
+11  1 I 9 100 1N 0 1 "Control"     0   0   0 ; CONTROL
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+      High End
+    Color Pro HXI
+   Encoder Banks
+  Wheel A  Wheel B
+---------------------
+ 1 Dimmer    --
+ 2 Iris     Shutter
+ 3  --       --
+ 4 ColorMode --
+ 5  --       --
+ 6  --       --
+ 7  --       --
+ 8 Speed     --
+ 9  --      Yellow
+10 Cyan     Magenta
+11 Control   --
+
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+; A color table , cyan, magenta, yellow
+PFTABLE "Color" 29   3   4   5   6
+"White"          1   0  ff  ff  ff
+"Cyan"           2   0  80  ff  ff
+"Magenta"        3   0  ff   8  ff
+"Yellow"         4   0  ff  ff  80
+"Red"            5   0  ff  80  80
+"Green"          6   0  80  ff  80
+"Congo"          7   0  80  80  ff
+"Amber"          8   0  ff  90  80
+"Lavender"       9   0  9f  9f  ff
+"Pink"           10  0  ff  90  9f
+"lee 101" -1 0 E4 0 D8
+"lee 102" -1 0 A7 51 A0
+"lee 103" -1 0 FF 86 B0
+"lee 104" -1 0 BA E 82
+"lee 105" -1 0 C1 C1 64
+"lee 106" -1 0 AC 1 4
+"lee 107" -1 0 FA 87 80
+"lee 108" -1 0 5E 2C 34
+"lee 109" -1 0 EC 78 86
+"lee 110" -1 0 AD 1 78
+"lee 111" -1 0 E5 66 69
+"lee 113" -1 0 D4 5E 1
+"lee 115" -1 0 5E 68 ED
+"lee 116" -1 0 32 6C EC
+"lee 117" -1 0 9C 8B FE
+"lee 118" -1 0 5E 8A DE
+"lee 119" -1 0 40 E8 74
+"lee 120" -1 0 1 DD 59
+"lee 121" -1 0 80 59 B8
+"lee 122" -1 0 6E 56 C1
+"lee 124" -1 0 53 52 CE
+"lee 126" -1 0 D2 BA 33
+"lee 127" -1 0 67 60 5F
+"lee 128" -1 0 9B 6B 51
+"lee 129" -1 0 0 0 0
+"lee 130" -1 0 0 0 0
+"lee 131" -1 0 70 6A D2
+"lee 132" -1 0 2 E6 A7
+"lee 134" -1 0 7D 54 6E
+"lee 135" -1 0 CB 6 4F
+"lee 136" -1 0 FC 95 9B
+"lee 137" -1 0 B2 F9 96
+"lee 138" -1 0 E3 69 D6
+"lee 139" -1 0 0 0 0
+"lee 140" -1 0 8D 8A FF
+"lee 141" -1 0 46 99 E9
+"lee 142" -1 0 91 D1 8E
+"lee 143" -1 0 72 93 EA
+"lee 144" -1 0 75 93 F3
+"lee 145" -1 0 0 0 0
+"lee 147" -1 0 D5 5D 7B
+"lee 148" -1 0 92 53 30
+"lee 151" -1 0 FE 75 86
+"lee 152" -1 0 FE 75 93
+"lee 153" -1 0 FE 75 86
+"lee 154" -1 0 FE 7E 98
+"lee 156" -1 0 F9 63 7B
+"lee 158" -1 0 F6 22 64
+"lee 159" -1 0 D8 7E A8
+"lee 161" -1 0 8C E7 DA
+"lee 162" -1 0 F0 6F 90
+"lee 164" -1 0 A5 47 47
+"lee 165" -1 0 7B D4 F8
+"lee 166" -1 0 0 0 0
+"lee 169" -1 0 D4 95 9D
+"lee 170" -1 0 A6 8C 85
+"lee 172" -1 0 58 7B FC
+"lee 174" -1 0 AA E7 D3
+"lee 176" -1 0 FF 74 7D
+"lee 179" -1 0 AA 0 70
+"lee 180" -1 0 7B FF 6F
+"lee 181" -1 0 4E FF 57
+"lee 182" -1 0 EC 4 4
+"lee 183" -1 0 54 83 C0
+"lee 184" -1 0 EA 9B A6
+"lee 185" -1 0 F9 8D 9D
+"lee 186" -1 0 F9 82 97
+"lee 187" -1 0 F9 77 97
+"lee 188" -1 0 BB 7E 99
+"lee 189" -1 0 E0 90 B8
+"lee 190" -1 0 B2 83 A8
+"lee 191" -1 0 B2 79 9F
+PFEND
+
+
+MACRO "HOME" 1   2   9
+"data"       0   0  41
+"delay"      1  20
+"data"       0   0   0
+MEND
+
+MACRO "LAMP ON" 2    2   9
+"data"           0   0  53
+"delay"          1  20
+"data"           0   0   0
+MEND
+
+MACRO "LAMP OFF" 3   2   9
+"data"           0   0  5e
+"delay"          1  20
+"data"           0   0   0
+MEND
+
+MACRO "SHUTDOWN" 4   2   9
+"data"           0   0  7d
+"delay"          1  20
+"data"           0   0   0
+MEND

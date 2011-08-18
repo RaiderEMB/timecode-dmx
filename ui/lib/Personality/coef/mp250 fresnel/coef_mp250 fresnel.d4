@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="MP 250 Fresnel" ShortName="MP250Frnel" Company="Coef">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="14-06-05" Author="Philip Rogers" Comment="Created" />
+  <History Date="21-06-05" Author="Tom" Comment="Checked" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Gobo ID to Gobo1" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated GoboRot ID to Gobo1Rot" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <History Date="20-07-06" Author="Ed" Comment="Checked" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="8bit HTP" Display="'%.1f%%',0.0~100.0" Dmx="6~100" Intensity="0~0" />
+      <Function ID="2" Name="Open" Display="'Open'" Dmx="251~255" Intensity="0~0" />
+      <Function ID="3" Name="Closed" Display="'Closed'" Dmx="0~5" Intensity="0~0" />
+      <Function ID="4" Name="Open Pulse" Display="'Open Pulse %.f%%',0~100" Dmx="101~130" Intensity="0~0" />
+      <Function ID="5" Name="Close Pulse" Display="'Close Pulse %.f%%',0~100" Dmx="131~150" Intensity="0~0" />
+      <Function ID="6" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="151~250" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Colour1Func" Name="Colour 1 Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour 1" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8,9,10,11,12" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="13" If="'Colour1Func'==2" />
+      <Condition Name="Raw_Func" ID="14" If="'Colour1Func'==3" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~12" Colour="255,255,255" />
+      <Function ID="2" Name="Yellow" Display="'Yellow'" Dmx="13~29" Colour="255,255,0" />
+      <Function ID="3" Name="Blue" Display="'Blue'" Dmx="30~46" Colour="0,0,255" />
+      <Function ID="4" Name="Magenta" Display="'Magenta'" Dmx="47~63" Colour="255,0,255" />
+      <Function ID="5" Name="Green" Display="'Green'" Dmx="64~80" Colour="0,255,0" />
+      <Function ID="6" Name="Orange" Display="'Orange'" Dmx="81~97" Colour="255,128,0" />
+      <Function ID="7" Name="Cyan" Display="'Cyan'" Dmx="98~114" Colour="0,255,255" />
+      <Function ID="8" Name="Pink" Display="'Pink'" Dmx="115~131" Colour="255,150,150" />
+      <Function ID="9" Name="Red" Display="'Red'" Dmx="132~148" Colour="255,0,0" />
+      <Function ID="10" Name="Blue" Display="'Blue'" Dmx="149~165" Colour="0,0,255" />
+      <Function ID="11" Name="Green" Display="'Green'" Dmx="166~182" Colour="0,255,0" />
+      <Function ID="12" Name="Wood" Display="'Wood'" Dmx="183~199" Colour="180,180,0" />
+      <Function ID="13" Name="Scroll CW" Display="'Scroll CW %.f%%',100~0" Dmx="200~255" Colour="0,0,0" />
+      <Function ID="14" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour2Func" Name="Colour 2 Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1, Colour2" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1, Colour2" Colour="0,0,0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1, Colour2" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour2" Name="Colour 2" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8,9,10,11,12" If="'Colour2Func'==1" />
+      <Condition Name="Scroll_Func" ID="13" If="'Colour2Func'==2" />
+      <Condition Name="Raw_Func" ID="14" If="'Colour2Func'==3" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~12" Colour="255,255,255" />
+      <Function ID="2" Name="Purple" Display="'Purple'" Dmx="13~29" Colour="128,0,255" />
+      <Function ID="3" Name="Green" Display="'Green'" Dmx="30~46" Colour="0,255,0" />
+      <Function ID="4" Name="Magenta" Display="'Magenta'" Dmx="47~63" Colour="255,0,255" />
+      <Function ID="5" Name="Magenta" Display="'Magenta'" Dmx="64~80" Colour="255,0,255" />
+      <Function ID="6" Name="Deep Red" Display="'Deep Red'" Dmx="81~97" Colour="180,0,0" />
+      <Function ID="7" Name="Blue" Display="'Blue'" Dmx="98~114" Colour="0,0,255" />
+      <Function ID="8" Name="Blue" Display="'Blue'" Dmx="115~131" Colour="0,0,255" />
+      <Function ID="9" Name="Deep Yellow" Display="'Yellow'" Dmx="132~148" Colour="180,180,0" />
+      <Function ID="10" Name="Green" Display="'Green'" Dmx="149~165" Colour="0,255,0" />
+      <Function ID="11" Name="CTO" Display="'CTO'" Dmx="166~182" Colour="255,240,200" />
+      <Function ID="12" Name="CTB" Display="'CTB'" Dmx="183~199" Colour="230,230,255" />
+      <Function ID="13" Name="Scroll CW" Display="'Scroll CW %.f%%',100~0" Dmx="200~255" Colour="0,0,0" />
+      <Function ID="14" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Frost" Name="Frost" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Frost" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Shutter1" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="251~255" Intensity="0~0" />
+      <Function ID="2" Name="Closed" Display="'Closed'" Dmx="0~5" Intensity="0~0" />
+      <Function ID="3" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="6~250" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo1" Name="Gobo" Description="" Group="G">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo1Rot" Name="Gobo Rot" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="6 DMX, 8bit" Channels="6">
+    <Import PearlRef="CF_MP250Fr6" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="1" Wheel="4" />
+      <Attribute ID="Pan" ChannelOffset="5" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="6" Wheel="3" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="2" Wheel="8" />
+      <Attribute ID="Colour2Func" Wheel="10" />
+      <Attribute ID="Colour2" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Frost" ChannelOffset="4" Wheel="20" />
+    </Include>
+  </Mode>
+  <Mode Name="8 DMX, 8bit" Channels="8">
+    <Import PearlRef="CF_MP250Fr8" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="1" Wheel="4" />
+      <Attribute ID="Pan" ChannelOffset="5,6" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="7,8" Wheel="3" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="2" Wheel="8" />
+      <Attribute ID="Colour2Func" Wheel="10" />
+      <Attribute ID="Colour2" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Frost" ChannelOffset="4" Wheel="20" />
+    </Include>
+  </Mode>
+  <Mode Name="9 DMX, 8bit" Channels="9">
+    <Import PearlRef="" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter1" ChannelOffset="1" Wheel="4" />
+      <Attribute ID="Dimmer" ChannelOffset="9" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="5,6" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="7,8" Wheel="3" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="2" Wheel="8" />
+      <Attribute ID="Colour2Func" Wheel="10" />
+      <Attribute ID="Colour2" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Frost" ChannelOffset="4" Wheel="20" />
+    </Include>
+  </Mode>
+  <Mode Name="9 DMX, 8bit, Mode 2" Channels="9">
+    <Import PearlRef="CF_MP250Fr9" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="1" Wheel="4" />
+      <Attribute ID="Dimmer" ChannelOffset="9" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="5,6" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="7,8" Wheel="3" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="2" Wheel="8" />
+      <Attribute ID="Gobo1" ChannelOffset="3" Wheel="14" />
+      <Attribute ID="Gobo1Rot" ChannelOffset="4" Wheel="15" />
+    </Include>
+  </Mode>
+</Fixture>

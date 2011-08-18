@@ -1,0 +1,247 @@
+; 'High End Emulator', 16 DMX Channels, filename: HE_EMLTR.R20
+;  Copyright © Avolites Ltd. 2010
+;
+;   Date       By                Description
+;   14-10-10   Pers Creator      Created - Exported from Diamond 4 file.
+;   14-10-10   John Rogers		 Checked.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  HE_Emulator                         mode=18 DMX, 16bit  16 DMX Channels
+NAME "High End" "Emulator"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  16  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 18 DMX, 16bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=496
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   L    1   100   1N   E   1   "Pan"             127     0     0
+3     1   L    2   100   1N   F   1   "Tilt"            127     0     0
+8     1   L    3   100   1N   0   1   "Speed"             0     0     0
+4     1   L    4   100   1N   A   1   "Colour"            0     0     0
+2    61   L    5   100   1N   O   1   "Shutter"         230     0     0
+1     1   H    6   100   1N   H   1   "Dimmer"          255     0     0
+10   61   L    7   100   1N   0   1   "Macros"            0     0     0
+8    61   L    8   100   1N   0   1   "P/T Speed"         0     0     0
+7     1   L    9   100   1N   0   1   "Rotate"            0     0     0
+7    61   L   10   100   1N   0   1   "Angle"             0     0     0
+5     1   L   11   100   1N   0   1   "X-Scale"         127     0     0
+5    61   L   12   100   1N   0   1   "Y-Scale"         127     0     0
+9     1   L   13   100   1N   0   1   "X-Function"        0     0     0
+9    61   L   14   100   1N   0   1   "Y-Function"        0     0     0
+19    1   L   15   100   1N   0   1   "XY-Sync"           0     0     0
+10    1   L   16   100   1N   0   1   "Control"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+High End Emulator
+18 DMX, 16bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Pan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Tilt
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Speed
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Colour
+0   9    "Open"
+10  18   "Red"
+19  27   "Deep Blue"
+28  36   "Yellow"
+37  45   "Deep Green"
+46  54   "Magenta"
+55  63   "Pink"
+64  72   "Green"
+73  81   "Blue"
+82  91   "Amber"
+92  100  "Light Blue"
+101 109  "Orange"
+110 173  "Sc CW %3d%%"100-((c-a)*100/(b-a))
+174 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 5  ;Shutter
+0   25   "Closed"
+26  229  "Strobe %3d%%"(c-a)*100/(b-a)
+230 255  "Open"
+REND
+
+RANGE 6  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Macros
+0   3    "No Macro"
+4   255  "Macros"
+REND
+
+RANGE 8  ;P/T Speed
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Rotate
+0   14   "Index Mode"
+15  134  "Sp CW %3d%%"100-((c-a)*100/(b-a))
+135 255  "Sp CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 10  ;Angle
+0   255  "Index %3d°"(c-a)*356/(b-a)
+REND
+
+RANGE 11  ;X-Scale
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;Y-Scale
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;X-Function
+0   4    "Off"
+5   66   "Down %3d%%"(c-a)*100/(b-a)
+67  129  "Up %3d%%"(c-a)*100/(b-a)
+130 192  "Dn/Up %3d%%"(c-a)*100/(b-a)
+193 255  "Flip %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 14  ;Y-Function
+0   4    "Off"
+5   66   "Down %3d%%"(c-a)*100/(b-a)
+67  129  "Up %3d%%"(c-a)*100/(b-a)
+130 192  "Dn/Up %3d%%"(c-a)*100/(b-a)
+193 255  "Flip %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 15  ;XY-Sync
+0   1    "No Macro"
+2   31   "Macro 1"
+32  33   "Macro 2"
+34  63   "Macro 3"
+64  65   "Macro 4"
+66  95   "Macro 5"
+96  97   "Macro 6"
+98  127  "Macro 7"
+128 129  "Macro 8"
+130 159  "Macro 9"
+160 161  "Macro 10"
+162 191  "Macro 11"
+192 193  "Macro 12"
+194 223  "Macro 12"
+224 225  "Macro 14"
+226 255  "Macro 13"
+REND
+
+RANGE 16  ;Control
+0   43   "Safe"
+44  84   "Reset"
+85  107  "Safe"
+108 127  "Lamp Off"
+128 148  "Lp Off Stop"
+149 254  "Safe"
+255 255  "Fix Enable"
+REND
+

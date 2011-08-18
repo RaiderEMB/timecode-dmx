@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Scorpion Scan LG-60" ShortName="Scorpion" Company="Chauvet">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="09-11-07" Author="Gregory Haynes" Comment="Created" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Mode" Name="Mode" Description="" Group="S">
+      <Locate Locate="3" PowerOn="1:0" Clear="1" />
+      <Function ID="1" Name="Off" Display="'Off'" Dmx="0~10" Update="Pattern" />
+      <Function ID="2" Name="Dynamic" Display="'Dynamic'" Dmx="11~120" Update="Pattern" />
+      <Function ID="3" Name="Static" Display="'Static'" Dmx="121~250" Update="Pattern" />
+      <Function ID="4" Name="Sound" Display="'Sound'" Dmx="251~255" Update="Pattern" />
+    </Attribute>
+    <Attribute ID="Pattern" Name="Pattern" Description="" Group="S">
+      <Locate Locate="3:0" PowerOn="1" Clear="3:0" />
+      <Condition Name="Dynamic" ID="1" If="'Mode'==2" />
+      <Condition Name="Static" ID="2" If="'Mode'==3" />
+      <Else ID="3" />
+      <Function ID="1" Name="Generic %" Display="'Dynamic %.f%%',0~100" Dmx="0~255" />
+      <Function ID="2" Name="Generic %" Display="'Static %.f%%',0~100" Dmx="0~255" />
+      <Function ID="3" Name="Generic %" Display="'%.f%%',0~100" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="PT_Speed" Name="P/T Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',100.0~0.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Pattern Spd" Description="" Group="S">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Speed" Display="'%.f%%',100~0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Size" Name="Pattern Size" Description="" Group="S">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Generic %" Display="'%.f%%',0~100" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="7 DMX, 8bit" Channels="7">
+    <Import PearlRef="CH_ScorLG60" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Mirror" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Pan" ChannelOffset="3" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="4" Wheel="3" />
+      <Attribute ID="Mode" ChannelOffset="1" Wheel="28" />
+      <Attribute ID="Pattern" ChannelOffset="2" Wheel="29" />
+      <Attribute ID="PT_Speed" ChannelOffset="5" Wheel="25" />
+      <Attribute ID="Speed" ChannelOffset="6" Wheel="26" />
+      <Attribute ID="Size" ChannelOffset="7" Wheel="27" />
+    </Include>
+  </Mode>
+</Fixture>

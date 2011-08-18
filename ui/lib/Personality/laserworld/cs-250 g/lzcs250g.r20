@@ -1,0 +1,195 @@
+; 'Laserworld CS-250 G', 15 DMX Channels, filename: LZCS250G.R20
+;  Copyright © Avolites Ltd. 2010
+;
+;   Date       By                Description
+;   09-04-10   Pers Creator      Created - Exported from Diamond 4 file.
+;   09-04-10   John Rogers       Checked.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  LZ_CS-250G                          mode=15 DMX, 8bit  15 DMX Channels
+NAME "Laserworld" "CS-250 G"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  15  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 15 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=497
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3     1   L   12   100   1N   F   1   "Tilt"            127     0     0
+3    61   L   13   100   1N   E   1   "Pan"             127     0     0
+5     1   L   14   100   1N   Q   1   "Zoom"              0     0     0
+7     1   L    7   100   1N   0   1   "Rotation"          0     0     0
+9     1   I    8   100   1N   0   1   "Vertical Rot"      0     0     0
+9    61   L    9   100   1N   0   1   "Horiz Rot"         0     0     0
+10    1   L    1   100   1N   0   1   "Pattern Sel"       0     0     0
+6     1   L    2   100   1N   0   1   "Selection A"       0     0     0
+6    61   I    3   100   1N   0   1   "Selection B"       0     0     0
+16    1   L    4   100   1N   0   1   "Selection C"       0     0     0
+16   61   I    5   100   1N   0   1   "Selection D"       0     0     0
+10   61   L    6   100   1N   0   1   "Pattern Ctrl"      0     0     0
+8     1   L   10   100   1N   0   1   "Move"              0     0     0
+5    61   L   11   100   1N   0   1   "Drawing"           0     0     0
+8    61   L   15   100   1N   0   1   "Speed"           255     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Laserworld CS-250 G
+15 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 12  ;Tilt
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Pan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Zoom
+0   0    "No Effect"
+1   127  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 169  "Out %3d%%"(c-a)*100/(b-a)
+170 211  "In %3d%%"(c-a)*100/(b-a)
+212 255  "In/Out %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 7  ;Rotation
+0   0    "No Spin"
+1   127  "Index %3d%%"(c-a)*100/(b-a)
+128 191  "Sp CCW %3d%%"(c-a)*100/(b-a)
+192 255  "Sp CW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 8  ;Vertical Rot
+0   0    "No Spin"
+1   127  "Stat %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 255  "Dyn %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Horizontal Rot
+0   0    "No Spin"
+1   127  "Stat %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 255  "Dyn %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 1  ;Pattern Select
+0   30   "Closed"
+31  61   "Macro 1"
+62  92   "Macro 2"
+93  123  "Macro 3"
+124 154  "Macro 4"
+155 185  "Macro 5"
+186 216  "Macro 6"
+217 247  "Macro 7"
+248 255  "Macro 8"
+REND
+
+RANGE 10  ;Move
+0   0    "No Effect"
+1   127  "Hori %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+128 255  "Vert %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Drawing
+0   41   "In %3d%%"(c-a)*100/(b-a)
+42  83   "Out %3d%%"(c-a)*100/(b-a)
+84  127  "Both %3d%%"(c-a)*100/(b-a)
+128 255  "Dot %3d%%"(c-a)*100/(b-a)
+REND
+

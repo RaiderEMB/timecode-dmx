@@ -1,0 +1,223 @@
+; 'Green Hippo Hippotizer', 48 DMX Channels, filename: GHHP2MST.R20
+;
+;   Date       By                Description
+;   22-02-05   Pers Creator      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  GH_Hp2_Mast                         mode=Master (v2)  48 DMX Channels
+NAME "Green Hippo" "Hippotizer 2, Master Layer"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  48  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0   0   0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Master (v2)"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=464
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+9     1   I   46   100   1N   0   1   "Load Presets"      0     0     0
+11    1   L   47   100   1N   0   1   "Reserved 1"        0     0     0
+11   61   L   48   100   1N   0   1   "Reserved 2"        0     0     0
+3    61   s    4   100   1N   E   1   "X-Pos"           128     0     0
+0     0   L    5   100   1N   E   1   "X-Pos Low"       128     0     0
+3     1   s    6   100   1N   F   1   "Y-Pos"           128     0     0
+0     0   L    7   100   1N   F   1   "Y-Pos Low"       128     0     0
+10    1   L   29   100   1N   B   1   "Cyan"            128     0     0
+10   61   L   30   100   1N   C   1   "Magenta"         128     0     0
+9    61   L   31   100   1N   D   1   "Yellow"          128     0     0
+5    61   s    2   100   1N   0   1   "Rotation"          0     0     0
+0     0   L    3   100   1N   0   1   "Rotation Low"      0     0     0
+5     1   s    8   100   1N   Q   1   "Zoom"            128     0     0
+0     0   L    9   100   1N   Q   1   "Zoom Low"        128     0     0
+6     1   I   32   100   1N   I   1   "Effect 1"          0     0     0
+8     1   L   33   100   1N   0   1   "Effect 1 Lev"      0     0     0
+7     1   I   34   100   1N   K   1   "Eff 1 Param1"      0     0     0
+15    1   I   35   100   1N   0   1   "Eff 1 Param2"      0     0     0
+16    1   I   36   100   1N   0   1   "Eff 1 Param3"      0     0     0
+6    61   I   37   100   1N   J   1   "Effect2"           0     0     0
+8    61   L   38   100   1N   0   1   "Effect 2 Lev"      0     0     0
+7    61   I   39   100   1N   M   1   "Eff 2 Param1"      0     0     0
+15   61   I   40   100   1N   0   1   "Eff 2 Param2"      0     0     0
+16   61   I   41   100   1N   0   1   "Eff 2 Param3"      0     0     0
+20    1   s   10   100   1N   0   1   "Key BL X"          0     0     0
+0     0   L   11   100   1N   0   1   "Key BL X Low"      0     0     0
+19    1   s   12   100   1N   0   1   "Key BR X"        255     0     0
+0     0   L   13   100   1N   0   1   "Key BR X Low"    255     0     0
+18    1   s   14   100   1N   0   1   "Key TR X"        255     0     0
+0     0   L   15   100   1N   0   1   "Key TR X Low"    255     0     0
+17    1   s   16   100   1N   0   1   "Key TL X"          0     0     0
+0     0   L   17   100   1N   0   1   "Key TL X Low"      0     0     0
+20   61   s   18   100   1N   0   1   "Key BL Y"          0     0     0
+0     0   L   19   100   1N   0   1   "Key BL Y Low"      0     0     0
+19   61   s   20   100   1N   0   1   "Key BR Y"          0     0     0
+0     0   L   21   100   1N   0   1   "Key BR Y Low"      0     0     0
+18   61   s   22   100   1N   0   1   "Key TR Y"        255     0     0
+0     0   L   23   100   1N   0   1   "Key TR Y Low"    255     0     0
+17   61   s   24   100   1N   0   1   "Key TL Y"        255     0     0
+0     0   L   25   100   1N   0   1   "Key TL Y Low"    255     0     0
+12    1   L   26   100   1N   0   1   "Brightness"      127     0     0
+12   61   L   27   100   1N   0   1   "Contrast"        127     0     0
+14    1   L   28   100   1N   0   1   "Negative"        127     0     0
+13    1   s   42   100   1N   0   1   "Squash X"          0     0     0
+0     0   L   43   100   1N   0   1   "Squash X Low"      0     0     0
+13   61   s   44   100   1N   0   1   "Squash Y"          0     0     0
+0     0   L   45   100   1N   0   1   "Squash Y Low"      0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Green Hippo Hippotizer
+Master (v2)
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 46  ;Load Presets
+0   100  "Preset %3d"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 29  ;Cyan
+0   127  "%3d%%"-100+(((c-a)*100)/(b-a))
+128 128  "0%"
+129 255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 30  ;Magenta
+0   127  "%3d%%"-100+(((c-a)*100)/(b-a))
+128 128  "0%"
+129 255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 31  ;Yellow
+0   127  "%3d%%"-100+(((c-a)*100)/(b-a))
+128 128  "0%"
+129 255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 32  ;Effect 1
+0   0    "No Effect"
+24  24   "Blur"
+40  40   "Radial Blur"
+56  56   "Colour"
+72  72   "Pallette"
+88  88   "Neon"
+104 104  "LED"
+120 120  "Pixelate"
+136 136  "Glass"
+152 152  "Aqua"
+168 168  "Multi-image"
+184 184  "Flower"
+200 200  "Kaleidoscop"
+216 216  "Planes"
+232 232  "Film"
+REND
+
+RANGE 37  ;Effect2
+0   0    "No Effect"
+24  24   "Blur"
+40  40   "Radial Blur"
+56  56   "Colour"
+72  72   "Pallette"
+88  88   "Neon"
+104 104  "LED"
+120 120  "Pixelate"
+136 136  "Glass"
+152 152  "Aqua"
+168 168  "Multi-image"
+184 184  "Flower"
+200 200  "Kaleidoscop"
+216 216  "Planes"
+232 232  "Film"
+REND

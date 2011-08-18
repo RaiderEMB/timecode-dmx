@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="COLORado 1 VW" ShortName="COLR 1 VW" Company="Chauvet">
+  <Copyright Notice="© Avolites Ltd. 2011" />
+  <History Date="21-04-09" Author="David Hunt" Comment="Created" />
+  <History Date="22-04-09" Author="Jonathan Moreton" Comment="Checked" />
+  <History Date="27-09-10" Author="John Rogers" Comment="Added Virtual Dimmer to CW mode." />
+  <History Date="04-05-11" Author="Nic Morris" Comment="Fixed power on and locate.  Changed dimmer to 8bit.  Changed c-mix locate to 100%." />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="CTO" Name="CTO" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="CTO Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,240,200" />
+    </Attribute>
+    <Attribute ID="CTB" Name="CTB" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="CTB Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="230,230,255" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="WhiteCTMacro" Name="White CT Macro" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~10" Colour="255,255,255" />
+      <Function ID="2" Name="White1: 2800K" Display="'White1: 2800K'" Dmx="11~40" Colour="0,0,0" />
+      <Function ID="3" Name="White2: 3000K" Display="'White2: 3000K'" Dmx="41~70" Colour="0,0,0" />
+      <Function ID="4" Name="White3: 3200K" Display="'White3: 3200K'" Dmx="71~100" Colour="0,0,0" />
+      <Function ID="5" Name="White4: 3400K" Display="'White4: 3400K'" Dmx="101~130" Colour="0,0,0" />
+      <Function ID="6" Name="White5: 4200K" Display="'White5: 4200K'" Dmx="131~160" Colour="0,0,0" />
+      <Function ID="7" Name="White6: 4900K" Display="'White6: 4900K'" Dmx="161~190" Colour="0,0,0" />
+      <Function ID="8" Name="White7: 5600K" Display="'White7: 5600K'" Dmx="191~220" Colour="0,0,0" />
+      <Function ID="9" Name="White8: 5900K" Display="'White8: 5900K'" Dmx="221~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~4" Intensity="0~0" />
+      <Function ID="2" Name="Strobe" Display="'Strobe %.1f Hz',0.0~20.0" Dmx="5~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="IDSelection" Name="ID Selection" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="All IDs" Display="'All IDs'" Dmx="0~9" />
+      <Function ID="2" Name="ID" Display="'ID %.f',1~20" Dmx="10~209" />
+      <Function ID="3" Name="ID" Display="'ID %.f',21~66" Dmx="210~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="CW, 8bit" Channels="2">
+    <Import PearlRef="CH_CR1VWCW" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" Wheel="1" />
+      <Attribute ID="CTB" ChannelOffset="1" Wheel="8" VirtualControl="Dimmer" />
+      <Attribute ID="CTO" ChannelOffset="2" Wheel="7" VirtualControl="Dimmer" />
+    </Include>
+  </Mode>
+  <Mode Name="CWD, 8bit" Channels="3">
+    <Import PearlRef="CH_CR1VWCWD" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="CTB" ChannelOffset="2" Wheel="8" />
+      <Attribute ID="CTO" ChannelOffset="3" Wheel="7" />
+    </Include>
+  </Mode>
+  <Mode Name="Studio 1, 8bit" Channels="2">
+    <Import PearlRef="CH_CR1VWST1" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="WhiteCTMacro" ChannelOffset="2" Wheel="9" />
+    </Include>
+  </Mode>
+  <Mode Name="Studio 2, 8bit" Channels="6">
+    <Import PearlRef="CH_CR1VWST2" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="5" Wheel="4" />
+      <Attribute ID="CTB" ChannelOffset="2" Wheel="8" />
+      <Attribute ID="CTO" ChannelOffset="3" Wheel="7" />
+      <Attribute ID="WhiteCTMacro" ChannelOffset="4" Wheel="9" />
+      <Attribute ID="IDSelection" ChannelOffset="6" Wheel="28" />
+    </Include>
+  </Mode>
+</Fixture>

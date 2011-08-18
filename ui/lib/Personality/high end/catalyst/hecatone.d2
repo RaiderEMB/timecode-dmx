@@ -1,0 +1,177 @@
+;-----------------------------------------------------------------------|
+; The High End Catalyst (Part One) Personality for the Diamond II/III   |
+;-----------------------------------------------------------------------|
+;       History :-                                                      |
+;-----------------------------------------------------------------------|
+;   Revision |  Date     |  By      | Description                       |
+;------------|-----------|----------|-----------------------------------|
+;       1.0  |  06-03-03 | D.Shelton| Created                           |
+;---------------------------------------------------------------------- |
+
+
+DEVICE=HE_CAT_ONE                ; Device Name (upto 11 chars after '='
+DEVICE23=45 CHANNELS            ; 22 chars after '='
+	             		; extra information for softkey prompt lines 2&3
+						; a total of 22 chars, split into 2 lines of 11
+
+; Device information
+;                                   __ Number of lines of DMX info.
+;                                  |   __ Number of lines of wheel info
+;                                  |  |
+;                                  |  |
+;                                  |  |
+HSTART  1 45 1b05 630 240 ff 0  1 45 45
+;        | |  |    |   |  |  |  |
+;        | |  |    |   |  |  |  |__ Line number for flash button DMX info
+;        | |  |    |   |  |  |      from DMX definition (1..x)
+;        | |  |    |   |  |  |__ Button release value
+;        | |  |    |   |  |__ Button ON value (ff means use swop/add fader)
+;        | |  |    |   |__ The TILT arc in Degrees
+;        | |  |    |__ The Pan arc in degrees
+;        | |  |__ Date in PC format (1b05==5/08/93)
+;        | |__ Number of DMX slots used
+;        |__ Patch direction (0 for mirror, 3 for moving head)
+
+
+TEXTSTART                 ; Upto 21 lines of 28 characters (use the template)
+                                 ;
+                                 ;
+    High End Catalyst Part ONE   ;
+      45 Channels                ;
+                                 ;
+TEXTEND
+
+
+;------------------------------------------------------------
+
+; For the Attribute Dictionary refer to file 'dict.per'
+
+;------------------------------------------------------------
+; DMX information
+; No unused lines allowed between keyword 'DSTART' and last DMX definition
+DSTART               ; DMX defintion
+1  2  0 0 173 0      ; LIBRARY
+2  2  0 0 174 0      ; FILE
+3  2  0 0 175 0      ; INFRAME
+4  2  0 0 176 0      ; INFRAMELO
+5  2  0 0 177 0      ; OUTFRAME
+6  2  0 0 178 0      ; OUTFRMAELO
+7  2  0 0 179 0      ; PLAY
+8  2  0 0 180 0      ; PLAYSPEED
+9  2  0 0  11 0      ; GOBOFRAME
+10 2  0 0 181 0      ; GOBOFRAMELO
+11 2  0 0 182 0      ; GOBOSIZE
+12 2  0 0 183 0      ; GOBOSIZELO
+13 2  0 0  64 0      ; GOBOROT
+14 2  0 0 184 0      ; GOBOROTLO
+15 2  0 0 185 0      ; X-ROT
+16 2  0 0 186 0      ; X-ROTLO
+17 2  0 0 187 0      ; Y-ROT
+18 2  0 0 188 0      ; Y-ROTLO
+19 2  0 0 189 0      ; Z-ROT
+20 2  0 0 190 0      ; Z-ROTLO
+21 2  0 0 191 0      ; SCALE
+22 2  0 0 192 0      ; SCALELO
+23 2  0 0 193 0      ; X-POS
+24 2  0 0 194 0      ; X-POSLO
+25 2  0 0 195 0      ; Y-POS
+26 2  0 0 196 0      ; Y-POSLO
+27 2  0 0  25 0      ; MSPEED
+28 2  0 0 197 0      ; ASPECTRATIO
+29 2  0 0 198 0      ; MASK
+30 2  0 0 199 0      ; MASKLO
+31 2  0 0 156 0      ; MASKROT
+32 2  0 0 157 0      ; MASKROTLO
+33 2  0 0   0 0      ; DIMMER
+34 2  0 0   8 0      ; CYAN
+35 2  0 0   7 0      ; MAGENTA
+36 2  0 0   9 0      ; YELLOW
+37 2  0 0   5 0      ; RED
+38 2  0 0  10 0      ; GREEN
+39 2  0 0   6 0      ; BLUE
+40 2  0 0  17 0      ; STROBE
+41 2  0 0 158 0      ; CROSSFADE
+42 2  0 0 159 0      ; COLROT
+43 2  0 0 160 0      ; VISFUNCTION
+44 2  0 0 161 0      ; VIS1
+45 2  0 0 162 0      ; VIS2
+;| |  | |   | |
+;| |  | |   | |__ Spare (always 0 for now)
+;| |  | |   |__ Attribute name (See list above)
+;| |  | |__ Curve (0 means no curve otherwise curve number)
+;| |  |__ Flags (7=inverted, 6=instant, 5=16-bit)
+;| |__ Channel type (1=HTP, 2=LTP, 0=Dummy(for 16-bit defines)
+;|__ DMX offset (1..255, 0 means DIMMER will be patched seperately)
+
+
+;------------------------------------------------------------
+; WHEEL information
+; No unused lines allowed between keyword 'WSTART' and last DMX definition
+WSTART
+8 ffff 0000 1 173 0  1  0 1  0  1  0  0  0  0  0 ;
+8 ffff 0000 1 174 0  2  0 1  1  2  0  0  0  0  0 ;
+8 ffff 0000 1 175 0  3  0 1  2  3  0  0  0  0  0 ;
+8 ffff 0000 1 176 0  4  0 1  3  4  0  0  0  0  0 ;
+8 ffff 0000 1 177 0  5  0 1  4  5  0  0  0  0  0 ;
+8 ffff 0000 1 178 0  6  0 1  5  6  0  0  0  0  0 ;
+8 ffff 0000 1 179 0  7  0 1  6  7  0  0  0  0  0 ;
+8 ffff 0000 1 180 0  8  0 1  7  8  0  0  0  0  0 ;
+8 ffff 0000 1  11 0 17  0 1  8  9  0  0  0  0  0 ;
+8 ffff 0000 1 181 0 18  0 1  9 10  0  0  0  0  0 ;
+8 ffff 8F80 1 182 0 19  0 1 10 11  0  0  0  0  0 ;
+8 ffff 8F80 1 183 0 20  0 1 11 12  0  0  0  0  0 ;
+8 ffff 8080 1  64 0 21  0 1 12 13  0  0  0  0  0 ;
+8 ffff 8080 1 184 0 22  0 1 13 14  0  0  0  0  0 ;
+8 ffff 8080 1 185 0 25  0 1 14 15  0  0  0  0  0 ;
+8 ffff 8080 1 186 0 26  0 1 15 16  0  0  0  0  0 ;
+8 ffff 8080 1 187 0 27  0 1 16 17  0  0  0  0  0 ;
+8 ffff 8080 1 188 0 28  0 1 17 18  0  0  0  0  0 ;
+8 ffff 8080 1 189 0 29  0 1 18 19  0  0  0  0  0 ;
+8 ffff 0000 1 190 0 30  0 1 19 20  0  0  0  0  0 ;
+8 ffff 8F80 1 191 0 23  0 1 20 21  0  0  0  0  0 ;
+8 ffff 8F80 1 192 0 24  0 1 21 22  0  0  0  0  0 ;
+8 ffff 8080 1 193 0 33  0 1 22 23  0  0  0  0  0 ;
+8 ffff 8080 1 194 0 34  0 1 23 24  0  0  0  0  0 ;
+8 ffff 8080 1 195 0 35  0 1 24 25  0  0  0  0  0 ;
+8 ffff 8080 1 196 0 36  0 1 25 26  0  0  0  0  0 ;
+8 ffff 0000 1  25 0 44  0 1 26 27  0  0  0  0  0 ;
+8 ffff 0000 1 197 0 45  0 1 27 28  0  0  0  0  0 ;
+8 ffff 0000 1 198 0 37  0 1 28 29  0  0  0  0  0 ;
+8 ffff 0000 1 199 0 38  0 1 29 30  0  0  0  0  0 ;
+8 ffff 8080 1 156 0 39  0 1 30 31  0  0  0  0  0 ;
+8 ffff 8080 1 157 0 40  0 1 31 32  0  0  0  0  0 ;
+8 ffff FFFF 1   0 0 16  0 1 32 33  0  0  0  0  0 ;
+8 ffff FFFF 1   8 0  9  0 1 33 34  0  0  0  0  0 ;
+8 ffff FFFF 1   7 0 10  0 1 34 35  0  0  0  0  0 ;
+8 ffff FFFF 1   9 0 11  0 1 35 36  0  0  0  0  0 ;
+8 ffff 0000 1   5 0 12  0 1 36 37  0  0  0  0  0 ;
+8 ffff 0000 1  10 0 13  0 1 37 38  0  0  0  0  0 ;
+8 ffff 0000 1   6 0 14  0 1 38 39  0  0  0  0  0 ;
+8 ffff 0000 1  17 0 31  0 1 39 40  0  0  0  0  0 ;
+8 ffff 0000 1 158 0 32  0 1 40 41  0  0  0  0  0 ;
+8 ffff 0000 1 159 0 15  0 1 41 42  0  0  0  0  0 ;
+8 ffff 0000 1 160 0 41  0 1 42 43  0  0  0  0  0 ;
+8 ffff 0000 1 161 0 42  0 1 43 44  0  0  0  0  0 ;
+8 ffff 0000 1 162 0 43  0 1 44 45  0  0  0  0  0 ;
+;|   |    | |   | |  |  | |  |  |  |  |  |  |  |__ List of Table channels as 
+;|   |    | |   | |  |  | |  |  |_______________ line numbers from DMX def.
+;|   |    | |   | |  |  | |  |                   0 means unused channel
+;|   |    | |   | |  |  | |  |__ DMX line (minus 1) pertainig to this wheel
+;|   |    | |   | |  |  | |__ Number of chanels under control OR Table width
+;|   |    | |   | |  |  |__ Table type (Attribute number) 0 means NOT a table
+;|   |    | |   | |  |__ Wheel number (1..8 on bank1, 9..16 on bank2 et cetera)
+;|   |    | |   | |__ 0 for 8 bits, 1 for 16 bits
+;|   |    | |   |__  Attribute name from above list (0..MAX)
+;|   |    | |__ Wheel type (1-offset, 2-Table, 3-Pan/Tilt, 4-Dimmer)
+;|   |    |__ Default value (left shifted as necessary)
+;|   |__ AND mask, where more than wheel controls same DMX slot
+;|__ Wheel multiplication =16-(bits used)
+;	eg. for 8 bit channels it is 8, for 12 bit channels it is 4
+; 
+;--------------------------------------------------------------------
+; TABLES
+; Each Table is enclosed by the keywords "TSTART" and "*** TEND ***"
+; The legend is 16 chars long
+; The correct number of values must be supplied (8-bits) with spaces in
+; between
+;--------------------------------------------------------------------

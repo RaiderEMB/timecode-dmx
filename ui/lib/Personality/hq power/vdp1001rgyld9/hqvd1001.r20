@@ -1,0 +1,288 @@
+; 'HQ Power VDP1001RGYLD9 (RGY Laser)', 9 DMX Channels, filename: HQVD1001.R20
+;  Copyright © Avolites Ltd. 2008
+;
+;   Date       By                Description
+;   14-08-08   Pers Creator      Created - Exported from Diamond 4 file.
+;   14-08-08   David Hunt        Checked
+;   15-08-08   Jonathan Moreton  Checked
+;   14-04-09   David Hunt        Changed to HQ Power 
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  HQ_VDP1001                          mode=9 DMX, 8bit  9 DMX Channels
+NAME "HQ Power" "VDP1001RGYLD9 (RGY Laser)"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  9  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 9 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=503
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+10    1   L    1   100   1N   0   1   "Control"         121     0     0
+9     1   L    2   100   1N   0   1   "Pattern"           0     0     0
+3    61   L    3   100   1N   E   1   "Pan"             128     0     0
+3     1   L    4   100   1N   F   1   "Tilt"            128     0     0
+8     1   L    5   100   1N   0   1   "P/T Speed"         0     0     0
+8    61   L    6   100   1N   0   1   "Dyn Pat Spd"       0     0     0
+9    61   L    7   100   1N   0   1   "Stat Pat Sz"       0     0     0
+4     1   I    8   100   1N   A   1   "Colour"            0     0     0
+4    61   L    9   100   1N   0   1   "Colour Seg"        0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+HQ Power
+VDP1001RGYLD9 (RGY Laser)
+9 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Pan/Tilt"   -1   3   4
+"Middle"             21  7F  7F
+"Left"               22  4F  7F
+"Right"              23  B0  7F
+"Top"                24  7F  4F
+"Bottom"             25  7F  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1   8
+"Sel RGY Laser"       1  16
+"Sel RGY Laser"       2  16
+"Sel RGY Laser"       3  16
+"Sel RGY Laser"       4  16
+"Sel RGY Laser"       5  16
+"Sel RGY Laser"       6  16
+"Sel RGY Laser"       7  16
+"Sel RGY Laser"       8  16
+"Sel RGY Laser"       9  16
+"Sel RGY Laser"      10  16
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Control
+0   0    "Laser Off"
+11  120  "Dyn Pattern"
+121 255  "St Pattern"
+REND
+
+RANGE 2  ;Pattern
+0   5    "Sel 0"
+6   11   "Sel 1"
+12  18   "Sel 2"
+19  24   "Sel 3"
+25  30   "Sel 4"
+31  36   "Sel 5"
+37  43   "Sel 6"
+44  49   "Sel 7"
+50  55   "Sel 8"
+56  61   "Sel 9"
+62  68   "Sel 10"
+69  74   "Sel 11"
+75  80   "Sel 12"
+81  86   "Sel 13"
+87  93   "Sel 14"
+94  99   "Sel 15"
+100 105  "Sel 16"
+106 111  "Sel 17"
+112 118  "Sel 18"
+119 124  "Sel 19"
+125 130  "Sel 20"
+131 136  "Sel 21"
+137 143  "Sel 22"
+144 149  "Sel 23"
+150 155  "Sel 24"
+156 161  "Sel 25"
+162 168  "Sel 26"
+169 174  "Sel 27"
+175 180  "Sel 28"
+181 186  "Sel 29"
+187 193  "Sel 30"
+194 199  "Sel 31"
+200 205  "Sel 32"
+206 211  "Sel 33"
+212 218  "Sel 34"
+219 224  "Sel 35"
+225 230  "Sel 36"
+231 236  "Sel 37"
+237 243  "Sel 38"
+244 249  "Sel 39"
+250 255  "Sel 40"
+REND
+
+RANGE 3  ;Pan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Tilt
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;P/T Speed
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 6  ;Dyn Pat Spd
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 7  ;Stat Pat Size
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Colour
+0   44   "Sel RGY Las"
+45  134  "2 Col  %3d%%"(c-a)*100/(b-a)
+135 224  "3 Col  %3d%%"(c-a)*100/(b-a)
+225 255  "Scroll %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 9  ;Colour Segment
+0   4    "Segment 1"
+5   9    "Segment 2"
+10  14   "Segment 3"
+15  19   "Segment 4"
+20  24   "Segment 5"
+25  29   "Segment 6"
+30  34   "Segment 7"
+35  39   "Segment 8"
+40  44   "Segment 9"
+45  49   "Segment 10"
+50  54   "Segment 11"
+55  59   "Segment 12"
+60  64   "Segment 13"
+65  69   "Segment 14"
+70  74   "Segment 15"
+75  79   "Segment 16"
+80  84   "Segment 17"
+85  89   "Segment 18"
+90  94   "Segment 19"
+95  99   "Segment 20"
+100 104  "Segment 21"
+105 109  "Segment 22"
+110 114  "Segment 23"
+115 119  "Segment 24"
+120 124  "Segment 25"
+125 130  "Segment 26"
+131 135  "Segment 27"
+136 140  "Segment 28"
+141 145  "Segment 29"
+146 150  "Segment 30"
+151 155  "Segment 31"
+156 160  "Segment 32"
+161 165  "Segment 33"
+166 170  "Segment 34"
+171 175  "Segment 35"
+176 180  "Segment 36"
+181 185  "Segment 37"
+186 190  "Segment 38"
+191 195  "Segment 39"
+196 200  "Segment 40"
+201 205  "Segment 41"
+206 210  "Segment 42"
+211 215  "Segment 43"
+216 220  "Segment 44"
+221 225  "Segment 45"
+226 230  "Segment 46"
+231 235  "Segment 47"
+236 240  "Segment 48"
+241 245  "Segment 49"
+246 250  "Segment 50"
+251 255  "Segment 51"
+REND
+

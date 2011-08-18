@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Astroraggi Power" ShortName="AtrgiPower" Company="Clay Paky">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="04-10-04" Author="Phil Rogers" Comment="Created" />
+  <History Date="04-10-04" Author="Tom Peck" Comment="Checked" />
+  <History Date="06-04-06" Author="Ed" Comment="Moved Dome Rot and Dom Func to Effect group" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~127" Intensity="0~0" />
+      <Function ID="2" Name="Open" Display="'Open'" Dmx="243~255" Intensity="0~0" />
+      <Function ID="3" Name="Strobe" Display="'Strobe %.f%%',0~100" Dmx="139~242" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Dome_Rot" Name="Dome Rot" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Index_Func" ID="1" If="'Dome_Func'==1" />
+      <Condition Name="Spin_Func" ID="2,3,4,5" If="'Dome_Func'==2" />
+      <Else ID="1,2,3,4,5" />
+      <Function ID="1" Name="Index" Display="'Index %.f°',0~360" Dmx="0~127" />
+      <Function ID="2" Name="No Spin" Display="'No Spin'" Dmx="191~193" />
+      <Function ID="3" Name="Spin CW" Display="'Spin CW %.f%%',100~0" Dmx="255~194" />
+      <Function ID="4" Name="No Spin" Display="'No Spin'" Dmx="191~193" />
+      <Function ID="5" Name="Spin CCW" Display="'Spin CCW %.f%%',0~100" Dmx="190~128" />
+    </Attribute>
+    <Attribute ID="Dome_Func" Name="Dome Func" Description="" Group="E" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Index_Func" Display="'Index'" Dmx="0~0" Update="Dome_Rot" />
+      <Function ID="2" Name="Spin_Func" Display="'Spin'" Dmx="0~0" Update="Dome_Rot" />
+    </Attribute>
+  </Control>
+  <Mode Name="2 DMX, 8bit" Channels="2">
+    <Import PearlRef="CPASTRORAG" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Dome_Rot" ChannelOffset="2" Wheel="3" />
+      <Attribute ID="Dome_Func" Wheel="2" />
+    </Include>
+  </Mode>
+</Fixture>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Fireball Orbit" ShortName="FB Orbit" Company="Lanta Lighting">
+  <Copyright Notice="© Avolites Ltd. 2010" />
+  <History Date="04-03-10" Author="John Rogers" Comment="Created" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="3" PowerOn="3" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~0" Intensity="0~0" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="1~247" Intensity="0~0" />
+      <Function ID="3" Name="Open" Display="'Open'" Dmx="248~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo1Func" Name="Gobo Func" Description="" Group="G" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Gobo1, Gobo1Rot" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Fixed_Func_Spin" Display="'Fixed Spin'" Dmx="0~0" Update="Gobo1, Gobo1Rot" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Spin_Func" Display="'Spin'" Dmx="0~0" Update="Gobo1, Gobo1Rot" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Gobo1, Gobo1Rot" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo1" Name="Gobo" Description="" Group="G">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8,9,10" If="'Gobo1Func'==1" />
+      <Condition Name="Fixed_Func_Spin" ID="11,12,13,14,15,16,17,18" If="'Gobo1Func'==2||'Gobo1Func'==3" />
+      <Else ID="19" />
+      <Function ID="1" Name="Circle 1" Display="'Circle 1'" Dmx="0~7" WheelPosition="1" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Circle" Display="'Circle'" Dmx="8~15" WheelPosition="1" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Star" Display="'Star'" Dmx="16~51" WheelPosition="3" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="Circle" Display="'Circle'" Dmx="52~39" WheelPosition="4" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="5" Name="Star" Display="'Star'" Dmx="40~47" WheelPosition="3" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="6" Name="Circle" Display="'Circle'" Dmx="48~55" WheelPosition="4" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="7" Name="Fan" Display="'Fan'" Dmx="56~71" WheelPosition="2" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="8" Name="Circle" Display="'Circle'" Dmx="72~87" WheelPosition="4" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="9" Name="Line" Display="'Line'" Dmx="88~119" WheelPosition="2" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="10" Name="Circle" Display="'Circle'" Dmx="120~127" WheelPosition="4" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="11" Name="Line Sequence 1" Display="'Line Sequence 1 %.f%%',0~100" Dmx="128~143" WheelPosition="2" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="12" Name="Circle Sequence 1" Display="'Circle Seq 1  %.f%%',0~100" Dmx="144~159" WheelPosition="4" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="13" Name="Star Sequence 1" Display="'Star Sequence 1 %.f%%',0~100" Dmx="160~175" WheelPosition="3" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="14" Name="Fan Sequence 1" Display="'Fan Sequence 1 %.f%%',0~100" Dmx="176~191" WheelPosition="2" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="15" Name="Clock Sequence 1" Display="'Clock Sequence 1 %.f%%',0~100" Dmx="192~207" WheelPosition="2" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="16" Name="Circle Sequence 2" Display="'Circle Seq 2  %.f%%',0~100" Dmx="208~219" WheelPosition="2" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="17" Name="Circle Sequence 3" Display="'Circle Seq 3  %.f%%',0~100" Dmx="220~239" WheelPosition="2" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="18" Name="Clock Sequence 2" Display="'Clock Sequence 2 %.f%%',0~100" Dmx="240~255" WheelPosition="2" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="19" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo1Rot" Name="Gobo Rot" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Spin_Func" ID="1,2" If="'Gobo1Func'==3" />
+      <Else ID="3" />
+      <Function ID="1" Name="No Spin" Display="'No Spin'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Spin" Display="'Spin %.1f%%',0.0~100.0" Dmx="1~255" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="5 DMX, 8bit" Channels="5">
+    <Import PearlRef="LH_FBOrbit" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Mirror" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="1" Wheel="4" />
+      <Attribute ID="Pan" ChannelOffset="4" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="5" Wheel="3" />
+      <Attribute ID="Gobo1Func" Wheel="13" />
+      <Attribute ID="Gobo1" ChannelOffset="2" Wheel="14" />
+      <Attribute ID="Gobo1Rot" ChannelOffset="3" Wheel="15" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Gobo">
+      <Palette ID="1" Name="Line Sequence 1" Number="11" Page="1" SetControl="Gobo1:11,Gobo1Func:3" />
+      <Palette ID="2" Name="Circle Sequence 1" Number="12" Page="1" SetControl="Gobo1:12,Gobo1Func:3" />
+      <Palette ID="3" Name="Star Sequence 1" Number="13" Page="1" SetControl="Gobo1:13,Gobo1Func:3" />
+      <Palette ID="4" Name="Fan Sequence 1" Number="14" Page="1" SetControl="Gobo1:14,Gobo1Func:3" />
+      <Palette ID="5" Name="Clock Sequence 1" Number="15" Page="1" SetControl="Gobo1:15,Gobo1Func:3" />
+      <Palette ID="6" Name="Clock Sequence 2" Number="16" Page="1" SetControl="Gobo1:16,Gobo1Func:3" />
+      <Palette ID="7" Name="Clock Sequence 3" Number="17" Page="1" SetControl="Gobo1:17,Gobo1Func:3" />
+      <Palette ID="8" Name="Clock Sequence 2" Number="18" Page="1" SetControl="Gobo1:18,Gobo1Func:3" />
+    </Group>
+    <Group Name="Position">
+      <Palette ID="1" Name="Middle" Number="21" Page="1" SetControl="Pan:1:50,Tilt:1:50" />
+      <Palette ID="2" Name="Left" Number="22" Page="1" SetControl="Pan:1:31,Tilt:1:50" />
+      <Palette ID="3" Name="Right" Number="23" Page="1" SetControl="Pan:1:69,Tilt:1:50" />
+      <Palette ID="4" Name="Top" Number="24" Page="1" SetControl="Pan:1:50,Tilt:1:31" />
+      <Palette ID="5" Name="Bottom" Number="25" Page="1" SetControl="Pan:1:50,Tilt:1:69" />
+      <Palette ID="6" Name="TLeft" Number="26" Page="1" SetControl="Pan:1:31,Tilt:1:31" />
+      <Palette ID="7" Name="TRight" Number="27" Page="1" SetControl="Pan:1:69,Tilt:1:69" />
+      <Palette ID="8" Name="BLeft" Number="28" Page="1" SetControl="Pan:1:31,Tilt:1:69" />
+      <Palette ID="9" Name="BRight" Number="29" Page="1" SetControl="Pan:1:69,Tilt:1:31" />
+    </Group>
+  </Palettes>
+</Fixture>

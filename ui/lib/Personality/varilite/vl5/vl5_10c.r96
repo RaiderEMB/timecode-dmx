@@ -1,0 +1,406 @@
+TODO, DIP SWITCHES
+; "Varilite 5 (mode3)", 10 DMX channels, filename :vl5_10c.r96
+;
+;   Date      By          Description
+;   06-03-98  P.Bari      Created
+;   04-06-07  D.Milligan  Fixed Pending Dimmer
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  VL5_10Chan
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE 1   10  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   360 270
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the curernt result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+"Mode 3"
+DAEND
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=503
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel, BCD=Color Mix, E=Pan, F=Tilt,
+;                    0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 charcaters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX  ;    Bank/fader to DMX relationship
+1    1  H   0   100 1N  0 1 "Dimmer"       255 255 255
+3   61  s   2   100 1N  E 1 "Pan"          128  -1  -1
+0    0  L   3   100 1N  E 1 "Pan Low"      128  -1  -1
+3    1  s   4   100 1N  F 1 "Tilt"         128  -1  -1
+0    0  L   5   100 1N  F 1 "Tilt Low"     128  -1  -1
+10   1  L   6   100 1I  B 1 "Cyan"         255 255 255
+9   61  L   7   100 1I  C 1 "Yellow"       255 255   0
+10  61  L   8   100 1I  D 1 "Magenta"      255 255   0
+2    1  L   9   100 1N  0 1 "Diffusion"      0   0   0
+20   1  I  10   100 1N  0 1 "Control"        0   0   0
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+   VL5 (10 Channel)
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1 (Dimmer) --
+ 2 Diffuser --
+ 3 Tilt     Pan
+ 4 --       --
+ 5 --       --
+ 6 --       --
+ 7 --       --
+ 8 --       --
+ 9 --       Yellow
+10 Cyan     Magenta
+11 Control  --
+
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+; Positions
+PFTABLE "Positions" -1 2 4
+"Middle"    21 80  80
+"Left"      22 50  80
+"Right"     23 b0  80
+"Top"       24 80  50
+"Bottom"    25 80  b0
+"TLeft"     26 50  50
+"TRight"    27 b0  b0
+"BLeft"     28 50  b0
+"BRight"    29 b0  50
+PFEND
+
+
+; Colors
+PFTABLE "Colors" 30 6 7 8
+;INPUT          Cyan yellow magnta
+"White"          1  ff ff ff
+"Red"            2  ff  0  0
+"Amber"          3  ff  0 80
+"Yellow"         4  ff  0 ff
+"Green"          5   0  0 ff
+"Cyan"           6   0 ff ff
+"Blue"           7   0 ff 5a
+"Lavender"       8  69 ff 5a
+"UV"             9  55 ff 55
+"Magenta"       10  ff ff  0
+"Red 1"      -1    0  40  ac
+"Red 2"      -1    0  6b  ff
+"Red 3"      -1   46   0  cf
+"Red 4"      -1    0  5f  e0
+"Red 5"      -1    0  65  ff
+"Red 6"      -1   2b   0  c0
+"Red 7"      -1    0  4d  ff
+"Red 8"      -1    0  c6  e7
+"Red 9"      -1    0  93  ff
+"Red 10"     -1    0  b3  fc
+"Red 11"     -1    0  97  a5
+"Red 12"     -1    0  ff  d6
+"Red 13"     -1    0  c1  bb
+"Red 14"     -1    0  a6  e9
+"Red 15"     -1   5c   0   0
+"Red 16"     -1   59  65   0
+"Red 17"     -1    0  5b  a6
+"Red 18"     -1    0  72  ad
+"Red 19"     -1    0  6f  b7
+"Red 20"     -1    0  5f  89
+"Red 21"     -1    0  32  9c
+"Red 22"     -1    0  5b  a0
+"Red 23"     -1    0  86  b1
+"Red 24"     -1    0  78  bc
+"Red 25"     -1    0  7b  ff
+"Red 26"     -1    0  a6  ff
+"Red 27"     -1    0   0  ff
+"Red 28"     -1   6a  4a  6f
+"Blue 1"     -1   e4   0  47
+"Blue 2"     -1   ff  33   0
+"Blue 3"     -1   ff  64   0
+"Blue 4"     -1   a1  5e   0
+"Blue 5"     -1   ff  4b   0
+"Blue 6"     -1   e9   0  21
+"Blue 7"     -1   a1   0  29
+"Blue 8"     -1   8c  54   0
+"Blue 9"     -1   e9   0  21
+"Blue 10"    -1   ff  27   0
+"Blue 11"    -1   a0  23   0
+"Blue 12"    -1   91  4b   0
+"Blue 13"    -1   ff   0  ff
+"Blue 14"    -1   c5   0  ff
+"Blue 15"    -1   c6   0  9e
+"Blue 16"    -1   88  3c   0
+"Blue 17"    -1   a6   0  d5
+"Blue 18"    -1   b0   0  a7
+"Green 1"    -1   ff  7f   0
+"Green 2"    -1   ff  77   0
+"Green 3"    -1   ff  9b   0
+"Green 4"    -1   d9  b0   0
+"Green 5"    -1   f4  ca   0
+"Green 6"    -1   f4  d7   0
+"Green 7"    -1   ff  68   0
+"Green 8"    -1   ff  7f   0
+"Green 9"    -1   ff  b0   0
+"Magenta 1"  -1   72  41   0
+"Magenta 2"  -1   68  1b   0
+"Magenta 3"  -1   8f   0  6d
+"Magenta 4"  -1   5f  43  59
+"Magenta 5"  -1   76  66   0
+"Yellow 1"   -1    0  c4  3d
+"Yellow 2"   -1    0  a5  21
+"Yellow 3"   -1   40  65   0
+"Yellow 4"   -1    0   0  65
+"Yellow 5"   -1   54  87   0
+"Yellow 6"   -1    0  5b  43
+"Yellow 7"   -1    0  74  74
+"Yellow 8"   -1    0  77  71
+"Yellow 9"   -1   39  7d   0
+"Yellow 10"  -1    0  6f  59
+"Yellow 11"  -1   3b  af   0
+"Yellow 12"  -1    0  83  97
+"Yellow 13"  -1    0  75  6e
+"Yellow 14"  -1   61  ac   0
+"Yellow 15"  -1    0  a5  21
+"Yellow 16"  -1   55  8b   0
+"Yellow 17"  -1    0  74  76
+"Yellow 18"  -1    0  87  8c
+"Avo 01"     -1   5c   0   0
+"Avo 02"     -1   9e   0  33
+"Avo 03"     -1   b6   0   0
+"Avo 04"     -1   ff  33   0
+"Avo 05"     -1   ff  33   0
+"Avo 06"     -1   b2   0   0
+"Avo 07"     -1   a4   0  4b
+"Avo 08"     -1   d7   0  59
+"Avo 09"     -1   e4   0  47
+"Avo 10"     -1   ff   0   0
+"Avo 11"     -1   5e  3c   0
+"Avo 12"     -1   6e  4b   0
+"Avo 13"     -1   76  66   0
+"Avo 14"     -1   8c  50   0
+"Avo 15"     -1   8c  54   0
+"Avo 16"     -1   dc  64   0
+"Avo 17"     -1   ff  81   0
+"Avo 18"     -1   ff  a0   0
+"Avo 19"     -1   ff  b0   0
+"Avo 20"     -1   e7  bc   0
+"Avo 21"     -1   c2  ac   0
+"Avo 22"     -1   a9  ac   0
+"Avo 23"     -1   f4  ca   0
+"Avo 24"     -1   f4  d7   0
+"Avo 25"     -1   86  9e   0
+"Avo 26"     -1   95  af   0
+"Avo 27"     -1   ae  bb   0
+"Avo 28"     -1   e1  cf   0
+"Avo 29"     -1   ec  e4   0
+"Avo 30"     -1   ff  ff   0
+"Avo 31"     -1   47  53   0
+"Avo 32"     -1   5d  62   0
+"Avo 33"     -1   6b  73   0
+"Avo 34"     -1   5d  6b   0
+"Avo 35"     -1   40  65   0
+"Avo 36"     -1   40  73   0
+"Avo 37"     -1   54  87   0
+"Avo 38"     -1   82  b2   0
+"Avo 39"     -1   9a  df   0
+"Avo 40"     -1   96  d4   0
+"Avo 41"     -1    0  4d   0
+"Avo 42"     -1    0  51   0
+"Avo 43"     -1    0  58   0
+"Avo 44"     -1    3  59   0
+"Avo 45"     -1    0  8f   0
+"Avo 46"     -1    0  c8   0
+"Avo 47"     -1   60  e6   0
+"Avo 48"     -1    0  ff  59
+"Avo 49"     -1    0  eb  56
+"Avo 50"     -1    0  ff   0
+"Avo 51"     -1    0  51  33
+"Avo 52"     -1    0  6f  53
+"Avo 53"     -1    0  51  48
+"Avo 54"     -1    0  74  74
+"Avo 55"     -1    0  83  97
+"Avo 56"     -1    0  7f  76
+"Avo 57"     -1    0  af  9c
+"Avo 58"     -1    0  b5  a5
+"Avo 59"     -1    0  eb  be
+"Avo 60"     -1    0  ff  d6
+"Avo 61"     -1    0  41  57
+"Avo 62"     -1    0  41  6c
+"Avo 63"     -1    0  72  ad
+"Avo 64"     -1    0  6d  a4
+"Avo 65"     -1    0  6e  b3
+"Avo 66"     -1    0  a0  e4
+"Avo 67"     -1    0  b3  f7
+"Avo 68"     -1    0  c4  ed
+"Avo 69"     -1    0  da  f3
+"Avo 70"     -1    0  ff  ff
+"Avo 71"     -1    0   0  a8
+"Avo 72"     -1   46   0  cf
+"Avo 73"     -1   4b   0  ff
+"Avo 74"     -1   3d   0  ff
+"Avo 75"     -1    0   0 651
+"Avo 76"     -1    0  40  ac
+"Avo 77"     -1    0  4e  b2
+"Avo 78"     -1    0  6d  e1
+"Avo 79"     -1    0  6c  ff
+"Avo 80"     -1    0   0  ff
+"Avo 81"     -1   86   0  67
+"Avo 82"     -1   8f   0  6d
+"Avo 83"     -1   c6   0  9e
+"Avo 84"     -1   b9   0  ba
+"Avo 85"     -1   b0   0  c5
+"Avo 86"     -1   ad   0  ff
+"Avo 87"     -1   d0   0  ff
+"Avo 88"     -1   c3   0  ff
+"Avo 89"     -1   ad   0  ff
+"Avo 90"     -1   ff   0  ff
+PFEND
+
+PFTABLE "LEEColours" 29 6 7 8
+;INPUT          Cyan yellow magnta
+"lee 101"	-1	FF	62	FF
+"lee 102"	-1	F0	97	97
+"lee 103"	-1	50	42	46
+"lee 104"	-1	4E	35	38
+"lee 105"	-1	47	2B	2B
+"lee 106"	-1	8A	40	30
+"lee 107"	-1	9A	9B	A9
+"lee 108"	-1	99	80	DE
+"lee 109"	-1	90	8D	C4
+"lee 110"	-1	93	92	C1
+"lee 111"	-1	EA	B8	6B
+"lee 113"	-1	AE	82	0
+"lee 115"	-1	6B	88	F7
+"lee 116"	-1	55	9C	AB
+"lee 117"	-1	7F	8A	DE
+"lee 118"	-1	15	C3	8D
+"lee 119"	-1	0	A3	56
+"lee 120"	-1	0	9C	4C
+"lee 121"	-1	64	4E	89
+"lee 122"	-1	65	40	FE
+"lee 124"	-1	0	80	99
+"lee 126"	-1	C5	DB	0
+"lee 127"	-1	F3	AE	61
+"lee 128"	-1	FF	A5	2A
+"lee 129"	-1	0	0	0
+"lee 130"	-1	FF	FF	FF
+"lee 131"	-1	76	7F	FF
+"lee 132"	-1	10	E0	82
+"lee 134"	-1	87	72	FF
+"lee 135"	-1	8B	50	5A
+"lee 136"	-1	A9	C3	FF
+"lee 137"	-1	B7	FE	FF
+"lee 138"	-1	FA	A5	FF
+"lee 139"	-1	32	2	F2
+"lee 140"	-1	78	88	FB
+"lee 141"	-1	0	FF	FE
+"lee 142"	-1	71	9D	A1
+"lee 143"	-1	70	94	FF
+"lee 144"	-1	7A	92	FF
+"lee 145"	-1	0	0	0
+"lee 147"	-1	3E	39	3E
+"lee 148"	-1	A1	85	37
+"lee 151"	-1	E6	B2	90
+"lee 152"	-1	E8	C0	93
+"lee 153"	-1	9E	97	C3
+"lee 154"	-1	B5	9C	E3
+"lee 156"	-1	AD	9F	A0
+"lee 158"	-1	88	2F	EE
+"lee 159"	-1	D6	B7	FC
+"lee 161"	-1	76	9A	FE
+"lee 162"	-1	B1	A2	CC
+"lee 164"	-1	7B	36	7C
+"lee 165"	-1	7A	95	DE
+"lee 166"	-1	FF	9F	5F
+"lee 169"	-1	BE	DE	FF
+"lee 170"	-1	A8	BC	FF
+"lee 172"	-1	5D	A4	B0
+"lee 174"	-1	81	93	F9
+"lee 176"	-1	D5	AB	73
+"lee 179"	-1	A3	6F	FF
+"lee 180"	-1	8C	DE	B0
+"lee 181"	-1	61	DD	36
+"lee 182"	-1	93	63	36
+"lee 183"	-1	65	9E	FF
+"lee 184"	-1	C1	A7	FF
+"lee 185"	-1	B3	A9	FF
+"lee 186"	-1	FB	DE	95
+"lee 187"	-1	FB	B9	9A
+"lee 188"	-1	FA	C4	9B
+"lee 189"	-1	C5	AC	FF
+"lee 190"	-1	D8	B1	E0
+"lee 191"	-1	FD	F6	BC
+"lee 192"	-1	F8	B6	6C
+"lee 193"	-1	51	3E	2B
+"lee 194"	-1	AA	EC	FF
+"lee 195"	-1	2C	9F	4D
+"lee 196"	-1	7B	9C	B5
+"lee 197"	-1	76	86	A9
+PFEND
+
+MACRO "RESET" 1   10
+"data"        0   54
+"delay"       1   30
+"data"        0   00
+MEND

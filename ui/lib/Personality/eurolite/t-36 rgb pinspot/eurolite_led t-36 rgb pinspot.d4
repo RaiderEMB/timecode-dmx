@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="LED T-36 RGB Pinspot" ShortName=" LED T-36" Company="Eurolite">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="06-11-06" Author="D.Milligan" Comment="Created" />
+  <History Date="06-11-06" Author="D.Milligan" Comment="Checked" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="Dimmer" ID="1" If="'Control'==1&amp;&amp;'Macro'==1" />
+      <Condition Name="Dec Bright" ID="2,3" If="'Control'==2||'Control'==3||'Control'==4&amp;&amp;'Macro'==1" />
+      <Condition Name="Music" ID="4" If="'Control'==5||'Control'==6||'Control'==7||'Control'==8||'Macro'==2" />
+      <Else ID="1,2,3,4" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+      <Function ID="2" Name="Open" Display="'Open'" Dmx="0~15" Colour="255,255,255" />
+      <Function ID="3" Name="Red" Display="'Red'" Dmx="16~255" Colour="255,0,0" />
+      <Function ID="4" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="Dimmer" ID="1" If="'Control'==1&amp;&amp;'Macro'==1" />
+      <Condition Name="Dec Bright" ID="2,3" If="'Control'==2||'Control'==3||'Control'==4&amp;&amp;'Macro'==1" />
+      <Condition Name="Music" ID="4" If="'Control'==5||'Control'==6||'Control'==7||'Control'==8||'Macro'==2" />
+      <Else ID="1,2,3,4" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+      <Function ID="2" Name="Open" Display="'Open'" Dmx="0~15" Colour="255,255,255" />
+      <Function ID="3" Name="Green" Display="'Green'" Dmx="16~255" Colour="0,255,0" />
+      <Function ID="4" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Condition Name="Dimmer" ID="1" If="'Control'==1&amp;&amp;'Macro'==1" />
+      <Condition Name="Dec Bright" ID="2,3" If="'Control'==2||'Control'==3||'Control'==4&amp;&amp;'Macro'==1" />
+      <Condition Name="Music" ID="4" If="'Control'==5||'Control'==6||'Control'==7||'Control'==8||'Macro'==2" />
+      <Else ID="1,2,3,4" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+      <Function ID="2" Name="Open" Display="'Open'" Dmx="0~15" Colour="255,255,255" />
+      <Function ID="3" Name="Blue" Display="'Blue'" Dmx="16~255" Colour="0,0,255" />
+      <Function ID="4" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Macro" Name="Macro" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~15" Update="Green, Red, Blue, Control, Speed" />
+      <Function ID="2" Name="Macro On" Display="'Macro On'" Dmx="16~255" Update="Green, Red, Blue, Control, Speed" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Speed" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Dimmer" ID="1,2" If="'Control'==1||'Macro'==2" />
+      <Condition Name="Dec Bright" ID="3" If="'Control'==2||'Control'==3||'Control'==4||'Control'==5||'Control'==6||'Control'==7&amp;&amp;'Macro'==1" />
+      <Condition Name="Music" ID="4" If="'Control'==8&amp;&amp;'Macro'==1" />
+      <Else ID="4,3,1,2" />
+      <Function ID="4" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+      <Function ID="3" Name="Speed" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~15" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="16~255" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Safe" ID="1,2,3,4,5,6,7,8" If="'Macro'==1" />
+      <Condition Name="Macro On" ID="9" If="'Macro'==2" />
+      <Else ID="1,2,3,4,5,6,7,8,9" />
+      <Function ID="1" Name="Dimmer" Display="'Dimmer'" Dmx="0~31" Update="Speed, Red, Green, Blue" />
+      <Function ID="2" Name="Dec Bright" Display="'Dec Bright'" Dmx="32~63" Update="Speed, Red, Green, Blue" />
+      <Function ID="3" Name="Inc Bright" Display="'Inc Bright'" Dmx="64~95" Update="Speed, Red, Green, Blue" />
+      <Function ID="4" Name="Dec then Inc" Display="'Dec then Inc'" Dmx="96~127" Update="Speed, Red, Green, Blue" />
+      <Function ID="5" Name="Auto Colour" Display="'Auto Colour'" Dmx="128~159" Update="Speed, Red, Green, Blue" />
+      <Function ID="6" Name="3 Colour Flash" Display="'3 Colour Flash'" Dmx="160~191" Update="Speed, Red, Green, Blue" />
+      <Function ID="7" Name="7 Colour Flash" Display="'7 Colour Flash'" Dmx="192~223" Update="Speed, Red, Green, Blue" />
+      <Function ID="8" Name="Music" Display="'Music'" Dmx="224~255" Update="Speed, Red, Green, Blue" />
+      <Function ID="9" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Update="Speed, Red, Green, Blue" />
+    </Attribute>
+  </Control>
+  <Mode Name="6 DMX, 8bit" Channels="6">
+    <Import PearlRef="" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Red" ChannelOffset="1" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="2" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="3" Wheel="12" />
+      <Attribute ID="Macro" ChannelOffset="4" Wheel="29" />
+      <Attribute ID="Speed" ChannelOffset="5" Wheel="25" />
+      <Attribute ID="Control" ChannelOffset="6" Wheel="28" />
+    </Include>
+  </Mode>
+</Fixture>

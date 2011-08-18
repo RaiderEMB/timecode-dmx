@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Whisper" ShortName="Whisper" Company="Compulite">
+  <Copyright Notice="© Avolites Ltd. 2011" />
+  <History Date="04-01-11" Author="Nic Morris" Comment="Created" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Colour" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Fan" Name="Fan" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Fan" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="No Fan Control, Pending Dimmer" Channels="1">
+    <Import PearlRef="CLT_WhispM1" DiamondRef="CLT_whisp" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="0" Wheel="1" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="7" />
+    </Include>
+  </Mode>
+  <Mode Name="Fan Control, Pending Dim" Channels="2">
+    <Import PearlRef="CLT_WhispM2" DiamondRef="CLT_whisp" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="0" Wheel="1" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="7" />
+      <Attribute ID="Fan" ChannelOffset="2" Wheel="25" />
+    </Include>
+  </Mode>
+</Fixture>

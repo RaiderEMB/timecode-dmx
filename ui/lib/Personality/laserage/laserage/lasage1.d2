@@ -1,0 +1,174 @@
+;-----------------------------------------------------------------------|
+;Laserage Extended Personality 1rst 18 channels Diamond II Personality  |
+;-----------------------------------------------------------------------|
+; History  :-                                                           |
+;-----------------------------------------------------------------------|
+; Revision |  Date     |  By    | Description                           |
+;----------|-----------|--------|---------------------------------------|
+; 1.0      |  03-08-01 | Edward | Created                               |
+;-----------------------------------------------------------------------|
+;
+DEVICE=Laserage_1                   ; Device Name (upto 11 chars after '='
+DEVICE23=18-Channels              ; 22 chars after '='
+            ; extra information for softkey prompt lines 2&3
+                        ; a total of 22 chars, split into 2 lines of 11
+
+; Device information
+;                                  __ Number of lines of DMX info.
+;                                 |  __ Number of lines of wheel info
+;                                 | |
+;                                 | |
+;                                 | |
+HSTART 1 18 1b05  90  90 ff 0 2  18 22
+;      |  |  |    |   |  |  | |
+;      |  |  |    |   |  |  | |__ Line number for flash button DMX info
+;      |  |  |    |   |  |  |      from DMX definition (1..x)
+;      |  |  |    |   |  |  |__ Button release value
+;      |  |  |    |   |  |__ Button ON value (ff means use swop/add fader)
+;      |  |  |    |   |__ The TILT arc in Degrees
+;      |  |  |    |__ The Pan arc in degrees
+;      |  |  |__ Date in PC format (1b05==5/08/93)
+;      |  |__ Number of DMX slots used
+;      |__ Patch direction (1-backward, 0 forward, (3 for moving head, 1 for Moving Mirror))
+
+
+
+TEXTSTART          ; Upto 21 lines of 28 characters (use the template below)
+                               ;
+ Laserage Extended Personality  ;
+   1st 18 Channels              ;
+                               ;
+                               ;
+TEXTEND
+
+
+;------------------------------------------------------------
+
+; For the Attribute Dictionary refer to file 'dict.per'
+
+;------------------------------------------------------------
+; DMX information
+; No unused lines allowed between keyword 'DSTART' and last DMX definition
+
+DSTART                          ; DMX defintion
+1  2  0 0  35 0      ; Function
+2  2  0 0 210 0      ; Graphic
+3  2  0 0  25 0      ; ScanSpeed
+4  2  0 0 216 0      ; Clipping
+5  2  0 0   5 0      ; Red
+6  2  0 0  10 0      ; Green
+7  2  0 0   6 0      ; Blue
+8  2  0 0  38 0      ; Colour
+9  2  0 0 139 0      ; Horizontal
+10 2  0 0 140 0      ; Vertical
+11 2  0 0 215 0      ; Clones
+12 2  0 0 129 0      ; Size
+13 2  0 0 214 0      ; Depth
+14 2  0 0 211 0      ; X-Axis
+15 2  0 0 212 0      ; Y-Axis
+16 2  0 0 213 0      ; Z-Axis
+17 2  0 0  51 0      ; Effect
+18 2  0 0  56 0      ; Speed
+;| |  | |  | |
+;| |  | |  | |__ Spare (always 0 for now)
+;| |  | |  |__ Attribute name (See list above)
+;| |  | |__ Curve (0 means no curve otherwise curve number)
+;| |  |__ Flags (7=inverted, 6=instant, 5=16-bit)
+;| |__ Channel type (1=HTP, 2=LTP, 0=Dummy(for 16-bit defines)
+;|_ DMX offset (1..255, 0 means DIMMER will be patched seperately)
+
+
+;------------------------------------------------------------
+; WHEEL information
+; No unused lines allowed between keyword 'WSTART' and last DMX definition
+
+WSTART
+8 ffff 0101 1  35 0 41   0 1  0  1  0  0  0  0  0  ; 1. Function
+8 ffff 0a0a 1 210 0 25   0 1  1  2  0  0  0  0  0  ; 2. Graphic
+8 ffff 0505 1  25 0 26   0 1  2  3  0  0  0  0  0  ; 3. ScanSpeed 
+8 ffff ffff 4 216 0  8   0 1  3  4  0  0  0  0  0  ; 4. Clipping
+8 ffff ffff 1   5 0 10   0 1  4  5  0  0  0  0  0  ; 5. Red
+8 ffff ffff 1  10 0 11   0 1  5  6  0  0  0  0  0  ; 6. Green
+8 ffff ffff 1   6 0 12   0 1  6  7  0  0  0  0  0  ; 7. Blue
+8 ffff    0 1  38 0  9   0 1  7  8  0  0  0  0  0  ; 8. Colour
+8 ffff 8080 3 139 0  5   0 1  8  9  0  0  0  0  0  ; 9. Horizontal
+8 ffff 8080 3 140 0  6   0 1  9 10  0  0  0  0  0  ; 10. Vertical
+8 ffff    0 1 215 0 27   0 1 10 11  0  0  0  0  0  ; 11. Clones
+8 ffff ffff 1 129 0 28   0 1 11 12  0  0  0  0  0  ; 12. Size
+8 ffff    0 1 214 0 33   0 1 12 13  0  0  0  0  0  ; 13. Depth
+8 ffff    0 1 211 0 34   0 1 13 14  0  0  0  0  0  ; 14. X-Axis
+8 ffff    0 1 212 0 35   0 1 14 15  0  0  0  0  0  ; 15. Y-Axis 
+8 ffff    0 1 213 0 36   0 1 15 16  0  0  0  0  0  ; 16. Z-Axis
+8 ffff    0 1  51 0 31   0 1 16 17  0  0  0  0  0  ; 17. Effect
+8 ffff    0 1  56 0 42   0 1 17 18  0  0  0  0  0  ; 18. Speed
+8 ffff    0 2   4 0  1   4 3  4  5  6  7  0  0  0  ; 19. Colour Table
+8 ffff    0 2 210 0  2 210 1  1  2  0  0  0  0  0  ; 20. Graphic Table
+8 ffff    0 2  25 0  3  25 1  2  3  0  0  0  0  0  ; 21. Scan SpeedTable
+8 ffff    0 2 216 0  4 216 1 10 11  0  0  0  0  0  ; 22. Clone Table
+;|   |    | |   | |  |   | |  |  |  |  |  |  |  |__ List of Table channels as
+;|   |    | |   | |  |   | |  |  |_______________ line numbers from DMX def.
+;|   |    | |   | |  |   | |  |                   0 means unused channel
+;|   |    | |   | |  |   | |  |__ DMX line (minus 1) pertainig to this wheel
+;|   |    | |   | |  |   | |__ Number of chanels under control OR Table width
+;|   |    | |   | |  |   |__ Table type (Attribute number) 0 means NOT a table
+;|   |    | |   | |  |__ Wheel number (1..8 on bank1, 9..16 on bank2 et cetera)
+;|   |    | |   | |__ 0 for 8 bits, 1 for 16 bits
+;|   |    | |   |__  Attribute name from above list (0..MAX)
+;|   |    | |__ Wheel type (1-offset, 2-Table, 3-Pan/Tilt, 4-Dimmer)
+;|   |    |__ Default value (left shifted as necessary)
+;|   | _ AND mask, where more than wheel controls same DMX slot
+;|__ Wheel multiplication =16-(bits used)
+;    eg. for 8 bit channels it is 8, for 12 bit channels it is 4
+
+;--------------------------------------------------------------------
+; TABLES
+; Each Table is enclosed by the keywords "TSTART" and "*** TEND ***"
+; The legend is 16 chars long
+; The correct number of values must be supplied (8-bits) with spaces in
+; between
+
+
+TSTART 3 5
+Colour 1         255 255 255
+Colour 2         255   0   0
+Colour 3           0 255   0
+Colour 4           0   0 255
+Colour 5         255   0 255
+Colour 6         255 255   0
+Colour 7           0 255 255
+Colour 8         255 255   0 
+*** TEND ***
+
+; A Graphic table
+TSTART 1  210
+Graphic 1          0
+Graphic 2          5
+Graphic 3          9
+Graphic 4         13
+Graphic 5         40 
+Graphic 6         41
+Graphic 7         42
+Graphic 8         42 
+*** TEND ***
+
+; A Graphic table
+TSTART 1 216
+Clipping 1          0
+Clipping 2         10
+*** TEND ***
+
+
+; A Graphic table
+TSTART 1 215
+1st Clone         1
+2nd Clone         2
+3rd Clone         3
+4th Clone         4
+5th Clone         5
+6th Clone         6
+7th Clone         7
+8th Clone         8
+9th Clone         9
+10h Clone        10
+*** TEND ***
+

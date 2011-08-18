@@ -1,0 +1,197 @@
+; "High End Cyberlight mode 3", 15 DMX channels, filename :hecyber3.r96
+;
+;   Date      By        Description
+;   24-05-96  S. Anwar  Created from Cyber mode 1 
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  HE_Cyber_3
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  15  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR	1	170	108
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;	+,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;	& means logical AND
+;	| means logical OR 
+;	R means reverse the bits of the curernt result (operates on a byte)
+;	^ means logical Exclusive OR (operates on a byte)
+;	> means shift to the right
+;	< shift to the left
+;	r followed by number means get the value of that parameter 
+;	d DMX address
+;	n Fixture name, a 0 terminated character string
+;	h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+"Dip Switch  1234 5678"
+"Personality 0000 0000"
+"Address     %b%b%b%b %b%b11"d/15%2,d/30%2,d/60%2,d/120%2,d/240%2,d/480%2  
+""
+"0=OFF ( Right )"
+"1=ON  ( Left  )" 
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=496
+;
+; DMX number must be divisible by this	
+DIVBY=15
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel, BCD=Color Mix, E=Pan, F=Tilt, 
+;					 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 charcaters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX
+3  61   S    1  100 1N  E   1   "Pan"           128   -1   -1  ; PAN
+0   0   L    2  100 1N  E   1   "Pan Low"       128   -1   -1  ; PAN Low
+3   1   S    3  100 1N  F   1   "Tilt"          128   -1   -1  ; TILT
+0   0   L    4  100 1N  F   1   "Tilt Low"      128   -1   -1  ; TILT Low
+4   1   I    5  100 1N  0   1   "Color Wheel"     0    0    0  ; COLOUR WHEEL
+6   1   I    6  100 1N  0   1   "Gobo 1"          0    0    0  ; GOBO 1
+6  61   I    7  100 1N  0   1   "Gobo 2"          0    0    0  ; GOBO 2
+8  61   I    8  100 1N  0   1   "Gobo Speed"      0    0    0  ; GOBO SPEED
+5  61   L    9  100 1N  0   1   "Focus"           0   -1   -1  ; FOCUS
+2   1   I   10  100 1N  0   1   "Iris "         255  255  255  ; IRIS
+9   1   I   11  100 1N  0   1   "Effects"         0    0    0  ; EFFECT WHEEL
+2  61   L   12  100 1N  0   1   "Shutter"       255  255  255  ; SHUTTER
+1   1   H   13  100 1N  0   1   "Dimmer"        255  255  255  ; DIMMER
+8   1   L   14  100 1N  0   1   "Motor Speed"   255  255  255  ; MOTOR SPEED
+11  1   I   15  100 1N  0   1   "Control"         0    0    0  ; Control
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+Cyberlight CX Mode 3
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1 Dimmer   --
+ 2 Iris     Shutter
+ 3 Tilt     Pan
+ 4 Colour 1 -- 
+ 5 Focus    --     
+ 6 Gobo 1   Gobo 2
+ 7 --       --
+ 8 M-speed  Gobo spd
+ 9 Effect   --     
+10 --       --     
+11 Control  --
+
+INPUT and/or note DMX 
+number.
+Press a channel grab 
+to make patch
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+; A color table color wheel, cyan, magenta, yellow
+PFTABLE "Color" 29  5
+"White"          1  ff
+"UV"             2  d4
+"Blue"           3  c7
+"Turquoise"      4  b9
+"Lime"           5  aa
+"Magenta"        6  9d
+"Yellow"         7  8f
+"Red"            8  7f
+"Fast_spin"      9  54
+"Slow_spin"     10  40
+PFEND
+
+
+; Gobo
+PFTABLE "Gobos"   30  5  6  7
+"Gobo 1.1"        11  2  0  0
+"Gobo 1.2"        12 af  0  0
+"Gobo 1.3"        13 b9  0  0
+"Gobo 1.4"        14 c3  0  0
+"Gobo 1.5"        15 cc  0  0
+"Gobo 1.6"        16 d7  0  0
+"Gobo 1.7"        17 e1  0  0
+"Wedges"          18  0 d7  0
+"Dot_Dash"        19  0 be  0
+"Dougnut"         20  0 af  0
+"Frozen"          -1  0 e4  0
+PFEND
+
+ 
+; Positions
+PFTABLE "Positions" -1 1 3
+"Middle"    21 80  80
+"Left"      22 50  80
+"Right"     23 b0  80
+"Top"       24 80  50
+"Bottom"    25 80  b0
+"TLeft"     26 50  50
+"TRight"    27 b0  b0
+"BLeft"     28 50  b0
+"BRight"    29 b0  50
+PFEND
+
+MACRO "HOME" 1  13  15
+"data"       0   0  ff  
+"delay"      1  20
+"data"       0   0  40
+"delay"      1  40
+"data"       0   0   0
+MEND
+
+
+MACRO "SHUTDOWN" 2  13  15
+"data"           0   0  ff  
+"delay"          1  20
+"data"           0   0  80
+"delay"          1  40
+"data"           0   0   0
+MEND
+
+
+
+
+
+
+

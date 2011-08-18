@@ -1,0 +1,255 @@
+; 'High Line Wash 575', 16 DMX Channels, filename: HLWSH575.R20
+;  Copyright © Avolites Ltd. 2010
+;
+;   Date       By                Description
+;   12-07-10   Pers Creator      Created - Exported from Diamond 4 file.
+;   12-07-10   Jonathan Moreton  Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  HL_Wsh575                           mode=16 DMX, 8bit  16 DMX Channels
+NAME "High Line" "Wash 575"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  16  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   540  250
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 16 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=496
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    3   100   1N   H   1   "Dimmer"            0     0     0
+2    61   L    4   100   1N   O   1   "Shutter"         244     0     0
+3    61   s    5   100   1N   E   1   "Pan"             128     0     0
+0     0   L    6   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    7   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    8   100   1N   F   1   "Tilt Low"        128     0     0
+4     1   I    2   100   1N   A   1   "Colour 1"          0     0     0
+10    1   L   12   100   1N   B   1   "Cyan"              0     0   255
+10   61   L   13   100   1N   C   1   "Magenta"           0     0   255
+9    61   L   14   100   1N   D   1   "Yellow"            0   255    51
+4    61   L   15   100   1N   0   1   "CTO"               0     0     0
+2     1   L    1   100   1N   G   1   "Iris"              0     0     0
+9     1   I   11   100   1N   0   1   "Effect"            0     0     0
+8     1   L    9   100   1N   0   1   "P/T Speed"         0     0     0
+6     1   L   10   100   1N   0   1   "Vector Mode"       0     0     0
+8    61   L   16   100   1N   0   1   "CMY Speed"         0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+High Line Wash 575
+16 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1   4
+"Open"               31  24
+"Slow Strobe"        32  44
+"Fast Strobe"        33  54
+"Slow Pulse"         36  B4
+"Fast Pulse"         37  F3
+"Closed"             38   A
+PFEND
+
+PFTABLE "Pan/Tilt"   -1   5   7
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Beam"       -1   1
+"Iris Small"         44   0
+"Iris Medium"        45   2
+"Iris Large"         46   5
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 3  ;Dimmer
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 4  ;Shutter
+0   20   "Closed"
+21  52   "Cl Pls %3d%%"(c-a)*100/(b-a)
+53  84   "Op Pls %3d%%"(c-a)*100/(b-a)
+85  115  "Open"
+116 243  "Strobe %3d%%"(c-a)*100/(b-a)
+244 255  "Open"
+REND
+
+RANGE 5  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Colour 1
+0   7    "Open"
+8   15   "Op/Re %3d%%"(c-a)*100/(b-a)
+16  23   "Red"
+24  31   "Re/Ye %3d%%"(c-a)*100/(b-a)
+32  39   "Yellow"
+40  47   "Ye/Ma %3d%%"(c-a)*100/(b-a)
+48  55   "Magenta"
+56  63   "Ma/Gr %3d%%"(c-a)*100/(b-a)
+64  71   "Green"
+72  79   "Gr/Or %3d%%"(c-a)*100/(b-a)
+80  87   "Orange"
+88  95   "Or/Bl %3d%%"(c-a)*100/(b-a)
+96  103  "Blue"
+104 111  "Bl/Pi %3d%%"(c-a)*100/(b-a)
+112 119  "Pink"
+120 127  "Pi/Op %3d%%"(c-a)*100/(b-a)
+128 255  "Scroll %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 12  ;Cyan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Magenta
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Yellow
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;CTO
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 1  ;Iris
+0   5    "Open"
+6   10   "Closed"
+11  51   "Pulse %3d%%"(c-a)*100/(b-a)
+52  56   "Closed"
+57  62   "Open"
+63  250  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+251 255  "Open"
+REND
+
+RANGE 11  ;Effect
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;P/T Speed
+0   249  "%3d%%"100-((c-a)*100/(b-a))
+250 255  "Max Speed"
+REND
+
+RANGE 10  ;Vector Mode
+0   5    "Safe"
+6   45   "Prism Vec"
+46  85   "Color 2 Vec"
+86  125  "Color 1 Vec"
+126 165  "Gobo Vector"
+166 205  "P/T Vector"
+206 245  "All Vector"
+246 255  "Safe"
+REND
+
+RANGE 16  ;CMY Speed
+0   250  "%3d%%"100-((c-a)*100/(b-a))
+251 255  "Max Speed"
+REND
+

@@ -1,0 +1,233 @@
+; "High End Studio X-SPOT", 38 DMX channels, filename :hexspot.r96
+;
+;   Date      By           Description
+;   17-05-05  P Rogers     Created from R20 file
+;   01-06-05   John Snelling     Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  HE_XSpot                                   38 DMX channels
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  38  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2  630 240
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;       +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;       & means logical AND
+;       | means logical OR 
+;       R means reverse the bits of the curernt result (operates on a byte)
+;       ^ means logical Exclusive OR (operates on a byte)
+;       > means shift to the right
+;       < shift to the left
+;       r followed by number means get the value of that parameter 
+;       d DMX address
+;       n Fixture name, a 0 terminated character string
+;       h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+"  High End"
+"   x.Spot "
+" 38 DMX Chs"
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=478
+;
+; DMX number must be divisible by this 
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt, 
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom, 
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 charcaters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX
+3  61   s    1  100 1N  E   1   "Pan"           128   -1   -1  ; PAN
+0   0   L    2  100 1N  E   1   "Pan Low"       128   -1   -1  ; PAN Low
+3   1   s    3  100 1N  F   1   "Tilt"          128   -1   -1  ; TILT
+0   0   L    4  100 1N  F   1   "Tilt Low"      128   -1   -1  ; TILT Low
+19 61   I    5  100 1N  0   1   "LampCntrl"       0    0    0  ; Lamp Control
+2  61   I    6  100 1N  0   1   "Shutter"       255  255  255  ; Shutter
+1   1   H    7  100 1N  0   1   "Dimmer"        255  255  255  ; Dimmer
+15  1   L    8  100 1N  0   1   "Frost"           0    0    0  ; Frost
+15 61   L    9  100 1N  0   1   "FocusCntrl"      0    0    0  ; Focus Control
+5  61   L   10  100 1N  0   1   "Focus"           0    0    0  ; Focus
+5   1   L   11  100 1N  0   1   "Zoom"            0    0    0  ; Focus
+20  1   I   12  100 1N  0   1   "MSpeed"          0    0    0  ; MSpeed
+20 61   I   13  100 1N  0   1   "Macros"          0    0    0  ; Macros
+11  1   I   14  100 1N  0   1   "Control"         0    0    0  ; Control
+4  61   I   15  100 1N  0   1   "ColorFunc"       0    0    0  ; Col Function
+4   1   I   16  100 1N  A   1   "Color"           0    0    0  ; Color
+9   1   I   17  100 1N  0   1   "ColMixFunc"      0    0    0  ; Col Mix Function
+10  1   L   18  100 1N  B   1   "Cyan"          255  255  255  ; Cyan
+10 61   L   19  100 1N  C   1   "Magenta"       255  255  255  ; Magenta
+9  61   L   20  100 1N  D   1   "Yellow"        255  255  255  ; Yellow
+8   1   L   21  100 1N  0   1   "CTO"             0    0    0  ; CTO
+8  61   L   22  100 1N  0   1   "CTB"             0    0    0  ; CTB
+16  1   I   23  100 1N  0   1   "LithoFunc1"      0    0    0  ; Litho1 Function
+6   1   I   24  100 1N  0   1   "Litho1"          0    0    0  ; Litho1
+19  1   I   25  100 1N  0   1   "LRot1_Func"      0    0    0  ; LithoRot1 Func
+7   1   I   26  100 1N  0   1   "LRot1Hi"         0    0    0  ; LithoRot1 High
+17  1   I   27  100 1N  0   1   "LRot1Low"        0    0    0  ; LithoRot1 Low
+12 61   I   28  100 1N  0   1   "EffectFunc"      0    0    0  ; Effect Function
+14  1   I   29  100 1N  0   1   "Effect"          0    0    0  ; Effect
+12  1   I   30  100 1N  0   1   "Eff.RotFunc"     0    0    0  ; Effect Rot Function
+13 61   I   31  100 1N  0   1   "EffectRotHi"     0    0    0  ; Effect Rot High
+13  1   I   32  100 1N  0   1   "EffectRotLow"    0    0    0  ; Effect Rot Low
+16 61   I   33  100 1N  0   1   "LithoFunc2"      0    0    0  ; Litho2 Function
+6  61   I   34  100 1N  0   1   "Litho2"          0    0    0  ; Litho2
+11 61   I   35  100 1N  0   1   "LRot2_Func"      0    0    0  ; LithoRot2 Function
+7  61   I   36  100 1N  0   1   "LoRot2Hi"        0    0    0  ; LithoRot2 High
+17 61   I   37  100 1N  0   1   "LoRot2Low"       0    0    0  ; LithoRot2 Low
+2   1   L   38  100 1N  0   1   "Iris"          128  128  128  ; Iris
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+  High End x.Spot
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1 Dimmer   --
+ 2 Iris     Shutter
+ 3 Tilt     Pan
+ 4 Color1   ColFunc
+ 5 Zoom     Focus
+ 6 Litho1   Litho2
+ 7 LithoRt1 LithoRt2
+ 8 CTO      CTB
+ 9 Effect   Yellow
+10 Cyan     Magenta
+11 MSpeed   Control
+12 Macros   --
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+
+PFTABLE "Static Colors" -1 15 16
+"Open"                1   0  0
+"Red"                 2   0  2b
+"Yellow"              3   0  51
+"Green"               4   0  77
+"Orange"              5   0  9d
+"Blue"                6   0  c3
+PFEND
+
+
+PFTABLE "Litho1" -1 23 24
+"Open"                 7   0  0
+"1Position 2"          8   0  10
+"1Position 3"          9   0  30
+"1Position 4"         10   0  50
+"1Position 5"         11   0  70
+"1Position 6"         12   0  90
+"1Position 7"         13   0  b0
+"1Position 8"         14   0  d0
+"Stopped"             15  10   0
+"Forward  50%"        16  10  7f
+"Forward 100%"        17  10  ff
+"Reverse  50%"        18  20  7f
+"Reverse 100%"        19  20  ff
+PFEND
+
+; Positions
+PFTABLE "Positions" -1 1 3
+"Middle"    21 80  80
+"Left"      22 50  80
+"Right"     23 b0  80
+"Top"       24 80  50
+"Bottom"    25 80  b0
+"TLeft"     26 50  50
+"TRight"    27 b0  b0
+"BLeft"     28 50  b0
+"BRight"    29 b0  50
+PFEND
+
+
+
+
+
+
+MACRO "RESET" 1   6  14
+"data"        0   0  0
+"delay"       1  10
+"data"        0   0  41
+"delay"       1  32
+"data"        0  ff  0
+MEND
+
+MACRO "LAMP ON" 2   6  14
+"data"          0   0  0
+"delay"         1  10
+"data"          0   0  54
+"delay"         1  32
+"data"          0  ff  0
+MEND
+
+MACRO "LAMP OFF" 3  6  14
+"data"           0  0  0
+"delay"          1  10
+"data"           0  0  5e
+"delay"          1  32
+"data"           0  ff 0
+MEND
+
+MACRO "SHUTDOWN" 4   6  14 10 
+"data"           0   0   0 a5
+"delay"          1  10
+"data"           0   0  80 a5
+"delay"          1  32
+"data"           0  ff   0 0
+MEND

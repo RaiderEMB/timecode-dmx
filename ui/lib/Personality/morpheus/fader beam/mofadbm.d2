@@ -1,0 +1,190 @@
+;-----------------------------------------------------------------------|
+; The Morpheus Fader Beam, 2 DMX channels                               |
+;-----------------------------------------------------------------------|
+; History  :-                                                           |
+;-----------------------------------------------------------------------|
+; Revision |  Date     |  By       | Description                        |
+;----------|-----------|-----------|------------------------------------|
+; 1.0      |  13-03-03 | D.Shelton | Created                            |
+;-----------------------------------------------------------------------|
+DEVICE=MoColFad               ; Device Name (upto 11 chars after '='
+DEVICE23=2 Channels              ; 22 chars after '='
+            ; extra information for softkey prompt lines 2&3
+                        ; a total of 22 chars, split into 2 lines of 11
+
+; Device information
+;                                 __ Number of lines of DMX info.
+;                                |  __ Number of lines of wheel info
+;                                | |
+;                                | |
+;                                | |
+HSTART 2  2 1b05 380 270 ff 0 2  8 3
+;      |  |  |    |   |  |  | |
+;      |  |  |    |   |  |  | |__ Line number for flash button DMX info
+;      |  |  |    |   |  |  |      from DMX definition (1..x)
+;      |  |  |    |   |  |  |__ Button release value
+;      |  |  |    |   |  |__ Button ON value (ff means use swop/add fader)
+;      |  |  |    |   |__ The TILT arc in Degrees
+;      |  |  |    |__ The Pan arc in degrees
+;      |  |  |__ Date in PC format (1b05==5/08/93)
+;      |  |__ Number of DMX slots used
+;      |__ Patch direction (1-backward, 0 forward, 2 for moving head)
+
+
+
+TEXTSTART          ; Upto 21 lines of 28 characters (use the template below)
+                               ;
+ MORPHEUS Color Fader          ;
+                               ;
+                               ;
+   2 DMX CHANNELS              ;
+                               ;
+                               ;
+TEXTEND
+
+
+;------------------------------------------------------------
+
+; For the Attribute Dictionary refer to file 'dict.per'
+
+;------------------------------------------------------------
+; DMX information
+; No unused lines allowed between keyword 'DSTART' and last DMX definition
+
+DSTART                          ; DMX defintion
+1  2  0 0  4  0      ; COLOR
+2  2  0 0 168 0      ; TIME
+;| |  | |  | |
+;| |  | |  | |__ Spare (always 0 for now)
+;| |  | |  |__ Attribute name (See list above)
+;| |  | |__ Curve (0 means no curve otherwise curve number)
+;| |  |__ Flags (7=inverted, 6=instant, 5=16-bit)
+;| |__ Channel type (1=HTP, 2=LTP, 0=Dummy(for 16-bit defines)
+;|_ DMX offset (1..255, 0 means DIMMER will be patched seperately)
+
+
+;------------------------------------------------------------
+; WHEEL information
+; No unused lines allowed between keyword 'WSTART' and last DMX definition
+
+WSTART
+8 ffff    0 1   4 0  1   0 1  0  1  0  0  0  0  0  ; 1. COLOR
+8 ffff    0 1 168 0  2   0 1  1  2  0  0  0  0  0  ; 2. TIME
+8 ffff 8000 2  38 0  3   4 1  0  1  0  0  0  0  0  ; 3. TABLE
+;|   |    | |   | |  |   | |  |  |  |  |  |  |  |__ List of Table channels as
+;|   |    | |   | |  |   | |  |  |_______________ line numbers from DMX def.
+;|   |    | |   | |  |   | |  |                   0 means unused channel
+;|   |    | |   | |  |   | |  |__ DMX line (minus 1) pertainig to this wheel
+;|   |    | |   | |  |   | |__ Number of chanels under control OR Table width
+;|   |    | |   | |  |   |__ Table type (Attribute number) 0 means NOT a table
+;|   |    | |   | |  |__ Wheel number (1..8 on bank1, 9..16 on bank2 et cetera)
+;|   |    | |   | |__ 0 for 8 bits, 1 for 16 bits
+;|   |    | |   |__  Attribute name from above list (0..MAX)
+;|   |    | |__ Wheel type (1-offset, 2-Table, 3-Pan/Tilt, 4-Dimmer)
+;|   |    |__ Default value (left shifted as necessary)
+;|   | _ AND mask, where more than wheel controls same DMX slot
+;|__ Wheel multiplication =16-(bits used)
+;    eg. for 8 bit channels it is 8, for 12 bit channels it is 4
+
+;--------------------------------------------------------------------
+; TABLES
+; Each Table is enclosed by the keywords "TSTART" and "*** TEND ***"
+; The legend is 16 chars long
+; The correct number of values must be supplied (8-bits) with spaces in
+; between
+;--------------------------------------------------------------------
+
+TSTART 1 4
+"Clear"                00
+"L103"                 03
+"R11"                  06
+"R14"                  09
+"L104"                 11
+"R15"                  13
+"CUSTOM"               16
+"G460"                 18
+"R12"                  21
+"L101"                 24
+"CUSTOM"               26
+"R02"                  29
+"R03"                  32
+"L176"                 35
+"R18"                  37
+"R147"                 39
+"R21"                  42
+"CUSTOM"               45
+"R22"                  47
+"R19"                  49
+"R25"                  52
+"R41"                  55
+"R24"                  57
+"L182"                 59
+"L106"                 62
+"CUSTOM"               64
+"CUSTOM"               67
+"G235"                 70
+"R26"                  73
+"G250"                 75
+"R27"                  78
+"L153"                 80
+"L109"                 82
+"R31"                  85
+"R34"                  88
+"L110"                 91
+"R36"                  93
+"L111"                 96
+"G180"                 98
+"L113"                 100
+"R46"                  103
+"R33"                  106
+"R35"                  108
+"R37"                  111
+"R38"                  114
+"R44"                  116
+"L128"                 118
+"G140"                 121
+"L126"                 124
+"G995"                 126
+"CUSTOM"               129
+"R51"                  131
+"R52"                  134
+"R54"                  137
+"L137"                 139
+"L142"                 141
+"R57A"                 144
+"R58A"                 147
+"L180"                 149
+"R59"                  152
+"L181"                 154
+"R60"                  157
+"R62"                  159
+"L161"                 162
+"R64A"                 165
+"R67"                  167
+"R68"                  169
+"R79"                  172
+"R83"                  175
+"G905"                 177
+"CUSTOM"               180
+"R73"                  182
+"L115"                 184
+"L116"                 187
+"R95"                  190
+"L117"                 192
+"L144"                 195
+"R71"                  197
+"R69"                  200
+"R76"                  202
+"CUSTOM"               205
+"G54"                  208
+"L138"                 211
+"L121"                 213
+"L122"                 216
+"R89"                  218
+"L124"                 221
+"G655"                 223
+"R90"                  226
+"R61"                  228
+"L139"                 231
+*** TEND ***
+

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Magnum Hazer" ShortName="MagnmHazer" Company="JEM">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="03-11-04" Author="Phil Rogers" Comment="Created" />
+  <History Date="05-11-04" Author="Tom Peck" Comment="Checked" />
+  <History Date="29-03-05" Author="Phil" Comment="Changed capitalisation of manufacturer" />
+  <History Date="28-01-09" Author="D4 Personality Fixer 2009" Comment="Changed manufacturer from Jem to JEM" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Smoke" Description="" Group="I">
+      <Locate Locate="2:100" PowerOn="1:0" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~19" Intensity="0~0" />
+      <Function ID="2" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="20~220" Intensity="0~0" />
+      <Function ID="3" Name="Prime" Display="'Prime'" Dmx="220~230" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Fan" Name="Fan" Description="" Group="I">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Auto" Display="'Auto'" Dmx="220~230" Intensity="0~0" />
+      <Function ID="2" Name="Speed" Display="'Speed %.f',0~100" Dmx="220~20" Intensity="0~0" />
+      <Function ID="3" Name="Fan Off" Display="'Fan Off'" Dmx="0~19" Intensity="0~0" />
+      <Function ID="4" Name="Fixture Off" Display="'Fixture Off'" Dmx="245~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="2 DMX, 8bit" Channels="2">
+    <Import PearlRef="JEMMagHazer" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Fan" ChannelOffset="2" Wheel="4" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Fixture Off">
+      <Set Channel="Fan:4" Delay="7000" />
+      <Set Channel="Fan:1" Delay="5000" />
+    </Macro>
+  </Macro>
+</Fixture>

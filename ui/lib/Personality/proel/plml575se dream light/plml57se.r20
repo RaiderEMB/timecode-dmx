@@ -1,0 +1,349 @@
+; 'Proel PLML575SE Dream Light', 16 DMX Channels, filename: PLML57SE.R20
+;  Copyright © Avolites Ltd. 2011
+;
+;   Date       By                Description
+;   08-06-07   D.Milligan        Created
+;   02-02-09   D4 Personality Fixer 2009Changed Function Names
+;   28-07-11   John Rogers       Cleaned up conditions, added palettes.
+;   28-07-11   Pers Creator      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  PL_ML575SE                          mode=16 DMX, 16bit  16 DMX Channels
+NAME "Proel" "PLML575SE Dream Light"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  16  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   530  280
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 16 DMX, 16bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=496
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Colour Wheel 1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1 Rotate,
+;         L=Focus, M=Gobo2 Rotate, N=Colour Wheel 2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   s    1   100   1N   E   1   "Pan"             128     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        128     0     0
+8     1   L    5   100   1N   0   1   "P/T Speed"         0     0     0
+10    1   L    6   100   1N   0   1   "Control"           0     0     0
+4     1   I    7   100   1N   A   1   "Colour 1"          0     0     0
+4    61   I    8   100   1N   N   1   "Colour 2"          0     0     0
+9     1   I    9   100   1N   P   1   "Prism"             0     0     0
+6     1   I   10   100   1N   I   1   "Gobo 1"            0     0     0
+6    61   I   11   100   1N   J   1   "Gobo 2"            0     0     0
+7    61   L   12   100   1N   M   1   "Gobo 2 Rot"        0     0     0
+2     1   L   13   100   1N   G   1   "Iris"            191     0     0
+5     1   L   14   100   1N   Q   1   "Zoom"             42     0     0
+2    61   L   15   100   1N   O   1   "Shutter"          32     0     0
+1     1   H   16   100   1N   H   1   "Dimmer"          255     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Proel
+PLML575SE Dream Light
+16 DMX, 16bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1  15
+"Open"               31  30
+"Slow Strobe"        32  50
+"Fast Strobe"        33  5F
+"Slow Random Strobe"  34  D0
+"Fast Random Strobe"  35  DF
+"Slow Pulse"         36  90
+"Fast Pulse"         37  9F
+"Closed"             38  10
+PFEND
+
+PFTABLE "Pan/Tilt"   -1   1   3
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1   7   8
+"Open"                1   0   6
+"Red"                 2  1A   6
+"Orange"              3  73   6
+"Yellow"              4  40   6
+"Green"               5  66   6
+"Cyan"                6  5A   6
+"Blue"                7  26   6
+"UV"                  9   0  72
+"Magenta"            10  4D   6
+"UV"                  8   0  72
+PFEND
+
+PFTABLE "Gobo"       -1  11
+"Open"               11  10
+"Gobo 1"             12  30
+"Gobo 2"             13  50
+"Gobo 3"             14  70
+"Gobo 4"             15  90
+"Gobo 5"             16  B0
+"Gobo 6"             17  D0
+PFEND
+
+PFTABLE "Beam"       -1  14  13
+"Zoom Small"         41   0  BF
+"Zoom Medium"        42  2A  BF
+"Zoom Large"         43  55  BF
+"Iris Small"         44  2A  BF
+"Iris Medium"        45  2A  60
+"Iris Large"         46  2A   0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Lamp On"       1   6
+"data"                0  86
+"delay"               1  32
+"data"                0  40
+"delay"               1   A
+MEND
+
+MACRO "Lamp Off"      2   6
+"data"                0  EA
+"delay"               1  32
+"data"                0  40
+"delay"               1   A
+MEND
+
+MACRO "Reset"         3   6
+"data"                0  86
+"delay"               1  32
+"data"                0  40
+"delay"               1   A
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 5  ;P/T Speed
+0   249  "Spd %3d%%"100-(((c-a)*100)/(b-a))
+250 252  "BO Col/Gb"
+253 255  "BO P/T"
+REND
+
+RANGE 6  ;Control
+0   127  "Fan %3d%%"100-(((c-a)*100)/(b-a))
+128 139  "Lamp On"
+140 229  "No Func"
+230 239  "Lamp Off"
+240 255  "No Func"
+REND
+
+RANGE 7  ;Colour1
+0   0    "Open"
+13  13   "Light Blue"
+26  26   "Red"
+38  38   "Blue"
+51  51   "Light Green"
+64  64   "Yellow"
+77  77   "Magenta"
+90  90   "Cyan"
+102 102  "Green"
+115 115  "Orange"
+128 190  "Scr CW %3d%%"100-(((c-a)*100)/(b-a))
+191 193  "No Scroll"
+194 255  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 8  ;Colour2
+0   11    "Open"
+12  23   "Deep Red"
+24  35   "Deep Blue"
+36  47   "Pink"
+48  59   "Cyan"
+60  71   "Magenta"
+72  83   "Yellow"
+84  95   "6000K"
+96  107  "3200K"
+108 119  "UV"
+120 127  "White"
+128 255  "Macro Ch7"
+REND
+
+RANGE 9  ;Prism
+0   0    "Open"
+1   63   "Sp CW %3d%%"100-(((c-a)*100)/(b-a))
+64  64   "No Rot"
+65  127  "Sp CCW %3d%%"0+(((c-a)*100)/(b-a))
+128 135  "Macro 1"
+136 143  "Macro 2"
+144 151  "Macro 3"
+152 159  "Macro 4"
+160 167  "Macro 5"
+168 175  "Macro 6"
+176 183  "Macro 7"
+184 191  "Macro 8"
+192 199  "Macro 9"
+200 207  "Macro 10"
+208 215  "Macro 11"
+216 223  "Macro 12"
+224 231  "Macro 13"
+232 239  "Macro 14"
+240 247  "Macro 15"
+248 255  "Macro 16"
+REND
+
+RANGE 10  ;Gobo 1
+0   7    "Open"
+8   15   "Gobo 1"
+16  23   "Gobo 2"
+24  31   "Gobo 3"
+32  39   "Gobo 4"
+40  47   "Gobo 5"
+48  55   "Gobo 6"
+56  63   "Gobo 7"
+64  71   "Gobo 8"
+72  79   "Gobo 9"
+80  95   "G1 S %3d%%"0+(((c-a)*100)/(b-a))
+96  111  "G2 S %3d%%"0+(((c-a)*100)/(b-a))
+112 127  "G3 S %3d%%"0+(((c-a)*100)/(b-a))
+128 143  "G4 S %3d%%"0+(((c-a)*100)/(b-a))
+144 159  "G5 S %3d%%"0+(((c-a)*100)/(b-a))
+160 175  "G6 S %3d%%"0+(((c-a)*100)/(b-a))
+176 191  "G7 S %3d%%"0+(((c-a)*100)/(b-a))
+192 207  "G8 S %3d%%"0+(((c-a)*100)/(b-a))
+208 223  "G9 S %3d%%"0+(((c-a)*100)/(b-a))
+224 255  "Sp CW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 11  ;Gobo 2
+0   31   "Open"
+32  63   "Gobo 1"
+64  95   "Gobo 2"
+96  127  "Gobo 3"
+128 159  "Gobo 4"
+160 191  "Gobo 5"
+192 223  "Gobo 6"
+224 255  "Sp CW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 12  ;Gobo Rot
+0   127  "Index %3d%%"0+(((c-a)*100)/(b-a))
+128 190  "Spn CW %3d%%"100-(((c-a)*100)/(b-a))
+191 192  "No Spin"
+193 255  "Sp CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 13  ;Iris
+0   0    "Closed"
+1   179  "Iris %3d%%"0+(((c-a)*100)/(b-a))
+180 191  "Open"
+192 223  "Op Pl %3d%%"0+(((c-a)*100)/(b-a))
+224 255  "Cl Pl %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 14 ;Focus
+0   85   "15"
+86  170  "18"
+171 255  "22"
+REND
+
+RANGE 15 ;Shutter
+0   31   "Closed"
+32  63   "Open"
+64  95   "Stobe %3d%%"100-(((c-a)*100)/(b-a))
+96  127  "Open"
+128 159  "Pulse %3d%%"0+(((c-a)*100)/(b-a))
+160 191  "Open"
+192 223  "Rnd St %3d%%"0+(((c-a)*100)/(b-a))
+224 255  "Open"
+REND
+

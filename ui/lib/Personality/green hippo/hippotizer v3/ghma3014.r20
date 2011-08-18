@@ -1,0 +1,771 @@
+; 'Green Hippo Hippotizer V3 Master Layer 3.0.14', 50 DMX Channels, filename: GHMA3014.R20
+;  Copyright © Avolites Ltd. 2011
+;
+;   Date       By                Description
+;   28-04-11   Pers Creator      Created - Exported from Diamond 4 file.
+;   28-04-11   John Rogers       Checked.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  GH3MST_3014         mode=Master Layer 3.0.14  50 DMX Channels
+NAME "Green Hippo" "Hippotizer Master Layer 3.0.14"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  50  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Master Layer 3.0.14"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=462
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+11    1   s    2   100   1N   0   1   "Key 1 X"           0     0     0
+0     0   L    3   100   1N   0   1   "Key 1 X Low"       0     0     0
+11   61   s    4   100   1N   0   1   "Key 1 Y"           0     0     0
+0     0   L    5   100   1N   0   1   "Key 1 Y Low"       0     0     0
+12    1   s    6   100   1N   0   1   "Key 2 X"         255     0     0
+0     0   L    7   100   1N   0   1   "Key 2 X Low"     255     0     0
+12   61   s    8   100   1N   0   1   "Key 2 Y"           0     0     0
+0     0   L    9   100   1N   0   1   "Key 2 Y Low"       0     0     0
+13    1   s   10   100   1N   0   1   "Key 3 X"         255     0     0
+0     0   L   11   100   1N   0   1   "Key 3 X Low"     255     0     0
+13   61   s   12   100   1N   0   1   "Key 3 Y"         255     0     0
+0     0   L   13   100   1N   0   1   "Key 3 Y Low"     255     0     0
+14    1   s   14   100   1N   0   1   "Key 4 X"           0     0     0
+0     0   L   15   100   1N   0   1   "Key 4 X Low"       0     0     0
+14   61   s   16   100   1N   0   1   "Key 4 Y"         255     0     0
+0     0   L   17   100   1N   0   1   "Key 4 Y Low"     255     0     0
+10    1   L   18   100   1N   T   1   "Red"             127   255     0
+10   61   L   19   100   1N   U   1   "Green"           127   255     0
+9    61   L   20   100   1N   V   1   "Blue"            127     0   229
+20    1   L   21   100   1N   0   1   "Brightness"      127     0     0
+20   61   L   22   100   1N   0   1   "Contrast"        127     0     0
+19   61   L   23   100   1N   0   1   "Negative"          0     0     0
+2     1   s   24   100   1N   0   1   "Rotation"          0     0     0
+0     0   L   25   100   1N   0   1   "Rotation Low"      0     0     0
+3    61   s   26   100   1N   E   1   "X-Pos"           128     0     0
+0     0   L   27   100   1N   E   1   "X-Pos Low"       128     0     0
+3     1   s   28   100   1N   F   1   "Y-Pos"           128     0     0
+0     0   L   29   100   1N   F   1   "Y-Pos Low"       128     0     0
+2    61   s   30   100   1N   Q   1   "Zoom"            128     0     0
+0     0   L   31   100   1N   Q   1   "Zoom Low"        128     0     0
+4     1   L   32   100   1N   0   1   "Effect 1"          0     0     0
+5     1   L   33   100   1N   0   1   "Effect 1 Lev"      0     0     0
+5    61   L   34   100   1N   0   1   "Eff 1 Param1"      0     0     0
+6     1   L   35   100   1N   0   1   "Eff 1 Param2"      0     0     0
+6    61   L   36   100   1N   0   1   "Eff 1 Param3"      0     0     0
+7     1   L   37   100   1N   0   1   "Eff 1 Param4"      0     0     0
+7    61   L   38   100   1N   0   1   "Eff 1 Param5"      0     0     0
+4    61   L   39   100   1N   0   1   "Effect 2"          0     0     0
+15    1   L   40   100   1N   0   1   "Effect 2 Lev"      0     0     0
+15   61   L   41   100   1N   0   1   "Eff 2 Param1"      0     0     0
+16    1   L   42   100   1N   0   1   "Eff 2 Param2"      0     0     0
+16   61   L   43   100   1N   0   1   "Eff 2 Param3"      0     0     0
+17    1   L   44   100   1N   0   1   "Eff 2 Param4"      0     0     0
+17   61   L   45   100   1N   0   1   "Eff 2 Param5"      0     0     0
+8    61   L   46   100   1N   0   1   "Mapping Sel"       0     0     0
+8     1   L   47   100   1N   0   1   "Mapping"           0     0     0
+18    1   L   48   100   1N   0   1   "Reserved 1"        0     0     0
+18   61   L   49   100   1N   0   1   "Reserved 2"        0     0     0
+19    1   L   50   100   1N   0   1   "Reserved 3"        0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Green Hippo
+Hippotizer Master Layer V3
+Master Layer 3.0.14
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Pan/Tilt"   -1  26  28
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1  18  19  20
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+PFTABLE "Beam"       -1  30
+"Zoom Small"         41   0
+"Zoom Medium"        42  80
+"Zoom Large"         43  FF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Key 1 X
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Key 1 Y
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Key 2 X
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 8  ;Key 2 Y
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Key 3 X
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 12  ;Key 3 Y
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 14  ;Key 4 X
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Key 4 Y
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 18  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 19  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 20  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 21  ;Brightness
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 22  ;Contrast
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 23  ;Negative
+0   0    "Off"
+255 255  "On"
+REND
+
+RANGE 24  ;Rotation
+128 191  "Spin C %3d%%"100-((c-a)*100/(b-a))
+192 192  "No Spin"
+192 255  "Spin %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 26  ;X-Pos
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 28  ;Y-Pos
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 30  ;Zoom
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 32  ;Effect 1
+0   0    "Open"
+1   1    "Blur"
+2   2    "Radial Blur"
+3   3    "Motion Blur"
+4   4    "Mask"
+5   5    "Sat/Hue/Bri"
+6   6    "Multi Image"
+7   7    "Inverse Lum"
+8   8    "XY-Shifter"
+9   9    "Shutter"
+10  10   "ChromaKey"
+11  11   "Johans Effe"
+12  12   "Scroller"
+13  13   "RGB Tint"
+14  14   "Colour Stud"
+15  15   "Strobe"
+16  16   "Neon"
+17  17   "CTB/CTO"
+18  18   "DuoTone"
+19  19   "RGB Pallett"
+20  20   "Bloom"
+21  21   "Interlace"
+22  22   "Random"
+24  24   "MegaZoom"
+25  25   "Noise"
+27  27   "Rings"
+28  28   "Cube Style"
+29  29   "Bump"
+30  30   "LED"
+31  31   "Pixelate"
+32  32   "Film"
+33  33   "Halftone"
+34  34   "Recursion  "
+35  35   "Colour Chan"
+36  36   "Colour     "
+37  37   "Plasma"
+38  38   "Flower 1"
+39  39   "Flip"
+40  40   "Kaleidoscop"
+41  41   "Roto Zoom"
+42  42   "Glass"
+43  43   "Aqua"
+44  44   "Tunnel"
+45  45   "Planes"
+46  46   "FluidDistor"
+47  47   "Polarwave"
+48  48   "Twisted"
+49  49   "Rectangles"
+50  50   "Ripple"
+51  51   "Wave"
+52  52   "Jitter"
+53  53   "Stripes"
+54  54   "Infinite Zo"
+55  55   "Digits"
+56  56   "Pixel Dust"
+57  57   "Bounce"
+58  58   "Infinity"
+59  59   "RBMultiMirr"
+60  60   "Zoom Area"
+61  61   "Left"
+62  62   "Right"
+63  63   "Left & Righ"
+64  64   "Top"
+65  65   "Bottom"
+66  66   "Top & Botto"
+67  67   "Pan"
+68  68   "Soft Edge F"
+69  69   "DropShadow"
+70  70   "LMM Mask"
+71  71   "Crop /     "
+72  72   "SEDual Pan"
+73  73   "SE Pan V"
+74  74   "Displace Mi"
+75  75   "Magnifier"
+76  76   "Curtain Dow"
+77  77   "Burnout"
+78  78   "Moving Blur"
+79  79   "DeGapper"
+82  82   "Cady Colour"
+83  83   "Idiot Strob"
+84  84   "Neil Gamma"
+91  91   "Blinder"
+92  92   "Fader"
+93  93   "Line       "
+94  94   "RGB Key"
+95  95   "RGB Split"
+109 109  "Pufferizer"
+110 110  "Alpha Trans"
+111 111  "Displacemen"
+120 120  "Strobefreez"
+121 121  "Plane XYZ"
+122 122  "Cube"
+123 123  "Sphere"
+124 124  "Pyramid"
+125 125  "Curve"
+126 126  "Plane Anima"
+127 127  "Multi Plane"
+128 128  "Cubes Anima"
+129 129  "Sphere     "
+133 133  "Spin"
+134 134  "R-Cube"
+135 135  "Tubes"
+136 136  "Frame"
+137 137  "Water"
+138 138  "Head"
+139 139  "9 Wall"
+140 140  "3x3"
+REND
+
+RANGE 33  ;Effect 1 Level
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 39  ;Effect 2
+0   0    "Open"
+1   1    "Blur"
+2   2    "Radial Blur"
+3   3    "Motion Blur"
+4   4    "Mask"
+5   5    "Sat/Hue/Bri"
+6   6    "Multi Image"
+7   7    "Inverse Lum"
+8   8    "XY-Shifter"
+9   9    "Shutter"
+10  10   "ChromaKey"
+11  11   "Johans Effe"
+12  12   "Scroller"
+13  13   "RGB Tint"
+14  14   "Colour Stud"
+15  15   "Strobe"
+16  16   "Neon"
+17  17   "CTB/CTO"
+18  18   "DuoTone"
+19  19   "RGB Pallett"
+20  20   "Bloom"
+21  21   "Interlace"
+22  22   "Random     "
+24  24   "MegaZoom"
+25  25   "Noise"
+27  27   "Rings"
+28  28   "Cube Style"
+29  29   "Bump"
+30  30   "LED"
+31  31   "Pixelate"
+32  32   "Film"
+33  33   "Halftone"
+34  34   "Recursion  "
+35  35   "Colour Chan"
+36  36   "Colour     "
+37  37   "Plasma"
+38  38   "Flower 1"
+39  39   "Flip"
+40  40   "Kaleidoscop"
+41  41   "Roto Zoom"
+42  42   "Glass"
+43  43   "Aqua"
+44  44   "Tunnel"
+45  45   "Planes"
+46  46   "FluidDistor"
+47  47   "Polarwave"
+48  48   "Twisted"
+49  49   "Rectangles"
+50  50   "Ripple"
+51  51   "Wave"
+52  52   "Jitter"
+53  53   "Stripes"
+54  54   "Infinite Zo"
+55  55   "Digits"
+56  56   "Pixel Dust"
+57  57   "Bounce"
+58  58   "Infinity"
+59  59   "RBMultiMirr"
+60  60   "Zoom Area"
+61  61   "Left"
+62  62   "Right"
+63  63   "Left & Righ"
+64  64   "Top"
+65  65   "Bottom"
+66  66   "Top & Botto"
+67  67   "Pan"
+68  68   "Soft Edge F"
+69  69   "DropShadow"
+70  70   "LMM Mask"
+71  71   "Crop /"
+72  72   "SEDual Pan"
+73  73   "SE Pan V"
+74  74   "Displace Mi"
+75  75   "Magnifier"
+76  76   "Curtain Dow"
+77  77   "Burnout"
+78  78   "Moving Blur"
+79  79   "DeGapper"
+82  82   "Cady Colour"
+83  83   "Idiot Strob"
+84  84   "Neil Gamma"
+91  91   "Blinder"
+92  92   "Fader"
+93  93   "Line"
+94  94   "RGB Key"
+95  95   "RGB Split"
+109 109  "Pufferizer"
+110 110  "Alpha Trans"
+111 111  "Displacemen"
+120 120  "Strobefreez"
+121 121  "Plane XYZ"
+122 122  "Cube"
+123 123  "Sphere"
+124 124  "Pyramid"
+125 125  "Curve"
+126 126  "Plane Anima"
+127 127  "Multi Plane"
+128 128  "Cubes Anima"
+129 129  "Sphere"
+133 133  "Spin"
+134 134  "R-Cube"
+135 135  "Tubes"
+136 136  "Frame"
+137 137  "Water"
+138 138  "Head"
+139 139  "9 Wall"
+140 140  "3x3"
+REND
+
+RANGE 40  ;Effect 2 Level
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+0   0    "None Select"
+1   1    "Video Map 1"
+2   2    "Video Map 2"
+3   3    "Video Map 3"
+4   4    "Video Map 4"
+5   5    "Video Map 5"
+6   6    "Video Map 6"
+7   7    "Video Map 7"
+8   8    "Video Map 8"
+9   9    "Video Map 9"
+10  10   "Video Ma 10"
+11  11   "Video Ma 11"
+12  12   "Video Ma 12"
+13  13   "Video Ma 13"
+14  14   "Video Ma 14"
+15  15   "Video Ma 15"
+16  16   "Video Ma 16"
+17  17   "Video Ma 17"
+18  18   "Video Ma 18"
+19  19   "Video Ma 19"
+20  20   "Video Ma 20"
+21  21   "Video Ma 21"
+22  22   "Video Ma 22"
+23  23   "Video Ma 23"
+24  24   "Video Ma 24"
+25  25   "Video Ma 25"
+26  26   "Video Ma 26"
+27  27   "Video Ma 27"
+28  28   "Video Ma 28"
+29  29   "Video Ma 29"
+30  30   "Video Ma 30"
+31  31   "Video Ma 31"
+32  32   "Video Ma 32"
+33  33   "Video Ma 33"
+34  34   "Video Ma 34"
+35  35   "Video Ma 35"
+36  36   "Video Ma 36"
+37  37   "Video Ma 37"
+38  38   "Video Ma 38"
+39  39   "Video Ma 39"
+40  40   "Video Ma 40"
+41  41   "Video Ma 41"
+42  42   "Video Ma 42"
+43  43   "Video Ma 43"
+44  44   "Video Ma 44"
+45  45   "Video Ma 45"
+46  46   "Video Ma 46"
+47  47   "Video Ma 47"
+48  48   "Video Ma 48"
+49  49   "Video Ma 49"
+50  50   "Video Ma 50"
+51  51   "Video Ma 51"
+52  52   "Video Ma 52"
+53  53   "Video Ma 53"
+54  54   "Video Ma 54"
+55  55   "Video Ma 55"
+56  56   "Video Ma 56"
+57  57   "Video Ma 57"
+58  58   "Video Ma 58"
+59  59   "Video Ma 59"
+60  60   "Video Ma 60"
+61  61   "Video Ma 61"
+62  62   "Video Ma 62"
+63  63   "Video Ma 63"
+64  64   "Video Ma 64"
+65  65   "Video Ma 65"
+66  66   "Video Ma 66"
+67  67   "Video Ma 67"
+68  68   "Video Ma 68"
+69  69   "Video Ma 69"
+70  70   "Video Ma 70"
+71  71   "Video Ma 71"
+72  72   "Video Ma 72"
+73  73   "Video Ma 73"
+74  74   "Video Ma 74"
+75  75   "Video Ma 75"
+76  76   "Video Ma 76"
+77  77   "Video Ma 77"
+78  78   "Video Ma 78"
+79  79   "Video Ma 79"
+80  80   "Video Ma 80"
+81  81   "Video Ma 81"
+82  82   "Video Ma 82"
+83  83   "Video Ma 83"
+84  84   "Video Ma 84"
+85  85   "Video Ma 85"
+86  86   "Video Ma 86"
+87  87   "Video Ma 87"
+88  88   "Video Ma 88"
+89  89   "Video Ma 89"
+90  90   "Video Ma 90"
+91  91   "Video Ma 91"
+92  92   "Video Ma 92"
+93  93   "Video Ma 93"
+94  94   "Video Ma 94"
+95  95   "Video Ma 95"
+96  96   "Video Ma 96"
+97  97   "Video Ma 97"
+98  98   "Video Ma 98"
+99  99   "Video Ma 99"
+100 100  "Video M 100"
+101 101  "Video M 101"
+102 102  "Video M 102"
+103 103  "Video M 103"
+104 104  "Video M 104"
+105 105  "Video M 105"
+106 106  "Video M 106"
+107 107  "Video M 107"
+108 108  "Video M 108"
+109 109  "Video M 109"
+110 110  "Video M 110"
+111 111  "Video M 111"
+112 112  "Video M 112"
+113 113  "Video M 113"
+114 114  "Video M 114"
+115 115  "Video M 115"
+116 116  "Video M 116"
+117 117  "Video M 117"
+118 118  "Video M 118"
+119 119  "Video M 119"
+120 120  "Video M 120"
+121 121  "Video M 121"
+122 122  "Video M 122"
+123 123  "Video M 123"
+124 124  "Video M 124"
+125 125  "Video M 125"
+126 126  "Video M 126"
+127 127  "Video M 127"
+128 128  "Video M 128"
+129 129  "Video M 129"
+130 130  "Video M 130"
+131 131  "Video M 131"
+132 132  "Video M 132"
+133 133  "Video M 133"
+134 134  "Video M 134"
+135 135  "Video M 135"
+136 136  "Video M 136"
+137 137  "Video M 137"
+138 138  "Video M 138"
+139 139  "Video M 139"
+140 140  "Video M 140"
+141 141  "Video M 141"
+142 142  "Video M 142"
+143 143  "Video M 143"
+144 144  "Video M 144"
+145 145  "Video M 145"
+146 146  "Video M 146"
+147 147  "Video M 147"
+148 148  "Video M 148"
+149 149  "Video M 149"
+150 150  "Video M 150"
+151 151  "Video M 151"
+152 152  "Video M 152"
+153 153  "Video M 153"
+154 154  "Video M 154"
+155 155  "Video M 155"
+156 156  "Video M 156"
+157 157  "Video M 157"
+158 158  "Video M 158"
+159 159  "Video M 159"
+160 160  "Video M 160"
+161 161  "Video M 161"
+162 162  "Video M 162"
+163 163  "Video M 163"
+164 164  "Video M 164"
+165 165  "Video M 165"
+166 166  "Video M 166"
+167 167  "Video M 167"
+168 168  "Video M 168"
+169 169  "Video M 169"
+170 170  "Video M 170"
+171 171  "Video M 171"
+172 172  "Video M 172"
+173 173  "Video M 173"
+174 174  "Video M 174"
+175 175  "Video M 175"
+176 176  "Video M 176"
+177 177  "Video M 177"
+178 178  "Video M 178"
+179 179  "Video M 179"
+180 180  "Video M 180"
+181 181  "Video M 181"
+182 182  "Video M 182"
+183 183  "Video M 183"
+184 184  "Video M 184"
+185 185  "Video M 185"
+186 186  "Video M 186"
+187 187  "Video M 187"
+188 188  "Video M 188"
+189 189  "Video M 189"
+190 190  "Video M 190"
+191 191  "Video M 191"
+192 192  "Video M 192"
+193 193  "Video M 193"
+194 194  "Video M 194"
+195 195  "Video M 195"
+196 196  "Video M 196"
+197 197  "Video M 197"
+198 198  "Video M 198"
+199 199  "Video M 199"
+200 200  "Video M 200"
+201 201  "Video M 201"
+202 202  "Video M 202"
+203 203  "Video M 203"
+204 204  "Video M 204"
+205 205  "Video M 205"
+206 206  "Video M 206"
+207 207  "Video M 207"
+208 208  "Video M 208"
+209 209  "Video M 209"
+210 210  "Video M 210"
+211 211  "Video M 211"
+212 212  "Video M 212"
+213 213  "Video M 213"
+214 214  "Video M 214"
+215 215  "Video M 215"
+216 216  "Video M 216"
+217 217  "Video M 217"
+218 218  "Video M 218"
+219 219  "Video M 219"
+220 220  "Video M 220"
+221 221  "Video M 221"
+222 222  "Video M 222"
+223 223  "Video M 223"
+224 224  "Video M 224"
+225 225  "Video M 225"
+226 226  "Video M 226"
+227 227  "Video M 227"
+228 228  "Video M 228"
+229 229  "Video M 229"
+230 230  "Video M 230"
+231 231  "Video M 231"
+232 232  "Video M 232"
+233 233  "Video M 233"
+234 234  "Video M 234"
+235 235  "Video M 235"
+236 236  "Video M 236"
+237 237  "Video M 237"
+238 238  "Video M 238"
+239 239  "Video M 239"
+240 240  "Video M 240"
+241 241  "Video M 241"
+242 242  "Video M 242"
+243 243  "Video M 243"
+244 244  "Video M 244"
+245 245  "Video M 245"
+246 246  "Video M 246"
+247 247  "Video M 247"
+248 248  "Video M 248"
+249 249  "Video M 249"
+250 250  "Video M 250"
+251 251  "Video M 251"
+252 252  "Video M 252"
+253 253  "Video M 253"
+254 254  "Video M 254"
+255 255  "Video M 255"
+REND
+RANGE 47  ;Mapping On/Off
+0   0    "Off"
+255 255  "On"
+REND
+

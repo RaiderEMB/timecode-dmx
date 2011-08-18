@@ -1,0 +1,327 @@
+; 'High End DML 1200 Layers 1-2', 27 DMX Channels, filename: HE1200L.R20
+;  Copyright © Avolites Ltd. 2008
+;
+;   Date       By                Description
+;   12-11-08   Pers Creator      Created - Exported from Diamond 4 file.
+;   12-11-08   David Hunt        Checked
+;   21-11-08   Jonathan Moreton  Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  HED1200L1-2                         mode=Layers 1-2  27 DMX Channels
+NAME "High End" "DML 1200 Layers 1-2"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  27  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Layers 1-2"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=486
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+6     1   L    1   100   1N   0   1   "Image Select"      0     0     0
+6    61   L    2   100   1N   0   1   "Img File Sel"      0     0     0
+4     1   s    3   100   1N   0   1   "In Frame"          0     0     0
+0     0   L    4   100   1N   0   1   "In Frame Low"      0     0     0
+4    61   s    5   100   1N   0   1   "Out Frame"         0     0     0
+0     0   L    6   100   1N   0   1   "Out Fram Low"      0     0     0
+17    1   L    7   100   1N   0   1   "Image Trans"       0     0     0
+17   61   I    8   100   1N   0   1   "Trans Timing"      0     0     0
+8     1   L    9   100   1N   0   1   "Playback Mod"      0     0     0
+8    61   L   10   100   1N   0   1   "Playback Spd"      0     0     0
+2     1   L   11   100   1N   O   1   "Opacity"           0     0     0
+2    61   L   12   100   1N   0   1   "Contrast"          0     0     0
+10    1   L   13   100   1N   T   1   "Red"             255   255     0
+10   61   L   14   100   1N   U   1   "Green"           255   255     0
+9    61   L   15   100   1N   V   1   "Blue"            255     0   229
+12   61   L   16   100   1N   0   1   "Scale"             0     0     0
+13    1   L   17   100   1N   0   1   "Image X Pos"       0     0     0
+13   61   L   18   100   1N   0   1   "Image Y Pos"       0     0     0
+5     1   L   19   100   1N   0   1   "Aspect Ratio"      0     0     0
+7     1   s   20   100   1N   0   1   "Image Rot Sp"      0     0     0
+0     0   L   21   100   1N   0   1   "Image Ro Low"      0     0     0
+7    61   I   22   100   1N   0   1   "Image Blur"        0     0     0
+19    1   I   23   100   1N   0   1   "FX Select"         0     0     0
+20    1   L   24   100   1N   0   1   "FX Param 1"        0     0     0
+20   61   L   25   100   1N   0   1   "FX Param 2"        0     0     0
+19   61   L   26   100   1N   0   1   "FX Param 3"        0     0     0
+14    1   L   27   100   1N   0   1   "Comb Mode"         0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+High End DML 1200
+Layers 1-2
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Image Select
+0   0    "Default Ima"
+1   1    "Default Mov"
+2   253  "User %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+254 254  "Output Fdbk"
+255 255  "Ext Vid"
+REND
+
+RANGE 3  ;In Frame
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Out Frame
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Image Trans
+0   1    "Snap"
+2   5    "Bottom-Top"
+6   9    "Bounce"
+10  13   "Corner Zoom"
+14  17   "Fade"
+18  21   "Iris"
+22  25   "Left-Right"
+26  29   "Multi Iris"
+30  33   "Multi Sp Zm"
+34  37   "Right-left"
+38  41   "Rotate & Zo"
+42  45   "Shear Flip"
+46  49   "Shutter"
+50  53   "Top-Bottom"
+54  57   "Zoom"
+58  61   "Spherical Z"
+62  65   "Spherical W"
+66  253  "Res %3d%%"(c-a)*100/(b-a)
+254 255  "Special"
+REND
+
+RANGE 8  ;Trans Timing
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Playback Mode
+0   3    "Forward Onc"
+4   7    "Forward Lp"
+8   11   "Reverse Onc"
+12  15   "Reverse Lp"
+16  19   "Bounce"
+20  23   "Pause"
+24  27   "Single Frme"
+28  255  "Res %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 10  ;Playback Speed
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 11  ;Opacity
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;Contrast
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Scale
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;Image X Pos
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 18  ;Image Y Pos
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 19  ;Aspect Ratio
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 20  ;Image Rot Spd
+0   127  "Index %3d%%"(c-a)*100/(b-a)
+127 191  "Sp CCW %3d%%"100-((c-a)*100/(b-a))
+192 192  "No Spin"
+192 255  "Sp CW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 22  ;Image Blur
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 23  ;FX Select
+0   1    "Open"
+2   5    "Radial Blur"
+6   9    "Motion Blur"
+10  13   "Colour Traf"
+14  17   "MultiImage"
+18  21   "Inv LumaKey"
+22  25   "Shifter"
+26  29   "ChromaKey"
+30  33   "Scroller"
+34  37   "Colour Stud"
+38  41   "Neon"
+42  45   "CTBO"
+46  49   "DuoTone"
+50  53   "Palette"
+54  57   "Bloom"
+58  61   "Interlace"
+62  65   "Noise"
+66  69   "Rings"
+70  73   "CubeStyle"
+74  77   "LED"
+78  81   "Pixelate"
+82  85   "Halftone"
+86  89   "Plasma"
+90  93   "Flower"
+94  97   "Flip"
+98  101  "Rotozoom"
+102 105  "Glass"
+106 109  "Aqua"
+110 113  "Tunnel"
+114 117  "Planes"
+118 121  "Fluid Dist"
+122 125  "Alphabet"
+126 129  "Ripple"
+130 133  "Wave"
+134 137  "Jitter"
+138 141  "Stripes"
+142 145  "Inf Zoom"
+146 149  "Infinity"
+150 153  "Blinder"
+154 253  "Res %3d%%"(c-a)*100/(b-a)
+254 255  "Special"
+REND
+
+RANGE 24  ;FX Param 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 25  ;FX Param 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 26  ;FX Param 3
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 27  ;Comb Mode
+0   7    "Additive   "
+8   23   "Subtractive"
+24  40   "Darken"
+41  56   "Lighten"
+57  71   "Softlight"
+72  87   "Softlite In"
+88  103  "Hardlight"
+104 119  "Overlay"
+120 126  "Difference"
+127 142  "Gobo"
+143 158  "Screen"
+159 174  "Opaque"
+175 190  "Sprite"
+191 206  "Luminance"
+207 222  "Mask"
+223 255  "Res %3d%%"(c-a)*100/(b-a)
+REND
+

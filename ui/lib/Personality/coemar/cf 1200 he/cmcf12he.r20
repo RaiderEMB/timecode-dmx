@@ -1,0 +1,282 @@
+; "Coemar CF 1200 Hard Edge", 20 DMX channels, filename :cmcf12HE.r20
+;
+;   Date      By             Description
+;   10-12-98  S. Anwar       Created
+;   09-07-01  Edward         Added Macros
+;   09-08-04  Phil           Added Range Tables
+;   02-11-04  Phil Rogers    Edited device name.
+;   11-12-08  David Hunt     COrrected range table issues
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  CM_CF1200HE                                 20 DMX channels
+NAME "Coemar" "CF 1200 HE"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE    1  20   M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR	2  360 360
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+""
+""
+""
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=493
+;
+; DMX number must be divisible by this	
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+DMX
+3  61  s   1   100 1N  E  1  "Pan"        128   -1   -1
+0   0  L   2   100 1N  E  1  "Pan Low"    128   -1   -1
+3   1  s   3   100 1N  F  1  "Tilt"       128   -1   -1
+0   0  L   4   100 1N  F  1  "Tilt Low"   128   -1   -1
+1   1  H   5   100 1N  H  1  "Dimmer"     255  255  255
+2  61  L   6   100 1N  O  1  "Shutter"    255  255  255
+2   1  L   7   100 1N  G  1  "Iris"        50   -1   -1
+5  61  L   8   100 1N  Q  1  "Zoom"        50   -1   -1
+5   1  L   9   100 1N  L  1  "Focus"       50   -1   -1
+6   1  I  10   100 1N  I  1  "Gobo_1"       0   -1   -1
+7   1  I  11   100 1N  K  1  "Gobo1Pos"     0    0    0
+7  61  I  12   100 1N  0  1  "Gobo.Spin"    0    0    0
+6  61  I  13   100 1N  J  1  "Gobo_2"       0    0    0
+9   1  I  14   100 1N  R  1  "Effects"      0    0    0
+8   1  I  15   100 1N  0  1  "Effect.Spin"  0    0    0
+4   1  I  16   100 1N  A  1  "Color"        0    0    0
+10  1  L  17   100 1N  B  1  "Cyan"         0    0  255
+10 61  L  18   100 1N  C  1  "Magenta"      0    0    0
+9  61  L  19   100 1N  D  1  "Yellow"       0    0    0
+11  1  I  20   100 1N  0  1  "Control"    255  255  255
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+     Coemar
+   CF 1200 Spot
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1 Dimmer   --
+ 2 --       Shutter
+ 3 Tilt     Pan
+ 4 Color    --
+ 5 Zoom     Focus
+ 6 Gobo1    Gobo2
+ 7 Gob.spin Gob1.rot
+ 8 Eff.spin --
+ 9 Effect   Yellow
+10 Cyan     Magenta 
+11 Control  --
+
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+; Positions
+
+PFTABLE "Positions" -1  1  3
+"Middle"            21 80  80
+"Left"              22 50  80
+"Right"             23 b0  80
+"Top"               24 80  50
+"Bottom"            25 80  b0
+"TLeft"             26 50  50
+"TRight"            27 b0  b0
+"BLeft"             28 50  b0
+"BRight"            29 b0  50
+PFEND
+
+; A color table color wheel, cyan, magenta, yellow
+PFTABLE "Color" -1  16 17 18 19
+"White"          1  0   0  0  0
+"Red"            2  0   0 ff ff
+"Amber"          3  0   0 7f ff
+"Yellow"         4  0   0  0 ff
+"Green"          5  0  ff  0 ff
+"Cyan"           6  0  ff  0  0
+"Blue"           7  0  ff a5  0
+"Lavender"       8  0  96 a5  0
+"UV"             9  0  ff 96  0
+"Magenta"       10  0   0 ff  0
+PFEND
+
+; A color table color wheel, cyan, magenta, yellow
+PFTABLE "Gobo1" 30  10
+"Gobo1.0"       11   0
+"Gobo1.1"       12  2d
+"Gobo1.2"       13  50
+"Gobo1.3"       14  6e
+"Gobo1.4"       15  87
+PFEND
+
+; A color table color wheel, cyan, magenta, yellow
+PFTABLE "Gobo2" -1  13
+"Gobo2.0"       16   0
+"Gobo2.1"       17  2d
+"Gobo2.2"       18  50
+"Gobo2.3"       19  6e
+"Gobo2.4"       20  87
+PFEND
+
+
+;Macros
+MACRO "LAMP OFF" 1 20
+"data"           0 0f
+"delay"          1 20
+"data"           0  0
+MEND
+
+MACRO "MOTOR RESET" 2 20
+"data"              0 96
+"delay"             1 10
+"data"              0  0
+MEND
+
+MACRO "LAMP ON" 3 20
+"data"          1 fa
+"delay"         0 50
+"data"          1  0
+MEND
+
+
+
+
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+RANGE 5  ;Dimmer
+0   255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 6  ;Shutter
+248 255  "Open"
+0   9    "Closed"
+10  127  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+128 247  "Rnd St %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 7  ;Iris
+0   15   "Open"
+16  115  "%3d%%"100-(((c-a)*100)/(b-a))
+116 192  "Iris Small"
+193 251  "Pls %3d%%"0+(((c-a)*100/(b-a))
+252 255  "Iris Max"
+REND
+
+RANGE 8  ;Zoom
+0   9    "Open"
+10  255  "%3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 9  ;Focus
+0   255  "%3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 10 ;Gobo 1 Sel
+0   30    "Open"
+31  61   "Gobo 1"
+62  91   "Gobo 2"
+92  123   "Gobo 3"
+124 151  "Gobo 4"
+152 255  "Scroll %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 11 ;Gobo 1
+0   10   "Open"
+11  255  "Index %3d%%"0+(((c-a)*100/(b-a))
+REND
+
+RANGE 12 ;Gobo1Rot
+0   100  "Index %3d%%"0+(((c-a)*360/(b-a))
+101 176  "Sp CW %3d%%"100-(((c-a)*100/(b-a))
+177 179  "No Spin"
+180 255  "Sp CCW %3d%%"0+(((c-a)*360/(b-a))
+REND
+
+RANGE 13 ;Gobo2 
+0   23    "Open"
+24  49   "Gobo 1"
+50  73   "Gobo 2"
+74  99   "Gobo 3"
+100 123  "Gobo 4"
+124 151  "Gobo 5"
+152 255  "Scroll %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 14 ;FX Selection 
+0   62    "Open"
+63  126  "Effect 1"
+127 190  "Effect 2"
+191 255  "Effect 3"
+REND
+
+RANGE 15 ;FX Rot
+0   10   "No Spin"
+27  255  "Sp CW %3d%%"0+(((c-a)*100/(b-a))
+REND
+
+RANGE 16  ;Colour
+0   24    "Open"
+25  49   "Colour 1"
+50  73   "Colour 2"
+74  99   "Colour 3"
+100 123  "Colour 4"
+124 151  "Colour 5"
+152 255  "Scroll %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 17  ;Cyan
+0   255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 18  ;Magenta
+0   255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 19  ;Yellow
+0   255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 20  ;Control
+0   19   "Lamp Off"
+20  100  "P/T Reset"
+101 170  "Mtr Rst"
+171 240  "Soft Focus"
+241 255  "Lamp On"
+REND
+

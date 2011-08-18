@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="FiberSource CMY 150" ShortName="FibreCMY" Company="Martin">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="25-04-05" Author="Phil Rogers" Comment="Created - split out from Fibresource QFX 150 personality" />
+  <History Date="07-07-06" Author="Ed" Comment="Fixed Colour mixing attributes to all be CMIXES" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="\manuals\fixtures\martin" Summary="" />
+  <Control>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~89" />
+      <Function ID="2" Name="Reset" Display="'Reset'" Dmx="90~119" />
+      <Function ID="3" Name="Safe" Display="'Safe'" Dmx="120~149" />
+      <Function ID="4" Name="Lamp On" Display="'Lamp On'" Dmx="150~199" />
+      <Function ID="5" Name="Safe" Display="'Safe'" Dmx="200~149" />
+      <Function ID="6" Name="Lamp Off" Display="'Lamp Off'" Dmx="250~255" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.f%%',0~100" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:0" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:0" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:0" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Speed" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Tracking" Display="'Tracking'" Dmx="0~2" />
+      <Function ID="2" Name="Speed" Display="'F-S %.f%%',100~0" Dmx="3~245" />
+      <Function ID="3" Name="Fast" Display="'Fast'" Dmx="252~255" />
+    </Attribute>
+    <Attribute ID="RandCol" Name="Random Color" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" Highlight="1" Lowlight="1" />
+      <Function ID="1" Name="Off" Display="'Off'" />
+      <Function ID="2" Name="CMYslow" Display="'CMY Slow'" />
+      <Function ID="3" Name="CMYmed" Display="'CMY Med'" />
+      <Function ID="4" Name="CMYfast" Display="'CMY Fast'" />
+      <Function ID="5" Name="MYslow" Display="'MY Slow'" />
+      <Function ID="6" Name="MYmed" Display="'MY Med'" />
+      <Function ID="7" Name="MYfast" Display="'MY fast'" />
+      <Function ID="8" Name="CMslow" Display="'CM slow'" />
+      <Function ID="9" Name="CMmed" Display="'CM Med'" />
+      <Function ID="10" Name="CMfast" Display="'CM Fast'" />
+      <Function ID="11" Name="CYslow" Display="'CY Slow'" />
+      <Function ID="12" Name="CYmed" Display="'CY Med'" />
+      <Function ID="13" Name="CYfast" Display="'CY Fast'" />
+    </Attribute>
+  </Control>
+  <Mode Name="7 DMX" Channels="7">
+    <Import PearlRef="MT_FibSrCMY" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="10.4" />
+      <Size Height="199mm" Width="213mm" Depth="330mm" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="2" Wheel="1" />
+      <Attribute ID="Cyan" ChannelOffset="3" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="4" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="5" Wheel="12" />
+      <Attribute ID="Control" ChannelOffset="1" Wheel="28" />
+      <Attribute ID="Speed" ChannelOffset="6" Wheel="9" />
+      <Attribute ID="RandCol" ChannelOffset="7" Wheel="3" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Reset">
+      <Set Channel="Control:2" Delay="8000" />
+      <Set Channel="Control:1" Delay="1000" />
+    </Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Control:4" Delay="8000" />
+      <Set Channel="Control:1" Delay="1000" />
+    </Macro>
+    <Macro Name="Lamp Off">
+      <Set Channel="Control:6" Delay="8000" />
+      <Set Channel="Control:1" Delay="1000" />
+    </Macro>
+  </Macro>
+</Fixture>

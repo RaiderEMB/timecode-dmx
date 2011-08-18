@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Kolorstream" ShortName="Kolorstrm" Company="Griven">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="12-05-03" Author="Oliver Waits" Comment="Created" />
+  <History Date="11-02-04" Author="L.Gallagher" Comment="Error Found 1. No macros found" />
+  <History Date="11-02-04" Author="L.Gallagher" Comment="Error Found 2. Shutter - (Locate) 127" />
+  <History Date="11-02-04" Author="L.Gallagher" Comment="Error Found 3. YCM - (colourmix mode only)" />
+  <History Date="11-02-04" Author="L.Gallagher" Comment="Error Found 4. Colour - (colourtable mode only)" />
+  <History Date="01-11-04" Author="Phil Rogers" Comment="Shortened short name" />
+  <History Date="07-07-06" Author="Ed" Comment="Fixed All colour mix attributes to be Cmixes" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour ID to Colour1" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="Kolorado Mk2 2500.pdf" Summary="" />
+  <Control>
+    <Attribute ID="LampOn" Name="Lamp On/Off" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Lamp On" Display="'Lamp On'" />
+      <Function ID="2" Name="Lamp Off" Display="'Lamp Off'" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'Value= %.f',0~100" SetControl="Shutter:3" Intensity="0~0" />
+      <Function ID="2" Name="No DMX" Display="'No DMX'" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Open" Display="'Open'" SetControl="Dimmer:2" Intensity="0~0" />
+      <Function ID="2" Name="Strobe" Display="'Strobe %.f',0~100" SetControl="Dimmer:3" Intensity="0~0" />
+      <Function ID="3" Name="No DMX" Display="'No DMX'" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="LTP" Display="'Color %.f',0~100" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Zoom" Name="Zoom" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="LTP" Display="'Zoom %.f',0~100" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="Colour Mixing" Channels="7">
+    <Import PearlRef="Grv_KStream" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="2" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="3" Wheel="4" />
+      <Attribute ID="Yellow" ChannelOffset="4" Wheel="10" />
+      <Attribute ID="Cyan" ChannelOffset="5" Wheel="11" />
+      <Attribute ID="Magenta" ChannelOffset="6" Wheel="12" />
+      <Attribute ID="Zoom" ChannelOffset="7" Wheel="19" />
+      <Attribute ID="LampOn" ChannelOffset="1" Wheel="28" />
+    </Include>
+  </Mode>
+  <Mode Name="Colour Table" Channels="5">
+    <Import PearlRef="" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="2" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="3" Wheel="4" />
+      <Attribute ID="Colour1" ChannelOffset="4" Wheel="7" />
+      <Attribute ID="Zoom" ChannelOffset="7" Wheel="19" />
+      <Attribute ID="LampOn" ChannelOffset="1" Wheel="28" />
+    </Include>
+  </Mode>
+</Fixture>

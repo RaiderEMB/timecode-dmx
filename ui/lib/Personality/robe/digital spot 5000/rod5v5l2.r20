@@ -1,0 +1,558 @@
+; 'Robe Digital Spot 5000 v5', 26 DMX Channels, filename: ROD5V5L2.R20
+;
+;   Date       By                Description
+;   14-05-07   Pers Creator      Created - Exported from Diamond 4 file.
+;   14-05-07   D.Milligan        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  RO_DiS5L2v5                         mode=Gobo Layer 1  26 DMX Channels
+NAME "Robe" "Digital Spot 5000 v5, Gobo 1"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  26  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   530   280
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Gobo Layer 1"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=486
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+6     1   I    2   100   1N   0   1   "Gobo 1 Fldr"       0     0     0
+6    61   I    3   100   1N   I   1   "Gobo 1"            0     0     0
+8     1   s    4   100   1N   0   1   "In Frame"          0     0     0
+0     0   L    5   100   1N   0   1   "In Fr Low"         0     0     0
+8    61   s    6   100   1N   0   1   "Out Frame"       255     0     0
+0     0   L    7   100   1N   0   1   "Out F Low"       255     0     0
+19    1   L    8   100   1N   0   1   "Gobo 1 Ctrl"       0     0     0
+2    61   L    9   100   1N   0   1   "Playback Spd"    128     0     0
+7    61   s   10   100   1N   K   1   "Gobo 1 Rot"      128     0     0
+0     0   L   11   100   1N   K   1   "Gobo 1 R Low"    128     0     0
+9     1   I   12   100   1N   0   1   "G1 Effect"         0     0     0
+9    61   L   13   100   1N   0   1   "G1 Eff Ctrl"       0     0     0
+10    1   I   14   100   1N   0   1   "G1 Effect 2"       0     0     0
+10   61   L   15   100   1N   0   1   "G1 Eff Ctrl"       0     0     0
+20    1   L   16   100   1N   0   1   "Reserved 1"        0     0     0
+20   61   L   17   100   1N   0   1   "Reserved 2"        0     0     0
+3    61   s   18   100   1N   E   1   "Pan"             128     0     0
+0     0   L   19   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s   20   100   1N   F   1   "Tilt"            128     0     0
+0     0   L   21   100   1N   F   1   "Tilt Low"        128     0     0
+5     1   s   22   100   1N   Q   1   "Zoom X"          128     0     0
+0     0   L   23   100   1N   Q   1   "Zoom X Low"      128     0     0
+5    61   s   24   100   1N   L   1   "Zoom Y"          128     0     0
+0     0   L   25   100   1N   L   1   "Zoom Y Low"      128     0     0
+19   61   I   26   100   1N   0   1   "Sync ID"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Robe 
+Digital Spot 5000 v5
+Gobo Layer 1
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 2  ;Gobo 1 Folder
+0   0    "Factory 0"
+1   1    "Factory 1"
+2   2    "Factory 2"
+3   3    "Factory 3"
+4   4    "Factory 4"
+5   5    "Factory 5"
+6   6    "Factory 6"
+7   7    "Factory 7"
+8   8    "Factory 8"
+9   9    "Factory 9"
+10  10   "Factory 10"
+11  11   "Factory 11"
+12  12   "Factory 12"
+13  13   "Factory 13"
+14  14   "Factory 14"
+15  15   "Factory 15"
+16  16   "Factory 16"
+17  17   "Factory 17"
+18  18   "Factory 18"
+19  19   "Factory 19"
+20  20   "Factory 20"
+21  21   "User 21"
+22  22   "User 22"
+23  23   "User 23"
+24  24   "User 24"
+25  25   "User 25"
+26  26   "User 26"
+27  27   "User 27"
+28  28   "User 28"
+29  29   "User 29"
+30  30   "User 30"
+31  31   "User 31"
+32  32   "User 32"
+33  33   "User 33"
+34  34   "User 34"
+35  35   "User 35"
+36  36   "User 36"
+37  37   "User 37"
+38  38   "User 38"
+39  39   "User 39"
+40  40   "User 40"
+41  41   "User 41"
+42  42   "User 42"
+43  43   "User 43"
+44  44   "User 44"
+45  45   "User 45"
+46  46   "User 46"
+47  47   "User 47"
+48  48   "User 48"
+49  49   "User 49"
+50  50   "User 50"
+51  51   "User 51"
+52  52   "User 52"
+53  53   "User 53"
+54  54   "User 54"
+55  55   "User 55"
+56  56   "User 56"
+57  57   "User 57"
+58  58   "User 58"
+59  59   "User 59"
+60  60   "User 60"
+61  61   "User 61"
+62  62   "User 62"
+63  63   "User 63"
+64  64   "User 64"
+65  65   "User 65"
+66  66   "User 66"
+67  67   "User 67"
+68  68   "User 68"
+69  69   "User 69"
+70  70   "User 70"
+71  71   "User 71"
+72  72   "User 72"
+73  73   "User 73"
+74  74   "User 74"
+75  75   "User 75"
+76  76   "User 76"
+77  77   "User 77"
+78  78   "User 78"
+79  79   "User 79"
+80  80   "User 80"
+81  81   "User 81"
+82  82   "User 82"
+83  83   "User 83"
+84  84   "User 84"
+85  85   "User 85"
+86  86   "User 86"
+87  87   "User 87"
+88  88   "User 88"
+89  89   "User 89"
+90  90   "User 90"
+91  91   "User 91"
+92  92   "User 92"
+93  93   "User 93"
+94  94   "User 94"
+95  95   "User 95"
+96  96   "User 96"
+97  97   "User 97"
+98  98   "User 98"
+99  99   "User 99"
+100 100  "User 100"
+101 101  "User 101"
+102 102  "User 102"
+103 103  "User 103"
+104 104  "User 104"
+105 105  "User 105"
+106 106  "User 106"
+107 107  "User 107"
+108 108  "User 108"
+109 109  "User 109"
+110 110  "User 110"
+111 111  "User 111"
+112 112  "User 112"
+113 113  "User 113"
+114 114  "User 114"
+115 115  "User 115"
+116 116  "User 116"
+117 117  "User 117"
+118 118  "User 118"
+119 119  "User 119"
+120 120  "User 120"
+121 121  "User 121"
+122 122  "User 122"
+123 123  "User 123"
+124 124  "User 124"
+125 125  "User 125"
+126 126  "User 126"
+127 127  "User 127"
+128 128  "User 128"
+129 129  "User 129"
+130 130  "User 130"
+131 131  "User 131"
+132 132  "User 132"
+133 133  "User 133"
+134 134  "User 134"
+135 135  "User 135"
+136 136  "User 136"
+137 137  "User 137"
+138 138  "User 138"
+139 139  "User 139"
+140 140  "User 140"
+141 141  "User 141"
+142 142  "User 142"
+143 143  "User 143"
+144 144  "User 144"
+145 145  "User 145"
+146 146  "User 146"
+147 147  "User 147"
+148 148  "User 148"
+149 149  "User 149"
+150 150  "User 150"
+151 151  "User 151"
+152 152  "User 152"
+153 153  "User 153"
+154 154  "User 154"
+155 155  "User 155"
+156 156  "User 156"
+157 157  "User 157"
+158 158  "User 158"
+159 159  "User 159"
+160 160  "User 160"
+161 161  "User 161"
+162 162  "User 162"
+163 163  "User 163"
+164 164  "User 164"
+165 165  "User 165"
+166 166  "User 166"
+167 167  "User 167"
+168 168  "User 168"
+169 169  "User 169"
+170 170  "User 170"
+171 171  "User 171"
+172 172  "User 172"
+173 173  "User 173"
+174 174  "User 174"
+175 175  "User 175"
+176 176  "User 176"
+177 177  "User 177"
+178 178  "User 178"
+179 179  "User 179"
+180 180  "User 180"
+181 181  "User 181"
+182 182  "User 182"
+183 183  "User 183"
+184 184  "User 184"
+185 185  "User 185"
+186 186  "User 186"
+187 187  "User 187"
+188 188  "User 188"
+189 189  "User 189"
+190 190  "User 190"
+191 191  "User 191"
+192 192  "User 192"
+193 193  "User 193"
+194 194  "User 194"
+195 195  "User 195"
+196 196  "User 196"
+197 197  "User 197"
+198 198  "User 198"
+199 199  "User 199"
+200 200  "User 200"
+201 201  "User 201"
+202 202  "User 202"
+203 203  "User 203"
+204 204  "User 204"
+205 205  "User 205"
+206 206  "User 206"
+207 207  "User 207"
+208 208  "User 208"
+209 209  "User 209"
+210 210  "User 210"
+211 211  "User 211"
+212 212  "User 212"
+213 213  "User 213"
+214 214  "User 214"
+215 215  "User 215"
+216 216  "User 216"
+217 217  "User 217"
+218 218  "User 218"
+219 219  "User 219"
+220 220  "User 220"
+221 221  "User 221"
+222 222  "User 222"
+223 223  "User 223"
+224 224  "User 224"
+225 225  "User 225"
+226 226  "User 226"
+227 227  "User 227"
+228 228  "User 228"
+229 229  "User 229"
+230 230  "User 230"
+231 231  "User 231"
+232 232  "User 232"
+233 233  "User 233"
+234 234  "User 234"
+235 235  "User 235"
+236 236  "User 236"
+237 237  "User 237"
+238 238  "User 238"
+239 239  "User 239"
+240 240  "User 240"
+241 250  "Reserved"
+251 251  "Live"
+252 255  "Reserved"
+REND
+
+RANGE 3  ;Gobo 1
+0   0    "Open"
+1   255  "Gobo %3d"1+(((c-a)*255)/(b-a))
+REND
+
+RANGE 8  ;Gobo 1 Control
+0   0    "Loop (Dim)"
+1   1    "Once (Dim)"
+2   2    "Pause"
+3   3    "Loop"
+4   4    "Once"
+5   5    "No Function"
+6   6    "Scrub In"
+7   7    "Scrub Out"
+8   8    "No Function"
+9   9    "No Function"
+10  255  "Reserved"
+REND
+
+RANGE 9  ;G1 Playback S
+0   0    "Normal"
+1   127  "Slow %3d%%"-100+(((c-a)*100)/(b-a))
+128 128  "Normal"
+129 255  "Fast %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 12  ;G1 Effect
+0   0    "Open"
+1   1    "Zm Sinus"
+2   2    "Zm Bump Fad"
+3   3    "Zm Fade Bum"
+4   4    "Reserved"
+5   5    "Zm in Fade"
+6   6    "Zm out Fade"
+7   7    "Sc XY Sin"
+8   8    "Reserved"
+9   9    "Reserved"
+10  10   "Reserved"
+11  11   "XY Circ CCW"
+12  12   "XY Circ CW"
+13  13   "XY Scroll U"
+14  14   "XY Scroll D"
+15  15   "XY Scroll L"
+16  16   "XY Scroll R"
+17  17   "RL Diag Dwn"
+18  18   "RL Diag Up"
+19  19   "LR Diag Dwn"
+20  20   "LR Diag Up"
+21  21   "X Rot"
+22  22   "Y Rot"
+23  23   "XY Rot"
+24  24   "XY Inv Rot"
+25  25   "X Inv Y Rot"
+26  26   "Tile XY"
+27  27   "Tile XY"
+28  28   "XYZ Rot Cbe"
+29  29   "XYZ Rot Sp"
+30  30   "X Rot Cyldr"
+31  31   "Y Rot Cyldr"
+32  32   "Reserved"
+33  33   "Kaleidoscpe"
+34  34   "Squeeze In"
+35  35   "Squeeze Out"
+36  36   "Bend X"
+37  37   "Bend Y"
+38  38   "Tile Frame"
+39  39   "Frame"
+40  40   "Plane ip X"
+41  41   "Plane ip Y"
+42  42   "Plane ip XY"
+43  43   "Plane M X T"
+44  44   "Plane M X B"
+45  45   "Plane M Y L"
+46  46   "Plane M Y R"
+47  47   "Plane M XY1"
+48  48   "Plane M XY2"
+49  49   "Plane M XY3"
+50  50   "Plane M XY4"
+51  51   "Pln Tile 2"
+52  52   "Pln Tile 3"
+53  53   "Pln Tile 4"
+54  54   "Pln Tile 5"
+55  55   "Pln Cr T 2"
+56  56   "Pln Cr T2I"
+57  57   "Pln Cr T 3"
+58  58   "Pln Cr T3I"
+59  59   "Pln Cr T 4"
+60  60   "Pln Cr T4I"
+61  61   "Pln Cr T 5"
+62  62   "Pln Cr T5I"
+63  63   "Pln C Tr5"
+64  64   "Pln C Tr5I"
+65  65   "Plane Bar"
+66  66   "Pln Bar I"
+67  67   "Pln Bar LR"
+68  68   "Pln Bar RL"
+69  69   "Reserved"
+70  70   "Reserved"
+71  71   "G Dsc"
+72  72   "G Dsc ip X"
+73  73   "G Dsc ip Y"
+74  74   "G Dsc ipXY"
+75  75   "G Dsc M X"
+76  76   "G Dsc M Y"
+77  77   "G Dsc M XY"
+78  78   "Reserved"
+79  79   "Reserved"
+80  80   "Pl M X T I"
+81  81   "Pl M X B I"
+82  82   "Pl M Y T I"
+83  83   "Pl M Y B I"
+84  84   "PL M XY I"
+85  85   "PL M X I Y"
+86  86   "PL M X,Y I"
+87  255  "Reserv %3d"87+(((c-a)*168)/(b-a))
+REND
+
+RANGE 14  ;G1 Effect2
+0   0    "Open"
+1   1    "Col to BW"
+2   2    "Col to BW I"
+3   3    "BW to BW I"
+4   4    "Inversion"
+5   5    "Blk Mask"
+6   6    "Blk Mask I"
+7   7    "Contrast"
+8   8    "Brightness"
+9   9    "RGB-GBR"
+10  10   "RGB-BRG"
+11  11   "RGB-RBG"
+12  12   "BW to BW I"
+13  13   "Co to BW T"
+14  14   "Col to In T"
+15  15   "Cycle"
+16  16   "Cycle In"
+17  17   "Reserved"
+18  18   "Reserved"
+19  19   "Col Key"
+20  20   "Col Key In"
+21  21   "Key Blk"
+22  22   "Key Blk In"
+23  23   "Key Wht"
+24  24   "Key Wht In"
+25  25   "White ash"
+26  26   "Black ash"
+27  27   "Alpha ash"
+28  28   "Invert ash"
+29  29   "BW ash"
+30  30   "BWtoBWInFl"
+31  31   "Grad Wpe X"
+32  32   "Grad Wpe Y"
+33  39   "Reserved"
+40  40   "Gaussian"
+41  41   "Mean"
+42  42   "Laplacain"
+43  43   "Emboss"
+44  44   "Sharpness"
+45  255  "Reserved"
+REND
+
+RANGE 26  ;G1 Sync ID
+0   0    "No Func"
+1   255  "SyncID %3d"1+(((c-a)*255)/(b-a))
+REND
+

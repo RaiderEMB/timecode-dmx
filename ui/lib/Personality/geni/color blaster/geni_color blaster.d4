@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Color Blaster" ShortName="ColorBlast" Company="Geni">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="06-10-09" Author="Personality Builder" Comment="Imported from Pearl Personality: geni colorblast.r20" />
+  <History Date="06-10-09" Author="Gregory Haynes" Comment="Checked" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Colour1Func" Name="Colour 1 Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Strobe_Func" Display="'Strobe'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="4" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="2" PowerOn="2" Highlight="5" Lowlight="4" />
+      <Condition Name="Fixed" ID="1,2,3,4,5,6,7,8,9,10,11,12" If="'Colour1Func'==1" />
+      <Condition Name="Scroll" ID="13,14" If="'Colour1Func'==2" />
+      <Condition Name="Strobe" ID="2,15" If="'Colour1Func'==3" />
+      <Else ID="16" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~12" Colour="0,0,0" />
+      <Function ID="2" Name="Open" Display="'Open'" Dmx="13~25" WheelPosition="0" Colour="255,255,255" />
+      <Function ID="3" Name="Light Pink" Display="'Light Pink'" Dmx="26~38" Colour="255,200,200" />
+      <Function ID="4" Name="Blue" Display="'Blue'" Dmx="39~51" Colour="0,0,255" />
+      <Function ID="5" Name="Yellow" Display="'Yellow'" Dmx="52~63" Colour="255,255,0" />
+      <Function ID="6" Name="Deep Magenta" Display="'Deep Magenta'" Dmx="64~76" Colour="180,0,180" />
+      <Function ID="7" Name="Orange" Display="'Orange'" Dmx="77~89" Colour="255,128,0" />
+      <Function ID="8" Name="Deep Green" Display="'Deep Green'" Dmx="90~102" Colour="0,180,0" />
+      <Function ID="9" Name="Red" Display="'Red'" Dmx="103~115" Colour="255,0,0" />
+      <Function ID="10" Name="Dark Blue" Display="'Deep Blue'" Dmx="116~127" Colour="0,0,180" />
+      <Function ID="11" Name="Magenta" Display="'Magenta'" Dmx="128~140" Colour="255,0,255" />
+      <Function ID="12" Name="Pink" Display="'Pink'" Dmx="141~153" Colour="255,150,150" />
+      <Function ID="13" Name="No Scroll" Display="'No Scroll'" Dmx="13~25" WheelPosition="0" Colour="255,255,255" />
+      <Function ID="14" Name="Scroll CW" Display="'Scroll CW     %.f%%',100~0" Dmx="191~154" Colour="0,0,0" />
+      <Function ID="15" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="192~255" Colour="0,0,0" />
+      <Function ID="16" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="2 DMX, 8bit" Channels="2">
+    <Import PearlRef="GN_ColBlast" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Mirror" PanMax="170" TiltMax="90" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="2" Wheel="1" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="8" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Colour1:2,Colour1Func:1" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Colour1:9,Colour1Func:1" />
+      <Palette ID="3" Name="Orange" Number="3" Page="1" SetControl="Colour1:7,Colour1Func:1" />
+      <Palette ID="4" Name="Yellow" Number="4" Page="1" SetControl="Colour1:5,Colour1Func:1" />
+      <Palette ID="5" Name="Yellow" Number="0" Page="1" SetControl="Colour1:5,Colour1Func:1" />
+      <Palette ID="6" Name="Deep Green" Number="5" Page="1" SetControl="Colour1:8,Colour1Func:1" />
+      <Palette ID="7" Name="Deep Green" Number="0" Page="1" SetControl="Colour1:8,Colour1Func:1" />
+      <Palette ID="8" Name="Open" Number="6" Page="1" SetControl="Colour1:2,Colour1Func:1" />
+      <Palette ID="9" Name="Blue" Number="0" Page="1" SetControl="Colour1:4,Colour1Func:1" />
+      <Palette ID="10" Name="Blue" Number="7" Page="1" SetControl="Colour1:4,Colour1Func:1" />
+      <Palette ID="11" Name="Deep Magenta" Number="9" Page="1" SetControl="Colour1:6,Colour1Func:1" />
+      <Palette ID="12" Name="Magenta" Number="10" Page="1" SetControl="Colour1:11,Colour1Func:1" />
+      <Palette ID="13" Name="Deep Magenta" Number="0" Page="1" SetControl="Colour1:6,Colour1Func:1" />
+      <Palette ID="14" Name="Light Pink" Number="8" Page="1" SetControl="Colour1:3,Colour1Func:1" />
+      <Palette ID="15" Name="Blue" Number="0" Page="1" SetControl="Colour1:4,Colour1Func:1" />
+    </Group>
+  </Palettes>
+</Fixture>

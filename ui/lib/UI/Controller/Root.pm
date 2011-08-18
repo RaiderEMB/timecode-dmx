@@ -9,7 +9,6 @@ __PACKAGE__->config(namespace => '');
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-    $c->response->body( $c->path_to("lib"). "/" . $c->config->{'personality_lib'} );
 }
 
 sub default :Path {

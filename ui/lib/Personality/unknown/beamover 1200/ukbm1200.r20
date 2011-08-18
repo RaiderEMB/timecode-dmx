@@ -1,0 +1,292 @@
+; 'Unknown beaMover 1200', 17 DMX Channels, filename: UKBM1200.R20
+;  Copyright © Avolites Ltd. 2010
+;
+;   Date       By                Description
+;   22-07-10   Pers Creator      Created - Exported from Diamond 4 file.
+;   22-07-10   Jonathan Moreton  Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  UK_BmMv1200                         mode=17 DMX, 16bit  17 DMX Channels
+NAME "Unknown" "beaMover 1200"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  17  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 17 DMX, 16bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=495
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L   11   100   1N   O   1   "Shutter"         128     0     0
+3    61   s    1   100   1N   E   1   "Pan"             128     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        128     0     0
+4     1   L   14   100   1N   0   1   "CTO"               0     0     0
+5    61   L    5   100   1N   L   1   "Focus"           128     0     0
+5     1   L    6   100   1N   Q   1   "Zoom"            128     0     0
+15    1   L    9   100   1N   0   1   "Keys U-D"        128     0     0
+15   61   L   10   100   1N   0   1   "Keys L-R"        128     0     0
+2     1   L   13   100   1N   0   1   "Sharpness"       127     0     0
+12    1   L    8   100   1N   0   1   "Rear Project"     63     0     0
+6     1   L    7   100   1N   0   1   "Source"            0     0     0
+20    1   L   12   100   1N   0   1   "Control"           0     0     0
+10    1   L   15   100   1N   0   1   "Wh Bal Red"        0     0     0
+10   61   L   16   100   1N   0   1   "Wh Bal Grn"        0     0     0
+9    61   L   17   100   1N   0   1   "Wh Bal Blue"       0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Unknown beaMover 1200
+17 DMX, 16bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Pan/Tilt"   -1   1   3
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Beam"       -1   6
+"Zoom Small"         41   0
+"Zoom Medium"        42  7F
+"Zoom Large"         43  FF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Lamp On"       1  12
+"data"                0  64
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Lamp On"       2  12
+"data"                0  64
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Lamp Off"      3  12
+"data"                0  C8
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Lamp Off"      4  12
+"data"                0  C8
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset PT"      5  12
+"data"                0  CA
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset PT"      6  12
+"data"                0  CA
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset Keystone"  7  12
+"data"                0  CB
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset Keystone"  8  12
+"data"                0  CB
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset_Beam"    9  12
+"data"                0  CC
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset_Beam"   10  12
+"data"                0  CC
+"delay"               1  3C
+"data"                0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 11  ;Shutter
+0   127    "Closed"
+128 255  "%3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 1  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;CTO
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Focus
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Zoom
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Keystone Up-Dn
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Keystone L-R
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;Sharpness
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Rear Project
+0   63   "ImgRev Off"
+64  127  "ImgRevOff|On"
+128 191  "ImgInv Off"
+192 255  "ImgInv On|On"
+REND
+
+RANGE 7  ;Source
+0   63   "DVI-D"
+64  127  "RGBHV"
+128 191  "Video"
+192 255  "SDI"
+REND
+
+RANGE 12  ;Control
+0   0    "Test Ptn Off"
+1   99   "Safe"
+100 100  "Lamp On"
+101 149  "Safe"
+150 150  "Auto Image"
+151 159  "Safe"
+160 160  "4:3"
+161 169  "Safe"
+170 170  "16:9"
+171 199  "Safe"
+200 200  "Lamp Off"
+201 201  "Safe"
+202 202  "Reset PT"
+203 203  "Reset Keys"
+204 204  "Reset_Beam"
+205 209  "Safe"
+210 210  "Test Ptn Cr"
+211 211  "Test Ptn Co"
+212 212  "Test Ptn G2"
+213 213  "Test Ptn AW"
+214 214  "Test Ptn AB"
+215 215  "Test Ptn Off"
+216 255  "Safe"
+REND
+

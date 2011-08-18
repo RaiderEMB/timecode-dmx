@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Color Shot" ShortName="ColorShot" Company="American DJ">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="23-02-07" Author="D.Milligan" Comment="Created" />
+  <History Date="23-02-07" Author="D.Milligan" Comment="Checked" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="3" PowerOn="1:0" Clear="1" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~1" Intensity="0~0" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.1f%%',0.0~100.0" Dmx="2~253" Intensity="0~0" />
+      <Function ID="3" Name="Open" Display="'Open'" Dmx="254~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Colour1Func" Name="Colour 1 Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Macro_Func" Display="'Macro'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour 1" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8" If="'Colour1Func'==1" />
+      <Condition Name="Macro_Func" ID="9,10" If="'Colour1Func'==2" />
+      <Condition Name="Raw_Func" ID="11" If="'Colour1Func'==3" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="254~255" Colour="255,255,255" />
+      <Function ID="2" Name="Red" Display="'Red'" Dmx="0~9" Colour="255,0,0" />
+      <Function ID="3" Name="Green" Display="'Green'" Dmx="10~19" Colour="0,255,0" />
+      <Function ID="4" Name="Blue" Display="'Blue'" Dmx="20~29" Colour="0,0,255" />
+      <Function ID="5" Name="Red/Green" Display="'Red/Green'" Dmx="30~39" Colour="0,0,0" />
+      <Function ID="6" Name="Red/Blue" Display="'Red/Blue'" Dmx="40~49" Colour="0,0,0" />
+      <Function ID="7" Name="Green/Blue" Display="'Green/Blue'" Dmx="50~59" Colour="0,0,0" />
+      <Function ID="8" Name="R/G/B" Display="'R/G/B'" Dmx="60~69" Colour="0,0,0" />
+      <Function ID="9" Name="Open" Display="'Open'" Dmx="254~255" Colour="255,255,255" />
+      <Function ID="10" Name="Macro" Display="'Macro %.1f%%',0.0~100.0" Dmx="70~253" Colour="0,0,0" />
+      <Function ID="11" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Sound" Name="Sound" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~127" />
+      <Function ID="2" Name="Sound" Display="'Sound'" Dmx="128~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="3 DMX, 8bit" Channels="3">
+    <Import PearlRef="ADJ_ColShot" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="1" Wheel="4" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="2" Wheel="8" />
+      <Attribute ID="Sound" ChannelOffset="3" Wheel="28" />
+    </Include>
+  </Mode>
+</Fixture>

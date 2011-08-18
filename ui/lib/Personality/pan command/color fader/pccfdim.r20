@@ -1,0 +1,758 @@
+; "Pan Command Color Fader", 3 DMX channels, filename :pccfdim.r20
+; "With Pending Dimmer"
+;
+;   Date      By        Description
+;   26-05-93  Anwar     created    
+;   01-09-94  J.B.Toby  Revised for Pearl use
+;   04-03-96  S. Anwar  Revised for Sapphire 96
+;   15-01-98   P.Bari   Revised attributes
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  PC_CFader+D                                    3 DMX channels
+NAME "Pan Command" "Color Fader w Pending Dim"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE    1   3   M
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;	+,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;	& means logical AND
+;	| means logical OR 
+;	R means reverse the bits of the curernt result (operates on a byte)
+;	^ means logical Exclusive OR (operates on a byte)
+;	> means shift to the right
+;	< shift to the left
+;	r followed by number means get the value of that parameter 
+;	d DMX address
+;	n Fixture name, a 0 terminated character string
+;	h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+"GROUP   %2d"d/12+1
+"CHANNEL %2d"d%12
+""
+""
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=508
+;
+; DMX number must be divisible by this	
+DIVBY=3
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt, 
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom, 
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX
+9   61  L   1   100 1I  D 1 "Yellow"    255 255 255   ; yellow
+10  61  L   2   100 1I  C 1 "Magenta"   255 255 255   ; magenta   
+10   1  L   3   100 1I  B 1 "Cyan"      255 255   0   ; cyan
+1    1  H   0   100 1N  H 1 "Dimmer"    255 255 255   ; Dimmer (no DMX)
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+ ColorFader
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1 Dimmer   --
+ 2 --       --
+ 3 --       -- 
+ 4 --       --       
+ 5 --       --
+ 6 --       --       
+ 7 --       --
+ 8 --       --
+ 9 --       Yellow
+10 Cyan     Magenta
+11 --       --
+12 --       --
+
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+;
+; A color table color wheel, cyan, magenta, yellow
+PFTABLE "Color" -1  3  2  1
+"White"          1 ff ff ff
+"Red"            2 ff  0  0
+"Amber"          3 ff 80  0
+"Yellow"         4 ff ff  0
+"Green"          5  0 ff  0
+"Cyan"           6  0 ff ff
+"Blue"           7  0 5a ff
+"Lavender"       8 69 5a ff
+"UV"             9  0 69 ff
+"Magenta"       10 ff  0 ff
+PFEND
+
+; Color order magenta yellow cyan
+PFTABLE "ROSCO Colors" 30 2 1 3 
+"ROSCO 802"   -1 a1 8a ff
+"ROSCO 803"   -1 c9 b2 ff
+"ROSCO 804"   -1 ff dc ff
+"ROSCO 805"   -1 ff 95 e5
+"ROSCO 806"   -1 ff 16 de
+"ROSCO 807"   -1 ff  0 ff
+"ROSCO 809"   -1 d8  0 ff
+"ROSCO 810"   -1 dc 5f ff
+"ROSCO 811"   -1 b4 6e ff
+"ROSCO 813"   -1 aa 59 ff
+"ROSCO 815"   -1 97  0 ff
+"ROSCO 817"   -1 80  0 ff
+"ROSCO 818"   -1 4f  0 ff
+"ROSCO 819"   -1 50 4b ff
+"ROSCO 821"   -1 34 1f ff
+"ROSCO 823"   -1  0 18 ff
+"ROSCO 825"   -1 bc ca ff
+"ROSCO 826"   -1 99 b7 ff
+"ROSCO 827"   -1 53 9e ff
+"ROSCO 828"   -1 5a ff de
+"ROSCO 829"   -1 74 aa ff
+"ROSCO 830"   -1 94 b4 ff
+"ROSCO 832"   -1 35 77 ff
+"ROSCO 834"   -1 a5 bd ff
+"ROSCO 835"   -1 9b b0 ff
+"ROSCO 836"   -1 78 8d ff
+"ROSCO 837"   -1 3a a4 ff
+"ROSCO 838"   -1 3b ff c2
+"ROSCO 839"   -1 2a ff b1
+"ROSCO 840"   -1 a6 ff b7
+"ROSCO 841"   -1 85 ff 89
+"ROSCO 842"   -1 8b ff 89
+"ROSCO 843"   -1 38 ff 4b
+"ROSCO 844"   -1 78 ff 73
+"ROSCO 846"   -1 3e ff 44
+"ROSCO 848"   -1 ff ff a0
+"ROSCO 849"   -1 ff ff a4
+"ROSCO 850"   -1 b0 ff 54
+"ROSCO 851"   -1 87 ff 43
+"ROSCO 852"   -1 88 ff 47
+"ROSCO 853"   -1 cd ff 63
+"ROSCO 854"   -1 ff d4 3f
+"ROSCO 855"   -1 b0 ff 5f
+"ROSCO 856"   -1 84 ff  0
+"ROSCO 857"   -1 59 ff  0
+"ROSCO 858"   -1 b2 ff  0
+"ROSCO 859"   -1 84 ff  0
+"ROSCO 860"   -1 8a ff 1f
+"ROSCO 861"   -1 54 ff 16
+"ROSCO 862"   -1 51 ff  0
+"ROSCO 863"   -1 28 ff  0
+"ROSCO 866"   -1 21 ff  0
+"ROSCO 869"   -1 ff 77 a9
+"ROSCO 871"   -1 ff 59 2a
+"ROSCO 874"   -1 ff 3a  0
+"ROSCO 877"   -1 ff ff  0
+"ROSCO 878"   -1 ff 4f 58
+"ROSCO 880"   -1 b5 95 90
+PFEND
+
+
+; Color order magenta yellow cyan
+PFTABLE "LEE Colors" 29 2 1 3
+"LEE 101"     -1 ff 1b b8
+"LEE 102"     -1 ff 5e d6
+"LEE 103"     -1 ff a3 ff
+"LEE 104"     -1 cc  0 ff
+"LEE 105"     -1 9b  0 ff
+"LEE 106"     -1 28  b ff
+"LEE 107"     -1 9a a6 ff
+"LEE 109"     -1 9d a2 ff
+"LEE 110"     -1 9a bf ff
+"LEE 111"     -1 78 ab ff
+"LEE 113"     -1 20 65 ff
+"LEE 115"     -1 ff b9 30
+"LEE 116"     -1 ff b4  0
+"LEE 117"     -1 ff ff 9a
+"LEE 118"     -1 a0 ff 1f
+"LEE 119"     -1 4c ff  3
+"LEE 120"     -1 39 ca 40   
+"LEE 121"     -1 ff 39 61
+"LEE 122"     -1 ff 46 45
+"LEE 124"     -1 ff 52  0
+"LEE 126"     -1  0 ff a6
+"LEE 127"     -1 85 aa ff
+"LEE 128"     -1 37 ff ff
+"LEE 132"     -1 6c ff  0
+"LEE 134"     -1 a1 5e ff
+"LEE 135"     -1 64  0 ff
+"LEE 136"     -1 a4 ff bc
+"LEE 137"     -1 8b ff 8b
+"LEE 138"     -1 ff 70 92
+"LEE 139"     -1 ff  0  0
+"LEE 141"     -1 94 ff  0
+"LEE 142"     -1 7c ff 68
+"LEE 143"     -1 a4 ff 54
+"LEE 144"     -1 bf ff 53
+"LEE 147"     -1 ab 73 ff
+"LEE 148"     -1 52 8c ff
+"LEE 149"     -1 88 ff 8e
+"LEE 151"     -1 ba ae ff
+"LEE 152"     -1 c4 aa ff
+"LEE 153"     -1 ac b8 ff
+"LEE 154"     -1 c2 d0 ff
+"LEE 156"     -1 be 8d ff
+"LEE 157"     -1 81 8f ff
+"LEE 158"     -1 88  0 ff
+"LEE 161"     -1 8d ff 52
+"LEE 162"     -1 d8 ca ff
+"LEE 164"     -1 4f 26 ff
+"LEE 165"     -1 90 ff 48
+"LEE 166"     -1 66 7c ff
+"LEE 170"     -1 90 ff a6
+"LEE 174"     -1 a0 ff 76
+"LEE 176"     -1 99 89 ff
+"LEE 179"     -1 b4  0 ff
+"LEE 180"     -1 4a ff 5a
+"LEE 181"     -1  0 ff 29
+"LEE 182"     -1 35  b ff
+"LEE 183"     -1 9a ff  0
+"LEE 192"     -1 82 c6 ff
+"LEE 193"     -1 86 8a ff
+"LEE 194"     -1 8a ff 91
+"LEE 195"     -1 39 ff 18
+"LEE 196"     -1 a4 ff 5f
+"LEE 197"     -1 79 ff 4e
+"LEE 202"     -1 be ff a2
+"LEE 203"     -1 e3 ff ca
+"LEE 204"     -1 c3 77 ff
+"LEE 205"     -1 e4 97 ff
+"LEE 206"     -1 ed c0 ff
+"LEE 211"     -1 bc a0 a6
+"LEE 213"     -1 ff 9d b1
+"LEE 236"     -1 c1 81 ff
+"LEE 238"     -1 a8 a4 ff
+PFEND
+
+
+; Color order magenta yellow cyan
+PFTABLE "GAM Colors" 28 2 1 3
+"GAM 110"     -1 5b ff ff
+"GAM 120"     -1 56 db ff
+"GAM 130"     -1 82 ff ff
+"GAM 140"     -1 19 9f ff
+"GAM 160"     -1 a9 db ff
+"GAM 170"     -1 90 d3 ff
+"GAM 180"     -1 4d 7d ff
+"GAM 220"     -1 48 80 ff
+"GAM 235"     -1 44 51 ff
+"GAM 245"     -1 3f 43 ff
+"GAM 250"     -1 1b 13 ff
+"GAM 280"     -1 5a 3b ff
+"GAM 290"     -1 62 17 ff
+"GAM 305"     -1 b2 ab ff
+"GAM 315"     -1 77 19 ff
+"GAM 320"     -1 96 74 ff
+"GAM 325"     -1 c3 a4 ff
+"GAM 330"     -1 b9 97 ff
+"GAM 343"     -1 b8 6a ff
+"GAM 350"     -1 90  a ff
+"GAM 375"     -1 ac 68 ff
+"GAM 420"     -1 ff 58 ff
+"GAM 460"     -1 ff 5b b4
+"GAM 480"     -1 ff 3d b3
+"GAM 540"     -1 ff 79 98
+"GAM 650"     -1 ff 44 1c
+"GAM 655"     -1 ff 2f  0
+"GAM 660"     -1 ff 51 49
+"GAM 685"     -1 ff 90 47
+"GAM 710"     -1 ff f1 5b
+"GAM 725"     -1 ff e8 4f
+"GAM 740"     -1 9f ff 2a
+"GAM 750"     -1 9e ff 3a
+"GAM 760"     -1 c0 ff 52
+"GAM 780"     -1 c2 ff 7e
+"GAM 790"     -1 c3 ff 92
+"GAM 810"     -1 82 ff 2e
+"GAM 815"     -1 9c ff 5b
+"GAM 820"     -1 ce ff a6
+"GAM 830"     -1 dd ff b1
+"GAM 835"     -1 62 ff 1c
+"GAM 840"     -1 98 ff 5e
+"GAM 842"     -1 b5 ff 97
+"GAM 847"     -1 8a ff 52
+"GAM 850"     -1 3f ff 12
+"GAM 860"     -1 a8 ff 88
+"GAM 882"     -1 9b ff 6f
+"GAM 885"     -1 e0 ff c6
+"GAM 888"     -1 a5 ff 86
+"GAM 890"     -1 2f ff  0
+"GAM 905"     -1 25 ff  c
+"GAM 910"     -1 7d ff 5b
+"GAM 920"     -1 d2 ff cd
+"GAM 925"     -1 38 ff 32
+"GAM 930"     -1  0 ff 2d
+"GAM 940"     -1 84 ff 7d
+"GAM 945"     -1 12 ff 35
+"GAM 948"     -1 3e ff 4a
+"GAM 950"     -1 50 ff 5d
+"GAM 960"     -1 8d ff 9b
+"GAM 970"     -1 97 ff ab
+"GAM 990"     -1 74 ff a1
+"GAM 995"     -1 14 ff a9
+PFEND
+
+; Color order magenta yellow cyan
+PFTABLE "PERCENT Colors" 27 2 1 3
+"COL 1"       -1 ff a3 ff
+"COL 2"       -1 ff 61 cc
+"COL 3"       -1 ff 49 ff
+"COL 4"       -1 cc  0 ff
+"COL 5"       -1 c8  0 ff
+"COL 6"       -1 ff 4d ff
+"COL 7"       -1 ff 5b b4
+"COL 8"       -1 ff 28 a6
+"COL 9"       -1 ff 1b b8
+"COL 10"      -1 ff  0 ff
+"COL 11"      -1 c3 a1 ff
+"COL 12"      -1 b4 91 ff
+"COL 13"      -1 99 89 ff
+"COL 14"      -1 af 73 ff
+"COL 15"      -1 ab 73 ff
+"COL 16"      -1 9b 23 ff
+"COL 17"      -1 7e  0 ff
+"COL 18"      -1 5f  0 ff
+"COL 19"      -1 4f  0 ff
+"COL 20"      -1 43 18 ff
+"COL 21"      -1 53 3d ff
+"COL 22"      -1 53 56 ff
+"COL 23"      -1 35  b ff
+"COL 24"      -1 28  b ff
+"COL 25"      -1 61 79 ff
+"COL 26"      -1 50 6a ff
+"COL 27"      -1 44 51 ff
+"COL 28"      -1 30 1e ff
+"COL 29"      -1 1b 13 ff
+"COL 30"      -1  0  0 ff
+"COL 31"      -1 ac b8 ff
+"COL 32"      -1 9d a2 ff
+"COL 33"      -1 8c 94 ff
+"COL 34"      -1 94 a2 ff
+"COL 35"      -1 9a bf ff
+"COL 36"      -1 8c bf ff
+"COL 37"      -1 78 ab ff
+"COL 38"      -1 4d 7d ff
+"COL 39"      -1 20 65 ff
+"COL 40"      -1 2b 69 ff
+"COL 41"      -1 b2 ff ff
+"COL 42"      -1 ae ff ff
+"COL 43"      -1 a7 ff ff
+"COL 44"      -1 a6 fc ff
+"COL 45"      -1 70 ff ff
+"COL 46"      -1 37 ff ff
+"COL 47"      -1 19 9f ff
+"COL 48"      -1  0 ff a6
+"COL 49"      -1 14 ff a9
+"COL 50"      -1  0 ff ff
+"COL 51"      -1 ae ff cc
+"COL 52"      -1 90 ff ac
+"COL 53"      -1 ae ff b7
+"COL 54"      -1 8b ff 8b
+"COL 55"      -1 7c ff 68
+"COL 56"      -1 80 ff 89
+"COL 57"      -1 50 ff 63
+"COL 58"      -1 4a ff 5a
+"COL 59"      -1 14 ff 41
+"COL 60"      -1  0 ff 29
+"COL 61"      -1 be ff a8
+"COL 62"      -1 be ff 93
+"COL 63"      -1 8d ff 52
+"COL 64"      -1 92 ff 5b
+"COL 65"      -1 91 ff 4c
+"COL 66"      -1 5f ff 1b
+"COL 67"      -1 4c ff  8
+"COL 68"      -1 3b ff 12
+"COL 69"      -1 25 ff  c
+"COL 70"      -1  0 ff  0
+"COL 71"      -1 ff ff 57
+"COL 72"      -1 ff b9 30
+"COL 73"      -1 ff b4  0
+"COL 74"      -1 ff c2  0
+"COL 75"      -1 ff ff 9a
+"COL 76"      -1 bf ff 53
+"COL 77"      -1 b1 ff 4d
+"COL 78"      -1 92 ff 1e
+"COL 79"      -1 93 ff  0
+"COL 80"      -1 ff ff  0
+"COL 81"      -1 ff 79 98
+"COL 82"      -1 ff 70 92
+"COL 83"      -1 ff 39 61
+"COL 84"      -1 ff 46 45
+"COL 85"      -1 ff 4f 3a
+"COL 86"      -1 ff 52  0
+"COL 87"      -1 ff 2f  0
+"COL 88"      -1 ff 3c  0
+"COL 89"      -1 ff 52  0
+"COL 90"      -1 ff  0  0
+PFEND
+
+
+; Color order magenta yellow cyan
+PFTABLE "XROSCO Colors" 14 2 1 3
+"XROSCO 1"    -1 a7 99 ff
+"XROSCO 2"    -1 c3 a1 ff
+"XROSCO 3"    -1 b4 91 ff
+"XROSCO 4"    -1 b8 a0 ff
+"XROSCO 5"    -1 ca d8 ff
+"XROSCO 6"    -1 ff b0 db
+"XROSCO 8"    -1 ff a5 ff
+"XROSCO 9"    -1 dc 94 ff
+"XROSCO 10"   -1 ff 27 a5
+"XROSCO 11"   -1 ff 61 cc
+"XROSCO 12"   -1 ff 28 a6
+"XROSCO 13"   -1 eb 8b ff
+"XROSCO 14"   -1 ff 49 ff
+"XROSCO 15"   -1 c8  0 ff
+"XROSCO 16"   -1 c2 79 ff
+"XROSCO 17"   -1 b0 7f ff
+"XROSCO 18"   -1 af 73 ff
+"XROSCO 19"   -1 4f  0 ff
+"XROSCO 20"   -1 b0 2c ff
+"XROSCO 21"   -1 9b 23 ff
+"XROSCO 22"   -1 5f  0 ff
+"XROSCO 23"   -1 81 26 ff
+"XROSCO 24"   -1 53 56 ff
+"XROSCO 25"   -1 43 18 ff
+"XROSCO 26"   -1 30 1e ff
+"XROSCO 27"   -1  0  0 ff
+"XROSCO 30"   -1 98 91 ff
+"XROSCO 31"   -1 8c 94 ff
+"XROSCO 32"   -1 7b 7f ff
+"XROSCO 33"   -1 b2 ff ff
+"XROSCO 34"   -1 94 a2 ff
+"XROSCO 35"   -1 ae ff ff
+"XROSCO 36"   -1 8c bf ff
+"XROSCO 37"   -1 a7 ff ff
+"XROSCO 38"   -1 a6 fc ff
+"XROSCO 40"   -1 81 6e ff
+"XROSCO 41"   -1 53 3d ff
+"XROSCO 42"   -1 37 61 ff
+"XROSCO 43"   -1 64 c3 ff
+"XROSCO 44"   -1 70 ff ff
+"XROSCO 45"   -1 52 93 ff
+"XROSCO 46"   -1 2b 69 ff
+"XROSCO 47"   -1 63 ff 87
+"XROSCO 48"   -1 5d ff b0
+"XROSCO 49"   -1 23 ff b0
+"XROSCO 50"   -1 7a 88 ff
+"XROSCO 51"   -1 ae ff cc
+"XROSCO 52"   -1 90 ff ac
+"XROSCO 53"   -1 c2 ff bc
+"XROSCO 54"   -1 ae ff b7
+"XROSCO 55"   -1 9e ff 92
+"XROSCO 56"   -1 2b ff 3f
+"XROSCO 57"   -1 80 ff 89
+"XROSCO 58"   -1 50 ff 63
+"XROSCO 59"   -1 14 ff 41
+"XROSCO 60"   -1 be ff a8
+"XROSCO 61"   -1 d9 ff aa
+"XROSCO 62"   -1 be ff 93
+"XROSCO 63"   -1 d3 ff a0
+"XROSCO 64"   -1 92 ff 5b
+"XROSCO 65"   -1 a4 ff 59
+"XROSCO 66"   -1 eb ff a0
+"XROSCO 67"   -1 91 ff 4c
+"XROSCO 68"   -1 5f ff 1b
+"XROSCO 69"   -1 92 ff 1e
+"XROSCO 70"   -1 d9 ff 81
+"XROSCO 71"   -1 b1 ff 4d
+"XROSCO 72"   -1 c1 ff 63
+"XROSCO 73"   -1 ff ff 57
+"XROSCO 74"   -1 48 ff  0
+"XROSCO 75"   -1 ff 4f 3d
+"XROSCO 76"   -1 93 ff  0
+"XROSCO 77"   -1 7e ff 1c
+"XROSCO 78"   -1 84 ff 58
+"XROSCO 79"   -1 4c ff  8
+"XROSCO 80"   -1 4f ff 1c
+"XROSCO 81"   -1 71 ff 38
+"XROSCO 82"   -1 59 ff 38
+"XROSCO 83"   -1 3b ff 12
+"XROSCO 84"   -1 79 ff 4a
+"XROSCO 85"   -1 44 ff 15
+"XROSCO 86"   -1 ff 4a 64
+"XROSCO 87"   -1 ff 90 b5
+"XROSCO 88"   -1 ff 79 9b
+"XROSCO 89"   -1 ff 4f 3a
+"XROSCO 90"   -1 ff 3c  0
+"XROSCO 91"   -1 ff 52  0
+"XROSCO 92"   -1 ff 89 61
+"XROSCO 93"   -1 ff 91 56
+"XROSCO 94"   -1 ff 6e 18
+"XROSCO 95"   -1 ff c2  0
+"XROSCO 96"   -1 ff 67 a8
+"XROSCO 99"   -1 c9 9e ff
+PFEND
+
+
+
+; Color order magenta yellow cyan
+PFTABLE "USER Colors" 15 2 1 3
+"USER 1"      -1 ff ff ff
+"USER 2"      -1 5b ff ff
+"USER 3"      -1 56 db ff
+"USER 4"      -1 ff e8 4f
+"USER 5"      -1 ff 3d b3
+"USER 6"      -1 ff 79 98
+"USER 7"      -1 ff 90 98
+"USER 8"      -1 62 ff 1c
+"USER 9"      -1 a8 ff 88
+"USER 10"     -1 3e ff 4a
+"USER 11"     -1 82 ff ff
+"USER 12"     -1 14 ff a9
+"USER 13"     -1 ff f1 5b
+"USER 14"     -1 ff 51 49
+"USER 15"     -1 ff 44 1c
+"USER 16"     -1 ff e8 4f
+"USER 17"     -1 3f ff 12
+"USER 18"     -1 12 ff 35
+"USER 19"     -1 19 9f ff
+"USER 20"     -1 a9 db ff
+"USER 21"     -1 48 80 ff
+"USER 22"     -1 44 51 ff
+"USER 23"     -1 1b 13 ff
+"USER 24"     -1 5a 3b ff
+"USER 25"     -1 90  a ff
+"USER 26"     -1 ff 3d b3
+"USER 27"     -1 5a 3b ff
+"USER 28"     -1 1e ff 2d
+"USER 29"     -1 38 ff 32
+"USER 30"     -1 74 ff a1
+"USER 31"     -1 50 ff 5d
+"USER 32"     -1 3f 43 ff
+PFEND
+
+;INPUT          Cyan magenta yellow 
+PFTABLE "Avo_Colors" 13 3 2 1
+"WHITE" -1   ff ff ff
+"RED1"  -1   ff  0  0
+"RED2"  -1   f5  2  2
+"RED3"  -1   ea  4  4
+"RED4"  -1   df  6  6
+"RED5"  -1   d4  8  8
+"RED6"  -1   ca  a  a
+"RED7"  -1   bf  c  c
+"RED8"  -1   b4  e  e
+"RED9"  -1   a9 10 10
+"RED10"  -1   9f 12 12
+"RED11"  -1   94 14 14
+"RED12"  -1   89 16 16
+"RED13"  -1   7e 18 18
+"RED14"  -1   74 1a 1a
+"RED15"  -1   69 1c 1c
+"RED16"  -1   5e 1e 1e
+"RED17"  -1   53 20 20
+"RED18"  -1   49 22 22
+"RED19"  -1   3e 24 24
+"RED20"  -1   33 26 26
+"AMBER1"  -1   ff 4d  0
+"AMBER2"  -1   f5 4c  2
+"AMBER3"  -1   ea 4a  4
+"AMBER4"  -1   df 48  6
+"AMBER5"  -1   d4 46  8
+"AMBER6"  -1   ca 44  a
+"AMBER7"  -1   bf 42  c
+"AMBER8"  -1   b4 41  e
+"AMBER9"  -1   a9 3f 10
+"AMBER10"  -1   9f 3d 12
+"AMBER11"  -1   94 3b 14
+"AMBER12"  -1   89 39 16
+"AMBER13"  -1   7e 37 18
+"AMBER14"  -1   74 35 1a
+"AMBER15"  -1   69 34 1c
+"AMBER16"  -1   5e 32 1e
+"AMBER17"  -1   53 30 20
+"AMBER18"  -1   49 2e 22
+"AMBER19"  -1   3e 2c 24
+"AMBER20"  -1   33 2a 26
+"YELLOW1"  -1   ff ff  0
+"YELLOW2"  -1   f5 f5  2
+"YELLOW3"  -1   ea ea  4
+"YELLOW4"  -1   df df  6
+"YELLOW5"  -1   d4 d4  8
+"YELLOW6"  -1   ca ca  a
+"YELLOW7"  -1   bf bf  c
+"YELLOW8"  -1   b4 b4  e
+"YELLOW9"  -1   a9 a9 10
+"YELLOW10"  -1   9f 9f 12
+"YELLOW11"  -1   94 94 14
+"YELLOW12"  -1   89 89 16
+"YELLOW13"  -1   7e 7e 18
+"YELLOW14"  -1   74 74 1a
+"YELLOW15"  -1   69 69 1c
+"YELLOW16"  -1   5e 5e 1e
+"YELLOW17"  -1   53 53 20
+"YELLOW18"  -1   49 49 22
+"YELLOW19"  -1   3e 3e 24
+"YELLOW20"  -1   33 33 26
+"GREEN1"  -1    0 ff  0
+"GREEN2"  -1    2 f5  2
+"GREEN3"  -1    4 ea  4
+"GREEN4"  -1    6 df  6
+"GREEN5"  -1    8 d4  8
+"GREEN6"  -1    a ca  a
+"GREEN7"  -1    c bf  c
+"GREEN8"  -1    e b4  e
+"GREEN9"  -1   10 a9 10
+"GREEN10"  -1   12 9f 12
+"GREEN11"  -1   14 94 14
+"GREEN12"  -1   16 89 16
+"GREEN13"  -1   18 7e 18
+"GREEN14"  -1   1a 74 1a
+"GREEN15"  -1   1c 69 1c
+"GREEN16"  -1   1e 5e 1e
+"GREEN17"  -1   20 53 20
+"GREEN18"  -1   22 49 22
+"GREEN19"  -1   24 3e 24
+"GREEN20"  -1   26 33 26
+"CYAN1"  -1    0 ff 3d
+"CYAN2"  -1    2 f5 3c
+"CYAN3"  -1    4 ea 3b
+"CYAN4"  -1    6 df 3a
+"CYAN5"  -1    8 d4 39
+"CYAN6"  -1    a ca 38
+"CYAN7"  -1    c bf 37
+"CYAN8"  -1    e b4 36
+"CYAN9"  -1   10 a9 35
+"CYAN10"  -1   12 9f 34
+"CYAN11"  -1   14 94 33
+"CYAN12"  -1   16 89 32
+"CYAN13"  -1   18 7e 31
+"CYAN14"  -1   1a 74 30
+"CYAN15"  -1   1c 69 2f
+"CYAN16"  -1   1e 5e 2e
+"CYAN17"  -1   20 53 2d
+"CYAN18"  -1   22 49 2c
+"CYAN19"  -1   24 3e 2b
+"CYAN20"  -1   26 33 2a
+"BLUE1"  -1    0 3d ff
+"BLUE2"  -1    2 3c f5
+"BLUE3"  -1    4 3b ea
+"BLUE4"  -1    6 3a df
+"BLUE5"  -1    8 39 d4
+"BLUE6"  -1    a 38 ca
+"BLUE7"  -1    c 37 bf
+"BLUE8"  -1    e 36 b4
+"BLUE9"  -1   10 35 a9
+"BLUE10"  -1   12 34 9f
+"BLUE11"  -1   14 33 94
+"BLUE12"  -1   16 32 89
+"BLUE13"  -1   18 31 7e
+"BLUE14"  -1   1a 30 74
+"BLUE15"  -1   1c 2f 69
+"BLUE16"  -1   1e 2e 5e
+"BLUE17"  -1   20 2d 53
+"BLUE18"  -1   22 2c 49
+"BLUE19"  -1   24 2b 3e
+"BLUE20"  -1   26 2a 33
+"LAVENDER1"  -1   69 5a ff
+"LAVENDER2"  -1   66 58 f5
+"LAVENDER3"  -1   63 55 ea
+"LAVENDER4"  -1   60 53 df
+"LAVENDER5"  -1   5c 50 d4
+"LAVENDER6"  -1   59 4e ca
+"LAVENDER7"  -1   56 4b bf
+"LAVENDER8"  -1   53 49 b4
+"LAVENDER9"  -1   4f 46 a9
+"LAVENDER10"  -1   4c 44 9f
+"LAVENDER11"  -1   49 41 94
+"LAVENDER12"  -1   46 3f 89
+"LAVENDER13"  -1   42 3c 7e
+"LAVENDER14"  -1   3f 3a 74
+"LAVENDER15"  -1   3c 37 69
+"LAVENDER16"  -1   39 35 5e
+"LAVENDER17"  -1   35 32 53
+"LAVENDER18"  -1   32 30 49
+"LAVENDER19"  -1   2f 2d 3e
+"LAVENDER20"  -1   2c 2b 33
+"UV1"  -1    0  0 28
+"UV2"  -1    2  2 28
+"UV3"  -1    4  4 28
+"UV4"  -1    6  6 28
+"UV5"  -1    8  8 28
+"UV6"  -1    a  a 28
+"UV7"  -1    c  c 28
+"UV8"  -1    e  e 28
+"UV9"  -1   10 10 28
+"UV10"  -1   12 12 28
+"UV11"  -1   14 14 28
+"UV12"  -1   16 16 28
+"UV13"  -1   18 18 28
+"UV14"  -1   1a 1a 28
+"UV15"  -1   1c 1c 28
+"UV16"  -1   1e 1e 28
+"UV17"  -1   20 20 28
+"UV18"  -1   22 22 28
+"UV19"  -1   24 24 28
+"UV20"  -1   26 26 28
+"MAGENTA1"  -1   ff  0 ff
+"MAGENTA2"  -1   f5  2 f5
+"MAGENTA3"  -1   ea  4 ea
+"MAGENTA4"  -1   df  6 df
+"MAGENTA5"  -1   d4  8 d4
+"MAGENTA6"  -1   ca  a ca
+"MAGENTA7"  -1   bf  c bf
+"MAGENTA8"  -1   b4  e b4
+"MAGENTA9"  -1   a9 10 a9
+"MAGENTA10"  -1   9f 12 9f
+"MAGENTA11"  -1   94 14 94
+"MAGENTA12"  -1   89 16 89
+"MAGENTA13"  -1   7e 18 7e
+"MAGENTA14"  -1   74 1a 74
+"MAGENTA15"  -1   69 1c 69
+"MAGENTA16"  -1   5e 1e 5e
+"MAGENTA17"  -1   53 20 53
+"MAGENTA18"  -1   49 22 49
+"MAGENTA19"  -1   3e 24 3e
+"MAGENTA20"  -1   33 26 33
+PFEND

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="High Ground" ShortName="High Grnd" Company="Novalight">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="22-03-06" Author="Ed" Comment="Created" />
+  <History Date="22-03-06" Author="Ed" Comment="Checked" />
+  <History Date="21-06-06" Author="Ed" Comment="Put a space in manufacturer name" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour ID to Colour1" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <History Date="19-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="28-01-09" Author="D4 Personality Fixer 2009" Comment="Changed manufacturer from Nova Light to Novalight" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Colour1Func" Name="Colour Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="7,8" If="'Colour1Func'==2" />
+      <Condition Name="Raw_Func" ID="9" If="'Colour1Func'==3" />
+      <Else ID="1,2,3,4,5,6,7,8,9" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~23" Colour="255,255,255" />
+      <Function ID="2" Name="Yellow" Display="'Yellow'" Dmx="24~41" Colour="255,255,0" />
+      <Function ID="3" Name="Green" Display="'Green'" Dmx="42~63" Colour="0,255,0" />
+      <Function ID="4" Name="Blue" Display="'Blue'" Dmx="64~86" Colour="0,0,255" />
+      <Function ID="5" Name="Magenta" Display="'Magenta'" Dmx="87~106" Colour="255,0,255" />
+      <Function ID="6" Name="Red" Display="'Red'" Dmx="107~128" Colour="255,0,0" />
+      <Function ID="7" Name="No Scroll" Display="'No Scroll'" Dmx="0~23" Colour="0,0,0" />
+      <Function ID="8" Name="Scroll CW" Display="'Scroll CW %.f%%',0~100" Dmx="128~255" Colour="0,0,0" />
+      <Function ID="9" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~128" Intensity="0~0" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="144~240" Intensity="0~0" />
+      <Function ID="3" Name="Open" Display="'Open'" Dmx="241~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Zoom" Name="Zoom" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Zoom" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="4" PowerOn="4" />
+      <Function ID="1" Name="Hysteresis" Display="'Hysteresis %.f%%',0~100" Dmx="0~16" />
+      <Function ID="2" Name="Lamp Off" Display="'Lamp Off'" Dmx="17~64" />
+      <Function ID="3" Name="Hysteresis" Display="'Hysteresis %.f%%',0~100" Dmx="65~127" />
+      <Function ID="4" Name="Lamp On" Display="'Lamp On'" Dmx="128~191" />
+      <Function ID="5" Name="Reset" Display="'Reset'" Dmx="192~255" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="PanSpeed" Name="Pan Speed" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="TiltSpeed" Name="Tilt Speed" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="10 DMX, 8bit" Channels="10">
+    <Import PearlRef="" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="540" TiltMax="262" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="2" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="5,7" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="6,8" Wheel="3" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="8" />
+      <Attribute ID="Zoom" ChannelOffset="3" Wheel="19" />
+      <Attribute ID="Control" ChannelOffset="4" Wheel="28" />
+      <Attribute ID="PanSpeed" ChannelOffset="9" Wheel="26" />
+      <Attribute ID="TiltSpeed" ChannelOffset="10" Wheel="27" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Control:4" Delay="1000" />
+    </Macro>
+    <Macro Name="Lamp Off">
+      <Set Channel="Control:2" Delay="1000" />
+    </Macro>
+    <Macro Name="Reset">
+      <Set Channel="Control:5" Delay="1000" />
+    </Macro>
+  </Macro>
+</Fixture>

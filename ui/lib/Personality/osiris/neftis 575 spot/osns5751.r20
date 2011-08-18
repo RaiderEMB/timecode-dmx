@@ -1,0 +1,174 @@
+; 'Osiris Neftis 575 Spot', 10 DMX Channels, filename: OSNS5751.R20
+;
+;   Date       By                Description
+;   12-01-06   Pers Creator      Created - Exported from Diamond 4 file.
+;   12-01-06   Ed Spencer	 Checked
+;   19-01-06   Ed Spencer	 Altered channel layout
+;   05-01-09   David Hunt        Fixed duplicate dmx values in range tables
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  OS_NS57516b                            mode=10 DMX, 16bit, 1  10 DMX Channels
+NAME "Osiris" "Neftis 575 Spot 16bit"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  10  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   370   255
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 10 DMX, 16bit, 1"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=502
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+4     1   I    1   100   1N   A   1   "Colour"            0     0     0
+6     1   I    2   100   1N   I   1   "Gobo"              0     0     0
+7     1   L    3   100   1N   K   1   "Gobo Rot"        128     0     0
+1     1   H    4   100   1N   H   1   "Dimmer"          140     0     0
+3    61   s    5   100   1N   E   1   "Pan"             128     0     0
+0     0   L    7   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    6   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    8   100   1N   F   1   "Tilt Low"        128     0     0
+9     1   L    9   100   1N   P   1   "Effect"            0     0     0
+5    61   L   10   100   1N   L   1   "Focus"           127     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Osiris Neftis 575 Spot
+10 DMX, 16bit, 1
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Colour
+0   30   "Open"
+31  42   "Red"
+43  54   "Blue"
+55  66   "Green"
+67  78   "Yellow"
+79  90   "Purple"
+91  102  "Light Blue"
+103 113  "Orange"
+114 255  "Scroll %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 2  ;Gobo
+0   30   "Open"
+31  42   "Gobo 1"
+43  54   "Gobo 2"
+55  66   "Gobo 3"
+67  78   "Gobo 4"
+79  90   "Gobo 5"
+91  102  "Gobo 6"
+103 113  "Gobo 7"
+114 255  "Scroll %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 3  ;Gobo Rot
+0   127  "Sp CW %3d%%"0+(((c-a)*100)/(b-a))
+128 191  "No Spin"
+192 255  "Sp CCW %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 4  ;Dimmer
+0   140  "%3d%%"0+(((c-a)*100)/(b-a))
+141 240  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+241 255  "Open"
+REND
+
+RANGE 9  ;Effect
+0   9    "Open"
+10  55   "Prism"
+10  56   "No Spin"
+56  147  "Sp CW %3d%%"0+(((c-a)*100)/(b-a))
+148 255  "Sp CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND

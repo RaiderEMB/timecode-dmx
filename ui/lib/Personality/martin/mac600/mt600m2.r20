@@ -1,0 +1,393 @@
+; 'Martin MAC 600 12 DMX, Mode 2', 12 DMX Channels, filename: MT600M2.R20
+;  Copyright © Avolites Ltd. 2008
+;
+;   Date       By                Description
+;   11-08-08   Pers Creator      Created - Exported from Diamond 4 file.
+;   11-08-08   Jonathan Moreton  Updated LEE palette values and fixed Inverted colours in colour picker.
+;   06-01-09   David Hunt        Fixed duplicate dmx values in range tables 
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MT_Mac600m2                         mode=12 DMX, Mode 2  12 DMX Channels
+NAME "Martin" "MAC 600 12 DMX, Mode 2"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  12  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   440  306
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 12 DMX, Mode 2"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=500
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    1   100   1N   O   1   "Shutter"          20    20    20
+1     1   H    2   100   1N   H   1   "Dimmer"          255     0     0
+3    61   s    9   100   1N   E   1   "Pan"             128     0     0
+0     0   L   10   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s   11   100   1N   F   1   "Tilt"            128     0     0
+0     0   L   12   100   1N   F   1   "Tilt Low"        128     0     0
+10    1   L    3   100   1N   B   1   "Cyan"              0     0   255
+10   61   L    4   100   1N   C   1   "Magenta"           0     0   255
+9    61   L    5   100   1N   D   1   "Yellow"            0   255     0
+4     1   I    6   100   1N   A   1   "Colour"            0     0     0
+5     1   L    7   100   1N   0   1   "Beam Shaper1"      0     0     0
+5    61   L    8   100   1N   0   1   "Beam Shaper2"      0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Martin MAC 600 Mode 2
+12 DMX 
+
+   Encoder Banks
+  Wheel A    Wheel B
+---------------------
+ 1 Dimmer    --
+ 2 Shutter   --
+ 3 Tilt      Pan
+ 4 Colour    --
+ 5 BeamShp1  BeamShp2
+ 6 --        --
+ 7 --        --
+ 8 --        --
+ 9 --        Yellow
+10 Cyan      Magenta
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Pan/Tilt"   -1   9  11
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1   3   4   5
+"Open"                1   0   0   0
+"Red"                 2   0  FF  FF
+"Amber"               3   0  A6  FF
+"Yellow"              4   0   0  FF
+"Green"               5  FF   0  FF
+"Cyan"                6  FF   0   0
+"Blue"                7  FF  FF   0
+"Lavender"            8  B2  CC   0
+"UltraViolet"         9  CC  FF   0
+"Magenta"            10   0  FF   0
+PFEND
+
+PFTABLE "LEE"        29   3   4   5 
+"LEE 004"            -1   0  47  7A
+"LEE 007"            -1   0   A  4F
+"LEE 008"            -1   0  AD  CC
+"LEE 009"            -1   0  29  7F
+"LEE 010"            -1   0   0  FF
+"LEE 013"            -1   0  26  7F
+"LEE 015"            -1   0  61  FA
+"LEE 017"            -1  2E  9C  D6
+"LEE 019"            -1   0  FF  EB
+"LEE 020"            -1   0  6E  DB
+"LEE 021"            -1   0  A1  EB
+"LEE 022"            -1   0  ED  FA
+"LEE 024"            -1   0  FC  D1
+"LEE 025"            -1   0  DB  E5
+"LEE 026"            -1   0  FF  DE
+"LEE 027"            -1   0  FF  DB
+"LEE 035"            -1   0  45  57
+"LEE 036"            -1   0  6E  5C
+"LEE 046"            -1   0  FF  D6
+"LEE 052"            -1  1A  2B  30
+"LEE 053"            -1   0   A  29
+"LEE 058"            -1  63  63   0
+"LEE 061"            -1   F   0  2B
+"LEE 063"            -1  21   3  33
+"LEE 079"            -1  F5  40   0
+"LEE 088"            -1  99   0  E5
+"LEE 089"            -1  E8   A  ED
+"LEE 090"            -1  FF   3  F2
+"LEE 100"            -1   0   0  FF
+"LEE 101"            -1   0   5  F7
+"LEE 102"            -1   0  1F  D9
+"LEE 103"            -1   0  1A  5E
+"LEE 104"            -1   0  3D  FF
+"LEE 105"            -1   0  A6  FF
+"LEE 106"            -1   0  FF  D4
+"LEE 107"            -1   0  6E  7D
+"LEE 108"            -1   0  63  8A
+"LEE 109"            -1   0  61  7D
+"LEE 110"            -1   0  75  85
+"LEE 111"            -1   0  94  5C
+"LEE 113"            -1   0  FF  CF
+"LEE 115"            -1  F0   8  B3
+"LEE 116"            -1  FF   0  C9
+"LEE 117"            -1  99   F  5C
+"LEE 118"            -1  ED   0  75
+"LEE 119"            -1  FF  70  1A
+"LEE 120"            -1  FF  1A  1A
+"LEE 121"            -1  CC   0  EB
+"LEE 122"            -1  CC   D  E5
+"LEE 124"            -1  F2   0  EB
+"LEE 126"            -1  2B  FF  1A
+"LEE 127"            -1  45  BA  BF
+"LEE 128"            -1   0  FF  7A
+"LEE 131"            -1  DE   0  C2
+"LEE 132"            -1  FF   A  14
+"LEE 134"            -1   0  85  DB
+"LEE 135"            -1   0  F7  FC
+"LEE 136"            -1   0  1C  2B
+"LEE 137"            -1  29  12  1F
+"LEE 138"            -1  87  17  DE
+"LEE 139"            -1  ED   0  FF
+"LEE 140"            -1  91   5  66
+"LEE 141"            -1  F0   0  63
+"LEE 142"            -1  4A  17   D
+"LEE 143"            -1  D1   0  59
+"LEE 144"            -1  D6   8  78
+"LEE 147"            -1   0  6B  BA
+"LEE 148"            -1   0  FF  C7
+"LEE 151"            -1   0  33  63
+"LEE 152"            -1   0  2E  69
+"LEE 153"            -1   0  42  66
+"LEE 154"            -1   0  42  7F
+"LEE 156"            -1  26  5E  A8
+"LEE 157"            -1   0  C9  BA
+"LEE 158"            -1   0  CC  FF
+"LEE 159"            -1   0  12  3B
+"LEE 161"            -1  A1   0  30
+"LEE 162"            -1   0  24  4A
+"LEE 164"            -1   0  FF  F0
+"LEE 165"            -1  BF   0  36
+"LEE 166"            -1   0  E0  A1
+"LEE 169"            -1   0  17  3B
+"LEE 170"            -1  1A  40  33
+"LEE 172"            -1  FF   0  9E
+"LEE 174"            -1  69   0  29
+"LEE 176"            -1   0  8C  BA
+"LEE 179"            -1   0  87  FF
+"LEE 180"            -1  85  8A   0
+"LEE 181"            -1  FF  FC   F
+"LEE 182"            -1   0  FF  DE
+"LEE 183"            -1  F0   0  57
+"LEE 184"            -1  2E  45  7D
+"LEE 185"            -1  4A  40  96
+"LEE 187"            -1  2B  36  85
+"LEE 188"            -1  29  30  8C
+"LEE 189"            -1  4F  30  75
+"LEE 190"            -1  3D  21  66
+"LEE 191"            -1  45  36  73
+"LEE 192"            -1   0  BA  7F
+"LEE 193"            -1   0  BD  B3
+"LEE 194"            -1  1F  29  24
+"LEE 195"            -1  FF  40  2B
+"LEE 196"            -1  B0   5  4D
+"LEE 197"            -1  BF  12  17
+"LEE 198"            -1  FF  FC   0
+"LEE 200"            -1  AB  21  21
+"LEE 201"            -1  2B   0  1C
+"LEE 202"            -1   F   0  26
+"LEE 203"            -1   0   8  2E
+"LEE 204"            -1   0  38  A3
+"LEE 205"            -1   0  21  69
+"LEE 206"            -1   0  1C  52
+"LEE 207"            -1  29  6B  DB
+"LEE 208"            -1  36  7A  E8
+"LEE 209"            -1   8  17  3B
+"LEE 210"            -1  12  12  45
+"LEE 211"            -1  2E  2E  70
+"LEE 212"            -1   0   D  54
+"LEE 213"            -1   0   0  42
+"LEE 218"            -1   D   F  47
+"LEE 219"            -1  BA   0  A1
+"LEE 223"            -1   0  14  47
+"LEE 226"            -1   0   D  33
+"LEE 230"            -1   0  1F  73
+"LEE 232"            -1  29  5C  B8
+"LEE 236"            -1   0  3B  96
+"LEE 237"            -1   0  70  A6
+"LEE 238"            -1  59  73  AB
+"LEE 241"            -1  7F   0  66
+"LEE 243"            -1  73   0  A6
+"LEE 244"            -1  1C   0  70
+"LEE 245"            -1   3   0  59
+"LEE 246"            -1   0   A  40
+"LEE 247"            -1   0  47  59
+"LEE 248"            -1   0  33  66
+"LEE 249"            -1   0  1F  38
+PFEND
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Lamp On"       1   1   3   4   5
+"data"                0  E8  E8  E8  E8
+"delay"               1  3C
+"data"                0   A   0   0   0
+MEND
+
+MACRO "Lamp Off"      2   1   3   4   5
+"data"                0  FC  E8  E8  E8
+"delay"               1  3C
+"data"                0   A   0   0   0
+MEND
+
+MACRO "Reset"         3   1   3   4   5
+"data"                0  D4  E8  E8  E8
+"delay"               1  32
+"data"                0   A   0   0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Shutter
+0   19   "Closed"
+20  49   "Open"
+50  112  "Strobe %3d%%"100-((c-a)*100/(b-a))
+113 127  "Safe"
+128 187  "Rnd St %3d%%"100-((c-a)*100/(b-a))
+189 297  "Safe"
+208 217  "Reset"
+218 227  "Safe"
+228 237  "Lamp On"
+238 247  "Safe"
+248 255  "Lamp Off"
+REND
+
+RANGE 2  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Cyan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Magenta
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Yellow
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Colour
+0   0    "Open"
+1   40   "Op/CTC %3d%%"(c-a)*100/(b-a)
+41  80   "CTC/Re %3d%%"(c-a)*100/(b-a)
+81  120  "Red/Gr %3d%%"(c-a)*100/(b-a)
+121 160  "Grn/Bl %3d%%"(c-a)*100/(b-a)
+161 165  "Blue"
+166 170  "Green"
+171 175  "Red"
+176 180  "CTC"
+181 185  "Open"
+186 214  "Sc CW %3d%%"100-((c-a)*100/(b-a))
+215 243  "Sc CCW %3d%%"(c-a)*100/(b-a)
+244 255  "Random %3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 7  ;Beam Shaper 1
+0   0    "Open"
+1   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Beam Shaper 2
+0   2    "Open"
+3   170  "Beam %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+171 255  "Frost %3d%%"(c-a)*100/(b-a)
+REND
+

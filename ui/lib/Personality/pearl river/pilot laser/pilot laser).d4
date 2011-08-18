@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Pilot Laser PR-5010" ShortName="PilotLaser" Company="Pearl River">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="25-10-04" Author="Phil Rogers" Comment="Created" />
+  <History Date="25-10-04" Author="Tom Peck" Comment="Checked" />
+  <History Date="13-04-06" Author="Ed" Comment="Moved X and Y output range into beam group" />
+  <History Date="13-04-06" Author="Ed" Comment="Moved all but laser, selection, P,T,X and Y into special group" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Laser" Description="" Group="I">
+      <Locate Locate="1" PowerOn="1:0" />
+      <Function ID="1" Name="Off" Display="'Off'" Dmx="0~84" Update="Effect, Tilt, Pan, Selection, X-Wave_Freq, Y/X_Freq, Y_Deviation" Intensity="0~0" />
+      <Function ID="2" Name="On, Geo Picture" Display="'On, Geo Picture'" Dmx="85~170" Update="Effect, Tilt, Pan, Selection, X-Wave_Freq, Y/X_Freq, Y_Deviation" Intensity="0~0" />
+      <Function ID="3" Name="On, Animation" Display="'On, Animation'" Dmx="171~255" Update="Effect, Tilt, Pan, Selection, X-Wave_Freq, Y/X_Freq, Y_Deviation" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Selection" Name="Selection" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="On, Geo Picture" ID="1,2,3,4" If="'Dimmer'==2||'Dimmer'==1" />
+      <Condition Name="On, Animation" ID="5,6,7,8,9,10,11,12,13,14" If="'Dimmer'==3" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14" />
+      <Function ID="1" Name="Sine Picture" Display="'Sine Picture'" Dmx="0~50" />
+      <Function ID="2" Name="Rectangle Pict" Display="'Rectangle Pict'" Dmx="51~101" />
+      <Function ID="3" Name="Reserved" Display="'Reserved'" Dmx="102~203" />
+      <Function ID="4" Name="Free" Display="'Free'" Dmx="204~255" />
+      <Function ID="5" Name="Animation 1" Display="'Animation 1'" Dmx="0~25" />
+      <Function ID="6" Name="Animation 2" Display="'Animation 2'" Dmx="26~51" />
+      <Function ID="7" Name="Animation 3" Display="'Animation 3'" Dmx="52~77" />
+      <Function ID="8" Name="Animation 4" Display="'Animation 4'" Dmx="78~103" />
+      <Function ID="9" Name="Animation 5" Display="'Animation 5'" Dmx="104~129" />
+      <Function ID="10" Name="Animation 6" Display="'Animation 6'" Dmx="130~155" />
+      <Function ID="11" Name="Animation 7" Display="'Animation 7'" Dmx="156~181" />
+      <Function ID="12" Name="Animation 8" Display="'Animation 8'" Dmx="172~207" />
+      <Function ID="13" Name="Animation 9" Display="'Animation 9'" Dmx="208~233" />
+      <Function ID="14" Name="Animation 10" Display="'Animation 10'" Dmx="234~255" />
+    </Attribute>
+    <Attribute ID="X-Wave_Freq" Name="X-Wave Freq" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="On, Geo Picture" ID="1,2,3,4,5,6,7" If="'Dimmer'==2||'Dimmer'==1" />
+      <Condition Name="On, Animation" ID="8,9,10,11,12,13,14,15,16,17,18" If="'Dimmer'==3" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18" />
+      <Function ID="1" Name="1Hz" Display="'1Hz'" Dmx="0~36" />
+      <Function ID="2" Name="2Hz" Display="'2Hz'" Dmx="37~73" />
+      <Function ID="3" Name="4Hz" Display="'4Hz'" Dmx="74~110" />
+      <Function ID="4" Name="8Hz" Display="'8Hz'" Dmx="111~147" />
+      <Function ID="5" Name="16Hz" Display="'16Hz'" Dmx="148~184" />
+      <Function ID="6" Name="32Hz" Display="'32Hz'" Dmx="185~221" />
+      <Function ID="7" Name="64Hz" Display="'64Hz'" Dmx="222~255" />
+      <Function ID="8" Name="Contin Animate" Display="'Contin Animate'" Dmx="0~0" />
+      <Function ID="9" Name="Select Frame  0 on ten" Display="'Select Frame  0 on ten'" Dmx="1~25" />
+      <Function ID="10" Name="Select Frame  1 on ten" Display="'Select Frame  1 on ten'" Dmx="26~51" />
+      <Function ID="11" Name="Select Frame  2 on ten" Display="'Select Frame  2 on ten'" Dmx="52~77" />
+      <Function ID="12" Name="Select Frame  3 on ten" Display="'Select Frame  3 on ten'" Dmx="78~103" />
+      <Function ID="13" Name="Select Frame  4 on ten" Display="'Select Frame  4 on ten'" Dmx="104~129" />
+      <Function ID="14" Name="Select Frame  5 on ten" Display="'Select Frame  5 on ten'" Dmx="130~155" />
+      <Function ID="15" Name="Select Frame  6 on ten" Display="'Select Frame  6 on ten'" Dmx="156~181" />
+      <Function ID="16" Name="Select Frame  7 on ten" Display="'Select Frame  7 on ten'" Dmx="172~207" />
+      <Function ID="17" Name="Select Frame  8 on ten" Display="'Select Frame  8 on ten'" Dmx="208~233" />
+      <Function ID="18" Name="Select Frame  9 on ten" Display="'Select Frame  9 on ten'" Dmx="234~255" />
+    </Attribute>
+    <Attribute ID="Y/X_Freq" Name="Y/X Frequency" Description="" Group="S">
+      <Locate Locate="12" PowerOn="12" />
+      <Condition Name="On, Geo Picture" ID="12,13,14,15,16,17,18,19" If="'Dimmer'==2||'Dimmer'==1" />
+      <Condition Name="On, Animation" ID="1,2,3,4,5,6,7,8,9,10,11" If="'Dimmer'==3" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19" />
+      <Function ID="1" Name="Contin Animate" Display="'Contin Animate'" Dmx="0~0" />
+      <Function ID="2" Name="Select Frame  0 on unit" Display="'Select Frame  0 on unit'" Dmx="1~25" />
+      <Function ID="3" Name="Select Frame  1 on unit" Display="'Select Frame  1 on unit'" Dmx="26~51" />
+      <Function ID="4" Name="Select Frame  2 on unit" Display="'Select Frame  2 on unit'" Dmx="52~77" />
+      <Function ID="5" Name="Select Frame  3 on unit" Display="'Select Frame  3 on unit'" Dmx="78~103" />
+      <Function ID="6" Name="Select Frame  4 on unit" Display="'Select Frame  4 on unit'" Dmx="104~129" />
+      <Function ID="7" Name="Select Frame  5 on unit" Display="'Select Frame  5 on unit'" Dmx="130~155" />
+      <Function ID="8" Name="Select Frame  6 on unit" Display="'Select Frame  6 on unit'" Dmx="156~181" />
+      <Function ID="9" Name="Select Frame  7 on unit" Display="'Select Frame  7 on unit'" Dmx="172~207" />
+      <Function ID="10" Name="Select Frame  8 on unit" Display="'Select Frame  8 on unit'" Dmx="208~233" />
+      <Function ID="11" Name="Select Frame  9 on unit" Display="'Select Frame  9 on unit'" Dmx="234~255" />
+      <Function ID="12" Name="Y/X Freq 1:1" Display="'Y/X Freq 1:1'" Dmx="0~31" />
+      <Function ID="13" Name="Y/X Freq 2:1" Display="'Y/X Freq 2:1'" Dmx="32~63" />
+      <Function ID="14" Name="Y/X Freq 3:1" Display="'Y/X Freq 3:1'" Dmx="64~95" />
+      <Function ID="15" Name="Y/X Freq 4:1" Display="'Y/X Freq 4:1'" Dmx="96~127" />
+      <Function ID="16" Name="Y/X Freq 5:1" Display="'Y/X Freq 5:1'" Dmx="128~159" />
+      <Function ID="17" Name="Y/X Freq 3:2" Display="'Y/X Freq 3:2'" Dmx="160~191" />
+      <Function ID="18" Name="Y/X Freq 5:2" Display="'Y/X Freq 5:2'" Dmx="192~223" />
+      <Function ID="19" Name="Y/X Freq 4:3" Display="'Y/X Freq 4:3'" Dmx="224~255" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="X_Output_Range" Name="X Output Range" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="7%" Display="'7%'" Dmx="0~28" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="12%" Display="'12%'" Dmx="29~57" Iris="0~0" Zoom="0~0" />
+      <Function ID="3" Name="25%" Display="'25%'" Dmx="58~86" Iris="0~0" Zoom="0~0" />
+      <Function ID="4" Name="37%" Display="'37%'" Dmx="87~115" Iris="0~0" Zoom="0~0" />
+      <Function ID="5" Name="50%" Display="'50%'" Dmx="116~144" Iris="0~0" Zoom="0~0" />
+      <Function ID="6" Name="62%" Display="'62%'" Dmx="145~173" Iris="0~0" Zoom="0~0" />
+      <Function ID="7" Name="75%" Display="'75%'" Dmx="174~202" Iris="0~0" Zoom="0~0" />
+      <Function ID="8" Name="88%" Display="'88%'" Dmx="203~231" Iris="0~0" Zoom="0~0" />
+      <Function ID="9" Name="100%" Display="'100%'" Dmx="232~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Y_Output" Name="Y Output Range" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="7%" Display="'7%'" Dmx="0~28" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="12%" Display="'12%'" Dmx="29~57" Iris="0~0" Zoom="0~0" />
+      <Function ID="3" Name="25%" Display="'25%'" Dmx="58~86" Iris="0~0" Zoom="0~0" />
+      <Function ID="4" Name="37%" Display="'37%'" Dmx="87~115" Iris="0~0" Zoom="0~0" />
+      <Function ID="5" Name="50%" Display="'50%'" Dmx="116~144" Iris="0~0" Zoom="0~0" />
+      <Function ID="6" Name="62%" Display="'62%'" Dmx="145~173" Iris="0~0" Zoom="0~0" />
+      <Function ID="7" Name="75%" Display="'75%'" Dmx="174~202" Iris="0~0" Zoom="0~0" />
+      <Function ID="8" Name="88%" Display="'88%'" Dmx="203~231" Iris="0~0" Zoom="0~0" />
+      <Function ID="9" Name="100%" Display="'100%'" Dmx="232~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Mod/X_Freq" Name="Mod / X Freq" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="1:1" Display="'1:1'" Dmx="0~31" />
+      <Function ID="2" Name="2:1" Display="'2:1'" Dmx="32~63" />
+      <Function ID="3" Name="1:2" Display="'1:2'" Dmx="64~95" />
+      <Function ID="4" Name="3:1" Display="'3:1'" Dmx="96~127" />
+      <Function ID="5" Name="1:3" Display="'1:3'" Dmx="128~159" />
+      <Function ID="6" Name="2:3" Display="'2:3'" Dmx="160~191" />
+      <Function ID="7" Name="5:2" Display="'5:2'" Dmx="192~223" />
+      <Function ID="8" Name="5:1" Display="'5:1'" Dmx="224~255" />
+    </Attribute>
+    <Attribute ID="Mod_Deviation" Name="Mod Deviation" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="0" Display="'0'" Dmx="0~42" />
+      <Function ID="2" Name="2" Display="'2'" Dmx="43~85" />
+      <Function ID="3" Name="4" Display="'4'" Dmx="86~128" />
+      <Function ID="4" Name="6" Display="'6'" Dmx="129~171" />
+      <Function ID="5" Name="14" Display="'14'" Dmx="172~214" />
+      <Function ID="6" Name="22" Display="'22'" Dmx="215~255" />
+    </Attribute>
+    <Attribute ID="Mod_Range" Name="Mod Range" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="0%" Display="'0%'" Dmx="0~28" />
+      <Function ID="2" Name="25%" Display="'25%'" Dmx="29~57" />
+      <Function ID="3" Name="50%" Display="'50%'" Dmx="28~86" />
+      <Function ID="4" Name="75%" Display="'75%'" Dmx="87~115" />
+      <Function ID="5" Name="100%" Display="'100%'" Dmx="116~144" />
+      <Function ID="6" Name="125%" Display="'125%'" Dmx="145~173" />
+      <Function ID="7" Name="150%" Display="'150%'" Dmx="174~202" />
+      <Function ID="8" Name="175%" Display="'175%'" Dmx="203~231" />
+      <Function ID="9" Name="200%" Display="'200%'" Dmx="232~255" />
+    </Attribute>
+    <Attribute ID="Y_Deviation" Name="Y Deviation" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="On, Geo Picture" ID="1,2,3,4,5,6" If="'Dimmer'==2||'Dimmer'==1" />
+      <Condition Name="On, Animation" ID="7,8,9,10,11,12,13,14,15,16" If="'Dimmer'==3" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16" />
+      <Function ID="1" Name="0" Display="'0'" Dmx="0~42" />
+      <Function ID="2" Name="2" Display="'2'" Dmx="43~85" />
+      <Function ID="3" Name="4" Display="'4'" Dmx="86~128" />
+      <Function ID="4" Name="6" Display="'6'" Dmx="129~171" />
+      <Function ID="5" Name="14" Display="'14'" Dmx="172~214" />
+      <Function ID="6" Name="22" Display="'22'" Dmx="215~255" />
+      <Function ID="7" Name="Anim Mov 1" Display="'Anim Mov 1'" Dmx="0~25" />
+      <Function ID="8" Name="Anim Mov 2" Display="'Anim Mov 2'" Dmx="26~51" />
+      <Function ID="9" Name="Anim Mov 3" Display="'Anim Mov 3'" Dmx="52~77" />
+      <Function ID="10" Name="Anim Mov 4" Display="'Anim Mov 4'" Dmx="78~103" />
+      <Function ID="11" Name="Anim Mov 5" Display="'Anim Mov 5'" Dmx="104~129" />
+      <Function ID="12" Name="Anim Mov 6" Display="'Anim Mov 6'" Dmx="130~155" />
+      <Function ID="13" Name="Anim Mov 7" Display="'Anim Mov 7'" Dmx="156~181" />
+      <Function ID="14" Name="Anim Mov 8" Display="'Anim Mov 8'" Dmx="172~207" />
+      <Function ID="15" Name="Anim Mov 9" Display="'Anim Mov 9'" Dmx="208~233" />
+      <Function ID="16" Name="Anim Mov 10" Display="'Anim Mov 10'" Dmx="234~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="12 DMX, 8bit" Channels="12">
+    <Import PearlRef="PR_PilotLsr" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="370" TiltMax="265" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="5" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="6" Wheel="3" />
+      <Attribute ID="X_Output_Range" ChannelOffset="8" Wheel="19" />
+      <Attribute ID="Y_Output" ChannelOffset="9" Wheel="20" />
+      <Attribute ID="Selection" ChannelOffset="2" Wheel="13" />
+      <Attribute ID="X-Wave_Freq" ChannelOffset="3" Wheel="14" />
+      <Attribute ID="Y/X_Freq" ChannelOffset="4" Wheel="15" />
+      <Attribute ID="Mod/X_Freq" ChannelOffset="10" Wheel="22" />
+      <Attribute ID="Mod_Deviation" ChannelOffset="11" Wheel="23" />
+      <Attribute ID="Mod_Range" ChannelOffset="12" Wheel="24" />
+      <Attribute ID="Y_Deviation" ChannelOffset="7" Wheel="21" />
+    </Include>
+  </Mode>
+</Fixture>

@@ -1,0 +1,214 @@
+; "Studio Due Live PRO 1200 custom for Light Partner", 21 DMX channels,
+;  filename :sdlpro12.r96
+;
+;   Date      By        Description
+;   23-06-97  DBT       Created
+;   24-06-97  Anwar     LEE table inserted, locate fixture corected for
+;				Iris & Mspeed, CMY labelled with BCD
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  SD_LP1200LP
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  21  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2  380 300
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the curernt result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+"Setting AUX=OFF"
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=491
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel, BCD=Color Mix, E=Pan, F=Tilt,
+;                    0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 charcaters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX
+2   1   L    1  100 1N  0   1   "Iris "           0    0    0  ; IRIS
+4   1   I    2  100 1N  A   1   "Color_1"         0    0    0  ; COLOUR WHEEL
+6   1   I    3  100 1N  0   1   "Gobo_1"          0    0    0  ; GOBO 1
+2  61   I    4  100 1N  0   1   "Strobe"          0    0    0 ; Strobe
+3  61   S    5  100 1N  E   1   "Pan"           128   -1   -1  ; PAN
+0   0   L    6  100 1N  E   1   "Pan_Low"       128   -1   -1  ; PAN Low
+3   1   S    7  100 1N  F   1   "Tilt"          128   -1   -1  ; TILT
+0   0   L    8  100 1N  F   1   "Tilt_Low"      128   -1   -1  ; TILT Low
+1   1   H    9  100 1N  0   1   "Dimmer"        255  255  255  ; DIMMER
+8   1   I   10  100 1N  0   1   "MSpeed"        255  255  255  ; MOTOR SPEED
+5  61   I   11  100 1N  0   1   "Focus"         128   -1   -1  ; FOCUS
+4  61   I   12  100 1N  0   1   "Color_2"         0    0    0  ; Color2
+6  61   I   13  100 1N  0   1   "Gobo_2"          0    0    0  ; GOBO 2
+7  61   I   14  100 1N  0   1   "Gobo2Spd"        0    0    0  ; GOBO Mode
+10 61   L   15  100 1I  D   1   "Magenta"       255  255  255  ; Magenta
+10  1   L   16  100 1I  B   1   "Cyan"          255  255  255  ; Cyan
+9  61   L   17  100 1I  C   1   "Yellow"        255  255  255  ; Yellow
+5   1   L   18  100 1N  0   1   "Frost"           0    0    0  ; Frost
+9   1   I   19  100 1N  0   1   "Prism_rot"       0    0    0  ; Prism Rot
+7   1   L   20  100 1N  0   1   "Gobo1Spd"	  0    0    0  ; Gobo 1 spd
+11  1   I   21  100 1N  0   1   "Control"         0    0    0  ; Control
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+Studio Due Pro 1200
+  (Light Partner)
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1 Dimmer   --
+ 2 Iris     Strobe
+ 3 Tilt     Pan
+ 4 Color_1  Color_2
+ 5 Focus    Frost
+ 6 Gobo_1   Gobo_2
+ 7 Gobo1Spd Gobo2Spd  
+ 8 Speed    --
+ 9 Prism_Rt Yellow
+10 Cyan     Magenta
+11 Control  --
+
+INPUT and/or note DMX
+number.
+Press a channel grab
+to make patch
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+
+; Color order magenta yellow cyan
+PFTABLE "LEE Colors" 30 15 17 16
+"LEE 101"     -1 ff 1b b8
+"LEE 102"     -1 ff 5e d6
+"LEE 103"     -1 ff a3 ff
+"LEE 104"     -1 cc  0 ff
+"LEE 105"     -1 9b  0 ff
+"LEE 106"     -1 28  b ff
+"LEE 107"     -1 9a a6 ff
+"LEE 109"     -1 9d a2 ff
+"LEE 110"     -1 9a bf ff
+"LEE 111"     -1 78 ab ff
+"LEE 113"     -1 20 65 ff
+"LEE 115"     -1 ff b9 30
+"LEE 116"     -1 ff b4  0
+"LEE 117"     -1 ff ff 9a
+"LEE 118"     -1 a0 ff 1f
+"LEE 119"     -1 4c ff  3
+"LEE 120"     -1 39 ca 40   
+"LEE 121"     -1 ff 39 61
+"LEE 122"     -1 ff 46 45
+"LEE 124"     -1 ff 52  0
+"LEE 126"     -1  0 ff a6
+"LEE 127"     -1 85 aa ff
+"LEE 128"     -1 37 ff ff
+"LEE 132"     -1 6c ff  0
+"LEE 134"     -1 a1 5e ff
+"LEE 135"     -1 64  0 ff
+"LEE 136"     -1 a4 ff bc
+"LEE 137"     -1 8b ff 8b
+"LEE 138"     -1 ff 70 92
+"LEE 139"     -1 ff  0  0
+"LEE 141"     -1 94 ff  0
+"LEE 142"     -1 7c ff 68
+"LEE 143"     -1 a4 ff 54
+"LEE 144"     -1 bf ff 53
+"LEE 147"     -1 ab 73 ff
+"LEE 148"     -1 52 8c ff
+"LEE 149"     -1 88 ff 8e
+"LEE 151"     -1 ba ae ff
+"LEE 152"     -1 c4 aa ff
+"LEE 153"     -1 ac b8 ff
+"LEE 154"     -1 c2 d0 ff
+"LEE 156"     -1 be 8d ff
+"LEE 157"     -1 81 8f ff
+"LEE 158"     -1 88  0 ff
+"LEE 161"     -1 8d ff 52
+"LEE 162"     -1 d8 ca ff
+"LEE 164"     -1 4f 26 ff
+"LEE 165"     -1 90 ff 48
+"LEE 166"     -1 66 7c ff
+"LEE 170"     -1 90 ff a6
+"LEE 174"     -1 a0 ff 76
+"LEE 176"     -1 99 89 ff
+"LEE 179"     -1 b4  0 ff
+"LEE 180"     -1 4a ff 5a
+"LEE 181"     -1  0 ff 29
+"LEE 182"     -1 35  b ff
+"LEE 183"     -1 9a ff  0
+"LEE 192"     -1 82 c6 ff
+"LEE 193"     -1 86 8a ff
+"LEE 194"     -1 8a ff 91
+"LEE 195"     -1 39 ff 18
+"LEE 196"     -1 a4 ff 5f
+"LEE 197"     -1 79 ff 4e
+"LEE 202"     -1 be ff a2
+"LEE 203"     -1 e3 ff ca
+"LEE 204"     -1 c3 77 ff
+"LEE 205"     -1 e4 97 ff
+"LEE 206"     -1 ed c0 ff
+"LEE 211"     -1 bc a0 a6
+"LEE 213"     -1 ff 9d b1
+"LEE 236"     -1 c1 81 ff
+"LEE 238"     -1 a8 a4 ff
+PFEND
+
+

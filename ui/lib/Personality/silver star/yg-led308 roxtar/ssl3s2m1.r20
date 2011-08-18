@@ -1,0 +1,323 @@
+; 'Silver Star YG-LED308 Roxtar Stage 2, Mode 1', 10 DMX Channels, filename: SSL3S2m1.R20
+;  Copyright © Avolites Ltd. 2008
+;
+;   Date       By                Description
+;   10-10-08   Pers Creator      Created - Exported from Diamond 4 file.
+;   10-10-08   David Hunt        Checked
+;   21-10-08   Jonathan Moreton  Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  SS_L308S2m1                           mode=Stage 2, Mode 1  10 DMX Channels
+NAME "Silver Star" "YG-LED308 Roxtar Stage 2, M 1"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  10  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Stage 2, Mode 1"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=502
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 charcaters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+10    1   L    2   100   1N   T   1   "Red"             255   255     0
+10   61   L    3   100   1N   U   1   "Green"           255   255     0
+9    61   L    4   100   1N   V   1   "Blue"            255     0   229
+4     1   I    5   100   1N   A   1   "Colour Macro"      0     0     0
+2    61   L    6   100   1N   O   1   "Shutter"           0     0     0
+9     1   I    7   100   1N   0   1   "Mode Select"       0     0     0
+7     1   I    8   100   1N   0   1   "ID Control"        0     0     0
+7    61   I    9   100   1N   0   1   "Mod Select"        0     0     0
+4    61   I   10   100   1N   P   1   "Effect Macro"      0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Silver Star
+YG-LED308 Roxtar
+Stage 2, Mode 1
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Colour Macros
+0   9    "Open"
+10  29   "Red"
+30  39   "R85% + G15%"
+40  49   "R60% + G40%"
+50  69   "Yellow"
+70  79   "R15% + G85%"
+80  89   "R40% + G60%"
+90  109  "Green"
+110 119  "G85% + B15%"
+120 129  "G60% + B40%"
+130 149  "Blue"
+150 159  "G85% + B15%"
+160 169  "G60% + B40%"
+170 189  "Cyan"
+190 199  "G50% + P50%"
+200 219  "Purple"
+220 229  "P80% + G20%"
+230 249  "RGB"
+250 255  "White"
+REND
+
+RANGE 6  ;Shutter
+0   4    "Open"
+5   255  "Stb %3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Mode Selection
+0   4    "Safe"
+5   34   "Col Cycle 1"
+35  64   "Col Cycle 2"
+65  94   "Col Cycle 3"
+95  124  "Col Cycle 4"
+125 154  "Col Cycle 5"
+155 184  "Col Cycle 6"
+185 214  "Col Cycle 6"
+215 244  "Col Cycle 7"
+245 255  "DMX Mode 2"
+REND
+
+RANGE 8  ;ID Control
+0   9    "ID 1-66"
+10  19   "ID 1"
+20  29   "ID 2"
+30  39   "ID 3"
+40  49   "ID 4"
+50  59   "ID 5"
+60  69   "ID 6"
+70  79   "ID 7"
+80  89   "ID 8"
+90  99   "ID 9"
+100 109  "ID 10"
+110 119  "ID 11"
+120 129  "ID 12"
+130 139  "ID 13"
+140 149  "ID 14"
+150 159  "ID 15"
+160 169  "ID 16"
+170 179  "ID 17"
+180 189  "ID 18"
+190 199  "ID 19"
+200 209  "ID 20"
+210 210  "ID 21"
+211 211  "ID 22"
+212 212  "ID 23"
+213 213  "ID 24"
+214 214  "ID 25"
+215 215  "ID 26"
+216 216  "ID 27"
+217 217  "ID 28"
+218 218  "ID 29"
+219 219  "ID 30"
+220 220  "ID 31"
+221 221  "ID 32"
+222 222  "ID 33"
+223 223  "ID 34"
+224 224  "ID 35"
+225 225  "ID 36"
+226 226  "ID 37"
+227 227  "ID 38"
+228 228  "ID 39"
+229 229  "ID 40"
+230 230  "ID 41"
+231 231  "ID 42"
+232 232  "ID 43"
+233 233  "ID 44"
+234 234  "ID 45"
+235 235  "ID 46"
+236 236  "ID 47"
+237 237  "ID 48"
+238 238  "ID 49"
+239 239  "ID 50"
+240 240  "ID 51"
+241 241  "ID 52"
+242 242  "ID 53"
+243 243  "ID 54"
+244 244  "ID 55"
+245 245  "ID 56"
+246 246  "ID 57"
+247 247  "ID 58"
+248 248  "ID 59"
+249 249  "ID 60"
+250 250  "ID 61"
+251 251  "ID 62"
+252 252  "ID 63"
+253 253  "ID 64"
+254 254  "ID 65"
+255 255  "ID 66"
+REND
+
+RANGE 9  ;Module Select
+0   4    "#1 On #2 On"
+5   34   "#1 On"
+35  64   "#2 On"
+65  94   "#3 On"
+95  124  "#1 On #2 On"
+125 154  "#2 On #3 On"
+155 184  "#1 On #3 On"
+185 214  "#1 On #2 On"
+215 255  "#1 Off #2 O"
+REND
+
+RANGE 10  ;Effect Macro
+0   4    "Open"
+5   9    "Eff Macro 1"
+10  14   "Eff Macro 2"
+15  19   "Eff Macro 3"
+20  24   "Eff Macro 4"
+25  29   "Eff Macro 5"
+30  34   "Eff Macro 6"
+35  39   "Eff Macro 7"
+40  44   "Eff Macro 8"
+45  49   "Eff Macro 9"
+50  54   "Eff Mac 10"
+55  59   "Eff Mac 11"
+60  64   "Eff Mac 12"
+65  69   "Eff Mac 13"
+70  74   "Eff Mac 14"
+75  79   "Eff Mac 15"
+80  84   "Eff Mac 16"
+85  89   "Eff Mac 17"
+90  94   "Eff Mac 18"
+95  99   "Eff Mac 19"
+100 104  "Eff Mac 20"
+105 109  "Eff Mac 21"
+110 114  "Eff Mac 22"
+115 119  "Eff Mac 23"
+120 124  "Eff Mac 24"
+125 129  "Eff Mac 25"
+130 135  "Eff Mac 26"
+136 140  "Eff Mac 27"
+141 145  "Eff Mac 28"
+146 150  "Eff Mac 29"
+151 155  "Eff Mac 30"
+156 160  "Eff Mac 31"
+161 165  "Eff Mac 32"
+166 170  "Eff Mac 33"
+171 175  "Eff Mac 34"
+176 180  "Eff Mac 35"
+181 185  "Eff Mac 36"
+186 190  "Eff Mac 37"
+191 195  "Eff Mac 38"
+196 200  "Eff Mac 39"
+201 205  "Eff Mac 40"
+206 210  "Eff Mac 41"
+211 215  "Eff Mac 42"
+216 220  "Eff Mac 43"
+221 225  "Eff Mac 44"
+226 230  "Eff Mac 45"
+231 235  "Eff Mac 46"
+236 240  "Eff Mac 47"
+241 245  "Eff Mac 48"
+246 250  "Eff Mac 49"
+251 255  "Eff Mac 50"
+REND

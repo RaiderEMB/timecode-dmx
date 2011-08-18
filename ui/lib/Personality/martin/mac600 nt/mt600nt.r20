@@ -1,0 +1,275 @@
+; "Martin Mac 600NT", 15 DMX channels, filename :mt600NT.r20
+;
+;   Date      By          Description
+;   11-19-00  B.White     Created from the standard 600 file
+;   27-02-02   Edward     Changed Lamp OFF and RESET to overwrite function if disabled on fixture.
+;   24-05-02   Edward     Modified CMY for visulaiser
+;   06-08-04   Phil       Updated range tables to meet D4 standard names
+;   29-11-05   Ed	  Revised device name
+;   30-05-06   Ed	  Removed some comments for disk space
+;   06-01-09   David Hunt Fixed duplicate dmx values in range tables
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MT_Mac60NT4                                   15 DMX channels
+NAME "Martin" "Mac 600 NT, Mode 4"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  15  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   438  305
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to DMX mode 4."
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=498
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+;
+DMX
+2   61   L   1   100   1N   O   1   "Shutter"      35   35   35
+1    1   H   2   100   1N   H   1   "Dimmer"       255  255  255
+10   1   L   3   100   1N   B   1   "Cyan"          0    0    0
+10  61   L   4   100   1N   C   1   "Magenta"       0    0    0
+9   61   L   5   100   1N   D   1   "Yellow"        0    0    0
+9    1   L   6   100   1N   0   1   "CTC"           0    0    0
+4    1   I   7   100   1N   A   1   "Colour"        0    0    0
+6    1   L   8   100   1N   G   1   "BeamShp1"      0    0    0
+6   61   L   9   100   1N   0   1   "BeamShp2"      0    0    0
+3   61   s  10   100   1N   E   1   "Pan"         128   -1   -1
+0    0   L  11   100   1N   E   1   "Pan Low"     128   -1   -1
+3    1   s  12   100   1N   F   1   "Tilt"        128   -1   -1
+0    0   L  13   100   1N   F   1   "Tilt Low"    128   -1   -1
+8    1   L  14   100   1N   0   1   "Speed_p/t"    0     0    0
+8   61   L  15   100   1N   0   1   "Speed"        0     0    0
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+Martin Mac600 NT M4
+    Encoder Banks
+  Wheel A    Wheel B
+---------------------
+ 1 Dimmer    --
+ 2 Shutter   --
+ 3 Tilt      Pan
+ 4 Colour    --
+ 5 --        --
+ 6 BeamShp1  BeamShp2
+ 7 --        --
+ 8 Speed p/t Speed
+ 9 CTC       Yellow
+10 Cyan      Magenta
+
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+; Positions
+PFTABLE "Positions" -1  10  12
+"Middle"    21  80  80
+"Left"      22  50  80
+"Right"     23  b0  80
+"Top"       24  80  50
+"Bottom"    25  80  b0
+"TLeft"     26  50  50
+"TRight"    27  b0  b0
+"BLeft"     28  50  b0
+"BRight"    29  b0  50
+PFEND
+
+; A color table cyan, magenta, yellow, colour wheel
+PFTABLE "Color" 29   3   5   4   7
+"White"         1        00        00        00
+"Red"           2        7F        DD        F9
+"Amber"         3        4C        FD        C8
+"Yellow"        4        00        E6        23
+"Green"         5        DB        D1        0B
+"Cyan"          6        DC        83        0A
+"Blue"          7        DE        08        D3
+"Lavender"      8        B6        03        E3
+"UltraViolet"   9        FF        79        FB
+"Magenta"       10        79        93        FF
+"lee 101"       -1        00        FF        27
+"lee 102"       -1        15        E2        41
+"lee 103"       -1        00        A2        28
+"lee 104"       -1        00        FF        39
+"lee 105"       -1        0A        D3        65
+"lee 106"       -1        6B        EF        EF
+"lee 107"       -1        00        8F        4D
+"lee 108"       -1        00        C7        4A
+"lee 109"       -1        00        A7        46
+"lee 110"       -1        00        A7        51
+"lee 111"       -1        00        B3        B2
+"lee 113"       -1        09        CC        FF
+"lee 115"       -1        DC        D2        02
+"lee 116"       -1        FF        CE        13
+"lee 117"       -1        37        7C        06
+"lee 118"       -1        DF        9E        07
+"lee 119"       -1        F3        10        27
+"lee 120"       -1        FF        0E        67
+"lee 121"       -1        4C        FE        00
+"lee 122"       -1        9C        EB        00
+"lee 124"       -1        E1        FF        1D
+"lee 126"       -1        05        2E        F2
+"lee 127"       -1        1C        C1        BF
+"lee 128"       -1        00        7E        FD
+"lee 129"       -1        FF        FF        FF
+"lee 130"       -1        00        00        00
+"lee 131"       -1        C4        D1        26
+"lee 132"       -1        E0        25        00
+"lee 134"       -1        00        DE        7E
+"lee 135"       -1        00        FF        E4
+"lee 136"       -1        00        47        29
+"lee 137"       -1        27        47        2D
+"lee 138"       -1        28        CC        16
+"lee 139"       -1        D8        FF        05
+"lee 140"       -1        86        A8        0B
+"lee 141"       -1        E3        8C        07
+"lee 142"       -1        78        78        3E
+"lee 143"       -1        C5        AE        2C
+"lee 144"       -1        BB        A9        1F
+"lee 145"       -1        FF        FF        FF
+"lee 147"       -1        0A        D3        65
+"lee 148"       -1        1A        D7        E4
+"lee 151"       -1        04        69        36
+"lee 152"       -1        04        A6        2F
+"lee 153"       -1        04        A6        3C
+"lee 154"       -1        04        A6        31
+"lee 156"       -1        0D        CA        54
+"lee 158"       -1        00        EA        BE
+"lee 159"       -1        00        6F        1F
+"lee 161"       -1        73        3B        1D
+"lee 162"       -1        00        84        26
+"lee 164"       -1        BA        55        1D
+"lee 165"       -1        9E        41        0E
+"lee 166"       -1        08        D7        D7
+"lee 169"       -1        00        4B        1F
+"lee 170"       -1        37        8E        52
+"lee 172"       -1        E5        B5        0F
+"lee 174"       -1        22        27        11
+"lee 176"       -1        10        B9        7D
+"lee 179"       -1        00        FF        4F
+"lee 180"       -1        A8        4A        B7
+"lee 181"       -1        FF        3B        DE
+PFEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Shutter
+20  49   "Open"
+0   19   "Closed"
+50  112  "Strobe %3d%%"100-(((c-a)*100)/(b-a))
+128 187  "Rnd St %3d%%"100-(((c-a)*100)/(b-a))
+208 217  "Reset"
+228 237  "Lamp On"
+248 255  "Lamp Off"
+REND
+
+RANGE 6  ;Colour
+181 185  "Open"
+176 180  "CTC"
+171 175  "Red"
+166 170  "Green"
+161 165  "Blue"
+186 214  "Scroll %3d%%"100-(((c-a)*100)/(b-a))
+215 243  "Scroll %3d%%"0+(((c-a)*100)/(b-a))
+244 255  "C Mix %3d%%"100-(((c-a)*100)/(b-a))
+0   0    "Open"
+1   40   "Open/C %3d%%"0+(((c-a)*100)/(b-a))
+41  80   "CTC/Re %3d%%"0+(((c-a)*100)/(b-a))
+81  120  "Red/Gr %3d%%"0+(((c-a)*100)/(b-a))
+121 160  "Grn/Bl %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 7  ;Beam Shaper 1
+0   0    "Open"
+1   255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 13  ;MSpeed
+0   2    "Tracking"
+3   245  "F-S %3d%%"100-(((c-a)*100)/(b-a))
+246 248  "Trackng Nor"
+249 251  "Trackng Fas"
+252 255  "BO moving"
+REND
+
+RANGE 14  ;Speed
+0   2    "Tracking"
+3   239  "F-S %3d%%"100-(((c-a)*100)/(b-a))
+240 242  "Trackng Nor"
+243 245  "Trackng Stu"
+246 248  "Tracking Sc"
+249 251  "Tracking Sc"
+252 255  "Blackout"
+REND
+
+
+; Macros
+MACRO "LAMP ON" 1    1 
+"data"          0   e6
+"delay"         1   50
+"data"          0   23
+MEND
+
+MACRO "RESET" 2    1  3  4  5
+"data"        0    0 e6 e7 e9
+"data"        0   d2 e6 e7 e9
+"delay"       1   10
+"data"        0   23  0  0  0
+MEND
+
+
+MACRO "LAMP OFF" 3    1  3  4  5
+"data"           0    0 e6 e7 e8
+"data"           0   ff e6 e7 e8
+"delay"          1   60
+"data"           0    0  0  0  0
+MEND

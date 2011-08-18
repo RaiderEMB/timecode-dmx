@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Laser F2000" ShortName="LaserF2000" Company="Big Dipper">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="07-09-07" Author="Ion Balan" Comment="Created" />
+  <History Date="07-09-07" Author="D.Milligan" Comment="Checked" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Laser Off" Display="'Laser Off'" Dmx="0~69" />
+      <Function ID="2" Name="Music Mode" Display="'Music Mode'" Dmx="70~139" />
+      <Function ID="3" Name="Auto Mode" Display="'Auto Mode'" Dmx="140~209" />
+      <Function ID="4" Name="Manual Mode" Display="'Manual Mode'" Dmx="210~255" />
+    </Attribute>
+    <Attribute ID="Pattern" Name="Pattern" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Static" Display="'Static %.f',0~60" Dmx="0~60" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Words" Display="'Words %.f',61~65" Dmx="61~65" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Animal" Display="'Animal %.f',66~93" Dmx="66~93" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="Animation" Display="'Animation %.f',94~95" Dmx="94~95" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="5" Name="Dynamic" Display="'Dynamic %.f',96~255" Dmx="96~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" Intensity="0~0" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.1f%%',0.0~100.0" Dmx="1~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="H_Move" Name="H Move" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Manual" Display="'Manual %.f%%',0~100" Dmx="0~167" />
+      <Function ID="2" Name="Auto L/R" Display="'Auto L/R %.f%%',0~100" Dmx="168~188" />
+      <Function ID="3" Name="Auto R/L" Display="'Auto R/L %.f%%',0~100" Dmx="189~209" />
+      <Function ID="4" Name="Auto Loop" Display="'Auto Loop %.f%%',0~100" Dmx="210~255" />
+    </Attribute>
+    <Attribute ID="V_Move" Name="V Move" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Manual" Display="'Manual %.f%%',0~100" Dmx="0~167" />
+      <Function ID="2" Name="Auto L/R" Display="'Auto L/R %.f%%',0~100" Dmx="168~188" />
+      <Function ID="3" Name="Auto R/L" Display="'Auto R/L %.f%%',0~100" Dmx="189~209" />
+      <Function ID="4" Name="Auto Loop" Display="'Auto Loop %.f%%',0~100" Dmx="210~255" />
+    </Attribute>
+    <Attribute ID="Zoom" Name="Zoom" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Original Size" Display="'Original Size'" Dmx="0~10" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Manual" Display="'Manual %.f%%',0~100" Dmx="11~104" Iris="0~0" Zoom="0~0" />
+      <Function ID="3" Name="Auto S/B" Display="'Auto S/B %.f%%',0~100" Dmx="105~154" Iris="0~0" Zoom="0~0" />
+      <Function ID="4" Name="Auto B/S" Display="'Auto B/S %.f%%',0~100" Dmx="155~204" Iris="0~0" Zoom="0~0" />
+      <Function ID="5" Name="Auto Loop" Display="'Auto Loop %.f%%',0~100" Dmx="205~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="H_Stretch" Name="H Stretch" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="No Stretch" Display="'No Stretch'" Dmx="0~0" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Manual" Display="'Manual %.f%%',0~100" Dmx="1~150" Iris="0~0" Zoom="0~0" />
+      <Function ID="3" Name="Auto" Display="'Auto %.f%%',0~100" Dmx="151~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="V_Stretch" Name="V Stretch" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="No Stretch" Display="'No Stretch'" Dmx="0~0" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Manual" Display="'Manual %.f%%',0~100" Dmx="1~150" Iris="0~0" Zoom="0~0" />
+      <Function ID="3" Name="Auto" Display="'Auto %.f%%',0~100" Dmx="151~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Rotation" Name="Rotation" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Index_Func" ID="1,2" If="'RotateFunc'==1" />
+      <Condition Name="Spin_Func" ID="3,4,5,6" If="'RotateFunc'==2" />
+      <Condition Name="Raw_Func" ID="7" If="'RotateFunc'==3" />
+      <Else ID="1,2,3,4,5,6,7" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Index" Display="'Index %.f%%',0~100" Dmx="1~180" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Open" Display="'Open'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="Spin CW" Display="'Spin CW %.f%%',0~100" Dmx="181~217" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="5" Name="No Spin" Display="'No Spin'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="6" Name="Spin CCW" Display="'Spin CCW %.f%%',0~100" Dmx="218~255" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="7" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Dot_Line" Name="Dot/Line" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Normal" Display="'Normal'" Dmx="0~69" />
+      <Function ID="2" Name="Dot/Line" Display="'Dot/Line'" Dmx="70~139" />
+      <Function ID="3" Name="Subsection" Display="'Subsection'" Dmx="140~209" />
+      <Function ID="4" Name="Dot" Display="'Dot'" Dmx="210~255" />
+    </Attribute>
+    <Attribute ID="Wave" Name="Wave" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="No Wave" Display="'No Wave'" Dmx="0~10" />
+      <Function ID="2" Name="Freq" Display="'Freq %.1f%%',0.0~100.0" Dmx="11~200" />
+      <Function ID="3" Name="Size" Display="'Size %.f%%',0~100" Dmx="201~255" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour 1" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="RotateFunc" Name="Rotate Func" Description="" Group="G" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Index_Func" Display="'Index'" Dmx="0~0" Update="Rotation" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Spin_Func" Display="'Spin'" Dmx="0~0" Update="Rotation" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Rotation" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="12 DMX, 8bit" Channels="12">
+    <Import PearlRef="BD_F2000" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="3" Wheel="4" />
+      <Attribute ID="H_Move" ChannelOffset="4" Wheel="2" />
+      <Attribute ID="V_Move" ChannelOffset="5" Wheel="3" />
+      <Attribute ID="Colour1" ChannelOffset="12" Wheel="8" />
+      <Attribute ID="Pattern" ChannelOffset="2" Wheel="14" />
+      <Attribute ID="Rotation" ChannelOffset="9" Wheel="15" />
+      <Attribute ID="RotateFunc" Wheel="13" />
+      <Attribute ID="Zoom" ChannelOffset="6" Wheel="19" />
+      <Attribute ID="H_Stretch" ChannelOffset="7" Wheel="20" />
+      <Attribute ID="V_Stretch" ChannelOffset="8" Wheel="21" />
+      <Attribute ID="Wave" ChannelOffset="11" Wheel="23" />
+      <Attribute ID="Control" ChannelOffset="1" Wheel="28" />
+      <Attribute ID="Dot_Line" ChannelOffset="10" Wheel="29" />
+    </Include>
+  </Mode>
+</Fixture>

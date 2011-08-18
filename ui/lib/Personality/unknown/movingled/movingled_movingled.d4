@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Moving LED" ShortName="Mving LED" Company="Unknown">
+  <Copyright Notice="© Avolites Ltd. 2011" />
+  <History Date="30-01-07" Author="D.Milligan" Comment="Created" />
+  <History Date="30-01-07" Author="D.Milligan" Comment="Checked" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <History Date="16-04-09" Author="Jonathan Moreton" Comment="Inverted P/T Speed" />
+  <History Date="09-05-11" Author="John Rogers" Comment="Edited manufacturer name." />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~7" Intensity="0~0" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="8~239" Intensity="0~0" />
+      <Function ID="3" Name="Blackout w P/T" Display="'Blackout w P/T'" Dmx="240~247" Intensity="0~0" />
+      <Function ID="4" Name="Open" Display="'Open'" Dmx="248~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Flash_Ratio" Name="Flash Ratio" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Flash Length" Display="'Length %.f%%',100~0" Dmx="0~100" />
+      <Function ID="2" Name="Lightning" Display="'Lightning %.f%%',0~100" Dmx="101~127" />
+      <Function ID="3" Name="No Flash" Display="'No Flash'" Dmx="128~255" />
+    </Attribute>
+    <Attribute ID="Fade_Time" Name="Fade Time" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Amber" Name="Amber" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Amber C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,100,0" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',100.0~0.0" Dmx="255~0" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~239" />
+      <Function ID="2" Name="Reset" Display="'Reset'" Dmx="240~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="Mode 1, 14 DMX" Channels="14">
+    <Import PearlRef="MA_MveLEDm1" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="540" TiltMax="270" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="5" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="6" Wheel="4" />
+      <Attribute ID="Pan" ChannelOffset="1,2" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="3,4" Wheel="3" />
+      <Attribute ID="Blue" ChannelOffset="9" Wheel="12" />
+      <Attribute ID="Green" ChannelOffset="10" Wheel="11" />
+      <Attribute ID="Amber" ChannelOffset="11" Wheel="40" />
+      <Attribute ID="Red" ChannelOffset="12" Wheel="10" />
+      <Attribute ID="Flash_Ratio" ChannelOffset="7" Wheel="30" />
+      <Attribute ID="Fade_Time" ChannelOffset="8" Wheel="29" />
+      <Attribute ID="Speed" ChannelOffset="13" Wheel="25" />
+      <Attribute ID="Control" ChannelOffset="14" Wheel="28" />
+    </Include>
+  </Mode>
+  <Mode Name="Mode 2, 10 DMX" Channels="10">
+    <Import PearlRef="MA_MveLEDm2" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="540" TiltMax="270" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="3" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="4" Wheel="4" />
+      <Attribute ID="Pan" ChannelOffset="1" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="2" Wheel="3" />
+      <Attribute ID="Blue" ChannelOffset="6" Wheel="12" />
+      <Attribute ID="Green" ChannelOffset="7" Wheel="11" />
+      <Attribute ID="Amber" ChannelOffset="8" Wheel="40" />
+      <Attribute ID="Red" ChannelOffset="9" Wheel="10" />
+      <Attribute ID="Flash_Ratio" ChannelOffset="5" Wheel="30" />
+      <Attribute ID="Control" ChannelOffset="10" Wheel="28" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Reset">
+      <Set Channel="Control:2" Delay="4000" />
+      <Set Channel="Control:1" Delay="1000" />
+    </Macro>
+  </Macro>
+</Fixture>

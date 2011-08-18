@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Power Stage 250 MSD" ShortName="PS250MSD" Company="HQ Power">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="03-08-05" Author="Ed" Comment="Created" />
+  <History Date="04-08-05" Author="Phil Rogers" Comment="Checked" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour ID to Colour1" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <History Date="19-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Colour1Func" Name="Colour Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="6" If="'Colour1Func'==2" />
+      <Condition Name="Raw_Func" ID="7" If="'Colour1Func'==3" />
+      <Else ID="1,2,3,4,5,6,7" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~32" Colour="255,255,255" />
+      <Function ID="2" Name="Red" Display="'Red'" Dmx="33~65" Colour="255,0,0" />
+      <Function ID="3" Name="Dark Blue" Display="'Deep Blue'" Dmx="66~98" Colour="0,0,180" />
+      <Function ID="4" Name="Deep Green" Display="'Deep Green'" Dmx="99~131" Colour="0,180,0" />
+      <Function ID="5" Name="Yellow" Display="'Yellow'" Dmx="132~163" Colour="255,255,0" />
+      <Function ID="6" Name="Scroll CW" Display="'Scroll CW %.f%%',0~100" Dmx="164~255" Colour="0,0,0" />
+      <Function ID="7" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:20" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~11" Intensity="0~0" />
+      <Function ID="2" Name="8bit HTP" Display="'%.1f%%',0.0~100.0" Dmx="12~128" Intensity="0~0" />
+      <Function ID="3" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="129~239" Intensity="0~0" />
+      <Function ID="4" Name="Open" Display="'Open'" Dmx="240~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Iris" Name="Iris" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Iris" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Control" Name="Macro" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="No Func" Display="'No Func'" Dmx="0~28" />
+      <Function ID="2" Name="Macro 1" Display="'Macro 1'" Dmx="29~57" />
+      <Function ID="3" Name="Macro 2" Display="'Macro 2'" Dmx="58~86" />
+      <Function ID="4" Name="Macro 3" Display="'Macro 3'" Dmx="87~115" />
+      <Function ID="5" Name="Macro 4" Display="'Macro 4'" Dmx="116~144" />
+      <Function ID="6" Name="Macro 5" Display="'Macro 5'" Dmx="145~173" />
+      <Function ID="7" Name="Macro 6" Display="'Macro 6'" Dmx="174~202" />
+      <Function ID="8" Name="Macro 7" Display="'Macro 7'" Dmx="203~231" />
+      <Function ID="9" Name="Macro 8" Display="'Macro 8'" Dmx="232~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="12 DMX, 16bit" Channels="12">
+    <Import PearlRef="HQ_PS250MSD" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="630" TiltMax="265" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="7" Wheel="4" />
+      <Attribute ID="Dimmer" ChannelOffset="8" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="5,10" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="6,11" Wheel="3" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="8" />
+      <Attribute ID="Cyan" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="4" Wheel="12" />
+      <Attribute ID="Iris" ChannelOffset="9" Wheel="21" />
+      <Attribute ID="Control" ChannelOffset="12" Wheel="25" />
+    </Include>
+  </Mode>
+</Fixture>

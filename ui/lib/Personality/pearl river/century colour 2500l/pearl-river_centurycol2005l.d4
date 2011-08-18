@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Century Colour 2500L - 2001L" ShortName="Cent 2500L" Company="Pearl River">
+  <Copyright Notice="© Avolites Ltd. 2010" />
+  <History Date="07-07-04" Author="Phil Rogers" Comment="Created" />
+  <History Date="15-07-04" Author="Tom" Comment="Checked" />
+  <History Date="14-11-05" Author="Ed" Comment="Swapped Locate value of speed channel to high" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <History Date="12-07-10" Author="Jonathan Moreton" Comment="Added Control Channel and new mode, changed scroll to 2 scroll functions from 4 fixed speed slow" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Colour1Func" Name="Colour Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Index_Func" Display="'Index'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Index_Func" ID="1,2,3,4,5,6,7" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="8,9" If="'Colour1Func'==2" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~25" Update="Cyan, Magenta, Yellow" Colour="255,255,255" />
+      <Function ID="2" Name="Cyan" Display="'Cyan'" Dmx="26~51" Update="Cyan, Magenta, Yellow" Colour="0,255,255" />
+      <Function ID="3" Name="Yellow" Display="'Yellow'" Dmx="52~77" Update="Cyan, Magenta, Yellow" Colour="255,255,0" />
+      <Function ID="4" Name="Magenta" Display="'Magenta'" Dmx="78~103" Update="Cyan, Magenta, Yellow" Colour="255,0,255" />
+      <Function ID="5" Name="Blue" Display="'Blue'" Dmx="104~129" Update="Cyan, Magenta, Yellow" Colour="0,0,255" />
+      <Function ID="6" Name="Red" Display="'Red'" Dmx="130~155" Update="Cyan, Magenta, Yellow" Colour="255,0,0" />
+      <Function ID="7" Name="Green" Display="'Green'" Dmx="156~181" Update="Cyan, Magenta, Yellow" Colour="0,255,0" />
+      <Function ID="8" Name="Open" Display="'Open'" Dmx="0~0" Update="Cyan, Magenta, Yellow" Colour="255,255,255" />
+      <Function ID="9" Name="Scroll" Display="'Scroll %.f%%',0~100" Dmx="182~255" Update="Cyan, Magenta, Yellow" Colour="0,0,0" />
+      <Function ID="10" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Speed" Description="" Group="S">
+      <Locate Locate="4" PowerOn="4" />
+      <Function ID="1" Name="Slow" Display="'Slow'" Dmx="0~63" />
+      <Function ID="2" Name="Medium" Display="'Medium'" Dmx="64~127" />
+      <Function ID="3" Name="Med/High" Display="'Med/High'" Dmx="128~191" />
+      <Function ID="4" Name="High" Display="'High'" Dmx="255~255" />
+    </Attribute>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:20" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Lamp On" Display="'Lamp On'" Dmx="0~127" />
+      <Function ID="2" Name="Reset" Display="'Reset'" Dmx="128~191" />
+      <Function ID="3" Name="Lamp On" Display="'Lamp On'" Dmx="192~250" />
+      <Function ID="4" Name="Lamp Off" Display="'Lamp Off'" Dmx="251~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="6 DMX, 8bit" Channels="6">
+    <Import PearlRef="PR_Cnt2500L" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="250000" ColourTemp="5600" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="720" Width="770" Depth="500" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="5" Wheel="1" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="6" Wheel="8" />
+      <Attribute ID="Cyan" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="4" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="3" Wheel="12" />
+      <Attribute ID="Speed" ChannelOffset="1" Wheel="29" />
+    </Include>
+  </Mode>
+  <Mode Name="7 DMX, 8bit" Channels="7">
+    <Import PearlRef="PR_Cn2500L7" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="250000" ColourTemp="5600" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="720" Width="770" Depth="500" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="5" Wheel="1" />
+      <Attribute ID="Cyan" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="4" Wheel="12" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="6" Wheel="8" />
+      <Attribute ID="Speed" ChannelOffset="1" Wheel="29" />
+      <Attribute ID="Control" ChannelOffset="7" Wheel="28" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Control:1" Delay="6000" />
+      <Set Channel="Control:1:0" Delay="0" />
+    </Macro>
+    <Macro Name="Reset">
+      <Set Channel="Control:2" Delay="6000" />
+      <Set Channel="Control:1:0" Delay="0" />
+    </Macro>
+    <Macro Name="Reset">
+      <Set Channel="Control:2" Delay="6000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Control:3" Delay="6000" />
+      <Set Channel="Control:1:0" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Control:3" Delay="6000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp Off">
+      <Set Channel="Control:4" Delay="6000" />
+      <Set Channel="Control:1:0" Delay="0" />
+    </Macro>
+    <Macro Name="Lamp Off">
+      <Set Channel="Control:4" Delay="6000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+  </Macro>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Cyan:1:0,Magenta:1:0,Yellow:1:0" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Cyan:1:0,Magenta:1:100,Yellow:1:100" />
+      <Palette ID="3" Name="Amber" Number="3" Page="1" SetControl="Cyan:1:0,Magenta:1:50,Yellow:1:100" />
+      <Palette ID="4" Name="Yellow" Legend="Yell" Number="4" Page="1" SetControl="Cyan:1:0,Magenta:1:0,Yellow:1:100" />
+      <Palette ID="5" Name="Lime" Number="0" Page="1" SetControl="Cyan:1:50,Magenta:1:0,Yellow:1:100" />
+      <Palette ID="6" Name="Green" Number="5" Page="1" SetControl="Cyan:1:100,Magenta:1:0,Yellow:1:100" />
+      <Palette ID="7" Name="Aqua" Number="0" Page="1" SetControl="Cyan:1:100,Magenta:1:0,Yellow:1:50" />
+      <Palette ID="8" Name="Cyan" Number="6" Page="1" SetControl="Cyan:1:100,Magenta:1:0,Yellow:1:0" />
+      <Palette ID="9" Name="Light Blue" Number="0" Page="1" SetControl="Cyan:1:100,Magenta:1:50,Yellow:1:0" />
+      <Palette ID="10" Name="Blue" Number="7" Page="1" SetControl="Cyan:1:100,Magenta:1:100,Yellow:1:0" />
+      <Palette ID="11" Name="Purple" Legend="Purpl" Number="0" Page="1" SetControl="Cyan:1:50,Magenta:1:100,Yellow:1:0" />
+      <Palette ID="12" Name="Magenta" Legend="Mag" Number="10" Page="1" SetControl="Cyan:1:0,Magenta:1:100,Yellow:1:0" />
+      <Palette ID="13" Name="Rose" Number="0" Page="1" SetControl="Cyan:1:0,Magenta:1:100,Yellow:1:50" />
+      <Palette ID="14" Name="Lavender" Legend="Lav" Number="8" Page="1" SetControl="Cyan:1:29,Magenta:1:57,Yellow:1:6" />
+      <Palette ID="15" Name="Ultra Violet" Legend="UV" Number="9" Page="1" SetControl="Cyan:1:80,Magenta:1:100,Yellow:1:0" />
+    </Group>
+  </Palettes>
+</Fixture>

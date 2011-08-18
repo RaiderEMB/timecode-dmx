@@ -1,0 +1,215 @@
+; "Morpheus Colour Fader 3", 2 DMX channels, filename :Mocfad3.r20
+;
+;   Date      By         Description
+;   13-03-03  D.Shelton  Created
+;  
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MoColFad3                               2 DMX channels
+NAME "Morpheus" "Color Fader 3"
+; 
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE	1	2	M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2  380  270
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;	+,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;	& means logical AND
+;	| means logical OR 
+;	R means reverse the bits of the curernt result (operates on a byte)
+;	^ means logical Exclusive OR (operates on a byte)
+;	> means shift to the right
+;	< shift to the left
+;	r followed by number means get the value of that parameter 
+;	d DMX address
+;	n Fixture name, a 0 terminated character string
+;	h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+""
+""
+""
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=511
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt, 
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom, 
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX
+4   1   I   1   100 1N  A   1   "Colour"  0   0   0
+4  61   I   2   100 1N  0   2   "Time"    0   0   0
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+ Morpheus Fader Beam
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1 --      --
+ 2 --      --
+ 3 --      --
+ 4 Colour  Time
+ 5 --      --
+ 6 --      --
+ 7 --      --
+ 8 --      --
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+PFTABLE "Color" 29   1
+"Clear"         1        00
+"L103"          2        03
+"R11"           3        06
+"R14"           4        09
+"L104"          5        0B
+"R15"           6        0E
+"CUSTOM"        7        11
+"G460"          8        13
+"R12"           9        15
+"L101"          10       18
+"CUSTOM"        11       1A
+"R02"           12       1D
+"R03"           13       20
+"L176"          14       23
+"R18"           15       25
+"R147"          16       28
+"R21"           17       2A
+"CUSTOM"        18       2D
+"R22"           19       2F
+"R19"           20       31
+"R25"           21       34
+"R41"           22       37
+"R24"           23       39
+"L182"          24       3C
+"L106"          25       3F
+"CUSTOM"        26       41
+"CUSTOM"        27       43
+"G235"          28       46
+"R26"           29       49
+"G250"          30       4B
+"R27"           -1       4E
+"L153"          -1       50
+"L109"          -1       53
+"R31"           -1       56
+"R34"           -1       58
+"L110"          -1       5B
+"R36"           -1       5D
+"L111"          -1       5F
+"G180"          -1       62
+"L113"          -1       64
+"R46"           -1       67
+"R33"           -1       6A
+"R35"           -1       6C
+"R37"           -1       6E
+"R38"           -1       72
+"R44"           -1       74
+"L128"          -1       76
+"G140"          -1       79
+"L126"          -1       7C
+"G995"          -1       7E
+"CUSTOM"        -1       81
+"R51"           -1       83
+"R52"           -1       85
+"R54"           -1       88
+"L137"          -1       8A
+"L142"          -1       8D
+"R57A"          -1       90
+"R58A"          -1       92
+"L180"          -1       95
+"R59"           -1       97
+"L181"          -1       9A
+"R60"           -1       9C
+"R62"           -1       9F
+"L161"          -1       A2
+"R64A"          -1       A4
+"R67"           -1       A7
+"R68"           -1       A9
+"R79"           -1       AC
+"R83"           -1       AE
+"G905"          -1       B1
+"CUSTOM"        -1       B4
+"R73"           -1       B6
+"L115"          -1       B9
+"L116"          -1       BC
+"R95"           -1       BE
+"L117"          -1       C1
+"L144"          -1       C3
+"R71"           -1       C6
+"R69"           -1       C8
+"R76"           -1       CB
+"CUSTOM"        -1       CD
+"G54"           -1       D0
+"L138"          -1       D2
+"L121"          -1       D5
+"L122"          -1       D8
+"R89"           -1       DA
+"L124"          -1       DD
+"G655"          -1       DF
+"R90"           -1       E2
+"R61"           -1       E4
+"L139"          -1       E6
+PFEND

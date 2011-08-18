@@ -1,0 +1,169 @@
+ TODO, DIP SWITCHES, Check PF tables
+; "Martin Roboscan 812 Mode 1", 5 DMX channels, filename :mt812m1.r20
+;
+;  Date       By         Description
+;  29-03-99   P.Bari     Created
+;  08-10-99   V. Devreux Revised Locate Fixture and TEXT field
+;  11-07-01   Edward     Range Tables
+;  29-11-05   ED	 Revised device name
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MT_Rb812M1                                    5 DMX channels
+NAME "Martin" "RoboScan 812 Mode 1"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE    1   5   M
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+MIRROR	1	150	110
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;	+,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;	& means logical AND
+;	| means logical OR 
+;	R means reverse the bits of the curernt result (operates on a byte)
+;	^ means logical Exclusive OR (operates on a byte)
+;	> means shift to the right
+;	< shift to the left
+;	r followed by number means get the value of that parameter 
+;	d DMX address
+;	n Fixture name, a 0 terminated character string
+;	h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+""
+""
+""
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=508
+;
+; DMX number must be divisible by this	
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt, 
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom, 
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+
+DMX
+2   61   I   1   100 1N  O   1   "Shutter"      0      0      0
+4    1   H   2   100 1N  A   1   "Color"      238     15     40
+6    1   L   3   100 1N  I   1   "Gobo"       238     15     15
+3   61   L   4   100 1N  E   1   "Pan"        128     -1     -1
+3    1   L   5   100 1N  F   1   "Tilt"       128     -1     -1
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+   ROBOSCAN 812
+ Mode 1 - 5 Chans
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1 --       --
+ 2 --       Shutter
+ 3 Tilt     Pan
+ 4 Color    --
+ 5 --       --
+ 6 Gobo     --
+
+
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+; Positions
+PFTABLE "Positions" -1 4   5   6
+"Middle"    21 80  80   0
+"Left"      22 50  80   0
+"Right"     23 b0  80   0
+"Top"       24 80  50   0
+"Bottom"    25 80  b0   0
+"TLeft"     26 50  50   0
+"TRight"    27 b0  b0   0
+"BLeft"     28 50  b0   0
+"BRight"    29 b0  50   0
+PFEND
+
+; Color table
+PFTABLE "Colors" -1  2   7
+"Col 1"     1  ed   0
+"Col 2"     2  e8   0
+"Col 3"     3  e3   0
+"Col 4"     4  de   0
+"Col 5"     5  d9   0
+"Col 6"     6  d4   0
+"Col 7"     7  cf   0
+"Col 8"     8  ca   0
+"Col 9"     9  c5   0
+"Col 10"   10  c0   0
+PFEND
+
+; Gobo table
+PFTABLE "Gobos" -1  3 
+"Open"     11  ed
+"Gobo 1"   12  e8
+"Gobo 2"   13  e3
+"Gobo 3"   14  de
+"Gobo 4"   15  d9
+"Gobo 5"   16  d4
+"Gobo 6"   17  cf
+"Gobo 7"   18  ca
+"Gobo 8"   19  c5
+"Gobo 9"   20  c0
+PFEND
+

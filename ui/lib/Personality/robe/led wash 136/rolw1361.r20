@@ -1,0 +1,226 @@
+; 'Robe LED Wash 136', 14 DMX Channels, filename: ROLW1361.R20
+;
+;   Date       By                Description
+;   11-02-06   Pers Creator      Created - Exported from Diamond 4 file.
+;   11-02-06   Ed Spencer        Checked
+;   13-04-10   Gregory Haynes    Added preset palettes and Reset macro
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  RO_LEDW1361                            mode=Mode 1, 14 DMX  14 DMX Channels
+NAME "Robe" "LED Wash 136 Mode 1"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  14  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0   530   280
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Mode 1, 14 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=498
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+DMX
+3    61   s    1   100   1N   E   1   "Pan"             128     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        128     0     0
+18    1   L    5   100   1N   0   1   "P/T Speed"         0     0     0
+8    61   L    6   100   1N   0   1   "P/T Macro"         0     0     0
+8     1   L    7   100   1N   0   1   "P/T Macro Sp"      0     0     0
+20    1   I    8   100   1N   0   1   "Control"           0     0     0
+10    1   L    9   100   1N   T   1   "Red"               0   255     0
+10   61   L   10   100   1N   U   1   "Green"             0   255     0
+9    61   L   11   100   1N   V   1   "Blue"              0     0   229
+4     1   I   12   100   1N   A   1   "Macro"             0     0     0
+2    61   L   13   100   1N   O   1   "Shutter"           0     0     0
+1     1   H   14   100   1N   H   1   "Dimmer"          255     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Robe LED Wash 136
+Mode 1, 14 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Pan/Tilt"   -1   1   3
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1   9  10  11
+"Open"                1  FF  FF  FF
+"Red"                 2  FF   0   0
+"Amber"               3  FF  7F   0
+"Yellow"              4  FF  FF   0
+"Green"               5   0  FF   0
+"Cyan"                6   0  FF  FF
+"Blue"                7   0   0  FF
+"Purple"              9  7F   0  FF
+"Magenta"            10  FF   0  FF
+"Lavender"            8  B5  6E  F0
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset"         1   8
+"data"                0  86
+"delay"               1  32
+"data"                0  40
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+RANGE 14  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 1  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Red
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 10  ;Green
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Blue
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;P/T Speed
+0   0    "Tracking"
+1   255  "%3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 6  ;P/T Macro
+0   0    "Safe"
+32  63   "Circle %3d%%"0+(((c-a)*100)/(b-a))
+64  95   "Horz 8 %3d%%"0+(((c-a)*100)/(b-a))
+96  127  "Vert 8 %3d%%"0+(((c-a)*100)/(b-a))
+128 159  "Rect %3d%%"0+(((c-a)*100)/(b-a))
+160 191  "Tri %3d%%"0+(((c-a)*100)/(b-a))
+192 223  "Star %3d%%"0+(((c-a)*100)/(b-a))
+224 255  "Cross %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 7  ;P/T Macro Spd
+0   0    "None"
+1   127  "Fwd %3d%%"100-(((c-a)*100)/(b-a))
+128 129  "None"
+130 255  "Bk %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 8  ;Control
+0   129  "Reserved"
+130 139  "Reset PT"
+140 255  "Reserved"
+REND
+
+RANGE 12  ;Macro
+0   7    "Safe"
+8   15   "Macro 1"
+16  23   "Macro 2"
+24  31   "Macro 3"
+32  39   "Macro 4"
+40  47   "Macro 5"
+48  55   "Macro 6"
+56  63   "Macro 7"
+64  71   "Macro 8"
+72  79   "Macro 9"
+80  87   "Macro 10"
+88  95   "Macro 11"
+96  103  "Macro 12"
+104 111  "Macro 13"
+112 119  "Macro 14"
+120 127  "Macro 15"
+128 135  "Macro 16"
+136 143  "Macro 17"
+144 151  "Macro 18"
+152 159  "Macro 19"
+160 167  "Macro 20"
+168 175  "Macro 21"
+176 183  "Macro 22"
+184 191  "Macro 23"
+192 199  "Macro 24"
+200 207  "Macro 25"
+208 215  "Macro 26"
+216 223  "Macro 27"
+224 231  "Macro 28"
+232 239  "Macro 29"
+240 247  "Macro 30"
+248 255  "Macro 31"
+REND
+
+RANGE 13  ;Shutter
+0   31   "Closed"
+32  63   "Open"
+64  95   "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+96  127  "Open"
+128 143  "Op Pls %3d%%"0+(((c-a)*100)/(b-a))
+144 159  "Cl Pls %3d%%"100-(((c-a)*100)/(b-a))
+160 191  "Open"
+192 223  "Rnd St %3d%%"0+(((c-a)*100)/(b-a))
+224 255  "Open"
+REND
+
+

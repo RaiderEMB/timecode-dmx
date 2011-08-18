@@ -1,0 +1,231 @@
+;-----------------------------------------------------------------------|
+; The Vl2416 Personality for the Diamond                                |
+;-----------------------------------------------------------------------|
+;   History :-                                                          |
+;-----------------------------------------------------------------------|
+;   Revision |  Date     |  By    | Description                         |
+;----------- |-----------|--------|-------------------------------------|
+;   1.0      |  29-08-01 | Edward | Created                             |
+;            |  29-08-01 | Edward | modified atributes                  |
+;---------------------------------------------------------------------- |
+
+
+DEVICE=VL2416_15C    ; Device Name (upto 11 chars after '='
+DEVICE23=15 CHANNELS ; 22 chars after '='
+                        ; extra information for softkey prompt lines 2&3
+                        ; a total of 22 chars, split into 2 lines of 11
+
+; Device information
+;                                  __ Number of lines of DMX info.
+;                                 |   __ Number of lines of wheel info
+;                                 |  |
+;                                 |  |
+;                                 |  |
+HSTART   3 15 1b05 540 270 ff 0 1 15 14
+;        |  |  |    |   |  |  | |
+;        |  |  |    |   |  |  | |__ Line number for flash button DMX info
+;        |  |  |    |   |  |  |     from DMX definition (1..x)
+;        |  |  |    |   |  |  |__ Button release value
+;        |  |  |    |   |  |__ Button ON value (ff means use swop/add fader)
+;        |  |  |    |   |__ The TILT arc in Degrees
+;        |  |  |    |__ The Pan arc in degrees
+;        |  |  |__ Date in PC format (1b05==5/08/93)
+;        |  |__ Number of DMX slots used
+;      |__ Patch direction (1-backward, 0 forward, (3 for moving head, 1 for Moving Mirror))
+
+
+TEXTSTART       ; Upto 21 lines of 28 characters (use the template below)
+                                     ;
+   VL2416 WASH Luminaire             ;
+                                     ;
+   Enhanced 16-bit Mode              ;
+                                     ; 
+  15 CHANNELS                        ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+                                     ;
+TEXTEND
+
+
+;------------------------------------------------------------
+; For the Attribute Dictionary refer to file 'dict.per'
+;------------------------------------------------------------
+; DMX information
+; No unused lines allowed between keyword 'DSTART' and last DMX definition
+
+DSTART              ; DMX defintion
+1  1  0 0   0 0     ; INTENSITY
+2  2 20 0  13 0     ; PAN
+3  0  0 0   0 0     ; PAN LOW
+4  2 20 0  14 0     ; TILT
+5  0  0 0   0 0     ; TILT LOW
+6  2 80 0   8 0     ; CYAN
+7  2 80 0   9 0     ; YELLOW
+8  2 80 0   7 0     ; MAGENTA
+9  2  0 0  87 0     ; BEAM
+10 2  0 0  17 0     ; STROBE
+11 2  0 0 161 0     ; Rotating Lens
+12 2  0 0 108 0     ; FOCUS TIME
+13 2  0 0  59 0     ; COLOR TIME
+14 2  0 0 109 0     ; BEAM TIME
+15 2 40 0  52 0     ; CONTROL
+;| |  | |  |  |
+;| |  | |  |  |__ Spare (always 0 for now)
+;| |  | |  |__ Attribute name (See list above)
+;| |  | |__ Curve (0 means no curve otherwise curve number)
+;| |  |__ Flags (7=inverted, 6=instant, 5=16-bit)
+;| |__ Channel type (1=HTP, 2=LTP, 0=Dummy(for 16-bit defines)
+;|__ DMX offset (1..255, 0 means DIMMER will be patched seperately)
+
+
+;------------------------------------------------------------
+; WHEEL information
+; No unused lines allowed between keyword 'WSTART' and last DMX definition
+
+WSTART
+8 ffff ffff 4   0 0  8   0 1  0  1  0  0  0  0  0  ; 1. DIMMER
+4 ffff 8000 3  13 1  5   0 1  1  2  0  0  0  0  0  ; 2. PAN
+4 ffff 8000 3  14 1  6   0 1  3  4  0  0  0  0  0  ; 3. TILT
+8 ffff ffff 1   8 0 10   0 1  5  6  0  0  0  0  0  ; 4. CYAN
+8 ffff ffff 1   9 0  4   0 1  6  7  0  0  0  0  0  ; 5. YELLOW
+8 ffff ffff 1   7 0  3   0 1  7  8  0  0  0  0  0  ; 6. MAGENTA
+8 ffff    0 1 161 0  1   0 1 10 11  0  0  0  0  0  ; 7. Rotating Lens
+8 ffff ffff 1  87 0  2   0 1  8  9  0  0  0  0  0  ; 8. BEAM
+8 ffff    0 1  17 0  7   0 1  9 10  0  0  0  0  0  ; 9. SHUTTER
+8 ffff ffff 2 103 0  9 103 3  5  6  7  8  0  0  0  ;10. LEE
+8 ffff ffff 1 108 0 26   0 1 11 12  0  0  0  0  0  ;11. FOCUS TIME
+8 ffff ffff 1  59 0 27   0 1 12 13  0  0  0  0  0  ;12. COLOR TIME
+8 ffff ffff 1 109 0 28   0 1 13 14  0  0  0  0  0  ;13. BEAM TIME
+8 ffff ffff 1  52 0 41   0 1 14 15  0  0  0  0  0  ;14. CONTROL
+;|   |    | |  |  |  |   | |  |  |  |  |  |  |  |__ List of Table channels as
+;|   |    | |  |  |  |   | |  |  |_______________ line numbers from DMX def.
+;|   |    | |  |  |  |   | |  |                   0 means unused channel
+;|   |    | |  |  |  |   | |  |__ DMX line (minus 1) pertainig to this wheel
+;|   |    | |  |  |  |   | |__ Number of chanels under control OR Table width
+;|   |    | |  |  |  |   |__ Table type (Attribute number) 0 means NOT a table
+;|   |    | |  |  |  |__ Wheel number (1..8 on bank1, 9..16 on bank2 et cetera)
+;|   |    | |  |  |__ 0 for 8 bits, 1 for 16 bits
+;|   |    | |  |__  Attribute name from above list (0..MAX)
+;|   |    | |__ Wheel type (1-offset, 2-Table, 3-Pan/Tilt, 4-Dimmer)
+;|   |    |__ Default value (left shifted as necessary)
+;|   |__ AND mask, where more than wheel controls same DMX slot
+;|__ Wheel multiplication =16-(bits used)
+;    eg. for 8 bit channels it is 8, for 12 bit channels it is 4
+;
+;--------------------------------------------------------------------
+; TABLES
+; Each Table is enclosed by the keywords "TSTART" and "*** TEND ***"
+; The legend is 16 chars long
+; The correct number of values must be supplied (8-bits) with spaces in
+; between
+
+;Lee Colours
+TSTART 3 103
+lee101               255     98      255
+lee102               240     151     151
+lee103               80      66      70
+lee104               78      53      56
+lee105               71      43      43
+lee106               138     64      48
+lee107               154     155     169
+lee108               153     128     222
+lee109               144     141     196
+lee110               147     146     193
+lee111               234     184     107
+lee113               174     130     0
+lee115               107     136     247
+lee116               85      156     171
+lee117               127     138     222
+lee118               21      195     141
+lee119               0       163     86
+lee120               0       156     76
+lee121               100     78      137
+lee122               101     64      254
+lee124               0       128     153
+lee126               197     219     0
+lee127               243     174     97
+lee128               255     165     42
+lee129               0       0       0
+lee130               255     255     255
+lee131               118     127     255
+lee132               16      224     130
+lee134               135     114     255
+lee135               139     80      90
+lee136               169     195     255
+lee137               183     254     255
+lee138               250     165     255
+lee139               50      2       242
+lee140               120     136     251
+lee141               0       255     254
+lee142               113     157     161
+lee143               112     148     255
+lee144               122     146     255
+lee145               0       0       0
+lee147               62      57      62
+lee148               161     133     55
+lee151               230     178     144
+lee152               232     192     147
+lee153               158     151     195
+lee154               181     156     227
+lee156               173     159     160
+lee158               136     47      238
+lee159               214     183     252
+lee161               118     154     254
+lee162               177     162     204
+lee164               123     54      124
+lee165               122     149     222
+lee166               255     159     95
+lee169               190     222     255
+lee170               168     188     255
+lee172               93      164     176
+lee174               129     147     249
+lee176               213     171     115
+lee179               163     111     255
+lee180               140     222     176
+lee181               97      221     54
+lee182               147     99      54
+lee183               101     158     255
+lee184               193     167     255
+lee185               179     169     255
+lee186               251     222     149
+lee187               251     185     154
+lee188               250     196     155
+lee189               197     172     255
+lee190               216     177     224
+lee191               253     246     188
+lee192               248     182     108
+lee193               81      62      43
+lee194               170     236     255
+lee195               44      159     77
+lee196               123     156     181
+lee197               118     134     169
+*** TEND ***
+
+MACRO "RESET" 1  15
+30 54
+30  0  
+MEND
+
+MACRO "Lamp OFF" 2 15
+30 A8
+10  0
+MEND
+
+MACRO "Lamp ON" 3 15
+30 FC
+10  0
+MEND
+
+;--------------------------------------------------------------------
+
+

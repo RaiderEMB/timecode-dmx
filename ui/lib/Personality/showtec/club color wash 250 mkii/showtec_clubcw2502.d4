@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Club Color Wash 250 MKII" ShortName="ClubCW2502" Company="Showtec">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="06-09-07" Author="Ion Balan" Comment="Created" />
+  <History Date="06-09-07" Author="User" Comment="Checked" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Colour1Func" Name="Colour 1 Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~63" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Split_Func" Display="'Split Gel'" Dmx="64~127" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Scroll_Func" Display="'Scroll'" Dmx="128~191" Update="Colour1" Colour="0,0,0" />
+      <Function ID="4" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="192~255" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour 1" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8" If="'Colour1Func'==1" />
+      <Condition Name="Split_Func" ID="9,10,11,12,13,14,15" If="'Colour1Func'==2" />
+      <Condition Name="Scroll_Func" ID="16,17" If="'Colour1Func'==3" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~1" Colour="255,255,255" />
+      <Function ID="2" Name="Deep Red" Display="'Deep Red'" Dmx="16~19" Colour="180,0,0" />
+      <Function ID="3" Name="Yellow" Display="'Yellow'" Dmx="34~36" Colour="255,255,0" />
+      <Function ID="4" Name="Light Blue" Display="'Light Blue'" Dmx="52~54" Colour="0,128,255" />
+      <Function ID="5" Name="Red" Display="'Red'" Dmx="68~71" Colour="255,0,0" />
+      <Function ID="6" Name="Olivine" Display="'Olivine'" Dmx="88~90" Colour="128,128,0" />
+      <Function ID="7" Name="Pink" Display="'Pink'" Dmx="106~108" Colour="255,150,150" />
+      <Function ID="8" Name="UV" Display="'UV'" Dmx="123~125" Colour="180,0,255" />
+      <Function ID="9" Name="Op/DR" Display="'Op/DR %.f%%',0~100" Dmx="2~15" Colour="255,255,255" />
+      <Function ID="10" Name="DR/Ye" Display="'DR/Ye %.f%%',0~100" Dmx="20~33" Colour="180,0,0" />
+      <Function ID="11" Name="Ye/LB" Display="'Ye/LB %.f%%',0~100" Dmx="37~51" Colour="255,255,0" />
+      <Function ID="12" Name="LB/Re" Display="'LB/Re %.f%%',0~100" Dmx="55~67" Colour="0,128,255" />
+      <Function ID="13" Name="Re/Ol" Display="'Re/Ol %.f%%',0~100" Dmx="72~78" Colour="255,0,0" />
+      <Function ID="14" Name="Ol/Pi" Display="'Ol/Pi %.f%%',0~100" Dmx="91~105" Colour="128,128,0" />
+      <Function ID="15" Name="Pi/UV" Display="'Pi/UV %.f%%',0~100" Dmx="109~122" Colour="255,150,150" />
+      <Function ID="16" Name="Open" Display="'Open'" Dmx="0~0" Colour="255,255,255" />
+      <Function ID="17" Name="Scroll CW" Display="'Scroll CW %.f%%',0~100" Dmx="126~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="3" PowerOn="3" Clear="1" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~5" Intensity="0~0" />
+      <Function ID="2" Name="Grad Open" Display="'Grad Open %.f%%',0~100" Dmx="6~116" Intensity="0~0" />
+      <Function ID="3" Name="Open" Display="'Open'" Dmx="117~139" Intensity="0~0" />
+      <Function ID="4" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="140~199" Intensity="0~0" />
+      <Function ID="5" Name="Rnd Strobe" Display="'Rnd Strobe %.f%%',0~100" Dmx="200~249" Intensity="0~0" />
+      <Function ID="6" Name="Open" Display="'Open'" Dmx="250~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="2 DMX, 8bit" Channels="2">
+    <Import PearlRef="SH_CCW250M2" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="2" Wheel="4" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="8" />
+    </Include>
+  </Mode>
+</Fixture>

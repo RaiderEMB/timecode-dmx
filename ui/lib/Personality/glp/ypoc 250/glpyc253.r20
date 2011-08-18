@@ -1,0 +1,274 @@
+; 'GLP YPOC 250', 18 DMX Channels, filename: GLPYC253.R20
+;
+;   Date       By                Description
+;   05-12-06   Pers Creator      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  GLP_250H                            mode=H mode  18 DMX Channels
+NAME "GLP" "YPoc 250, H Mode"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  18  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   530   285
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to H mode"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=494
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   s    1   100   1N   E   1   "Pan"             128     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        128     0     0
+12    1   I    5   100   1N   0   1   "Reserved 1"        0     0     0
+4     1   I    6   100   1N   A   1   "Colour 1"          0     0     0
+12   61   I    7   100   1N   0   1   "Reserved 2"        0     0     0
+6     1   I    8   100   1N   I   1   "Gobo 1"            0     0     0
+7     1   L    9   100   1N   K   1   "Gobo 1 Rot"        0     0     0
+13    1   L   10   100   1N   0   1   "Reserved 3"        0     0     0
+9     1   I   11   100   1N   P   1   "Prism"             0     0     0
+5    61   L   12   100   1N   L   1   "Focus"           128     0     0
+13   61   L   13   100   1N   0   1   "Reserved 4"        0     0     0
+2    61   L   14   100   1N   O   1   "Shutter"         255     0     0
+1     1   H   15   100   1N   H   1   "Dimmer"          255     0     0
+8     1   L   16   100   1N   0   1   "P/T Speed"         0     0     0
+14    1   L   17   100   1N   0   1   "Reserved 5"        0     0     0
+10    1   L   18   100   1N   0   1   "Control"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+GLP YPOC 250
+H mode
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Lamp On"       1  14
+"data"                0  FF
+"delay"               1  28
+MEND
+
+MACRO "Lamp Off"      2  14  18
+"data"                0   0  EB
+"delay"               1  28
+MEND
+
+MACRO "Reset"         3  18
+"data"                0  FF
+"delay"               1  28
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 6  ;Colour 1
+0   1    "Open"
+2   3    "Op/BB %3d%%"0+(((c-a)*100)/(b-a))
+4   5    "Brill Blue"
+6   7    "BB/Bl %3d%%"0+(((c-a)*100)/(b-a))
+8   9    "Blue"
+10  11   "Bl/Pu %3d%%"0+(((c-a)*100)/(b-a))
+12  13   "Purple"
+14  15   "Pu/Ma %3d%%"0+(((c-a)*100)/(b-a))
+16  17   "Magenta"
+18  19   "Ma/Pi %3d%%"0+(((c-a)*100)/(b-a))
+20  21   "Pink"
+22  23   "Pi/Or %3d%%"0+(((c-a)*100)/(b-a))
+24  25   "Orange"
+26  27   "Or/Ye %3d%%"0+(((c-a)*100)/(b-a))
+28  29   "Yellow"
+30  31   "Ye/IB %3d%%"0+(((c-a)*100)/(b-a))
+32  33   "Ital Blue"
+34  35   "IB/Tu %3d%%"0+(((c-a)*100)/(b-a))
+36  37   "Turquoise"
+38  39   "Tu/Ja %3d%%"0+(((c-a)*100)/(b-a))
+40  41   "Jade"
+42  43   "Ja/Re %3d%%"0+(((c-a)*100)/(b-a))
+44  45   "Red"
+46  47   "Re/Op %3d%%"0+(((c-a)*100)/(b-a))
+48  65   "Open"
+66  67   "Op/BB %3d%%"0+(((c-a)*100)/(b-a))
+68  69   "Brill Blue"
+70  71   "BB/Bl %3d%%"0+(((c-a)*100)/(b-a))
+72  73   "Blue"
+74  75   "Bl/Pu %3d%%"0+(((c-a)*100)/(b-a))
+76  77   "Purple"
+78  79   "Pu/Ma %3d%%"0+(((c-a)*100)/(b-a))
+80  81   "Magenta"
+82  83   "Ma/Pi %3d%%"0+(((c-a)*100)/(b-a))
+84  85   "Pink"
+86  87   "Pi/Or %3d%%"0+(((c-a)*100)/(b-a))
+88  89   "Orange"
+90  91   "Or/Ye %3d%%"0+(((c-a)*100)/(b-a))
+92  93   "Yellow"
+94  95   "Ye/IB %3d%%"0+(((c-a)*100)/(b-a))
+96  97   "Ital Blue"
+98  99   "IB/Tu %3d%%"0+(((c-a)*100)/(b-a))
+100 101  "Turquoise"
+102 103  "Tu/Ja %3d%%"0+(((c-a)*100)/(b-a))
+104 105  "Jade"
+106 107  "Ja/Re %3d%%"0+(((c-a)*100)/(b-a))
+108 109  "Red"
+110 111  "Re/Op %3d%%"0+(((c-a)*100)/(b-a))
+112 127  "Open"
+128 191  "Sc CW %3d%%"0+(((c-a)*100)/(b-a))
+192 253  "Sc CCW %3d%%"100-(((c-a)*100)/(b-a))
+254 254  "Music (S)"
+255 255  "Music (F)"
+REND
+
+RANGE 8  ;Gobo 1
+0   7    "Open"
+8   15   "Gobo 1"
+16  23   "Gobo 2"
+24  31   "Gobo 3"
+32  39   "Gobo 4"
+40  47   "Gobo 5"
+48  55   "Gobo 6"
+56  63   "Open"
+64  71   "Open"
+72  79   "Gobo 1"
+80  87   "Gobo 2"
+88  95   "Gobo 3"
+96  103  "Gobo 4"
+104 111  "Gobo 5"
+112 119  "Gobo 6"
+120 127  "Open"
+128 191  "Sc CW %3d%%"0+(((c-a)*100)/(b-a))
+192 253  "Sc CCW %3d%%"100-(((c-a)*100)/(b-a))
+254 254  "Music (S)"
+255 255  "Music (F)"
+REND
+
+RANGE 9  ;Gobo 1 Rot
+0   131  "Index %3d%%"0+(((c-a)*100)/(b-a))
+132 191  "Sp CW %3d%%"0+(((c-a)*100)/(b-a))
+192 253  "Sp CCW %3d%%"100-(((c-a)*100)/(b-a))
+254 254  "Music (S)"
+255 255  "Music (F)"
+REND
+
+RANGE 11  ;Prism
+0   5    "Open"
+6   129  "Index %3d%%"0+(((c-a)*100)/(b-a))
+130 191  "Sp CW %3d%%"0+(((c-a)*100)/(b-a))
+192 253  "Sp CCW %3d%%"100-(((c-a)*100)/(b-a))
+254 254  "Music (S)"
+255 255  "Music (F)"
+REND
+
+RANGE 14  ;Shutter
+0   15   "Closed"
+16  31   "Rnd Strobe"
+32  47   "Pulse %3d%%"0+(((c-a)*100)/(b-a))
+48  239  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+240 255  "Open"
+REND
+
+RANGE 18  ;Control
+0   15   "Safe"
+16  31   "G1S 10 %3d%%"0+(((c-a)*100)/(b-a))
+32  47   "G1S 20 %3d%%"0+(((c-a)*100)/(b-a))
+48  63   "G1S 30 %3d%%"0+(((c-a)*100)/(b-a))
+65  79   "CC+1  %3d%%"0+(((c-a)*100)/(b-a))
+80  95   "CC+2  %3d%%"0+(((c-a)*100)/(b-a))
+96  111  "Music P/T S"
+112 127  "Music P/T F"
+128 229  "Safe"
+230 249  "Lamp Off"
+250 255  "Reset"
+REND
+
+RANGE 16  ;P/T Speed
+0   15   "Tracking"
+16  255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+

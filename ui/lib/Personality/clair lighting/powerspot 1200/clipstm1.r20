@@ -1,0 +1,353 @@
+; 'Clair Lighting PowerSpot 1200', 24 DMX Channels, filename: CLIPSTM1.r20
+;
+;   Date       By                Description
+;   14-10-03   Greg Brown        Created
+;   09-12-03   Greg Brown        Modified for ver 1.6
+;   09-12-03   Oliver Waits      Checked
+;   05-07-04   Greg Brown        Corrected over use of HTP channels
+;   03-08-04   Phil Rogers       Added macros and range tables
+;   23-09-04   Phil Rogers       Changed CMY and CTC to LTP channels
+;   21-01-05   Phil              Renamed to use Robe's standard naming
+;   17-06-05   Phil              Revised CTC Locate value
+;   30-09-05   Edward Spencer    Added colour preset focus
+;   14-09-06   D.Milligan        Revised Locate Values
+;   18-06-08   Jonathan Moreton  Converted from Robe ColorSpot 1200
+;   30-06-08   David Hunt        Checked
+;   18-12-08   David Hunt        Fixed duplicate dmx values in range tables
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  CLI_SPP12K1                         mode=Mode 1, 8bit  24 DMX channels
+NAME "Clair Lighting" "PowerSpot 1200, Mode 1"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  24  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   530  280
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 24 DMX, 16bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=488
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+DMX
+1     1   H   24   100   1N   H   1   "Dimmer"          255     0     0
+2    61   L   23   100   1N   O   1   "Shutter"         224     0     0
+3    61   s    1   100   1N   E   1   "Pan"             128     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        128     0     0
+4     1   I    7   100   1N   A   1   "Colour"            0     0     0
+10    1   L    8   100   1N   B   1   "Cyan"              0     0     0
+10   61   L    9   100   1N   C   1   "Magenta"           0     0     0
+9    61   L   10   100   1N   D   1   "Yellow"            0     0     0
+4    61   L   11   100   1N   0   1   "CTC Flt."          0     0     0
+6     1   I   13   100   1N   I   1   "Gobo 1"            0     0     0
+7     1   L   14   100   1N   K   1   "Gobo 1 Rot"       -1     0     0
+6    61   I   15   100   1N   J   1   "Gobo 2"            0     0     0
+7    61   L   16   100   1N   M   1   "Gobo 2 Rot"       -1     0     0
+15    1   L   19   100   1N   S   1   "Frost"             0     0     0
+5     1   L   21   100   1N   Q   1   "Zoom"              0     0     0
+5    61   L   22   100   1N   L   1   "Focus"             0     0     0
+2     1   L   20   100   1N   G   1   "Iris"              0     0     0
+19    1   L   18   100   1N   R   1   "Effect Rot"       -1     0     0
+9     1   I   17   100   1N   P   1   "Effect"            0     0     0
+18   61   I    5   100   1N   0   1   "P/T Spd"           0     0     0
+18    1   I    6   100   1N   0   1   "P/S Func"         50     0     0
+19   61   L   12   100   1N   0   1   "Effect Speed"      0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Clair Lighting 
+PowerSpot 1200 Mode 1
+24 DMX, 16bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+PFTABLE "Colour" -1   8   9  10
+"White"           1  00  00  00
+"Red"             2  7F  DD  F9
+"Amber"           3  4C  FD  C8
+"Yellow"          4  00  E6  23
+"Green"           5  DB  D1  0B
+"Cyan"            6  DC  83  0A
+"Blue"            7  DE  08  D3
+"Lavender"        8  B6  03  E3
+"UltraViolet"     9  FF  79  FB
+"Magenta"        10  79  93  FF
+PFEND
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Lamp On"       1   6
+"data"                0  86
+"delay"               1  28
+"data"                0   4
+MEND
+
+MACRO "Lamp Off"      2   6
+"data"                0  EA
+"delay"               1  28
+"data"                0   4
+MEND
+
+MACRO "P/T Reset"     3   6
+"data"                0  90
+"delay"               1  28
+"data"                0   4
+MEND
+
+MACRO "Colour Reset"  4   6
+"data"                0  9A
+"delay"               1  28
+"data"                0   4
+MEND
+
+MACRO "Gobo Reset"    5   6
+"data"                0  A4
+"delay"               1  28
+"data"                0   4
+MEND
+
+MACRO "Dim Reset"     6   6
+"data"                0  AE
+"delay"               1  28
+"data"                0   4
+MEND
+
+MACRO "Focus/Zoom Reset"  7   6
+"data"                0  B8
+"delay"               1  28
+"data"                0   4
+MEND
+
+MACRO "Effect Reset"  8   6
+"data"                0  C2
+"delay"               1  28
+"data"                0   4
+MEND
+
+MACRO "Total Reset"   9   6
+"data"                0  CC
+"delay"               1  28
+"data"                0   4
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 23  ;Shutter
+224 255  "Open"
+0   31   "Closed"
+64  95   "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+192 223  "Rnd St %3d%%"0+(((c-a)*100)/(b-a))
+96  127  "Open (Reduc"
+160 191  "Zap %3d%%"0+(((c-a)*100)/(b-a))
+128 143  "Pulse  %3d%%"0+(((c-a)*100)/(b-a))
+144 159  "Pulse  %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 7  ;Colour
+128 129  "Open"
+130 139  "Deep Red"
+140 149  "Deep Blue"
+150 159  "Green"
+160 169  "Orange"
+170 179  "6000K Filt."
+180 189  "UV"
+190 215  "Scr CW %3d%%"100-(((c-a)*100)/(b-a))
+216 217  "No Scroll"
+218 243  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+246 246  "Audio Rnd C"
+250 255  "Auto Rnd Cl"
+0   18   "Open/R %3d%%"0+(((c-a)*100)/(b-a))
+19  37   "Red/Bl %3d%%"0+(((c-a)*100)/(b-a))
+38  55   "Blue/G %3d%%"0+(((c-a)*100)/(b-a))
+56  73   "Grn/Or %3d%%"0+(((c-a)*100)/(b-a))
+74  91   "Orng/C %3d%%"0+(((c-a)*100)/(b-a))
+92  109  "CTO/UV %3d%%"0+(((c-a)*100)/(b-a))
+110 127  "UV/Ope %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 13  ;Gobo 1
+0   9    "Open"
+10  13   "Gobo1"
+14  17   "Gobo2"
+18  21   "Gobo3"
+22  25   "Gobo4"
+26  29   "Gobo5"
+30  33   "Gobo6"
+34  37   "Gobo1"
+38  41   "Gobo2"
+42  45   "Gobo3"
+46  49   "Gobo4"
+50  53   "Gobo5"
+54  57   "Gobo6"
+58  69   "Gobo1"
+70  81   "Gobo2"
+82  93   "Gobo3"
+94  105  "Gobo4"
+106 117  "Gobo5"
+130 141  "Gobo1"
+142 153  "Gobo2"
+154 165  "Gobo3"
+166 177  "Gobo4"
+178 189  "Gobo5"
+190 201  "Gobo6"
+118 129  "Gobo6"
+244 249  "Audio Rando"
+250 255  "Auto Random"
+222 223  "No Scroll"
+202 221  "Scr CW %3d%%"100-(((c-a)*100)/(b-a))
+224 243  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 15  ;Gobo 2
+0   9    "Open"
+10  13   "Gobo1"
+14  17   "Gobo2"
+18  21   "Gobo3"
+22  25   "Gobo4"
+26  29   "Gobo5"
+30  33   "Gobo6"
+34  37   "Gobo1"
+38  41   "Gobo2"
+42  45   "Gobo3"
+46  49   "Gobo4"
+50  53   "Gobo5"
+54  57   "Gobo6"
+58  69   "Gobo1"
+70  81   "Gobo2"
+82  93   "Gobo3"
+94  105  "Gobo4"
+106 117  "Gobo5"
+130 141  "Gobo1"
+142 153  "Gobo2"
+154 165  "Gobo3"
+166 177  "Gobo4"
+178 189  "Gobo5"
+190 201  "Gobo6"
+118 129  "Gobo6"
+202 221  "Scr CW %3d%%"100-(((c-a)*100)/(b-a))
+222 223  "No Scroll"
+224 243  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+244 249  "Audio Rando"
+250 255  "Auto Random")
+REND
+
+RANGE 19  ;Frost
+0   189  "Frost %3d%%"0+(((c-a)*100)/(b-a))
+190 211  "Pulse  %3d%%"0+(((c-a)*100)/(b-a))
+212 233  "Pulse  %3d%%"100-(((c-a)*100)/(b-a))
+234 255  "Rampin %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 20  ;Iris
+0   191  "Iris %3d%%"100-(((c-a)*100)/(b-a))
+192 203  "Pulse  %3d%%"0+(((c-a)*100)/(b-a))
+204 215  "Pulse  %3d%%"0+(((c-a)*100)/(b-a))
+216 217  "Rnd Op. Fst"
+218 219  "Rnd Op. Slo"
+220 221  "Rnd Cl. Fas"
+222 223  "Rnd Cl. Slo"
+224 239  "Pls Op %3d%%"0+(((c-a)*100)/(b-a))
+240 255  "Pls Cl %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+
+RANGE 17  ;Effect
+0   19   "Open"
+20  39   "3-Facet Pri"
+40  59   "5-Facet Pri"
+60  79   "Lined glass"
+80  99   "Diamond gla"
+100 119  "3-Facet Pri"
+120 139  "5-Facet Pri"
+140 159  "Lined Glass"
+160 179  "Diamond Gla"
+180 183  "Macro 1"
+184 187  "Macro 2"
+188 191  "Macro 3"
+192 195  "Macro 4"
+196 199  "Macro 5"
+200 203  "Macro 6"
+204 207  "Macro 7"
+208 211  "Macro 8"
+212 215  "Macro 9"
+216 219  "Macro 10"
+220 223  "Macro 11"
+224 227  "Macro 12"
+228 231  "Macro 13"
+232 235  "Macro 14"
+236 239  "Macro 15"
+240 243  "Macro 16"
+244 249  "Random Audi"
+250 255  "Random"
+REND
+
+RANGE 6  ;P/S Funct
+0   9    "Safe"
+10  19   "Autofocus O"
+20  29   "Autofocus O"
+50  59   "P/T Speed m"
+60  69   "P/T time md"
+70  79   "BlkOut w P/"
+80  89   "DBlkOut w P"
+90  99   "BlkOut +col"
+100 109  "DBlkOut +co"
+110 119  "BlkOut +gob"
+120 129  "DBlkOut +go"
+130 139  "Lamp ON"
+140 149  "P/T Reset"
+150 159  "Colour Rese"
+160 169  "Gobo Reset"
+170 179  "Dim/Strb Re"
+180 189  "Beam Reset"
+190 199  "Irs/Eff. Re"
+200 209  "Total Reset"
+230 239  "Lamp Off"
+REND

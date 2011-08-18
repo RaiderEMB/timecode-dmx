@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Arc 400 Archi/Live" ShortName="DTSA400A" Company="DTS">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="04-03-08" Author="Ion Balan" Comment="Created" />
+  <History Date="04-03-08" Author="Ion Balan" Comment="Checked" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="2:100" PowerOn="1:0" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~8" Intensity="0~0" />
+      <Function ID="2" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="9~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Colour1Func" Name="Colour 1 Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1, Colour2" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Rainbow'" Dmx="0~0" Update="Colour1, Colour2" Colour="0,0,0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1, Colour2" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour 1" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8,9" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="10,11,12,13,14,15,16" If="'Colour1Func'==2" />
+      <Condition Name="Raw_Func" ID="17" If="'Colour1Func'==3" />
+      <Else ID="17" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~19" Colour="255,255,255" />
+      <Function ID="2" Name="Green" Display="'Green'" Dmx="20~39" Colour="0,255,0" />
+      <Function ID="3" Name="Cyan" Display="'Cyan'" Dmx="40~59" Colour="0,255,255" />
+      <Function ID="4" Name="Pink" Display="'Pink'" Dmx="60~79" Colour="255,150,150" />
+      <Function ID="5" Name="Orange" Display="'Orange'" Dmx="80~99" Colour="255,128,0" />
+      <Function ID="6" Name="Magenta" Display="'Magenta'" Dmx="100~119" Colour="255,0,255" />
+      <Function ID="7" Name="Red" Display="'Red'" Dmx="120~139" Colour="255,0,0" />
+      <Function ID="8" Name="Dark Blue" Display="'Deep Blue'" Dmx="140~159" Colour="0,0,180" />
+      <Function ID="9" Name="Yellow" Display="'Yellow'" Dmx="160~179" Colour="255,255,0" />
+      <Function ID="10" Name="Rainb 1" Display="'Rainb 1'" Dmx="180~199" Colour="0,0,0" />
+      <Function ID="11" Name="Rainb 2" Display="'Rainb 2'" Dmx="200~209" Colour="0,0,0" />
+      <Function ID="12" Name="Rainb 3" Display="'Rainb 3'" Dmx="210~219" Colour="0,0,0" />
+      <Function ID="13" Name="Rainb 4" Display="'Rainb 4'" Dmx="220~229" Colour="0,0,0" />
+      <Function ID="14" Name="Rainb 5" Display="'Rainb 5'" Dmx="230~239" Colour="0,0,0" />
+      <Function ID="15" Name="Rainb 6" Display="'Rainb 6'" Dmx="240~249" Colour="0,0,0" />
+      <Function ID="16" Name="Rainb 7" Display="'Rainb 7'" Dmx="250~255" Colour="0,0,0" />
+      <Function ID="17" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~9" Intensity="0~0" />
+      <Function ID="2" Name="1,7 fl/s" Display="'1,7 fl/s'" Dmx="10~49" Intensity="0~0" />
+      <Function ID="3" Name="2 fl/s" Display="'2 fl/s'" Dmx="50~99" Intensity="0~0" />
+      <Function ID="4" Name="2,5 fl/s" Display="'2,5 fl/s'" Dmx="100~149" Intensity="0~0" />
+      <Function ID="5" Name="3,3 fl/s" Display="'3,3 fl/s'" Dmx="150~199" Intensity="0~0" />
+      <Function ID="6" Name="5 fl/s" Display="'5 fl/s'" Dmx="200~249" Intensity="0~0" />
+      <Function ID="7" Name="7,2 fl/s" Display="'7,2 fl/s'" Dmx="250~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Zoom" Name="Beam Ang" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="34" Display="'34'" Dmx="0~84" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Reset" Display="'Reset'" Dmx="85~170" Iris="0~0" Zoom="0~0" />
+      <Function ID="3" Name="58" Display="'58'" Dmx="171~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Colour2" Name="Colour 2" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8,9" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="10,11,12,13,14,15,16" If="'Colour1Func'==2" />
+      <Condition Name="Raw_Func" ID="17" If="'Colour1Func'==3" />
+      <Else ID="17" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~19" Colour="255,255,255" />
+      <Function ID="2" Name="CTB" Display="'CTB'" Dmx="20~39" Colour="230,230,255" />
+      <Function ID="3" Name="CTO" Display="'CTO'" Dmx="40~59" Colour="255,240,200" />
+      <Function ID="4" Name="Pink" Display="'Pink'" Dmx="60~79" Colour="255,150,150" />
+      <Function ID="5" Name="Red" Display="'Red'" Dmx="80~99" Colour="255,0,0" />
+      <Function ID="6" Name="Dark Blue" Display="'Deep Blue'" Dmx="100~119" Colour="0,0,180" />
+      <Function ID="7" Name="Yellow" Display="'Yellow'" Dmx="120~139" Colour="255,255,0" />
+      <Function ID="8" Name="Cyan" Display="'Cyan'" Dmx="140~159" Colour="0,255,255" />
+      <Function ID="9" Name="Magenta" Display="'Magenta'" Dmx="160~179" Colour="255,0,255" />
+      <Function ID="10" Name="Rainb 1" Display="'Rainb 1'" Dmx="180~199" Colour="0,0,0" />
+      <Function ID="11" Name="Rainb 2" Display="'Rainb 2'" Dmx="200~209" Colour="0,0,0" />
+      <Function ID="12" Name="Rainb 3" Display="'Rainb 3'" Dmx="210~219" Colour="0,0,0" />
+      <Function ID="13" Name="Rainb 4" Display="'Rainb 4'" Dmx="220~229" Colour="0,0,0" />
+      <Function ID="14" Name="Rainb 5" Display="'Rainb 5'" Dmx="230~239" Colour="0,0,0" />
+      <Function ID="15" Name="Rainb 6" Display="'Rainb 6'" Dmx="240~249" Colour="0,0,0" />
+      <Function ID="16" Name="Rainb 7" Display="'Rainb 7'" Dmx="250~255" Colour="0,0,0" />
+      <Function ID="17" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+  </Control>
+  <Mode Name="4 DMX, 8bit" Channels="4">
+    <Import PearlRef="DTSLive" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="3" Wheel="4" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour2" ChannelOffset="2" Wheel="8" />
+      <Attribute ID="Zoom" ChannelOffset="4" Wheel="19" />
+    </Include>
+  </Mode>
+  <Mode Name="4 DMX, Colour 2 Version" Channels="4">
+    <Import PearlRef="DTSArchi" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="3" Wheel="4" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="2" Wheel="8" />
+      <Attribute ID="Zoom" ChannelOffset="4" Wheel="19" />
+    </Include>
+  </Mode>
+</Fixture>

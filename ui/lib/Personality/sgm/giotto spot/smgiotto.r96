@@ -1,0 +1,241 @@
+; "SGM SMGiotto", 13 DMX channels, filename :SMGIOTTO.R96
+;
+;   Date      By        Description
+;   12-06-98  Unkown    Created
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  SgmGiotto
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used.
+TYPE  1  13  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2  540 270
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the curernt result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+""
+""
+""
+""
+DAEND
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1  
+;
+; maximum allowed dmx number
+MAXDMX=500
+;
+; DMX number must be divisible by this.
+DIVBY=1  
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 charcaters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX
+ 6  61  L   1  100  1N  E  1  "Pan Low"             128   -1   -1
+ 3  61  L   2  100  1N  E  1  "Pan"                 128   -1   -1
+ 6   1  L   3  100  1N  F  1  "Tilt Low"            128   -1   -1
+ 3  61  L   4  100  1N  F  1  "Tilt"                128   -1   -1
+ 4   1  L   5  100  1N  0  1  "Colour1"               0    0  115
+10   1  L   6  100  1N  0  1  "Cyan"                  0   -1   -1
+10  61  L   7  100  1N  0  1  "Magenta"               0   -1   -1
+ 9  61  L   8  100  1N  0  1  "Yellow"                0   -1   -1
+ 1   1  H   9  100  1N  0  1  "Dimmer"              255   -1   -1
+ 2  61  L  10  100  1N  0  1  "Strobe"              255   -1   -1
+ 5   1  L  11  100  1N  0  1  "Zoom"                128   -1   -1
+ 8  61  L  12  100  1N  0  1  "MotorSpeed"            0   -1   -1
+11   1  L  13  100  1N  0  1  "Reset"               150  150  150
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+  SGM Giotto
+Bank    Faders
+   Bottom   Top
+-----------------
+ 1 Dimmer --
+ 2 --     Strobe
+ 3 Tilt   Pan
+ 4 Color1 --       
+ 5 Zoom   --
+ 6 --     --       
+ 7 --     --
+ 8 --     MSpeed
+ 9 --     Yellow
+10 Cyan   Magenta
+11 Reset  --
+
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+;Colour table: Colour1
+PFTABLE  "Colours" 29 5  6  8  7
+"White"          1    0  0  0  0
+"Amber"          2   17  0  0  0
+"Green"          3   35  0  0  0
+"Pink"           4   4A  0  0  0
+"Yellow"         5   5f  0  0  0
+"Blue"           6   73  0  0  0
+"lee 101"       -1    0   DE     C       89
+"lee 102"       -1    0   E6     17      7A
+"lee 103"       -1    0   F9     70      93
+"lee 104"       -1    0   C3     5       64
+"lee 105"       -1    0   FD     4       29
+"lee 106"       -1    0   A4     8       8
+"lee 107"       -1    0  E7     4D      4D
+"lee 108"       -1    0  5B     23      23
+"lee 109"       -1    0  E9     5E      4F
+"lee 110"       -1    0  FF     A0      59
+"lee 111"       -1    0  FF     7C      2A
+"lee 113"       -1    0  C8     3D      1
+"lee 115"       -1    0  3C     6E      F4
+"lee 116"       -1    0   7     53      F4
+"lee 117"       -1    0  D0     D2      FB
+"lee 118"       -1    0  1D     80      95
+"lee 119"       -1    0  8      DD      6F
+"lee 120"       -1    0  12     A2      19
+"lee 121"       -1    0  9C     16      ED
+"lee 122"       -1    0  66     18      D9
+"lee 124"       -1    0  1D     E       7C
+"lee 126"       -1    0  6D     75      D
+"lee 127"       -1    0  A1      2D      1F
+"lee 128"       -1    0  BF      67      7
+"lee 129"       -1    0  0       0       0
+"lee 130"       -1    0  0       0       0
+"lee 131"       -1    0  6A      6A      D2
+"lee 132"       -1    0  22      C4      AC
+"lee 134"       -1    0  D5      1C      4A
+"lee 135"       -1    0  92      7       11
+"lee 136"       -1    0  D5      90      77
+"lee 137"       -1    0  C7      FA      93
+"lee 138"       -1    0  E3      64      D6
+"lee 139"       -1    0  0       0       0
+"lee 140"       -1    0  89      A0      F1
+"lee 141"       -1    0  1D      A3      C0
+"lee 142"       -1    0  A0      D6      89
+"lee 143"       -1    0  42      8E      7B
+"lee 144"       -1    0  6C      A7      F0
+"lee 145"       -1    0   0       0       0
+"lee 147"       -1    0  FF      33      56
+"lee 148"       -1    0  0       0       0
+"lee 151"       -1    0  F0      6A      6A
+"lee 152"       -1    0  F0      6A      72
+"lee 153"       -1    0  F0      6A      5F
+"lee 154"       -1    0  F0      72      6F
+"lee 156"       -1    0  E5      5C      61
+"lee 158"       -1    0  EF      6       22
+"lee 159"       -1    0  F2      84      92
+"lee 161"       -1    0  89      E6      C5
+"lee 162"       -1    0  EF      67      85
+"lee 164"       -1    0  E1      F       9
+"lee 165"       -1    0  6E      D4      C9
+"lee 166"       -1    0  0       0       0
+"lee 169"       -1    0  D9      94      8E
+"lee 170"       -1    0  C4      B6      63
+"lee 172"       -1    0  26      77      FF
+"lee 174"       -1    0  B1      E1      C1
+"lee 176"       -1    0  F8      5D      50
+"lee 179"       -1    0  B9      9       35
+"lee 180"       -1    0  61      D6      37
+"lee 181"       -1    0  8       88      11
+"lee 182"       -1    0  A3      4       7
+"lee 183"       -1    0  0       0       0
+"lee 184"       -1    0  FC      80      8F
+"lee 185"       -1    0  F9      97      92
+"lee 186"       -1    0  F9      8D      85
+"lee 187"       -1    0  F9      7C      85
+"lee 188"       -1    0  F9      78      86
+"lee 189"       -1    0  E0      8F      97
+"lee 190"       -1    0  C8      8F      97
+"lee 191"       -1    0  C8      77      8F
+PFEND
+
+;Positions table.
+PFTABLE  "Positions" -1 2 4 
+"Middle"      21    80  80
+"Left"        22    50  80
+"Right"       23    b0  80
+"Top"         24    80  50
+"Bottom"      25    80  b0
+"TLeft"       26    50  50
+"TRight"      27    b0  b0
+"BLeft"       28    50  b0
+"BRight"      29    b0  50
+PFEND
+
+
+;Macros
+MACRO "LAMP ON" 1   13   
+"data"          0   96
+"delay"         1   50
+"data"          0   96
+MEND
+
+MACRO "RESET" 2   13
+"data"        0   ff
+"delay"       1   50
+"data"        0    0
+MEND
+
+MACRO "LAMP OFF" 3   13
+"data"           0    0
+"delay"          1   20
+"data"           0    0
+MEND

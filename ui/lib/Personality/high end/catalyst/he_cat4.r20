@@ -1,0 +1,468 @@
+; 'Catalyst version 4 software', 40 DMX Channels, filename: HE_CAT4.R20
+;
+;   Date       By                Description
+;   21-03-06   Ed Spencer        Created from Catalyst v3.3
+;   21-03-06   Ed Spencer	 Checked
+;   15-12-08   David Hunt        Fixed duplicate dmx values in range tables
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  HE_Cat4                         mode=40 DMX, 16bit  40 DMX Channels
+NAME "High End" "Catalyst, v4"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  40  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0   0   0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 40 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=572
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+11 1  I 1  100 1N 0 1 "Library"		0   0   0
+11 61 I 2  100 1N 0 1 "File"		0   0   0
+12 1  S 3  100 1N 0 1 "In Frame"	0   0   0
+0  0  I 4  100 1N 0 1 "In Frame"	0   0   0
+12 61 S 5  100 1N 0 1 "Out Frame"	0   0   0
+0  0  I 6  100 1N 0 1 "Out Frame"	0   0   0
+13 1  I 7  100 1N 0 1 "Play Mode"	0   0   0
+13 61 I 8  100 1N 0 1 "Playback Spd"	0   0   0
+6  1  s 9  100 1N K 1 "X Rot"		128   0   0
+0  0  I 10 100 1N K 1 "X Rot"		128   0   0
+6  61 s 11 100 1N M 1 "Y Rot"		128   0   0
+0  0  I 12 100 1N M 1 "Y Rot"		128   0   0
+7  1  s 13 100 1N 0 1 "Z Rot"		128   0   0
+0  0  I 14 100 1N 0 1 "Z Rot"		128   0   0
+5  1  S 15 100 1N Q 1 "Scale"		144   0   0
+0  0  I 16 100 1N Q 1 "Scale"		144   0   0
+3  1  s 17 100 1N E 1 "X Pos"		128   0   0
+0  0  I 18 100 1N E 1 "X Pos"		128   0   0
+3  61 s 19 100 1N F 1 "Y Pos"		128   0   0
+0  0  I 20 100 1N F 1 "Y Pos"		128   0   0
+18 1  L 21 100 1N 0 1 "Aspect Rtio"	0   0   0
+18 61 L 22 100 1N 0 1 "Move Spd"	0   0   0
+1  1  H 23 100 1N H 1 "Intensity"	255   0   0
+10 1  L 24 100 1N T 1 "Red"		255   0   0
+10 61 L 25 100 1N U 1 "Green"		255   0   0
+9  61 L 26 100 1N V 1 "Blue"		255   0   0
+2  61 L 27 100 1N O 1 "Strobing"	0   0   0
+19 1  L 28 100 1N 0 1 "Trail"		0   0   0
+4  1  I 29 100 1N A 1 "Color Effects"	0   0   0
+9  1  I 30 100 1N P 1 "Visual Effects"	0   0   0
+8  1  I 31 100 1N 0 1 "FX 1"		0   0   0
+8  61 I 32 100 1N 0 1 "FX 2"		0   0   0
+14 1  I 33 100 1N 0 1 "K-Stone x1"	128   0   0
+14 61 I 34 100 1N 0 1 "K-Stone y1"	128   0   0
+15 1  I 35 100 1N 0 1 "K-Stone x2"	128   0   0
+15 61 I 36 100 1N 0 1 "K-Stone y2"	128   0   0
+16 1  I 37 100 1N 0 1 "K-Stone x3"	128   0   0
+16 61 I 38 100 1N 0 1 "K-Stone y3"	128   0   0
+17 1  I 39 100 1N 0 1 "K-Stone x4"	128   0   0
+17 61 I 40 100 1N 0 1 "K-Stone y4"	128   0   0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+HE Cat ver. 3.2
+40 DMX, 16bit
+
+    Wheel A    Wheel B
+-----------------------------
+ 1  Intensity    --
+ 2  --         Strobing
+ 3  X Pos      Y Pos
+ 4  Color FX     --
+ 5  Scale        --
+ 6  X Rot      Y Rot
+ 7  Z Rot        --
+ 8  FX 1       FX 2
+ 9  Visual FX  Blue
+ 10 Red        Green
+ 11 Library    File
+ 12 In Frame   Out Frame
+ 13 PlayBack   PB Spd.
+ 14 KSt x1     KSt y1
+ 15 KSt x2     KSt y2
+ 16 KSt x3     KSt y3
+ 17 KSt x4     KSt y4
+ 18 Aspt Rt.   Mov. Spd
+ 19 Trail        --
+ 20 --           --
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+    Wheel A    Wheel B
+-----------------------------
+ 1  Intensity    --
+ 2  --         Strobing
+ 3  X Pos      Y Pos
+ 4  Color FX     --
+ 5  Scale        --
+ 6  X Rot      Y Rot
+ 7  Z Rot        --
+ 8  FX 1       FX 2
+ 9  Visual FX  Blue
+ 10 Red        Green
+ 11 Library    File
+ 12 In Frame   Out Frame
+ 13 PlayBack   PB Spd.
+ 14 KSt x1     KSt y1
+ 15 KSt x2     KSt y2
+ 16 KSt x3     KSt y3
+ 17 KSt x4     KSt y4
+ 18 Aspt Rt.   Mov. Spd
+ 19 Trail        --
+ 20 --           --
+END
+
+;----------------------------------------------------------------------------
+; Preset Pallette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 27 ;Strobing
+0  0  "No Strobe"
+1  24  "Strobe 1"
+25 49  "Strobe 2"
+50 74  "Strobe 3"
+75 99  "Strobe 4"
+100 124 "Flicke %3d%%"0+(((c-a)*100)/(b-a))
+125 149 "Random %3d%%"0+(((c-a)*100)/(b-a))
+150 255 "No Func"
+REND
+
+RANGE 33 ;Keystone x1
+0  255 "%3d%%"100-(((c-a)*200)/(b-a))
+REND
+
+RANGE 34 ;Keystone y1
+0  255 "%3d%%"100-(((c-a)*200)/(b-a))
+REND
+
+RANGE 35 ;Keystone x2
+0  255 "%3d%%"100-(((c-a)*200)/(b-a))
+REND
+
+RANGE 36 ;Keystone y2
+0  255 "%3d%%"100-(((c-a)*200)/(b-a))
+REND
+
+RANGE 37 ;Keystone x3
+0  255 "%3d%%"100-(((c-a)*200)/(b-a))
+REND
+
+RANGE 38 ;Keystone y3
+0  255 "%3d%%"100-(((c-a)*200)/(b-a))
+REND
+
+RANGE 39 ;Keystone x4
+0  255 "%3d%%"100-(((c-a)*200)/(b-a))
+REND
+
+RANGE 40 ;Keystone y4
+0  255 "%3d%%"100-(((c-a)*200)/(b-a))
+REND
+
+RANGE 29 ;Colour Eff
+0  0  "RGB Sub"
+1  1  "RGB Sub Hi"
+2  2  "RGB Sub VH"
+3  3  "Trans Blck"
+4  4  "Trans Whte"
+5  9  "No Func"
+10 10  "Sub Inv"
+11 11  "Sub Inv Hi"
+12 12  "Sub Inv VH"
+13 13  "Invert What"
+14 14  "Inv CMY"
+15 15  "Inv CMY Hi"
+16 16  "Inv CMY VH"
+17 19  "No Func"
+20 20  "Black/Whte"
+21 21  "BW High"
+22 22  "BW VHi"
+23 23  "BW Var VHi"
+24 24  "Inv. B/W"
+25 29  "No Func"
+30 30  "Mask"
+31 31  "Inv Mask 1"
+32 32  "Inv Mask 2"
+33 33  "Mask Fade"
+34 34  "Inv Msk 1"
+35 35  "Inv Msk 2"
+36 36  "Inv Ms1 F"
+37 37  "Inv Ms2 F"
+38 39  "No Func"
+40 40  "Aph Inv Rd"
+41 41  "Aph Inv Gn"
+42 42  "Aph Inv Bl"
+43 43  "Aph Inv Cl"
+44 44  "Aph as Red"
+45 45  "Aph as Grn"
+46 46  "Aph as Blu"
+47 47  "Aph as Col"
+48 49  "No Func"
+50 50  "Lookup Col"
+51 51  "Lookup 2 Fl"
+52 52  "Lookup 3 BW"
+53 59  "No Func"
+60 60  "Gamma BW"
+61 61  "Gamma Color"
+62 62  "Gamma Col S"
+63 63  "Color Gain "
+64 64  "No Func"
+65 65  "Quant Col S"
+66 69  "No Func"
+70 70  "YUV"
+71 71  "Saturation"
+72 72  "Mega Sat"
+73 73  "Solarize"
+74 74  "Solar Inv"
+75 79  "No Func"
+80 80  "RGB Lyr 1"
+81 81  "RGB Lyr 2"
+82 82  "RGB Lyr 3"
+83 83  "RGB Lyr 4"
+84 84  "RGB Lyr 5"
+85 85  "RGB Lyr 6"
+86 86  "RGB Lyr 7"
+87 88  "No Func"
+89 89  "RGB Lyr 10"
+90 90  "RGB Lyr 11"
+91 91  "RGB Lyr 12"
+92 99  "No Func"
+100 100 "Tint"
+101 101 "Tint Invers"
+102 102 "Fade to Hue"
+103 103 "RGB > GBR"
+104 104 "RGB > BGR"
+105 105 "RGB > GRB"
+106 199 "No Func"
+200 219 "RGB Us %3d"200+(((c-a)*19)/(b-a))
+220 239 "HSC Us %3d"220+(((c-a)*19)/(b-a))
+240 255 "No Func" %3d"240+(((c-a)*15)/(b-a))
+REND
+
+RANGE 30 ;Visual Eff.
+0  0  "Non-Inf Pla"
+1  1  "Inf Plane"
+2  2  "Unity Scale"
+3  3  "Movie"
+4  4  "Full Screen"
+5  5  "KeyStone TM"
+6  6  "Rot Keystn"
+9  9  "Setup Keyst"
+10 10  "Filled Sphe"
+11 11  "Wirefrm Sph"
+12 12  "Points Sphe"
+13 13  "Lit Sphere"
+14 14  "Disc"
+15 15  "Disc Wirefr"
+16 16  "Disc Points"
+17 17  "Disc Silhou"
+18 19  "No Func"
+20 20  "Kaleidoscop"
+21 21  "Mgic Lntrn1"
+22 22  "Stretched"
+23 23  "Panaroma Sl"
+24 24  "Mgic Lntrn2"
+25 29  "No Func"
+30 30  "Cube 4 Side"
+31 31  "Cube 6 Side"
+32 32  "Col Cube 6"
+33 33  "Cube 4 Layr"
+34 39  "No Func"
+40 40  "Simul Tiles"
+41 41  "Simul Tiles"
+42 42  "Cons Tiles"
+43 43  "Cons Tiles "
+44 44  "Cons Tiles "
+45 45  "Rnd Flicker"
+46 46  "Rnd Col Fli"
+47 59  "No Func"
+60 60  "Rect Shutt"
+61 61  "Rect Col Sh"
+62 62  "N-Sided Sha"
+63 69  "No Func"
+70 70  "Shutter-Bla"
+71 71  "Shutter-Col"
+72 72  "Iris Shutte"
+73 99  "No Func"
+100 100 "Teapot"
+110 110 "Sound ch1"
+111 111 "Sound ch2"
+112 112 "Sound ch3"
+113 113 "Sound ch4"
+120 120 "Col. Sphere"
+123 123 "Spectrograp"
+124 124 "Midigraph"
+130 130 "PixelMadout"
+133 133 "Marble Test"
+160 179 "Model %3d"160+(((c-a)*19)/(b-a))
+180 180 "Kinesys"
+181 181 "Kaleidoscop"
+182 182 "Wrap Rotate"
+183 183 "Wave Horiz"
+184 184 "Wave Vert"
+185 185 "Wave Diagon"
+186 186 "Pixelize"
+187 187 "Pixel L Rnd"
+188 188 "Pixel L Sq"
+189 189 "Wipes"
+190 190 "Wipes Drag"
+195 195 "C Border"
+196 196 "C Border St"
+197 197 "C Border C"
+198 198 "C Border CS"
+199 199 "C Shutter"
+200 200 "C Shutter S"
+201 201 "C Shutter C"
+202 202 "C ShutterCS"
+203 203 "Shrink&Stre"
+204 204 "Crop Soft E"
+210 210 "Square P1"
+211 211 "Square Col"
+212 212 "Square ColF"
+213 213 "Square Movi"
+214 214 "Mirror Mov1"
+215 215 "Mirror Mov2"
+216 216 "Artnet SqBW"
+217 217 "Artnet SCol"
+218 218 "Midi Notes"
+219 219 "Sound Metre"
+REND
+
+
+RANGE 1 ;Library
+0  253 "Lib %3d"0+(((c-a)*253)/(b-a))
+254 254 "Use layer"
+255 255 "Live Video"
+REND
+
+RANGE 7 ;Play Mode
+0  0  "Display In "
+1  1  "Display Out"
+2  2  "Loop Fwd"
+3  3  "Loop Rev"
+4  4  "Once Fwd"
+5  5  "Once Rev"
+6  6  "Stop"
+7  7  "Random"
+8  8  "Play Sine"
+9  9  "No Func"
+10 10  "Loop Forwar"
+11 11  "Loop Backwa"
+12 12  "Once Forwar"
+13 13  "Once Backwa"
+14 14  "Random when"
+15 15  "PlaySi"
+40 40  "Loop Retrig"
+41 41  "Loop Back R"
+42 42  "Once Retrig"
+43 43  "Once Back R"
+44 44  "Play Sine"
+70 79  "Audio"
+71 71  "Audio Loop"
+16 39  "No Func"
+80 99  "Sc Mas %3d"1+(((c-a)*19)/(b-a))
+100 100 "Sync to MID"
+101 101 "Sync to Dec"
+102 102 "No Func"
+103 103 "Sync Sony1"
+104 104 "Sync Sony2"
+105 105 "Sync Sony3"
+106 255 "Reserv %3d"106+(((c-a)*149)/(b-a))
+REND
+
+RANGE 8 ;Playback Speed
+0  0  "Normal"
+1  1  "Pause"
+2  255 "Speed: %3d%%"0+(((c-a)*200)/(b-a))
+REND
+
+RANGE 21 ;Aspect Ratio
+0  128 "Horiz %3d%%"0+(((c-a)*100)/(b-a))
+129 255 "Vert %3d%%"0+(((c-a)*100)/(b-a))
+REND

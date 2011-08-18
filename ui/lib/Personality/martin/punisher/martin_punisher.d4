@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Punisher" ShortName="Punsr" Company="Martin">
+  <Copyright Notice="© Avolites Ltd. 2010" />
+  <History Date="18-11-04" Author="Phil" Comment="Created" />
+  <History Date="19-11-04" Author="Tom" Comment="Checked" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Gobo ID to Gobo1" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Gobo Func ID to Gobo1Func" />
+  <History Date="19-07-06" Author="D4 Pers Fixer" Comment="Updated Gobo Func ID to Gobo1Func" />
+  <History Date="19-07-06" Author="D4 Pers Fixer" Comment="Updated Gobo Func ID to Gobo1Func" />
+  <History Date="28-01-09" Author="D4 Personality Fixer 2009" Comment="Changed Wheel assignment Numbers" />
+  <History Date="06-05-10" Author="John Rogers" Comment="Changed Shutter channel ID from 'Dimmer' to 'Shutter'." />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="2" PowerOn="1" />
+      <Function ID="1" Name="Lamp Off" Display="'Lamp Off'" Dmx="0~11" Intensity="0~0" />
+      <Function ID="2" Name="Lamp On" Display="'Lamp On'" Dmx="12~127" Intensity="0~0" />
+      <Function ID="3" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="128~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Trigger" Name="Trigger" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Trigger Off" Display="'Trigger Off'" Dmx="0~11" />
+      <Function ID="2" Name="Music Control" Display="'Music Control'" Dmx="12~127" />
+      <Function ID="3" Name="Desk Control" Display="'Desk Control'" Dmx="195~255" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Speed" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="No Spin" Display="'No Spin'" Dmx="92~98" />
+      <Function ID="2" Name="Spin CW" Display="'Spin CW %.f%%',100~0" Dmx="0~91" />
+      <Function ID="3" Name="No Spin" Display="'No Spin'" Dmx="92~98" />
+      <Function ID="4" Name="Spin CCW" Display="'Spin CCW %.f%%',0~100" Dmx="99~189" />
+      <Function ID="5" Name="Rnd CW/CCW (s)" Display="'Rnd CW/CCW (s)'" Dmx="190~231" />
+      <Function ID="6" Name="Rnd CW/CCW (f)" Display="'Rnd CW/CCW (f)'" Dmx="232~255" />
+    </Attribute>
+    <Attribute ID="Trigger_Decay" Name="Trigger Decay" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Instant" Display="'Instant'" Dmx="0~4" />
+      <Function ID="2" Name="Safe" Display="'%.1f Sec',0.0~10.0" Dmx="5~252" />
+      <Function ID="3" Name="Random" Display="'Random'" Dmx="253~255" />
+    </Attribute>
+    <Attribute ID="Gobo1Func" Name="Gobo Func" Description="" Group="G" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Gobo1" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Rand_Func" Display="'Rand'" Dmx="0~0" Update="Gobo1" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo1" Name="Gobo" Description="" Group="G">
+      <Locate Locate="2" PowerOn="2" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8,9,10,11,12,13" If="'Gobo1Func'==1" />
+      <Condition Name="Rand_Func" ID="14,15" If="'Gobo1Func'==2" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~5" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Position 1" Display="'Position 1'" Dmx="6~20" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Position 2" Display="'Position 2'" Dmx="21~36" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="Position 3" Display="'Position 3'" Dmx="37~52" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="5" Name="Position 4" Display="'Position 4'" Dmx="53~68" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="6" Name="Position 5" Display="'Position 5'" Dmx="69~84" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="7" Name="Position 6" Display="'Position 6'" Dmx="85~100" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="8" Name="Position 7" Display="'Position 7'" Dmx="101~116" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="9" Name="Position 8" Display="'Position 8'" Dmx="117~132" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="10" Name="Position 9" Display="'Position 9'" Dmx="133~148" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="11" Name="Position 10" Display="'Position 10'" Dmx="149~164" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="12" Name="Position 11" Display="'Position 11'" Dmx="165~180" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="13" Name="Position 12" Display="'Position 12'" Dmx="181~196" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="14" Name="No Change" Display="'No Change'" Dmx="197~244" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="15" Name="Random" Display="'Random'" Dmx="245~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo_Shake" Name="Gobo Shake" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="No Shake" Display="'No Shake'" Dmx="0~4" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Shake" Display="'Shake %.f%%',0~100" Dmx="5~252" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Random" Display="'Random'" Dmx="253~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="6 DMX, 8bit" Channels="6">
+    <Import PearlRef="MT_Punisher" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="1" Wheel="4" />
+      <Attribute ID="Gobo1Func" Wheel="13" />
+      <Attribute ID="Gobo1" ChannelOffset="5" Wheel="14" />
+      <Attribute ID="Gobo_Shake" ChannelOffset="6" Wheel="15" />
+      <Attribute ID="Trigger" ChannelOffset="2" Wheel="25" />
+      <Attribute ID="Speed" ChannelOffset="3" Wheel="26" />
+      <Attribute ID="Trigger_Decay" ChannelOffset="4" Wheel="28" />
+    </Include>
+  </Mode>
+</Fixture>

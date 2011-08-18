@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="VDP1001RGYLD9 (RGY Laser)" ShortName="VDPRGYLD9" Company="HQ Power">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="14-08-08" Author="David Hunt" Comment="Created" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <History Date="14-04-09" Author="David Hunt" Comment="Changed to HQ Power" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="3" PowerOn="3" />
+      <Function ID="1" Name="Laser Off" Display="'Laser Off'" Dmx="0~0" Update="Dyn_Pat_Spd, Stat_Pat_Size" />
+      <Function ID="2" Name="Dynamic Patterns" Display="'Dynamic       Patterns'" Dmx="11~120" Update="Dyn_Pat_Spd, Stat_Pat_Size" />
+      <Function ID="3" Name="Static Patterns" Display="'Static        Patterns'" Dmx="121~255" Update="Dyn_Pat_Spd, Stat_Pat_Size" />
+    </Attribute>
+    <Attribute ID="Pattern" Name="Pattern" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Selecting Patterns" Display="'Selecting     Patterns %.f',0~40" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="PT_Speed" Name="P/T Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',100.0~0.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Dyn_Pat_Spd" Name="Dyn Pat Spd" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Condition Name="Dynamic Patterns" ID="1" If="'Control'==2" />
+      <Else ID="2" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',100.0~0.0" Dmx="0~255" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Stat_Pat_Size" Name="Stat Pat Size" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Static Patterns" ID="1" If="'Control'==3" />
+      <Else ID="2" />
+      <Function ID="1" Name="Size" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Colour1Func" Name="Colour Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="4" If="'Colour1Func'==2" />
+      <Else ID="5" />
+      <Function ID="1" Name="Sel RGY Laser" Display="'Sel RGY Laser'" Dmx="0~44" Colour="0,0,0" />
+      <Function ID="2" Name="2 Col Combination" Display="'2 Col Comb    %.f%%',0~100" Dmx="45~134" Colour="0,0,0" />
+      <Function ID="3" Name="3 Col Combination" Display="'3 Col Comb    %.f%%',0~100" Dmx="135~224" Colour="0,0,0" />
+      <Function ID="4" Name="Scroll" Display="'Scroll %.f%%',100~0" Dmx="225~255" Colour="0,0,0" />
+      <Function ID="5" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour_Segment" Name="Colour Segment" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Segment" Display="'Segment %.f',1~51" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+  </Control>
+  <Mode Name="9 DMX, 8bit" Channels="9">
+    <Import PearlRef="HQ_VDP1001" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Pan" ChannelOffset="3" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="4" Wheel="3" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="8" Wheel="8" />
+      <Attribute ID="Colour_Segment" ChannelOffset="9" Wheel="9" />
+      <Attribute ID="Control" ChannelOffset="1" Wheel="28" />
+      <Attribute ID="Pattern" ChannelOffset="2" Wheel="29" />
+      <Attribute ID="PT_Speed" ChannelOffset="5" Wheel="25" />
+      <Attribute ID="Dyn_Pat_Spd" ChannelOffset="6" Wheel="26" />
+      <Attribute ID="Stat_Pat_Size" ChannelOffset="7" Wheel="27" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Sel RGY Laser" Number="1" Page="1" SetControl="Colour1:1,Colour1Func:1,Colour_Segment:1:50" />
+      <Palette ID="2" Name="Sel RGY Laser" Number="2" Page="1" SetControl="Colour1:1,Colour1Func:1,Colour_Segment:1:50" />
+      <Palette ID="3" Name="Sel RGY Laser" Number="3" Page="1" SetControl="Colour1:1,Colour1Func:1,Colour_Segment:1:50" />
+      <Palette ID="4" Name="Sel RGY Laser" Number="4" Page="1" SetControl="Colour1:1,Colour1Func:1,Colour_Segment:1:50" />
+      <Palette ID="5" Name="Sel RGY Laser" Number="0" Page="1" SetControl="Colour1:1,Colour1Func:1,Colour_Segment:1:50" />
+      <Palette ID="6" Name="Sel RGY Laser" Number="5" Page="1" SetControl="Colour1:1,Colour1Func:1,Colour_Segment:1:50" />
+      <Palette ID="7" Name="Sel RGY Laser" Number="0" Page="1" SetControl="Colour1:1,Colour1Func:1,Colour_Segment:1:50" />
+      <Palette ID="8" Name="Sel RGY Laser" Number="6" Page="1" SetControl="Colour1:1,Colour1Func:1,Colour_Segment:1:50" />
+      <Palette ID="9" Name="Sel RGY Laser" Number="0" Page="1" SetControl="Colour1:1,Colour1Func:1,Colour_Segment:1:50" />
+      <Palette ID="10" Name="Sel RGY Laser" Number="7" Page="1" SetControl="Colour1:1,Colour1Func:1,Colour_Segment:1:50" />
+      <Palette ID="11" Name="Sel RGY Laser" Number="9" Page="1" SetControl="Colour1:1,Colour1Func:1,Colour_Segment:1:50" />
+      <Palette ID="12" Name="Sel RGY Laser" Number="10" Page="1" SetControl="Colour1:1,Colour1Func:1,Colour_Segment:1:50" />
+      <Palette ID="13" Name="Sel RGY Laser" Number="0" Page="1" SetControl="Colour1:1,Colour1Func:1,Colour_Segment:1:50" />
+      <Palette ID="14" Name="Sel RGY Laser" Number="8" Page="1" SetControl="Colour1:1,Colour1Func:1,Colour_Segment:1:50" />
+      <Palette ID="15" Name="Sel RGY Laser" Number="0" Page="1" SetControl="Colour1:1,Colour1Func:1,Colour_Segment:1:50" />
+    </Group>
+    <Group Name="Position">
+      <Palette ID="1" Name="Middle" Number="21" Page="1" SetControl="Pan:1:50,Tilt:1:50" />
+      <Palette ID="2" Name="Left" Number="22" Page="1" SetControl="Pan:1:31,Tilt:1:50" />
+      <Palette ID="3" Name="Right" Number="23" Page="1" SetControl="Pan:1:69,Tilt:1:50" />
+      <Palette ID="4" Name="Top" Number="24" Page="1" SetControl="Pan:1:50,Tilt:1:31" />
+      <Palette ID="5" Name="Bottom" Number="25" Page="1" SetControl="Pan:1:50,Tilt:1:69" />
+      <Palette ID="6" Name="TLeft" Number="26" Page="1" SetControl="Pan:1:31,Tilt:1:31" />
+      <Palette ID="7" Name="TRight" Number="27" Page="1" SetControl="Pan:1:69,Tilt:1:69" />
+      <Palette ID="8" Name="BLeft" Number="28" Page="1" SetControl="Pan:1:31,Tilt:1:69" />
+      <Palette ID="9" Name="BRight" Number="29" Page="1" SetControl="Pan:1:69,Tilt:1:31" />
+    </Group>
+  </Palettes>
+</Fixture>

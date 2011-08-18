@@ -1,0 +1,240 @@
+; 'Geni OBY-2000 Wash', 15 DMX Channels, filename: GNOBY2KW.R20
+;
+;   Date       By                Description
+;   22-06-05   Pers Creator      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  GN_OBY2KWsh                         mode=15 DMX, 16bit  15 DMX Channels
+NAME "Geni" "OBY 2000 Wash"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  15  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   570   270
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 15 DMX, 16bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=497
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+2    61   L    2   100   1N   O   1   "Shutter"           1     0     0
+4     1   I    3   100   1N   A   1   "Colour 1"          0    72    36
+4    61   I    4   100   1N   S   1   "Colour 2"          0     0     0
+10    1   L    5   100   1N   B   1   "Cyan"              0     0   255
+10   61   L    6   100   1N   C   1   "Magenta"           0     0   255
+9    61   L    7   100   1N   D   1   "Yellow"            0   255    51
+9     1   I    8   100   1N   0   1   "Colour Macro"      0     0     7
+5     1   L    9   100   1N   Q   1   "Zoom"              0     0     0
+3    61   s   10   100   1N   E   1   "Pan"             128     0     0
+0     0   L   12   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s   11   100   1N   F   1   "Tilt"            128     0     0
+0     0   L   13   100   1N   F   1   "Tilt Low"        128     0     0
+20    1   I   14   100   1N   0   1   "Control"           0     0     0
+20   61   I   15   100   1N   0   1   "Lamp Control"      0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Geni OBY-2000 Wash
+15 DMX, 16bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Lamp On"       1  15
+"data"                0  48
+"delay"               1  46
+"data"                0  18
+MEND
+
+MACRO "Lamp Off"      2  15
+"data"                0  B8
+"delay"               1  46
+"data"                0  18
+MEND
+
+MACRO "Reset"         3  14
+"data"                0  E0
+"delay"               1  46
+"data"                0   4
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 2  ;Shutter
+0   0    "Closed"
+1   7    "Open"
+8   63   "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+64  71   "Open"
+72  127  "Open %3d%%"0+(((c-a)*100)/(b-a))
+128 135  "Open"
+136 191  "Close %3d%%"0+(((c-a)*100)/(b-a))
+192 208  "Open"
+209 253  "Rnd St %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 3  ;Colour 1
+0   17   "Open"
+18  35   "Red"
+36  53   "Blue"
+54  71   "Green"
+72  89   "Yellow"
+90  107  "CTB"
+108 127  "CTO"
+128 187  "Scr CW %3d%%"100-(((c-a)*100)/(b-a))
+188 195  "No Scroll"
+196 255  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 4  ;Colour 2
+0   17   "Open"
+18  35   "Purple"
+36  53   "Green"
+54  71   "Orange"
+72  89   "Light Blue"
+90  107  "Pink"
+108 127  "Yellow"
+128 187  "Scr CW %3d%%"100-(((c-a)*100)/(b-a))
+188 195  "No Scroll"
+196 255  "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 8  ;Colour Macros
+0   7    "Open"
+8   15   "Macro 1"
+16  23   "Macro 2"
+24  31   "Macro 3"
+32  39   "Macro 4"
+40  47   "Macro 5"
+48  55   "Macro 6"
+56  63   "Macro 7"
+64  71   "Macro 8"
+72  79   "Macro 9"
+80  87   "Macro 10"
+88  95   "Macro 11"
+96  103  "Macro 12"
+104 111  "Macro 13"
+112 119  "Macro 14"
+120 127  "Macro 15"
+128 135  "Macro 16"
+136 143  "Macro 17"
+144 151  "Macro 18"
+152 159  "Macro 19"
+160 167  "Macro 20"
+168 175  "Macro 21"
+176 183  "Macro 22"
+184 191  "Macro 23"
+192 199  "Macro 24"
+200 207  "Macro 25"
+208 215  "Macro 26"
+216 223  "Macro 27"
+224 231  "Macro 28"
+232 239  "Macro 29"
+240 247  "Macro 30"
+248 255  "Macro 31"
+REND
+
+RANGE 14  ;Control
+0   7    "P/T Normal"
+8   63   "P/T Fast"
+64  127  "Col Adjust"
+128 191  "Col Adj Sav"
+192 255  "Reset"
+REND
+
+RANGE 15  ;Lamp Control
+0   47   "Safe"
+48  95   "Lamp On"
+96  159  "Safe"
+160 207  "Lamp Off"
+208 255  "Safe"
+REND
+

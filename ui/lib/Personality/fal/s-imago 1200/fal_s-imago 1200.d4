@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="S-Imago 1200" ShortName="SImag1200" Company="Fal">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="18-11-04" Author="Phil Rogers" Comment="Created" />
+  <History Date="19-11-04" Author="Phil Rogers" Comment="Checked" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour ID to Colour1" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="19-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="15-10-08" Author="Jonathan Moreton" Comment="Updated manufacturer name" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Colour1Func" Name="Colour Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="5,6,7,8" If="'Colour1Func'==2" />
+      <Condition Name="Raw_Func" ID="9" If="'Colour1Func'==3" />
+      <Else ID="1,2,3,4,5,6,7,8,9" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~28" Colour="255,255,255" />
+      <Function ID="2" Name="CTO" Display="'CTO'" Dmx="29~57" Colour="255,240,200" />
+      <Function ID="3" Name="CTB" Display="'CTB'" Dmx="58~86" Colour="230,230,255" />
+      <Function ID="4" Name="Magenta" Display="'Magenta'" Dmx="87~113" Colour="255,0,255" />
+      <Function ID="5" Name="No Scroll" Display="'No Scroll'" Dmx="0~28" Colour="0,0,0" />
+      <Function ID="6" Name="Scroll CW" Display="'Scroll CW %.f%%',100~0" Dmx="184~114" Colour="0,0,0" />
+      <Function ID="7" Name="No Scroll" Display="'No Scroll'" Dmx="0~28" Colour="0,0,0" />
+      <Function ID="8" Name="Scroll CCW" Display="'Scroll CCW %.f%%',0~100" Dmx="185~255" Colour="0,0,0" />
+      <Function ID="9" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="247~255" Intensity="0~0" />
+      <Function ID="2" Name="Closed" Display="'Closed'" Dmx="0~127" Intensity="0~0" />
+      <Function ID="3" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="128~246" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="FanControl" Name="Fan Control" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Automatic Mode" Display="'Automatic Mode'" Dmx="0~127" />
+      <Function ID="2" Name="Manual Mode" Display="'Manual Mode'" Dmx="128~255" />
+    </Attribute>
+    <Attribute ID="Lamp_Control" Name="Lamp Control" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~24" />
+      <Function ID="2" Name="Dimmer" Display="'Elec Dim %.f%%',50~100" Dmx="64~191" />
+      <Function ID="3" Name="Lamp Off" Display="'Lamp Off'" Dmx="25~63" />
+      <Function ID="4" Name="Lamp On" Display="'Lamp On'" Dmx="192~255" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Effect1" Name="Effect 1" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Position 1" Display="'Position 1 %.f%%',0~100" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Effect2" Name="Effect 2" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Position 2" Display="'Position 2 %.f%%',0~100" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="EffectStop" Name="Effect Stop" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" />
+      <Function ID="2" Name="Closed" Display="'Closed'" Dmx="255~255" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Speed" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Standard" Display="'Standard'" Dmx="0~4" />
+      <Function ID="2" Name="Speed" Display="'Speed %.f%%',100~0" Dmx="255~5" />
+    </Attribute>
+  </Control>
+  <Mode Name="9 DMX, 8bit" Channels="9">
+    <Import PearlRef="FAL_S-Imago" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="2" Wheel="4" />
+      <Attribute ID="Dimmer" ChannelOffset="5" Wheel="1" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="8" />
+      <Attribute ID="Effect1" ChannelOffset="6" Wheel="22" />
+      <Attribute ID="Effect2" ChannelOffset="7" Wheel="23" />
+      <Attribute ID="EffectStop" ChannelOffset="9" Wheel="24" />
+      <Attribute ID="FanControl" ChannelOffset="3" Wheel="29" />
+      <Attribute ID="Lamp_Control" ChannelOffset="4" Wheel="28" />
+      <Attribute ID="Speed" ChannelOffset="8" Wheel="25" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Lamp_Control:4" Delay="11000" />
+      <Set Channel="Lamp_Control:1" Delay="1000" />
+    </Macro>
+    <Macro Name="Lamp Off">
+      <Set Channel="Lamp_Control:3" Delay="11000" />
+    </Macro>
+  </Macro>
+</Fixture>

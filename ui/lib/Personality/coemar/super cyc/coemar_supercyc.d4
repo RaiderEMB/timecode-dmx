@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="SyperCyc" ShortName="Supr Cyc" Company="Coemar">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="04-09-01" Author="Edward" Comment="Created" />
+  <History Date="21-08-02" Author="Edward" Comment="Updated" />
+  <History Date="31-10-02" Author="D.Shelton" Comment="Added DMX Attribute" />
+  <History Date="22-10-02" Author="D.Shelton" Comment="Removed DMX Attribute" />
+  <History Date="28-10-02" Author="D.Shelton" Comment="Standardised Manual" />
+  <History Date="16-12-02" Author="D.Shelton" Comment="Updated referencing of 16-bit channels" />
+  <History Date="06-01-03" Author="D.Shelton" Comment="Standardised Display of Channels" />
+  <History Date="15-07-03" Author="D.Shelton" Comment="Added head type" />
+  <History Date="12-01-04" Author="L.Gallagher" Comment="Error Found 1. No macros found" />
+  <History Date="12-01-04" Author="L.Gallagher" Comment="Error Found 2. M Speed - Locate at 0" />
+  <History Date="12-01-04" Author="L.Gallagher" Comment="Error Found 3. CMY - Locate to 255 not values on display or -1 not 100 (Locate)" />
+  <History Date="12-01-04" Author="L.Gallagher" Comment="Error Found 4. R Lamp - Inverted so powers + locate to lamp off (Power On)(Locate)" />
+  <History Date="12-01-04" Author="L.Gallagher" Comment="Error Found 5. L Lamp - No control (Locate)" />
+  <History Date="25-02-05" Author="Phil" Comment="Fixed CMY Locate/power-on" />
+  <History Date="25-02-05" Author="Phil" Comment="Fixed LLamp Strike and added macros" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Attributes in Macros" />
+  <Manual Filename="/manual/Coemar_SuperCyc.pdf" Summary="Created:" />
+  <Control>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="MSpeed" Name="MSpeed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" Highlight="1:100" Lowlight="1:100" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',100.0~0.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:100" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="RLamp_On_Off" Name="RLamp Strike" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" Highlight="1" Lowlight="1" />
+      <Function ID="1" Name="Lamp On" Display="'Lamp On'" Dmx="0~100" />
+      <Function ID="2" Name="Lamp Off" Display="'Lamp Off'" Dmx="241~255" />
+    </Attribute>
+    <Attribute ID="LLamp_On_Off" Name="LLamp Strike" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="11~29" />
+      <Function ID="2" Name="Lamp Off" Display="'Lamp Off'" Dmx="0~10" />
+      <Function ID="3" Name="Lamp On" Display="'Lamp On'" Dmx="250~255" />
+      <Function ID="4" Name="Both Lamps On" Display="'Both Lamps On'" Dmx="171~249" />
+      <Function ID="5" Name="Reset" Display="'Reset'" Dmx="101~170" />
+      <Function ID="6" Name="Lamp Reset" Display="'Lamp Reset'" Dmx="30~100" />
+    </Attribute>
+  </Control>
+  <Mode Name="11 DMX" Channels="11">
+    <Import PearlRef="CM_SuperCyc" DiamondRef="CO_SuperCYC" />
+    <Physical>
+      <Bulb Type="Phillips 1200 MSD X2" Lumens="92000" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="52" />
+      <Size Height="0.885" Width="0.680" Depth="0.705" />
+      <Focus Type="Head" PanMax="425" TiltMax="212" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="6" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="1,2" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="3,4" Wheel="3" />
+      <Attribute ID="Cyan" ChannelOffset="7" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="8" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="9" Wheel="12" />
+      <Attribute ID="MSpeed" ChannelOffset="5" Wheel="25" />
+      <Attribute ID="RLamp_On_Off" ChannelOffset="10" Wheel="26" />
+      <Attribute ID="LLamp_On_Off" ChannelOffset="11" Wheel="27" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Both Lamps On">
+      <Set Channel="LLamp_On_Off:4" Delay="8000" />
+      <Set Channel="LLamp_On_Off:1" Delay="5000" />
+    </Macro>
+    <Macro Name="Both Lamps Off">
+      <Set Channel="LLamp_On_Off:1" Delay="5000" />
+    </Macro>
+    <Macro Name="Reset">
+      <Set Channel="LLamp_On_Off:5" Delay="8000" />
+      <Set Channel="LLamp_On_Off:1" Delay="5000" />
+    </Macro>
+    <Macro Name="Left Lamp On">
+      <Set Channel="LLamp_On_Off:3" Delay="8000" />
+      <Set Channel="LLamp_On_Off:1" Delay="5000" />
+    </Macro>
+    <Macro Name="Right Lamp On">
+      <Set Channel="RLamp_On_Off:1" Delay="8000" />
+    </Macro>
+  </Macro>
+</Fixture>

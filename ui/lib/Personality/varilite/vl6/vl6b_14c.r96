@@ -1,0 +1,241 @@
+TODO, PFTABLE
+; "Vari*lite 6B"Mode 5, 14 DMX channels, filename :vl6b_14c.r20
+;
+;   Date      By        Description
+;   18-06-99  J.Opseth  Created 
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  VL6B_14Chan
+; 
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE    1   14   M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2  360 270
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the curernt result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+"Mode 5"
+""
+""
+""
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=498
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt, 
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom, 
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 charcaters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX  ;    Bank/fader to DMX relationship
+1   1   H   1   100 1N  0  1  "Dimmer"      255  255  255
+3   61  s   2   100 1N  E  1  "Pan"         128   -1   -1
+0   0   L   3   100 1N  E  1  "Pan Low"     128   -1   -1
+3   1   s   4   100 1N  F  1  "Tilt"        128   -1   -1
+0   0   L   5   100 1N  F  1  "Tilt Low"    128   -1   -1
+6   1   I   6   100 1N  0  1  "Gobo"          0    0    0
+4   1   I   7   100 1N  A  1  "Color Wheel"   0    0   40
+2   1   L   8   100 1N  0  1  "Iris"        255  255  255
+5   61  L   9   100 1N  0  1  "Focus"         0    0    0
+2   61  L   10  100 1N  0  1  "Strobe"        0    0    0
+5   1   L   11  100 1N  0  1  "Zoom"          0    0    0
+6   61  L   12  100 1N  0  1  "Rot wheel"     0    0    0
+7   1   L   13  100 1N  0  1  "Rotation"      0    0    0
+11  1   L   14  100 1N  0  1  "Reset"         0    0    0
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+  VL6B 14 Channel 
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1 Dimmer   --
+ 2 Iris     Strobe
+ 3 Tilt     Pan
+ 4 Colour   --
+ 5 Zoom     Focus
+ 6 Gobo     Rot. Wheel
+ 7 Rotation --
+ 8 --       --
+ 9 --       --
+10 --       --
+11 Reset    --
+12 --       --
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+; color table color wheel
+PFTABLE "Colors" -1  7
+"Open"        1  0
+"Red"         2  16
+"Amber"       3  cd
+"Yellow"      4  3e
+"Green"       5  7b
+"Cyan"        6  54
+"Blue"        7  29
+"Lavender"    8  a5
+"U Violet"    9  e1
+"Magenta"    10  90
+PFEND
+
+
+; Positions
+PFTABLE "Positions" -1 2 4
+"Stike"     21 80  80
+"Left"      22 50  80
+"Right"     23 b0  80
+"Top"       24 80  50
+"Bottom"    25 80  b0
+"TLeft"     26 50  50
+"TRight"    27 b0  b0
+"BLeft"     28 50  b0
+"BRight"    29 b0  50
+PFEND
+
+
+; Gobo table color wheel
+PFTABLE "Gobos" -1  6
+"Open"              11  0
+"Pebble"            12  15
+"Globular Breakup"  13  29
+"Medium Circle"     14  3c
+"Night sky"         15  51
+"Leaves #1"         16  66
+"Vertical Bars"     17  7c
+"Horiz Bars"        18  8f
+"Block Break up"    19  a3
+"Wave"              20  b8
+"Medium Triangle"   -1  cd
+"Cirle of Holes"    -1  e1
+PFEND
+
+; Range Tables
+;RANGE 6 ; GOBO
+;  0  10  "Open"
+; 11  20  "Gobo1+Open"
+; 21  30  "Gobo1"
+; 31  40  "Gobo2+Gobo1"
+; 41  50  "Gobo2"
+; 51  60  "Gobo3+Gobo2"
+; 61  70  "Gobo3"
+; 71  80  "Gobo4+Gobo3"
+; 81  90  "Gobo4"
+; 91 100  "Gobo5+Gobo4"
+;101 110  "Gobo5"
+;111 120  "Gobo6+Gobo5"
+;121 130  "Gobo6"
+;131 140  "Gobo7+Gobo6"
+;141 150  "Gobo7"
+;151 160  "Gobo8+Gobo7"
+;161 170  "Gobo8"
+;171 180  "Gobo9+Gobo8"
+;181 190  "Gobo9"
+;191 200  "Gob10+Gobo9"
+;201 210  "Gobo10"
+;211 220  "Gob11+Gob10"
+;221 230  "Gobo11"
+;231 240  "Open+Gobo11"
+;241 255  "Gobo Spin"
+;REND
+
+;RANGE 7 ; COLOR
+;  0  10  "White"
+; 11  20  "Col1+White"
+; 21  30  "Color1"
+; 31  40  "Col2+Col1"
+; 41  50  "Color2"
+; 51  60  "Col3+Col2"
+; 61  70  "Color3"
+; 71  80  "Col4+Col3"
+; 81  90  "Color4"
+; 91 100  "Col5+Col4"
+;101 110  "Color5"
+;111 120  "Col6+Col5"
+;121 130  "Color6"
+;131 140  "Col7+Col6"
+;141 150  "Color7"
+;151 160  "Col8+Col7"
+;161 170  "Color8"
+;171 180  "Col9+Col8"
+;181 190  "Color9"
+;191 200  "Col10+Col9"
+;201 210  "Color10"
+;211 220  "Col11+Col10"
+;221 230  "Col11"
+;231 240  "White+Col11"
+;241 255  "Spin %3d%%"(c-a)*100/(b-a)
+;REND
+;
+MACRO "Reset" 1 14
+"data"    1 ff 00
+"delay"   0 2e 0
+"data"    1 00 54
+"delay"   0 0  2E
+"data"    0 00 00
+MEND

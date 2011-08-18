@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="C4 Strobe" ShortName="C4   Strb" Company="Coemar">
+  <Copyright Notice="© Avolites Ltd. 2010" />
+  <History Date="23-07-10" Author="John Rogers" Comment="Created" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Duration" Name="Duration" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Effect" Display="'No Effect'" Dmx="0~10" />
+      <Function ID="2" Name="Duration" Display="'Duration      %.1f%%',0.0~100.0" Dmx="11~255" />
+    </Attribute>
+    <Attribute ID="Rate" Name="Rate" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~10" />
+      <Function ID="2" Name="Rate" Display="'Rate %.1f%%',0.0~100.0" Dmx="11~255" />
+    </Attribute>
+    <Attribute ID="Effect" Name="Effect" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="No Effect" Display="'No Effect'" Dmx="0~10" />
+      <Function ID="2" Name="Open Pulse" Display="'Open Pulse    %.f%%',0~100" Dmx="11~51" />
+      <Function ID="3" Name="Close Pulse" Display="'Close Pulse   %.f%%',0~100" Dmx="52~92" />
+      <Function ID="4" Name="Pulse" Display="'Pulse %.f%%',0~100" Dmx="93~133" />
+      <Function ID="5" Name="Lightning" Display="'Lightning %.f%%',0~100" Dmx="134~174" />
+      <Function ID="6" Name="Random Strobe" Display="'Random Strobe %.f%%',0~100" Dmx="175~215" />
+      <Function ID="7" Name="Random Blinder" Display="'Random Blinder %.f%%',0~100" Dmx="216~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="2 DMX, 8bit" Channels="2">
+    <Import PearlRef="CMC4Strobe2" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Duration" ChannelOffset="1" Wheel="5" />
+      <Attribute ID="Rate" ChannelOffset="2" Wheel="23" />
+    </Include>
+  </Mode>
+  <Mode Name="4 DMX, 8bit" Channels="4">
+    <Import PearlRef="CMC4Strobe4" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Effect" ChannelOffset="4" Wheel="22" />
+      <Attribute ID="Duration" ChannelOffset="2" Wheel="5" />
+      <Attribute ID="Rate" ChannelOffset="3" Wheel="23" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Shutter">
+      <Palette ID="1" Name="No Strobe" Legend="Slow Strb" Number="9" Page="1" SetControl="Duration:1:50,Rate:1,Effect:1" />
+      <Palette ID="1" Name="Slow Strobe" Number="10" Page="1" SetControl="Duration:2:25,Rate:2:25,Effect:1" />
+      <Palette ID="1" Name="Fast Strobe" Number="11" Page="1" SetControl="Duration:2:25,Rate:2:75,Effect:1" />
+      <Palette ID="1" Name="Slow Rnd" Number="12" Page="1" SetControl="Duration:2:0,Rate:2:0,Effect:6:50" />
+      <Palette ID="1" Name="Fast Rnd" Number="13" Page="1" SetControl="Duration:2:0,Rate:2:0,Effect:6:100" />
+      <Palette ID="1" Name="Slow Pulse" Number="14" Page="1" SetControl="Duration:2:0,Rate:2:0,Effect:2:50" />
+      <Palette ID="1" Name="Fast Pulse" Number="15" Page="1" SetControl="Duration:2:0,Rate:2:0,Effect:2:100" />
+    </Group>
+  </Palettes>
+</Fixture>

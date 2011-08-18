@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="VL5" ShortName="VL5" Company="Varilite">
+  <Copyright Notice="© Avolites Ltd. 2011" />
+  <History Date="04-09-01" Author="Edward" Comment="Created" />
+  <History Date="31-10-02" Author="D.Shelton" Comment="Added DMX Attribute" />
+  <History Date="22-10-02" Author="D.Shelton" Comment="Removed DMX Attribute" />
+  <History Date="28-10-02" Author="D.Shelton" Comment="Standardised Manual" />
+  <History Date="16-12-02" Author="D.Shelton" Comment="Updated referencing of 16-bit channels" />
+  <History Date="04-03-03" Author="D.Shelton" Comment="Updated ID's for Shape Generator" />
+  <History Date="21-05-03" Author="D.Shelton" Comment="Updated CMY Referencing" />
+  <History Date="12-06-03" Author="D.Shelton" Comment="Altered Pan/Tilt to 2dp" />
+  <History Date="15-07-03" Author="D.Shelton" Comment="Added head type" />
+  <History Date="12-01-04" Author="L.Gallagher" Comment="Error Found 1. No macros found" />
+  <History Date="12-01-04" Author="L.Gallagher" Comment="Error Found 2. CYM - I am sure these should locate 0-255 for o/white (Locate)" />
+  <History Date="12-01-04" Author="L.Gallagher" Comment="Error Found 3. Focus Time + Colour Time + Beam Time - In time DMX=seconds" />
+  <History Date="12-01-04" Author="L.Gallagher" Comment="Error Found 4. Reset - (Locate) 0" />
+  <History Date="12-01-04" Author="L.Gallagher" Comment="Additional Notes - Mode 5 is as 1 with no Reset" />
+  <History Date="12-01-04" Author="L.Gallagher" Comment="Additional Notes - Mode 6 is as 3 with no Reset" />
+  <History Date="12-01-04" Author="L.Gallagher" Comment="Additional Notes - Mode 7 is as 3 but for smart repeater + unit only" />
+  <History Date="12-01-04" Author="L.Gallagher" Comment="Additional Notes - Mode 8 is as 4 but for smart repeater + unit only" />
+  <History Date="12-01-04" Author="L.Gallagher" Comment="Additional Notes - I have no info for mode 9 + 10" />
+  <History Date="09-07-04" Author="Fixed errors 1,2,3 and 4 above" Comment="Edited" />
+  <History Date="29-11-04" Author="Phil Rogers" Comment="Fixed CMY Locate" />
+  <History Date="07-07-06" Author="Ed" Comment="Fixed Colour mixing attributes to all be CMIXES" />
+  <History Date="10-07-06" Author="Ed" Comment="Added dummy channel" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <History Date="05-06-07" Author="D.Milligan" Comment="Fixed Macros" />
+  <History Date="03-07-07" Author="D.Milligan" Comment="Removed Lamp On/Off Macros" />
+  <History Date="01-02-10" Author="John Rogers" Comment="Added palettes and removed extraneous Highlight and Lowlight values." />
+  <History Date="02-07-11" Author="Nic Morris" Comment="Standardised highlight.  Increased frost wheel resolution.  Simplified timing channels." />
+  <History Date="02-07-11" Author="Nic Morris" Comment="Changed timing power on and locate to follow cue in line with other Varilite fixtures." />
+  <Manual Filename="/manual/Varilite_Series300.pdf" Summary="Creator:JJamen, 10-08-01" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Intensity" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Frost" Name="Frost" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Diffusion" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="FocusTime" Name="Focus Time" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Follow Cue" Display="'Follow Cue'" Dmx="255~255" />
+      <Function ID="2" Name="Full Speed" Display="'Full Speed'" Dmx="0~0" />
+      <Function ID="3" Name="Speed" Display="'Speed %.1f%%',0.0~100.0" Dmx="254~1" />
+    </Attribute>
+    <Attribute ID="ColourTime" Name="Colour Time" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Follow Cue" Display="'Follow Cue'" Dmx="255~255" />
+      <Function ID="2" Name="Full Speed" Display="'Full Speed'" Dmx="0~0" />
+      <Function ID="3" Name="Speed" Display="'Speed %.1f%%',0.0~100.0" Dmx="254~1" />
+    </Attribute>
+    <Attribute ID="BeamTime" Name="Beam Time" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Follow Cue" Display="'Follow Cue'" Dmx="255~255" />
+      <Function ID="2" Name="Full Speed" Display="'Full Speed'" Dmx="0~0" />
+      <Function ID="3" Name="Speed" Display="'Speed %.1f%%',0.0~100.0" Dmx="254~1" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~0" />
+      <Function ID="2" Name="Display On" Display="'Display On'" Dmx="1~4" />
+      <Function ID="3" Name="Reset" Display="'Reset'" Dmx="81~87" />
+    </Attribute>
+    <Attribute ID="Dummy" Name="Dummy" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="7 DMX, Mode 1" Channels="8">
+    <Import PearlRef="VL5L_7Chan" DiamondRef="VL5_7Chan" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="Philips 1000W tungsten lamp," Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="12" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="360" TiltMax="270" PanMaxSpeed="220" TiltMaxSpeed="220" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="0" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="2" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="3" Wheel="3" />
+      <Attribute ID="Cyan" ChannelOffset="4" Wheel="10" />
+      <Attribute ID="Yellow" ChannelOffset="5" Wheel="12" />
+      <Attribute ID="Magenta" ChannelOffset="6" Wheel="11" />
+      <Attribute ID="Frost" ChannelOffset="7" Wheel="19" />
+      <Attribute ID="Dummy" ChannelOffset="1" Wheel="56" />
+      <Attribute ID="Control" ChannelOffset="8" Wheel="28" />
+    </Include>
+  </Mode>
+  <Mode Name="9 DMX, Mode 3/5/7/9" Channels="10">
+    <Import PearlRef="VL5_9Chan" DiamondRef="VL5_9Chan" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="Philips 1000W tungsten lamp," Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="12" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="360" TiltMax="270" PanMaxSpeed="220" TiltMaxSpeed="220" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="0" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="2,3" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="4,5" Wheel="3" />
+      <Attribute ID="Cyan" ChannelOffset="6" Wheel="10" />
+      <Attribute ID="Yellow" ChannelOffset="7" Wheel="12" />
+      <Attribute ID="Magenta" ChannelOffset="8" Wheel="11" />
+      <Attribute ID="Frost" ChannelOffset="9" Wheel="19" />
+      <Attribute ID="Dummy" ChannelOffset="1" Wheel="56" />
+      <Attribute ID="Control" ChannelOffset="10" Wheel="28" />
+    </Include>
+  </Mode>
+  <Mode Name="10 DMX, Mode 2" Channels="11">
+    <Import PearlRef="VL5_10Chan" DiamondRef="VL5_10Chan" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="Philips 1000W tungsten lamp," Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="12" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="360" TiltMax="270" PanMaxSpeed="220" TiltMaxSpeed="220" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="0" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="2" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="3" Wheel="3" />
+      <Attribute ID="Cyan" ChannelOffset="4" Wheel="10" />
+      <Attribute ID="Yellow" ChannelOffset="5" Wheel="12" />
+      <Attribute ID="Magenta" ChannelOffset="6" Wheel="11" />
+      <Attribute ID="Frost" ChannelOffset="7" Wheel="19" />
+      <Attribute ID="Dummy" ChannelOffset="1" Wheel="56" />
+      <Attribute ID="FocusTime" ChannelOffset="8" Wheel="25" />
+      <Attribute ID="ColourTime" ChannelOffset="9" Wheel="26" />
+      <Attribute ID="BeamTime" ChannelOffset="10" Wheel="27" />
+      <Attribute ID="Control" ChannelOffset="11" Wheel="28" />
+    </Include>
+  </Mode>
+  <Mode Name="12 DMX, Mode 4/6/8/10" Channels="13">
+    <Import PearlRef="VL5_13Chan" DiamondRef="VL5_13Chan" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="Philips 1000W tungsten lamp," Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="12" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="360" TiltMax="270" PanMaxSpeed="220" TiltMaxSpeed="220" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="0" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="2,3" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="4,5" Wheel="3" />
+      <Attribute ID="Cyan" ChannelOffset="6" Wheel="10" />
+      <Attribute ID="Yellow" ChannelOffset="7" Wheel="12" />
+      <Attribute ID="Magenta" ChannelOffset="8" Wheel="11" />
+      <Attribute ID="Frost" ChannelOffset="9" Wheel="19" />
+      <Attribute ID="Dummy" ChannelOffset="1" Wheel="56" />
+      <Attribute ID="FocusTime" ChannelOffset="10" Wheel="25" />
+      <Attribute ID="ColourTime" ChannelOffset="11" Wheel="26" />
+      <Attribute ID="BeamTime" ChannelOffset="12" Wheel="27" />
+      <Attribute ID="Control" ChannelOffset="13" Wheel="28" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Reset">
+      <Set Channel="Control:3" Delay="4000" />
+      <Set Channel="Control:1" Delay="1000" />
+    </Macro>
+  </Macro>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Cyan:1:0,Magenta:1:0,Yellow:1:0" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Cyan:1:0,Magenta:1:100,Yellow:1:100" />
+      <Palette ID="3" Name="Amber" Number="3" Page="1" SetControl="Cyan:1:0,Magenta:1:50,Yellow:1:100" />
+      <Palette ID="4" Name="Yellow" Legend="Yell" Number="4" Page="1" SetControl="Cyan:1:0,Magenta:1:0,Yellow:1:100" />
+      <Palette ID="5" Name="Lime" Number="0" Page="1" SetControl="Cyan:1:50,Magenta:1:0,Yellow:1:100" />
+      <Palette ID="6" Name="Green" Number="5" Page="1" SetControl="Cyan:1:100,Magenta:1:0,Yellow:1:100" />
+      <Palette ID="7" Name="Aqua" Number="0" Page="1" SetControl="Cyan:1:100,Magenta:1:0,Yellow:1:50" />
+      <Palette ID="8" Name="Cyan" Number="6" Page="1" SetControl="Cyan:1:100,Magenta:1:0,Yellow:1:0" />
+      <Palette ID="9" Name="Light Blue" Number="0" Page="1" SetControl="Cyan:1:100,Magenta:1:50,Yellow:1:0" />
+      <Palette ID="10" Name="Blue" Number="7" Page="1" SetControl="Cyan:1:100,Magenta:1:100,Yellow:1:0" />
+      <Palette ID="11" Name="Purple" Legend="Purpl" Number="0" Page="1" SetControl="Cyan:1:50,Magenta:1:100,Yellow:1:0" />
+      <Palette ID="12" Name="Magenta" Legend="Mag" Number="10" Page="1" SetControl="Cyan:1:0,Magenta:1:100,Yellow:1:0" />
+      <Palette ID="13" Name="Rose" Number="0" Page="1" SetControl="Cyan:1:0,Magenta:1:100,Yellow:1:50" />
+      <Palette ID="14" Name="Lavender" Legend="Lav" Number="8" Page="1" SetControl="Cyan:1:29,Magenta:1:57,Yellow:1:6" />
+      <Palette ID="15" Name="Ultra Violet" Legend="UV" Number="9" Page="1" SetControl="Cyan:1:80,Magenta:1:100,Yellow:1:0" />
+    </Group>
+    <Group Name="Position">
+      <Palette ID="1" Name="Middle" Number="21" Page="1" SetControl="Pan:1:50,Tilt:1:50" />
+      <Palette ID="2" Name="Left" Number="22" Page="1" SetControl="Pan:1:31,Tilt:1:50" />
+      <Palette ID="3" Name="Right" Number="23" Page="1" SetControl="Pan:1:69,Tilt:1:50" />
+      <Palette ID="4" Name="Top" Number="24" Page="1" SetControl="Pan:1:50,Tilt:1:31" />
+      <Palette ID="5" Name="Bottom" Number="25" Page="1" SetControl="Pan:1:50,Tilt:1:69" />
+      <Palette ID="6" Name="TLeft" Number="26" Page="1" SetControl="Pan:1:31,Tilt:1:31" />
+      <Palette ID="7" Name="TRight" Number="27" Page="1" SetControl="Pan:1:69,Tilt:1:69" />
+      <Palette ID="8" Name="BLeft" Number="28" Page="1" SetControl="Pan:1:31,Tilt:1:69" />
+      <Palette ID="9" Name="BRight" Number="29" Page="1" SetControl="Pan:1:69,Tilt:1:31" />
+    </Group>
+  </Palettes>
+</Fixture>

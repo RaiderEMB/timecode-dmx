@@ -1,0 +1,295 @@
+; 'Martin Mac 401 Dual RGB-2, 17 DMX', 17 DMX Channels, filename: MTM401R2.R20
+;  Copyright © Avolites Ltd. 2009
+;
+;   Date       By                Description
+;   13-10-09   Pers Creator      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MT_M401-R2                          mode=RGB-2, 17 DMX  17 DMX Channels
+NAME "Martin" "Mac 401 Dual RGB-2, 17 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  17  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to RGB-2, 17 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=495
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L    1   100   1N   O   1   "Shutter"          20     0     0
+1     1   H    2   100   1N   H   1   "Dimmer"          255     0     0
+3    61   s    4   100   1N   E   1   "Pan"             128     0     0
+0     0   L    5   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    6   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    7   100   1N   F   1   "Tilt Low"        128     0     0
+4     1   I    9   100   1N   A   1   "Colour"            0     0     0
+10    1   L   10   100   1N   T   1   "Red 1"           255   255     0
+10   61   L   11   100   1N   U   1   "Green 1"         255   255     0
+9    61   L   12   100   1N   V   1   "Blue 1"          255     0   229
+9     1   L   13   100   1N   0   1   "CTO 1"             8     0     0
+20    1   I   14   100   1N   0   1   "Red 2"           255   255     0
+20   61   I   15   100   1N   0   1   "Green 2"         255   255     0
+19   61   I   16   100   1N   0   1   "Blue 2"          255     0   229
+19    1   L   17   100   1N   0   1   "CTO 2"             8     0     0
+5    61   L    3   100   1N   Q   1   "Zoom"            100     0     0
+11   61   L    8   100   1N   0   1   "Control"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Martin Mac 401 Dual
+RGB-2, 17 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Pan/Tilt"   -1   4   6
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Reset"         1   8
+"data"                0   C
+"delay"               1  32
+"data"                0   4
+MEND
+
+MACRO "Reset Effects"  2   8
+"data"                0  16
+"delay"               1  32
+"data"                0   4
+MEND
+
+MACRO "Reset P/T"     3   8
+"data"                0  20
+"delay"               1  32
+"data"                0   4
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Shutter
+0   19   "Closed"
+20  49   "Open"
+50  64   "Strobe %3d%%"(c-a)*100/(b-a)
+70  84   "Op Pls %3d%%"(c-a)*100/(b-a)
+90  104  "Cl Pls %3d%%"(c-a)*100/(b-a)
+110 124  "Rnd Str%3d%%"(c-a)*100/(b-a)
+130 144  "Ran Op %3d%%"(c-a)*100/(b-a)
+150 164  "Ran Cl %3d%%"(c-a)*100/(b-a)
+170 184  "Burst  %3d%%"(c-a)*100/(b-a)
+190 204  "RanBur %3d%%"(c-a)*100/(b-a)
+110 224  "Sinewa %3d%%"(c-a)*100/(b-a)
+230 244  "EBurst %3d%%"(c-a)*100/(b-a)
+245 255  "Open"
+REND
+
+RANGE 2  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 4  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 6  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;Colour
+0   9    "Open"
+10  14   "Moroccan Pi"
+15  19   "Pink"
+20  24   "SpecialRose"
+25  29   "FolliesPink"
+30  34   "FuchsiaPink"
+35  39   "Surprise Pi"
+40  44   "Congo Blue"
+45  49   "Tokyo Blue"
+50  54   "Deep Blue"
+55  59   "Just Blue"
+60  64   "Medium Blue"
+65  69   "Double Blue"
+70  74   "Slate Blue"
+75  79   "Full CT Blu"
+80  84   "Half CT Blu"
+85  89   "Steel Blue"
+90  94   "Lighter Blu"
+95  99   "Light Blue"
+100 104  "Medium Blue"
+105 109  "Dark Green"
+110 114  "Primary Gre"
+115 119  "Moss Green"
+120 124  "Fern Green"
+125 129  "JAS Green"
+130 134  "Lime Green"
+135 139  "Spring Yell"
+140 144  "Deep Amber"
+145 149  "Chrome Oran"
+150 154  "Orange"
+155 159  "Gold Amber"
+160 164  "Mil Amber"
+165 169  "Deep Golden"
+170 174  "Flame Red"
+175 179  "No Scroll"
+180 201  "Scroll %3d%%"100-((c-a)*100/(b-a))
+202 207  "No Scroll"
+208 229  "Scroll %3d%%"(c-a)*100/(b-a)
+235 239  "Rand Fast"
+240 244  "Rand Medium"
+245 249  "Rand Slow"
+REND
+
+RANGE 10  ;Red 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 11  ;Green 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 12  ;Blue 1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;CTO 1
+0   19    "Open"
+20   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 14  ;Red 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;Green 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 16  ;Blue 2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 17  ;CTO 2
+0   19    "Open"
+20   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Zoom
+0   200  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+201 210  "Hyper %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 8  ;Control
+0   9    "Safe"
+10  14   "Reset All"
+20  24   "Reset Effec"
+30  34   "Reset PT"
+40  44   "P/TSpd Norm"
+45  49   "P/TSpd Fast"
+50  54   "P/TSpd Slow"
+65  69   "Fan Full   "
+75  79   "Fan Regulat"
+80  84   "Fan Silent "
+90  94   "Dimmer Lin "
+100 104  "Dimmer SQR "
+110 114  "Dimmer ISQR"
+120 124  "Dimmer SCUR"
+245 249  "Illuminate "
+REND
+

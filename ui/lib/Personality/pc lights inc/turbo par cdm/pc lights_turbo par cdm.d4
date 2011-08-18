@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Turbo Par CDM" ShortName="TurboPrCDM" Company="PC Lights Inc">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="05-01-05" Author="Phil Rogers" Comment="Created" />
+  <History Date="05-01-05" Author="Tom" Comment="Checked" />
+  <History Date="29-03-05" Author="Phil" Comment="Renamed manufacturer PC Lights " />
+  <History Date="23-02-06" Author="Ed" Comment="Fixed Dimmer so that It was actually used by the fader and inverted it" />
+  <History Date="06-04-06" Author="Ed" Comment="Moved function into Special Group" />
+  <History Date="11-04-06" Author="Ed Spencer" Comment="Changed Size to Zoom" />
+  <History Date="26-06-06" Author="Tetsuhiro Waku" Comment="Dimmer fixed." />
+  <History Date="28-01-09" Author="D4 Personality Fixer 2009" Comment="Changed manufacturer from PC Lights to PC Lights Inc" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.f%%',0~100" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Cyan" Name="Cyan" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Cyan C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,255" />
+    </Attribute>
+    <Attribute ID="Magenta" Name="Magenta" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:0" Lowlight="1:100" />
+      <Function ID="1" Name="Magenta C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,255" />
+    </Attribute>
+    <Attribute ID="Yellow" Name="Yellow" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" Highlight="1:100" Lowlight="1:20" />
+      <Function ID="1" Name="Yellow C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,255,0" />
+    </Attribute>
+    <Attribute ID="Zoom" Name="Size" Description="" Group="B">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Function" Name="Function" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Safe" Display="'Safe %.f%%',0~49" Dmx="0~127" />
+      <Function ID="2" Name="Lamp On" Display="'Lamp On %.f%%',50~66" Dmx="128~168" />
+      <Function ID="3" Name="Lamp Off" Display="'Lamp Off %.f%%',67~83" Dmx="171~212" />
+      <Function ID="4" Name="Reset" Display="'Reset %.f%%',84~100" Dmx="214~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="6 DMX, S Type" Channels="6">
+    <Import PearlRef="PI_TbPrCDM1" DiamondRef="" />
+    <Physical>
+      <Bulb Type="CDM-SA/T 150W/942" Lumens="" ColourTemp="4200K" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="9.5" />
+      <Size Height="470" Width="345" Depth="380" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Cyan" ChannelOffset="4" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="5" Wheel="12" />
+      <Attribute ID="Zoom" ChannelOffset="2" Wheel="2" />
+      <Attribute ID="Function" ChannelOffset="6" Wheel="3" />
+    </Include>
+  </Mode>
+  <Mode Name="3 DMX, L Type" Channels="3">
+    <Import PearlRef="PI_TbPrCDM2" DiamondRef="" />
+    <Physical>
+      <Bulb Type="CDM-SA/T 150W/942" Lumens="" ColourTemp="4200K" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="9.5" />
+      <Size Height="470" Width="345" Depth="380" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Cyan" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Magenta" ChannelOffset="1" Wheel="11" />
+      <Attribute ID="Yellow" ChannelOffset="3" Wheel="12" />
+    </Include>
+  </Mode>
+</Fixture>

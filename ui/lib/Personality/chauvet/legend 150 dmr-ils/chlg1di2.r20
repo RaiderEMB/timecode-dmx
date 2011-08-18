@@ -1,0 +1,168 @@
+; 'Chauvet Legend 150 DMR-ILS', 7 DMX Channels, filename: CHLG1DI2.R20
+;
+;   Date       By                Description
+;   29-11-06   Pers Creator      Created - Exported from Diamond 4 file.
+;   29-11-06   D.Milligan        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  CH_LG150DI2                         mode=Normal Mode  7 DMX Channels
+NAME "Chauvet" "Legend 150 DMR-ILS, Normal"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  7  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   540   270
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Normal Mode"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=505
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+3    61   L    1   100   1N   E   1   "Pan"             128     0     0
+3     1   L    2   100   1N   F   1   "Tilt"            128     0     0
+2    61   L    3   100   1N   O   1   "Shutter"           8     0     0
+6     1   I    4   100   1N   I   1   "Gobo 1"            0     0     0
+4     1   I    5   100   1N   A   1   "Colour 1N"         0     0     0
+7     1   L    6   100   1N   K   1   "Gobo 1 Rot"        0     0     0
+1     1   H    7   100   1N   H   1   "Dimmer"          255     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Chauvet Legend 150 DMR-ILS
+Normal Mode
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 3  ;Shutter
+0   7    "Closed"
+8   15   "Open"
+16  131  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+132 247  "Shake %3d%%"0+(((c-a)*100)/(b-a))
+248 255  "Open"
+REND
+
+RANGE 4  ;Gobo 1
+0   15   "Open"
+16  31   "Gobo 1"
+32  47   "Gobo 2"
+48  63   "Gobo 3"
+64  79   "Gobo 4"
+80  95   "Gobo 5"
+96  111  "Gobo 6"
+112 127  "Gobo 7"
+128 255  "Scroll %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 5  ;Colour 1N
+0   12   "Open"
+13  25   "Green"
+26  38   "Magenta"
+39  51   "Light Blue"
+52  63   "Yellow"
+64  76   "Orange"
+77  89   "Blue"
+90  102  "UV"
+103 115  "Light Green"
+116 127  "Pink"
+128 255  "Scroll %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 6  ;Gobo 1 Rot
+0   9    "Open"
+10  120  "Sp CW %3d%%"0+(((c-a)*100)/(b-a))
+121 134  "No Spin"
+135 245  "Sp CCW %3d%%"100-(((c-a)*100)/(b-a))
+246 255  "No Spin"
+REND
+

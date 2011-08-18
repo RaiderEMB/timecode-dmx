@@ -1,0 +1,201 @@
+; 'Martin RGB Laser', 4 DMX Channels, filename: MTRGBL1.R20
+;
+;   Date       By                Description
+;   21-11-06   Pers Creator      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MT_RGBLSR1                          mode=Basic  4 DMX Channels
+NAME "Martin" "RGB Laser Mode 1 (Basic)"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  4  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0   0   0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Basic"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=508
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+9     1   I    1   100   1N   0   1   "Control"           0     0     0
+6     1   I    2   100   1N   0   1   "Page"              0     0     0
+6    61   I    3   100   1N   0   1   "Cue"               0     0     0
+8     1   L    4   100   1N   0   1   "Speed"            15     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Martin RGB Laser
+Basic
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Control
+0   31   "Safe"
+33  95   "Basic"
+97  159  "Standard"
+161 223  "Extended"
+225 255  "Full"
+REND
+
+RANGE 2  ;Page
+0   15   "Page 1"
+17  31   "Page 2"
+33  47   "Page 3"
+49  63   "Page 4"
+65  79   "Page 5"
+81  95   "Page 6"
+97  111  "Page 7"
+113 127  "Page 8"
+129 255  "Page 9"
+REND
+
+RANGE 3  ;Cue
+0   31   "Safe"
+33  35   "Cue 1"
+37  39   "Cue 2"
+41  43   "Cue 3"
+45  47   "Cue 4"
+49  51   "Cue 5"
+53  55   "Cue 6"
+57  59   "Cue 7"
+61  63   "Cue 8"
+65  67   "Cue 9"
+69  71   "Cue 10"
+73  75   "Cue 11"
+77  79   "Cue 12"
+81  83   "Cue 13"
+85  87   "Cue 14"
+89  91   "Cue 15"
+93  95   "Cue 16"
+97  99   "Cue 17"
+101 103  "Cue 18"
+105 107  "Cue 19"
+109 111  "Cue 20"
+113 115  "Cue 21"
+117 119  "Cue 22"
+121 123  "Cue 23"
+125 127  "Cue 24"
+129 131  "Cue 25"
+133 135  "Cue 26"
+137 139  "Cue 27"
+141 143  "Cue 28"
+145 147  "Cue 29"
+149 151  "Cue 30"
+153 155  "Cue 31"
+157 159  "Cue 32"
+161 163  "Cue 33"
+165 167  "Cue 34"
+169 171  "Cue 35"
+173 175  "Cue 36"
+177 179  "Cue 37"
+181 183  "Cue 38"
+185 187  "Cue 39"
+189 191  "Cue 40"
+193 195  "Cue 41"
+197 199  "Cue 42"
+201 203  "Cue 43"
+205 207  "Cue 44"
+209 211  "Cue 45"
+213 215  "Cue 46"
+217 219  "Cue 47"
+221 223  "Cue 48"
+225 255  "Repeat"
+REND
+
+RANGE 4  ;Speed
+0   15   "100%"
+17  31   "Paused"
+33  255  "%3d%%"25+(((c-a)*175)/(b-a))
+REND
+

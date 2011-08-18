@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Media Server" ShortName="P Box MS" Company="Coolux">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="24-05-04" Author="Greg Brown" Comment="Created" />
+  <History Date="14-06-04" Author="Oliver Waits" Comment="Edited - Changed name to Media Server" />
+  <History Date="12-04-06" Author="Ed Spencer" Comment="Moved all Tiling into special group" />
+  <History Date="13-04-06" Author="Ed" Comment="Moved all rot speeds into special group" />
+  <History Date="13-04-06" Author="Ed" Comment="Moved all scaling into beam group" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="X_Pos" Name="X Pos" Description="" Group="P" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="16bit" Display="'%.2f%%',-100.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Y_Pos" Name="Y Pos" Description="" Group="P" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="16bit" Display="'%.2f%%',-100.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Z_Pos" Name="Z Pos" Description="" Group="P" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="16bit" Display="'%.2f%%',-100.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="X_Rot" Name="X Rot" Description="" Group="P" Size="2">
+      <Locate Locate="2:0" PowerOn="2:0" />
+      <Condition Name="Spin" ID="4" If="'X_Rot_Spd'!=1" />
+      <Condition Name="Index" ID="1,3" If="'X_Rot_Spd'==1" />
+      <Else ID="1,2,3,4" />
+      <Function ID="1" Name="16bit" Display="'%.2f%%',-360.00~0.00" Dmx="0~32768" />
+      <Function ID="2" Name="16bit" Display="'0.00%'" Dmx="32768~32768" />
+      <Function ID="3" Name="16bit" Display="'%.2f%%',0.00~360.00" Dmx="32768~65535" />
+      <Function ID="4" Name="No Func" Display="'No Func'" Dmx="0~0" />
+    </Attribute>
+    <Attribute ID="X_Rot_Spd" Name="X Rot Spd" Description="" Group="S" Size="2">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Index" Display="'Index'" Dmx="32768~32768" Update="X_Rot" />
+      <Function ID="2" Name="Spin CW" Display="'Spin CW %.f%%',0~100" Dmx="0~32768" Update="X_Rot" />
+      <Function ID="3" Name="No Spin" Display="'No Spin'" Dmx="0~0" Update="X_Rot" />
+      <Function ID="4" Name="Spin CCW" Display="'Spin CCW %.f%%',100~0" Dmx="0~10" Update="X_Rot" />
+    </Attribute>
+    <Attribute ID="Y_Rot" Name="Y Rot" Description="" Group="P" Size="2">
+      <Locate Locate="2:0" PowerOn="2:0" />
+      <Condition Name="Index" ID="1,2,3" If="'Y_Rot_Spd'==1" />
+      <Condition Name="Spin" ID="4" If="'Y_Rot_Spd'!=1" />
+      <Else ID="1,2,3,4" />
+      <Function ID="1" Name="16bit" Display="'%.2f%%',-360.00~0.00" Dmx="0~32768" />
+      <Function ID="2" Name="16bit" Display="'0.00%'" Dmx="32768~32768" />
+      <Function ID="3" Name="16bit" Display="'%.2f%%',0.00~360.00" Dmx="32768~65535" />
+      <Function ID="4" Name="No Func" Display="'No Func'" Dmx="0~0" />
+    </Attribute>
+    <Attribute ID="Y_Rot_Spd" Name="Y Rot Spd" Description="" Group="S" Size="2">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Index" Display="'Index'" Dmx="32768~32768" Update="X_Rot, Y_Rot" />
+      <Function ID="2" Name="Spin CW" Display="'Spin CW %.f%%',0~100" Dmx="0~32768" Update="X_Rot, Y_Rot" />
+      <Function ID="3" Name="No Spin" Display="'No Spin'" Dmx="0~0" Update="X_Rot, Y_Rot" />
+      <Function ID="4" Name="Spin CCW" Display="'Spin CCW %.f%%',100~0" Dmx="0~10" Update="X_Rot, Y_Rot" />
+    </Attribute>
+    <Attribute ID="Z_Rot" Name="Z Rot" Description="" Group="P" Size="2">
+      <Locate Locate="2" PowerOn="2" />
+      <Condition Name="Index" ID="1,2,3" If="'Z_Rot_Spd'==1" />
+      <Condition Name="Spin" ID="4" If="'Z_Rot_Spd'!=1" />
+      <Else ID="1,2,3,4" />
+      <Function ID="1" Name="16bit" Display="'%.2f%%',-360.00~0.00" Dmx="0~32768" />
+      <Function ID="2" Name="16bit" Display="'0.00%'" Dmx="32768~32768" />
+      <Function ID="3" Name="16bit" Display="'%.2f%%',0.00~360.00" Dmx="32768~65535" />
+      <Function ID="4" Name="No Func" Display="'No Func'" Dmx="0~0" />
+    </Attribute>
+    <Attribute ID="Z_Rot_Spd" Name="Z Rot Spd" Description="" Group="S" Size="2">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Index" Display="'Index'" Dmx="32768~32768" Update="X_Rot, Z_Rot" />
+      <Function ID="2" Name="Spin CW" Display="'Spin CW %.f%%',0~100" Dmx="0~32768" Update="X_Rot, Z_Rot" />
+      <Function ID="3" Name="No Spin" Display="'No Spin'" Dmx="0~0" Update="X_Rot, Z_Rot" />
+      <Function ID="4" Name="Spin CCW" Display="'Spin CCW %.f%%',100~0" Dmx="0~10" Update="X_Rot, Z_Rot" />
+    </Attribute>
+    <Attribute ID="X_Scale" Name="X Scale" Description="" Group="B" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="16bit" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Y_Scale" Name="Y Scale" Description="" Group="B" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="16bit" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Z_Scale" Name="Z Scale" Description="" Group="B" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="16bit" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="3D_Obj_Sel" Name="3D Obj Sel" Description="" Group="G" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Object" Display="'Object %.f',1~2048" Dmx="0~65535" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="3D_Anim_Mode" Name="3D Anim Mode" Description="" Group="G">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Play Loop" Display="'Play Loop'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Play Once" Display="'Play Once'" Dmx="1~1" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="3D_In_Point" Name="3D In Point" Description="" Group="G" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="In point" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="3D_Out_Point" Name="3D Out Point" Description="" Group="G" Size="2">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Out point" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="3D_Anim_Control" Name="3D Anim Cntrl" Description="" Group="G">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Stop" Display="'Stop'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Play Rev Fast" Display="'Play Rev Fast'" Dmx="1~63" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Play Rev 1:1" Display="'Play Rev 1:1'" Dmx="64~64" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="Play Rev Slow" Display="'Play Rev Slow'" Dmx="65~127" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="5" Name="Pause" Display="'Pause'" Dmx="128~128" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="6" Name="Play Fwd Slow" Display="'Play Fwd Slow'" Dmx="129~191" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="7" Name="Play Fwd 1:1" Display="'Play Fwd 1:1'" Dmx="192~192" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="8" Name="Play Fwd Fast" Display="'Play Fwd Fast'" Dmx="193~254" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="9" Name="Stop" Display="'Stop'" Dmx="255~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="2D_Img_Sel" Name="2D Img Sel" Description="" Group="G" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Image" Display="'Image %.f',1~1020" Dmx="0~32639" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Video" Display="'Video %.f',1~2045" Dmx="32640~65471" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Input Dev." Display="'Input Dev.'" Dmx="65472~65503" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="Gradient Ctrl" Display="'Gradient Ctrl'" Dmx="65504~65535" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="2D_Video_Mode" Name="2D Vid Mode" Description="" Group="G">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Play Loop" Display="'Play Loop'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Play Once" Display="'Play Once'" Dmx="1~1" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="2D_In_Point" Name="2D In Point" Description="" Group="G" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="In point" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="2D_Out_Point" Name="2D Out Point" Description="" Group="G" Size="2">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Out point" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="2D_Vid_Ctrl" Name="2D Vid Ctrl" Description="" Group="G">
+      <Locate Locate="4" PowerOn="4" />
+      <Function ID="1" Name="Stop" Display="'Stop'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Play Rev Fast" Display="'Play Rev Fast'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Play Rev 1:1" Display="'Play Rev 1:1'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="Pause" Display="'Pause'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="5" Name="Play Fwd Slow" Display="'Play Fwd Slow'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="6" Name="Play Fwd 1:1" Display="'Play Fwd 1:1'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="7" Name="Play Fwd Fast" Display="'Play Fwd Fast'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="8" Name="Stop" Display="'Stop'" Dmx="0~0" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:100" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:100" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:100" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="Colour_Mode" Name="Colour Mode" Description="" Group="C">
+      <Locate Locate="3" PowerOn="3" />
+      <Function ID="1" Name="No C-Mix" Display="'No C-Mix'" Dmx="0~0" Colour="255,255,255" />
+      <Function ID="2" Name="Obj C-Mix" Display="'Obj C-Mix'" Dmx="1~1" Colour="255,255,255" />
+      <Function ID="3" Name="Mod x1" Display="'Mod x1'" Dmx="2~2" Colour="255,255,255" />
+      <Function ID="4" Name="Mod x2" Display="'Mod x2'" Dmx="3~3" Colour="255,255,255" />
+      <Function ID="5" Name="Mod x4" Display="'Mod x4'" Dmx="4~4" Colour="255,255,255" />
+      <Function ID="6" Name="Add" Display="'Add'" Dmx="5~5" Colour="255,255,255" />
+      <Function ID="7" Name="Add Signed" Display="'Add Signed'" Dmx="6~6" Colour="255,255,255" />
+      <Function ID="8" Name="Add Signed x2" Display="'Add Signed x2'" Dmx="7~7" Colour="255,255,255" />
+      <Function ID="9" Name="Subtract" Display="'Subtract'" Dmx="8~8" Colour="255,255,255" />
+      <Function ID="10" Name="Add Smooth" Display="'Add Smooth'" Dmx="9~9" Colour="255,255,255" />
+      <Function ID="11" Name="Blend Obj Alpha" Display="'Blend Obj Alpha'" Dmx="10~10" Colour="255,255,255" />
+      <Function ID="12" Name="Blend Tex Alpha" Display="'Blend Tex Alpha'" Dmx="11~11" Colour="255,255,255" />
+      <Function ID="13" Name="Blend Factor Alpha" Display="'Blend Factor Alpha'" Dmx="12~12" Colour="255,255,255" />
+      <Function ID="14" Name="Blend Tex Alpha pm" Display="'Blend Tex Alpha pm'" Dmx="13~13" Colour="255,255,255" />
+      <Function ID="15" Name="Blend Curr Alpha" Display="'Blend Curr Alpha'" Dmx="14~14" Colour="255,255,255" />
+      <Function ID="16" Name="Pre-Modulate" Display="'Pre-Modulate'" Dmx="15~15" Colour="255,255,255" />
+      <Function ID="17" Name="Modulate Alpha" Display="'Modulate Alpha'" Dmx="16~16" Colour="255,255,255" />
+      <Function ID="18" Name="Modulate Colour" Display="'Modulate Colour'" Dmx="17~17" Colour="255,255,255" />
+      <Function ID="19" Name="Modulate Inv Alpha" Display="'Modulate Inv Alpha'" Dmx="18~18" Colour="255,255,255" />
+      <Function ID="20" Name="Modulate Inv Colour" Display="'Modulate Inv Colour'" Dmx="19~19" Colour="255,255,255" />
+      <Function ID="21" Name="Bump Env Ma" Display="'Bump Env Ma'" Dmx="20~20" Colour="255,255,255" />
+      <Function ID="22" Name="Bump Env Lum" Display="'Bump Env Lum'" Dmx="21~21" Colour="255,255,255" />
+      <Function ID="23" Name="Mod. Add Product" Display="'Mod. Add Product'" Dmx="22~22" Colour="255,255,255" />
+      <Function ID="24" Name="Multiply Add" Display="'Multiply Add'" Dmx="23~23" Colour="255,255,255" />
+      <Function ID="25" Name="Linear Interpolate" Display="'Linear Interpolate'" Dmx="24~24" Colour="255,255,255" />
+    </Attribute>
+    <Attribute ID="Tile_X" Name="Tile X" Description="" Group="S" Size="2">
+      <Locate Locate="2" PowerOn="2" />
+      <Function ID="1" Name="8bit HTP" Display="'1: %.1f',10.0~1.0" Dmx="0~32768" />
+      <Function ID="2" Name="1:1" Display="'1:1'" Dmx="32768~32768" />
+      <Function ID="3" Name="8bit HTP" Display="'%.1f',1.0~10.0" Dmx="32768~65535" />
+    </Attribute>
+    <Attribute ID="Tile_Y" Name="Tile Y" Description="" Group="S" Size="2">
+      <Locate Locate="2" PowerOn="2" />
+      <Function ID="1" Name="8bit HTP" Display="'1: %.1f',10.0~1.0" Dmx="0~32768" />
+      <Function ID="2" Name="1:1" Display="'1:1'" Dmx="32768~32768" />
+      <Function ID="3" Name="8bit HTP" Display="'%.1f',1.0~10.0" Dmx="32768~65535" />
+    </Attribute>
+    <Attribute ID="Tile_X_Offset" Name="Tile X Offset" Description="" Group="S" Size="2">
+      <Locate Locate="2" PowerOn="2" />
+      <Function ID="1" Name="Left" Display="'%.1f%%',-100.0~0.0" Dmx="0~32768" />
+      <Function ID="2" Name="Middle" Display="'0.0%'" Dmx="32768~32768" />
+      <Function ID="3" Name="Right" Display="'%.1f%%',0.0~100.0" Dmx="32768~65535" />
+    </Attribute>
+    <Attribute ID="Tile_Y_Offset" Name="Tile Y Offset" Description="" Group="S" Size="2">
+      <Locate Locate="2" PowerOn="2" />
+      <Function ID="1" Name="Down" Display="'Down %.1f%%',-100.0~0.0" Dmx="0~32768" />
+      <Function ID="2" Name="Middle" Display="'0.0%'" Dmx="32768~32768" />
+      <Function ID="3" Name="Up" Display="'Up %.1f%%',0.0~100.0" Dmx="32768~65535" />
+    </Attribute>
+    <Attribute ID="Colour_Pos" Name="Colour Pos" Description="" Group="C">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="8bit HTP" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour_Size" Name="Colour Size" Description="" Group="C">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="8bit HTP" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Camera_Mode" Name="Camera Mode" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Perspective" ID="1,2,3,4,5" If="'Camera_Proj'==1" />
+      <Condition Name="Orthographic" ID="6,7,8,9,10" If="'Camera_Proj'==2" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10" />
+      <Function ID="1" Name="Centre Universe" Display="'Centre Universe'" Dmx="0~0" />
+      <Function ID="2" Name="Centre Lyr1" Display="'Centre Lyr1'" Dmx="1~1" />
+      <Function ID="3" Name="Centre Lyr2" Display="'Centre Lyr2'" Dmx="2~2" />
+      <Function ID="4" Name="Centre Lyr3" Display="'Centre Lyr3'" Dmx="3~3" />
+      <Function ID="5" Name="Free Pos/Rot" Display="'Free Pos/Rot'" Dmx="4~4" />
+      <Function ID="6" Name="Centre Universe" Display="'Centre Universe'" Dmx="5~5" />
+      <Function ID="7" Name="Centre Lyr1" Display="'Centre Lyr1'" Dmx="6~6" />
+      <Function ID="8" Name="Centre Lyr2" Display="'Centre Lyr2'" Dmx="7~7" />
+      <Function ID="9" Name="Centre Lyr3" Display="'Centre Lyr3'" Dmx="8~8" />
+      <Function ID="10" Name="Free Pos/Rot" Display="'Free Pos/Rot'" Dmx="9~9" />
+    </Attribute>
+    <Attribute ID="Camera_Proj" Name="Camera Proj" Description="" Group="S" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Perspective" Display="'Perspective'" Dmx="0~0" Update="Camera_Mode" />
+      <Function ID="2" Name="Orthographic" Display="'Orthographic'" Dmx="0~0" Update="Camera_Mode" />
+    </Attribute>
+    <Attribute ID="X_Rot2" Name="X Rot" Description="" Group="P" Size="2">
+      <Locate Locate="2:0" PowerOn="2:0" />
+      <Function ID="1" Name="16bit" Display="'%.2f%%',-360.00~0.00" Dmx="0~32768" />
+      <Function ID="2" Name="16bit" Display="'0.00%'" Dmx="32768~32768" />
+      <Function ID="3" Name="16bit" Display="'%.2f%%',0.00~360.00" Dmx="32768~65535" />
+    </Attribute>
+    <Attribute ID="Y_Rot2" Name="Y Rot" Description="" Group="P" Size="2">
+      <Locate Locate="2:0" PowerOn="2:0" />
+      <Function ID="1" Name="16bit" Display="'%.2f%%',-360.00~0.00" Dmx="0~32768" />
+      <Function ID="2" Name="16bit" Display="'0.00%'" Dmx="32768~32768" />
+      <Function ID="3" Name="16bit" Display="'%.2f%%',0.00~360.00" Dmx="32768~65535" />
+    </Attribute>
+    <Attribute ID="Z_Rot2" Name="Z Rot" Description="" Group="P" Size="2">
+      <Locate Locate="2:0" PowerOn="2:0" />
+      <Function ID="1" Name="16bit" Display="'%.2f%%',-360.00~0.00" Dmx="0~32768" />
+      <Function ID="2" Name="16bit" Display="'0.00%'" Dmx="32768~32768" />
+      <Function ID="3" Name="16bit" Display="'%.2f%%',0.00~360.00" Dmx="32768~65535" />
+    </Attribute>
+  </Control>
+  <Mode Name="53 DMX, Layer" Channels="53">
+    <Import PearlRef="" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="X_Pos" ChannelOffset="2,3" Wheel="2" />
+      <Attribute ID="Y_Pos" ChannelOffset="4,5" Wheel="3" />
+      <Attribute ID="Z_Pos" ChannelOffset="6,7" Wheel="6" />
+      <Attribute ID="X_Rot" ChannelOffset="8,9" Wheel="19" />
+      <Attribute ID="Y_Rot" ChannelOffset="12,13" Wheel="20" />
+      <Attribute ID="Z_Rot" ChannelOffset="16,17" Wheel="21" />
+      <Attribute ID="Red" ChannelOffset="42" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="43" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="44" Wheel="12" />
+      <Attribute ID="Colour_Mode" ChannelOffset="45" Wheel="7" />
+      <Attribute ID="3D_Obj_Sel" ChannelOffset="26,27" Wheel="13" />
+      <Attribute ID="3D_Anim_Mode" ChannelOffset="28" Wheel="14" />
+      <Attribute ID="3D_In_Point" ChannelOffset="29,30" Wheel="44" />
+      <Attribute ID="3D_Out_Point" ChannelOffset="31,32" Wheel="45" />
+      <Attribute ID="3D_Anim_Control" ChannelOffset="33" Wheel="15" />
+      <Attribute ID="2D_Img_Sel" ChannelOffset="34,35" Wheel="16" />
+      <Attribute ID="2D_Video_Mode" ChannelOffset="36" Wheel="17" />
+      <Attribute ID="2D_In_Point" ChannelOffset="37,38" Wheel="47" />
+      <Attribute ID="2D_Out_Point" ChannelOffset="39,40" Wheel="48" />
+      <Attribute ID="2D_Vid_Ctrl" ChannelOffset="41" Wheel="18" />
+      <Attribute ID="X_Scale" ChannelOffset="20,21" Wheel="25" />
+      <Attribute ID="Y_Scale" ChannelOffset="22,23" Wheel="26" />
+      <Attribute ID="Z_Scale" ChannelOffset="24,25" Wheel="27" />
+      <Attribute ID="X_Rot_Spd" ChannelOffset="10,11" Wheel="49" />
+      <Attribute ID="Y_Rot_Spd" ChannelOffset="14,15" Wheel="50" />
+      <Attribute ID="Z_Rot_Spd" ChannelOffset="18,19" Wheel="51" />
+      <Attribute ID="Tile_X" ChannelOffset="46,47" Wheel="22" />
+      <Attribute ID="Tile_Y" ChannelOffset="48,49" Wheel="23" />
+      <Attribute ID="Tile_X_Offset" ChannelOffset="50,51" Wheel="52" />
+      <Attribute ID="Tile_Y_Offset" ChannelOffset="52,53" Wheel="53" />
+    </Include>
+  </Mode>
+  <Mode Name="6 DMX, Gradient Lib" Channels="6">
+    <Import PearlRef="" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="4" Wheel="12" />
+      <Attribute ID="Colour_Pos" ChannelOffset="5" Wheel="8" />
+      <Attribute ID="Colour_Size" ChannelOffset="6" Wheel="9" />
+    </Include>
+  </Mode>
+  <Mode Name="17 DMX, Camera" Channels="17">
+    <Import PearlRef="" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="X_Pos" ChannelOffset="2,3" Wheel="2" />
+      <Attribute ID="Y_Pos" ChannelOffset="4,5" Wheel="3" />
+      <Attribute ID="Z_Pos" ChannelOffset="6,7" Wheel="6" />
+      <Attribute ID="X_Rot2" ChannelOffset="8,9" Wheel="19" />
+      <Attribute ID="Y_Rot2" ChannelOffset="10,11" Wheel="20" />
+      <Attribute ID="Z_Rot2" ChannelOffset="12,13" Wheel="21" />
+      <Attribute ID="Red" ChannelOffset="15" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="16" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="17" Wheel="12" />
+      <Attribute ID="Camera_Proj" Wheel="28" />
+      <Attribute ID="Camera_Mode" ChannelOffset="14" Wheel="29" />
+    </Include>
+  </Mode>
+</Fixture>

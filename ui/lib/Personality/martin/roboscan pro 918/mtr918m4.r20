@@ -1,0 +1,375 @@
+; "Martin Roboscan Pro 918 - Mode 4", 16 DMX channels, filename :mtr918m4.r20
+;
+;  Date       By            Description
+;  11-06-98   P.Bari        Created
+;  11-08-04   Phil          Added range tables
+;  11-08-04   Phil          Revised shutter, grot and prism tables
+;  23-02-05   Phil Rogers   Revised device name
+;  24-10-05   Ed Spencer    Changes gobo attribute names
+;  29-11-05   Ed Spencer    Revised device name
+;  28-03-06   Ed Spencer    Changed shutter to LTP
+;  06-01-09   David Hunt    Fixed duplicate dmx values in range tables
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MT_RB918m4                                   16 DMX channels
+NAME "Martin" "RoboScan Pro 918, Mode 4"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1   16   M
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+MIRROR	1  150 110
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;	+,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;	& means logical AND
+;	| means logical OR 
+;	R means reverse the bits of the curernt result (operates on a byte)
+;	^ means logical Exclusive OR (operates on a byte)
+;	> means shift to the right
+;	< shift to the left
+;	r followed by number means get the value of that parameter 
+;	d DMX address
+;	n Fixture name, a 0 terminated character string
+;	h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to DMX Mode 4"
+""
+""
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=497
+;
+; DMX number must be divisible by this	
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt, 
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom, 
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX
+2 61 L  1 100 1N O 1 "Shutter"		25    25    25
+1  1 H  2 100 1N H 1 "Dimmer"		255   255   255
+4  1 I  3 100 1N A 1 "Colour1"		0     0    18
+4 61 I  4 100 1N N 1 "Colour2"		0     0     0
+6 61 I  5 100 1N J 1 "Gobo2"		0     0     0
+7  1 I  6 100 1N K 1 "GoboRot"		0     0     0
+6  1 I  7 100 1N I 1 "Gobo1"		0     0     0
+5 61 L  8 100 1N L 1 "Focus"		0     0     0
+2  1 L  9 100 1N G 1 "Iris"		0    -1    -1
+9  1 L 10 100 1N P 1 "Prism"		0     0     0
+3 61 s 11 100 1N E 1 "Pan"		128    -1    -1
+0  0 L 12 100 1N E 1 "Pan Low"		128    -1    -1
+3  1 s 13 100 1N F 1 "Tilt"		128    -1    -1
+0  0 L 14 100 1N F 1 "Tilt Low"		128    -1    -1
+8  1 I 15 100 1N 0 1 "Speed_p/t"	0     0     0
+8 61 I 16 100 1N 0 1 "Speed"		0     0     0
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+  ROBOSCAN PRO 918
+     (Mode 4)
+Bank    Faders
+   Bottom   Top
+---------------------
+1 Dimmer    --
+2 Iris      Shutter
+3 Tilt      Pan
+4 Colour1   Colour2
+5 --        Focus
+6 Gobo1     Gobo2
+7 GoboRot   --
+8 Speed p/t Speed
+9 Prism     --        
+
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+; Positions
+PFTABLE "Positions" -1 11 13
+"Middle"    21 80  80
+"Left"      22 50  80
+"Right"     23 b0  80
+"Top"       24 80  50
+"Bottom"    25 80  b0
+"TLeft"     26 50  50
+"TRight"    27 b0  b0
+"BLeft"     28 50  b0
+"BRight"    29 b0  50
+PFEND
+
+; Color table
+PFTABLE "Color" -1   3   4
+"Open"           1   0   0
+"Red"            2  1f   0
+"Amber"          3  80  6f
+"Yellow"         4   0  70
+"Green"          5  40  50
+"Cyan"           6   0  30
+"Blue"           7  60  30
+"Lavender"       8  5f  20
+"U Violet"       9  40  40
+"Magenta"       10  30   0
+PFEND
+
+; Gobo table
+PFTABLE "Gobos" -1 5  6  7
+"Open"        11   0  0  0
+"Gobo 1.1"    12  41  0  0
+"Gobo 1.2"    13  55  0  0
+"Gobo 1.3"    14  69  0  0
+"Gobo 1.4"    15  7d  0  0
+"Gobo 1.5"    16  91  0  0
+"Gobo 2.1"    17   0  0 0f
+"Gobo 2.2"    18   0  0 19 
+"Gobo 2.3"    19   0  0 23
+"Gobo 2.4"    20   0  0 2d
+"Gobo 2.5"    -1   0  0 37
+"Gobo 2.6"    -1   0  0 41 
+"Gobo 2.7"    -1   0  0 4b
+"Gobo 2.8"    -1   0  0 55
+"Gobo 2.9"    -1   0  0 5f
+PFEND
+
+
+; Macros
+MACRO "LAMP ON" 1    1 
+"data"          0   e6
+"delay"         1   50
+"data"          0   23
+MEND
+
+MACRO "RESET" 2    1  3  4
+"data"        0   d2 92 9e
+"delay"       1   10
+"data"        0   23 92 9e
+MEND
+
+MACRO "LAMP OFF" 3    1  3  4
+"data"           0   ff 92 9e
+"delay"          1   60
+"data"           0    0 92 9e
+MEND
+
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Shutter
+20 49  "Open"
+0  19  "Closed"
+50 72  "Strobe %3d%%"100-(((c-a)*100)/(b-a))
+73 79  "Open Low Pw"
+80 99  "Open P %3d"10-(((c-a)*10)/(b-a))
+100 119 "Clse P %3d"10-(((c-a)*10)/(b-a))
+120 127 "Open"
+128 187 "Rnd Strobe"
+188 190 "Open"
+191 196 "ORnd P %3d%%"100-(((c-a)*100)/(b-a))
+197 202 "CRdm P %3d%%"0+(((c-a)*100)/(b-a))
+203 207 "Safe"
+208 217 "Reset"
+218 227 "Open"
+228 237 "Lamp On"
+238 247 "Open"
+248 255 "Lamp Off"
+REND
+
+RANGE 3 ;Colour 1
+177 180 "Blue 111"
+173 176 "Red"
+169 172 "Magenta"
+165 168 "Green"
+161 164 "Yellow"
+157 160 "Purple"
+153 156 "Blue"
+149 152 "Pink"
+145 148 "Cyan"
+181 184 "No Scroll"
+185 215 "Scr CW %3d"100-(((c-a)*100)/(b-a))
+216 245 "Sc CCW %3d"0+(((c-a)*100)/(b-a))
+0  15  "Open/B %3d%%"0+(((c-a)*100)/(b-a))
+16 31  "Blue/R %3d%%"0+(((c-a)*100)/(b-a))
+32 47  "Red/Ma %3d%%"0+(((c-a)*100)/(b-a))
+48 63  "Mag./G %3d%%"0+(((c-a)*100)/(b-a))
+64 79  "Grn/Ye %3d%%"0+(((c-a)*100)/(b-a))
+80 95  "Yel/Pu %3d%%"0+(((c-a)*100)/(b-a))
+96 111 "Pur/Bl %3d%%"0+(((c-a)*100)/(b-a))
+112 127 "Blue/P %3d%%"0+(((c-a)*100)/(b-a))
+128 144 "Pink/C %3d%%"0+(((c-a)*100)/(b-a))
+246 255 "Alternative"
+REND
+
+RANGE 4 ;Colour 2
+181 184 "Open"
+177 180 "CTO 1"
+173 176 "CTO 2"
+169 172 "Blue"
+165 168 "Blue"
+161 164 "Green"
+157 160 "Red"
+153 156 "Yellow"
+149 152 "CTB 1"
+145 148 "CTB 2"
+185 215 "Scr CW %3d"10-(((c-a)*10)/(b-a))
+216 245 "Sc CCW %3d"0+(((c-a)*10)/(b-a))
+248 255 "Random"
+0  15  "Open/C %3d%%"0+(((c-a)*100)/(b-a))
+16 31  "CTO/CT %3d%%"0+(((c-a)*100)/(b-a))
+32 47  "CTO/Bl %3d%%"0+(((c-a)*100)/(b-a))
+48 63  "Blue/B %3d%%"0+(((c-a)*100)/(b-a))
+64 79  "Blue/G %3d%%"0+(((c-a)*100)/(b-a))
+80 95  "Grn/Re %3d%%"0+(((c-a)*100)/(b-a))
+96 111 "Red/Ye %3d%%"0+(((c-a)*100)/(b-a))
+112 127 "Yell/C %3d%%"0+(((c-a)*100)/(b-a))
+128 144 "CTB/CT %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 5 ;Gobo 1
+0  55  "Open Gobo"
+116 135 "Thin Bars"
+136 155 "Grid Ball"
+56 75  "Triangle"
+76 95  "Bar"
+96 115 "Fan"
+236 255 "Triangle"
+216 235 "Bar"
+196 215 "Fan"
+176 195 "Thin Bars"
+156 175 "Grid Ball"
+REND
+
+RANGE 6 ;Gobo 1 Rot
+0  2  "No Spin"
+3  127 "Spn CW %3d%%"0+(((c-a)*100)/(b-a))
+253 255 "No Spin"
+128 252 "Sp CCW %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 7 ;Gobo 2
+0  9  "Open"
+10 19  "Cone"
+20 29  "Dots"
+30 39  "Lotus"
+40 49  "Bricks"
+50 59  "Clouds"
+60 69  "Machine"
+70 79  "Bamboo"
+80 89  "Threads"
+90 102 "Pling"
+239 255 "1 Shk "1+(((c-a)*15)/(b-a))
+222 238 "2 Shk "1+(((c-a)*15)/(b-a))
+205 221 "3 Shk "1+(((c-a)*15)/(b-a))
+188 204 "4 Shk "1+(((c-a)*15)/(b-a))
+171 187 "5 Shk "1+(((c-a)*15)/(b-a))
+157 170 "6 Shk "1+(((c-a)*15)/(b-a))
+137 153 "7 Shk "1+(((c-a)*15)/(b-a))
+120 136 "8 Shk "1+(((c-a)*15)/(b-a))
+103 119 "9 Shk "1+(((c-a)*15)/(b-a))
+REND
+
+RANGE 8 ;Focus
+0  255 "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 9 ;Iris
+1  199 "%3d%%"10+(((c-a)*90)/(b-a))
+0  215 "Closed %3d%%"100-(((c-a)*90)/(b-a))
+0  0  "Open"
+216 229 "Open P %3d%%"100-(((c-a)*100)/(b-a))
+230 243 "Clse P %3d%%"100-(((c-a)*100)/(b-a))
+244 249 "Rnd Pl %3d%%"100-(((c-a)*100)/(b-a))
+250 255 "Rdm Pls"
+REND
+
+RANGE 10 ;Prism
+216 220 "Macro 1"
+221 225 "Macro 2"
+226 230 "Macro 3"
+231 235 "Macro 4"
+236 240 "Macro 5"
+241 245 "Macro 6"
+246 250 "Macro 7"
+251 255 "Macro 8"
+0  19  "Open"
+80 89  "Prism"
+150 215 "Prism"
+20 79  "Spn CW %3d%%"100-(((c-a)*100)/(b-a))
+90 149 "Sp CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+
+
+RANGE 15 ;MSpeed
+0  2  "Tracking"
+2  245 "F-S %3d%%"100-(((c-a)*100)/(b-a))
+246 248 "Trackng Fas"
+249 251 "Trackng Nor"
+252 255 "BO moving"
+REND
+
+

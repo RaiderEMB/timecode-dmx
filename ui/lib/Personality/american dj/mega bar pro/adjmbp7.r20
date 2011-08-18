@@ -1,0 +1,180 @@
+; 'American DJ Mega Bar PRO', 7 DMX Channels, filename: ADJMBP7.R20
+;
+;   Date       By                Description
+;   29-08-07   Pers Creator      Created - Exported from Diamond 4 file.
+;   29-08-07   D.Milligan        Checked
+;   06-05-09   Jonathan Moreton  Created from Mega Bar LED
+;   06-05-09   Jonathan Moreton  Checked
+;   06-05-09   David Hunt        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  ADJ_MBPR7                           mode=7 DMX  7 DMX Channels
+NAME "American DJ" "Mega Bar PRO, 7 DMX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  7  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0   0   0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 7 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=505
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+10    1   L    1   100   1N   T   1   "Red"             255   255     0
+10   61   L    2   100   1N   U   1   "Green"           255   255     0
+9    61   L    3   100   1N   V   1   "Blue"            255     0   229
+9     1   L    4   100   1N   0   1   "Macros"            0     0     0
+8     1   L    5   100   1N   0   1   "Speed"           255     0     0
+2    61   L    6   100   1N   O   1   "Shutter"           0     0     0
+1     1   H    7   100   1N   H   1   "Dimmer"            0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+American DJ
+Mega Bar PRO
+7 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Colors" 29   1   2   3
+"Open"		 1   00  00  00
+"Red"		 2   FF  00  00
+"Amber"          3   FF  80  00
+"Yellow"         4   FF  FF  00
+"Green"          5   00  FF  00
+"Cyan"           6   00  FF  FF
+"Blue"           7   00  00  FF
+"Lavender"	 8   49  FC  04
+"Purple"         9   80  00  FF
+"Magenta"        10  FF  00  FF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 4  ;Macros
+0   14   "Safe"
+15  28   "Red"
+29  42   "Yellow"
+43  56   "Green"
+57  70   "Cyan"
+71  84   "Blue"
+85  98   "Purple"
+99  112  "White"
+113 126  "Col Change"
+127 140  "Col Flow"
+141 154  "Col Dream"
+155 168  "Multi Col"
+169 182  "Dream Flow"
+183 196  "2 Col Flow"
+197 210  "Col Change"
+211 224  "Col Flow F"
+225 238  "2 Col Flw F"
+239 255  "Sound"
+REND
+
+RANGE 6  ;Shutter
+0   0    "Open"
+1   255  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 7  ;Dimmer
+0   31   "Nothing"
+32  63   "Dim-Bright"
+64  95   "Bright-Dim"
+96  127  "D-B-D"
+128 159  "Col Mixing"
+160 191  "3 Col Chnge"
+192 223  "7 Col Chnge"
+224 255  "Sound"
+REND
+

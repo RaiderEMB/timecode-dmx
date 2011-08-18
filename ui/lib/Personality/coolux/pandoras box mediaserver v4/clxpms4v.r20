@@ -1,0 +1,564 @@
+; 'Coolux Media Server v4 Video Layer', 37 DMX Channels, filename: CLXPMS4V.R20
+;
+;   Date       By                Description
+;   04-07-08   Pers Creator      Created - Exported from Diamond 4 file.
+;   04-07-08   Jonathan Moreton  Checked
+;   18-12-08   David Hunt        Fixed duplicate dmx values in range tables
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  CLX_PMSv4Vi                         mode=Video Layer  37 DMX Channels
+NAME "Coolux" "Media Server v4 Video Layer"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  37  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2    0    0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Video Layer"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=475
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+1     1   H    1   100   1N   H   1   "Dimmer"          255     0     0
+2    61   L    2   100   1N   O   1   "Dimmer Type"       0     0     0
+3    61   s    3   100   1N   E   1   "XPos"            128     0     0
+0     0   L    4   100   1N   E   1   "XPos Low"        128     0     0
+3     1   s    5   100   1N   F   1   "YPos"            128     0     0
+0     0   L    6   100   1N   F   1   "YPos Low"        128     0     0
+4    61   s    7   100   1N   0   1   "ZPos"            128     0     0
+0     0   L    8   100   1N   0   1   "ZPos Low"        128     0     0
+10    1   L   30   100   1N   B   1   "CMix1"           127   255     0
+10   61   L   31   100   1N   C   1   "CMix2"           127   255     0
+9    61   L   32   100   1N   D   1   "CMix3"           127     0   229
+4     1   L   33   100   1N   0   1   "Col FX"            0     0     0
+17    1   s   26   100   1N   0   1   "Inpoint"           0     0     0
+0     0   L   27   100   1N   0   1   "Inpoint Low"       0     0     0
+17   61   s   28   100   1N   I   1   "Outpoint"        255     0     0
+0     0   I   29   100   1N   I   1   "Outpoint Low"    255     0     0
+6     1   L   21   100   1N   0   1   "Object Folde"      0     0     0
+5     1   L   23   100   1N   0   1   "Media Folder"      0     0     0
+5    61   I   24   100   1N   0   1   "Media File"        0     0     0
+8     1   L   25   100   1N   K   1   "Media Contro"    192     0     0
+6    61   I   22   100   1N   J   1   "Object File"       1     0     0
+13   61   s    9   100   1N   Q   1   "X Rot"           128     0     0
+0     0   L   10   100   1N   Q   1   "X Rot Low"       128     0     0
+13    1   s   11   100   1N   L   1   "YRot"            128     0     0
+0     0   L   12   100   1N   L   1   "YRot Low"        128     0     0
+14   61   s   13   100   1N   G   1   "ZRot"            128     0     0
+0     0   L   14   100   1N   G   1   "ZRot Low"        128     0     0
+15    1   s   15   100   1N   0   1   "X Scale"         128     0     0
+0     0   L   16   100   1N   0   1   "X Scale Low"     128     0     0
+15   61   s   17   100   1N   0   1   "Y Scale"         128     0     0
+0     0   L   18   100   1N   0   1   "Y Scale Low"     128     0     0
+16   61   s   19   100   1N   0   1   "Z Scale"         128     0     0
+0     0   L   20   100   1N   0   1   "Z Scale Low"     128     0     0
+19   61   L   34   100   1N   0   1   "Video FX 1"      128     0     0
+20    1   I   35   100   1N   P   1   "Video FX 2"      128     0     0
+20   61   L   36   100   1N   R   1   "Video FX 3"      128     0     0
+19    1   L   37   100   1N   0   1   "Video FX"          0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Coolux
+Media Server v4
+Video Layer
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Dimmer
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 2  ;Dimmer Type
+0   0    "XFade"
+1   255  "%3d"1+(((c-a)*254)/(b-a))
+REND
+
+RANGE 3  ;XPos
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;YPos
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;ZPos
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 30  ;CMix1
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 31  ;CMix2
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 32  ;CMix3
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 33  ;Col FX
+0   0    "No Col FX"
+1   1    "Invert"
+2   2    "ColourOnly"
+3   3    "Multiply"
+4   4    "Multiply IN"
+5   5    "Multi2x"
+6   6    "Multi2x INV"
+7   7    "Multi4x"
+8   8    "Multi4x INV"
+9   9    "Add"
+10  10   "Add INV"
+11  11   "INV Add"
+12  12   "RGB2RBG_M"
+13  13   "RGB2RBG_MI"
+14  14   "RGB2GBR_M"
+15  15   "RGB2GBR_MI"
+16  16   "RGB2BRG_M"
+17  17   "RGB2BRG_MI"
+18  18   "RGB2GRB_M"
+19  19   "RGB2GRB_MI"
+20  20   "RGB2BGR_M"
+21  21   "RGB2BGR_MI"
+22  22   "RGB2RBG_A"
+23  23   "RGB2RBG_AI"
+24  24   "RGB2GBR_A"
+25  25   "RGB2GBR_AI"
+26  26   "RGB2BRG_A"
+27  27   "RGB2BRG_AI"
+28  28   "RGB2GRB_A"
+29  29   "RGB2GRB_AI"
+30  30   "RGB2BGR_A"
+31  31   "RGB2BGR_AI"
+32  32   "ColourFade"
+33  33   "ColourBW_M"
+34  34   "ColourBW_MI"
+35  35   "ColourBW_A"
+36  36   "ColourBW_AI"
+37  37   "ColourM2BW_"
+38  38   "ColourM2BW_"
+39  39   "ColourM4BW_"
+40  40   "ColourM4BW_"
+41  41   "BlackKey"
+42  42   "BlackKeyINV"
+43  43   "WhiteKey"
+44  44   "WhiteKeyINV"
+45  45   "RedKey"
+46  46   "RedKeyINV"
+47  47   "GreenKey"
+48  48   "GreenKeyINV"
+49  49   "BlueKey"
+50  50   "BlueKeyINV"
+51  51   "RGBKey"
+52  52   "RGBKeyINV"
+53  53   "RGBKey075"
+54  54   "RGBKey075IN"
+55  55   "RGBKey050"
+56  56   "RGBKey050IN"
+57  57   "RGBKey025"
+58  58   "RGBKey025IN"
+59  59   "RGBKeyAO"
+60  60   "RGBKeyAOINV"
+61  61   "MaskBlack"
+62  62   "MaskBlackIN"
+63  63   "ColorShift"
+64  64   "SelInvers"
+65  65   "SelInvers"
+66  255  "%3d"66+(((c-a)*189)/(b-a))
+REND
+
+RANGE 26  ;Inpoint
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 28  ;Outpoint
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 21  ;Object Folder
+0   255  "%3d"0+(((c-a)*255)/(b-a))
+REND
+
+RANGE 23  ;Media Folder
+0   255  "%3d"0+(((c-a)*255)/(b-a))
+REND
+
+RANGE 24  ;Media File
+0   0    "No File"
+1   255  "%3d"1+(((c-a)*254)/(b-a))
+REND
+
+RANGE 25  ;Media Control
+0   0    "Frame 1"
+1   63   "Slow O %3d%%"100-((c-a)*100/(b-a))
+64  64   "Play Once"
+65  127  "Fast O %3d%%"(c-a)*100/(b-a)
+128 128  "Pause"
+129 191  "Slow L %3d%%"100-((c-a)*100/(b-a))
+192 192  "Loop"
+192 254  "Fast L %3d%%"(c-a)*100/(b-a)
+255 255  "Last Frame"
+REND
+
+RANGE 22  ;Object File
+0   0    "No Object"
+1   255  "%3d"1+(((c-a)*254)/(b-a))
+REND
+
+RANGE 9  ;X Rot
+0   63   "Sp CCW %3d%%"100-((c-a)*100/(b-a))
+64  127  "Ind %4d°"-720+((c-a)*720/(b-a))
+128 191  "Ind %3d.%d°"(c-a)*720/(b-a),10*((c-a)*720%(b-a))/(b-a)
+192 192  "No Spin"
+193 255  "Sp CW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 11  ;YRot
+0   63   "Sp CCW %3d%%"100-((c-a)*100/(b-a))
+64  127  "Ind %4d°"-720+((c-a)*720/(b-a))
+128 191  "Ind %3d.%d°"(c-a)*720/(b-a),10*((c-a)*720%(b-a))/(b-a)
+192 192  "No Spin"
+193 255  "Sp CW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 13  ;ZRot
+0   63   "Sp CCW %3d%%"100-((c-a)*100/(b-a))
+64  127  "Ind %4d°"-720+((c-a)*720/(b-a))
+128 191  "Ind %3d.%d°"(c-a)*720/(b-a),10*((c-a)*720%(b-a))/(b-a)
+192 192  "No Spin"
+193 255  "Sp CW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 15  ;X Scale
+0   127  "Min %2d.%d%%"(c-a)*50/(b-a),10*((c-a)*50%(b-a))/(b-a)
+128 128  "1:1 Scale"
+128 255  "Max %3d.%d%%"50+((c-a)*50/(b-a)),10*(50+((c-a)*50%(b-a)))/(b-a)
+REND
+
+RANGE 17  ;Y Scale
+0   127  "Min %2d.%d%%"(c-a)*50/(b-a),10*((c-a)*50%(b-a))/(b-a)
+128 128  "1:1 Scale"
+128 255  "Max %3d.%d%%"50+((c-a)*50/(b-a)),10*(50+((c-a)*50%(b-a)))/(b-a)
+REND
+
+RANGE 19  ;Z Scale
+0   127  "Min %2d.%d%%"(c-a)*50/(b-a),10*((c-a)*50%(b-a))/(b-a)
+128 128  "1:1 Scale"
+128 255  "Max %3d.%d%%"50+((c-a)*50/(b-a)),10*(50+((c-a)*50%(b-a)))/(b-a)
+REND
+
+RANGE 37  ;Video FX
+0   0    "No VidFX"
+1   1    "CCB"
+2   2    "Levels"
+3   3    "INV Levels"
+4   4    "ColourKey"
+5   5    "INV ColourK"
+6   6    "MaskKey"
+7   7    "INV MaskKey"
+8   8    "RedKey"
+9   9    "INV RedKey"
+10  10   "GreenKey"
+11  11   "INV GreenKe"
+12  12   "BlueKey"
+13  13   "INV BlueKey"
+14  14   "WhiteKey"
+15  15   "INV WhiteKe"
+16  16   "BlackKey"
+17  17   "INV BlackKe"
+18  18   "PosterizeCB"
+19  19   "INV Posteri"
+20  20   "SolarizeCB"
+21  21   "INV Soleriz"
+22  22   "ColourEmbos"
+23  23   "INV ColourE"
+24  24   "Blue"
+25  25   "RadialBlue"
+26  26   "Sharpen"
+27  27   "LED"
+28  28   "BW"
+29  29   "INV BW"
+30  30   "SelColInver"
+31  31   "Deint1"
+32  32   "Deint2"
+33  33   "AlphaBlend"
+34  34   "MotionTile"
+35  35   "Tiling"
+36  36   "TilingMirro"
+37  37   "TilingPulse"
+38  38   "AlphaCropX"
+39  39   "AlphaCropY"
+40  40   "SwirlAngle"
+41  41   "SwirlSpeed"
+42  42   "BlackCrop"
+43  43   "WhiteCrop"
+44  44   "AlphaCrop"
+45  45   "ColourCrop"
+46  46   "INV BlackCr"
+47  47   "INV WhiteCr"
+48  48   "INV AlphaCr"
+49  49   "INV ColourC"
+50  50   "BlackSoftBo"
+51  51   "WhiteSoftBo"
+52  52   "AlphaSoftBo"
+53  53   "ColourSoftB"
+54  54   "INV BlackSo"
+55  55   "INV WhiteSo"
+56  56   "INV AlphaSo"
+57  57   "INV ColourS"
+58  58   "IrisBlack"
+59  59   "IrisWhite"
+60  60   "IrisAlpha"
+61  61   "IrisColour"
+62  62   "INV IrisBla"
+63  63   "INV IrisWhi"
+64  64   "INV IrisAlp"
+65  65   "INV IrisCol"
+66  66   "TB BlackGra"
+67  67   "TB WhiteGra"
+68  68   "TB AlphaGra"
+69  69   "TB ColourGr"
+70  70   "INV TB Blac"
+71  71   "INV TB Whit"
+72  72   "INV TB Alph"
+73  73   "INV TB Colo"
+74  74   "LR BlackGra"
+75  75   "LR WhiteGra"
+76  76   "LR AlphaGra"
+77  77   "LR ColourGr"
+78  78   "INV LR Blac"
+79  79   "INV LR Whit"
+80  80   "INV LR Alph"
+81  81   "INV LR Colo"
+82  82   "FrameBlack"
+83  83   "FrameWhite"
+84  84   "FrameAlpha"
+85  85   "FrameColour"
+86  86   "INV FrameBl"
+87  87   "INV FrameWh"
+88  88   "INV FrameAl"
+89  89   "INV FrameCo"
+90  90   "SpotlightBl"
+91  91   "SpotlightWh"
+92  92   "SpotlightAl"
+93  93   "SpotlightCo"
+94  94   "INV Spotlig"
+95  95   "INV Spotlig"
+96  96   "INV Spotlig"
+97  97   "INV Spotlig"
+98  98   "LR BorderBl"
+99  99   "LR BorderWh"
+100 100  "LR BorderAl"
+101 101  "LR BorderCo"
+102 102  "INV LR Bord"
+103 103  "INV LR Bord"
+104 104  "INV LR Bord"
+105 105  "INV LR Bord"
+106 106  "TB BorderBl"
+107 107  "TB BorderWh"
+108 108  "TB BorderAl"
+109 109  "TB BorderCo"
+110 110  "INV TB Bord"
+111 111  "INV TB Bord"
+112 112  "INV TB Bord"
+113 113  "INV TB Bord"
+114 114  "SquareBlack"
+115 115  "SquareWhite"
+116 116  "SquareAlpha"
+117 117  "SquareColou"
+118 118  "INV SquareB"
+119 119  "INV SquareW"
+120 120  "INV SquareA"
+121 121  "INV SquareC"
+122 122  "BarsBlackH"
+123 123  "BarsWhiteH"
+124 124  "BarsAlphaH"
+125 125  "BarsColourH"
+126 126  "INV BarsBla"
+127 127  "INV BarsWhi"
+128 128  "INV BarsAlp"
+129 129  "INV BarsCol"
+130 130  "BarsBlackV"
+131 131  "BarsWhiteV"
+132 132  "BarsAlphaV"
+133 133  "BarsColourV"
+134 134  "INV BarsBla"
+135 135  "INV BarsWhi"
+136 136  "INV BarsAlp"
+137 137  "INV BarsCol"
+138 138  "RasterBlack"
+139 139  "RasterWhite"
+140 140  "RasterAlpha"
+141 141  "RasterColou"
+142 142  "INV RasterB"
+143 143  "INV RasterW"
+144 144  "INV RasterA"
+145 145  "INV RasterC"
+146 146  "CheckerBoar"
+147 147  "CheckerBoar"
+148 148  "CheckerBoar"
+149 149  "CheckerBoar"
+150 150  "INV Checker"
+151 151  "INV Checker"
+152 152  "INV Checker"
+153 153  "INV Checker"
+154 154  "GradientCen"
+155 155  "GradientCen"
+156 156  "GradientCen"
+157 157  "GradientCen"
+158 158  "INV Gradien"
+159 159  "INV Gradien"
+160 160  "INV Gradien"
+161 161  "INV Gradien"
+162 162  "GradientCen"
+163 163  "GradientCen"
+164 164  "GradientCen"
+165 165  "GradientCen"
+166 166  "INV Gradien"
+167 167  "INV Gradien"
+168 168  "INV Gradien"
+169 169  "INV Gradien"
+170 170  "Sepiatone"
+171 171  "INV Sepiato"
+172 172  "Psychedelic"
+173 173  "BWFX"
+174 174  "Crosshair"
+175 175  "CircleOutli"
+176 176  "RectangleOu"
+177 177  "SquareOutli"
+178 178  "Nightvision"
+179 179  "INV Nightvi"
+180 180  "Fisheye"
+181 181  "Waterdrop"
+182 182  "TVNoise"
+183 183  "StrobeBlack"
+184 184  "StrobeWhite"
+185 185  "StrobeAlpha"
+186 186  "PulseBlack"
+187 187  "PulseWhite"
+188 188  "PulseAlpha"
+189 189  "IrisStrobeB"
+190 190  "IrisStrobeW"
+191 191  "IrisStrobeA"
+192 192  "INV IrisStr"
+193 193  "INV IrisStr"
+194 194  "INV IrisStr"
+195 195  "SquareStrob"
+196 196  "SquareStrob"
+197 197  "SquareStrob"
+198 198  "INV SquareS"
+199 199  "INV SquareS"
+200 200  "INV SquareS"
+201 201  "SwirlIndexe"
+202 202  "SwirlTimed"
+203 203  "PosScrollX"
+204 204  "PosScrollY"
+205 205  "PosCircles"
+206 206  "ScaleSinX"
+207 255  "%3d"207+(((c-a)*48)/(b-a))
+REND
+
+RANGE 34  ;Video FX 1
+0   255  "%3d"0+(((c-a)*255)/(b-a))
+REND
+
+RANGE 35  ;Video FX 2
+0   255  "%3d"0+(((c-a)*255)/(b-a))
+REND
+
+RANGE 36  ;Video FX 3
+0   255  "%3d"0+(((c-a)*255)/(b-a))
+REND
+

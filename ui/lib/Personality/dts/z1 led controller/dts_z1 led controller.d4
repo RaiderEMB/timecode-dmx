@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Z1 LED Controller" ShortName="Z1" Company="DTS">
+  <Copyright Notice="© Avolites Ltd. 2011" />
+  <History Date="28-03-08" Author="Gregory Haynes" Comment="Created" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <History Date="23-02-11" Author="Gregory Haynes" Comment="Added preset palettes" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="2" PowerOn="2" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~9" Intensity="0~0" />
+      <Function ID="2" Name="Open" Display="'Open'" Dmx="10~19" Intensity="0~0" />
+      <Function ID="3" Name="Closed" Display="'Closed'" Dmx="20~29" Intensity="0~0" />
+      <Function ID="4" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="30~119" Intensity="0~0" />
+      <Function ID="5" Name="Open Pulse" Display="'Open Pulse %.f%%',0~100" Dmx="120~149" Intensity="0~0" />
+      <Function ID="6" Name="Close Pulse" Display="'Close Pulse %.f%%',0~100" Dmx="150~179" Intensity="0~0" />
+      <Function ID="7" Name="Rnd Strobe RGB" Display="'Rnd Strobe    (RGB) %.f%%',0~100" Dmx="180~204" Intensity="0~0" />
+      <Function ID="8" Name="Rnd Strobe Full" Display="'Rnd Strobe    (Full) %.f%%',0~100" Dmx="205~229" Intensity="0~0" />
+      <Function ID="9" Name="Open" Display="'Open'" Dmx="230~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="White" Name="White" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" Highlight="1" Lowlight="1" />
+      <Condition Name="Custom White Recall" ID="1,2,3,4,6" If="'Function'==1" />
+      <Else ID="1,2,3,5,6" />
+      <Function ID="1" Name="No Func" Display="'No Func'" Dmx="0~55" Update="CTO" Colour="0,0,0" />
+      <Function ID="2" Name="Open (Full)" Display="'Open (Full)'" Dmx="56~105" Update="CTO" Colour="255,255,255" />
+      <Function ID="3" Name="Open (DTS)" Display="'Open (DTS)'" Dmx="106~155" Update="CTO" Colour="255,255,255" />
+      <Function ID="4" Name="Recall Custom" Display="'Recall Custom'" Dmx="156~205" Update="CTO" Colour="255,255,255" />
+      <Function ID="5" Name="Create Custom" Display="'Create Custom'" Dmx="156~205" Update="CTO" Colour="255,255,255" />
+      <Function ID="6" Name="Open (CTC)" Display="'Open (CTC)'" Dmx="206~255" Update="CTO" Colour="255,255,255" />
+    </Attribute>
+    <Attribute ID="CTO" Name="CTO" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Open (CTC)" ID="2" If="'White'==6" />
+      <Else ID="1" />
+      <Function ID="1" Name="CTO Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,240,200" />
+      <Function ID="2" Name="Macro" Display="'Macro %.f',1~43" Dmx="0~255" Colour="255,240,200" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour Macros" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="No Func" Display="'No Func'" Dmx="0~14" Colour="255,255,255" />
+      <Function ID="2" Name="Macro" Display="'Macro %.f',1~16" Dmx="15~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Function" Name="Function" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Custom White Recall" Display="'Custom White  Recall'" Dmx="0~79" Update="White" />
+      <Function ID="2" Name="Custom White Create" Display="'Custom White  Create'" Dmx="80~160" Update="White" />
+      <Function ID="3" Name="Custom White Store" Display="'Custom White  Store'" Dmx="161~255" Update="White" />
+    </Attribute>
+    <Attribute ID="Reserved" Name="Reserved" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="9 DMX, 8bit" Channels="9">
+    <Import PearlRef="DTS_Z1_9" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="1" Wheel="4" />
+      <Attribute ID="Dimmer" ChannelOffset="2" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="3" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="4" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="5" Wheel="12" />
+      <Attribute ID="White" ChannelOffset="6" Wheel="8" />
+      <Attribute ID="CTO" ChannelOffset="7" Wheel="9" />
+      <Attribute ID="Colour1" ChannelOffset="8" Wheel="38" />
+      <Attribute ID="Function" ChannelOffset="9" Wheel="7" />
+    </Include>
+  </Mode>
+  <Mode Name="5 DMX, 8bit" Channels="5">
+    <Import PearlRef="DTS_Z1_5" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="1" Wheel="4" />
+      <Attribute ID="Dimmer" ChannelOffset="2" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="3" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="4" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="5" Wheel="12" />
+    </Include>
+  </Mode>
+  <Mode Name="6 DMX, 8bit" Channels="6">
+    <Import PearlRef="DTS_Z1_6" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="4" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="6" Wheel="4" />
+      <Attribute ID="Green" ChannelOffset="1" Wheel="11" />
+      <Attribute ID="Red" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Blue" ChannelOffset="3" Wheel="12" />
+      <Attribute ID="Reserved" ChannelOffset="5" Wheel="28" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Store White">
+      <Set Channel="Function:3" Delay="1000" />
+    </Macro>
+    <Macro Name="Recall White">
+      <Set Channel="Function:1,White:4" Delay="0" />
+    </Macro>
+    <Macro Name="White Create">
+      <Set Channel="Function:2,White:4" Delay="0" />
+    </Macro>
+  </Macro>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Red:1:100,Green:1:100,Blue:1:100" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:0" />
+      <Palette ID="3" Name="Amber" Number="3" Page="1" SetControl="Red:1:100,Green:1:50,Blue:1:0" />
+      <Palette ID="4" Name="Yellow" Legend="Yell" Number="4" Page="1" SetControl="Red:1:100,Green:1:100,Blue:1:0" />
+      <Palette ID="5" Name="Lime" Number="0" Page="1" SetControl="Red:1:50,Green:1:100,Blue:1:0" />
+      <Palette ID="6" Name="Green" Number="5" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:0" />
+      <Palette ID="7" Name="Aqua" Number="0" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:50" />
+      <Palette ID="8" Name="Cyan" Number="6" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:100" />
+      <Palette ID="9" Name="Light Blue" Number="0" Page="1" SetControl="Red:1:0,Green:1:50,Blue:1:100" />
+      <Palette ID="10" Name="Blue" Number="7" Page="1" SetControl="Red:1:0,Green:1:0,Blue:1:100" />
+      <Palette ID="11" Name="Purple" Legend="Purpl" Number="9" Page="1" SetControl="Red:1:50,Green:1:0,Blue:1:100" />
+      <Palette ID="12" Name="Magenta" Legend="Mag" Number="10" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:100" />
+      <Palette ID="13" Name="Rose" Number="0" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:50" />
+      <Palette ID="14" Name="Lavender" Legend="Lav" Number="8" Page="1" SetControl="Red:1:71,Green:1:43,Blue:1:94" />
+      <Palette ID="15" Name="Ultra Violet" Legend="UV" Number="0" Page="1" SetControl="Red:1:20,Green:1:0,Blue:1:100" />
+    </Group>
+    <Group Name="Shutter">
+      <Palette ID="1" Name="Open" Number="31" Page="1" SetControl="Shutter:2" />
+      <Palette ID="2" Name="Slow Strobe" Legend="Slow Strb" Number="32" Page="1" SetControl="Shutter:4:50" />
+      <Palette ID="3" Name="Fast Strobe" Legend="Fast Strb" Number="33" Page="1" SetControl="Shutter:4:100" />
+      <Palette ID="4" Name="Slow Random Strobe" Legend="Slow R Stb" Number="34" Page="1" SetControl="Shutter:8:50" />
+      <Palette ID="5" Name="Fast Random Strobe" Legend="Fast R Stb" Number="35" Page="1" SetControl="Shutter:8:100" />
+      <Palette ID="6" Name="Slow Pulse" Number="36" Page="1" SetControl="Shutter:5:50" />
+      <Palette ID="7" Name="Fast Pulse" Number="37" Page="1" SetControl="Shutter:5:100" />
+      <Palette ID="8" Name="Closed" Legend="Close" Number="38" Page="1" SetControl="Shutter:1" />
+    </Group>
+  </Palettes>
+</Fixture>

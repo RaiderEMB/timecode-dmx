@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="COLORdash Batten" ShortName="COL Batten" Company="Chauvet">
+  <Copyright Notice="© Avolites Ltd. 2011" />
+  <History Date="22-10-08" Author="David Hunt" Comment="Created" />
+  <History Date="30-10-08" Author="Jonathan Moreton" Comment="Checked" />
+  <History Date="28-01-09" Author="D4 Personality Fixer 2009" Comment="Changed Wheel assignment Numbers" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <History Date="24-03-11" Author="Nic Morris" Comment="Added C-mix conditionals.  Increased wheel resolution." />
+  <History Date="24-03-11" Author="Nic Morris" Comment="Removed duplicate ID's.  Fixed power on and locate." />
+  <History Date="24-03-11" Author="Nic Morris" Comment="Added v-dim to 3 and 12ch modes.  Added Control Func to macros." />
+  <History Date="19-06-11" Author="Nic Morris" Comment="Standardised func names.  Added pixel mapper compatibility." />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="Step Time" ID="2" If="'Control'==9" />
+      <Else ID="1" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+      <Function ID="2" Name="Step Time" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="Fade Time" ID="2" If="'Control'==9" />
+      <Else ID="1" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+      <Function ID="2" Name="Fade Time" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Condition Name="No Function" ID="2" If="'Control'==9" />
+      <Else ID="1" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+      <Function ID="2" Name="No Function" Display="''" Dmx="0~0" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour_Macro" Name="Colour Macro" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~10" Colour="255,255,255" />
+      <Function ID="2" Name="R 100%/G Up/B 0%" Display="'R 100%/G Up/B 0%'" Dmx="11~35" Colour="0,0,0" />
+      <Function ID="3" Name="R Down/G 100%/B 0%" Display="'R Down/G 100%/B 0%'" Dmx="36~60" Colour="0,0,0" />
+      <Function ID="4" Name="R 0%/G 100%/B Up" Display="'R 0%/G 100%/B Up'" Dmx="61~85" Colour="0,0,0" />
+      <Function ID="5" Name="R 0%/G Down/B 100%" Display="'R 0%/G Down/B 100%'" Dmx="86~110" Colour="0,0,0" />
+      <Function ID="6" Name="R Up/G 0%/B 100%" Display="'R Up/G 0%/B 100%'" Dmx="111~135" Colour="0,0,0" />
+      <Function ID="7" Name="R 100%/G 0%/B Down" Display="'R 100%/G 0%/B Down'" Dmx="136~160" Colour="0,0,0" />
+      <Function ID="8" Name="R 100%/G 0%/B Up" Display="'R 100%/G 0%/B Up'" Dmx="161~185" Colour="0,0,0" />
+      <Function ID="9" Name="R Down/G Down/B 100%" Display="'R Down/G Down/B 100%'" Dmx="186~210" Colour="0,0,0" />
+      <Function ID="10" Name="W1:3200K" Display="'W1:3200K'" Dmx="211~215" Colour="0,0,0" />
+      <Function ID="11" Name="W2:3400K" Display="'W2:3400K'" Dmx="216~220" Colour="0,0,0" />
+      <Function ID="12" Name="W3:4200K" Display="'W3:4200K'" Dmx="221~225" Colour="0,0,0" />
+      <Function ID="13" Name="W4:4900K" Display="'W4:4900K'" Dmx="226~230" Colour="0,0,0" />
+      <Function ID="14" Name="W5:5600K" Display="'W5:5600K'" Dmx="231~235" Colour="0,0,0" />
+      <Function ID="15" Name="W6:5900K" Display="'W6:5900K'" Dmx="236~240" Colour="0,0,0" />
+      <Function ID="16" Name="W7:6500K" Display="'W7:6500K'" Dmx="241~245" Colour="0,0,0" />
+      <Function ID="17" Name="W8:7200K" Display="'W8:7200K'" Dmx="246~250" Colour="0,0,0" />
+      <Function ID="18" Name="W9:8500K" Display="'W9:8500K'" Dmx="251~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~4" Intensity="0~0" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.1f%%',0.0~100.0" Dmx="5~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fan" ID="1,2,3,4,5,6" If="'Control_Func'==1" />
+      <Condition Name="Program" ID="7,8,9" If="'Control_Func'==2" />
+      <Else ID="" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~10" Update="Red, Green, Blue" />
+      <Function ID="2" Name="Fans Off" Display="'Fans Off'" Dmx="11~20" Update="Red, Green, Blue" />
+      <Function ID="3" Name="Fans Low" Display="'Fans Low'" Dmx="21~30" Update="Red, Green, Blue" />
+      <Function ID="4" Name="Fans Normal" Display="'Fans Normal'" Dmx="31~40" Update="Red, Green, Blue" />
+      <Function ID="5" Name="Fans High" Display="'Fans High'" Dmx="41~50" Update="Red, Green, Blue" />
+      <Function ID="6" Name="Fans Auto" Display="'Fans Auto'" Dmx="51~60" Update="Red, Green, Blue" />
+      <Function ID="7" Name="Safe" Display="'Safe'" Dmx="0~10" Update="Red, Green, Blue" />
+      <Function ID="8" Name="Auto" Display="'Auto %.f',1~10" Dmx="61~160" Update="Red, Green, Blue" />
+      <Function ID="9" Name="Custom" Display="'Custom %.f',1~10" Dmx="161~255" Update="Red, Green, Blue" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',100.0~0.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="ID_Control" Name="ID Control" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="All IDs" Display="'All IDs'" Dmx="0~9" />
+      <Function ID="2" Name="ID" Display="'ID %.f',1~20" Dmx="10~209" />
+      <Function ID="3" Name="ID" Display="'ID %.f',21~66" Dmx="210~255" />
+    </Attribute>
+    <Attribute ID="Block_Selection" Name="Block Select" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Block 1,2,3,4" Display="'Block 1,2,3,4'" Dmx="0~9" />
+      <Function ID="2" Name="Block 1" Display="'Block 1'" Dmx="10~29" />
+      <Function ID="3" Name="Block 2" Display="'Block 2'" Dmx="30~49" />
+      <Function ID="4" Name="Block 3" Display="'Block 3'" Dmx="50~69" />
+      <Function ID="5" Name="Block 4" Display="'Block 4'" Dmx="70~89" />
+      <Function ID="6" Name="Block 1,2" Display="'Block 1,2'" Dmx="90~109" />
+      <Function ID="7" Name="Block 3,4" Display="'Block 3,4'" Dmx="110~129" />
+      <Function ID="8" Name="Block 1,4" Display="'Block 1,4'" Dmx="130~149" />
+      <Function ID="9" Name="Block 2,3" Display="'Block 2,3'" Dmx="150~169" />
+      <Function ID="10" Name="Block 1,2,3" Display="'Block 1,2,3'" Dmx="170~189" />
+      <Function ID="11" Name="Block 2,3,4" Display="'Block 2,3,4'" Dmx="190~209" />
+      <Function ID="12" Name="Block 1,3,4" Display="'Block 1,3,4'" Dmx="210~229" />
+      <Function ID="13" Name="Block 1,2,4" Display="'Block 1,2,4'" Dmx="230~255" />
+    </Attribute>
+    <Attribute ID="Red1" Name="Red 1" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green1" Name="Green 1" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue1" Name="Blue 1" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="Red2" Name="Red 2" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green2" Name="Green 2" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue2" Name="Blue 2" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="Red3" Name="Red 3" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green3" Name="Green 3" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue3" Name="Blue 3" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="Red4" Name="Red 4" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+    </Attribute>
+    <Attribute ID="Green4" Name="Green 4" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue4" Name="Blue 4" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="Control_Func" Name="Control Func" Description="" Group="S" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fan" Display="'Fan'" Dmx="0~0" Update="Control" />
+      <Function ID="2" Name="Program" Display="'Program'" Dmx="0~0" Update="Control" />
+    </Attribute>
+  </Control>
+  <Mode Name="10 DMX, 8bit" Channels="10">
+    <Import PearlRef="CH_ColDBtSt" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="6" Wheel="4" />
+      <Attribute ID="Red" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="4" Wheel="12" />
+      <Attribute ID="Colour_Macro" ChannelOffset="5" Wheel="8" />
+      <Attribute ID="Control_Func" Wheel="28" />
+      <Attribute ID="Control" ChannelOffset="7" Wheel="29" />
+      <Attribute ID="Speed" ChannelOffset="8" Wheel="25" />
+      <Attribute ID="ID_Control" ChannelOffset="9" Wheel="30" />
+      <Attribute ID="Block_Selection" ChannelOffset="10" Wheel="58" />
+    </Include>
+  </Mode>
+  <Mode Name="12 DMX, 8bit" Channels="12">
+    <Import PearlRef="CH_ColDBtBk" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" Wheel="1" />
+      <Attribute ID="Red1" ChannelOffset="1" Wheel="10" VirtualControl="Dimmer" />
+      <Attribute ID="Green1" ChannelOffset="2" Wheel="11" VirtualControl="Dimmer" />
+      <Attribute ID="Blue1" ChannelOffset="3" Wheel="12" VirtualControl="Dimmer" />
+      <Attribute ID="Red2" ChannelOffset="4" Wheel="13" VirtualControl="Dimmer" />
+      <Attribute ID="Green2" ChannelOffset="5" Wheel="14" VirtualControl="Dimmer" />
+      <Attribute ID="Blue2" ChannelOffset="6" Wheel="15" VirtualControl="Dimmer" />
+      <Attribute ID="Red3" ChannelOffset="7" Wheel="16" VirtualControl="Dimmer" />
+      <Attribute ID="Green3" ChannelOffset="8" Wheel="17" VirtualControl="Dimmer" />
+      <Attribute ID="Blue3" ChannelOffset="9" Wheel="18" VirtualControl="Dimmer" />
+      <Attribute ID="Red4" ChannelOffset="10" Wheel="19" VirtualControl="Dimmer" />
+      <Attribute ID="Green4" ChannelOffset="11" Wheel="20" VirtualControl="Dimmer" />
+      <Attribute ID="Blue4" ChannelOffset="12" Wheel="21" VirtualControl="Dimmer" />
+    </Include>
+    <Cells>
+      <Master>
+        <Attribute ID="Green" Wheel="11" VirtualControl="Dimmer" />
+        <Attribute ID="Blue" Wheel="12" VirtualControl="Dimmer" />
+        <Attribute ID="Dimmer" Wheel="1" />
+        <Attribute ID="Red" Wheel="10" VirtualControl="Dimmer" />
+      </Master>
+      <Cell ID="Cell1" Name="Cell 1" ChannelOffset="1" ModeLink="3 DMX, 8bit" X="0" Y="0">
+        <AttributeLink SourceId="Dimmer" TargetId="Dimmer" />
+        <AttributeLink SourceId="Red" TargetId="Red" />
+        <AttributeLink SourceId="Green" TargetId="Green" />
+        <AttributeLink SourceId="Blue" TargetId="Blue" />
+      </Cell>
+      <Cell ID="Cell2" Name="Cell 2" ChannelOffset="4" ModeLink="3 DMX, 8bit" X="0" Y="1">
+        <AttributeLink SourceId="Dimmer" TargetId="Dimmer" />
+        <AttributeLink SourceId="Red" TargetId="Red" />
+        <AttributeLink SourceId="Green" TargetId="Green" />
+        <AttributeLink SourceId="Blue" TargetId="Blue" />
+      </Cell>
+      <Cell ID="Cell3" Name="Cell 3" ChannelOffset="7" ModeLink="3 DMX, 8bit" X="0" Y="2">
+        <AttributeLink SourceId="Dimmer" TargetId="Dimmer" />
+        <AttributeLink SourceId="Red" TargetId="Red" />
+        <AttributeLink SourceId="Green" TargetId="Green" />
+        <AttributeLink SourceId="Blue" TargetId="Blue" />
+      </Cell>
+      <Cell ID="Cell4" Name="Cell 4" ChannelOffset="10" ModeLink="3 DMX, 8bit" X="0" Y="3">
+        <AttributeLink SourceId="Dimmer" TargetId="Dimmer" />
+        <AttributeLink SourceId="Red" TargetId="Red" />
+        <AttributeLink SourceId="Green" TargetId="Green" />
+        <AttributeLink SourceId="Blue" TargetId="Blue" />
+      </Cell>
+    </Cells>
+  </Mode>
+  <Mode Name="3 DMX, 8bit" Channels="3">
+    <Import PearlRef="CH_ColDBtA1" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="1" Wheel="10" VirtualControl="Dimmer" />
+      <Attribute ID="Green" ChannelOffset="2" Wheel="11" VirtualControl="Dimmer" />
+      <Attribute ID="Blue" ChannelOffset="3" Wheel="12" VirtualControl="Dimmer" />
+    </Include>
+  </Mode>
+  <Mode Name="4 DMX, 8bit" Channels="4">
+    <Import PearlRef="CH_ColDBtAD" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="4" Wheel="12" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Fans Off">
+      <Set Channel="Control_Func:1,Control:2" Delay="3000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Fans Low">
+      <Set Channel="Control_Func:1,Control:3" Delay="3000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Fans Normal">
+      <Set Channel="Control_Func:1,Control:4" Delay="3000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Fans High">
+      <Set Channel="Control_Func:1,Control:5" Delay="3000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Fans Auto">
+      <Set Channel="Control_Func:1,Control:6" Delay="3000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+  </Macro>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Red:1:100,Green:1:100,Blue:1:100,Red1:1:100,Red2:1:100,Red3:1:100,Red4:1:100,Green1:1:100,Green2:1:100,Green3:1:100,Green4:1:100,Blue1:1:100,Blue2:1:100,Blue3:1:100,Blue4:1:100" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:0,Red1:1:100,Red2:1:100,Red3:1:100,Red4:1:100,Green1:1:0,Green2:1:0,Green3:1:0,Green4:1:0,Blue1:1:0,Blue2:1:0,Blue3:1:0,Blue4:1:0" />
+      <Palette ID="3" Name="Amber" Number="3" Page="1" SetControl="Red:1:100,Green:1:50,Blue:1:0,Red1:1:100,Red2:1:100,Red3:1:100,Red4:1:100,Green1:1:50,Green2:1:50,Green3:1:50,Green4:1:50,Blue1:1:0,Blue2:1:0,Blue3:1:0,Blue4:1:0" />
+      <Palette ID="4" Name="Yellow" Number="4" Page="1" SetControl="Red:1:100,Green:1:100,Blue:1:0,Red1:1:100,Red2:1:100,Red3:1:100,Red4:1:100,Green1:1:100,Green2:1:100,Green3:1:100,Green4:1:100,Blue1:1:0,Blue2:1:0,Blue3:1:0,Blue4:1:0" />
+      <Palette ID="5" Name="Lime" Number="0" Page="1" SetControl="Red:1:50,Green:1:100,Blue:1:0,Red1:1:50,Red2:1:50,Red3:1:50,Red4:1:50,Green1:1:100,Green2:1:100,Green3:1:100,Green4:1:100,Blue1:1:0,Blue2:1:0,Blue3:1:0,Blue4:1:0" />
+      <Palette ID="6" Name="Green" Number="5" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:0,Red1:1:0,Red2:1:0,Red3:1:0,Red4:1:0,Green1:1:100,Green2:1:100,Green3:1:100,Green4:1:100,Blue1:1:0,Blue2:1:0,Blue3:1:0,Blue4:1:0" />
+      <Palette ID="7" Name="Aqua" Number="0" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:50,Red1:1:0,Red2:1:0,Red3:1:0,Red4:1:0,Green1:1:100,Green2:1:100,Green3:1:100,Green4:1:100,Blue1:1:50,Blue2:1:50,Blue3:1:50,Blue4:1:50" />
+      <Palette ID="8" Name="Cyan" Number="6" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:100,Red1:1:0,Red2:1:0,Red3:1:0,Red4:1:0,Green1:1:100,Green2:1:100,Green3:1:100,Green4:1:100,Blue1:1:100,Blue2:1:100,Blue3:1:100,Blue4:1:100" />
+      <Palette ID="9" Name="Light Blue" Number="0" Page="1" SetControl="Red:1:0,Green:1:50,Blue:1:100,Red1:1:0,Red2:1:0,Red3:1:0,Red4:1:0,Green1:1:50,Green2:1:50,Green3:1:50,Green4:1:50,Blue1:1:100,Blue2:1:100,Blue3:1:100,Blue4:1:100" />
+      <Palette ID="10" Name="Blue" Number="7" Page="1" SetControl="Red:1:0,Green:1:0,Blue:1:100,Red1:1:0,Red2:1:0,Red3:1:0,Red4:1:0,Green1:1:0,Green2:1:0,Green3:1:0,Green4:1:0,Blue1:1:100,Blue2:1:100,Blue3:1:100,Blue4:1:100" />
+      <Palette ID="11" Name="Purple" Number="9" Page="1" SetControl="Red:1:50,Green:1:0,Blue:1:100,Red1:1:50,Red2:1:50,Red3:1:50,Red4:1:50,Green1:1:0,Green2:1:0,Green3:1:0,Green4:1:0,Blue1:1:100,Blue2:1:100,Blue3:1:100,Blue4:1:100" />
+      <Palette ID="12" Name="Magenta" Number="10" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:100,Red1:1:100,Red2:1:100,Red3:1:100,Red4:1:100,Green1:1:0,Green2:1:0,Green3:1:0,Green4:1:0,Blue1:1:100,Blue2:1:100,Blue3:1:100,Blue4:1:100" />
+      <Palette ID="13" Name="Rose" Number="0" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:50,Red1:1:100,Red2:1:100,Red3:1:100,Red4:1:100,Green1:1:0,Green2:1:0,Green3:1:0,Green4:1:0,Blue1:1:50,Blue2:1:50,Blue3:1:50,Blue4:1:50" />
+      <Palette ID="14" Name="Lavender" Number="8" Page="1" SetControl="Red:1:71,Green:1:43,Blue:1:94,Red1:1:71,Red2:1:71,Red3:1:71,Red4:1:71,Green1:1:43,Green2:1:43,Green3:1:43,Green4:1:43,Blue1:1:94,Blue2:1:94,Blue3:1:94,Blue4:1:94" />
+      <Palette ID="15" Name="Ultra Violet" Number="0" Page="1" SetControl="Red:1:20,Green:1:0,Blue:1:100,Red1:1:20,Red2:1:20,Red3:1:20,Red4:1:20,Green1:1:0,Green2:1:0,Green3:1:0,Green4:1:0,Blue1:1:100,Blue2:1:100,Blue3:1:100,Blue4:1:100" />
+    </Group>
+  </Palettes>
+</Fixture>

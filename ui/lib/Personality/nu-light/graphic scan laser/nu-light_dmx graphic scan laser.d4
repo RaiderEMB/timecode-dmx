@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="DMX Graphic Scan Laser" ShortName="GraphScan" Company="Nu-Light">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="28-07-04" Author="Phil Rogers" Comment="Created" />
+  <History Date="11-04-06" Author="Ed Spencer" Comment="Moved Size into beam group" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour ID to Colour1" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <History Date="19-07-06" Author="D4 Pers Fixer" Comment="Updated Colour Func ID to Colour1Func" />
+  <History Date="26-01-09" Author="D4 Personality Fixer 2009" Comment="Modified Condition statements" />
+  <History Date="27-01-09" Author="D4 Personality Fixer 2009" Comment="Modified Condition statements" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <History Date="11-06-10" Author="Gregory Haynes" Comment="Fixed condition" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.1f%%',0.0~100.0" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Colour1Func" Name="Colour Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1, Effect_Rot" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1, Effect_Rot" Colour="0,0,0" />
+      <Function ID="3" Name="Text_Entry_Mode" Display="'Text Entry'" Dmx="0~0" Update="Colour1, Effect_Rot" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,2,3" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="4,5" If="'Colour1Func'==2" />
+      <Condition Name="Text_Entry_Mode" ID="6,7" If="'Colour1Func'==3" />
+      <Else ID="1,2,3,4,5,6,7" />
+      <Function ID="1" Name="Cyan" Display="'Cyan'" Dmx="0~0" Update="Speed, Effect_Rot" Colour="0,255,255" />
+      <Function ID="2" Name="Green" Display="'Green'" Dmx="60~119" Update="Speed, Effect_Rot" Colour="0,255,0" />
+      <Function ID="3" Name="Blue" Display="'Blue'" Dmx="120~179" Update="Speed, Effect_Rot" Colour="0,0,255" />
+      <Function ID="4" Name="No Scroll" Display="'No Scroll'" Dmx="0~0" Update="Speed, Effect_Rot" Colour="0,0,0" />
+      <Function ID="5" Name="Scroll" Display="'Scroll'" Dmx="180~239" Update="Speed, Effect_Rot" Colour="0,0,0" />
+      <Function ID="6" Name="Open" Display="'Open'" Dmx="0~0" Update="Speed, Effect_Rot" Colour="255,255,255" />
+      <Function ID="7" Name="Text Entry Md" Display="'Text Entry Md'" Dmx="240~255" Update="Speed, Effect_Rot" Colour="255,255,255" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="200~230" Intensity="0~0" />
+      <Function ID="2" Name="Closed" Display="'Closed'" Dmx="0~0" Intensity="0~0" />
+      <Function ID="3" Name="Strobe" Display="'Strobe'" Dmx="41~199" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Speed" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Tracking" Display="'Tracking'" Dmx="0~5" />
+      <Function ID="2" Name="Speed" Display="'%.f%%',100~0" Dmx="255~6" />
+      <Function ID="3" Name="A" Display="'A'" Dmx="0~5" />
+      <Function ID="4" Name="B" Display="'B'" Dmx="6~11" />
+      <Function ID="5" Name="C" Display="'C'" Dmx="12~17" />
+      <Function ID="6" Name="D" Display="'D'" Dmx="18~23" />
+      <Function ID="7" Name="E" Display="'E'" Dmx="24~29" />
+      <Function ID="8" Name="F" Display="'F'" Dmx="30~35" />
+      <Function ID="9" Name="G" Display="'G'" Dmx="36~41" />
+      <Function ID="10" Name="H" Display="'H'" Dmx="42~47" />
+      <Function ID="11" Name="I" Display="'I'" Dmx="48~53" />
+      <Function ID="12" Name="J" Display="'J'" Dmx="54~59" />
+      <Function ID="13" Name="K" Display="'K'" Dmx="60~65" />
+      <Function ID="14" Name="L" Display="'L'" Dmx="66~71" />
+      <Function ID="15" Name="M" Display="'M'" Dmx="72~77" />
+      <Function ID="16" Name="N" Display="'N'" Dmx="78~83" />
+      <Function ID="17" Name="O" Display="'O'" Dmx="84~89" />
+      <Function ID="18" Name="P" Display="'P'" Dmx="90~95" />
+      <Function ID="19" Name="Q" Display="'Q'" Dmx="96~101" />
+      <Function ID="20" Name="R" Display="'R'" Dmx="102~107" />
+      <Function ID="21" Name="S" Display="'S'" Dmx="108~113" />
+      <Function ID="22" Name="T" Display="'T'" Dmx="114~119" />
+      <Function ID="23" Name="U" Display="'U'" Dmx="120~125" />
+      <Function ID="24" Name="V" Display="'V'" Dmx="126~131" />
+      <Function ID="25" Name="W" Display="'W'" Dmx="132~137" />
+      <Function ID="26" Name="X" Display="'X'" Dmx="138~143" />
+      <Function ID="27" Name="Y" Display="'Y'" Dmx="144~149" />
+      <Function ID="28" Name="Z" Display="'Z'" Dmx="150~155" />
+      <Function ID="29" Name=". (full stop)" Display="'. (full stop)'" Dmx="156~161" />
+      <Function ID="30" Name="(space)" Display="'(space)'" Dmx="162~167" />
+      <Function ID="31" Name="0" Display="'0'" Dmx="168~173" />
+      <Function ID="32" Name="1" Display="'1'" Dmx="174~179" />
+      <Function ID="33" Name="2" Display="'2'" Dmx="180~185" />
+      <Function ID="34" Name="3" Display="'3'" Dmx="186~191" />
+      <Function ID="35" Name="4" Display="'4'" Dmx="192~197" />
+      <Function ID="36" Name="5" Display="'5'" Dmx="198~203" />
+      <Function ID="37" Name="6" Display="'6'" Dmx="204~209" />
+      <Function ID="38" Name="7" Display="'7'" Dmx="210~215" />
+      <Function ID="39" Name="8" Display="'8'" Dmx="216~221" />
+      <Function ID="40" Name="9" Display="'9'" Dmx="222~227" />
+      <Function ID="41" Name="(pound sign)" Display="'(pound sign)'" Dmx="228~233" />
+    </Attribute>
+    <Attribute ID="Effect_Func" Name="Effect Func" Description="" Group="E" Size="0">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Shape_Func" Display="'Shape'" Dmx="0~0" Update="Effect, Effect_Rot" />
+      <Function ID="2" Name="Text_Func" Display="'Text'" Dmx="0~0" Update="Effect, Effect_Rot" />
+    </Attribute>
+    <Attribute ID="Effect" Name="Effect" Description="" Group="E">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Shape_Func" ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26" If="'Effect_Func'==1" />
+      <Condition Name="Text_Func" ID="27,28,29,30,31,32" If="'Effect_Func'==2" />
+      <Else ID="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32" />
+      <Function ID="1" Name="Star" Display="'Star'" Dmx="0~7" />
+      <Function ID="2" Name="Square" Display="'Square'" Dmx="8~15" />
+      <Function ID="3" Name="Horz Flat" Display="'Horz Flat'" Dmx="16~23" />
+      <Function ID="4" Name="Vert. Flat" Display="'Vert. Flat'" Dmx="24~31" />
+      <Function ID="5" Name="Circle" Display="'Circle'" Dmx="32~39" />
+      <Function ID="6" Name="Boxed Cross" Display="'Boxed Cross'" Dmx="40~47" />
+      <Function ID="7" Name="Wave" Display="'Wave'" Dmx="48~55" />
+      <Function ID="8" Name="Solid Arrow" Display="'Solid Arrow'" Dmx="56~63" />
+      <Function ID="9" Name="Triangle" Display="'Triangle'" Dmx="64~71" />
+      <Function ID="10" Name="3 Circles" Display="'3 Circles'" Dmx="72~79" />
+      <Function ID="11" Name="Heart" Display="'Heart'" Dmx="80~87" />
+      <Function ID="12" Name="Cross Hairs" Display="'Cross Hairs'" Dmx="88~95" />
+      <Function ID="13" Name="3 Petals" Display="'3 Petals'" Dmx="96~103" />
+      <Function ID="14" Name="Beam" Display="'Beam'" Dmx="104~111" />
+      <Function ID="15" Name="Broken Sq" Display="'Broken Sq'" Dmx="118~119" />
+      <Function ID="16" Name="Meteor Shower" Display="'Meteor Shower'" Dmx="126~127" />
+      <Function ID="17" Name="Lightening" Display="'Lightening'" Dmx="128~135" />
+      <Function ID="18" Name="4 Sq Array" Display="'4 Sq Array'" Dmx="136~143" />
+      <Function ID="19" Name="Leaf" Display="'Leaf'" Dmx="144~151" />
+      <Function ID="20" Name="Diamond Star" Display="'Diamond Star'" Dmx="152~159" />
+      <Function ID="21" Name="Eye Triangle" Display="'Eye Triangle'" Dmx="160~167" />
+      <Function ID="22" Name="Musical Note" Display="'Musical Note'" Dmx="168~175" />
+      <Function ID="23" Name="Dollar" Display="'Dollar'" Dmx="176~183" />
+      <Function ID="24" Name="Splash" Display="'Splash'" Dmx="184~191" />
+      <Function ID="25" Name="4 Splats" Display="'4 Splats'" Dmx="192~199" />
+      <Function ID="26" Name="S Girder Prof" Display="'S Girder Prof'" Dmx="200~207" />
+      <Function ID="27" Name="Text Bank 1" Display="'Text Bank 1'" Dmx="208~215" />
+      <Function ID="28" Name="Text Bank 2" Display="'Text Bank 2'" Dmx="216~223" />
+      <Function ID="29" Name="Text Bank 3" Display="'Text Bank 3'" Dmx="224~231" />
+      <Function ID="30" Name="Text Bank 4" Display="'Text Bank 4'" Dmx="232~239" />
+      <Function ID="31" Name="Text Bank 5" Display="'Text Bank 5'" Dmx="240~247" />
+      <Function ID="32" Name="Text Bank 6" Display="'Text Bank 6'" Dmx="248~255" />
+    </Attribute>
+    <Attribute ID="Effect_Rot" Name="Effect Rot" Description="" Group="E">
+      <Locate Locate="3" PowerOn="3" />
+      <Condition Name="Other Funcs" ID="3,4,5,6,7,8,9" If="'Colour1Func'==1||'Colour1Func'==2" />
+      <Condition Name="Text_Entry_Mode" ID="1,2" If="'Colour1Func'==1||'Colour1Func'==2" />
+      <Else ID="1,2,3,4,5,6,7,8,9" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~0" />
+      <Function ID="2" Name="Store" Display="'Store'" Dmx="255~255" />
+      <Function ID="3" Name="Open" Display="'Open'" Dmx="0~0" />
+      <Function ID="4" Name="Horz Spin" Display="'Horz Spin'" Dmx="33~63" />
+      <Function ID="5" Name="Vert Spin" Display="'Vert Spin'" Dmx="64~95" />
+      <Function ID="6" Name="Rotation" Display="'Rotation'" Dmx="96~127" />
+      <Function ID="7" Name="Pulse" Display="'Pulse'" Dmx="128~159" />
+      <Function ID="8" Name="Rot &amp; Pulse 1" Display="'Rot &amp; Pulse 1'" Dmx="160~191" />
+      <Function ID="9" Name="Rot &amp; Pulse 2" Display="'Rot &amp; Pulse 2'" Dmx="192~223" />
+    </Attribute>
+    <Attribute ID="Size" Name="Size" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Speed" Display="'%.f%%',0~100" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="8 DMX, 8bit" Channels="8">
+    <Import PearlRef="NUGraphScan" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="7" Wheel="4" />
+      <Attribute ID="Pan" ChannelOffset="1" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="2" Wheel="3" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="6" Wheel="8" />
+      <Attribute ID="Size" ChannelOffset="4" Wheel="26" />
+      <Attribute ID="Effect_Func" Wheel="22" />
+      <Attribute ID="Effect" ChannelOffset="3" Wheel="23" />
+      <Attribute ID="Effect_Rot" ChannelOffset="5" Wheel="24" />
+      <Attribute ID="Speed" ChannelOffset="8" Wheel="25" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Store Character">
+      <Set Channel="Effect_Rot:1" Delay="100" />
+      <Set Channel="Effect_Rot:2" Delay="100" />
+      <Set Channel="Effect_Rot:1" Delay="0" />
+    </Macro>
+  </Macro>
+</Fixture>

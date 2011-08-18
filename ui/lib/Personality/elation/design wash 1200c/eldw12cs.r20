@@ -1,0 +1,388 @@
+; 'Elation Design Wash 1200C Standard, 16bit', 16 DMX Channels, filename: ELDW12CS.R20
+;  Copyright © Avolites Ltd. 2010
+;
+;   Date       By                Description
+;   07-07-10   Pers Creator      Created - Exported from Diamond 4 file.
+;   07-07-10   Jonathan Moreton  Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  EL_DW1200CS                         mode=Standard, 16bit  16 DMX Channels
+NAME "Elation" "Design Wash 1200C Std, 16bit"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  16  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   540  270
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Standard, 16bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=496
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..20)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally reduced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L   11   100   1N   O   1   "Shutter"          32     0     0
+1     1   H   12   100   1N   H   1   "Dimmer"          255     0     0
+3    61   s    1   100   1N   E   1   "Pan"             128     0     0
+0     0   L    2   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    3   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        128     0     0
+4     1   I    5   100   1N   A   1   "Colour"            0     0     0
+10    1   L    6   100   1N   B   1   "Cyan"              0     0   255
+10   61   L    7   100   1N   C   1   "Magenta"           0     0   255
+9    61   L    8   100   1N   D   1   "Yellow"            0   255    51
+4    61   L    9   100   1N   0   1   "CTO"               0     0     0
+14    1   L   15   100   1N   0   1   "Colour Macro"      0     0     0
+5     1   L   10   100   1N   Q   1   "Zoom"            128     0     0
+8     1   L   13   100   1N   0   1   "CMY Speed"         0     0     0
+8    61   L   14   100   1N   0   1   "P/T Speed"         0     0     0
+20    1   L   16   100   1N   0   1   "Control"           0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Elation
+Design Wash 1200C
+Standard, 16bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "Intensity"  -1  11
+"Open"               31  30
+"Slow Strobe"        32  50
+"Fast Strobe"        33  5F
+"Slow Random Strobe"  34  D0
+"Fast Random Strobe"  35  DF
+"Slow Pulse"         36  90
+"Fast Pulse"         37  9F
+"Closed"             38  10
+PFEND
+
+PFTABLE "Pan/Tilt"   -1   1   3
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1   6   7   8
+"Open"                1   0   0   0
+"Red"                 2   0  FF  FF
+"Amber"               3   0  80  FF
+"Yellow"              4   0   0  FF
+"Green"               5  FF   0  FF
+"Cyan"                6  FF   0   0
+"Blue"                7  FF  FF   0
+"Magenta"            10   0  FF   0
+"Lavender"            8  4A  91   F
+"Ultra Violet"        9  CC  FF   0
+PFEND
+
+PFTABLE "Beam"       -1  10
+"Zoom Small"         41   0
+"Zoom Medium"        42  80
+"Zoom Large"         43  FF
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "Lamp On"       1  16
+"data"                0  32
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Lamp On"       2  16
+"data"                0  32
+"delay"               1  3C
+"data"                0   A
+MEND
+
+MACRO "Lamp Off"      3  16
+"data"                0  46
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Lamp Off"      4  16
+"data"                0  46
+"delay"               1  3C
+"data"                0   A
+MEND
+
+MACRO "Reset All"     5  16
+"data"                0  52
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset All"     6  16
+"data"                0  52
+"delay"               1  3C
+"data"                0   A
+MEND
+
+MACRO "Reset PT"      7  16
+"data"                0  56
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset PT"      8  16
+"data"                0  56
+"delay"               1  3C
+"data"                0   A
+MEND
+
+MACRO "Reset Col"     9  16
+"data"                0  59
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset Col"    10  16
+"data"                0  59
+"delay"               1  3C
+"data"                0   A
+MEND
+
+MACRO "Reset         Intensity" 11  16
+"data"                0  5F
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset Intensity" 12  16
+"data"                0  5F
+"delay"               1  3C
+"data"                0   A
+MEND
+
+MACRO "Reset Other"  13  16
+"data"                0  62
+"delay"               1  3C
+"data"                0   0
+MEND
+
+MACRO "Reset Other"  14  16
+"data"                0  62
+"delay"               1  3C
+"data"                0   A
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 11  ;Shutter
+0   31   "Closed"
+32  63   "Open"
+64  95   "Strobe %3d%%"(c-a)*100/(b-a)
+96  127  "Open"
+128 159  "Pulse %3d%%"(c-a)*100/(b-a)
+160 191  "Open"
+192 223  "Rnd St %3d%%"(c-a)*100/(b-a)
+224 255  "Open"
+REND
+
+RANGE 12  ;Dimmer
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 1  ;Pan
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 3  ;Tilt
+0   255  "%3d.%02d%%"(c-a)*100/(b-a),100*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 5  ;Colour
+0   15   "Open"
+16  31   "Colour 1"
+32  47   "Colour 2"
+48  63   "Colour 3"
+64  79   "Colour 4"
+80  95   "Colour 5"
+96  111  "Colour 6"
+112 127  "Colour 7"
+128 189  "Sc CW %3d%%"100-((c-a)*100/(b-a))
+190 193  "No Scroll"
+194 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 6  ;Cyan
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 7  ;Magenta
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 8  ;Yellow
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 9  ;CTO
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 15  ;Colour Macros
+0   7    "No Macro"
+8   15   "Macro 1"
+16  23   "Macro 2"
+24  31   "Macro 3"
+32  39   "Macro 4"
+40  47   "Macro 5"
+48  55   "Macro 6"
+56  63   "Macro 7"
+64  71   "Macro 8"
+72  79   "Macro 9"
+80  87   "Macro 10"
+88  95   "Macro 11"
+96  103  "Macro 12"
+104 111  "Macro 13"
+112 119  "Macro 14"
+120 127  "Macro 15"
+128 135  "Macro 16"
+136 143  "Macro 17"
+144 151  "Macro 18"
+152 159  "Macro 19"
+160 167  "Macro 20"
+168 175  "Macro 21"
+176 183  "Macro 22"
+184 191  "Macro 23"
+192 199  "Macro 24"
+200 207  "Macro 25"
+208 215  "Macro 26"
+216 223  "Macro 27"
+224 231  "Macro 28"
+232 239  "Macro 29"
+240 247  "Macro 30"
+248 255  "Random CMY"
+REND
+
+RANGE 10  ;Zoom
+0   255  "%3d.%d%%"(c-a)*100/(b-a),10*((c-a)*100%(b-a))/(b-a)
+REND
+
+RANGE 13  ;CMY Speed
+0   255  "%3d%%"100-((c-a)*100/(b-a))
+REND
+
+RANGE 14  ;P/T Speed
+0   225  "%3d%%"100-((c-a)*100/(b-a))
+226 235  "BO on P/T"
+236 245  "BO on All"
+246 255  "Safe"
+REND
+
+RANGE 16  ;Control
+0   19   "Col Norm"
+20  29   "Col Any Pos"
+30  39   "Col Any Pos"
+40  59   "Lamp On"
+60  79   "Lamp Off"
+80  84   "Reset All"
+85  87   "Reset PT"
+88  90   "Reset Col"
+91  93   "Safe"
+94  96   "Reset Intens"
+97  99   "Reset Other"
+100 119  "Macro 1"
+120 139  "Macro 2"
+140 159  "Macro 3"
+160 179  "Macro 4"
+180 199  "Macro 5"
+200 219  "Macro 6"
+220 239  "Macro 7"
+240 255  "Music Ctrl"
+REND
+

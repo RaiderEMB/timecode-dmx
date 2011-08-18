@@ -1,0 +1,197 @@
+; 'Coemar Pro Spot 250 LX', 16 DMX Channels, filename: CMPSpt25.R20
+;
+;   Date       By                Description
+;   26-03-04   Pers Creator      Created - Exported from Diamond 4 file.
+;   17-09-04   Phil Rogers       Removed full stop in DMX table and edited range tables
+;   02-11-04   Phil Rogers       Edited device name.
+;   02-11-04   Phil Rogers       Fixed macros and control locate values
+;   22-11-04   Phil Rogers       Minor fixes
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  CM_PSp250LX                           mode=16 DMX  16 DMX Channels
+NAME "Coemar" "Pro Spot 250 LX"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  16  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   530   284
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 16 DMX"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=496
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+DMX
+1     1   H    6   100   1N   H   1   "Dimmer"          255   255   127
+2    61   L    7   100   1N   O   1   "Shutter"          67    67    67
+3    61   s    1   100   1N   E   1   "Pan"             128    -1    -1
+0     0   L    2   100   1N   E   1   "Pan Low"         128    -1    -1
+3     1   s    3   100   1N   F   1   "Tilt"            128    -1    -1
+0     0   L    4   100   1N   F   1   "Tilt Low"        128    -1    -1
+4     1   I   13   100   1N   A   1   "Colour"            0     0     0
+6     1   I    9   100   1N   I   1   "Gobo1"             0     0     0
+6    61   I   10   100   1N   0   1   "Gobo1 Index"       0     0     0
+7     1   I   11   100   1N   K   1   "Gobo1 Rot"         0     0     0
+9    61   I   14   100   1N   0   1   "Shake Spd"         0     0     0
+7    61   I   15   100   1N   0   1   "Shake Size"        0     0     0
+5    61   L    8   100   1N   L   1   "Focus"             0     0     0
+9     1   I   12   100   1N   P   1   "Prism"             0     0     0
+8     1   I    5   100   1N   0   1   "MSpeed"            0     0     0
+8    61   I   16   100   1N   0   1   "Control"          60    60    60
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Coemar Pro Spot 250 LX
+16 DMX
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+MACRO "Lamp On"       1  16
+"data"                0  ff
+"delay"               1  40
+"data"                0  3C
+MEND
+
+MACRO "Lamp Off"      2  16
+"data"                0   0
+"delay"               1  40
+"data"                0  3C
+MEND
+
+MACRO "Reset"         3  16
+"data"                0  b9
+"delay"               1  40
+"data"                0  3C
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+RANGE 5  ;MSpeed
+0   10   "Standard"
+11  25   "Ultra Fast"
+26  127  "Vector %3d%%"0+(((c-a)*100)/(b-a))
+128 247  "%3d%%"0+(((c-a)*100)/(b-a))
+248 255  "Tracking"
+REND
+
+RANGE 7  ;Shutter
+0   9    "Closed"
+10  66   "Strobe %3d%%"((c-a)*100)/(b-a)
+67  68   "Open"
+69  125  "Open P %3d%%"((c-a)*100)/(b-a)
+126 127  "Open"
+128 184  "Cls Pl %3d%%"((c-a)*100)/(b-a)
+185 187  "Open"
+188 244  "Rnd St %3d%%"((c-a)*100)/(b-a)
+245 255  "Open"
+REND
+
+RANGE 9  ;Gobo 1
+0   10   "Open"
+11  30   "Gobo 1"
+31  50   "Gobo 2"
+51  70   "Gobo 3"
+71  90   "Gobo 4"
+91  110  "Gobo 5"
+111 127  "Gobo 6"
+128 192  "Index %3d%%"((c-a)*100)/(b-a)
+193 255  "Scroll %3d%%"((c-a)*100)/(b-a)
+REND
+
+RANGE 10  ;Gobo 1 Index
+0   10   "Open"
+11  255  "Index %3d%%"((c-a)*100)/(b-a)
+REND
+
+RANGE 11  ;Gobo 1 Rot
+0   10   "Open"
+11  131  "Spn CW %3d%%"100-(((c-a)*100)/(b-a))
+132 134  "Stopped"
+135 255  "Sp CCW %3d%%"((c-a)*100)/(b-a)
+REND
+
+RANGE 12  ;Prism
+0   10   "Open"
+11  20   "Prism"
+21  136  "Spn CW %3d%%"100-(((c-a)*100)/(b-a))
+137 139  "Stopped"
+140 255  "Sp CCW %3d%%"((c-a)*100)/(b-a)
+REND
+
+RANGE 13  ;Colour
+0   4    "Open"
+5   9    "Colour 1"
+10  14   "Colour 2"
+15  19   "Colour 3"
+20  24   "Colour 4"
+25  29   "Colour 5"
+30  34   "Colour 6"
+35  39   "Colour 7"
+40  44   "Colour 8"
+45  49   "Colour 9"
+50  54   "Colour 10"
+55  59   "Colour 11"
+60  127  "Index %3d%%"((c-a)*100)/(b-a)
+128 190  "Scroll CCW %3d%%"100-((c-a)*100)/(b-a)
+191 192  "No Rotation"
+193 255  "Scr CW %3d%%"((c-a)*100)/(b-a)
+REND
+
+RANGE 14  ;Effect
+0   9    "No Effect"
+10  249  "Shake %3d%%"((c-a)*100)/(b-a)
+250 255  "BO moving"
+REND
+
+RANGE 16  ;Control
+20  100  "No effect"
+201 240  "Silent Fans"
+REND
+

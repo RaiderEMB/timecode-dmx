@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Aurora 12T" ShortName="Aurora 12T" Company="Lanta Lighting">
+  <Copyright Notice="© Avolites Ltd. 2011" />
+  <History Date="19-07-11" Author="Nic Morris" Comment="Created" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="Static Colour" ID="2" If="'Colour_Macro'==2" />
+      <Else ID="1" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:0" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:0" Lowlight="1:90" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Strobe %" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Colour_Macro" Name="Colour Macro" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~0" Update="Red" Colour="255,255,255" />
+      <Function ID="2" Name="Static" Display="'Static'" Dmx="1~24" Update="Red" Colour="255,255,255" />
+      <Function ID="3" Name="7 Col Fade" Display="'7 Col Fade'" Dmx="25~49" Update="Red" Colour="0,0,0" />
+      <Function ID="4" Name="3 Col Fade" Display="'3 Col Fade'" Dmx="50~74" Update="Red" Colour="0,0,0" />
+      <Function ID="5" Name="7 Col Jump" Display="'7 Col Jump'" Dmx="75~99" Update="Red" Colour="0,0,0" />
+      <Function ID="6" Name="3 Col Jump" Display="'3 Col Jump'" Dmx="100~124" Update="Red" Colour="0,0,0" />
+      <Function ID="7" Name="Change 1" Display="'Change 1'" Dmx="125~149" Update="Red" Colour="0,0,0" />
+      <Function ID="8" Name="Change 2" Display="'Change 2'" Dmx="150~174" Update="Red" Colour="0,0,0" />
+      <Function ID="9" Name="Red Fade" Display="'Red Fade'" Dmx="175~199" Update="Red" Colour="0,0,0" />
+      <Function ID="10" Name="Green Fade" Display="'Green Fade'" Dmx="200~224" Update="Red" Colour="0,0,0" />
+      <Function ID="11" Name="Blue Fade" Display="'Blue Fade'" Dmx="225~255" Update="Red" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Fader" Name="Fader" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Instant" Display="'Instant'" Dmx="0~250" />
+      <Function ID="2" Name="Delayed" Display="'Delayed'" Dmx="251~255" />
+    </Attribute>
+    <Attribute ID="Reserved" Name="Reserved" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="3 DMX" Channels="3">
+    <Import PearlRef="LH_AU12T3" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="1" Wheel="10" VirtualControl="Dimmer" />
+      <Attribute ID="Green" ChannelOffset="2" Wheel="11" VirtualControl="Dimmer" />
+      <Attribute ID="Blue" ChannelOffset="3" Wheel="12" VirtualControl="Dimmer" />
+    </Include>
+  </Mode>
+  <Mode Name="4 DMX" Channels="4">
+    <Import PearlRef="LH_AU12T4" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="4" Wheel="12" />
+    </Include>
+  </Mode>
+  <Mode Name="8 DMX" Channels="8">
+    <Import PearlRef="LH_AU12T8" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Shutter" ChannelOffset="5" Wheel="4" />
+      <Attribute ID="Red" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="4" Wheel="12" />
+      <Attribute ID="Colour_Macro" ChannelOffset="6" Wheel="9" />
+      <Attribute ID="Reserved" ChannelOffset="7" Wheel="29" />
+      <Attribute ID="Fader" ChannelOffset="8" Wheel="28" />
+    </Include>
+  </Mode>
+</Fixture>

@@ -1,0 +1,308 @@
+;-----------------------------------------------------------------------|
+; Silver Star YG-LED308 Roxtar Stage2 m1, personality for the Diamond II|
+;-----------------------------------------------------------------------|
+;   History :-                                                          |
+;-----------------------------------------------------------------------|
+;   Revision |  Date     |  By       | Description                      |
+;------------|-----------|-----------|----------------------------------|
+;   1.0      |  10-10-08 | David Hunt| Created                          |
+;            |  10-10-08 | David Hunt| Checked				            |
+;            |  21-10-08 | J.Moreton | Checked                          |
+;---------------------------------------------------------------------- |
+
+
+DEVICE=SS_L308S2m1      ; Device Name (upto 11 chars) must be enclosed in single
+DEVICE23=Stage2 Mode1   ; 22 chars after '='
+                        ; extra information for softkey prompt lines 2&3
+                        ; a total of 22 chars, split into 2 lines of 11
+
+;                                  __ Number of lines of DMX info.
+;                                 |   __ Number of lines of wheel info
+;                                 |  |
+;                                 |  |
+;                                 |  |
+HSTART  3 10 1b05  0   0  ff 0 8 10  10
+;       |  |  |    |   |  |  | |
+;       |  |  |    |   |  |  | |__ Line number for flash button DMX info
+;       |  |  |    |   |  |  |     from DMX definition (1..x)
+;       |  |  |    |   |  |  |__ Button release value
+;       |  |  |    |   |  |__ Button ON value (ff means use swop/add fader)
+;       |  |  |    |   |__ The TILT arc in Degrees
+;       |  |  |    |__ The Pan arc in degrees
+;       |  |  |__ Date in PC format (1b05==5/08/93)
+;       |  |__ Number of DMX slots used
+;       |__ Patch direction (1-backward, 2 forward)
+
+
+
+
+TEXTSTART       ; Upto 21 lines of 28 characters
+                            ;
+       Silver Star          ;
+      LED308 Roxtar         ;
+      Stage 2 Mode1         ;
+      10 DMX  8 bit         ;
+       PERSONALITY          ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+TEXTEND
+
+
+;------------------------------------------------------------
+
+; For the Attribute Dictionary refer to file 'dict.per'
+
+;------------------------------------------------------------
+; DMX information
+; No unused lines allowed between keyword 'DSTART' and last DMX definition
+
+DSTART              ; DMX Picture
+1  1  0 0   0 0     ; Dimmer
+2  2  0 0   5 0     ; Red
+3  2  0 0  10 0     ; Green
+4  2  0 0   6 0     ; Blue
+5  2  0 0   4 0     ; Colour Macro
+6  2  0 0  24 0     ; Shutter
+7  2 40 0  52 0     ; Mode Select
+8  2 40 0 171 0     ; ID Control
+9  2 40 0  54 0     ; Mod Select
+10 2 40 0 107 0     ; Effect Macro
+;| |  | |   | |
+;| |  | |   | |__ Spare (always 0 for now)
+;| |  | |   |__ Attribute name (See list above)
+;| |  | |__ Curve (0 means no curve otherwise curve number)
+;| |  |__ Flags (7=inverted, 40=instant, 20=16-bit)
+;| |__ Channel type (1=HTP, 2=LTP, 0=Dummy(for 16-bit defines)
+;|__ DMX offset (1..255, 0 means DIMMER will be patched seperately)
+
+
+;------------------------------------------------------------
+; WHEEL information
+
+WSTART
+8 ffff ffff 4   0 0  8   0  1  0  1  0  0  0  0  0      ; 1. Dimmer
+8 ffff ffff 1   5 0  9   0  1  1  2  0  0  0  0  0      ; 2. Red
+8 ffff ffff 1  10 0 10   0  1  2  3  0  0  0  0  0      ; 3. Green
+8 ffff ffff 1   6 0 11   0  1  3  4  0  0  0  0  0      ; 4. Blue
+8 ffff    0 2   4 0 12   4  1  4  5  0  0  0  0  0      ; 5. Colour Macro
+8 ffff    0 1  24 0  1   0  1  5  6  0  0  0  0  0      ; 6. Shutter
+8 ffff    0 2  52 0 41  52  1  6  7  0  0  0  0  0      ; 7. Mode Select
+8 ffff    0 2 171 0 42 171  1  7  8  0  0  0  0  0      ; 8. ID Control
+8 ffff    0 2  54 0 43  54  1  8  9  0  0  0  0  0      ; 9. Mod Select
+8 ffff    0 2 107 0 44 107  1  9 10  0  0  0  0  0      ;10. Effect Macro
+;|   |    | |   | |  |   |  |  |  |  |  |  |  |  |__ List of Table channels as
+;|   |    | |   | |  |   |  |  |  |_______________ line numbers from DMX def.
+;|   |    | |   | |  |   |  |  |                  ff or 0 means unused channel
+;|   |    | |   | |  |   |  |  |__ DMX line pertainnig to this wheel (-1)
+;|   |    | |   | |  |   |  |__ Number of chanels under control (Table width)
+;|   |    | |   | |  |   |__ Table type (Attribute number) 0 means NOT a table
+;|   |    | |   | |  |__ Wheel number (1..8 on bank1, 9..16 on bank2 et cetera)
+;|   |    | |   | |__ 0 for 8 bits, 1 for 16 bits
+;|   |    | |   |__  Attribute name from above list (0..MAX)
+;|   |    | |__ Wheel type (1-offset, 2-Table, 3-Pan/Tilt, 4-Dimmer)
+;|   |    |__ Default value (left shifted as necessary)
+;|   |__ AND mask, where more than wheel controls same DMX slot
+;|__ Wheel multiplication =16-(bits used)
+;    eg. for 8 bit channels it is 8, for 12 bit channels it is 4
+
+
+
+
+;--------------------------------------------------------------------
+; TABLES
+; Each Table is enclosed by the keywords "TSTART" and "*** TEND ***"
+; The legend is 16 chars long
+; The correct number of values must be supplied (8-bits) with spaces in
+; between
+
+; FUNCTION TABLE
+;         __ Table width (upto 6 allowed)
+;        |  __ Type of Table from attribute list
+;        | |
+TSTART  1  4
+Open               4
+Red               19
+R85% G15%         34
+R60% G40%         44
+Yellow            59
+R15% G85%         74
+R40% G60%         84
+Green             99
+G85% B15%        114
+G60% B40%        124
+Blue             139
+G85% B15%        154
+G60% B40%        164
+Cyan             179
+G50% P50%        194
+Purple           209
+P80% G20%        224
+RGB              239
+White            252
+*** TEND ***
+
+TSTART  1 52
+Safe               2
+Col Cycle_1       19
+Col Cycle_2       49
+Col Cycle_3       79
+Col Cycle_4      109
+Col Cycle_5      139
+Col Cycle_6      169
+Col Cycle_7      199
+Col Cycle_8      229
+DMX Mode_2       250
+*** TEND ***
+
+TSTART  1 171
+ID 1-6             5
+ID 1              15
+ID 2              25 
+ID 3              35
+ID 4              45
+ID 5              55
+ID 6              65
+ID 7              75
+ID 8              85
+ID 9              95
+ID 10            105
+ID 11            115
+ID 12            125
+ID 13            135
+ID 14            145
+ID 15            155
+ID 16            165
+ID 17            175
+ID 18            185
+ID 19            195
+ID 20            205
+ID 21            210
+ID 22            211
+ID 23            212
+ID 24            213
+ID 25            214
+ID 26            215
+ID 27            216
+ID 28            217
+ID 29            218
+ID 30            219
+ID 31            220
+ID 32            221
+ID 33            222
+ID 34            223
+ID 35            224
+ID 36            225
+ID 37            226
+ID 38            227
+ID 39            228
+ID 40            229
+ID 41            230
+ID 42            231
+ID 43            232
+ID 44            233
+ID 45            234
+ID 46            235
+ID 47            236
+ID 48            237
+ID 49            238
+ID 50            239
+ID 51            240
+ID 52            241
+ID 53            242
+ID 54            243
+ID 55            244
+ID 56            245
+ID 57            246
+ID 58            247
+ID 59            248
+ID 60            249
+ID 61            250
+ID 62            251
+ID 63            252
+ID 64            253
+ID 65            254
+ID 66            255
+*** TEND ***
+
+TSTART  1 54
+#1 On #2 On        2
+#1 On             19
+#2 On             49
+#3 On             79
+#1 On #2 On      109
+#2 On #3 On      139
+#1 On #3 On      169
+#1 On #2 On      199
+All Off          235
+*** TEND ***
+
+
+TSTART  1 107
+Open               2
+Eff Macro 1        7
+Eff Macro 2       12
+Eff Macro 3       17
+Eff Macro 4       22
+Eff Macro 5       27
+Eff Macro 6       32
+Eff Macro 7       37
+Eff Macro 8       42
+Eff Macro 9       47
+Eff Mac 10        52
+Eff Mac 11        57
+Eff Mac 12        62
+Eff Mac 13        67
+Eff Mac 14        72
+Eff Mac 15        77
+Eff Mac 16        82
+Eff Mac 17        87
+Eff Mac 18        92
+Eff Mac 19        97
+Eff Mac 20       102
+Eff Mac 21       107
+Eff Mac 22       112
+Eff Mac 23       117
+Eff Mac 24       122
+Eff Mac 25       127
+Eff Mac 26       132
+Eff Mac 27       138
+Eff Mac 28       143
+Eff Mac 29       148
+Eff Mac 30       153
+Eff Mac 31       158
+Eff Mac 32       163
+Eff Mac 33       168
+Eff Mac 34       173
+Eff Mac 35       178
+Eff Mac 36       183
+Eff Mac 37       188
+Eff Mac 38       193
+Eff Mac 39       198
+Eff Mac 40       203
+Eff Mac 41       208
+Eff Mac 42       213
+Eff Mac 43       218
+Eff Mac 44       223
+Eff Mac 45       228
+Eff Mac 46       233
+Eff Mac 47       238
+Eff Mac 48       243
+Eff Mac 49       248
+Eff Mac 50       253
+*** TEND ***
+
+;--------------------------------------------------------------------
+

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="DataFlash" ShortName="Data Flash" Company="High End">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="06-02-03" Author="D.Shelton" Comment="Created" />
+  <History Date="15-07-03" Author="D.Shelton" Comment="Added head type" />
+  <History Date="09-08-04" Author="Phil Rogers" Comment="Revised attribute names" />
+  <History Date="11-04-06" Author="Ed Spencer" Comment="Renamed Speed ID to Strobe" />
+  <Manual Filename="/manual/High-End_DataFlash.pdf" Summary="Created:Martin, 30/03/2001" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" Highlight="1:100" Lowlight="1:100" />
+      <Function ID="1" Name="Dimmer" Display="'Dimmer %.f%%',0~100" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Duration" Name="Duration" Description="" Group="S">
+      <Locate Locate="1:530" PowerOn="1:0" Highlight="1:530" Lowlight="1:0" />
+      <Function ID="1" Name="Duration" Display="'%.f%%',0~100" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Strobe" Name="Strobe" Description="" Group="I">
+      <Locate Locate="1" PowerOn="1" Highlight="2:10" Lowlight="1" />
+      <Function ID="1" Name="No Strobe" Display="'No Strobe'" Dmx="0~5" Intensity="0~0" />
+      <Function ID="2" Name="Strobe" Display="'Strobe %.1f Hz',1.0~30.0" Dmx="6~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="3 DMX" Channels="3">
+    <Import PearlRef="HE_Dataflsh" DiamondRef="DataFlash" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="None" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="Strobe" ChannelOffset="3" Wheel="5" />
+      <Attribute ID="Duration" ChannelOffset="2" Wheel="4" />
+    </Include>
+  </Mode>
+</Fixture>

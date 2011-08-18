@@ -1,0 +1,221 @@
+; 'Longman Loby 250 A', 12 DMX Channels, filename: LO_LobM1.R20
+;
+;   Date       By                Description
+;   18-10-07   Pers Creator      Created - Exported from Diamond 4 file.
+;   18-10-07   Ion Balan	 Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  LOLM1                               mode=Mode 1, 16bit  12 DMX Channels
+NAME "Longman" "Loby 250 A, Mode 1"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  12  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   0   0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Mode 1, 16bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=500
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, B=Cyan, C=Magenta, D=Yellow,
+;         E=Pan, F=Tilt, G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate,
+;         L=Focus, M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, T=Red, U=Green, V=Blue, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   H    1   100   1N   O   1   "Shutter"           0     0     0
+4     1   I    2   100   1N   A   1   "Colour 1"          0     0     0
+6     1   I    3   100   1N   I   1   "Gobo 1"            0     0     0
+7     1   L    4   100   1N   K   1   "Gobo 1 Rot"        0     0     0
+9     1   I    6   100   1N   P   1   "Prism"             0     0     0
+3    61   s    7   100   1N   E   1   "Pan"             128     0     0
+0     0   L    9   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    8   100   1N   F   1   "Tilt"            128     0     0
+0     0   L   10   100   1N   F   1   "Tilt Low"        128     0     0
+8     1   L   11   100   1N   0   1   "P/T Speed"         0     0     0
+9    61   L   12   100   1N   0   1   "Effect"            0     0     0
+5    61   L    5   100   1N   L   1   "Focus"           128     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Longman Loby 250 A
+Mode 1, 16bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Shutter
+0   19   "Closed"
+20  39   "Open"
+40  59   "Strb %3d%%"100-(((c-a)*100)/(b-a))
+60  79   "Open"
+80  99   "Op Pl %3d%%"100-(((c-a)*100)/(b-a))
+100 119  "Cl pl %3d%%"100-(((c-a)*100)/(b-a))
+120 127  "Open"
+128 147  "Rnd StrbF"
+148 167  "Rnd StrbM"
+168 187  "Rnd StrbS"
+188 190  "Open"
+191 193  "R O P F"
+194 196  "R O P S"
+197 199  "R C P F"
+200 202  "R C P S"
+203 207  "Open"
+208 217  "Reset"
+218 255  "Open"
+REND
+
+RANGE 2  ;Colour 1
+100 112 "Open"
+113 124 "Red"
+125 136 "Orchid"
+137 148 "Yellow"
+149 160 "Green"
+161 172 "Pink"
+173 184 "Orange"
+185 196 "Light Orchi"
+197 207 "Rose"
+0   99  "Cnt Sc %3d%%"0+(((c-a)*100)/(b-a))
+208 226 "Sc CW %3d%%"100-(((c-a)*100)/(b-a))
+227 245 "Sc CCW %3d%%"0+(((c-a)*100)/(b-a))
+246 248 "Fast"
+249 251 "Medium"
+252 255 "Slow"
+REND
+
+RANGE 3  ;Gobo 1
+0   6    "Gobo 1"
+7   12   "Gobo 2"
+13  18   "Gobo 3"
+19  24   "Gobo 4"
+25  30   "Gobo 5"
+31  36   "Gobo 6"
+37  42   "Gobo 7"
+43  50   "Spd 1  %3d%%"0+(((c-a)*100)/(b-a))
+51  58   "Spd 2  %3d%%"0+(((c-a)*100)/(b-a))
+59  66   "Spd 3  %3d%%"0+(((c-a)*100)/(b-a))
+67  74   "Spd 4  %3d%%"0+(((c-a)*100)/(b-a))
+75  82   "Spd 5  %3d%%"0+(((c-a)*100)/(b-a))
+83  90   "Spd 6  %3d%%"0+(((c-a)*100)/(b-a))
+91  104  "Spd 7  %3d%%"0+(((c-a)*100)/(b-a))
+105 119  "Gobo 7"
+120 134  "Gobo 6"
+135 149  "Gobo 5"
+150 164  "Gobo 4"
+165 179  "Gobo 3"
+180 194  "Gobo 2"
+195 209  "Gobo 1"
+210 232  "Sc CW %3d%%"0+(((c-a)*100)/(b-a))
+233 255  "Sc CCW %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 4  ;Gobo 1 Rot
+0   2    "No Spin"
+3   127    "Sp CW %3d%%"0+(((c-a)*100)/(b-a))
+128 252    "Sp CCW %3d%%"100-(((c-a)*100)/(b-a))
+253 255    "No Spin"
+REND
+
+RANGE 6  ;Prism
+0   4    "Closed"
+5   19   "Open"
+20  139  "Prism"
+0   0    "No Spin"
+140 197  "Sp CCW %3d%%"0+(((c-a)*100)/(b-a))
+198 255  "Sp CW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 11  ;P/T Speed
+0   2    "Tracking"
+3   242  "Speed %3d%%"100-(((c-a)*100)/(b-a))
+243 245  "Macro 1"
+246 248  "Macro 2"
+249 251  "Macro 3"
+252 255  "BO P/T %3d%%"0+(((c-a)*100)/(b-a))
+REND
+

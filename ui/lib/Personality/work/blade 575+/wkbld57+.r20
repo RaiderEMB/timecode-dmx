@@ -1,0 +1,204 @@
+; 'Work Blade 575+', 16 DMX Channels, filename: WKBLD57+.R20
+;
+;   Date       By                Description
+;   02-08-05   Pers Creator      Created - Exported from Diamond 4 file.
+;   03-08-05   Phil Rogers       Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  WK_Blade57+                           mode=16 DMX, 16bit  16 DMX Channels
+NAME "Work" "Blade 575+"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  16  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   530   280
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 16 DMX, 16bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=496
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2    61   L   15   100   1N   O   1   "Shutter"           0     0     0
+1     1   H   16   100   1N   H   1   "Dimmer"          255     0     0
+3    61   s    1   100   1N   E   1   "Pan"             128     0     0
+0     0   L    3   100   1N   E   1   "Pan Low"         128     0     0
+3     1   s    2   100   1N   F   1   "Tilt"            128     0     0
+0     0   L    4   100   1N   F   1   "Tilt Low"        128     0     0
+4     1   I    7   100   1N   A   1   "Colour 1"          0     0     0
+4    61   I    8   100   1N   0   1   "Colour 2"          0     0     0
+6     1   I   10   100   1N   I   1   "Gobo 1"            0     0     0
+6    61   I   11   100   1N   J   1   "Gobo 2"            0     0     0
+7    61   I   12   100   1N   M   1   "Gobo 2 Rot"        0     0     0
+5    61   L    6   100   1N   L   1   "Focus"           127     0     0
+2     1   L   13   100   1N   G   1   "Iris"            255     0     0
+5     1   L   14   100   1N   Q   1   "Zoom"            128     0     0
+9     1   I    9   100   1N   P   1   "Prism"             0     0     0
+8     1   L    5   100   1N   0   1   "Speed"             0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Work Blade 575+
+16 DMX, 16bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 15  ;Shutter
+0   19   "Safe"
+20  250  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+250 255  "Open"
+REND
+
+RANGE 7  ;Colour 1
+0   19   "Open"
+20  39   "Red"
+40  59   "Yellow"
+60  79   "Rose"
+80  89   "Green"
+100 119  "Orange"
+120 139  "Blue"
+140 159  "Pink"
+160 179  "Firefly"
+180 199  "Dk Orng"
+200 255  "Scroll %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 8  ;Colour 2
+0   25   "Open"
+26  51   "Light Red"
+52  77   "Pale Yellow"
+78  103  "Light Purpl"
+104 129  "Pale Green"
+130 155  "Light Orang"
+156 181  "Sky Blue"
+182 207  "Light Blue"
+208 233  "CTB"
+234 255  "CTO"
+REND
+
+RANGE 10  ;Gobo 1
+0   19   "Open"
+20  39   "Gobo 1"
+40  59   "Gobo 2"
+60  79   "Gobo 3"
+80  99   "Gobo 4"
+100 119  "Gobo 5"
+120 139  "Gobo 6"
+140 159  "Gobo 7"
+160 179  "Gobo 8"
+180 199  "Gobo 9"
+200 255  "Spin %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 11  ;Gobo 2
+0   36   "Open"
+37  73   "Gobo 1"
+74  110  "Gobo 2"
+111 147  "Gobo 3"
+148 184  "Gobo 4"
+185 221  "Gobo 5"
+222 255  "Gobo 6"
+REND
+
+RANGE 12  ;Gobo Rot
+0   40   "Index %3d%%"0+(((c-a)*100)/(b-a))
+41  158  "Spin CW %3d%%"0+(((c-a)*100)/(b-a))
+159 255  "Spin CCW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 9  ;Prism
+0   3    "No Spin"
+4   127  "Spin CCW %3d%%"0+(((c-a)*100)/(b-a))
+128 131  "No Spin"
+132 255  "Spin CW %3d%%"0+(((c-a)*100)/(b-a))
+REND

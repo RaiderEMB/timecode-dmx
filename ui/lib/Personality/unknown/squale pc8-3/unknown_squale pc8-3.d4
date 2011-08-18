@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Squale PC8-3" ShortName="Sq PC8-3" Company="Unknown">
+  <Copyright Notice="© Avolites Ltd. 2008" />
+  <History Date="27-11-08" Author="David Hunt" Comment="Created" />
+  <History Date="28-11-08" Author="Jonathan Moreton" Comment="Checked" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Colour1Func" Name="Colour Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Split_Func" Display="'Split Gel'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="4" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Fixed_Func" ID="1,3,5,7,9,11,13,15" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="17,18" If="'Colour1Func'==3" />
+      <Condition Name="Split_Func" ID="2,4,6,8,10,12,14,16" If="'Colour1Func'==2" />
+      <Else ID="19" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~7" Colour="255,255,255" />
+      <Function ID="2" Name="Open/Red" Display="'Open/Red'" Dmx="8~15" Colour="255,128,128" />
+      <Function ID="3" Name="Red" Display="'Red'" Dmx="16~23" Colour="255,0,0" />
+      <Function ID="4" Name="Red/Yellow" Display="'Red/Yellow'" Dmx="24~31" Colour="255,128,0" />
+      <Function ID="5" Name="Yellow" Display="'Yellow'" Dmx="32~39" Colour="255,255,0" />
+      <Function ID="6" Name="Yellow/Light Blue" Display="'Yellow/Light  Blue'" Dmx="40~47" Colour="128,128,255" />
+      <Function ID="7" Name="Light Blue" Display="'Light Blue'" Dmx="48~55" Colour="0,128,255" />
+      <Function ID="8" Name="Light Blue/Orange" Display="'Light Blue /   Orange'" Dmx="56~63" Colour="255,255,128" />
+      <Function ID="9" Name="Orange" Display="'Orange'" Dmx="64~71" Colour="255,128,0" />
+      <Function ID="10" Name="Orange/Olivine" Display="'Orange/Olivine'" Dmx="72~79" Colour="128,128,0" />
+      <Function ID="11" Name="Olivine" Display="'Olivine'" Dmx="80~87" Colour="0,255,0" />
+      <Function ID="12" Name="Green/Pink" Display="'Green/Pink'" Dmx="88~95" Colour="128,255,0" />
+      <Function ID="13" Name="Pink" Display="'Pink'" Dmx="96~103" Colour="255,150,150" />
+      <Function ID="14" Name="Pink/Dark Blue" Display="'Pink/Dark Blue'" Dmx="104~111" Colour="255,150,150" />
+      <Function ID="15" Name="Dark Blue" Display="'Deep Blue'" Dmx="112~119" Colour="0,0,180" />
+      <Function ID="16" Name="Dark Blue/Open" Display="'Dark Blue/Open'" Dmx="120~127" Colour="0,0,180" />
+      <Function ID="17" Name="No Scroll" Display="'No Scroll'" Dmx="0~7" Colour="255,255,255" />
+      <Function ID="18" Name="Scroll" Display="'Scroll %.f%%',0~100" Dmx="128~255" Colour="0,0,0" />
+      <Function ID="19" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Shutter" Description="" Group="I">
+      <Locate Locate="2:100" PowerOn="2:0" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~5" Intensity="0~0" />
+      <Function ID="2" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="6~128" Intensity="0~0" />
+      <Function ID="3" Name="Open" Display="'Open'" Dmx="129~139" Intensity="0~0" />
+      <Function ID="4" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="140~199" Intensity="0~0" />
+      <Function ID="5" Name="Rnd Strobe" Display="'Rnd Strobe    %.f%%',0~100" Dmx="200~249" Intensity="0~0" />
+      <Function ID="6" Name="Open" Display="'Open'" Dmx="250~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="2 DMX, 8bit" Channels="2">
+    <Import PearlRef="UK_SQPC8-3" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="2" Wheel="4" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="8" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Colour1:1" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Colour1:3" />
+      <Palette ID="3" Name="Red/Yellow" Number="3" Page="1" SetControl="Colour1Func:2,Colour1:4" />
+      <Palette ID="4" Name="Yellow" Number="4" Page="1" SetControl="Colour1:5" />
+      <Palette ID="5" Name="Green/Pink" Number="0" Page="1" SetControl="Colour1Func:2,Colour1:12" />
+      <Palette ID="6" Name="Green/Pink" Number="5" Page="1" SetControl="Colour1Func:2,Colour1:12" />
+      <Palette ID="7" Name="Olivine" Number="0" Page="1" SetControl="Colour1:11" />
+      <Palette ID="8" Name="Light Blue" Number="6" Page="1" SetControl="Colour1:7" />
+      <Palette ID="9" Name="Light Blue" Number="0" Page="1" SetControl="Colour1:7" />
+      <Palette ID="10" Name="Yellow/Light Blue" Number="7" Page="1" SetControl="Colour1Func:2,Colour1:6" />
+      <Palette ID="11" Name="Yellow/Light Blue" Number="9" Page="1" SetControl="Colour1Func:2,Colour1:6" />
+      <Palette ID="12" Name="Open/Red" Number="10" Page="1" SetControl="Colour1Func:2,Colour1:2" />
+      <Palette ID="13" Name="Open/Red" Number="0" Page="1" SetControl="Colour1Func:2,Colour1:2" />
+      <Palette ID="14" Name="Yellow/Light Blue" Number="8" Page="1" SetControl="Colour1Func:2,Colour1:6" />
+      <Palette ID="15" Name="Dark Blue" Number="0" Page="1" SetControl="Colour1:15" />
+    </Group>
+  </Palettes>
+</Fixture>

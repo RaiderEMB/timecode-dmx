@@ -1,0 +1,170 @@
+;-----------------------------------------------------------------------|
+; The ImagiNator Personality for the Diamond II                         | 
+;-----------------------------------------------------------------------|
+;       History :-                                                      |
+;-----------------------------------------------------------------------|
+;   Revision |  Date     |  By    | Description                         |
+;------------|-----------|--------|-------------------------------------|
+;       1.0  |  19-01-01 | P.Bari | Created                             | 
+;---------------------------------------------------------------------- |
+
+
+DEVICE=ImagiNator                ; Device Name (upto 11 chars after '='
+DEVICE23=44 CHANNELS            ; 22 chars after '='
+	             		; extra information for softkey prompt lines 2&3
+						; a total of 22 chars, split into 2 lines of 11
+
+; Device information
+;                                   __ Number of lines of DMX info.
+;                                  |   __ Number of lines of wheel info
+;                                  |  |
+;                                  |  |
+;                                  |  |
+HSTART  1 44 1b05 170 108 ff 0  1 44 38
+;        | |  |    |   |  |  |  |
+;        | |  |    |   |  |  |  |__ Line number for flash button DMX info
+;        | |  |    |   |  |  |      from DMX definition (1..x)
+;        | |  |    |   |  |  |__ Button release value
+;        | |  |    |   |  |__ Button ON value (ff means use swop/add fader)
+;        | |  |    |   |__ The TILT arc in Degrees
+;        | |  |    |__ The Pan arc in degrees
+;        | |  |__ Date in PC format (1b05==5/08/93)
+;        | |__ Number of DMX slots used
+;        |__ Patch direction (0 for mirror, 3 for moving head)
+
+
+TEXTSTART                 ; Upto 21 lines of 28 characters (use the template)
+                                 ;
+                                 ;
+      ImagiNator                 ;
+      44 Channels                ;
+                                 ;
+TEXTEND
+
+
+;------------------------------------------------------------
+
+; For the Attribute Dictionary refer to file 'dict.per'
+
+;------------------------------------------------------------
+; DMX information
+; No unused lines allowed between keyword 'DSTART' and last DMX definition
+DSTART               ; DMX defintion
+1  2 20 0  13 0      ; PAN
+2  0  0 0   0 0      ; DUMMY (16-bit)
+3  2 20 0  14 0      ; TILT
+4  0  0 0   0 0      ; DUMMY (16-bit)
+5  1  0 0   0 0      ; DIMMER
+6  2  0 0  24 0      ; SHUTTER
+7  2  0 0 162 0      ; GRADATION
+8  2  0 0   5 0      ; RED
+9  2  0 0  10 0      ; GREEN
+10 2  0 0   6 0      ; BLUE
+11 2  0 0 163 0      ; RED GRADATION
+12 2  0 0 164 0      ; GREEN GRADATION
+13 2  0 0 165 0      ; BLUE GRADATION
+14 2 40 0 166 0      ; JPG/GIF SELECTION
+15 2 40 0 167 0      ; JPG COLOR%
+16 2  0 0 168 0      ; GIF COLOR OFFSET
+17 2  0 0 169 0      ; GIF COLOR PALETTES
+18 2 40 0 170 0      ; SHAPE SELECTION
+19 2  0 0 171 0      ; SHAPE SCALE
+20 2  0 0 172 0      ; SHAPE ASPECT
+21 2 20 0 173 0      ; SHAPE ROT COARSE
+22 0  0 0   0 0      ; SHAPE ROT FINE
+23 2 20 0 174 0      ; SHAPE HORIZ COARSE
+24 0  0 0   0 0      ; SHAPE HORIZ FINE
+25 2 20 0 175 0      ; SHAPE VERTI COARSE
+26 0  0 0   0 0      ; SHAPE VERTI FINE
+27 2  0 0 176 0      ; SHAPE EDGE THICKNESS
+28 2  0 0 177 0      ; SHAPE TRAILS
+29 2 40 0 178 0      ; MASK SELECTION
+30 2  0 0 179 0      ; MASK SCALE
+31 2  0 0 180 0      ; MASK ASPECT
+32 2 20 0 181 0      ; MASK ROT COARSE
+33 0  0 0   0 0      ; MASK ROT FINE
+34 2 40 0 182 0      ; VIDEO SELECTION
+35 2  0 0 183 0      ; VIDEO PLAY/REPEAT
+36 2 40 0 184 0      ; MORPH SELECTION
+37 2  0 0 185 0      ; MORPH SPEED
+38 2 40 0 186 0      ; PRESET TEXTS
+39 2 40 0 187 0      ; PRESET FX
+40 2  0 0 188 0      ; FX SPEED
+41 2  0 0 189 0      ; UD PRESET1
+42 2  0 0 190 0      ; UD PRESET2
+43 2  0 0 191 0      ; UD PRESET3
+44 2  0 0 192 0      ; UD PRESET4
+;| |  | |   | |
+;| |  | |   | |__ Spare (always 0 for now)
+;| |  | |   |__ Attribute name (See list above)
+;| |  | |__ Curve (0 means no curve otherwise curve number)
+;| |  |__ Flags (7=inverted, 6=instant, 5=16-bit)
+;| |__ Channel type (1=HTP, 2=LTP, 0=Dummy(for 16-bit defines)
+;|__ DMX offset (1..255, 0 means DIMMER will be patched seperately)
+
+
+;------------------------------------------------------------
+; WHEEL information
+; No unused lines allowed between keyword 'WSTART' and last DMX definition
+WSTART
+6 ffff 8080 3  13 1  5  0 1  0  1  0  0  0  0  0  ; 1. PAN
+6 ffff 8080 3  14 1  6  0 1  2  3  0  0  0  0  0  ; 2. TILT
+8 ffff    0 4   0 0  8  0 1  4  5  0  0  0  0  0  ; 3. DIMMER
+8 ffff    0 1  24 0  7  0 1  5  6  0  0  0  0  0  ; 4. SHUTTER
+8 ffff    0 1 162 0  1  0 1  6  7  0  0  0  0  0  ; 5. GRADATION
+8 ffff ffff 1   5 0  9  0 1  7  8  0  0  0  0  0  ; 6. RED
+8 ffff ffff 1  10 0 11  0 1  8  9  0  0  0  0  0  ; 7. GREEN
+8 ffff ffff 1   6 0 13  0 1  9 10  0  0  0  0  0  ; 8. BLUE
+8 ffff    0 1 163 0 10  0 1 10 11  0  0  0  0  0  ; 9. RED GRADATION
+8 ffff    0 1 164 0 12  0 1 11 12  0  0  0  0  0  ;10. GREEN GRADATION
+8 ffff    0 1 165 0 14  0 1 12 13  0  0  0  0  0  ;11. BLUE GRADATION
+8 ffff    0 1 166 0  2  0 1 13 14  0  0  0  0  0  ;12. JPG/GIF SELECTION
+8 ffff    0 1 167 0 15  0 1 14 15  0  0  0  0  0  ;13. JPG COLOR%
+8 ffff    0 1 168 0  3  0 1 15 16  0  0  0  0  0  ;14. GIF COLOR OFFSET
+8 ffff    0 1 169 0  4  0 1 16 17  0  0  0  0  0  ;15. GIF COLOR PALETTES
+8 ffff    0 1 170 0 17  0 1 17 18  0  0  0  0  0  ;16. SHAPE SELECTION
+8 ffff 8080 1 171 0 18  0 1 18 19  0  0  0  0  0  ;17. SHAPE SCALE
+8 ffff 8080 1 172 0 19  0 1 19 20  0  0  0  0  0  ;18. SHAPE ASPECT
+4 ffff 8080 1 173 1 20  0 1 20 21  0  0  0  0  0  ;19. SHAPE ROT
+4 ffff 8080 1 174 1 21  0 1 22 23  0  0  0  0  0  ;20. SHAPE HORIZ
+4 ffff 8080 1 175 1 22  0 1 24 25  0  0  0  0  0  ;21. SHAPE VERT
+8 ffff    0 1 176 0 23  0 1 26 27  0  0  0  0  0  ;22. SHAPE EDGE THICKNESS
+8 ffff    0 1 177 0 24  0 1 27 28  0  0  0  0  0  ;23. SHAPE TRAILS
+8 ffff    0 1 178 0 25  0 1 28 29  0  0  0  0  0  ;24. MASK SELECTION
+8 ffff 8080 1 179 0 26  0 1 29 30  0  0  0  0  0  ;25. MASK SCALE
+8 ffff 8080 1 180 0 27  0 1 30 31  0  0  0  0  0  ;26. MASK ASPECT
+4 ffff 8080 1 181 1 28  0 1 31 32  0  0  0  0  0  ;27. MASK ROT
+8 ffff    0 1 182 0 29  0 1 33 34  0  0  0  0  0  ;28. VIDEO SELECTION
+8 ffff    0 1 183 0 30  0 1 34 35  0  0  0  0  0  ;29. VIDEO PLAY/REPEAT
+8 ffff    0 1 184 0 31  0 1 35 36  0  0  0  0  0  ;30. MORPH SELECTION
+8 ffff    0 1 185 0 32  0 1 36 37  0  0  0  0  0  ;31. MORPH SPEED
+8 ffff    0 1 186 0 33  0 1 37 38  0  0  0  0  0  ;32. PRESET TEXTS
+8 ffff    0 1 187 0 34  0 1 38 39  0  0  0  0  0  ;33. PRESET FX
+8 ffff    0 1 188 0 35  0 1 39 40  0  0  0  0  0  ;34. FX SPEED
+8 ffff    0 1 189 0 37  0 1 40 41  0  0  0  0  0  ;35. UD PRESET1
+8 ffff    0 1 190 0 38  0 1 41 42  0  0  0  0  0  ;36. UD PRESET2
+8 ffff    0 1 191 0 39  0 1 42 43  0  0  0  0  0  ;37. UD PRESET3
+8 ffff    0 1 192 0 40  0 1 43 44  0  0  0  0  0  ;38. UD PRESET4
+;|   |    | |   | |  |  | |  |  |  |  |  |  |  |__ List of Table channels as 
+;|   |    | |   | |  |  | |  |  |_______________ line numbers from DMX def.
+;|   |    | |   | |  |  | |  |                   0 means unused channel
+;|   |    | |   | |  |  | |  |__ DMX line (minus 1) pertainig to this wheel
+;|   |    | |   | |  |  | |__ Number of chanels under control OR Table width
+;|   |    | |   | |  |  |__ Table type (Attribute number) 0 means NOT a table
+;|   |    | |   | |  |__ Wheel number (1..8 on bank1, 9..16 on bank2 et cetera)
+;|   |    | |   | |__ 0 for 8 bits, 1 for 16 bits
+;|   |    | |   |__  Attribute name from above list (0..MAX)
+;|   |    | |__ Wheel type (1-offset, 2-Table, 3-Pan/Tilt, 4-Dimmer)
+;|   |    |__ Default value (left shifted as necessary)
+;|   |__ AND mask, where more than wheel controls same DMX slot
+;|__ Wheel multiplication =16-(bits used)
+;	eg. for 8 bit channels it is 8, for 12 bit channels it is 4
+; 
+;--------------------------------------------------------------------
+; TABLES
+; Each Table is enclosed by the keywords "TSTART" and "*** TEND ***"
+; The legend is 16 chars long
+; The correct number of values must be supplied (8-bits) with spaces in
+; between
+;--------------------------------------------------------------------
+

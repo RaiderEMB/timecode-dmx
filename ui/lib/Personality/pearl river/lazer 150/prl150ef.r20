@@ -1,0 +1,210 @@
+; 'Pearl River Lazer 150', 5 DMX Channels, filename: PRL150EF.R20
+;
+;   Date       By                Description
+;   02-05-07   Pers Creator      Created - Exported from Diamond 4 file.
+;   02-05-07   D.Milligan        Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  PR_L150EFCT                         mode=Mode 3  5 DMX Channels
+NAME "Pearl River" "Lazer 150, Effect"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  5  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0   0   0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to Mode 3"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=507
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+10    1   L    1   100   1N   0   1   "Control"         120     0     0
+6     1   I    2   100   1N   I   1   "Pict Group"        0     0     0
+6    61   L    3   100   1N   K   1   "Picture"           0     0     0
+3    61   L    4   100   1N   E   1   "X Adjust"        255     0     0
+3     1   L    5   100   1N   F   1   "Y Adjust"        255     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Pearl River Lazer 150
+Mode 3
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Control
+0   37   "Off"
+38  74   "Animation"
+75  110  "Geometric"
+111 147  "Effect"
+148 184  "Sound 1"
+185 221  "Sound 2"
+222 255  "Sound 3"
+REND
+
+RANGE 2  ;Picture Group
+0   15   "Group 1"
+16  31   "Group 2"
+32  47   "Group 3"
+48  63   "Group 4"
+64  79   "Group 5"
+80  95   "Group 6"
+96  111  "Group 7"
+112 127  "Group 8"
+128 143  "Group 9"
+144 159  "Group 10"
+160 175  "Group 11"
+176 191  "Group 12"
+192 207  "Group 13"
+208 223  "Group 14"
+224 239  "Group 15"
+240 255  "Group 16"
+REND
+
+RANGE 3  ;Picture
+0   15   "Picture 1"
+16  31   "Picture 2"
+32  47   "Picture 3"
+48  63   "Picture 4"
+64  79   "Picture 5"
+80  95   "Picture 6"
+96  111  "Picture 7"
+112 127  "Picture 8"
+128 143  "Picture 9"
+144 159  "Picture 10"
+160 175  "Picture 11"
+176 191  "Picture 12"
+192 207  "Picture 13"
+208 223  "Picture 14"
+224 239  "Picture 15"
+240 255  "Picture 16"
+REND
+
+RANGE 4  ;X Adjust
+0   15   "1/16"
+16  31   "2/16"
+32  47   "3/16"
+48  63   "4/16"
+64  79   "5/16"
+80  95   "6/16"
+96  111  "7/16"
+112 127  "8/16"
+128 143  "9/16"
+144 159  "10/16"
+160 175  "11/16"
+176 191  "12/16"
+192 207  "13/16"
+208 223  "14/16"
+224 239  "15/16"
+240 255  "100%"
+REND
+
+RANGE 5  ;Y Adjust
+0   15   "1/16"
+16  31   "2/16"
+32  47   "3/16"
+48  63   "4/16"
+64  79   "5/16"
+80  95   "6/16"
+96  111  "7/16"
+112 127  "8/16"
+128 143  "9/16"
+144 159  "10/16"
+160 175  "11/16"
+176 191  "12/16"
+192 207  "13/16"
+208 223  "14/16"
+224 239  "15/16"
+240 255  "100%"
+REND
+

@@ -1,0 +1,221 @@
+; "Robe Wash 150 Mode 3", 6 DMX channels, filename :Rows1503.r20 	Alias- FL mh420
+;
+;   Date        By          Description
+;   27-09-06    D.Milligan  Created from ROWS150.R20
+;   26-08-09    David Hunt  Changed Colour range table and Device reference
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  RO_WS150XT3                                   6 DMX channels
+NAME "Robe" "Wash 150 XT, Mode 3"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  6  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2   530  280
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the curernt result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+;
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=507
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt, 
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom, 
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX
+3   61   L   1   100   1N   E   1   "Pan"         128   -1   -1 
+3    1   L   2   100   1N   F   1   "Tilt"        128   -1   -1 
+8    1   I   3   100   1N   0   1   "P/T Spd"       0    0    0
+4    1   I   4   100   1N   A   1   "Colour"        0    0  106
+1    1   H   5   100   1N   H   1   "Dimmer"      255  255  255
+2   61   L   6   100   1N   O   1   "Shutter"     255  255  255
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+  Robe Wash 150
+      Mode1
+Bank WheelA  WheelB
+---------------------
+ 1 Dimmer    --
+ 2 --        Shutter
+ 3 Tilt      Pan
+ 4 Colour    --
+ 5 --        --
+ 6 --        --
+ 7 --        --
+ 8 Speed p/t --
+ 9 --        --
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+;
+; Positions
+PFTABLE "Pan/Tilt"   -1   1   2
+"Middle"             21  80  80
+"Left"               22  4F  80
+"Right"              23  B0  80
+"Top"                24  80  4F
+"Bottom"             25  80  B0
+"TLeft"              26  4F  4F
+"TRight"             27  B0  B0
+"BLeft"              28  4F  B0
+"BRight"             29  B0  4F
+PFEND
+
+PFTABLE "Colour"     -1   6
+"Open"                1   0
+"Red"                 2  15
+"Orange"              3  75
+"Yellow"              4  4A
+"Green"               5  55
+"Cyan"                6  20
+"Blue"                7  6A
+"Magenta"             9  35
+"Magenta"            10  35
+"Pink"                8  60
+PFEND
+
+;
+; Macros
+MACRO "LAMP ON" 1   8
+"data"          0   85
+"delay"         1   30
+"data"          0   0
+MEND
+;
+MACRO "LAMP OFF" 2    8
+"data"           0   eb
+"delay"          1   50
+"data"           0    0
+MEND
+;
+MACRO "RESET" 3    8
+"data"           0   85
+"delay"          1   30
+"data"           0    0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 3  ;P/T Speed
+0   0   "Tracking"
+1   249  "Speed %3d%%"100-(((c-a)*100)/(b-a))
+250 252  "BO w C/G"
+253 255  "BO PTCG"
+REND
+
+RANGE 4  ;Colour
+0   0    "Open"
+1   9    "Op/Tq %3d%%"(c-a)*100/(b-a)
+10  10   "Turquoise"
+11  20   "Tq/Red %3d%%"(c-a)*100/(b-a)
+21  21   "Red"
+22  31   "Red/Cy %3d%%"(c-a)*100/(b-a)
+32  32   "Cyan"
+33  41   "Cy/LG %3d%%"(c-a)*100/(b-a)
+42  42   "Light Green"
+43  52   "LG/Mag %3d%%"(c-a)*100/(b-a)
+53  53   "Magenta"
+54  63   "Mag/LB %3d%%"(c-a)*100/(b-a)
+64  64   "Light Blue"
+65  73   "LB/Yel %3d%%"(c-a)*100/(b-a)
+74  74   "Yellow"
+75  84   "Yel/Gn %3d%%"(c-a)*100/(b-a)
+85  85   "Green"
+86  95   "Gn/Pnk %3d%%"(c-a)*100/(b-a)
+96  96   "Pink"
+97  105  "Pnk/Bl %3d%%"(c-a)*100/(b-a)
+106 106  "Blue"
+107 116  "Bl/Org %3d%%"(c-a)*100/(b-a)
+117 117  "Orange"
+118 127  "Org/Op %3d%%"(c-a)*100/(b-a)
+128 189  "Sc CW %3d%%"100-((c-a)*100/(b-a))
+190 193  "No Scroll"
+194 255  "Sc CCW %3d%%"(c-a)*100/(b-a)
+REND
+
+RANGE 6  ;Shutter
+0   0    "Closed"
+1   63   "Int %3d%%"0+(((c-a)*100)/(b-a))
+64  95   "Open"
+96  127  "Strobe %3d%%"0+(((c-a)*100)/(b-a))
+128 139  "Reset"
+140 159  "Closed"
+160 175  "Op Pls %3d%%"0+(((c-a)*100)/(b-a))
+176 191  "Cl Pls %3d%%"100-(((c-a)*100)/(b-a))
+192 223  "Rnd St %3d%%"0+(((c-a)*100)/(b-a))
+224 255  "Open"
+REND

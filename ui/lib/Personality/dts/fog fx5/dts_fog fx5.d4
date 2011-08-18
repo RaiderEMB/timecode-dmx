@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Fog FX5" ShortName="Fog  FX5" Company="DTS">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="26-07-04" Author="Phil Rogers" Comment="Created" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="2" PowerOn="1:0" />
+      <Function ID="1" Name="Fog Off" Display="'Fog Off'" Dmx="0~249" />
+      <Function ID="2" Name="Fog On" Display="'Fog On'" Dmx="250~255" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="2 DMX, 8bit" Channels="2">
+    <Import PearlRef="DTS_FogFX5" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="2" Wheel="1" />
+      <Attribute ID="Control" ChannelOffset="1" Wheel="28" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Fog On">
+      <Set Channel="Control:2" Delay="1000" />
+    </Macro>
+    <Macro Name="Fog Off">
+      <Set Channel="Control:1" Delay="1000" />
+    </Macro>
+  </Macro>
+</Fixture>

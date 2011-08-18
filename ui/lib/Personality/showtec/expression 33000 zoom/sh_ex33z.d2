@@ -1,0 +1,114 @@
+;-----------------------------------------------------------------------|
+; The Showtec Expression 33000 Zoom, 30 DMX channels                    |
+;-----------------------------------------------------------------------|
+; History  :-                                                           |
+;-----------------------------------------------------------------------|
+; Revision |  Date     |  By        | Description                       |
+;----------|-----------|------------|-----------------------------------|
+; 1.0      |  12-07-11 |John Rogers | Created from High End Showgun     |
+;-----------------------------------------------------------------------|
+
+DEVICE=SH_EX33000Z                ; Device Name (upto 11 chars after '=')
+DEVICE23=15 DMX, 16bit            ; 22 chars after '='
+								  ; extra information for softkey prompt lines 2&3
+								  ; a total of 22 chars, split into 2 lines of 11
+
+; Device information
+;                                  __ Number of lines of DMX info.
+;                                 |  __ Number of lines of wheel info
+;                                 | |
+;                                 | |
+;                                 | |
+HSTART 3 15  1b05 540 270 ff 0 11 15 13
+;      |  |  |    |   |  |  | |
+;      |  |  |    |   |  |  | |__ Line number for flash button DMX info
+;      |  |  |    |   |  |  |      from DMX definition (1..x)
+;      |  |  |    |   |  |  |__ Button release value
+;      |  |  |    |   |  |__ Button ON value (ff means use swop/add fader)
+;      |  |  |    |   |__ The TILT arc in Degrees
+;      |  |  |    |__ The Pan arc in degrees
+;      |  |  |__ Date in PC format (1b05==5/08/93)
+;      |  |__ Number of DMX slots used
+;      |__ Patch direction (1-backward, 0 forward, (3 for moving head, 1 for Moving Mirror))
+
+
+
+TEXTSTART          ; Upto 21 lines of 28 characters (use the template below)
+                               ;
+			Showtec            ;
+							   ;			
+		   Expression          ;
+           33000 Zoom          ;
+							   ;
+          30 DMX, 16bit        ;
+                               ;
+TEXTEND
+
+
+;------------------------------------------------------------
+
+; For the Attribute Dictionary refer to file 'dict.per'
+
+;------------------------------------------------------------
+; DMX information
+; No unused lines allowed between keyword 'DSTART' and last DMX definition
+
+DSTART               ; DMX defintion
+1  2 20 0  13 0      ; Pan			
+2  0  0 0 123 0      ; Pan Low
+3  2 20 0  14 0      ; Tilt
+4  0  0 0 124 0      ; Tilt Low
+5  2  0 0  58 0      ; PT Speed
+6  2  0 0   5 0      ; Red
+7  2  0 0  10 0      ; Green
+8  2  0 0   6 0      ; Blue
+9  2  0 0 122 0      ; White
+10 2 40 0  81 0      ; Col Macro
+11 1  0 0   0 0      ; Dimmer
+12 2  0 0  24 0      ; Shutter
+13 2  0 0  43 0      ; Zoom
+14 2  0 0  25 0      ; Dimmer Speed
+15 2  0 0  52 0      ; Control
+;| |  | |  | |
+;| |  | |  | |__ Spare (always 0)
+;| |  | |  |__ Attribute name (See list above)
+;| |  | |__ Curve (0 means no curve otherwise curve number)
+;| |  |__ Flags (7=inverted, 40=instant, 20=16-bit)
+;| |__ Channel type (1=HTP, 2=LTP, 0=Dummy(for 16-bit defines)
+;|_ DMX offset (1..255, 0 means DIMMER will be patched seperately)
+
+
+;------------------------------------------------------------
+; WHEEL information
+; No unused lines allowed between keyword 'WSTART' and last DMX definition
+
+WSTART
+4 ffff 8080 3  13 1  5  0 2  0  1  0  0  0  0  0  ; Pan
+4 ffff 8080 3  14 1  6  0 2  2  3  0  0  0  0  0  ; Tilt
+8 ffff    0 1  58 0 42  0 1  4  5  0  0  0  0  0  ; PT Speed
+8 ffff    0 1   5 0 13  0 1  5  6  0  0  0  0  0  ; Red
+8 ffff    0 1  10 0 14  0 1  6  7  0  0  0  0  0  ; Green
+8 ffff    0 1   6 0 15  0 1  7  8  0  0  0  0  0  ; Blue
+8 ffff    0 1 122 0 16  0 1  8  9  0  0  0  0  0  ; White
+8 ffff    0 1  81 0 11  0 1  9 10  0  0  0  0  0  ; Col Macro
+8 ffff ffff 4   0 0  8  0 1 10 11  0  0  0  0  0  ; Dimmer
+8 ffff    0 1  24 0  7  0 1 11 12  0  0  0  0  0  ; Shutter
+8 ffff 8080 1  43 0 33  0 1 12 13  0  0  0  0  0  ; Zoom
+8 ffff    0 1  25 0 43  0 1 13 14  0  0  0  0  0  ; Dimmer Speed
+8 ffff    0 1  52 0 41  0 1 14 15  0  0  0  0  0  ; Control
+;A BBB CCCC D EEE F GG  H I JJ KK  L  L  L  L  L  ;Name
+;|   |    | |   | |  |  | |  |  |  |  |  |  |  |__L. List of Table channels as
+;|   |    | |   | |  |  | |  |  |___K. line numbers from DMX def.
+;|   |    | |   | |  |  | |  |         0 means unused channel
+;|   |    | |   | |  |  | |  |__J. DMX line (minus 1) pertainig to this wheel
+;|   |    | |   | |  |  | |__I. Number of chanels under control OR Table width
+;|   |    | |   | |  |  |__H. Table type (Attribute number) 0 means NOT a table
+;|   |    | |   | |  |__G. Wheel number (1..8 on bank1, 9..16 on bank2 et cetera)
+;|   |    | |   | |__F. 0 for 8 bits, 1 for 16 bits
+;|   |    | |   |__E.  Attribute name from above list (0..MAX)
+;|   |    | |__D. Wheel type (1-offset, 2-Table, 3-Pan/Tilt, 4-Dimmer)
+;|   |    |__C. Default/Locate value (left shifted as necessary)
+;|   |__B. AND mask, where more than wheel controls same DMX slot
+;|__A. Wheel multiplication =16-(bits used)
+;	eg. for 8 bit channels it is 8, for 12 bit channels it is 4
+

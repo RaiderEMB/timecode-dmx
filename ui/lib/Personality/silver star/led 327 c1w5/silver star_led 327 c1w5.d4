@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="LED 327 C1W5" ShortName="LED  C1W5" Company="Silver Star">
+  <Copyright Notice="© Avolites Ltd. 2011" />
+  <History Date="30-03-11" Author="John Rogers" Comment="Created" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="CTO" Name="CTO" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="CTO C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,240,200" />
+    </Attribute>
+    <Attribute ID="CTB" Name="CTB" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="CTB C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="230,230,255" />
+    </Attribute>
+    <Attribute ID="Focus" Name="Focus" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Focus" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~200" />
+      <Function ID="2" Name="Reset" Display="'Reset'" Dmx="201~220" />
+      <Function ID="3" Name="Reserved" Display="'Reserved %.f',221~255" Dmx="221~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="5 DMX, 8bit" Channels="5">
+    <Import PearlRef="SS_LEDC1W5" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="1" Wheel="1" />
+      <Attribute ID="CTO" ChannelOffset="2" Wheel="7" />
+      <Attribute ID="CTB" ChannelOffset="3" Wheel="8" />
+      <Attribute ID="Focus" ChannelOffset="4" Wheel="20" />
+      <Attribute ID="Control" ChannelOffset="5" Wheel="28" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Reset">
+      <Set Channel="Control:2" Delay="6000" />
+      <Set Channel="Control:1:0" Delay="0" />
+    </Macro>
+  </Macro>
+</Fixture>

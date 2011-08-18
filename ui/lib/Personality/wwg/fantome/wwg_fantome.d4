@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Fantome" ShortName="Fantm" Company="WWG">
+  <Copyright Notice="© Avolites Ltd. 2009" />
+  <History Date="03-05-05" Author="Phil Rogers" Comment="Created" />
+  <History Date="10-05-05" Author="Tom" Comment="Checked" />
+  <History Date="06-04-06" Author="Ed" Comment="Made all Blade functions members of the beam group" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Gobo ID to Gobo1" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated GoboRot ID to Gobo1Rot" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <History Date="02-02-09" Author="D4 Personality Fixer 2009" Comment="Changed Function Names" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="PT_Speed" Name="P/T Speed" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Tracking" Display="'Tracking'" Dmx="0~3" />
+      <Function ID="2" Name="Speed" Display="'Speed %.f%%',100~0" Dmx="4~255" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control 1" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~0" />
+      <Function ID="2" Name="Shutdown" Display="'Shutdown'" Dmx="120~130" />
+      <Function ID="3" Name="Home Mirrors" Display="'Home Mirrors'" Dmx="160~168" />
+    </Attribute>
+    <Attribute ID="Zoom" Name="Zoom" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Zoom" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Focus" Name="Focus" Description="" Group="B">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Focus" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Blade1Sel" Name="Blade 1 Select" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Normal" Display="'Normal'" Dmx="0~50" Update="Blade1Angle" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Concave" Display="'Concave'" Dmx="53~102" Update="Blade1Angle" Iris="0~0" Zoom="0~0" />
+      <Function ID="3" Name="Shallow Concave" Display="'Shallow Concave'" Dmx="104~153" Update="Blade1Angle" Iris="0~0" Zoom="0~0" />
+      <Function ID="4" Name="Convex" Display="'Convex'" Dmx="156~204" Update="Blade1Angle" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Blade1" Name="Blade 1" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Blade" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Blade1Angle" Name="Blade 1 Angle" Description="" Group="B" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Normal" ID="1" If="'Blade1Sel'==1||'Blade1Sel'==2" />
+      <Condition Name="Concave" ID="2" If="'Blade1Sel'==3||'Blade1Sel'==4" />
+      <Else ID="2,1" />
+      <Function ID="2" Name="Angle" Display="'%.1f°',0.0~164.0" Dmx="0~65535" Iris="0~0" Zoom="0~0" />
+      <Function ID="1" Name="Angle" Display="'%.1f°',0.0~235.0" Dmx="0~65535" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Blade2Sel" Name="Blade 2 Select" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Normal" Display="'Normal'" Dmx="0~50" Update="Blade2Angle" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Concave" Display="'Concave'" Dmx="53~102" Update="Blade2Angle" Iris="0~0" Zoom="0~0" />
+      <Function ID="3" Name="Shallow Concave" Display="'Shallow Concave'" Dmx="104~153" Update="Blade2Angle" Iris="0~0" Zoom="0~0" />
+      <Function ID="4" Name="Convex" Display="'Convex'" Dmx="156~204" Update="Blade2Angle" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Blade2" Name="Blade 2" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Blade" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Blade2Angle" Name="Blade 2 Angle" Description="" Group="B" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Normal" ID="1" If="'Blade2Sel'==1||'Blade2Sel'==2" />
+      <Condition Name="Concave" ID="2" If="'Blade2Sel'==3||'Blade2Sel'==4" />
+      <Else ID="2,1" />
+      <Function ID="2" Name="Angle" Display="'%.1f°',0.0~164.0" Dmx="0~65535" Iris="0~0" Zoom="0~0" />
+      <Function ID="1" Name="Angle" Display="'%.1f°',0.0~235.0" Dmx="0~65535" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Blade3Sel" Name="Blade 3 Select" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Normal" Display="'Normal'" Dmx="0~50" Update="Blade3Angle" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Concave" Display="'Concave'" Dmx="53~102" Update="Blade3Angle" Iris="0~0" Zoom="0~0" />
+      <Function ID="3" Name="Shallow Concave" Display="'Shallow Concave'" Dmx="104~153" Update="Blade3Angle" Iris="0~0" Zoom="0~0" />
+      <Function ID="4" Name="Convex" Display="'Convex'" Dmx="156~204" Update="Blade3Angle" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Blade3" Name="Blade 3" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Blade" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Blade3Angle" Name="Blade 3 Angle" Description="" Group="B" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Normal" ID="1" If="'Blade3Sel'==1||'Blade3Sel'==2" />
+      <Condition Name="Concave" ID="2" If="'Blade3Sel'==3||'Blade3Sel'==4" />
+      <Else ID="1,2" />
+      <Function ID="1" Name="Angle" Display="'%.1f°',0.0~235.0" Dmx="0~65535" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Angle" Display="'%.1f°',0.0~164.0" Dmx="0~65535" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Blade4Sel" Name="Blade 4 Select" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Normal" Display="'Normal'" Dmx="0~50" Update="Blade4Angle" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Concave" Display="'Concave'" Dmx="53~102" Update="Blade4Angle" Iris="0~0" Zoom="0~0" />
+      <Function ID="3" Name="Shallow Concave" Display="'Shallow Concave'" Dmx="104~153" Update="Blade4Angle" Iris="0~0" Zoom="0~0" />
+      <Function ID="4" Name="Convex" Display="'Convex'" Dmx="156~204" Update="Blade4Angle" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Blade4" Name="Blade 4" Description="" Group="B">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Blade" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Blade4Angle" Name="Blade 4 Angle" Description="" Group="B" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Normal" ID="1" If="'Blade4Sel'==1||'Blade4Sel'==2" />
+      <Condition Name="Concave" ID="2" If="'Blade4Sel'==3||'Blade4Sel'==4" />
+      <Else ID="1,2" />
+      <Function ID="1" Name="Angle" Display="'%.1f°',0.0~235.0" Dmx="0~65535" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Angle" Display="'%.1f°',0.0~164.0" Dmx="0~65535" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo1" Name="Gobo" Description="" Group="G">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="28~50" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Gobo 1" Display="'Gobo 1'" Dmx="0~25" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Gobo 2" Display="'Gobo 2'" Dmx="53~76" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="4" Name="Gobo 3" Display="'Gobo 3'" Dmx="79~102" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="5" Name="Gobo 4" Display="'Gobo 4'" Dmx="104~128" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="6" Name="Gobo 5" Display="'Gobo 5'" Dmx="130~153" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Gobo1Rot" Name="Gobo Rot" Description="" Group="G" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Index" Display="'%.f°',0~355" Dmx="0~65535" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Iris" Name="Iris" Description="" Group="B">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Iris" Display="'%.1f%%',100.0~0.0" Dmx="0~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I" Size="2">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Frost" Name="Frost" Description="" Group="B" Size="2">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~3084" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Frost" Display="'Frost'" Dmx="3341~65535" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Control1" Name="Control 2" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~0" />
+      <Function ID="2" Name="Lamp On" Display="'Lamp On'" Dmx="104~128" />
+      <Function ID="3" Name="Lamp Off" Display="'Lamp Off'" Dmx="53~77" />
+      <Function ID="4" Name="Reset" Display="'Reset'" Dmx="160~168" />
+      <Function ID="5" Name="Reset_Shutter" Display="'Reset Shutters'" Dmx="186~194" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour 1" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour2" Name="Colour 2" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour3" Name="Colour 3" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+  </Control>
+  <Mode Name="36 DMX, 16bit" Channels="36">
+    <Import PearlRef="WWG_Fantome" DiamondRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Mirror" PanMax="270" TiltMax="360" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="29,30" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="1,2" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="3,4" Wheel="3" />
+      <Attribute ID="Colour1" ChannelOffset="34" Wheel="7" />
+      <Attribute ID="Colour2" ChannelOffset="35" Wheel="8" />
+      <Attribute ID="Colour3" ChannelOffset="36" Wheel="9" />
+      <Attribute ID="Gobo1" ChannelOffset="25" Wheel="14" />
+      <Attribute ID="Gobo1Rot" ChannelOffset="26,27" Wheel="15" />
+      <Attribute ID="Blade1Sel" ChannelOffset="9" Wheel="34" />
+      <Attribute ID="Blade1" ChannelOffset="10" Wheel="35" />
+      <Attribute ID="Blade1Angle" ChannelOffset="11,12" Wheel="36" />
+      <Attribute ID="Blade2Sel" ChannelOffset="13" Wheel="37" />
+      <Attribute ID="Blade2" ChannelOffset="14" Wheel="38" />
+      <Attribute ID="Blade2Angle" ChannelOffset="15,16" Wheel="39" />
+      <Attribute ID="Blade3Sel" ChannelOffset="17" Wheel="40" />
+      <Attribute ID="Blade3" ChannelOffset="18" Wheel="41" />
+      <Attribute ID="Blade3Angle" ChannelOffset="19,20" Wheel="42" />
+      <Attribute ID="Blade4Sel" ChannelOffset="21" Wheel="43" />
+      <Attribute ID="Blade4" ChannelOffset="22" Wheel="44" />
+      <Attribute ID="Blade4Angle" ChannelOffset="23,24" Wheel="45" />
+      <Attribute ID="Zoom" ChannelOffset="7" Wheel="19" />
+      <Attribute ID="Focus" ChannelOffset="8" Wheel="20" />
+      <Attribute ID="Iris" ChannelOffset="28" Wheel="21" />
+      <Attribute ID="Frost" ChannelOffset="31,32" Wheel="22" />
+      <Attribute ID="PT_Speed" ChannelOffset="5" Wheel="25" />
+      <Attribute ID="Control" ChannelOffset="6" Wheel="28" />
+      <Attribute ID="Control1" ChannelOffset="33" Wheel="29" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="Lamp On">
+      <Set Channel="Control1:2" Delay="7000" />
+      <Set Channel="Control1:1" Delay="5000" />
+    </Macro>
+    <Macro Name="Lamp Off">
+      <Set Channel="Control1:3" Delay="7000" />
+      <Set Channel="Control1:1" Delay="5000" />
+    </Macro>
+    <Macro Name="Reset">
+      <Set Channel="Control1:4,Control:3" Delay="7000" />
+      <Set Channel="Control1:1,Control:1" Delay="5000" />
+    </Macro>
+  </Macro>
+</Fixture>

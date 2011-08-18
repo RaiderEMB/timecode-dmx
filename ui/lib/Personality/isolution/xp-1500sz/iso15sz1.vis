@@ -1,0 +1,210 @@
+// iSolution - XP-1500SZ
+// Avolites Visualiser Extension File
+// Copyright © Avolites Ltd. 2010
+//_________________________________________________________________________________
+// File Name: ISO15SZ1.VIS
+// Created by: Personality_Builder - Version 1.5
+// Date: 19/01/2010 15:08:11
+// Exported From: XP-1500SZ
+//_________________________________________________________________________________
+
+Device ISO_XP15SZ1
+
+// Pan
+ChanRef Pan
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+    DmxOffset 1 2
+    Mapping 0 65535 -265.000000 265.000000
+End
+
+// Tilt
+ChanRef Tilt
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
+    DmxOffset 3 4
+    Mapping 0 65535 -135.000000 135.000000
+End
+
+// Shutter
+ChanRef Dimmer
+    Vismode Strobe
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 6
+    Mapping 0 7 0 0				//Closed
+	Mapping 8 15 1 1				//Open
+	Mapping 16 131 30 300		//Strobe
+    Mapping 240 247 30 300		//Random Strobe
+    Mapping 248 255 1 1			//Open
+End
+
+// Shutter
+ChanRef Dimmer
+	Vismode Speed
+	UseBits 1 2 3 4 5 6 7 8
+	DmxOffset 6
+	Mapping 132 167 10 100		//Open Pulse
+    Mapping 168 203 100 10		//Close Pulse
+End
+
+// VisMode Pulse, works like Speed but alternates direction (bounces)
+// Place before VisMode Value for backwards compatibility
+ChanRef Dimmer
+	Vismode Pulse
+	UseBits 1 2 3 4 5 6 7 8
+	DmxOffset 6
+	Mapping 204 239 10 100		//Pulse
+End
+
+// Dimmer
+ChanRef Dimmer
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 7
+    Mapping 0 255 0 255
+End
+
+// Colour
+ChanRef Color Wheel 1
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 8
+    Mapping 0 7 White
+    Mapping 8 15 RGB240,0,0
+    Mapping 16 23 RGB240,240,0
+    Mapping 24 31 RGB240,140,140
+    Mapping 32 39 RGB0,240,0
+    Mapping 40 47 RGB240,0,240
+    Mapping 48 55 RGB240,120,0
+    Mapping 56 63 RGB0,0,240
+End
+
+ChanRef Color Wheel 1
+// Colour
+    Vismode Speed
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 8
+    Mapping 128 191 50 5
+    Mapping 192 255 -5 -50
+End
+
+// Cyan
+ChanRef Red
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 9
+    Mapping 0 255 255 0
+End
+
+// Magenta
+ChanRef Green
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 10
+    Mapping 0 255 255 0
+End
+
+// Yellow
+ChanRef Blue
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 11
+    Mapping 0 255 255 0
+End
+
+// Gobo 1
+ChanRef Gobo 1
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 14
+    Mapping 0 9 Twelve Point Star
+    Mapping 10 19 Number One
+    Mapping 20 28 Number Two
+    Mapping 29 38 Number Three
+    Mapping 39 47 Number Four
+    Mapping 48 57 Number Five
+    Mapping 58 67 Number Six
+End
+
+ChanRef Gobo 1
+// Gobo 1
+    Vismode Speed
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 14
+    Mapping 128 191 50 5
+    Mapping 192 255 -5 -50
+End
+
+// Gobo 1 Rot
+ChanRef Gobo 1 Rotate
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 15
+    Mapping 0 127 -180 180
+End
+
+ChanRef Gobo 1 Rotate
+// Gobo 1 Rot
+    Vismode Speed
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 15
+    Mapping 128 191 20 5
+    Mapping 192 252 -5 -20
+End
+
+// Gobo 2
+ChanRef Gobo 2
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 16
+    Mapping 0 9 Twelve Point Star
+    Mapping 10 19 Number One
+    Mapping 20 28 Number Two
+    Mapping 29 38 Number Three
+    Mapping 39 47 Number Four
+    Mapping 48 57 Number Five
+    Mapping 58 67 Number Six
+End
+
+ChanRef Gobo 2
+// Gobo 2
+    Vismode Speed
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 16
+    Mapping 128 191 50 5
+    Mapping 192 255 -5 -50
+End
+
+// Gobo 2 Rot
+ChanRef Gobo 2 Rotate
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 17
+    Mapping 0 127 -180 180
+End
+
+ChanRef Gobo 2 Rotate
+// Gobo 2 Rot
+    Vismode Speed
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 17
+    Mapping 128 191 20 5
+    Mapping 192 252 -5 -20
+End
+
+// Iris
+ChanRef Iris
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 20
+    Mapping 0 255 0 1
+End
+
+// Zoom
+ChanRef Zoom
+    Vismode Value
+    UseBits 1 2 3 4 5 6 7 8
+    DmxOffset 22
+    Mapping 0 255 10 30
+End
+

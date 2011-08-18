@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="ArenaView Orbital" ShortName="AV Orbital" Company="High End">
+  <Copyright Notice="© Avolites Ltd. 2010" />
+  <History Date="13-12-02" Author="D.Shelton" Comment="Created" />
+  <History Date="16-12-02" Author="D.Shelton" Comment="Updated referencing of 16-bit channels" />
+  <History Date="06-01-03" Author="D.Shelton" Comment="Standardised Display of Channels" />
+  <History Date="04-03-03" Author="D.Shelton" Comment="Updated ID's for Shape Generator" />
+  <History Date="15-07-03" Author="D.Shelton" Comment="Added head type" />
+  <History Date="06-04-06" Author="Ed" Comment="Moved control to special group" />
+  <History Date="10-04-06" Author="Ed" Comment="Moved MSpeed into Special group" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Pan Power on to Locate value" />
+  <History Date="18-07-06" Author="D4 Pers Fixer" Comment="Updated Tilt Power on to Locate value" />
+  <History Date="15-12-10" Author="Nic Morris" Comment="Adapted from Catalyst Mirror" />
+  <History Date="16-12-10" Author="John Rogers" Comment="Edited MSpeed Custom Range to prevent errors." />
+  <Manual Filename="http://www.highend.com/pub/products/digital_lighting/ArenaViewOrbitalHead/ArenaViewManual.pdf" Summary="" />
+  <Control>
+    <Attribute ID="Pan" Name="Mirror 1" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Pan" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Mirror 2" Description="" Group="P" Size="2">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Function ID="1" Name="Tilt" Display="'%.2f%%',0.00~100.00" Dmx="0~65535" />
+    </Attribute>
+    <Attribute ID="MSpeed" Name="MSpeed" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~0" />
+      <Function ID="2" Name="MSpeed" Display="'%.1f%%',0.0~235.0" Dmx="255~4" />
+    </Attribute>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~9" />
+      <Function ID="2" Name="MSpeed Off" Display="'MSpeed Off'" Dmx="10~19" />
+      <Function ID="3" Name="Display Off" Display="'Display Off'" Dmx="20~28" />
+      <Function ID="4" Name="Display Dim" Display="'Display Dim'" Dmx="30~38" />
+      <Function ID="5" Name="Display Bright" Display="'Display Bright'" Dmx="40~48" />
+      <Function ID="6" Name="Home" Display="'Home'" Dmx="60~68" />
+    </Attribute>
+  </Control>
+  <Mode Name="6 DMX" Channels="6">
+    <Import PearlRef="HE_CatMir" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Mirror" PanMax="270" TiltMax="360" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Pan" ChannelOffset="1,2" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="3,4" Wheel="3" />
+      <Attribute ID="MSpeed" ChannelOffset="5" Wheel="25" />
+      <Attribute ID="Control" ChannelOffset="6" Wheel="28" />
+    </Include>
+  </Mode>
+  <Macro>
+    <Macro Name="MSpeed Off">
+      <Set Channel="Control:2" Delay="7000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Display Off">
+      <Set Channel="Control:3" Delay="7000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Display Dim">
+      <Set Channel="Control:4" Delay="7000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Display Bright">
+      <Set Channel="Control:5" Delay="7000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+    <Macro Name="Home">
+      <Set Channel="Control:6" Delay="7000" />
+      <Set Channel="Control:1" Delay="0" />
+    </Macro>
+  </Macro>
+  <Palettes>
+    <Group Name="Position">
+      <Palette ID="1" Name="Middle" Number="21" Page="1" SetControl="Pan:1:50,Tilt:1:50" />
+      <Palette ID="2" Name="Left" Number="22" Page="1" SetControl="Pan:1:31,Tilt:1:50" />
+      <Palette ID="3" Name="Right" Number="23" Page="1" SetControl="Pan:1:69,Tilt:1:50" />
+      <Palette ID="4" Name="Top" Number="24" Page="1" SetControl="Pan:1:50,Tilt:1:31" />
+      <Palette ID="5" Name="Bottom" Number="25" Page="1" SetControl="Pan:1:50,Tilt:1:69" />
+      <Palette ID="6" Name="TLeft" Number="26" Page="1" SetControl="Pan:1:31,Tilt:1:31" />
+      <Palette ID="7" Name="TRight" Number="27" Page="1" SetControl="Pan:1:69,Tilt:1:69" />
+      <Palette ID="8" Name="BLeft" Number="28" Page="1" SetControl="Pan:1:31,Tilt:1:69" />
+      <Palette ID="9" Name="BRight" Number="29" Page="1" SetControl="Pan:1:69,Tilt:1:31" />
+    </Group>
+  </Palettes>
+</Fixture>

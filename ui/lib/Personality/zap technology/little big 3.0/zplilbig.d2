@@ -1,0 +1,308 @@
+;-----------------------------------------------------------------------|
+;                 Zap Technology Little Big                       	|
+;-----------------------------------------------------------------------|
+;   History :-                                                          |
+;-----------------------------------------------------------------------|
+;   Revision |  Date     |  By       | Description                      |
+;------------|-----------|-----------|----------------------------------|
+;   1.0      |  04-03-09 | J.Moreton | Created from Big Lite            |
+;            |  04-03-09 | J.Moreton | Checked                          |
+;            |  05-03-09 | David Hunt| Checked
+;---------------------------------------------------------------------- |
+
+
+DEVICE=ZP_LitBig        ; Device Name (upto 11 chars) must be enclosed in single
+DEVICE23=               ; 22 chars after '='
+                        ; extra information for softkey prompt lines 2&3
+                        ; a total of 22 chars, split into 2 lines of 11
+
+;                                  __ Number of lines of DMX info.
+;                                 |   __ Number of lines of wheel info
+;                                 |  |
+;                                 |  |
+;                                 |  |
+HSTART  3 15 1b05 580 270 ff 0 8  15 13
+;       |  |  |    |   |  |  | |
+;       |  |  |    |   |  |  | |__ Line number for flash button DMX info
+;       |  |  |    |   |  |  |     from DMX definition (1..x)
+;       |  |  |    |   |  |  |__ Button release value
+;       |  |  |    |   |  |__ Button ON value (ff means use swop/add fader)
+;       |  |  |    |   |__ The TILT arc in Degrees
+;       |  |  |    |__ The Pan arc in degrees
+;       |  |  |__ Date in PC format (1b05==5/08/93)
+;       |  |__ Number of DMX slots used
+;       |__ Patch direction (1-backward, 2 forward)
+
+
+
+
+TEXTSTART       ; Upto 21 lines of 28 characters
+                            ;
+     Zap Technologies       ;
+       Little  Big          ;
+       PERSONALITY          ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+                            ;
+TEXTEND
+
+
+;------------------------------------------------------------
+
+; For the Attribute Dictionary refer to file 'dict.per'
+
+;------------------------------------------------------------
+; DMX information
+; No unused lines allowed between keyword 'DSTART' and last DMX definition
+
+DSTART              ; DMX Picture 
+1  2 20 0  13 0     ; Pan
+2  0  0 0  13 0     ; Pan Fine
+3  2 20 0  14 0     ; Tilt
+4  0  0 0  14 0     ; Tilt_Fine
+5  2  0 0  17 0     ; Strobe
+6  2  0 0  56 0     ; Delay
+7  1  0 0   0 0     ; Dimmer
+8  2  0 0 107 0     ; Functions
+9  2  0 0  51 0     ; FX
+10 2  0 0   4 0     ; Color
+11 2  0 0   7 0     ; Magenta
+12 2  0 0   8 0     ; Cyan
+13 2  0 0   9 0     ; Yellow
+14 2  0 0  24 0     ; Shutter
+15 2  0 0  12 0     ; Focus
+;| |  | |   | |
+;| |  | |   | |__ Spare (always 0 for now)
+;| |  | |   |__ Attribute name (See list above)
+;| |  | |__ Curve (0 means no curve otherwise curve number)
+;| |  |__ Flags (7=inverted, 40=instant, 20=16-bit)
+;| |__ Channel type (1=HTP, 2=LTP, 0=Dummy(for 16-bit defines)
+;|__ DMX offset (1..255, 0 means DIMMER will be patched seperately)
+
+
+;------------------------------------------------------------
+; WHEEL information
+
+WSTART
+4 ffff 8080 3  13  1  5  0   1 0  1  0  0  0  0  0      ; 1. Pan
+4 ffff 8080 3  14  1  6  0   1 2  3  0  0  0  0  0      ; 3. Tilt
+8 ffff    0 1  17  0  2  0   1 4  5  0  0  0  0  0      ; 5. Strobe
+8 ffff    0 1  56  0 41  0   1 5  6  0  0  0  0  0      ; 6. Delay
+8 ffff ffff 4  0   0  8  0   1 6  7  0  0  0  0  0      ; 7. Dimmer
+8 ffff    0 2  107 0 42  107 1 7  8  0  0  0  0  0      ; 8. Functions
+8 ffff    0 1  51  0 25  0   1 8  9  0  0  0  0  0      ; 9. FX
+8 ffff    0 1  4   0  9  0   1 9  10 0  0  0  0  0      ; 10. Colour
+8 ffff    0 1  7   0 11  0   1 10 11 0  0  0  0  0      ; 11. Magenta
+8 ffff    0 1  8   0 10  0   1 11 12 0  0  0  0  0      ; 12. Cyan
+8 ffff    0 1  9   0 12  0   1 12 13 0  0  0  0  0      ; 13. Yellow
+8 ffff ffff 1  24  0  1  0   1 13 14 0  0  0  0  0      ; 14 Shutter
+8 ffff 8080 1  12  0  3  0   1 14 15 0  0  0  0  0      ; 15. Focus
+;|   |    | |  |   |  |  |   |  |  |  |  |  |  |  |__ List of Table channels as
+;|   |    | |  |   |  |  |   |  |  |_______________ line numbers from DMX def.
+;|   |    | |  |   |  |  |   |  |                  ff or 0 means unused channel
+;|   |    | |  |   |  |  |   |  |__ DMX line pertainnig to this wheel (-1)
+;|   |    | |  |   |  |  |   |__ Number of chanels under control (Table width)
+;|   |    | |  |   |  |  |__ Table type (Attribute number) 0 means NOT a table
+;|   |    | |  |   |  |__ Wheel number (1..8 on bank1, 9..16 on bank2 et cetera)
+;|   |    | |  |   |__ 0 for 8 bits, 1 for 16 bits
+;|   |    | |  |__    Attribute name from above list (0..MAX)
+;|   |    | |__ Wheel type (1-offset, 2-Table, 3-Pan/Tilt, 4-Dimmer)
+;|   |    |__ Default value (left shifted as necessary)
+;|   |__ AND mask, where more than wheel controls same DMX slot
+;|__ Wheel multiplication =16-(bits used)
+;    eg. for 8 bit channels it is 8, for 12 bit channels it is 4
+
+
+; Macros
+MACRO "Lamp On"       1   6   8
+"data"                0  56   0
+"delay"               1   A
+"data"                0  56  64
+"delay"               1   A
+"data"                0  AB  64
+"delay"               1  32
+"data"                0   0  64
+"delay"               1   5
+"data"                0   0  28
+MEND
+
+MACRO "Reset All"     2   6   8
+"data"                0  56   0
+"delay"               1   A
+"data"                0  56  D2
+"delay"               1   A
+"data"                0  AB  D2
+"delay"               1  32
+"data"                0   0  D2
+"delay"               1   5
+"data"                0   0  28
+MEND
+
+MACRO "Lamp Off"      3   6   8
+"data"                0  56   0
+"delay"               1   A
+"data"                0  56  F0
+"delay"               1   A
+"data"                0  AB  F0
+"delay"               1  32
+"data"                0   0  F0
+"delay"               1   5
+"data"                0   0  28
+MEND
+
+MACRO "Lamp Reset"    4   6   8
+"data"                0  56   0
+"delay"               1   A
+"data"                0  56  AF
+"delay"               1   A
+"data"                0  AB  AF
+"delay"               1  32
+"data"                0   0  AF
+"delay"               1   5
+"data"                0   0  28
+MEND
+
+MACRO "Reset Effect"  5   6   8
+"data"                0  56   0
+"delay"               1   A
+"data"                0  56  B4
+"delay"               1   A
+"data"                0  AB  B4
+"delay"               1  32
+"data"                0   0  B4
+"delay"               1   5
+"data"                0   0  28
+MEND
+
+MACRO "Reset Colour"  6   6   8
+"data"                0  56   0
+"delay"               1   A
+"data"                0  56  B9
+"delay"               1   A
+"data"                0  AB  B9
+"delay"               1  32
+"data"                0   0  B9
+"delay"               1   5
+"data"                0   0  28
+MEND
+
+MACRO "Reset Magenta"  7   6   8
+"data"                0  56   0
+"delay"               1   A
+"data"                0  56  BE
+"delay"               1   A
+"data"                0  AB  BE
+"delay"               1  32
+"data"                0   0  BE
+"delay"               1   5
+"data"                0   0  28
+MEND
+
+MACRO "Reset Shutter"  8   6   8
+"data"                0  56   0
+"delay"               1   A
+"data"                0  56  C3
+"delay"               1   A
+"data"                0  AB  C3
+"delay"               1  32
+"data"                0   0  C3
+"delay"               1   5
+"data"                0   0  28
+MEND
+
+MACRO "Res Foc/Zm"    9   6   8
+"data"                0  56   0
+"delay"               1   A
+"data"                0  56  C8
+"delay"               1   A
+"data"                0  AB  C8
+"delay"               1  32
+"data"                0   0  C8
+"delay"               1   5
+"data"                0   0  28
+MEND
+
+MACRO "Reset Head"   10   6   8
+"data"                0  56   0
+"delay"               1   A
+"data"                0  56  CD
+"delay"               1   A
+"data"                0  AB  CD
+"delay"               1  32
+"data"                0   0  CD
+"delay"               1   5
+"data"                0   0  28
+MEND
+
+MACRO "Reset Cyan"   11   6   8
+"data"                0  56   0
+"delay"               1   A
+"data"                0  56  D7
+"delay"               1   A
+"data"                0  AB  D7
+"delay"               1  32
+"data"                0   0  D7
+"delay"               1   5
+"data"                0   0  28
+MEND
+
+MACRO "Reset Yellow" 12   6   8
+"data"                0  56   0
+"delay"               1   A
+"data"                0  56  DC
+"delay"               1   A
+"data"                0  AB  DC
+"delay"               1  32
+"data"                0   0  DC
+"delay"               1   5
+"data"                0   0  28
+MEND
+
+;--------------------------------------------------------------------
+; TABLES
+; Each Table is enclosed by the keywords "TSTART" and "*** TEND ***"
+; The legend is 16 chars long
+; The correct number of values must be supplied (8-bits) with spaces in
+; between
+
+; FUNCTION TABLE
+;         __ Table width (upto 6 allowed)
+;        |  __  Type of Table from attribute list
+;        | |
+TSTART  1 107
+Scroll Lin         2
+Scroll Cut         5
+Parab XCen        30
+Parab YCen        35
+Parab CenLck      40
+Strike           100
+Lamp Hr_Res      175
+Reset Effect     180
+Reset Col        185
+Reset Magent     190
+Reset Shutt      195
+Reset Focus      200
+Reset Head       205
+Reset All        210
+Reset Cyan       215
+Reset Yell       220
+Laser CntOn      225
+Laser CntOff     230
+Kill             240
+*** TEND ***
+
+;--------------------------------------------------------------------

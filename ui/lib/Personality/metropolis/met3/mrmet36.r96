@@ -1,0 +1,184 @@
+; 'Metropolis Met 3', 36 DMX Channels, filename: MRMET36.R96
+;
+;   Date       By                Description
+;   05-05-05   Phil Rogers       Created from Colorblaze 72
+;   01-06-05   John Snelling     Checked
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  MRM_Met3-36                          mode=12 Cells  36 DMX Channels
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  36  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  0   0   0
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 12 Cells"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=476
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 charcaters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+2     1   L    1   100   1N   O   1   "Red"             255   255     0
+2    61   L    2   100   1N   0   1   "Green"           255   255     0
+3     1   L    3   100   1N   0   1   "Blue"            255     0   229
+3    61   L    4   100   1N   0   1   "Red 2"           255   255     0
+4     1   L    5   100   1N   0   1   "Green 2"         255   255     0
+4    61   L    6   100   1N   0   1   "Blue 2"          255     0   229
+5     1   L    7   100   1N   0   1   "Red 3"           255   255     0
+5    61   L    8   100   1N   0   1   "Green 3"         255   255     0
+6     1   L    9   100   1N   0   1   "Blue 3"          255     0   229
+6    61   L   10   100   1N   0   1   "Red 4"           255   255     0
+7     1   L   11   100   1N   0   1   "Green 4"         255   255     0
+7    61   L   12   100   1N   0   1   "Blue 4"          255     0   229
+8     1   L   13   100   1N   0   1   "Red 5"           255   255     0
+8    61   L   14   100   1N   0   1   "Green 5"         255   255     0
+9     1   L   15   100   1N   0   1   "Blue 5"          255     0   229
+9    61   L   16   100   1N   0   1   "Red 6"           255   255     0
+10    1   L   17   100   1N   0   1   "Green 6"         255   255     0
+10   61   L   18   100   1N   0   1   "Blue 6"          255     0   229
+12    1   L   19   100   1N   0   1   "Red 7"           255   255     0
+12   61   L   20   100   1N   0   1   "Green 7"         255   255     0
+13    1   L   21   100   1N   0   1   "Blue 7"          255     0   229
+13   61   L   22   100   1N   0   1   "Red 8"           255   255     0
+14    1   L   23   100   1N   0   1   "Green 8"         255   255     0
+14   61   L   24   100   1N   0   1   "Blue 8"          255     0   229
+15    1   L   25   100   1N   0   1   "Red 9"           255   255     0
+15   61   L   26   100   1N   0   1   "Green 9"         255   255     0
+16    1   L   27   100   1N   0   1   "Blue 9"          255     0   229
+16   61   L   28   100   1N   0   1   "Red 10"          255   255     0
+17    1   L   29   100   1N   0   1   "Green 10"        255   255     0
+17   61   L   30   100   1N   0   1   "Blue 10"         255     0   229
+18    1   L   31   100   1N   0   1   "Red 11"          255   255     0
+18   61   L   32   100   1N   0   1   "Green 11"        255   255     0
+19    1   L   33   100   1N   0   1   "Blue 11"         255     0   229
+19   61   L   34   100   1N   0   1   "Red 12"          255   255     0
+20    1   L   35   100   1N   0   1   "Green 12"        255   255     0
+20   61   L   36   100   1N   0   1   "Blue 12"         255     0   229
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Metropolis Met3
+12 Cells
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+PFTABLE "RGB Col"  4   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36
+"White"            1  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff  ff
+"Red"              2  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00
+"Green"            3  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00
+"Blue"             4  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff  00  00  ff
+"Magenta"          5  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff
+"Cyan"             6  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff
+"Yellow"           7  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00  ff  ff  00
+"Black"            8  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00
+"Gold"             9  d9  d9  19  d9  d9  19  d9  d9  19  d9  d9  19  d9  d9  19  d9  d9  19  d9  d9  19  d9  d9  19  d9  d9  19  d9  d9  19  d9  d9  19  d9  d9  19
+"Orange"          10  ff  7f  00  ff  7f  00  ff  7f  00  ff  7f  00  ff  7f  00  ff  7f  00  ff  7f  00  ff  7f  00  ff  7f  00  ff  7f  00  ff  7f  00  ff  7f  00
+"Purple"          11  99  32  cd  99  32  cd  99  32  cd  99  32  cd  99  32  cd  99  32  cd  99  32  cd  99  32  cd  99  32  cd  99  32  cd  99  32  cd  99  32  cd
+"Dk Turqu"        12  70  93  db  70  93  db  70  93  db  70  93  db  70  93  db  70  93  db  70  93  db  70  93  db  70  93  db  70  93  db  70  93  db  70  93  db
+"Wood"            13  85  5e  42  85  5e  42  85  5e  42  85  5e  42  85  5e  42  85  5e  42  85  5e  42  85  5e  42  85  5e  42  85  5e  42  85  5e  42  85  5e  42
+"GrenYelow"       14  93  db  70  93  db  70  93  db  70  93  db  70  93  db  70  93  db  70  93  db  70  93  db  70  93  db  70  93  db  70  93  db  70  93  db  70
+"LtGreen"         15  32  ce  a6  32  ce  a6  32  ce  a6  32  ce  a6  32  ce  a6  32  ce  a6  32  ce  a6  32  ce  a6  32  ce  a6  32  ce  a6  32  ce  a6  32  ce  a6
+"Blue"            16  4d  4d  ff  4d  4d  ff  4d  4d  ff  4d  4d  ff  4d  4d  ff  4d  4d  ff  4d  4d  ff  4d  4d  ff  4d  4d  ff  4d  4d  ff  4d  4d  ff  4d  4d  ff
+"Pink"            17  ff  6e  c7  ff  6e  c7  ff  6e  c7  ff  6e  c7  ff  6e  c7  ff  6e  c7  ff  6e  c7  ff  6e  c7  ff  6e  c7  ff  6e  c7  ff  6e  c7  ff  6e  c7
+"OranRed"         18  ff  24  00  ff  24  00  ff  24  00  ff  24  00  ff  24  00  ff  24  00  ff  24  00  ff  24  00  ff  24  00  ff  24  00  ff  24  00  ff  24  00
+"SpicyPink"       19  ff  1c  ae  ff  1c  ae  ff  1c  ae  ff  1c  ae  ff  1c  ae  ff  1c  ae  ff  1c  ae  ff  1c  ae  ff  1c  ae  ff  1c  ae  ff  1c  ae  ff  1c  ae
+"Green"           20  00  ff  7f  00  ff  7f  00  ff  7f  00  ff  7f  00  ff  7f  00  ff  7f  00  ff  7f  00  ff  7f  00  ff  7f  00  ff  7f  00  ff  7f  00  ff  7f
+PFEND
+
+;----------------------------------------------------------------------------
+; Macros
+
+MACRO "All On"        1   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36
+"data"                0  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF  FF
+MEND
+
+MACRO "All Off"       2   1  10  11  12  13  14  15  16  17  18  19   2  20  21  22  23  24  25  26  27  28  29   3  30  31  32  33  34  35  36   4   5   6   7   8   9
+"data"                0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+MEND
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val

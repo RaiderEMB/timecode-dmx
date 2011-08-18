@@ -1,0 +1,192 @@
+; 'Pearl River Orland Scan', 7 DMX Channels, filename: PRORLAND.R20
+;
+;   Date       By                Description
+;   23-03-05   Pers Creator      Created - Exported from Diamond 4 file.
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  PR_OrlndScn                         mode=7 DMX, 8bit  7 DMX Channels
+NAME "Pearl River" "Orland Scan"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE  1  7  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  1   150   110
+;       |    |    |
+;       |    |    |_______ maximum tilt movement (in degrees)
+;       |    |____________ maximum pan movement (in degrees)
+;       |_________________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;   +,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;   & means logical AND
+;   | means logical OR
+;   R means reverse the bits of the current result (operates on a byte)
+;   ^ means logical Exclusive OR (operates on a byte)
+;   > means shift to the right
+;   < shift to the left
+;   r followed by number means get the value of that parameter
+;   d DMX address
+;   n Fixture name, a 0 terminated character string
+;   h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+"Set to 7 DMX, 8bit"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=505
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt,
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom,
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lowlight level of this channel
+;
+DMX
+7     1   L    1   100   1N   K   1   "Gobo Rot"          0     0     0
+4     1   I    2   100   1N   A   1   "Colour"            0     0     0
+6     1   I    3   100   1N   I   1   "Gobo"              0     0     0
+1     1   H    4   100   1N   H   1   "Dimmer"          139     0     0
+3    61   L    5   100   1N   E   1   "Pan"             127     0     0
+3     1   L    6   100   1N   F   1   "Tilt"            127     0     0
+9     1   I    7   100   1N   P   1   "Effect"            0     0     0
+END
+;
+;----------------------------------------------------------------------------
+TEXT
+Pearl River Orland Scan
+7 DMX, 8bit
+
+INPUT fixture DMX No.
+Press a Fixture
+Select or Swop button
+to make the patch.
+END
+
+ATTR
+Function Obsolete
+END
+
+;----------------------------------------------------------------------------
+; Preset Palette Tables
+
+;----------------------------------------------------------------------------
+; Macros
+
+;----------------------------------------------------------------------------
+; Range Tables
+
+; Column by column description...
+; 1. Low DMX value (inclusive)
+; 2. High DMX value (inclusive)
+; 3. Displayed text (max 11 chars)
+; Variables used a=low val, b=high val, c=DMX val
+
+RANGE 1  ;Gobo Rot
+0   64   "No Spin"
+65  190  "Index %3d%%"0+(((c-a)*100)/(b-a))
+191 222  "Sp CCW %3d%%"100-(((c-a)*100)/(b-a))
+223 255  "Spn CW %3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 2  ;Colour
+0   13   "Open"
+14  31   "Red"
+32  46   "Yellow"
+47  62   "Purple"
+63  77   "Green"
+78  95   "Orange"
+96  110  "Blue"
+111 127  "Pink"
+128 255  "Scroll %3d%%"100-(((c-a)*100)/(b-a))
+REND
+
+RANGE 3  ;Gobo
+0   7    "Open"
+8   16   "Gobo 1"
+17  26   "Gobo 2"
+27  36   "Gobo 3"
+37  49   "Gobo 4"
+50  64   "Gobo 5"
+65  77   "Comb Gobo 1"
+78  90   "Comb Gobo 2"
+91  103  "Comb Gobo 3"
+104 115  "Gobo 6"
+116 128  "Comb Gobo 4"
+129 141  "Comb Gobo 5"
+142 154  "Comb Gobo 6"
+155 166  "Gobo 7"
+167 179  "Comb Gobo 7"
+180 192  "Comb Gobo 8"
+193 205  "Comb Gobo 9"
+206 217  "Gobo 8"
+218 230  "Comb Gobo10"
+231 243  "Comb Gobo11"
+244 255  "Comb Gobo12"
+REND
+
+RANGE 4  ;Dimmer
+0   13   "Closed"
+14  139  "%3d%%"0+(((c-a)*100)/(b-a))
+140 243  "Strobe %3d Hz"0+(((c-a)*50)/(b-a))
+244 255  "Open"
+REND
+
+RANGE 5  ;Pan
+0   255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 6  ;Tilt
+0   255  "%3d%%"0+(((c-a)*100)/(b-a))
+REND
+
+RANGE 7  ;Effect
+0   41   "Open"
+42  85   "CTO"
+86  128  "CTB"
+131 171  "Prism"
+172 212  "Frost"
+213 255  "Open"
+REND
+

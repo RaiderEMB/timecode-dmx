@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Quasar Micro G50" ShortName="Micro G50" Company="Lanta Lighting">
+  <Copyright Notice="© Avolites Ltd. 2010" />
+  <History Date="11-08-10" Author="John Rogers" Comment="Created" />
+  <History Date="11-08-10" Author="John Rogers" Comment="Checked" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Mode" Name="Mode" Description="" Group="S">
+      <Locate Locate="4" PowerOn="4" />
+      <Function ID="1" Name="Off" Display="'Off'" Dmx="0~69" Update="Pan, Tilt, Zoom, Reserved, Y-Axis_Rot, X-Axis_Rot, Z-Axis_Rot" />
+      <Function ID="2" Name="Sound Active" Display="'Sound Active'" Dmx="70~139" Update="Pan, Tilt, Zoom, Reserved, Y-Axis_Rot, X-Axis_Rot, Z-Axis_Rot" />
+      <Function ID="3" Name="Auto Run" Display="'Auto Run'" Dmx="140~209" Update="Pan, Tilt, Zoom, Reserved, Y-Axis_Rot, X-Axis_Rot, Z-Axis_Rot" />
+      <Function ID="4" Name="Manual" Display="'Manual'" Dmx="210~255" Update="Pan, Tilt, Zoom, Reserved, Y-Axis_Rot, X-Axis_Rot, Z-Axis_Rot" />
+    </Attribute>
+    <Attribute ID="Pattern" Name="Pattern" Description="" Group="G">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Static" Display="'Static'" Dmx="0~39" WheelPosition="0" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Moving" Display="'Moving'" Dmx="40~215" WheelPosition="1" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="3" Name="Animation" Display="'Animation'" Dmx="216~255" WheelPosition="2" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Intensity="0~0" />
+    </Attribute>
+    <Attribute ID="Pan" Name="Pan" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Condition Name="Manual" ID="1" If="'Mode'==4" />
+      <Else ID="2,3" />
+      <Function ID="1" Name="Manual" Display="'Manual %.1f%%',0.0~100.0" Dmx="0~160" />
+      <Function ID="2" Name="Auto 1 Way" Display="'Auto 1 Way'" Dmx="161~220" />
+      <Function ID="3" Name="Auto 2 Way" Display="'Auto 2 Way'" Dmx="221~255" />
+    </Attribute>
+    <Attribute ID="Tilt" Name="Tilt" Description="" Group="P">
+      <Locate Locate="1:50" PowerOn="1:50" />
+      <Condition Name="Manual" ID="1" If="'Mode'==4" />
+      <Else ID="2,3,4" />
+      <Function ID="1" Name="Manual" Display="'Manual %.1f%%',0.0~100.0" Dmx="0~160" />
+      <Function ID="2" Name="Auto Down/Up" Display="'Auto Down/Up'" Dmx="161~190" />
+      <Function ID="3" Name="Auto Up/Down" Display="'Auto Up/Down'" Dmx="191~220" />
+      <Function ID="4" Name="Auto 2 Way" Display="'Auto 2 Way'" Dmx="221~255" />
+    </Attribute>
+    <Attribute ID="Zoom" Name="Zoom" Description="" Group="B">
+      <Locate Locate="1" PowerOn="1" />
+      <Condition Name="Manual" ID="1,2" If="'Mode'==4" />
+      <Else ID="3,4,5,6" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~10" Iris="0~0" Zoom="0~0" />
+      <Function ID="2" Name="Zoom" Display="'%.1f%%',0.0~100.0" Dmx="11~92" Iris="0~0" Zoom="0~0" />
+      <Function ID="3" Name="Open" Display="'Open'" Dmx="0~10" Iris="0~0" Zoom="0~0" />
+      <Function ID="4" Name="Auto Out" Display="'Auto Out'" Dmx="93~146" Iris="0~0" Zoom="0~0" />
+      <Function ID="5" Name="Auto In" Display="'Auto In'" Dmx="147~200" Iris="0~0" Zoom="0~0" />
+      <Function ID="6" Name="Auto 2 Way" Display="'Auto 2 Way'" Dmx="201~255" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Reserved" Name="Reserved" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Y-Axis_Rot" Name="Y-Axis Rot" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Manual" ID="1" If="'Mode'==4" />
+      <Else ID="2" />
+      <Function ID="1" Name="Spin" Display="'Spin %.1f%%',0.0~100.0" Dmx="0~150" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Auto" Display="'Auto'" Dmx="151~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="X-Axis_Rot" Name="X-Axis Rot" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Manual" ID="1" If="'Mode'==4" />
+      <Else ID="2" />
+      <Function ID="1" Name="Spin" Display="'Spin %.1f%%',0.0~100.0" Dmx="0~150" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Auto" Display="'Auto'" Dmx="151~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+    <Attribute ID="Z-Axis_Rot" Name="Z-Axis Rot" Description="" Group="G">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Condition Name="Manual" ID="1" If="'Mode'==4" />
+      <Else ID="2" />
+      <Function ID="1" Name="Spin" Display="'Spin %.1f%%',0.0~100.0" Dmx="0~180" GoboSpin="0~0" GoboOrientation="0~0" />
+      <Function ID="2" Name="Auto" Display="'Auto'" Dmx="181~255" GoboSpin="0~0" GoboOrientation="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="11 DMX, 8bit" Channels="11">
+    <Import PearlRef="LHQMicroG50" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Head" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="3" Wheel="4" />
+      <Attribute ID="Dimmer" ChannelOffset="4" Wheel="1" />
+      <Attribute ID="Pan" ChannelOffset="5" Wheel="2" />
+      <Attribute ID="Tilt" ChannelOffset="6" Wheel="3" />
+      <Attribute ID="Pattern" ChannelOffset="2" Wheel="13" />
+      <Attribute ID="Y-Axis_Rot" ChannelOffset="9" Wheel="16" />
+      <Attribute ID="X-Axis_Rot" ChannelOffset="10" Wheel="17" />
+      <Attribute ID="Z-Axis_Rot" ChannelOffset="11" Wheel="18" />
+      <Attribute ID="Zoom" ChannelOffset="7" Wheel="19" />
+      <Attribute ID="Mode" ChannelOffset="1" Wheel="28" />
+      <Attribute ID="Reserved" ChannelOffset="8" Wheel="29" />
+    </Include>
+  </Mode>
+</Fixture>

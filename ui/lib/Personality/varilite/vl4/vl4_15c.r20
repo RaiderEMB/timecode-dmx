@@ -1,0 +1,258 @@
+TODO  Range Color table
+; "VARI*LITE 4 Wash luminaire", 15 DMX channels, filename :vl4_15c.r20
+;
+;   Date      By          Description
+;   05-08-99  Jan Opseth  Created
+;   16-05-05  Phil Rogers  Revised macro lines
+;   16-05-05  Phil Rogers  Fixed color palettes
+;   14-11-05  Ed  	  Moved Control to bank 20
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  VL4_15Chan                                   15 DMX channels
+NAME "Varilite" "VL4"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE 1  15  M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR  2  360 270
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+"Remember your DMX200 interface"
+    "thumbwheel setting"
+""
+DAEND
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=497
+;
+; DMX number must be divisible by this
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+DMX  ;    Bank/fader to DMX relationship
+1    1  H   1   100 1N  H 1 "Intensity"    255 255 255
+3   61  s   2   100 1N  E 1 "Pan"          128  -1  -1
+0    0  L   3   100 1N  E 1 "Pan Low"      128  -1  -1
+3    1  s   4   100 1N  F 1 "Tilt"         128  -1  -1
+0    0  L   5   100 1N  F 1 "Tilt Low"     128  -1  -1
+10   1  L   6   100 1I  B 1 "Blue"         255 255 255
+9   61  L   7   100 1I  D 1 "Amber"        255 255   0
+10  61  L   8   100 1I  C 1 "Magenta"      255 255   0
+5   61  L   9   100 1N  L 1 "Edge"         255   0   0
+5    1  L  10   100 1N  Q 1 "Beam"         255   0   0
+2   61  L  11   100 1N  O 1 "Shutter"        0   0   0
+8    1  L  12   100 1N  0 1 "Focus Time"   255 255 255
+8   61  L  13   100 1N  0 1 "Color Time"   255 255 255
+7   61  L  14   100 1N  0 1 "Beam Time"    255 255 255
+20   1  I  15   100 1N  0 1 "Control"      255 255 255
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+ VL4 (15 Channels)
+Assignment to wheels
+     A       B
+---------------------
+ 1 Intensity --
+ 2  --     Shutter
+ 3 Tilt     Pan
+ 4 --       --
+ 5 Beam     Edge
+ 6 --       --
+ 7 --      Beam Time
+ 8 Foc.Time Col Time
+ 9 --       Amber
+10 Blue     Magenta
+11 Control   --
+Thumbwheel 1-497 are
+controlled by 
+universe 1 and thumb.
+501-993 are controlled
+by universe 2.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+; Colors
+;INPUT          Blue Amber Magnta
+PFTABLE "Colors" -1 6 7 8
+"Open"           1  FF FF FF
+"Red"            2  FF  0 1D
+"Amber"          3  FF 7E 93
+"Yellow"         4  FF 6A FF
+"Green"          5  60 75 FF
+"Peacock"        6  2B A0 FF
+"Blue"           7  35 FF 0
+"Lavender"       8  84 FE 87
+"Congo"          9  65 FF 65
+"Magenta"       10  FF 6F 35
+PFEND
+
+; Colors
+;INPUT            Blue Amber Magenta     
+PFTABLE "VARI*COLOR" 29 6 7 8
+"Pink Tint"	-1 FE FF C6
+"BastardAmbe"	-1 FE 97 A6
+"GAMBastAmbe"	-1 FF 9E A3
+"WarmBastAmb"	-1 FF A2 AD
+"PaleGoldAmb"	-1 FF 8D B3
+"Light Amber"	-1 FF 80 A5
+"Light Flame"	-1 FF 7E 93
+"MedBastAmb"	-1 FF 7E 93
+"Warm Amber"	-1 FF 8D 98
+"Peach"		-1 FF 7A 87
+"Flesh Pink"	-1 FF A0 84
+"Dark Pink"	-1 FF 9E 76
+"Dark Salmon"	-1 FF 61 30
+"Med Salmon"	-1 FF 80 6C
+"Deep Salmon"	-1 FF 69 22
+"Salmon"	-1 FE 68 5A
+"Brite Pink"	-1 FF 7E 4B
+"Dark Peach"	-1 FF 80 57
+"LEE Magenta"	-1 FF 6F 35
+"Medium Red"	-1 FF  0  0
+"Primary Red"	-1 FF  0 1D
+"Dark Orange"	-1 FF  0 2E
+"Light Red"	-1 FF 6A 2C
+"DarkOrange2"	-1 FF 5A 2E 
+"Orange"	-1 FF  0 4E
+"Med Amber"	-1 FF  0 62
+"DeepGoldAmb"	-1 FF 2F 6D
+"Canary"	-1 FF 3E AD
+"Light Amber"	-1 FF 43 E1
+"LEE Orange"	-1 FF 62 FF
+"ChromeOrang"	-1 FF 68 C6
+"Bright Yell"	-1 FF 6A FF
+"Dark Straw"	-1 FF 64 FF
+"Deep Amber"	-1 FE 6F FF
+"Light Straw"	-1 FF 87 FF
+"NoColGreen"	-1 97 80 FF
+"Fern Green"	-1  0 89 FF
+"Yellow-Gree"	-1 55 57 FF
+"Lime Green"	-1 5F 6B FF
+"Primary Gre"	-1 55 74 FF
+"Light Green"	-1 62 8F FF
+"LtBlueGreen"	-1 22 82 FF
+"Kelly Green"	-1 30 7E FF
+"Dark Green"	-1 60 75 FF
+"MedBlueGree"	-1 63 88 E6
+"PeacockGree"	-1 2B A0 FF
+"DarkTurquoi"	-1 2B A5 FF
+"Light Aqua"	-1 63 9C FF
+"Aqua"		-1 6C BD FF
+"RoscoPeacBl"	-1 74 8C FF
+"LEE steelBl"	-1 82 88 FF
+"1/4 CTB"	-1 D2 AF FF
+"1/2 CTB"	-1 FF BF FF
+"Full CTB"	-1 92 B1 FF
+"City Blue"	-1 8D CC FF
+"N.C.Blue"	-1 8A FF DE
+"Pale Blue"	-1 71 BF FF
+"LEE l.Blue"	-1 33 CB FF
+"BrightBlue"	-1 52 FF FF
+"MediumBlue"	-1 67 FE A9
+"Sea Blue"	-1 75 FF FF
+"Icy Blue"	-1 63 FF A7
+"Deep Blue"	-1 35 FF  0
+"Dark Blue"	-1 47 FF 2E
+"Royal Blue"	-1 26 FF 50
+"Indigo"	-1 64 FF 65
+"Congo Blue"	-1 65 FF 65
+"Darkest Lav"	-1 6D FF 6D
+"DarkRosePur"	-1 65 FF 76
+"Deep Lavend"	-1 4D FF 79
+"Lilac"		-1 49 FF 77
+"SpDarkLaven"	-1 4A FB 88
+"Cool Lavend"	-1 65 FB 98
+"Mercury Vap"	-1 2E FF 76
+"Medium Viol"	-1 74 FF 87
+"DarkLavende"	-1 84 FB 87
+"LeeSpecLave"	-1 B7 FF C7
+"Twilight"	-1 91 FF FF
+"DeepLavende"	-1 7B FF 87
+"Pale Lilac"	-1 88 FF 8B
+"Periwinkle"	-1 9E FF 94
+"Dusty Laven"	-1 B5 FF C7
+"N.C.Lilac"	-1 D8 FF A5
+"SpecLavende"	-1 D3 FF BD
+"Dark Rose"	-1 86 FF 61
+"Dark Fushia"	-1 84 FF 61
+"DarkFollies"	-1 FF FE 43
+"Magenta"	-1 9B C1 40
+"Hot Pink"	-1 FF C1 40
+"Mauve"		-1 FF AC 3E
+"FolliesPink"	-1 FF A3 54
+"Flesh Pink"	-1 FF FF 73
+"Rose Purple"	-1 D1 FF 76
+"Carnation"	-1 FF C7 83
+"NoColorPink"	-1 FF B9 83
+"CoolBastAmb"	-1 D3 FF 98 
+"Dusty Rose"	-1 FF AF 94
+"Rouge"		-1 CE AD 98	 
+PFEND
+
+
+; Positions
+PFTABLE "Positions" -1 2 4
+"Middle"    21 80  80
+"Left"      22 50  80
+"Right"     23 b0  80
+"Top"       24 80  50
+"Bottom"    25 80  b0
+"TLeft"     26 50  50
+"TRight"    27 b0  b0
+"BLeft"     28 50  b0
+"BRight"    29 b0  50
+PFEND
+
+; Reset the fixture
+MACRO "Lamp On"       1  12  13  14  15
+"data"                0   0   0   0   0
+"delay"               1   A
+"data"                0   0   0   0  FC
+"delay"               1  32
+"data"                0   0   0   0   0
+"delay"               1   A
+MEND
+
+MACRO "Lamp Off"      2  12  13  14  15
+"data"                0   0   0   0   0
+"delay"               1   A
+"data"                0   0   0   0  A8
+"delay"               1  32
+"data"                0   0   0   0   0
+"delay"               1   A
+MEND
+
+MACRO "Reset"         3  12  13  14  15
+"data"                0   0   0   0   0
+"delay"               1   A
+"data"                0   0   0   0  54
+"delay"               1  32
+"data"                0   0   0   0   0
+"delay"               1   A
+MEND

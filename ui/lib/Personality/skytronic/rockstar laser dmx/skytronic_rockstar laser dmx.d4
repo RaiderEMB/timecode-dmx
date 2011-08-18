@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Rockstar Laser DMX" ShortName="RockStar L" Company="Skytronic">
+  <Copyright Notice="© Avolites Ltd. 2008" />
+  <History Date="12-12-08" Author="Jonathan Moreton" Comment="Created" />
+  <History Date="12-12-08" Author="David Hunt" Comment="Checked" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Control" Name="Control" Description="" Group="S">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="Safe" Display="'Safe'" Dmx="0~1" Update="Speed" />
+      <Function ID="2" Name="50 Patterns" Display="'50 Patterns   %.f%%',0~100" Dmx="2~101" Update="Speed" />
+      <Function ID="3" Name="50 Animations" Display="'50 Animations %.f%%',0~100" Dmx="102~201" Update="Speed" />
+      <Function ID="4" Name="Sound Active" Display="'Sound Active'" Dmx="202~255" Update="Speed" />
+    </Attribute>
+    <Attribute ID="Speed" Name="Speed" Description="" Group="S">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Condition Name="50 Animations" ID="1" If="'Control'==3" />
+      <Else ID="2" />
+      <Function ID="1" Name="Speed" Display="'%.1f%%',100.0~0.0" Dmx="0~255" />
+      <Function ID="2" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+    <Attribute ID="Line_Effect" Name="Line Effect" Description="" Group="S">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" />
+    </Attribute>
+  </Control>
+  <Mode Name="3 DMX, 8bit" Channels="3">
+    <Import PearlRef="ST_RSLDMX" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Control" ChannelOffset="1" Wheel="28" />
+      <Attribute ID="Speed" ChannelOffset="2" Wheel="25" />
+      <Attribute ID="Line_Effect" ChannelOffset="3" Wheel="29" />
+    </Include>
+  </Mode>
+</Fixture>

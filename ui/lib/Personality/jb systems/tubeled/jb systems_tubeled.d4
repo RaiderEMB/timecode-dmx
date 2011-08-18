@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="TubeLed" ShortName="Tube LED" Company="JB Systems">
+  <Copyright Notice="© Avolites Ltd. 2010" />
+  <History Date="25-11-04" Author="Phil Rogers" Comment="Created" />
+  <History Date="25-11-04" Author="Tom Peck" Comment="Checked" />
+  <History Date="10-04-06" Author="Ed Spencer" Comment="Moved NoFunc into special group" />
+  <History Date="05-05-10" Author="John Rogers" Comment="Fixture's effect channel determines behaviour of other channels. Used conditions to give user control over this without having to patch different modes." />
+  <History Date="05-05-10" Author="John Rogers" Comment="Added mode with Virtual Dimmer option. Added colour palettes." />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Red" Name="Red" Description="" Group="C">
+      <Locate Locate="2:0" PowerOn="2:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="RGB Mode" ID="1" If="'Effect'==1" />
+      <Else ID="2" />
+      <Function ID="1" Name="Red C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,0,0" />
+      <Function ID="2" Name="Generic %" Display="'Speed %.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Green" Name="Green" Description="" Group="C">
+      <Locate Locate="2:0" PowerOn="2:0" Highlight="1:100" Lowlight="1:0" />
+      <Condition Name="RGB Mode" ID="1" If="'Effect'==1" />
+      <Else ID="2" />
+      <Function ID="1" Name="Green C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,255,0" />
+      <Function ID="2" Name="Generic %" Display="'Time %.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Blue" Name="Blue" Description="" Group="C">
+      <Locate Locate="2:0" PowerOn="2:0" Highlight="1:0" Lowlight="1:90" />
+      <Condition Name="RGB Mode" ID="1" If="'Effect'==1" />
+      <Else ID="2" />
+      <Function ID="1" Name="Blue C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,255" />
+      <Function ID="2" Name="Strobe %" Display="'Strobe %.1f%%',0.0~100.0" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Effect" Name="Effect" Description="" Group="E">
+      <Locate Locate="2" PowerOn="2" />
+      <Function ID="1" Name="RGB Mode" Display="'RGB Mode'" Dmx="0~0" Update="Red, Green, Blue" />
+      <Function ID="2" Name="Open" Display="'Open'" Dmx="42~47" Update="Red, Green, Blue" />
+      <Function ID="3" Name="Closed" Display="'Closed'" Dmx="1~5" Update="Red, Green, Blue" />
+      <Function ID="4" Name="Red" Display="'Red'" Dmx="6~11" Update="Red, Green, Blue" />
+      <Function ID="5" Name="Green" Display="'Green'" Dmx="12~17" Update="Red, Green, Blue" />
+      <Function ID="6" Name="Yellow" Display="'Yellow'" Dmx="18~23" Update="Red, Green, Blue" />
+      <Function ID="7" Name="Blue" Display="'Blue'" Dmx="24~29" Update="Red, Green, Blue" />
+      <Function ID="8" Name="Purple" Display="'Purple'" Dmx="30~35" Update="Red, Green, Blue" />
+      <Function ID="9" Name="Cyan" Display="'Cyan'" Dmx="36~41" Update="Red, Green, Blue" />
+      <Function ID="10" Name="Fast Change" Display="'Fast Change'" Dmx="48~53" Update="Red, Green, Blue" />
+      <Function ID="11" Name="Slow Flow 1" Display="'Slow Flow 1'" Dmx="54~59" Update="Red, Green, Blue" />
+      <Function ID="12" Name="Fast Flow 1" Display="'Fast Flow 1'" Dmx="60~65" Update="Red, Green, Blue" />
+      <Function ID="13" Name="Fast Flow 2" Display="'Fast Flow 2'" Dmx="66~71" Update="Red, Green, Blue" />
+      <Function ID="14" Name="Black Runt" Display="'Black Runt'" Dmx="72~77" Update="Red, Green, Blue" />
+      <Function ID="15" Name="Roll Chase" Display="'Roll Chase'" Dmx="78~83" Update="Red, Green, Blue" />
+      <Function ID="16" Name="Roll Colour" Display="'Roll Colour'" Dmx="84~89" Update="Red, Green, Blue" />
+      <Function ID="17" Name="Colour 1/4" Display="'Colour 1/4'" Dmx="90~95" Update="Red, Green, Blue" />
+      <Function ID="18" Name="Col 1 1/4" Display="'Col 1 1/4'" Dmx="96~101" Update="Red, Green, Blue" />
+      <Function ID="19" Name="Col1 1/2" Display="'Col1 1/2'" Dmx="102~107" Update="Red, Green, Blue" />
+      <Function ID="20" Name="Col Flash" Display="'Col Flash'" Dmx="108~113" Update="Red, Green, Blue" />
+      <Function ID="21" Name="B/W Flow" Display="'B/W Flow'" Dmx="114~119" Update="Red, Green, Blue" />
+      <Function ID="22" Name="R/G Flow" Display="'R/G Flow'" Dmx="120~125" Update="Red, Green, Blue" />
+      <Function ID="23" Name="G/B Flow" Display="'G/B Flow'" Dmx="126~131" Update="Red, Green, Blue" />
+      <Function ID="24" Name="R/B Flow" Display="'R/B Flow'" Dmx="132~137" Update="Red, Green, Blue" />
+      <Function ID="25" Name="R/G Chase 1" Display="'R/G Chase 1'" Dmx="138~143" Update="Red, Green, Blue" />
+      <Function ID="26" Name="R/G Chase 2" Display="'R/G Chase 2'" Dmx="144~149" Update="Red, Green, Blue" />
+      <Function ID="27" Name="R/B Chase 1" Display="'R/B Chase 1'" Dmx="150~155" Update="Red, Green, Blue" />
+      <Function ID="28" Name="R/B Chase 2" Display="'R/B Chase 2'" Dmx="156~161" Update="Red, Green, Blue" />
+      <Function ID="29" Name="R/W Chase 1" Display="'R/W Chase 1'" Dmx="162~167" Update="Red, Green, Blue" />
+      <Function ID="30" Name="R/W Chase 2" Display="'R/W Chase 2'" Dmx="168~173" Update="Red, Green, Blue" />
+      <Function ID="31" Name="B/G Chase 1" Display="'B/G Chase 1'" Dmx="174~179" Update="Red, Green, Blue" />
+      <Function ID="32" Name="B/G Chase 2" Display="'B/G Chase 2'" Dmx="180~185" Update="Red, Green, Blue" />
+      <Function ID="33" Name="W/G Chase 1" Display="'W/G Chase 1'" Dmx="186~191" Update="Red, Green, Blue" />
+      <Function ID="34" Name="W/G Chase 2" Display="'W/G Chase 2'" Dmx="192~197" Update="Red, Green, Blue" />
+      <Function ID="35" Name="Rbow Chase 1" Display="'Rbow Chase 1'" Dmx="198~203" Update="Red, Green, Blue" />
+      <Function ID="36" Name="Rbow Chase 2" Display="'Rbow Chase 2'" Dmx="204~209" Update="Red, Green, Blue" />
+      <Function ID="37" Name="Rbow Chase 3" Display="'Rbow Chase 3'" Dmx="210~215" Update="Red, Green, Blue" />
+      <Function ID="38" Name="Rbow Chase 4" Display="'Rbow Chase 4'" Dmx="216~221" Update="Red, Green, Blue" />
+      <Function ID="39" Name="Rbow Chase 8" Display="'Rbow Chase 8'" Dmx="222~255" Update="Red, Green, Blue" />
+    </Attribute>
+    <Attribute ID="Dimmer" Name="Dimmer" Description="" Group="I" Size="2">
+      <Locate Locate="1:100" PowerOn="1:0" />
+      <Function ID="1" Name="Dimmer" Display="'%.1f%%',0.0~100.0" Dmx="0~65535" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="4 DMX, 8bit" Channels="4">
+    <Import PearlRef="" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Red" ChannelOffset="2" Wheel="10" />
+      <Attribute ID="Green" ChannelOffset="3" Wheel="11" />
+      <Attribute ID="Blue" ChannelOffset="4" Wheel="12" />
+      <Attribute ID="Effect" ChannelOffset="1" Wheel="22" />
+    </Include>
+  </Mode>
+  <Mode Name="4 DMX, VDim" Channels="5">
+    <Import PearlRef="" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Dimmer" ChannelOffset="5" Wheel="1" />
+      <Attribute ID="Red" ChannelOffset="2" Wheel="10" VirtualControl="Dimmer" />
+      <Attribute ID="Green" ChannelOffset="3" Wheel="11" VirtualControl="Dimmer" />
+      <Attribute ID="Blue" ChannelOffset="4" Wheel="12" VirtualControl="Dimmer" />
+      <Attribute ID="Effect" ChannelOffset="1" Wheel="22" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Red:1:100,Green:1:100,Blue:1:100" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:0" />
+      <Palette ID="3" Name="Amber" Number="3" Page="1" SetControl="Red:1:100,Green:1:50,Blue:1:0" />
+      <Palette ID="4" Name="Yellow" Legend="Yell" Number="4" Page="1" SetControl="Red:1:100,Green:1:100,Blue:1:0" />
+      <Palette ID="5" Name="Lime" Number="0" Page="1" SetControl="Red:1:50,Green:1:100,Blue:1:0" />
+      <Palette ID="6" Name="Green" Number="5" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:0" />
+      <Palette ID="7" Name="Aqua" Number="0" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:50" />
+      <Palette ID="8" Name="Cyan" Number="6" Page="1" SetControl="Red:1:0,Green:1:100,Blue:1:100" />
+      <Palette ID="9" Name="Light Blue" Number="0" Page="1" SetControl="Red:1:0,Green:1:50,Blue:1:100" />
+      <Palette ID="10" Name="Blue" Number="7" Page="1" SetControl="Red:1:0,Green:1:0,Blue:1:100" />
+      <Palette ID="11" Name="Purple" Legend="Purpl" Number="9" Page="1" SetControl="Red:1:50,Green:1:0,Blue:1:100" />
+      <Palette ID="12" Name="Magenta" Legend="Mag" Number="10" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:100" />
+      <Palette ID="13" Name="Rose" Number="0" Page="1" SetControl="Red:1:100,Green:1:0,Blue:1:50" />
+      <Palette ID="14" Name="Lavender" Legend="Lav" Number="8" Page="1" SetControl="Red:1:71,Green:1:43,Blue:1:94" />
+      <Palette ID="15" Name="Ultra Violet" Legend="UV" Number="0" Page="1" SetControl="Red:1:20,Green:1:0,Blue:1:100" />
+    </Group>
+  </Palettes>
+</Fixture>

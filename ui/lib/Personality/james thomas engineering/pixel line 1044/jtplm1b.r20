@@ -1,0 +1,214 @@
+; "James Thomas Engineering - Pixel Line 1044", Max 1 Mode, 61 DMX channels, filename :JTPLM1B.r20
+;
+;   Date      By          Description
+;   24-09-03  O.Waits	  Created
+;   01-09-06  D.Milligan  Revised
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  JTPL1044M1B                                    27 DMX channels
+NAME "James Thomas Eng" "Pixel Line 1044, Max 1 9 RGB+D"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE	1	27	M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR	1   0	0
+;       |   |   |
+;       |   |   |_______ maximum tilt movement (in degrees)
+;       |   |___________ maximum pan movement (in degrees)
+;       |_______________ 1 means moving mirror, 2 means moving head
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+; Upto 10 lines of 159 chars are allowed including formulae
+; Variables used d=dmx number(1..512), h=handle(1..60), n=devicename (11-char)
+; Allowed modifiers
+;	+,-,*,/,(,) basic arithmatic
+;   % means remainder after divide
+;	& means logical AND
+;	| means logical OR 
+;	R means reverse the bits of the curernt result (operates on a byte)
+;	^ means logical Exclusive OR (operates on a byte)
+;	> means shift to the right
+;	< shift to the left
+;	r followed by number means get the value of that parameter 
+;	d DMX address
+;	n Fixture name, a 0 terminated character string
+;	h The handle number
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+""
+"Set to Max 1"
+"61 Channels"
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=475
+;
+; DMX number must be divisible by this	
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+; Column by column description of each DMX channel
+; 1. The channels bank number (1..12)
+; 2. The upper faders in the bank (1) or the lower faders in the bank (61)
+; 3. Channel type (L=LTP, H=HTP, I=Instant LTP, S=16-bit instant LTP,
+;    s=16-bit Fadeable LTP
+; 4. DMX offset (1..number of DMX channels)
+; 5. The output level is proportionally recdced by this level (0..100%)
+; 6. The curve number (applicable only to HTP channels), usually set to 1
+; 7. Inverted (I) or Normal (N)
+; 8. Attribute type (A=Color Wheel1, BCD=Color Mix, E=Pan, F=Tilt, 
+;         G=Iris, H=Dimmer, I=Gobo1, J=Gobo2, K=Gobo1_Rotate, L=Focus,
+;         M=Gobo2_Rotate, N=Color Wheel2, O=Shutter, P=Prism, Q=Zoom, 
+;         R=Effect_Rotate, S=Frost, 0=uncategorised)
+; 9. Checksum channel (Always 1)
+;10. Attribute name, must be enclosed in quotes and upto 12 characters allowed
+;11. The ON value of this channel (0..255)
+;12. The Highlight level of this channel
+;13. The Lolight level of this channel
+;
+DMX
+3   1   L   1  100  1N  0  1  "Red10"     255   -1   -1
+3  61   L   2  100  1N  0  1  "Green10"   255   -1   -1
+4   1   L   3  100  1N  0  1  "Blue10"    255   -1   -1
+5   1   L   4  100  1N  0  1  "Red11"     255   -1   -1
+5  61   L   5  100  1N  0  1  "Green11"   255   -1   -1
+6   1   L   6  100  1N  0  1  "Blue11"    255   -1   -1
+7   1   L   7  100  1N  0  1  "Red12"     255   -1   -1
+7  61   L   8  100  1N  0  1  "Green12"   255   -1   -1
+8   1   L   9  100  1N  0  1  "Blue12"    255   -1   -1
+9   1   L  10  100  1N  0  1  "Red13"     255   -1   -1
+9  61   L  11  100  1N  0  1  "Green13"   255   -1   -1
+10  1   L  12  100  1N  0  1  "Blue13"    255   -1   -1
+11  1   L  13  100  1N  0  1  "Red14"     255   -1   -1
+11 61   L  14  100  1N  0  1  "Green14"   255   -1   -1
+12  1   L  15  100  1N  0  1  "Blue14"    255   -1   -1
+13  1   L  16  100  1N  0  1  "Red15"     255   -1   -1
+13 61   L  17  100  1N  0  1  "Green15"   255   -1   -1
+14  1   L  18  100  1N  0  1  "Blue15"    255   -1   -1
+15  1   L  19  100  1N  0  1  "Red16"     255   -1   -1
+15 61   L  20  100  1N  0  1  "Green16"   255   -1   -1
+16  1   L  21  100  1N  0  1  "Blue16"    255   -1   -1
+17  1   L  22  100  1N  0  1  "Red17"     255   -1   -1
+17 61   L  23  100  1N  0  1  "Green17"   255   -1   -1
+18  1   L  24  100  1N  0  1  "Blue17"    255   -1   -1
+19  1   L  25  100  1N  0  1  "Red18"     255   -1   -1
+19 61   L  26  100  1N  0  1  "Green18"   255   -1   -1
+20  1   L  27  100  1N  0  1  "Blue18"    255   -1   -1
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+  Pixel Line 1044
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1 --       --
+ 2 --       --
+ 3 Red1     Green1
+ 4 Blue1    --
+ 5 Red2     Green2
+ 6 Blue2    --
+ 7 Red3     Green3
+ 8 Blue3    --
+ 9 Red4     Green4
+10 Blue4    --
+11 Red5     Green5
+12 Blue5    --
+13 Red6     Green6
+14 Blue6    --
+15 Red7     Green7
+16 Blue7    --
+17 Red8     Green8
+18 Blue8    --
+19 Red9     Green9
+20 Blue9    --
+
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+
+;----------------------------------------------------------------------------
+; Tables
+; Positions
+
+; Preset Colours
+PFTABLE "Color"  -1    1    2    3    4    5    6    7    8    9    10   11    12    13   14    15    16    17   18   19   20    21   22    23    24    25    26    27
+"Black"           1    0    0    0    0    0    0    0    0    0    0     0     0     0    0     0     0     0    0    0    0     0    0     0     0     0     0     0
+"White"           2   FF   FF   FF   FF   FF   FF   FF   FF   FF   FF    FF    FF    FF   FF    FF    FF    FF   FF   FF   FF    FF   FF    FF    FF    FF    FF    FF
+"Red"             3   FF    0    0   FF    0    0   FF    0    0   FF     0     0    FF    0     0    FF     0    0   FF    0     0   FF     0     0    FF     0     0
+"Amber"           4   FF   80    0   FF   80    0   FF   80    0   FF    80     0    FF   80     0    FF    80    0   FF   80     0   FF    80     0    FF    80     0
+"Yellow"          5   FF   FF    0   FF   FF    0   FF   FF    0   FF    FF     0    FF   FF     0    FF    FF    0   FF   FF     0   FF    FF     0    FF    FF     0
+"Green"           6    0   FF    0    0   FF    0    0   FF    0    0    FF     0     0   FF     0     0    FF    0    0   FF     0    0    FF     0     0    FF     0
+"Cyan"            7    0   FF   FF    0   FF   FF    0   FF   FF    0    FF    FF     0   FF    FF     0    FF   FF    0   FF    FF    0    FF    FF     0    FF    FF
+"Blue"            8    0    0   FF    0    0   FF    0    0   FF    0     0    FF     0    0    FF     0     0   FF    0    0    FF    0     0    FF     0     0    FF
+"UltraViolet"     10  C0    0   FF   C0    0   FF   C0    0   FF   C0     0    FF    C0    0    FF    C0     0   FF   C0    0    FF   C0     0    FF    C0     0    FF
+"Magenta"         11  FF    0   FF   FF    0   FF   FF    0   FF   FF     0    FF    FF    0    FF    FF     0   FF   FF    0    FF   FF     0    FF    FF     0    FF
+PFEND
+
+
+PFTABLE "1-Off"  -1    1    2    3
+"Cell 1 Off"     21    0    0    0
+PFEND
+ 
+PFTABLE "2-Off"  -1    4    5    6
+"Cell 2 Off"     22    0    0    0
+PFEND
+
+PFTABLE "3-Off"  -1    7    8    9
+"Cell 3 Off"     23    0    0    0
+PFEND
+
+PFTABLE "4-Off"  -1   10   11   12
+"Cell 4 Off"     24    0    0    0
+PFEND
+
+PFTABLE "5-Off"  -1   13   14   15
+"Cell 5 Off"     25    0    0    0
+PFEND
+
+PFTABLE "6-Off"  -1   16   17   18
+"Cell 6 Off"     26    0    0    0
+PFEND
+
+PFTABLE "7-Off"  -1   19   20   21
+"Cell 7 Off"     27    0    0    0
+PFEND
+
+PFTABLE "8-Off"  -1   22   23   24
+"Cell 8 Off"     28    0    0    0
+PFEND
+
+PFTABLE "9-Off"  -1   25   26   27
+"Cell 9 Off"     29    0    0    0
+PFEND
+
+
+;----------------------------------------------------------------------------
+; Tables
+; Positions

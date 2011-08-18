@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Fixture Name="Followspot HMI-1200" ShortName="FSHMI 1200" Company="Showtec">
+  <Copyright Notice="© Avolites Ltd. 2010" />
+  <History Date="07-07-10" Author="Jonathan Moreton" Comment="Created" />
+  <Manual Filename="" Summary="" />
+  <Control>
+    <Attribute ID="Colour1Func" Name="Colour Func" Description="" Group="C" Size="0">
+      <Locate Locate="1" PowerOn="1" />
+      <Function ID="1" Name="Fixed_Func" Display="'Fixed'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="2" Name="Scroll_Func" Display="'Scroll'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+      <Function ID="3" Name="Raw_Func" Display="'Raw DMX'" Dmx="0~0" Update="Colour1" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="Colour1" Name="Colour" Description="" Group="C">
+      <Locate Locate="1" PowerOn="1" Highlight="6" Lowlight="2" />
+      <Condition Name="Fixed_Func" ID="1,2,3,4,5,6,7,8" If="'Colour1Func'==1" />
+      <Condition Name="Scroll_Func" ID="9,10" If="'Colour1Func'==2" />
+      <Else ID="11" />
+      <Function ID="1" Name="Open" Display="'Open'" Dmx="0~25" Colour="255,255,255" />
+      <Function ID="2" Name="Blue" Display="'Blue'" Dmx="26~49" Colour="0,0,255" />
+      <Function ID="3" Name="Purple" Display="'Purple'" Dmx="50~74" Colour="128,0,255" />
+      <Function ID="4" Name="Green" Display="'Green'" Dmx="75~99" Colour="0,255,0" />
+      <Function ID="5" Name="Red" Display="'Red'" Dmx="100~124" Colour="255,0,0" />
+      <Function ID="6" Name="Yellow" Display="'Yellow'" Dmx="125~149" Colour="255,255,0" />
+      <Function ID="7" Name="Orange" Display="'Orange'" Dmx="150~174" Colour="255,128,0" />
+      <Function ID="8" Name="Dark Blue" Display="'Deep Blue'" Dmx="175~203" Colour="0,0,180" />
+      <Function ID="9" Name="No Scroll" Display="'No Scroll'" Dmx="0~25" Colour="255,255,255" />
+      <Function ID="10" Name="Scroll" Display="'Scroll %.f%%',0~100" Dmx="204~255" Colour="0,0,0" />
+      <Function ID="11" Name="Raw DMX" Display="'Raw DMX %.f',0~255" Dmx="0~255" Colour="0,0,0" />
+    </Attribute>
+    <Attribute ID="CTO" Name="CTO" Description="" Group="C">
+      <Locate Locate="1:0" PowerOn="1:0" />
+      <Function ID="1" Name="CTO C-Mix" Display="'%.1f%%',0.0~100.0" Dmx="0~255" Colour="255,240,200" />
+    </Attribute>
+    <Attribute ID="Iris" Name="Iris" Description="" Group="B">
+      <Locate Locate="1:100" PowerOn="1:100" />
+      <Function ID="1" Name="Iris" Display="'%.1f%%',0.0~100.0" Dmx="255~0" Iris="0~0" Zoom="0~0" />
+    </Attribute>
+    <Attribute ID="Shutter" Name="Shutter" Description="" Group="I">
+      <Locate Locate="2:100" PowerOn="2:100" />
+      <Function ID="1" Name="Closed" Display="'Closed'" Dmx="0~15" Intensity="0~0" />
+      <Function ID="2" Name="Dimmer" Display="'Dimmer  %.f%%',0~100" Dmx="16~84" Intensity="0~0" />
+      <Function ID="3" Name="Strobe %" Display="'Strobe %.f%%',0~100" Dmx="85~254" Intensity="0~0" />
+      <Function ID="4" Name="Open" Display="'Open'" Dmx="255~255" Intensity="0~0" />
+    </Attribute>
+  </Control>
+  <Mode Name="4 DMX, 8bit" Channels="4">
+    <Import PearlRef="SH_FHMI1200" DiamondRef="" WysiwygRef="" />
+    <Physical>
+      <Bulb Type="" Lumens="" ColourTemp="" />
+      <Lens Name="" Degrees="" />
+      <Weight Kg="" />
+      <Size Height="" Width="" Depth="" />
+      <Focus Type="Fixed" PanMax="0" TiltMax="0" PanMaxSpeed="0" TiltMaxSpeed="0" />
+    </Physical>
+    <Include>
+      <Attribute ID="Shutter" ChannelOffset="4" Wheel="4" />
+      <Attribute ID="Colour1Func" Wheel="7" />
+      <Attribute ID="Colour1" ChannelOffset="1" Wheel="8" />
+      <Attribute ID="CTO" ChannelOffset="2" Wheel="9" />
+      <Attribute ID="Iris" ChannelOffset="3" Wheel="19" />
+    </Include>
+  </Mode>
+  <Palettes>
+    <Group Name="Colour">
+      <Palette ID="1" Name="Open" Number="1" Page="1" SetControl="Colour1:1,Colour1Func:1" />
+      <Palette ID="2" Name="Red" Number="2" Page="1" SetControl="Colour1:5,Colour1Func:1" />
+      <Palette ID="3" Name="Orange" Number="3" Page="1" SetControl="Colour1:7,Colour1Func:1" />
+      <Palette ID="4" Name="Yellow" Number="4" Page="1" SetControl="Colour1:6,Colour1Func:1" />
+      <Palette ID="5" Name="Yellow" Number="0" Page="1" SetControl="Colour1:6,Colour1Func:1" />
+      <Palette ID="6" Name="Green" Number="5" Page="1" SetControl="Colour1:4,Colour1Func:1" />
+      <Palette ID="7" Name="Green" Number="0" Page="1" SetControl="Colour1:4,Colour1Func:1" />
+      <Palette ID="8" Name="Open" Number="6" Page="1" SetControl="Colour1:1,Colour1Func:1" />
+      <Palette ID="9" Name="Blue" Number="0" Page="1" SetControl="Colour1:2,Colour1Func:1" />
+      <Palette ID="10" Name="Blue" Number="7" Page="1" SetControl="Colour1:2,Colour1Func:1" />
+      <Palette ID="11" Name="Purple" Number="9" Page="1" SetControl="Colour1:3,Colour1Func:1" />
+      <Palette ID="12" Name="Purple" Number="10" Page="1" SetControl="Colour1:3,Colour1Func:1" />
+      <Palette ID="13" Name="Red" Number="0" Page="1" SetControl="Colour1:5,Colour1Func:1" />
+      <Palette ID="14" Name="Purple" Number="8" Page="1" SetControl="Colour1:3,Colour1Func:1" />
+      <Palette ID="15" Name="Blue" Number="0" Page="1" SetControl="Colour1:2,Colour1Func:1" />
+    </Group>
+    <Group Name="Shutter">
+      <Palette ID="1" Name="Open" Number="31" Page="1" SetControl="Shutter:4" />
+      <Palette ID="2" Name="Slow Strobe" Legend="Slow Strb" Number="32" Page="1" SetControl="Shutter:3:50" />
+      <Palette ID="3" Name="Fast Strobe" Legend="Fast Strb" Number="33" Page="1" SetControl="Shutter:3:100" />
+      <Palette ID="8" Name="Closed" Legend="Close" Number="38" Page="1" SetControl="Shutter:1" />
+    </Group>
+    <Group Name="Beam">
+      <Palette ID="4" Name="Iris Small" Number="44" Page="1" SetControl="Iris:1:0" />
+      <Palette ID="5" Name="Iris Medium" Legend="Iris Med" Number="45" Page="1" SetControl="Iris:1:50" />
+      <Palette ID="6" Name="Iris Large" Number="46" Page="1" SetControl="Iris:1:100" />
+    </Group>
+  </Palettes>
+</Fixture>

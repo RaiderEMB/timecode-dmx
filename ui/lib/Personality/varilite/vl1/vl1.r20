@@ -1,0 +1,131 @@
+TODO, DIP SWITCHES, PF TABLES + LOCATE FIXTURE
+; "Vrialite VL1", 6 DMX channels, filename :vl1.r20
+;
+;   Date      By        Description
+;   26-02-93  Salzedo   created
+;   01-9-94   J.B.Toby  revised for Pearl use/relocation of channels
+;   22-05-96  S. Anwar  Pan/Tilt channel identification & Resolution inserted 
+;   04-03-96  S. Anwar  Revised for Sapphire 96
+;   15-01-98  P.Bari    Revised attributes
+;
+;----------------------------------------------------------------------------
+; The device name, upto 11 characters, no spaces are allowed
+DEVICE  VL1                                    6 DMX channels
+NAME "Varilite" "VL1"
+;
+;----------------------------------------------------------------------------
+; The Type of instrument, 1 & M must required for backward compatibility
+; The middle number denotes the number of DMX channels used
+TYPE   1   6   M
+;
+;----------------------------------------------------------------------------
+; Mirror/Head resolution
+MIRROR	2	360	270
+;
+;----------------------------------------------------------------------------
+; Patching Information. (Upto 10 lines allowed)
+DEVICEADDRESS
+"Handle  %2d"h
+"Fixture %11s"n
+"DMX     %03d"d
+""
+""
+""
+""
+""
+""
+""
+DAEND
+;
+;----------------------------------------------------------------------------
+; Specify DMX limits
+;
+; minimum allowed dmx number
+MINDMX=1
+;
+; maximum allowed dmx number
+MAXDMX=507
+;
+; DMX number must be divisible by this	
+DIVBY=1
+;
+;----------------------------------------------------------------------------
+; DMX channel description
+;
+DMX
+1   1   H   1   100 1N   H   1   "Dimmer"    255   255   255
+3  61   L   2   100 1N   E   1   "Pan"       128    -1    -1
+3   1   L   3   100 1N   F   1   "Tilt"      128    -1    -1
+4   1   I   4   100 1N   A   1   "Color"       0     0    18
+4  61   I   5   100 1N   0   1   "Stauration"  0     0     0
+6   1   I   6   100 1N   0   1   "Gobo_Beam"   0     0     0
+END
+;
+;----------------------------------------------------------------------------
+; Text to be displayed when the Instrument is selected for Patching
+;
+TEXT
+  VL 1
+Bank    Faders
+   Bottom   Top
+---------------------
+ 1 Dimmer   --
+ 2 --       --
+ 3 Tilt     Pan
+ 4 Color    Saturation
+ 5 --       --
+ 6 Gobo     --       
+
+INPUT fixture DMX No.
+Press a Fixture 
+Select or Swop button 
+to make the patch.
+END
+
+ATTR
+END
+;
+;----------------------------------------------------------------------------
+; Tables
+
+; Positions
+PFTABLE "Positions" -1 2  3
+"Middle"    21 80  80
+"Left"      22 50  80
+"Right"     23 b0  80
+"Top"       24 80  50
+"Bottom"    25 80  b0
+"TLeft"     26 50  50
+"TRight"    27 b0  b0
+"BLeft"     28 50  b0
+"BRight"    29 b0  50
+PFEND
+
+; Color table
+PFTABLE "Colors" -1 4
+"Open"      1   0
+"Col 1"     2  12
+"Col 2"     3  21
+"Col 3"     4  30
+"Col 4"     5  3f
+"Col 5"     6  52
+"Col 6"     7  61
+"Col 7"     8  71
+"Open"      9  7c
+PFEND
+
+; Gobo table
+PFTABLE "Gobos" -1 6
+"Open"      11   0
+"Gobo 1"    12  12
+"Gobo 2"    13  21
+"Gobo 3"    14  30
+"Gobo 4"    15  3f
+"Gobo 5"    16  52
+"Gobo 6"    17  61
+"Gobo 7"    18  71
+"Gobo 8"    19  7c
+PFEND
+
+
+
