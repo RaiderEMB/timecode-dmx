@@ -25,11 +25,11 @@ my $syntax = {
 	},
 	"RANGE" => {
 		'end' => "REND",
-		'callback' => \&dummy,
+		'callback' => \&cb_range,
 	},
 	"MACRO" => {
 		'end' => "MEND",
-		'callback' => \&dummy,
+		'callback' => \&cb_macro,
 	},
 	"DEVICEADDRESS" => {
 		'end' => "DAEND",
@@ -171,7 +171,7 @@ sub handle_syntax {
 
 sub dummy {
 	my ($cmd, $param, $data) = @_;
-	print STDERR "Use of valid but unimplemented command '$cmd'\n";
+#	print STDERR "Use of valid but unimplemented command '$cmd'\n";
 }
 
 
@@ -179,7 +179,6 @@ sub dummy {
 sub cb_device {
 	my ($cmd, $param) = @_;
 	if ($param =~ s/^(\w+)//) {
-		print "'".$param."'\n";
 		$this->{'legend'}->{'name'} = $1;
 	}
 	if ($param =~ s/  (\d+) DMX Channels?//si) {
@@ -198,7 +197,7 @@ sub cb_device {
 close DATA;
 
 
-print Dumper $this;
+#print Dumper $this;
 
 
 
@@ -309,5 +308,35 @@ sub cb_dmx {
 		}		
 	}
 
+}
+
+
+
+sub cb_macro {
+	my ($cmd, $param, $data) = @_;
+
+
 
 }
+
+sub cb_range {
+	my ($cmd, $param, $data) = @_;
+
+	if ($param =~ /^\s*(\d+)/) {
+		my $range_channel = $1;
+		$this->{patch}->{channels}->{$range_channel}->{range} = [];
+print "=====\n".$data."\n======\n";
+
+		while($data =~ /\b\s*(\d+)\s+(\d+)\s+"([^"]+)"([^;\n]*)/gsi) {
+			my @args;
+			if (defined $4) {
+				@args = split(/,/, $4);
+			}
+			push @{ $this->{patch}->{channels}->{$range_channel}->{range} }, [ $1, $2, $3, @args ];
+		}
+	}
+
+}
+
+
+print Dumper $this;
