@@ -1,9 +1,9 @@
-use Raider::Avolites::Personality;
+package Raider::Avolites::Personality;
 
 use strict;
 use Data::Dumper;
 
-die unless defined $ARGV[0];
+our $this = {};
 
 my $syntax = {
     "ATTR" => {
@@ -47,10 +47,7 @@ my $syntax = {
 sub Parse {
     my ($file) = @_;
 
-    open DATA, "<", $file;
-    unless (DATA) {
-        return undef;
-    }
+    open DATA, "<", $file or return undef;
  
     my $inEscape       = 0;
     my $inFunction     = undef;
@@ -59,7 +56,7 @@ sub Parse {
     my $raw_line       = 0;
     my $first          = 1;
     
-    our $this = {};
+    $this = {};
     
     RAW: while ( my $raw = <DATA> ) {
         $raw_line++;
@@ -395,4 +392,4 @@ sub cb_macro {
     return 1;
 }
 
-#print Dumper $this;
+1;
