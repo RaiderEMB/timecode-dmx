@@ -38,6 +38,8 @@ static int artnet_pps = 0;
 static int dmxd_pps = 0;
 static int dmx_pps = 0;
 
+#define OUTPUT_PPS 44.2
+
 #define MAX_CONNECTIONS 20
 #define MAX_OPERATIONS (512*2)
 #define BUFLEN 1024
@@ -734,7 +736,7 @@ int main(int argc, char **argv) {
 		static struct timeval lastsend;
 		struct timeval now;
 		timeout.tv_sec = 0;
-		timeout.tv_usec = 23000;
+		timeout.tv_usec = 1000000 / OUTPUT_PPS;
 
 		FD_ZERO(&selectlist);
 		FD_SET(sock, &selectlist);
@@ -796,7 +798,7 @@ int main(int argc, char **argv) {
 		gettimeofday(&now, NULL);
 		diff = (long long)(now.tv_sec - lastsend.tv_sec) * 1000000;
 		diff += now.tv_usec - lastsend.tv_usec;
-		if (diff < 23000)
+		if (diff < (1000000 / OUTPUT_PPS))
 			continue;
 
 		/* Come here at least every *timeout* uS */
