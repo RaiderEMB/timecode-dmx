@@ -53,6 +53,9 @@ static struct dmxd_operation operations[MAX_OPERATIONS];
 #define FUNC_LOCK 4
 #define FUNC_MAX 6
 #define FUNC_MIN 7
+#define FUNC_ADD 8
+#define FUNC_SUB 9
+#define FUNC_CANCEL 10
 #define FUNC_SCALEMAX 12
 #define FUNC_TRANSACTION_START 14
 #define FUNC_TRANSACTION_END 15
@@ -454,6 +457,96 @@ static void f_min(struct dmxd_operation *op, float runtime) {
 	}
 }
 
+static void f_add(struct dmxd_operation *op, float runtime) {
+	int len = 0;
+	short channel;
+	unsigned char addval;
+	float forsecs;
+
+	if (!enough_arguments(__func__, op, 7))
+		return;
+
+	len += dmxd_read_short(op, len, &channel);
+	len += dmxd_read_byte(op, len, &addval);
+	len += dmxd_read_float(op, len, &forsecs);
+
+	op->channel = channel;
+
+	/* Cancel operation if no override flag, cancel all others if override flag */
+	if (!should_override(op)) {
+		operation_remove(op);
+		return;
+	}
+
+	unsigned char value = min(artnet_dmx[channel] + addval,255);
+
+	dmxd_set_dmx(channel, value);
+
+	if (verbose)
+		printf("ad%d: %02d %f\n", op->operation_id, value, runtime);
+
+	if (runtime >= forsecs) {
+		operation_remove(op);
+	}
+}
+
+static void f_sub(struct dmxd_operation *op, float runtime) {
+	int len = 0;
+	short channel;
+	unsigned char subval;
+	float forsecs;
+
+	if (!enough_arguments(__func__, op, 7))
+		return;
+
+	len += dmxd_read_short(op, len, &channel);
+	len += dmxd_read_byte(op, len, &subval);
+	len += dmxd_read_float(op, len, &forsecs);
+
+	op->channel = channel;
+
+	/* Cancel operation if no override flag, cancel all others if override flag */
+	if (!should_override(op)) {
+		operation_remove(op);
+		return;
+	}
+
+	unsigned char value = max((int)artnet_dmx[channel] - subval,0);
+
+	dmxd_set_dmx(channel, value);
+
+	if (verbose)
+		printf("ad%d: %02d %f\n", op->operation_id, value, runtime);
+
+	if (runtime >= forsecs) {
+		operation_remove(op);
+	}
+}
+
+static void f_cancel(struct dmxd_operation *op, float runtime) {
+	int len = 0;
+	int operation_id;
+	int i;
+
+	if (!enough_arguments(__func__, op, 4))
+		return;
+
+	dmxd_read_int(op, len, &operation_id);
+
+	/* Cancel operation if no override flag, cancel all others if override flag */
+	if (!should_override(op)) {
+		operation_remove(op);
+		return;
+	}
+
+	for (i = 0; i < MAX_OPERATIONS; ++i) {
+		if (operation_id == 0 || (operation_id == i && operations[i].allocated == 1)) {
+			operation_remove(&operations[i]);
+		}
+	}
+
+	operation_remove(op);
+}
 
 static void f_transaction_end(struct dmxd_operation *op, float runtime) {
 	if (verbose)
@@ -507,6 +600,9 @@ static void *functions[] = {
 	(void *)FUNC_LOCK, (void *)f_lock,
 	(void *)FUNC_MAX, (void *)f_max,
 	(void *)FUNC_MIN, (void *)f_min,
+	(void *)FUNC_ADD, (void *)f_add,
+	(void *)FUNC_SUB, (void *)f_sub,
+	(void *)FUNC_CANCEL, (void *)f_cancel,
 	(void *)FUNC_CONTROL, (void *)f_control,
 	(void *)FUNC_BLINK, (void *)f_blink,
 	(void *)FUNC_SCALEMAX, (void *)f_scalemax,
