@@ -325,8 +325,6 @@ sub cb_range {
 	if ($param =~ /^\s*(\d+)/) {
 		my $range_channel = $1;
 		$this->{patch}->{channels}->{$range_channel}->{range} = [];
-print "=====\n".$data."\n======\n";
-
 		while($data =~ /\b\s*(\d+)\s+(\d+)\s+"([^"]+)"([^;\n]*)/gsi) {
 			my @args;
 			if (defined $4) {
