@@ -13,7 +13,7 @@ my $syntax = {
 	},
 	"PFTABLE" => {
 		'end' => "PFEND",
-		'callback' => \&dummy,
+		'callback' => \&cb_pftable,
 	},
 	"TEXT" => {
 		'end' => "END",
@@ -335,6 +335,29 @@ sub cb_range {
 	}
 
 }
+
+
+sub cb_pftable {
+
+	my ($cmd, $param, $data) = @_;
+
+	if ($param =~ s/^\s*"([^"]+)"\s*//) {
+		my $tablename = $1;
+		my @headers = split /[ \t]+/, $param;
+		$this->{preset}->{$tablename} = [];
+		while ($data =~ /\b\s*"([^"]+)"[ \t]+(\d+)[ \t]+([A-F0-9]+)[ \t]+([A-F0-9]+)[ \t]+([A-F0-9]+)/g) {	
+			push @{ $this->{preset}->{$tablename} }, {
+				name => $1,
+				$headers[0] => $2,
+				$headers[1] => hex $3,
+				$headers[2] => hex $4,
+				$headers[3] => hex $5,
+			};
+		}
+	}
+
+}
+
 
 
 print Dumper $this;
