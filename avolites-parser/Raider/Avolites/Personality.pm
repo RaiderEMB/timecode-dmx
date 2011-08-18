@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+use Raider::Avolites::Personality;
 
 use strict;
 use Data::Dumper;
@@ -44,100 +44,110 @@ my $syntax = {
 
 };
 
-open DATA, "<", $ARGV[0] or die "Usage $0 <fixture file> (could not open)";
+sub Parse {
+    my ($file) = @_;
 
-my $inEscape       = 0;
-my $inFunction     = undef;
-my $tempFillerArgs = "";
-my $tempFillerData = "";
-my $raw_line       = 0;
-my $first          = 1;
-
-our $this = {};
-
-RAW: while ( my $raw = <DATA> ) {
-    $raw_line++;
-    chomp $raw;
-
-    # I FUCKING HATE YOU, WINDOWS
-    $raw =~ s/\r//gs;
-
-    if ($first) {
-        if ( $raw =~ /^(<\?xml|\/\/ )/ ) {
-            syntax_error("Not supporting XML (Diamond files)\n");
-            exit;
-        }
-        $first = 0;
+    open DATA, "<", $file;
+    unless (DATA) {
+        return undef;
     }
-
-    if ( not defined $inFunction ) {    # Not in function
-
-        # Skip empty lines, and those beginning with semicolon
-        next RAW if ( $raw =~ /^(\s*;|\s*$)/ );
-
-        # Remove eventual leading spaces
-        $raw =~ s/^\s+//;
-        $raw =~ s/\s+$//;
-
-        my $pos = 1;
-        if ( $raw =~ /^\s*\/\// ) {
-            syntax_error("Not supporting VIZ files\n");
-            exit;
+ 
+    my $inEscape       = 0;
+    my $inFunction     = undef;
+    my $tempFillerArgs = "";
+    my $tempFillerData = "";
+    my $raw_line       = 0;
+    my $first          = 1;
+    
+    our $this = {};
+    
+    RAW: while ( my $raw = <DATA> ) {
+        $raw_line++;
+        chomp $raw;
+    
+        # I FUCKING HATE YOU, WINDOWS
+        $raw =~ s/\r//gs;
+    
+        if ($first) {
+            if ( $raw =~ /^(<\?xml|\/\/ )/ ) {
+                syntax_error("Not supporting XML (Diamond files)\n");
+                exit;
+            }
+            $first = 0;
         }
-
-        if ( $raw =~ /^([A-Z]+)\s*(.*)$/ ) {
-            my $cmd  = $1;
-            my $args = $2;
-            if ( defined $syntax->{ uc($cmd) } ) {
-                $inFunction     = uc($cmd);
-                $tempFillerArgs = $args;
-                if ( not defined $syntax->{$inFunction}->{end} ) {
-                    chomp $tempFillerArgs;
-                    handle_syntax( $inFunction, $tempFillerArgs );
-                    $inFunction = undef;
+    
+        if ( not defined $inFunction ) {    # Not in function
+    
+            # Skip empty lines, and those beginning with semicolon
+            next RAW if ( $raw =~ /^(\s*;|\s*$)/ );
+    
+            # Remove eventual leading spaces
+            $raw =~ s/^\s+//;
+            $raw =~ s/\s+$//;
+    
+            my $pos = 1;
+            if ( $raw =~ /^\s*\/\// ) {
+                syntax_error("Not supporting VIZ files\n");
+                exit;
+            }
+    
+            if ( $raw =~ /^([A-Z]+)\s*(.*)$/ ) {
+                my $cmd  = $1;
+                my $args = $2;
+                if ( defined $syntax->{ uc($cmd) } ) {
+                    $inFunction     = uc($cmd);
+                    $tempFillerArgs = $args;
+                    if ( not defined $syntax->{$inFunction}->{end} ) {
+                        chomp $tempFillerArgs;
+                        handle_syntax( $inFunction, $tempFillerArgs );
+                        $inFunction = undef;
+                    }
+    
+                    next RAW;
+    
                 }
-
+                $pos++;
+            }
+            if ( $raw =~ /^TODO,/ ) {
                 next RAW;
-
             }
-            $pos++;
-        }
-
-        if ( $raw =~ /^TODO,/ ) {
-            next RAW;
-        }
-
-        syntax_error("Syntax error in line $raw_line");
-
-    }
-    else {    # In function
-        if ( defined $syntax->{$inFunction}->{end} ) {
-            my $end = $syntax->{$inFunction}->{end};
-            if ( $raw =~ /^$end\s*$/i ) {
-                chomp $tempFillerArgs;
-                handle_syntax( $inFunction, $tempFillerArgs, $tempFillerData );
-                $tempFillerArgs = "";
-                $tempFillerData = "";
-                $inFunction     = undef;
-            }
-            else {
-                $tempFillerData .= $raw . "\n";
-            }
-
+            syntax_error("Syntax error in line $raw_line");
+    
         }
         else {
-            syntax_error("Syntax error in line $raw_line");
+            if ( defined $syntax->{$inFunction}->{end} ) {
+                my $end = $syntax->{$inFunction}->{end};
+                if ( $raw =~ /^$end\s*$/i ) {
+                    chomp $tempFillerArgs;
+                    handle_syntax( $inFunction, $tempFillerArgs, $tempFillerData );
+                    $tempFillerArgs = "";
+                    $tempFillerData = "";
+                    $inFunction     = undef;
+                }
+                else {
+                    $tempFillerData .= $raw . "\n";
+                }
+            }
+            else {
+                syntax_error("Syntax error in line $raw_line");
+            }
         }
     }
+    
+    if ( defined $inFunction ) {
+        syntax_error("Parser done too early. Forgot a closing tag?");
+    }
+  
+    return $this 
 }
 
-if ( defined $inFunction ) {
-    syntax_error("Parser done too early. Forgot a closing tag?");
-}
 
+
+ 
 sub syntax_error {
     my ($text) = @_;
     print STDERR '[ERROR]: ' . $text . "\n";
+    return 1;
 }
 
 sub handle_syntax {
@@ -156,11 +166,13 @@ sub handle_syntax {
     else {
         print "SKIPPING: $cmd: $param\n";
     }
+    return 1;
 }
 
 sub dummy {
     my ( $cmd, $param, $data ) = @_;
     print STDERR "Use of valid but unimplemented command '$cmd': $param\n";
+    return 1;
 }
 
 # Status: Implementation OK   Testing: 50/50
@@ -207,6 +219,7 @@ sub cb_deviceaddress {
             }
         }
     }
+    return 1;
 }
 
 sub cb_text {
@@ -216,6 +229,7 @@ sub cb_text {
         chomp $line;
         push @{ $this->{legend}->{text} }, $line;
     }
+    return 1;
 }
 
 sub cb_type {
@@ -223,6 +237,7 @@ sub cb_type {
     if ( $param =~ /\s*\d+\s+(\d+)\s+\w\s*/ ) {
         $this->{patch}->{size} = $1;
     }
+    return 1;
 }
 
 sub cb_mirror {
@@ -239,6 +254,7 @@ sub cb_mirror {
         $this->{geo}->{pan_deg}  = $2;
         $this->{geo}->{tilt_deg} = $3;
     }
+    return 1;
 }
 
 sub cb_eq {
@@ -246,7 +262,7 @@ sub cb_eq {
     if ( $param =~ /\s*=\s*(\S+)\s*/ ) {
         $this->{constraint}->{ lc($cmd) } = $1;
     }
-
+    return 1;
 }
 
 sub cb_dmx {
@@ -293,7 +309,7 @@ sub cb_dmx {
             };
         }
     }
-
+    return 1;
 }
 
 sub cb_range {
@@ -311,7 +327,7 @@ sub cb_range {
               [ $1, $2, $3, @args ];
         }
     }
-
+    return 1;
 }
 
 sub cb_pftable {
@@ -322,10 +338,7 @@ sub cb_pftable {
         my $tablename = $1;
         my @headers = split /[ \t]+/, $param;
         $this->{preset}->{$tablename} = [];
-        while ( $data =~
-/\b\s*"([^"]+)"[ \t]+(\d+)[ \t]+([A-F0-9]+)[ \t]+([A-F0-9]+)[ \t]+([A-F0-9]+)/g
-          )
-        {
+        while ( $data =~ /\b\s*"([^"]+)"[ \t]+(\d+)[ \t]+([A-F0-9]+)[ \t]+([A-F0-9]+)[ \t]+([A-F0-9]+)/g ) {
             push @{ $this->{preset}->{$tablename} },
               {
                 name        => $1,
@@ -336,7 +349,7 @@ sub cb_pftable {
               };
         }
     }
-
+    return 1;
 }
 
 sub cb_name {
@@ -346,12 +359,13 @@ sub cb_name {
         $this->{legend}->{manufacturer} = $1;
         $this->{legend}->{model}        = $2;
     }
+    return 1;
 }
 
 sub cb_attr {
     my ( $cmd, $param, $data ) = @_;
-
     # Function obsolete
+    return 1;
 }
 
 sub cb_macro {
@@ -378,8 +392,7 @@ sub cb_macro {
         }
     }
 
-    #	print Dumper $this->{macro};
-
+    return 1;
 }
 
 #print Dumper $this;
