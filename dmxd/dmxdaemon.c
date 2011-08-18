@@ -56,7 +56,9 @@ static struct dmxd_operation operations[MAX_OPERATIONS];
 #define FUNC_ADD 8
 #define FUNC_SUB 9
 #define FUNC_CANCEL 10
+#define FUNC_CANCELTRANS 11
 #define FUNC_SCALEMAX 12
+#define FUNC_SCALEMIN 13
 #define FUNC_TRANSACTION_START 14
 #define FUNC_TRANSACTION_END 15
 
@@ -355,7 +357,40 @@ static void f_scalemax(struct dmxd_operation *op, float runtime) {
 	dmxd_set_dmx(channel, value);
 
 	if (verbose)
-		printf("s%d: %02d %f\n", op->operation_id, value, runtime);
+		printf("sma%d: %02d %f\n", op->operation_id, value, runtime);
+
+	if (runtime >= forsecs) {
+		operation_remove(op);
+	}
+}
+
+static void f_scalemin(struct dmxd_operation *op, float runtime) {
+	int len = 0;
+	short channel;
+	unsigned char minval;
+	float forsecs;
+
+	if (!enough_arguments(__func__, op, 7))
+		return;
+
+	len += dmxd_read_short(op, len, &channel);
+	len += dmxd_read_byte(op, len, &minval);
+	len += dmxd_read_float(op, len, &forsecs);
+
+	op->channel = channel;
+
+	/* Cancel operation if no override flag, cancel all others if override flag */
+	if (!should_override(op)) {
+		operation_remove(op);
+		return;
+	}
+	
+	unsigned char value = minval + (unsigned char)((float)(artnet_dmx[channel] / 255.f) * (255-minval));
+
+	dmxd_set_dmx(channel, value);
+
+	if (verbose)
+		printf("smi%d: %02d %f\n", op->operation_id, value, runtime);
 
 	if (runtime >= forsecs) {
 		operation_remove(op);
@@ -548,6 +583,32 @@ static void f_cancel(struct dmxd_operation *op, float runtime) {
 	operation_remove(op);
 }
 
+static void f_cancel_trans(struct dmxd_operation *op, float runtime) {
+	int len = 0;
+	int transaction_id;
+	int i;
+
+	if (!enough_arguments(__func__, op, 4))
+		return;
+
+	dmxd_read_int(op, len, &transaction_id);
+
+	/* Cancel operation if no override flag, cancel all others if override flag */
+	if (!should_override(op)) {
+		operation_remove(op);
+		return;
+	}
+
+	for (i = 0; i < MAX_OPERATIONS; ++i) {
+		if (transaction_id == 0 || (transaction_id == operations[i].transaction_id && operations[i].allocated == 1)) {
+			operation_remove(&operations[i]);
+		}
+	}
+
+	operation_remove(op);
+}
+
+
 static void f_transaction_end(struct dmxd_operation *op, float runtime) {
 	if (verbose)
 		printf("Ran transaction end function\n");
@@ -603,9 +664,11 @@ static void *functions[] = {
 	(void *)FUNC_ADD, (void *)f_add,
 	(void *)FUNC_SUB, (void *)f_sub,
 	(void *)FUNC_CANCEL, (void *)f_cancel,
+	(void *)FUNC_CANCELTRANS, (void *)f_cancel_trans,
 	(void *)FUNC_CONTROL, (void *)f_control,
 	(void *)FUNC_BLINK, (void *)f_blink,
 	(void *)FUNC_SCALEMAX, (void *)f_scalemax,
+	(void *)FUNC_SCALEMIN, (void *)f_scalemin,
 	(void *)FUNC_TRANSACTION_START, (void *)f_transaction_start,
 	(void *)FUNC_TRANSACTION_END, (void *)f_transaction_end,
 };
