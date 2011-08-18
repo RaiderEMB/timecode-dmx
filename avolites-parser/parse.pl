@@ -17,7 +17,7 @@ my $syntax = {
 	},
 	"TEXT" => {
 		'end' => "END",
-		'callback' => \&dummy,
+		'callback' => \&cb_text,
 	},
 	"DMX" => {
 		'end' => "END",
@@ -209,6 +209,7 @@ sub cb_deviceaddress {
 	$this->{legend}->{'label'} = [];
 	for my $line (split /\n/, $data) {
 		chomp $line;
+
 		$line =~ s/^\s*//sg;
 		$line =~ s/\s*$//sg;
 		if (length $line) {
@@ -225,6 +226,16 @@ sub cb_deviceaddress {
 	}
 }
 
+
+sub cb_text {
+	my ($cmd, $param, $data) = @_;
+	$this->{legend}->{'text'} = [];
+	for my $line (split /\n/, $data) {
+		chomp $line;
+		push @{ $this->{legend}->{text} }, $line;
+	}
+}
+	
 sub cb_type {
 	my ($cmd, $param) = @_;
 	if ($param =~ /\s*\d+\s+(\d+)\s+\w\s*/) {
