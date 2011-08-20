@@ -5,9 +5,18 @@ use warnings;
 
 use base 'Catalyst::View::TT';
 
+sub dipswitch {
+	my ($self, $c, $value) = @_;
+
+	my $str = unpack("B16", pack("n", $value));
+	$str =~ s/^000000//;
+	return $str;
+}
+
 __PACKAGE__->config(
     TEMPLATE_EXTENSION => '.tt',
     render_die => 1,
+    expose_methods => [qw/dipswitch/],
 );
 
 =head1 NAME
