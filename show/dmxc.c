@@ -2,8 +2,14 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
 #include "dmxc.h"
-#include <artnet/packets.h>
+
+static int dmxc_sock;
+struct sockaddr_in si_dmxd;
+
 
 struct dmxc_packet {
 	unsigned short uniqueid;
@@ -11,12 +17,15 @@ struct dmxc_packet {
 	char data[1024];
 };
 
-
+static int dmxc_udp_send(struct dmxc_packet *packet) {
+	return sendto(dmxc_sock, packet->data, packet->length, MSG_DONTWAIT, (const struct sockaddr*)&si_dmxd, sizeof(si_dmxd));
+}
 
 static int dmxc_packet_init(struct dmxc_packet *packet, enum dmxd_commands command, char flag) {
 	unsigned short nuniqueid;
-	packet->uniqueid = rand() * 65536;
+	packet->uniqueid = rand() % 65536;
 
+	printf("Preparing packet for command %d, uniqueid %d\n", command, packet->uniqueid);
 	nuniqueid = htons(packet->uniqueid);
 	memcpy(packet->data, &nuniqueid, sizeof(unsigned short));
 	packet->length = 2;
@@ -29,24 +38,26 @@ static int dmxc_packet_init(struct dmxc_packet *packet, enum dmxd_commands comma
 	return packet->length;
 }
 
-static int dmxc_packet_add_char(struct dmxc_packet *packet, va_list args) {
-	unsigned char data = va_arg(args, int);
-	
+static int dmxc_packet_add_char(struct dmxc_packet *packet, va_list *args) {
+	unsigned char data = va_arg(*args, int);
+
 	packet->data[packet->length] = data;
 	return ++packet->length;
 }
 
-static int dmxc_packet_add_short(struct dmxc_packet *packet, va_list args) {
-	unsigned short data = va_arg(args, int);
+static int dmxc_packet_add_short(struct dmxc_packet *packet, va_list *args) {
+	unsigned short data = va_arg(*args, int);
+	unsigned char *p = packet->data;
+	printf("packet_add(short): %d\n", data);
 	data = htons(data);
-	
-	memcpy(&(packet->data[packet->length]), &data, sizeof(unsigned short));
+
+	memcpy(p + packet->length, &data, sizeof(unsigned short));
 	packet->length += sizeof(unsigned short);
 	return packet->length;
 }
 
-static int dmxc_packet_add_int(struct dmxc_packet *packet, va_list args) {
-	unsigned int data = va_arg(args, int);
+static int dmxc_packet_add_int(struct dmxc_packet *packet, va_list *args) {
+	unsigned int data = va_arg(*args, int);
 	data = htonl(data);
 	
 	memcpy(&(packet->data[packet->length]), &data, sizeof(unsigned int));
@@ -54,8 +65,8 @@ static int dmxc_packet_add_int(struct dmxc_packet *packet, va_list args) {
 	return packet->length;
 }
 
-static int dmxc_packet_add_float(struct dmxc_packet *packet, va_list args) {
-	float data = va_arg(args, double);
+static int dmxc_packet_add_float(struct dmxc_packet *packet, va_list *args) {
+	float data = va_arg(*args, double);
 	
 	memcpy(&(packet->data[packet->length]), &data, sizeof(float));
 	packet->length += sizeof(float);
@@ -64,26 +75,55 @@ static int dmxc_packet_add_float(struct dmxc_packet *packet, va_list args) {
 
 
 static int dmxc_sendv(enum dmxd_commands command, char flag, va_list args) {
+	int len = 0;
 	struct dmxc_packet packet;
 	dmxc_packet_init(&packet, command, flag);
 
 	switch (command) {
-		case FUNC_FADE:
-		{
-			dmxc_packet_add_short(&packet, args); /* channel */
-			dmxc_packet_add_char(&packet, args);  /* fromval */
-			dmxc_packet_add_char(&packet, args);  /* toval */
-			dmxc_packet_add_float(&packet, args);  /* seconds */
+		case DMXD_FUNC_FADE:
+			dmxc_packet_add_short(&packet, &args); /* channel */
+			dmxc_packet_add_char(&packet, &args);  /* fromval */
+			dmxc_packet_add_char(&packet, &args);  /* toval   */
+			dmxc_packet_add_float(&packet, &args); /* seconds */
 			
-			printf("Packet size: %d\n", packet.length);
-		}
-		break;
+			len = dmxc_udp_send(&packet);
+			break;
+
+		case DMXD_FUNC_BLINK:
+			dmxc_packet_add_short(&packet, &args); /* channel */
+			dmxc_packet_add_char(&packet, &args);  /* lowval  */
+			dmxc_packet_add_char(&packet, &args);  /* highval */
+			dmxc_packet_add_float(&packet, &args); /* secdown */
+			dmxc_packet_add_float(&packet, &args); /* secup   */
+			dmxc_packet_add_int(&packet, &args);   /* times   */
+
+			len = dmxc_udp_send(&packet);
+			break;
+	}
+	if (len) {
+		printf("Packet size: %d Data sent: %d\n", packet.length, len);
 	}
 
 }
 
 int dmxc_init(char* hostname, short unsigned int port) {
+	srand(time(NULL));
+	struct hostent *hostbyname = gethostbyname(hostname);
+        if(hostbyname == NULL) {
+                fprintf(stderr, "Could not resolve %s", hostname);
+		perror(__func__);
+                exit(1);
+        }
 
+	if ((dmxc_sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
+		perror("dmxc_init: socket");
+		exit(1);
+	}
+
+	memset((void *) &si_dmxd, 0, sizeof(si_dmxd));
+	si_dmxd.sin_family = AF_INET;
+	si_dmxd.sin_port = htons(port);
+	memcpy(&si_dmxd.sin_addr.s_addr, hostbyname->h_addr, sizeof(si_dmxd.sin_addr.s_addr));
 }
 
 int dmxc_send(enum dmxd_commands command, ... ) {
