@@ -85,7 +85,7 @@ static int dmxc_sendv(enum dmxd_commands command, char flag, va_list args) {
 			dmxc_packet_add_char(&packet, &args);  /* fromval */
 			dmxc_packet_add_char(&packet, &args);  /* toval   */
 			dmxc_packet_add_float(&packet, &args); /* seconds */
-			
+
 			len = dmxc_udp_send(&packet);
 			break;
 
@@ -99,6 +99,70 @@ static int dmxc_sendv(enum dmxd_commands command, char flag, va_list args) {
 
 			len = dmxc_udp_send(&packet);
 			break;
+
+		case DMXD_FUNC_CONTROL:
+			len = dmxc_udp_send(&packet);
+			break;
+
+		case DMXD_FUNC_LOCK:
+			dmxc_packet_add_short(&packet, &args); /* channel */
+			dmxc_packet_add_char(&packet, &args);  /* value   */
+			dmxc_packet_add_float(&packet, &args); /* seconds */
+			len = dmxc_udp_send(&packet);
+			break;
+
+		case DMXD_FUNC_MAX:
+			dmxc_packet_add_short(&packet, &args); /* channel */
+			dmxc_packet_add_char(&packet, &args);  /* maxval  */
+			dmxc_packet_add_float(&packet, &args); /* seconds */
+			len = dmxc_udp_send(&packet);
+			break;
+
+		case DMXD_FUNC_MIN:
+			dmxc_packet_add_short(&packet, &args); /* channel */
+			dmxc_packet_add_char(&packet, &args);  /* minval  */
+			dmxc_packet_add_float(&packet, &args); /* seconds */
+			len = dmxc_udp_send(&packet);
+			break;
+
+		case DMXD_FUNC_ADD:
+			dmxc_packet_add_short(&packet, &args); /* channel */
+			dmxc_packet_add_char(&packet, &args);  /* addval  */
+			dmxc_packet_add_float(&packet, &args); /* seconds */
+			len = dmxc_udp_send(&packet);
+			break;
+
+		case DMXD_FUNC_SUB:
+			dmxc_packet_add_short(&packet, &args); /* channel */
+			dmxc_packet_add_char(&packet, &args);  /* subval  */
+			dmxc_packet_add_float(&packet, &args); /* seconds */
+			len = dmxc_udp_send(&packet);
+			break;
+
+		case DMXD_FUNC_SCALEMAX:
+			dmxc_packet_add_short(&packet, &args); /* channel */
+			dmxc_packet_add_char(&packet, &args);  /* maxval  */
+			dmxc_packet_add_float(&packet, &args); /* seconds */
+			len = dmxc_udp_send(&packet);
+			break;
+
+		case DMXD_FUNC_SCALEMIN:
+			dmxc_packet_add_short(&packet, &args); /* channel */
+			dmxc_packet_add_char(&packet, &args);  /* minval  */
+			dmxc_packet_add_float(&packet, &args); /* seconds */
+			len = dmxc_udp_send(&packet);
+			break;
+
+		case DMXD_FUNC_TRANSACTION_START:
+			len = dmxc_udp_send(&packet);
+			break;
+
+		case DMXD_FUNC_TRANSACTION_END:
+			len = dmxc_udp_send(&packet);
+			break;
+
+		default:
+			fprintf(stderr, "%s: Unknown command %d\n", __func__, command);
 	}
 	if (len) {
 		printf("Packet size: %d Data sent: %d\n", packet.length, len);

@@ -237,9 +237,11 @@ int main(int argc, char **argv) {
 	struct timeval timeout;
 	
 	dmxc_init("127.0.0.1",9118);
-	dmxc_send(DMXD_FUNC_FADE, 123, 0, 255, 10.f);
-	dmxc_send(DMXD_FUNC_BLINK, 124, 0, 255, 0.5f, 0.5f, 10);
-
+	dmxc_send(DMXD_FUNC_TRANSACTION_START);
+	dmxc_send(DMXD_FUNC_FADE, 123, 0, 255, 4.f);
+	dmxc_send(DMXD_FUNC_BLINK, 124, 0, 255, 0.5f, 0.5f, 4);
+	dmxc_send(DMXD_FUNC_BLINK, 125, 0, 255, 0.5f, 0.5f, 4);
+	dmxc_send(DMXD_FUNC_TRANSACTION_END);
 	return 0;
 	
 	// parse options 
