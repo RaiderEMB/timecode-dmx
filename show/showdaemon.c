@@ -17,6 +17,8 @@
 #include <jack/jack.h>
 #include <jack/transport.h>
 #include <signal.h>
+#include <errno.h>
+#include "showdaemon.h"
 #include "dmxc.h"
 
 /* File descriptors */
@@ -33,25 +35,12 @@ static int verbose;
 #define MAX_ARG_LEN 64
 #define BUFLEN 1024
 
-
-#define FUNC_EFFECT_START 1
-#define FUNC_EFFECT_END 2
-#define FUNC_BARTRIG_START 3
-#define FUNC_BARTRIG_END 4
-#define FUNC_TS_START 5
-#define FUNC_TS_END 6
-#define FUNC_RESET 7
-#define FUNC_FADE 10
-#define FUNC_BLINK 11
-#define FUNC_LOCK 12
-#define FUNC_CONTROL 13
-
 #define PROGRAM_NAME "showdaemon"
 
 struct show_operation {
 	char allocated;
 
-	enum operation_type {
+	enum enum_operation_type {
 		OP_EFFECT,
 		OP_BARTRIG,
 		OP_TS,
@@ -61,10 +50,10 @@ struct show_operation {
 	unsigned char arguments[MAX_ARG_LEN];
 	int argument_len;
 
-	unsigned char command;
+	enum show_commands command;
 
 	int connection_id;
-	int effect_id;
+	unsigned short effect_id;
 	int bartrig_id;
 	int timestamp_id;
 };
@@ -80,14 +69,16 @@ struct show_bartrig {
 	int timestamp_end;
 };
 
-struct show_connection {
-	char inuse;
-	struct sockaddr_in *from;
-	int transaction_id;
-};
+static int current_effect_id = -1;
+static unsigned short current_bartrig_id = 0;
+static unsigned short current_timestamp_id = 0;
 
-static struct show_connection connections[MAX_CONNECTIONS];
+int bartrigs_count = 0;
+int timestamps_count = 0;
+
 static struct show_operation  operations[MAX_OPERATIONS];
+static struct show_timestamp  timestamps[MAX_OPERATIONS];
+static struct show_bartrig    bartrigs[MAX_OPERATIONS];
 
 void signal_handler (int sig) {
         jack_client_close (client);
@@ -98,25 +89,6 @@ void signal_handler (int sig) {
 
 void jack_shutdown (void *arg) {
         exit (1);
-}
-
-static struct show_operation *parse_packet(unsigned char *data, int length) {
-	static struct show_operation operation;
-	if (length < 4)
-		return NULL;
-
-	if (length - 4 > MAX_ARG_LEN)
-		return NULL;
-
-	memset(&operation, 0, sizeof(struct show_operation));
-	operation.command = data[0];
-	memcpy(operation.arguments, data + 4, length - 4);
-	operation.argument_len = length - 4;
-
-	if (verbose)
-	printf("Parsed command: %d\n", operation.command);
-
-	return &operation;
 }
 
 static int show_read_byte(struct show_operation *op, int pos, unsigned char *out) {
@@ -165,6 +137,174 @@ inline static int enough_arguments(const char *function_name, struct show_operat
 	return 1;
 }
 
+void show_effect_start(struct show_operation *op) {
+	unsigned short effect_id;
+	show_read_short(op, 0, &effect_id);
+
+	current_effect_id = effect_id;
+}
+
+void show_bartrig_start(struct show_operation *op) {
+	int len;
+	unsigned short starttime;
+	unsigned short endtime;
+	len =  show_read_short(op, len, &starttime);
+	len =+ show_read_short(op, len, &endtime);
+
+	current_bartrig_id = bartrigs_count;
+	
+	bartrigs[bartrigs_count].timestamp_start = starttime;
+	bartrigs[bartrigs_count].timestamp_end = endtime;
+	bartrigs[bartrigs_count].bartrig_id = bartrigs_count++;
+}
+
+void show_timestamp_start(struct show_operation *op) {
+	int len;
+	unsigned short stime;
+	
+	show_read_short(op, 0, &stime);
+	
+	current_timestamp_id = timestamps_count;
+	
+	timestamps[timestamps_count].timestamp = stime;
+	timestamps[timestamps_count].timestamp_id = timestamps_count++;
+}
+
+void operation_add(struct show_operation *op) {
+	int i;
+	int opid = -1;
+
+	for (i=0; i < MAX_OPERATIONS; ++i) {
+		if (operations[i].allocated == 0) {
+			opid = i;
+			break;
+		}
+	}
+	if (opid == -1) {
+		fprintf(stderr, "%s: Operations storage exceeded\n",__func__);
+		return;
+	}
+	
+	memcpy(&operations[opid], op, sizeof(struct show_operation));
+	op = &operations[opid];
+	
+	if (current_effect_id > -1) {
+		op->operation_type = OP_EFFECT;
+		op->effect_id = current_effect_id;
+	} else
+	if (current_bartrig_id > -1) {
+		op->operation_type = OP_BARTRIG;
+		op->bartrig_id = current_bartrig_id;
+	} else
+	if (current_timestamp_id > -1) {
+		op->operation_type = OP_TS;
+		op->timestamp_id = current_timestamp_id;
+	}
+	
+}
+
+static void handle_operation(struct show_operation *op) {
+	int len = 0;
+
+	switch (op->command) {
+		case SHOW_FUNC_EFFECT_START:
+			show_effect_start(op);
+			break;
+
+		case SHOW_FUNC_EFFECT_END:
+			current_effect_id = -1;
+			break;
+
+		case SHOW_FUNC_BARTRIG_START:
+			show_bartrig_start(op);
+			break;
+
+		case SHOW_FUNC_BARTRIG_END:
+			current_bartrig_id = -1;
+
+		case SHOW_FUNC_TS_START:
+			show_timestamp_start(op);
+			break;
+
+		case SHOW_FUNC_TS_END:
+			current_timestamp_id = -1;
+			break;
+
+		case SHOW_FUNC_FADE:
+			operation_add(op);
+	}
+	
+}
+
+static struct show_operation *parse_packet(unsigned char *data, int length) {
+	static struct show_operation operation;
+	if (length < 1)
+		return NULL;
+
+	if (length - 1 > MAX_ARG_LEN)
+		return NULL;
+
+	memset(&operation, 0, sizeof(struct show_operation));
+	operation.command = data[0];
+	memcpy(operation.arguments, data + 1, length - 1);
+	operation.argument_len = length - 1;
+
+	if (verbose)
+	printf("Parsed command: %d with %d bytes of arguments: arg1:%d\n", operation.command, operation.argument_len, operation.arguments[0]);
+
+	return &operation;
+}
+
+static void show_read_datafile() {
+	FILE *fp;
+	unsigned short packetsize;
+	unsigned char magic[] = "showdaemon";
+	unsigned char checkmagic[11];
+	
+	fp = fopen("datafile","r");
+	if (fp == NULL) {
+		fprintf(stderr, "%s: Cannot open file 'datafile': %s\n", __func__, strerror(errno));
+		return;
+	}
+
+	fread(&checkmagic, sizeof(checkmagic), 1, fp);
+	
+	if (memcmp(&magic, &checkmagic, sizeof(magic)) != 0) {
+		fprintf(stderr, "%s: Invalid datafile 'datafile'.\n", __func__);
+		fclose(fp);
+		return;
+	}
+
+	while (!feof(fp)) {
+		struct show_operation *operation;
+		unsigned char buffer[1024];
+		int len;
+		
+		len = fread(&packetsize, sizeof(unsigned short), 1, fp);
+		if (ferror(fp) || len != 1) {
+			fclose(fp);
+			return;
+		}
+		packetsize = ntohs(packetsize);
+		if (packetsize > 1024)
+			packetsize = 1024;
+
+		len = fread(&buffer, packetsize, 1, fp);
+		if (ferror(fp) || len != 1) {
+			fprintf(stderr, "%s: unexpected end of file\n", __func__);
+			fclose(fp);
+			return;
+		}
+		operation = parse_packet(buffer, packetsize);
+		if (operation == NULL) {
+			return;
+		}
+
+		handle_operation(operation);
+	}
+}
+
+
 
 static void *functions[] = {
 /*
@@ -195,35 +335,6 @@ static void (*find_function(unsigned char func)) (struct show_operation *op, flo
 	return NULL;
 }
 
-static int find_connection(struct sockaddr_in *addr) {
-	int i;
-	for (i = 0; i < MAX_CONNECTIONS; ++i) {
-		if (connections[i].inuse && memcmp((void *)connections[i].from, (void *)addr, sizeof(addr)) == 0) {
-			if (verbose)
-				printf("Connection found.\n");
-			return i;
-		}
-	}
-	return -1;
-}
-
-static int add_connection(struct sockaddr_in *addr) {
-	int i;
-	for (i = 0; i < MAX_CONNECTIONS ; ++i) {
-		if (connections[i].inuse == 0) {
-			connections[i].inuse = 1;
-			connections[i].from = addr;
-			connections[i].transaction_id = -1;
-			if (verbose)
-				printf("Connection added.\n");
-			return i;
-		}
-	}
-	fprintf(stderr, "Tried to accept new connection, but no more connectionslots available\n");
-	return -1;
-}
-
-
 int main(int argc, char **argv) {
 	struct sockaddr_in si_me, si_other;
 	int len, slen = sizeof(si_other);
@@ -235,14 +346,8 @@ int main(int argc, char **argv) {
 	jack_status_t status;
 
 	struct timeval timeout;
-	
+
 	dmxc_init("127.0.0.1",9118);
-	dmxc_send(DMXD_FUNC_TRANSACTION_START);
-	dmxc_send(DMXD_FUNC_FADE, 123, 0, 255, 4.f);
-	dmxc_send(DMXD_FUNC_BLINK, 124, 0, 255, 0.5f, 0.5f, 4);
-	dmxc_send(DMXD_FUNC_BLINK, 125, 0, 255, 0.5f, 0.5f, 4);
-	dmxc_send(DMXD_FUNC_TRANSACTION_END);
-	return 0;
 	
 	// parse options 
 	while ((optc = getopt (argc, argv, "v")) != EOF) {
@@ -258,6 +363,10 @@ int main(int argc, char **argv) {
 		fprintf(stderr, "Usage: %s -a [-v]\n", argv[0]);
 		return 1;
 	}
+
+	show_read_datafile();
+	return 0;
+
 
 	if ((sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
 		perror("show socket");
@@ -331,22 +440,9 @@ int main(int argc, char **argv) {
 				}
 				if (verbose)
 					printf("DEBUG: %d bytes of data received\n", len);
-				int connection_id = find_connection(&si_other);
-				if (connection_id == -1) {
-					if (connection_id = add_connection(&si_other) == -1) {
-						/* No more connections available, ignore packet */
-						continue;
-					}
-				}
-				struct show_operation* operation = parse_packet(buffer, len);
-				if (operation != NULL) {
-					operation->connection_id = connection_id;
 
-					if (verbose)
-						printf("Connection_id = %d\n", operation->connection_id);
-
-//					add_operation(operation);
-
+				if (buffer[0] == 1) {
+					show_read_datafile();
 				} else {
 					printf("Invalid packet received\n");
 				}
