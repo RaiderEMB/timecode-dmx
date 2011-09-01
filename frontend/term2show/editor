@@ -1,0 +1,360 @@
+#!/usr/bin/perl -w
+
+use strict;
+use Data::Dumper;
+use Term::ReadLine;
+use IO::Socket::INET;
+use IO::Select;
+use Time::HiRes qw/usleep time/;
+
+if (not defined $ARGV[0]) {
+	die "What show? ./editor <showfile>";
+}
+
+if (not -f $ARGV[0]) {
+	touch $ARGV[0];
+}
+
+my $showfile = $ARGV[0];
+my $term = new Term::ReadLine "showeditor";
+
+open SHOW, "<", $showfile;
+
+my $showcontent = "";
+my $patch = ();
+
+while(<SHOW>) {
+	chomp;
+	if (/^\@patch (.+)$/) {
+		$patch = read_patch($1);	
+	}
+	else {
+		$showcontent .= $_."\n";
+	}
+}
+
+my $tc = "00:00:00:00";
+
+my $tc_socket = IO::Socket::INET->new(
+	LocalPort	=> 9119, 
+	Proto		=> 'udp',
+	Blocking 	=> 0
+	) or die "nada: $!";
+
+our %attrs = (
+	E => "Pan",
+	F => "Tilt",
+	G => "Iris",
+	H => "Dimmer",
+	I => "Gobo1",
+	J => "Gobo2",
+	K => "Gobo1Rot",
+	L => "Focus",
+	M => "Gobo2Rot",
+	N => "ColWheel2",
+	O => "Shutter",
+	P => "Prism",
+	Q => "Zoom",
+	R => "EffectRot",
+	S => "Frost",
+	T => "Red",
+	U => "Green",
+	V => "Blue",
+	0 => "<Uncat>",
+);
+
+our $status = "None";
+
+my $datagram;
+
+my $MAX_TO_READ = 512;
+my $flags = "0";
+my $packets = "0";
+my $last_time = time;
+my $last_time2 = time;
+my $current_tc;
+my ($tc_bar, $tc_beat, $tc_secs) = (0,0,0);
+my $lastpost = 0;
+our @selected_ids = ();
+our $selected_title = "<none>";
+
+my %cmds = (
+	'tc' => \&tc,
+	'in' => \&include,
+	'ex' => \&exclude,
+	'at' => \&attr,
+	'sh' => \&show,
+	'q' => \&up,
+	'?' => \&help,
+	'help' => \&help,
+	'exit' => \&ex,
+);
+
+sub include {
+	my ($arg) = @_;
+	my %list = ();
+	for (@selected_ids) {
+		$list{$_} = 1;
+	}
+	if (defined $patch->{'fixture'}->{$arg}) {
+		$list{$arg} = 1;
+	}
+	elsif (defined $patch->{'group'}->{$arg}) {
+		for my $fix (@{ $patch->{'group'}->{$arg} }) {
+			$list{$fix->{bank}} = 1;
+		}
+	}
+	my $text = "";
+	my $from = 0;
+	my $last = 0;
+	@selected_ids = sort {$a <=> $b} keys %list;
+	$selected_title = join(",",@selected_ids);
+}
+sub attr {
+	if (!@selected_ids) {
+		print "No fixtures selected\n";
+		return;
+	}
+
+	my $attr = {};
+
+	for (@selected_ids) {
+		my $fix = $patch->{'fixture'}->{$_};
+		my $ch = $fix->{'fixture'}->{'patch'}->{channels};
+		my @cfix = keys %{$ch};
+		for my $fixture (@cfix) {
+			my $cch = $ch->{$fixture};
+			$attr->{$cch->{'attr'}}->{$fix->{'bank'}} = $fix;
+		}
+	}
+
+	for my $at (keys %{$attr} ) {
+		print $attrs{$at}.": ";
+		print join(", ", keys %{ $attr->{$at} } ). "\n";
+	}
+	
+}
+sub exclude {
+	my ($arg) = @_;
+	my %list = ();
+
+	for (@selected_ids) {
+		$list{$_} = 1;
+	}
+
+	if (defined $patch->{'fixture'}->{$arg}) {
+		delete $list{$arg};
+	}
+
+	elsif (defined $patch->{'group'}->{$arg}) {
+		for my $fix (@{ $patch->{'group'}->{$arg} }) {
+			delete $list{$fix->{bank}};
+		}
+	}
+
+	my $text = "";
+	my $from = 0;
+	my $last = 0;
+
+	@selected_ids = sort {$a <=> $b} keys %list;	
+
+	if (!@selected_ids) {
+		$selected_title = "<none>";
+	} 
+
+	else {
+		$selected_title = join(",",@selected_ids);
+	}
+
+}
+
+sub help {
+	print "sh fi              - Show fixtures in patch\n";
+	print "sh gr              - Show groups of fixtures in patch\n";
+	print "tc 00:00:00:00     - Set timecode position\n";
+	print "q                  - Reset fixture selection\n";
+	print "exit               - Exit the editor\n";
+}
+
+sub up {
+	@selected_ids = ();
+	$selected_title = "<none>";
+}
+
+sub ex {
+	exit;
+}
+
+print "\n\n TextShow Editor\n\n";
+print " Type ? for command help\n";
+print "\n";
+
+
+while (1) {
+	my $current_utime = time;
+	my $current_time = int $current_utime;
+
+
+	while ( defined ($_ = $term->readline($selected_title.' @ '.$tc.'> ')) ) {	
+
+		while (my $tc_msg = $tc_socket->recv($datagram, $MAX_TO_READ, $flags)) {
+			if ($datagram =~ /^(\d+):(\d+):(.+?)\n/) {
+				my ($tc_new_bar, $tc_new_beat, $tc_new_secs) = ($1, $2, $3);
+				$tc_secs = $tc_new_secs;
+				$tc = print_time($tc_secs);
+			}
+		}
+
+		chomp;
+
+		if (/^([a-z\?]+)(.*)$/) {
+
+			my $cmd = $1;
+			my $raw = $2;
+
+			$raw =~ s/^\s+//gsi;
+			$raw =~ s/\s+$//gsi;
+
+			if (defined $cmd && defined $cmds{$cmd}) {
+				&{ $cmds{$cmd} }( $raw );
+			}
+
+			else {
+				print "No such command: $cmd - ref: ".ref($cmd)."\n";
+			}
+		}
+
+	}
+
+}
+
+sub convert_time {
+	my $ts = shift();
+	if ($ts =~ /^(\d+):(\d+):(\d+):(\d+)$/) {
+		return (((($1*3600) + ($2 * 60) + $3) * 100) + $4) / 100;
+	}
+	return 0;
+}
+
+sub print_time {
+        my $ts = shift();
+        my $milli = $ts*100 % 100;
+        my $sec = int($ts % 60);
+        my $min = int($ts/60) % 60;
+        my $hour = int($ts/3600);
+        return sprintf("%02d:%02d:%02d:%02d", $hour, $min, $sec, $milli);
+}
+
+sub tc {
+	my $input = shift;
+	if ($input =~ /^\d+:\d+:\d+:\d+$/) {
+		my $new_tc = convert_time( $input );
+		if ($new_tc) {
+			$tc_secs = $new_tc;
+			$tc = print_time($tc_secs);
+			print "Current timecode set to: $input\n";
+		}
+	}
+
+}
+
+sub read_patch {
+	my ($patch_file) = @_;
+	print "opening patch $patch_file\n";
+	die "Patch $patch_file does not exist" unless -f $patch_file;
+	my $patch = {};
+
+	open PATCH, "<", $patch_file or die "Could not open patch";
+
+	while(my $line = <PATCH>) {
+		chomp $line;
+
+		if ($line =~ /^(\d+)\s+(\d+)\s+([^ ]+)\s+"([^"]+)"\s*$/mxi) {
+
+			$patch->{'fixture'}->{$1} = { 
+				bank => $1,
+				dmx => $2,
+				fixture => read_fixture($3),
+				group => $4
+			}; 
+
+			if (!defined $patch->{'group'}->{$4}) {
+				$patch->{'group'}->{$4} = [];
+			}
+
+			push @{$patch->{'group'}->{$4}}, $patch->{'fixture'}->{$1};
+
+		}
+		
+	}
+
+	close PATCH;
+	return $patch;
+
+}
+
+sub show {
+	my ($arg) = @_;
+	my @a = split /\s+/, $arg;
+
+	if (lc($a[0]) =~ /^gr/) {
+
+		for my $g (sort keys %{$patch->{'group'}}) {
+
+			print "$g\n";
+
+			for my $fix (@{$patch->{'group'}->{$g}}) {
+				printf(
+					"  %3d %-15s %-30s @ DMX %3d\n", 
+					$fix->{bank}, 
+					f_manufacturer( $fix->{fixture} ), 
+					f_model( $fix->{fixture}) ,
+					$fix->{dmx}
+				);
+			}
+		}
+	}
+
+	elsif (lc($a[0]) =~ /^fi/) {
+		for my $f (sort {$a <=> $b} keys %{$patch->{'fixture'}}) {
+			printf(
+				"%3d %-15s %-30s @ DMX %3d - %s\n", 
+				$patch->{'fixture'}->{$f}->{bank}, 
+				f_manufacturer( $patch->{'fixture'}->{$f}->{fixture} ), 
+				f_model( $patch->{'fixture'}->{$f}->{fixture}) ,
+				$patch->{'fixture'}->{$f}->{dmx},
+				$patch->{'fixture'}->{$f}->{group}
+			);
+		}
+	}
+
+}
+sub f_manufacturer {
+	my ($fx) = @_;
+	return $fx->{legend}->{manufacturer};
+}
+
+sub f_model {
+	my ($fx) = @_;
+	return $fx->{legend}->{model};
+}
+
+sub read_fixture {
+	my ($fixture_file) = @_;
+	
+	die "Unable to load fixture $fixture_file" unless -f $fixture_file;
+	
+	open FIXTURE, "<", $fixture_file;
+	my $code = "";
+	while (my $l = <FIXTURE>) {
+		$code .= $l;
+	}
+
+	close FIXTURE;
+
+	my $VAR1;
+	eval($code);
+
+	return $VAR1;	
+
+}
