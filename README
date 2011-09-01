@@ -6,9 +6,10 @@ Currently the system is based on 3 tools:
   jack2show
   show
 
-dmxd - Handles DMX data from DMX-Desk (Pearl) and filters them before sending out via a ENTTEC USB DMX device.
+dmxd - Handles Artnet data from DMX-Desk and filters the data before sending out via a ENTTEC USB DMX device.
        It also awaits commands from "show", like linear transformations, scaling existing Pearl DMX data, etc.
 
-jack2show - Awaits timecode data from Ardour (or any other jack compliant application), and sends it over UDP to "show".
+jack2udp - Awaits timecode data from Ardour (or any other jack compliant application), and sends it over UDP to "show".
+xkeys2udp - Sends udp packets when a connected xkeys pad's keys are pressed or joged
+show - Handles timecode data from "jack2udp", and fires DMX events to "dmxd" for the opening-show, taking over for the Pearl in this timeframe. "show" will via dmxd control which DMX channels that belongs to whom.
 
-show - Handles timecode data from "jack2show", and fires DMX events to "dmxd" for the opening-show, taking over for the Pearl in this timeframe. "show" will via dmxd control which DMX channels that belongs to whom.
