@@ -41,7 +41,7 @@ static int dmx_pps = 0;
 #define OUTPUT_PPS 44.2
 
 #define MAX_CONNECTIONS 20
-#define MAX_OPERATIONS (512*2)
+#define MAX_OPERATIONS (512*4)
 #define BUFLEN 1024
 
 static struct dmxd_connection connections[MAX_CONNECTIONS];
@@ -711,6 +711,9 @@ static int add_connection(struct sockaddr_in *addr) {
 	return -1;
 }
 
+/* TODO: Use a 'ever'-increasing operation_id, but still check if operations are in use.
+ * or else a 'start_transaction' and 'end_transaction' could come out of order in some seldom cases
+ */
 static int add_operation(struct dmxd_operation *operation) {
 	int i;
 	
@@ -942,6 +945,7 @@ int main(int argc, char **argv) {
 					/* Transaction start/end commands has to be run immediately anyways */
 					if (operation->command == FUNC_TRANSACTION_START || operation->command == FUNC_TRANSACTION_END) {
 						operation_activate(operation);
+						/* TODO: Handle transactions directly, so next commands gets correct transaction id */
 					}
 				} else {
 					printf("Invalid packet received\n");

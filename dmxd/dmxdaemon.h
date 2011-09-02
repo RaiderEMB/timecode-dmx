@@ -5,11 +5,12 @@
 
 #define DMXD_UDP_PORT 9118
 
-#define DMXD_MAX_ARG_LEN 128
+#define DMXD_MAX_ARG_LEN 64
 
 enum dmxd_operation_flags {
 	DMXD_OP_NONE = 0,
-	DMXD_OP_OVERRIDE = 1
+	DMXD_OP_OVERRIDE,
+	DMXD_OP_HOLD
 };
 
 struct dmxd_operation {
