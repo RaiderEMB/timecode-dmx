@@ -1,0 +1,17 @@
+#!/usr/bin/perl -w
+
+use strict;
+use Data::Dumper;
+use Raider::Avolites::Personality;
+
+
+my $ref = Raider::Avolites::Personality::Parse($ARGV[0]);
+
+die "./avo2fix <avolites-file> <filename.fix>" unless defined $ARGV[1];
+
+if (!-f $ARGV[1]) {
+	print "Writing ".$ARGV[1]." from ".$ARGV[0]."\n";
+	open FILE, ">", $ARGV[1];
+	print FILE Dumper $ref;
+	close FILE;
+}

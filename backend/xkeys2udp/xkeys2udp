@@ -1,0 +1,123 @@
+#!/usr/bin/perl -w
+
+use strict;
+use Data::Dumper;
+use Linux::Input;
+use Time::HiRes qw/time/;
+use IO::Socket;
+use IO::Socket::INET;
+
+my $dev = Linux::Input->new("/dev/input/by-id/usb-P.I._Engineering_Xkeys_Editor-event-if00");
+my @keybuf = ();
+my %state = ();
+my %statetime = ();
+my $lastjog = 0;
+my $starttime = time();
+my $ready=0;
+
+my $udp = new IO::Socket::INET (
+	PeerAddr	=>	'127.0.0.1:9901',
+	Proto		=>	'udp'
+) or die "ERROR in Socket Creation : $!\n";
+
+while(1) {
+	while(my @events = $dev->poll(0.01)) {
+		foreach my $event (@events) {
+			if (time-$starttime < 0.1) {
+				next;
+			}
+			else {
+				if (!$ready) {
+					print "Ready\n";
+					$ready=1;
+				}
+			}
+
+			next if $event->{code} == 4;
+			next if $event->{code} == 8;
+			next if $event->{code} == 0;
+
+			if ($event->{code} == 7) {
+				if ($lastjog != 0 && $lastjog != $event->{value}) {
+					my $diff = $event->{value} - $lastjog;
+					$diff =~ s/-//;
+
+					if ($diff > 10) {
+						if ($event->{value} < 128) {
+							jog(1);
+						}
+						elsif ($event->{value} > 128) {
+							jog(-1);
+						}
+					}
+					else {
+						if ($event->{value} > $lastjog) {
+							jog(1);
+						}
+						elsif ($event->{value} < $lastjog) {
+							jog(-1);
+						}
+					}
+				}
+				$lastjog = $event->{value};
+			}
+
+			else {
+
+
+				if ((defined $state{$event->{code}} && $state{$event->{code}} != $event->{value}) || not defined $state{$event->{code}} ) {
+
+
+					if (!defined($statetime{ $event->{code} }) && $event->{value} == 1) {
+						$statetime{ $event->{code} } = time;
+					}
+					elsif ( defined $state{$event->{code}} && $event->{value} == 0) {
+						if (!defined( $statetime{ $event->{code} } )) {
+							$statetime{ $event->{code} } = time - 0.3;
+						}
+						my $presstime = time - $statetime{ $event->{code} };
+
+						if ($presstime < 3 && $presstime > 0.02) {
+							key($event->{'code'});
+						} else {
+							$statetime{ $event->{code} } = undef;
+						}
+					} else {
+						$statetime{ $event->{code} } = undef;
+					}
+				}
+				$state{$event->{code}} = $event->{value};
+
+			}
+
+		}	
+	}
+	flushkey();
+}
+
+sub key {
+	my ($code) = @_;
+	push @keybuf, $code;
+}
+sub flushkey {
+	if (@keybuf) {
+		if (@keybuf == 1) {
+			$udp->send("XKEYS P ".$keybuf[0]);
+			print "XKEYS P ".$keybuf[0]."\n";
+		}
+		for my $code (@keybuf) {
+			if ($code == 262 || $code == 270) {
+				$udp->send("XKEYS P 0");
+				print "XKEYS P 0\n";
+				last;
+			}
+		}
+	}
+	
+	@keybuf = ();
+}
+sub jog {
+	my ($distance) = @_;
+	print "XKEYS JOG ".$distance."\n";
+	$udp->send("XKEYS JOG ".$distance);
+}
