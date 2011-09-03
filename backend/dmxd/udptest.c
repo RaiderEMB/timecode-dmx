@@ -25,11 +25,11 @@ unsigned char test2[] = {
 };
 
 unsigned char test3[] = {
-	12, 34, 2, 0, 0, 124, 0, 123, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 5
+	12, 34, 2, 1, 0, 124, 0, 123, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 5
 };
 
 unsigned char test4[] = {
-	12, 34, 4, 1, 0, 125, 111, 1, 1, 1, 1
+	12, 34, 3, 1, 0, 125, 111, 1, 1, 1, 1
 };
 
 unsigned char test5[] = {
@@ -47,7 +47,7 @@ int main() {
 	unsigned char buffer[1024];
 	int bufferlen;
 	short uniqueid = 1337;
-	
+
 	if ((sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
 		perror("socket");
 		return 1;

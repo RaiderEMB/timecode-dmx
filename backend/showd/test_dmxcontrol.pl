@@ -1,5 +1,6 @@
 #!/usr/bin/perl
 use DMXControl;
+use Time::HiRes qw{ usleep };
 use strict;
 srand(time());
 
@@ -7,23 +8,14 @@ $DMXControl::host = '127.0.0.1';
 $DMXControl::port = 9118;
 
 DMXControl::init();
-DMXControl::start_transaction();
-for (1..10) {
-	DMXControl::scalemax($_,128,20,DMXControl::OVERRIDE);
+while (1) {
+print "mainloop\n";
+for (1..44) {
+	DMXControl::start_transaction();
+	for my $ch (1..511) {
+		DMXControl::blink($ch,0,255,0.1,0.1,4,DMXControl::OVERRIDE);
+	}
+	DMXControl::end_transaction();
+	usleep(23000);
 }
-DMXControl::fade(int(rand()*512),0,255,5,DMXControl::OVERRIDE);
-DMXControl::fade(int(rand()*512),0,255,5,DMXControl::OVERRIDE);
-DMXControl::fade(int(rand()*512),0,255,5,DMXControl::OVERRIDE);
-DMXControl::fade(int(rand()*512),0,255,5,DMXControl::OVERRIDE);
-DMXControl::fade(int(rand()*512),0,255,5,DMXControl::OVERRIDE);
-DMXControl::fade(int(rand()*512),0,255,5,DMXControl::OVERRIDE);
-DMXControl::fade(int(rand()*512),0,255,5,DMXControl::OVERRIDE);
-DMXControl::fade(int(rand()*512),0,255,5,DMXControl::OVERRIDE);
-DMXControl::fade(int(rand()*512),0,255,7,DMXControl::OVERRIDE);
-DMXControl::fade(int(rand()*512),0,255,8,DMXControl::OVERRIDE);
-DMXControl::fade(int(rand()*512),0,255,9,DMXControl::OVERRIDE);
-DMXControl::fade(int(rand()*512),0,255,9,DMXControl::OVERRIDE);
-DMXControl::fade(int(rand()*512),0,255,9,DMXControl::OVERRIDE);
-DMXControl::fade(int(rand()*512),0,255,20,DMXControl::OVERRIDE);
-DMXControl::blink(12,0,255,0.1,0.8,4,DMXControl::OVERRIDE);
-DMXControl::end_transaction();
+}
