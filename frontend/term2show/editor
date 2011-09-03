@@ -18,6 +18,15 @@ if (not -f $ARGV[0]) {
 my $showfile = $ARGV[0];
 my $term = new Term::ReadLine "showeditor";
 
+if ($term->ReadLine eq "Term::ReadLine::Gnu") {
+	$SIG{'INT'} = sub { ex() };
+	$term->ReadHistory($ENV{HOME} . "/.editor_history");
+}
+
+# Autocompletion
+$term->Attribs->{completion_entry_function} = $term->Attribs->{list_completion_function};
+
+
 open SHOW, "<", $showfile;
 
 my $showcontent = "";
@@ -88,7 +97,11 @@ my %cmds = (
 	'?' => \&help,
 	'help' => \&help,
 	'exit' => \&ex,
+	'quit' => \&ex,
 );
+
+# Autocompletion words
+$term->Attribs->{completion_word} = [keys %cmds];
 
 sub include {
 	my ($arg) = @_;
@@ -182,6 +195,11 @@ sub up {
 }
 
 sub ex {
+
+	if ($term->ReadLine eq "Term::ReadLine::Gnu") {
+		$term->WriteHistory($ENV{HOME} . "/.perlconsole_history");
+	}
+
 	exit;
 }
 
@@ -230,8 +248,8 @@ while (1) {
 
 sub convert_time {
 	my $ts = shift();
-	if ($ts =~ /^(\d+):(\d+):(\d+):(\d+)$/) {
-		return (((($1*3600) + ($2 * 60) + $3) * 100) + $4) / 100;
+	if ($ts =~ /^(\d+):([0-5]\d):([0-5]\d):(\d\d)$/) {
+		return $1 * 3600 + $2 * 60 + $3 + $4 / 100;
 	}
 	return 0;
 }
@@ -249,13 +267,16 @@ sub tc {
 	my $input = shift;
 	if ($input =~ /^\d+:\d+:\d+:\d+$/) {
 		my $new_tc = convert_time( $input );
-		if ($new_tc) {
+		if ($new_tc || $input eq '00:00:00:00') {
 			$tc_secs = $new_tc;
 			$tc = print_time($tc_secs);
 			print "Current timecode set to: $input\n";
+		} else {
+			print "Invalid timecode: $input\n";
 		}
+	} else {
+		print "Timecode must be of format: xx:xx:xx:xx\n";
 	}
-
 }
 
 sub read_patch {

@@ -52,6 +52,9 @@ struct show_operation {
 
 	enum show_commands command;
 
+	unsigned char step;
+	float length;
+
 	int connection_id;
 	unsigned short effect_id;
 	int bartrig_id;
@@ -170,9 +173,10 @@ void show_timestamp_start(struct show_operation *op) {
 	timestamps[timestamps_count].timestamp_id = timestamps_count++;
 }
 
-void operation_add(struct show_operation *op) {
+void operation_add(struct show_operation *op, float length) {
 	int i;
 	int opid = -1;
+	unsigned char step;
 
 	for (i=0; i < MAX_OPERATIONS; ++i) {
 		if (operations[i].allocated == 0) {
@@ -184,27 +188,43 @@ void operation_add(struct show_operation *op) {
 		fprintf(stderr, "%s: Operations storage exceeded\n",__func__);
 		return;
 	}
-	
+
 	memcpy(&operations[opid], op, sizeof(struct show_operation));
 	op = &operations[opid];
-	
+
+	op->allocated = 1;
+
+	op->length = length;
+
+	show_read_byte(op, 0, &op->step);
+
+	printf("Adding ");
+
 	if (current_effect_id > -1) {
 		op->operation_type = OP_EFFECT;
 		op->effect_id = current_effect_id;
+		printf("effect");
 	} else
 	if (current_bartrig_id > -1) {
 		op->operation_type = OP_BARTRIG;
 		op->bartrig_id = current_bartrig_id;
+		printf("bar-trigger(%d)", SHOW_FUNC_BARTRIG_START);
 	} else
 	if (current_timestamp_id > -1) {
 		op->operation_type = OP_TS;
 		op->timestamp_id = current_timestamp_id;
+		printf("timestamped");
 	}
-	
+
+	printf(" command id %d, with step %d, time to run: %f\n", op->command, op->step, op->length);
+
 }
 
 static void handle_operation(struct show_operation *op) {
 	int len = 0;
+	float length1 = 0;
+	float length2 = 0;
+	int times = 1;
 
 	switch (op->command) {
 		case SHOW_FUNC_EFFECT_START:
@@ -221,6 +241,7 @@ static void handle_operation(struct show_operation *op) {
 
 		case SHOW_FUNC_BARTRIG_END:
 			current_bartrig_id = -1;
+			break;
 
 		case SHOW_FUNC_TS_START:
 			show_timestamp_start(op);
@@ -230,8 +251,18 @@ static void handle_operation(struct show_operation *op) {
 			current_timestamp_id = -1;
 			break;
 
+		case SHOW_FUNC_BLINK:
+			show_read_float(op,6,&length1);
+			show_read_int(op,10,&times);
 		case SHOW_FUNC_FADE:
-			operation_add(op);
+			show_read_float(op,5,&length2);
+			operation_add(op, (length1 + length2) * times);
+			break;
+
+		case SHOW_FUNC_LOCK:
+			show_read_float(op, 4, &length1);
+			operation_add(op, length1);
+			break;
 	}
 	
 }
@@ -289,9 +320,10 @@ static void show_read_datafile() {
 		if (packetsize > 1024)
 			packetsize = 1024;
 
+		printf("Reading %d bytes\n", packetsize);
 		len = fread(&buffer, packetsize, 1, fp);
 		if (ferror(fp) || len != 1) {
-			fprintf(stderr, "%s: unexpected end of file\n", __func__);
+			fprintf(stderr, "%s: unexpected end of file at position %ld while reading %d bytes\n", __func__, ftell(fp), packetsize);
 			fclose(fp);
 			return;
 		}

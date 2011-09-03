@@ -7,26 +7,31 @@ use Time::HiRes qw/time/;
 use IO::Socket;
 use IO::Socket::INET;
 
-my $dev = Linux::Input->new("/dev/input/by-id/usb-P.I._Engineering_Xkeys_Editor-event-if00");
-my @keybuf = ();
-my %state = ();
+my $dev = Linux::Input->new("/dev/input/by-id/usb-P.I._Engineering_Xkeys_Editor-event-if00") or die "Input";
+
+my @keybuf    = ();
+my %state     = ();
 my %statetime = ();
-my $lastjog = 0;
+my $lastjog   = 0;
 my $starttime = time();
-my $ready=0;
+my $ready     = 0;
+
+die "Usage: ./xkeys2udp <host>" unless defined $ARGV[0];
 
 my $udp = new IO::Socket::INET (
-	PeerAddr	=>	'127.0.0.1:9901',
+	PeerAddr	=>	$ARGV[0].':9901',
 	Proto		=>	'udp'
 ) or die "ERROR in Socket Creation : $!\n";
 
 while(1) {
 	while(my @events = $dev->poll(0.01)) {
+
 		foreach my $event (@events) {
+
 			if (time-$starttime < 0.1) {
 				next;
-			}
-			else {
+
+			} else {
 				if (!$ready) {
 					print "Ready\n";
 					$ready=1;
@@ -38,17 +43,20 @@ while(1) {
 			next if $event->{code} == 0;
 
 			if ($event->{code} == 7) {
+
 				if ($lastjog != 0 && $lastjog != $event->{value}) {
 					my $diff = $event->{value} - $lastjog;
 					$diff =~ s/-//;
 
 					if ($diff > 10) {
+
 						if ($event->{value} < 128) {
 							jog(1);
 						}
 						elsif ($event->{value} > 128) {
 							jog(-1);
 						}
+
 					}
 					else {
 						if ($event->{value} > $lastjog) {
@@ -101,7 +109,7 @@ sub key {
 }
 sub flushkey {
 	if (@keybuf) {
-		if (@keybuf == 1) {
+		if (@keybuf == 1 && not ( $keybuf[0] == 262 || $keybuf[0] == 270 ) ) {
 			$udp->send("XKEYS P ".$keybuf[0]);
 			print "XKEYS P ".$keybuf[0]."\n";
 		}
