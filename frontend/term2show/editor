@@ -35,6 +35,13 @@ while(<SHOW>) {
 
 my $tc = "00:00:00:00";
 
+my $key_socket = IO::Socket::INET->new(
+	LocalPort	=> 9901, 
+	Proto		=> 'udp',
+	Blocking 	=> 0
+	) or die "nada: $!";
+
+
 my $tc_socket = IO::Socket::INET->new(
 	LocalPort	=> 9119, 
 	Proto		=> 'udp',
@@ -196,6 +203,10 @@ while (1) {
 
 
 	while ( defined ($_ = $term->readline($selected_title.' @ '.$tc.'> ')) ) {	
+
+		while (my $key_msg = $key_socket->recv($datagram, $MAX_TO_READ, $flags)) {
+			print "KEY: ". $key_msg."\n";
+		}
 
 		while (my $tc_msg = $tc_socket->recv($datagram, $MAX_TO_READ, $flags)) {
 			if ($datagram =~ /^(\d+):(\d+):(.+?)\n/) {
