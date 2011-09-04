@@ -31,7 +31,8 @@ static int verbose;
 #define SHOW_UDP_PORT 9451
 
 #define MAX_CONNECTIONS 20
-#define MAX_OPERATIONS (512*4)
+#define MAX_OPERATIONS (512*10)
+#define MAX_EFFECTS 1024
 #define MAX_ARG_LEN 64
 #define BUFLEN 1024
 
@@ -72,16 +73,28 @@ struct show_bartrig {
 	int timestamp_end;
 };
 
+struct show_effect {
+	int effect_id;
+	char step_count;
+	int operation_count;
+
+	float step_lengths[256];
+	struct show_operation operations[1024];
+};
+
 static int current_effect_id = -1;
 static unsigned short current_bartrig_id = 0;
 static unsigned short current_timestamp_id = 0;
 
-int bartrigs_count = 0;
-int timestamps_count = 0;
+static int bartrigs_count = 0;
+static int timestamps_count = 0;
 
 static struct show_operation  operations[MAX_OPERATIONS];
 static struct show_timestamp  timestamps[MAX_OPERATIONS];
 static struct show_bartrig    bartrigs[MAX_OPERATIONS];
+
+static int effectid_count = 0;
+static struct show_effect effects[MAX_EFFECTS];
 
 void signal_handler (int sig) {
         jack_client_close (client);
@@ -140,19 +153,45 @@ inline static int enough_arguments(const char *function_name, struct show_operat
 	return 1;
 }
 
+char *timestamp_display(int timestamp) {
+	static char string[12];
+	int ms = timestamp % 1000;
+	timestamp = timestamp / 1000;
+
+	sprintf(string, "%02d:%02d:%02d:%02d",
+		(int)(timestamp/3600.f),
+		(int)(timestamp/60.f) % 60,
+		timestamp % 60,
+		ms
+	);
+	return string;
+}
+
 void show_effect_start(struct show_operation *op) {
+	int i, existing = 0;
 	unsigned short effect_id;
 	show_read_short(op, 0, &effect_id);
 
 	current_effect_id = effect_id;
+
+	for (i = 0; i < MAX_OPERATIONS; ++i) {
+		if (operations[i].allocated && operations[i].effect_id == current_effect_id) {
+			existing = 1;
+			break;
+		}
+	}
+
+	if (!existing) {
+		effectid_count++;
+	}
 }
 
 void show_bartrig_start(struct show_operation *op) {
-	int len;
-	unsigned short starttime;
-	unsigned short endtime;
-	len =  show_read_short(op, len, &starttime);
-	len =+ show_read_short(op, len, &endtime);
+	int len = 0;
+	unsigned int starttime;
+	unsigned int endtime;
+	len =  show_read_int(op, len, &starttime);
+	len =+ show_read_int(op, len, &endtime);
 
 	current_bartrig_id = bartrigs_count;
 	
@@ -162,7 +201,6 @@ void show_bartrig_start(struct show_operation *op) {
 }
 
 void show_timestamp_start(struct show_operation *op) {
-	int len;
 	unsigned short stime;
 	
 	show_read_short(op, 0, &stime);
@@ -176,7 +214,6 @@ void show_timestamp_start(struct show_operation *op) {
 void operation_add(struct show_operation *op, float length) {
 	int i;
 	int opid = -1;
-	unsigned char step;
 
 	for (i=0; i < MAX_OPERATIONS; ++i) {
 		if (operations[i].allocated == 0) {
@@ -196,32 +233,33 @@ void operation_add(struct show_operation *op, float length) {
 
 	op->length = length;
 
-	show_read_byte(op, 0, &op->step);
+	show_read_byte(op, 0, &(op->step));
 
 	printf("Adding ");
 
 	if (current_effect_id > -1) {
 		op->operation_type = OP_EFFECT;
 		op->effect_id = current_effect_id;
-		printf("effect");
+		printf("effect(%d)", current_effect_id);
 	} else
 	if (current_bartrig_id > -1) {
 		op->operation_type = OP_BARTRIG;
 		op->bartrig_id = current_bartrig_id;
-		printf("bar-trigger(%d)", SHOW_FUNC_BARTRIG_START);
+		printf("bar-trigger(%d) (", current_bartrig_id);
+		printf("%s to ", timestamp_display(bartrigs[current_bartrig_id].timestamp_start));
+		printf("%s)", timestamp_display(bartrigs[current_bartrig_id].timestamp_end));
 	} else
 	if (current_timestamp_id > -1) {
 		op->operation_type = OP_TS;
 		op->timestamp_id = current_timestamp_id;
-		printf("timestamped");
+		printf("timestamped(%d)", current_timestamp_id);
 	}
 
 	printf(" command id %d, with step %d, time to run: %f\n", op->command, op->step, op->length);
-
+	printf(" debug: Args len: %d, first arg: %d\n", op->argument_len, op->arguments[0]);
 }
 
 static void handle_operation(struct show_operation *op) {
-	int len = 0;
 	float length1 = 0;
 	float length2 = 0;
 	int times = 1;
@@ -369,7 +407,7 @@ static void (*find_function(unsigned char func)) (struct show_operation *op, flo
 
 int main(int argc, char **argv) {
 	struct sockaddr_in si_me, si_other;
-	int len, slen = sizeof(si_other);
+	int i, ii, len, slen = sizeof(si_other);
 	fd_set selectlist;
 	int highsock;
 	int optc;
@@ -397,6 +435,61 @@ int main(int argc, char **argv) {
 	}
 
 	show_read_datafile();
+	
+	printf("Raw data loaded\n");
+	for (i = 0; i < MAX_OPERATIONS; ++i) {
+		if (operations[i].allocated == 1) {
+			if (operations[i].effect_id > 0) {
+				printf("\tEffect: %02d Step %02d: command: %d length: %f\n", operations[i].effect_id, operations[i].step, operations[i].command, operations[i].length);
+			}
+		}
+	}
+
+	for (i = 1; i < effectid_count + 1; ++i) {
+		effects[i].effect_id = i;
+		int operationi;
+		for (ii = 0; ii < MAX_OPERATIONS; ++ii) {
+			if (operations[ii].allocated && operations[ii].effect_id == i) {
+				int stepexists=0;
+				printf("Found step %d in effect %d\n", operations[ii].step, i);
+
+				// Count steps
+				for (operationi = 0; operationi < effects[i].operation_count; ++operationi) {
+					if (effects[i].operations[operationi].step > 0 && effects[i].operations[operationi].step == operations[ii].step)
+						stepexists=1;
+				}
+				if (!stepexists)
+					effects[i].step_count++;
+
+				effects[i].operations[effects[i].operation_count++] = operations[ii];
+			}
+		}
+	}
+	printf("Organized data: (effects: %d)\n", effectid_count);
+	for (i = 1; i < effectid_count + 1; ++i) {
+		int stepi = 0;
+		int operationi = 0;
+		printf("\tEffect %d, operations: %d, steps: %d\n", i, effects[i].operation_count, effects[i].step_count);
+		
+		// Find total length of each step
+		for (stepi = 1; stepi < effects[i].step_count+1; ++stepi) {
+			for (operationi = 0; operationi < effects[i].operation_count; ++operationi) {
+				if (effects[i].operations[operationi].step == stepi && effects[i].operations[operationi].length > effects[i].step_lengths[stepi]) {
+					effects[i].step_lengths[stepi] = effects[i].operations[operationi].length;
+				}
+			}
+		}
+		printf("\t\tOperations:\n");
+		for (stepi = 0; stepi < effects[i].operation_count ; ++stepi) {
+			printf("\t\t\tStep %d, length %f\n", effects[i].operations[stepi].step, effects[i].operations[stepi].length);
+		}
+
+		printf("\t\tStep lengths:\n");
+		for (stepi = 1; stepi < effects[i].step_count+1; ++stepi) {
+			printf("\t\t\tStep %02d: lengths: %f\n", stepi, effects[i].step_lengths[stepi]);
+		}
+	}
+
 	return 0;
 
 

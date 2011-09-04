@@ -84,22 +84,6 @@ int main(int argc, char **argv) {
 	showd_packet_save(&packet, fp);
 
 	showd_packet_init(&packet, SHOW_FUNC_FADE);
-	showd_packet_add_char(&packet, 0); // step 0
-	showd_packet_add_short(&packet, 10); // channel 10
-	showd_packet_add_char(&packet, 0); // from 0
-	showd_packet_add_char(&packet, 255); // to 255
-	showd_packet_add_float(&packet, 4); // 4 seconds
-	showd_packet_save(&packet, fp);
-
-	showd_packet_init(&packet, SHOW_FUNC_FADE);
-	showd_packet_add_char(&packet, 0); // step 0
-	showd_packet_add_short(&packet, 10); // channel 10
-	showd_packet_add_char(&packet, 0); // from 0
-	showd_packet_add_char(&packet, 255); // to 255
-	showd_packet_add_float(&packet, 3); // 4 seconds
-	showd_packet_save(&packet, fp);
-
-	showd_packet_init(&packet, SHOW_FUNC_FADE);
 	showd_packet_add_char(&packet, 1); // step 1
 	showd_packet_add_short(&packet, 10); // channel 10
 	showd_packet_add_char(&packet, 0); // from 0
@@ -107,8 +91,63 @@ int main(int argc, char **argv) {
 	showd_packet_add_float(&packet, 4); // 4 seconds
 	showd_packet_save(&packet, fp);
 
+	showd_packet_init(&packet, SHOW_FUNC_FADE);
+	showd_packet_add_char(&packet, 1); // step 1
+	showd_packet_add_short(&packet, 10); // channel 10
+	showd_packet_add_char(&packet, 0); // from 0
+	showd_packet_add_char(&packet, 255); // to 255
+	showd_packet_add_float(&packet, 3); // 3 seconds
+	showd_packet_save(&packet, fp);
+
+	showd_packet_init(&packet, SHOW_FUNC_FADE);
+	showd_packet_add_char(&packet, 1); // step 1
+	showd_packet_add_short(&packet, 10); // channel 10
+	showd_packet_add_char(&packet, 0); // from 0
+	showd_packet_add_char(&packet, 255); // to 255
+	showd_packet_add_float(&packet, 5); // 5 seconds
+	showd_packet_save(&packet, fp);
+
+	showd_packet_init(&packet, SHOW_FUNC_FADE);
+	showd_packet_add_char(&packet, 2); // step 2
+	showd_packet_add_short(&packet, 10); // channel 10
+	showd_packet_add_char(&packet, 0); // from 0
+	showd_packet_add_char(&packet, 255); // to 255
+	showd_packet_add_float(&packet, 2); // 4 seconds
+	showd_packet_save(&packet, fp);
 
 	showd_packet_init(&packet, SHOW_FUNC_EFFECT_END);
 	showd_packet_save(&packet, fp);
+
+	showd_packet_init(&packet, SHOW_FUNC_EFFECT_START);
+	showd_packet_add_short(&packet, 2);
+	showd_packet_save(&packet, fp);
+
+	showd_packet_init(&packet, SHOW_FUNC_FADE);
+	showd_packet_add_char(&packet, 1); // step 1
+	showd_packet_add_short(&packet, 10); // channel 10
+	showd_packet_add_char(&packet, 0); // from 0
+	showd_packet_add_char(&packet, 255); // to 255
+	showd_packet_add_float(&packet, 0.5); // 5 seconds
+	showd_packet_save(&packet, fp);
+
+	showd_packet_init(&packet, SHOW_FUNC_FADE);
+	showd_packet_add_char(&packet, 1); // step 2
+	showd_packet_add_short(&packet, 10); // channel 10
+	showd_packet_add_char(&packet, 0); // from 0
+	showd_packet_add_char(&packet, 255); // to 255
+	showd_packet_add_float(&packet, 0.6); // 4 seconds
+	showd_packet_save(&packet, fp);
+
+	showd_packet_init(&packet, SHOW_FUNC_FADE);
+	showd_packet_add_char(&packet, 2); // step 2
+	showd_packet_add_short(&packet, 10); // channel 10
+	showd_packet_add_char(&packet, 0); // from 0
+	showd_packet_add_char(&packet, 255); // to 255
+	showd_packet_add_float(&packet, 0.4); // 4 seconds
+	showd_packet_save(&packet, fp);
+
+	showd_packet_init(&packet, SHOW_FUNC_EFFECT_END);
+	showd_packet_save(&packet, fp);
+
 	return 0;
 }
