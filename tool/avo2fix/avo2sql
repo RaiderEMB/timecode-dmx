@@ -1,0 +1,41 @@
+#!/usr/bin/perl -w
+
+use strict;
+use Data::Dumper;
+use Raider::Avolites::Personality;
+use DBI;
+use Digest::MD5;
+
+my $ref = Raider::Avolites::Personality::Parse($ARGV[0]);
+
+my $dbh = DBI->connect('DBI:mysql:database=rdmx', 'root', 'warp242') or die "Couldn't connect to database: " . DBI->errstr;
+
+my $insert_fixture = $dbh->prepare("REPLACE INTO fixture SET 
+	brand = ?,
+	model = ?,
+	mode = ?,
+	dmxsize = ?,
+	pandeg = ?,
+	tiltdeg = ?,
+	fixtype = ?,
+	fixshort = ?
+");
+
+if (defined $ref->{'patch'}->{'size'}) {
+
+	my $dmxsize = $ref->{'patch'}->{'size'};
+	my $brand = $ref->{'legend'}->{'manufacturer'};
+	my $model = $ref->{'legend'}->{'model'};
+	my $mode = $ref->{'legend'}->{'mode'};
+	my $pandeg = $ref->{'geo'}->{'pan_deg'};
+	my $tiltdeg = $ref->{'geo'}->{'tilt_deg'};
+	my $fixtype = $ref->{'geo'}->{'type'};
+	my $fixshort = $ref->{'legend'}->{'modelshort'};
+
+	$insert_fixture->execute(
+		$brand, $model, $mode, $dmxsize,
+		$pandeg, $tiltdeg, $fixtype, $fixshort
+	);
+
+
+}
