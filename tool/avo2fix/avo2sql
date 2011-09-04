@@ -6,6 +6,8 @@ use Raider::Avolites::Personality;
 use DBI;
 use Digest::MD5;
 
+$|=1;
+
 my $ref = Raider::Avolites::Personality::Parse($ARGV[0]);
 
 my $dbh = DBI->connect('DBI:mysql:database=rdmx', 'root', 'warp242') or die "Couldn't connect to database: " . DBI->errstr;
@@ -20,9 +22,24 @@ my $insert_fixture = $dbh->prepare("REPLACE INTO fixture SET
 	fixtype = ?,
 	fixshort = ?
 ");
+my $insert_address = $dbh->prepare("REPLACE INTO address SET
+	fixture = ?,
+	offset = ?,
+	type = ?,
+	attr = ?,
+	bank = ?,
+	name = ?,
+	onvalue = ?
+");
 
+my $insert_range = $dbh->prepare("REPLACE INTO addressrange SET 
+	address = ?,
+	valfrom = ?,
+	valto = ?,
+	printf = ?,
+	formula = ?
+");
 if (defined $ref->{'patch'}->{'size'}) {
-
 	my $dmxsize = $ref->{'patch'}->{'size'};
 	my $brand = $ref->{'legend'}->{'manufacturer'};
 	my $model = $ref->{'legend'}->{'model'};
@@ -31,11 +48,39 @@ if (defined $ref->{'patch'}->{'size'}) {
 	my $tiltdeg = $ref->{'geo'}->{'tilt_deg'};
 	my $fixtype = $ref->{'geo'}->{'type'};
 	my $fixshort = $ref->{'legend'}->{'modelshort'};
+	print "$brand, $model, $mode ";
 
 	$insert_fixture->execute(
 		$brand, $model, $mode, $dmxsize,
 		$pandeg, $tiltdeg, $fixtype, $fixshort
 	);
 
+	my $fixid = (defined $dbh->{'mysql_insertid'} ? $dbh->{'mysql_insertid'} : $insert_fixture->{insertid});
+
+	for my $key (keys %{ $ref->{'patch'}->{'channels'} }) {
+		print "#";
+
+		my $c = $ref->{'patch'}->{'channels'}->{$key};
+		$insert_address->execute(
+			$fixid,
+			$c->{'offset'},
+			$c->{'type'},
+			$c->{'attr'},
+			$c->{'bank'},
+			$c->{'name'},
+			$c->{'val_on'}
+		);
+		my $addrid = (defined $dbh->{'mysql_insertid'} ? $dbh->{'mysql_insertid'} : $insert_fixture->{insertid});
+	
+		for my $range (@{$c->{'range'}}) {
+			print ".";
+			my ($from, $to, $printf, $formula) = @{$range};
+			$insert_range->execute(
+				$addrid, $from, $to, $printf, $formula
+			);
+		}
+
+	}
+	print "\n";
 
 }
