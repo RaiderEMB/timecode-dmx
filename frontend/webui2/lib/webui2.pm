@@ -5,8 +5,7 @@ use DB;
 our $VERSION = '0.1';
 
 get '/' => sub {
-    print db("Fixture")."\n";
-    template 'index';
+	template 'index';
 };
 
 true;
