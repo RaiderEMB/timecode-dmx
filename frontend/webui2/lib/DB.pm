@@ -18,8 +18,12 @@ __PACKAGE__->load_namespaces;
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:NbuS4oTt3hzj89Zqk2gPVw
 
 
-our $_db = DB->connect( "dbi:mysql:database=rdmx", "root", "warp242");
-
+our $_db = DB->connect( "dbi:mysql:database=rdmx", "root", "warp242",
+  {
+    quote_char => "`",
+    name_sep   => '.'
+  }
+);
 sub db {
 	return $_db->resultset(shift);
 }

@@ -15,9 +15,15 @@
 [% if session.user %]
 <ul id="login">
 		<li><a href="/">Dashboard</a></li>
-		<li><a href="/patch">Patch</a></li>
+		<li><a href="/show">Shows</a></li>
 		<li><a href="/logout">Logout</a></li>
 </ul>
+<ul>
+[% FOREACH show = vars.shows %]
+	<li><a href="/show/[% show.id %]">[% show.name %]</a></li>
+[% END %]
+</ul>
+
 [% end %]
 <div id="bodywrap">
 [% content %]

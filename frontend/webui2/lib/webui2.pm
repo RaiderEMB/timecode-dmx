@@ -25,7 +25,7 @@ post '/login' => sub {
 };
 
 get '/logout' => sub {
-	session user => 0;
+	session->destory;
 	redirect "/";
 };
 
@@ -33,8 +33,42 @@ get '/' => sub {
 	template 'index';
 };
 
-get '/patch' => sub {
-	template 'patch';
+#### SHOW CHAIN #######
+
+get '/show' => sub {
+    var shows => db("Show")->all();
+    template 'show_list';
 };
+
+get '/show/*' => sub {
+    my ($show_id) = splat;
+    var showit => db("Show")->find($show_id); 
+    template 'show_show';
+};
+
+get '/show/*/**' => sub {
+    my ($show_id) = splat;
+    var showit => db("Show")->find($show_id);
+    pass;
+};
+
+prefix '/show/*';
+
+get '/patch' => sub {
+    my ($patch) = splat;
+    template 'show_patch_list';
+};
+
+get '/patch/*' => sub {
+    my ($patch) = splat;
+    template 'show_patch_show';
+};
+
+get '/timeline' => sub {
+    template 'show_timeline';
+};
+
+
+
 
 true;
