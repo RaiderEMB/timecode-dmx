@@ -1,0 +1,19 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+while(<>) {
+	s/(\d+:\d+:\d+:\d+)/tc2msec($1)/e;
+	print;
+}
+
+
+sub tc2msec {
+	my $ts = shift();
+	if ($ts =~ /^(\d+):([0-5]\d):([0-5]\d):(\d\d)$/) {
+		return ($1 * 3600 + $2 * 60 + $3 + $4 / 100) * 100;
+	}
+	return 0;
+}
+
+
