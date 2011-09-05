@@ -9,6 +9,9 @@ before sub {
         var requested_path => request->path_info;
         request->path_info('/login');
     }
+    
+    header 'Cache-Control' => 'no-cache';
+
 };
  
 get '/login' => sub {
@@ -42,13 +45,13 @@ get '/show' => sub {
 
 get '/show/*' => sub {
     my ($show_id) = splat;
-    var showit => db("Show")->find($show_id); 
+    var theshow => db("Show")->find($show_id); 
     template 'show_show';
 };
 
 get '/show/*/**' => sub {
     my ($show_id) = splat;
-    var showit => db("Show")->find($show_id);
+    var theshow => db("Show")->find($show_id);
     pass;
 };
 
@@ -65,6 +68,19 @@ get '/patch/*' => sub {
 };
 
 get '/timeline' => sub {
+
+    my @tclines = db("Tc")->search({ "show" => vars->{'theshow'}->id });
+    var tclines => \@tclines;
+    my %hasj = ();
+    foreach my $line (@tclines) {
+        my @split = split /\s*,\s*/, $line->tags();
+	for my $word (@split) {
+	    $hasj{lc($word)}=1;
+	}
+    }
+    my @keys = sort keys %hasj;
+    var tags => \@keys;
+
     template 'show_timeline';
 };
 

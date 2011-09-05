@@ -1,1 +1,55 @@
-timeline
+<h1>[% vars.theshow.name%]: Timeline</h1>
+<div style="width:50%; float:left;height: 800px;overflow:scroll">
+Other
+</div>
+
+<div style="width:25%; float:left;height: 800px;overflow:scroll">
+[% FOREACH line IN vars.tclines %]
+<div class="ob">
+	<div class="line">[% line.comment %]</div>
+	<div class="pos">[% line.position %]</div>
+	<div class="tags">[% line.tags %]</div>
+</div>
+[% END %]
+</div>
+<div style="width:25%; float:left;height: 800px;overflow:scroll">
+
+[% FOREACH line IN vars.tags %]
+<div class="ob">
+	<div class="line">Tag</div>
+	<div class="posd">[% line %]</div>
+	<div class="tags">Comment</div>
+</div>
+[% END %]
+
+</div>
+
+
+<script type="text/javascript">
+$(function() {
+	function pad(number, length) {
+	   
+	    var str = '' + number;
+	    while (str.length < length) {
+	        str = '0' + str;
+	    }
+	    return str;
+	}	
+
+	function sec2tc(ts) {
+		ts = ts / 100;	
+		var milli = Math.floor(ts * 100 % 100);
+		var sec = Math.floor(ts % 60);
+		var min = Math.floor(ts / 60) % 60;
+		var hour = Math.floor(ts/3600);
+		return pad(hour,2) + ":" + pad(min,2) + ":" + pad(sec,2) + ":" + pad(milli,2);
+	}
+	
+	$(".pos").each(function() {
+		$(this).html( sec2tc($(this).html()));
+	});
+
+});
+</script>
+
+

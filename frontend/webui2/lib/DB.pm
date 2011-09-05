@@ -24,6 +24,8 @@ our $_db = DB->connect( "dbi:mysql:database=rdmx", "root", "warp242",
     name_sep   => '.'
   }
 );
+$_db->storage->debug(1);
+
 sub db {
 	return $_db->resultset(shift);
 }

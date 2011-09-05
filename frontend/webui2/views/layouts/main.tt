@@ -13,20 +13,23 @@
 </head>
 <body>
 [% if session.user %]
-<ul id="login">
+<ul id="menu">
 		<li><a href="/">Dashboard</a></li>
 		<li><a href="/show">Shows</a></li>
-		<li><a href="/logout">Logout</a></li>
 </ul>
-<ul>
-[% FOREACH show = vars.shows %]
-	<li><a href="/show/[% show.id %]">[% show.name %]</a></li>
-[% END %]
-</ul>
-
 [% end %]
+
+[% IF vars.theshow %]
+<ul id="show">
+	<li id="showli"><a href="/show/[% vars.theshow.id %]">[% vars.theshow.name %]</a></li>
+	<li id="tcli"><a href="/show/[% vars.theshow.id %]/timeline">Timeline</a></li>
+	<li id="pali"><a href="/show/[% vars.theshow.id %]/patch">Patch</a></li>
+</ul>
+[% END %]
 <div id="bodywrap">
+<div class="clearfix" id="wrr">
 [% content %]
+</div>
 </div>
 </body>
 </html>
