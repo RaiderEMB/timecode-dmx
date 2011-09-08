@@ -153,11 +153,11 @@ char *timestamp_display(int timestamp) {
 	int ms = timestamp % 1000;
 	timestamp = timestamp / 1000;
 
-	sprintf(string, "%02d:%02d:%02d:%02d",
+	sprintf(string, "%02d:%02d:%02d.%03d",
 		(int)(timestamp/3600.f),
 		(int)(timestamp/60.f) % 60,
 		timestamp % 60,
-		ms / 10
+		ms
 	);
 	return string;
 }
