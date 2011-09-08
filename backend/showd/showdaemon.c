@@ -499,7 +499,7 @@ int main(int argc, char **argv) {
 		}
 	}
 
-	return 0;
+//	return 0;
 
 
 	if ((sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
@@ -537,12 +537,15 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
+	printf("Waiting for jack timecode\n");
 	
 	/* save cursor */
 	printf("\e7");
 	
 	/* Mainloop */
 	while (1) {
+		static int last_i = 0;
+		static int last_timestamp = 0;
 		jack_position_t current;
 		jack_nframes_t frame_time;
 		jack_transport_state_t transport_state;
@@ -550,7 +553,7 @@ int main(int argc, char **argv) {
 		static struct timeval lastsend;
 		struct timeval now;
 		timeout.tv_sec = 0;
-		timeout.tv_usec = 10000;
+		timeout.tv_usec = 1000;
 
 		FD_ZERO(&selectlist);
 		FD_SET(sock, &selectlist);
@@ -561,6 +564,25 @@ int main(int argc, char **argv) {
                 frame_time = jack_get_current_transport_frame (client);
 		if (transport_state == JackTransportRolling) {
 			position = (float)frame_time / current.frame_rate;
+
+			if (last_timestamp == 0 || position * 1000 < last_timestamp) {
+				last_timestamp = position * 1000;
+				last_i = 0;
+			}
+
+			for (i = last_i; i < timestamps_count; ++i) {
+				int oi=0;
+				if (timestamps[i].timestamp > last_timestamp && timestamps[i].timestamp <= position * 1000) {
+					printf("Jack pos: %f\n", position);
+					for (oi = 0; oi < timestamps[i].operation_count; ++oi) {
+						unsigned short channel;
+						show_read_short(timestamps[i].operations[oi], 0, &channel);
+						printf("\t\tSpawn func_%d Channel: %d\n", timestamps[i].operations[oi]->command, channel);
+					}
+					last_i = i + 1;
+				}
+			}
+			last_timestamp = position * 1000;
 		}
 
 		int ready = select(highsock + 1, &selectlist, 0, 0, &timeout);
@@ -593,7 +615,7 @@ int main(int argc, char **argv) {
 				if (operations[i].allocated)
 					num_operations++;
 			}
-			printf("\e8\e[2KCurrent operations: %d", num_operations);
+			//printf("\e8\e[2KCurrent operations: %d", num_operations);
 			fflush(stdout);
 			gettimeofday(&updated, NULL);
 		}
