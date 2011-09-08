@@ -149,5 +149,51 @@ int main(int argc, char **argv) {
 	showd_packet_init(&packet, SHOW_FUNC_EFFECT_END);
 	showd_packet_save(&packet, fp);
 
+	showd_packet_init(&packet, SHOW_FUNC_TS_START);
+	showd_packet_add_int(&packet, 61000);
+	showd_packet_save(&packet, fp);
+
+	showd_packet_init(&packet, SHOW_FUNC_FADE);
+	showd_packet_add_short(&packet, 10); // channel 10
+	showd_packet_add_char(&packet, 0); // from 0
+	showd_packet_add_char(&packet, 255); // to 255
+	showd_packet_add_float(&packet, 0.4); // 4 seconds
+	showd_packet_save(&packet, fp);
+
+	showd_packet_init(&packet, SHOW_FUNC_BLINK);
+	showd_packet_add_short(&packet, 11); // channel 10
+	showd_packet_add_char(&packet, 0); // from 0
+	showd_packet_add_char(&packet, 255); // to 255
+	showd_packet_add_float(&packet, 0.2); // 0.2 seconds
+	showd_packet_add_float(&packet, 0.2); // 0.2 seconds
+	showd_packet_add_int(&packet, 2);
+	showd_packet_save(&packet, fp);
+
+	showd_packet_init(&packet, SHOW_FUNC_FADE);
+	showd_packet_add_short(&packet, 12); // channel 10
+	showd_packet_add_char(&packet, 0); // from 0
+	showd_packet_add_char(&packet, 255); // to 255
+	showd_packet_add_float(&packet, 0.4); // 4 seconds
+	showd_packet_save(&packet, fp);
+
+	
+	showd_packet_init(&packet, SHOW_FUNC_TS_END);
+	showd_packet_save(&packet, fp);
+
+	showd_packet_init(&packet, SHOW_FUNC_TS_START);
+	showd_packet_add_int(&packet, 65123);
+	showd_packet_save(&packet, fp);
+
+	showd_packet_init(&packet, SHOW_FUNC_FADE);
+	showd_packet_add_short(&packet, 10); // channel 10
+	showd_packet_add_char(&packet, 0); // from 0
+	showd_packet_add_char(&packet, 255); // to 255
+	showd_packet_add_float(&packet, 0.4); // 4 seconds
+	showd_packet_save(&packet, fp);
+
+	showd_packet_init(&packet, SHOW_FUNC_TS_END);
+	showd_packet_save(&packet, fp);
+
+	
 	return 0;
 }

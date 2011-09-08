@@ -32,6 +32,7 @@ static int verbose;
 
 #define MAX_CONNECTIONS 20
 #define MAX_OPERATIONS (512*10)
+#define MAX_LOCAL_OPERATIONS 512
 #define MAX_EFFECTS 1024
 #define MAX_ARG_LEN 64
 #define BUFLEN 1024
@@ -65,6 +66,9 @@ struct show_operation {
 struct show_timestamp {
 	int timestamp_id;
 	int timestamp;
+	int operation_count;
+
+	struct show_operation *operations[MAX_LOCAL_OPERATIONS];
 };
 
 struct show_bartrig {
@@ -79,12 +83,12 @@ struct show_effect {
 	int operation_count;
 
 	float step_lengths[256];
-	struct show_operation operations[1024];
+	struct show_operation operations[MAX_LOCAL_OPERATIONS];
 };
 
 static int current_effect_id = -1;
-static unsigned short current_bartrig_id = 0;
-static unsigned short current_timestamp_id = 0;
+static int current_bartrig_id = -1;
+static int current_timestamp_id = -1;
 
 static int bartrigs_count = 0;
 static int timestamps_count = 0;
@@ -144,15 +148,6 @@ static int show_read_float(struct show_operation *op, int pos, float *out) {
 }
 
 
-inline static int enough_arguments(const char *function_name, struct show_operation *op, int size) {
-	if (op->argument_len < size) {
-		fprintf(stderr, "%s: Too small packet\n", function_name);
-		operation_remove(op);
-		return 0;
-	}
-	return 1;
-}
-
 char *timestamp_display(int timestamp) {
 	static char string[12];
 	int ms = timestamp % 1000;
@@ -162,7 +157,7 @@ char *timestamp_display(int timestamp) {
 		(int)(timestamp/3600.f),
 		(int)(timestamp/60.f) % 60,
 		timestamp % 60,
-		ms
+		ms / 10
 	);
 	return string;
 }
@@ -201,14 +196,15 @@ void show_bartrig_start(struct show_operation *op) {
 }
 
 void show_timestamp_start(struct show_operation *op) {
-	unsigned short stime;
+	unsigned int stime;
 	
-	show_read_short(op, 0, &stime);
+	show_read_int(op, 0, &stime);
 	
 	current_timestamp_id = timestamps_count;
 	
 	timestamps[timestamps_count].timestamp = stime;
 	timestamps[timestamps_count].timestamp_id = timestamps_count++;
+	timestamps[timestamps_count].operation_count = 0;
 }
 
 void operation_add(struct show_operation *op, float length) {
@@ -253,6 +249,7 @@ void operation_add(struct show_operation *op, float length) {
 		op->operation_type = OP_TS;
 		op->timestamp_id = current_timestamp_id;
 		printf("timestamped(%d)", current_timestamp_id);
+		timestamps[current_timestamp_id].operations[timestamps[current_timestamp_id].operation_count++] = op;
 	}
 
 	printf(" command id %d, with step %d, time to run: %f\n", op->command, op->step, op->length);
@@ -487,6 +484,18 @@ int main(int argc, char **argv) {
 		printf("\t\tStep lengths:\n");
 		for (stepi = 1; stepi < effects[i].step_count+1; ++stepi) {
 			printf("\t\t\tStep %02d: lengths: %f\n", stepi, effects[i].step_lengths[stepi]);
+		}
+	}
+
+	printf("Timed events: (count: %d)\n", timestamps_count);
+
+	for (i = 0; i < timestamps_count; ++i) {
+		int oi=0;
+		printf("\t(%s): (id=%d, count=%d)\n", timestamp_display(timestamps[i].timestamp), i, timestamps[i].operation_count);
+		for (oi = 0; oi < timestamps[i].operation_count; ++oi) {
+			unsigned short channel;
+			show_read_short(timestamps[i].operations[oi], 0, &channel);
+			printf("\t\tfunc_%d Channel: %d\n", timestamps[i].operations[oi]->command, channel);
 		}
 	}
 
