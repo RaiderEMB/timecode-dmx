@@ -858,7 +858,7 @@ int main(int argc, char **argv) {
 	}
 
 	if (argc == 0 || artnet_ip == NULL) {
-		fprintf(stderr, "Usage: %s -a <artnet_ip> [-d /dev/ttyUSBx] [-v]\n", argv[0]);
+		fprintf(stderr, "Usage: %s -a <artnet_ip> [-d /dev/ttyUSBx] [-v] [-s]\n", argv[0]);
 		return 1;
 	}
 
