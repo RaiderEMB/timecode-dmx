@@ -1,0 +1,31 @@
+#!/usr/bin/perl -w
+
+use lib "../../../../backend/showd/";
+use lib "../lib/";
+use ShowFile;
+use RDMX::Model::SQL;
+
+my $sql = RDMX::Model::SQL->new();
+$|=1;
+
+my $timeline = $sql->resultset("Timeline")->find($ARGV[1]) or die "No such timeline";
+for my $patch ($timeline->patches) {
+	print $patch->dmx.": ".$patch->fixture->brand." ".$patch->fixture->model." [".$patch->fixture->mode."]\n";
+	print " \_ ability: ";
+
+	for my $addr ( $patch->fixture->addresses ) {
+		print $addr->attr->name." ";
+	}
+
+	print "\n";
+}
+
+#ShowFile::init( $ARGV[ 0 ] );
+#ShowFile::ts_start( 38481 );
+
+#ShowFile::blink(chan, from, to, timeon, timeoff, times);
+#ShowFile::fade(chan, from, to, secs);
+#ShowFile::lock(chan, val, secs);
+
+#ShowFile::ts_end();
+
