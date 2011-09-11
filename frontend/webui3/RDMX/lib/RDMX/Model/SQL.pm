@@ -10,6 +10,7 @@ __PACKAGE__->config(
         dsn => 'dbi:mysql:database=rdmx;host=casa.exploit.no',
         user => 'root',
         password => 'warp242',
+	quote_char => '`',
     }
 );
 
