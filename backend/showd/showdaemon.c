@@ -402,6 +402,33 @@ static void (*find_function(unsigned char func)) (struct show_operation *op, flo
 	return NULL;
 }
 
+void send_command(struct show_operation *op) {
+	struct dmxc_packet packet;
+	int i;
+
+	dmxc_init("127.0.0.1",9118);
+
+	switch (op->command)  {
+		case SHOW_FUNC_LOCK:
+			dmxc_packet_init(&packet, DMXD_FUNC_LOCK, 1);
+			break;
+		case SHOW_FUNC_BLINK:
+			dmxc_packet_init(&packet, DMXD_FUNC_BLINK, 1);
+			break;
+		case SHOW_FUNC_FADE:
+			dmxc_packet_init(&packet, DMXD_FUNC_FADE, 1);
+			break;
+		default:
+			return;
+	}
+
+	for (i = 0; i < op->argument_len; ++i) {
+		dmxc_packet_add_char(&packet, op->arguments[i]);
+	}
+	//printf("Sending command %d, len %d\n", packet.data[0], packet.length);
+	dmxc_udp_send(&packet);
+}
+
 int main(int argc, char **argv) {
 	struct sockaddr_in si_me, si_other;
 	int i, ii, len, slen = sizeof(si_other);
@@ -414,8 +441,6 @@ int main(int argc, char **argv) {
 
 	struct timeval timeout;
 
-	dmxc_init("127.0.0.1",9118);
-	
 	// parse options 
 	while ((optc = getopt (argc, argv, "v")) != EOF) {
 		switch (optc) {
@@ -553,7 +578,7 @@ int main(int argc, char **argv) {
 		static struct timeval lastsend;
 		struct timeval now;
 		timeout.tv_sec = 0;
-		timeout.tv_usec = 1000;
+		timeout.tv_usec = 4000;
 
 		FD_ZERO(&selectlist);
 		FD_SET(sock, &selectlist);
@@ -578,6 +603,7 @@ int main(int argc, char **argv) {
 						unsigned short channel;
 						show_read_short(timestamps[i].operations[oi], 0, &channel);
 						printf("\t\tSpawn func_%d Channel: %d\n", timestamps[i].operations[oi]->command, channel);
+						send_command(timestamps[i].operations[oi]);
 					}
 					last_i = i + 1;
 				}
