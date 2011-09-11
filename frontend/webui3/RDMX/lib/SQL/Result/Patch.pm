@@ -75,6 +75,21 @@ __PACKAGE__->set_primary_key("show", "dmx");
 
 =head1 RELATIONS
 
+=head2 show
+
+Type: belongs_to
+
+Related object: L<SQL::Result::Timeline>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "show",
+  "SQL::Result::Timeline",
+  { id => "show" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
 =head2 fixture
 
 Type: belongs_to
@@ -95,24 +110,9 @@ __PACKAGE__->belongs_to(
   },
 );
 
-=head2 show
 
-Type: belongs_to
-
-Related object: L<SQL::Result::Timeline>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "show",
-  "SQL::Result::Timeline",
-  { id => "show" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-10 20:28:06
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:EDLwXhVg3iQlvHtJgxG3Ww
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-11 03:09:41
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KbxlKu6zavYetdHOG78C3A
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

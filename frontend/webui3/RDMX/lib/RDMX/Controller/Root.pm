@@ -1,6 +1,7 @@
 package RDMX::Controller::Root;
 use Moose;
 use namespace::autoclean;
+use Data::Dumper;
 
 BEGIN { extends 'Catalyst::Controller' }
 
@@ -95,6 +96,14 @@ sub edit_entry : Chained("timeline_entry") : PathPart("edit") : CaptureArgs(0) {
 sub edit : Chained('edit_entry') : PathPart('') : Args(0) {
 	my ( $self, $c ) = @_;
 	return 1;
+
+	my $tcs = $c->stash->{timeline};
+	print Dumper $tcs;
+
+	while (my $tc = $tcs->next) {
+		push @{ $c->stash->{timecodes} }, $tc;
+	}
+
 }
 
 sub edit_ajax : Chained("edit_entry") : PathPart("ajax") : Args(0) {
