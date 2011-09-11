@@ -12,6 +12,7 @@ use strict;
 
 our $fh;
 our %transactions;
+our $command_type;
 
 # Flags
 sub NONE { 1; }
@@ -37,12 +38,14 @@ sub init {
 sub effect_start {
 	my ($id) = @_;
 
+	$command_type = "effect";
 	print $fh pack("nCn", 5, SHOW_FUNC_EFFECT_START, $id);
 }
 
 sub effect_end {
 	my ($id) = @_;
 
+	$command_type = "";
 	print $fh pack("nC", 1, SHOW_FUNC_EFFECT_END);
 }
 
@@ -53,28 +56,33 @@ sub ts_start {
 		$timestamp = convert_time($timestamp);
 	}
 
+	$command_type = "timestamp";
 	print $fh pack("nCN", 5, SHOW_FUNC_TS_START, $timestamp);
 }
 
 sub lock {
-	my ($channel, $val, $secs) = @_;
+	my ($channel, $val, $secs, $step) = @_;
 
-	print $fh pack("nCnCf", 8, SHOW_FUNC_LOCK, $channel, $val, $secs);
+	print $fh pack("nCCnCf", 9, SHOW_FUNC_LOCK, $step, $channel, $val, $secs) if ($command_type eq "effect");
+	print $fh pack("nCnCf", 8, SHOW_FUNC_LOCK, $channel, $val, $secs) ($command_type ne "effect");
 }
 
 sub fade {
 	my ($channel, $from, $to, $secs) = @_;
 
-	print $fh pack("nCnCCf", 9, SHOW_FUNC_FADE, $channel, $from, $to, $secs);
+	print $fh pack("nCCnCCf", 10, SHOW_FUNC_FADE, $step, $channel, $from, $to, $secs) if ($command_type eq "effect");
+	print $fh pack("nCnCCf", 9, SHOW_FUNC_FADE, $channel, $from, $to, $secs) if ($command_type ne "effect");
 }
 
 sub blink {
 	my ($channel, $from, $to, $secson, $secsoff, $times) = @_;
 
-	print $fh pack("nCnCCffN", 17, SHOW_FUNC_BLINK, $channel, $from, $to, $secson, $secsoff, $times);
+	print $fh pack("nCCnCCffN", 18, SHOW_FUNC_BLINK, $step, $channel, $from, $to, $secson, $secsoff, $times) if ($command_type eq "effect");
+	print $fh pack("nCnCCffN", 17, SHOW_FUNC_BLINK, $channel, $from, $to, $secson, $secsoff, $times) if ($command_type ne "effect");
 }
 
 sub ts_end {
+	$command_type = "";
 	print $fh pack("nC", 1, SHOW_FUNC_TS_END);
 }
 
