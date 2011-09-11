@@ -64,18 +64,18 @@ sub lock {
 	my ($channel, $val, $secs, $step) = @_;
 
 	print $fh pack("nCCnCf", 9, SHOW_FUNC_LOCK, $step, $channel, $val, $secs) if ($command_type eq "effect");
-	print $fh pack("nCnCf", 8, SHOW_FUNC_LOCK, $channel, $val, $secs) ($command_type ne "effect");
+	print $fh pack("nCnCf", 8, SHOW_FUNC_LOCK, $channel, $val, $secs) if ($command_type ne "effect");
 }
 
 sub fade {
-	my ($channel, $from, $to, $secs) = @_;
+	my ($channel, $from, $to, $secs, $step) = @_;
 
 	print $fh pack("nCCnCCf", 10, SHOW_FUNC_FADE, $step, $channel, $from, $to, $secs) if ($command_type eq "effect");
 	print $fh pack("nCnCCf", 9, SHOW_FUNC_FADE, $channel, $from, $to, $secs) if ($command_type ne "effect");
 }
 
 sub blink {
-	my ($channel, $from, $to, $secson, $secsoff, $times) = @_;
+	my ($channel, $from, $to, $secson, $secsoff, $times, $step) = @_;
 
 	print $fh pack("nCCnCCffN", 18, SHOW_FUNC_BLINK, $step, $channel, $from, $to, $secson, $secsoff, $times) if ($command_type eq "effect");
 	print $fh pack("nCnCCffN", 17, SHOW_FUNC_BLINK, $channel, $from, $to, $secson, $secsoff, $times) if ($command_type ne "effect");
