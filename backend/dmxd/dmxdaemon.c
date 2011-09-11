@@ -256,10 +256,13 @@ static void f_fade(struct dmxd_operation *op, float runtime) {
 	}
 
 	if (verbose)
-		printf("f%d: %02d %f\n", op->operation_id, fromval + (int)((float)((toval-fromval) * (float)(runtime/timespan))), runtime);
+		printf("f%d: %02d %f\n", op->operation_id, fromval + (int)((float)((int)(toval-fromval) * (float)(runtime/timespan))), runtime);
 
-	dmxd_set_dmx(channel, min(fromval + (int)((float)((toval-fromval) * (float)(runtime/timespan))), toval));
-	
+	if (toval > fromval)
+		dmxd_set_dmx(channel, min(fromval + (int)((float)((int)(toval-fromval) * (float)(runtime/timespan))), toval));
+	else
+		dmxd_set_dmx(channel, min(fromval + (int)((float)((int)(toval-fromval) * (float)(runtime/timespan))), fromval));
+
 	if (runtime >= timespan) {
 		operation_remove(op);
 	}
