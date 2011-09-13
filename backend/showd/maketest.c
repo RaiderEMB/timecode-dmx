@@ -86,7 +86,6 @@ int main(int argc, char **argv) {
 	showd_packet_init(&packet, SHOW_FUNC_LOCK);
 	showd_packet_add_char(&packet, 1); // step 1
 	showd_packet_add_short(&packet, 10); // channel 10
-	showd_packet_add_char(&packet, 0); // from 0
 	showd_packet_add_char(&packet, 255); // to 255
 	showd_packet_add_float(&packet, 4); // 4 seconds
 	showd_packet_save(&packet, fp);
@@ -159,33 +158,30 @@ int main(int argc, char **argv) {
 	showd_packet_add_float(&packet, 4); // 4 seconds
 	showd_packet_save(&packet, fp);
 
-	showd_packet_init(&packet, SHOW_FUNC_BLINK);
+	showd_packet_init(&packet, SHOW_FUNC_LOCK);
 	showd_packet_add_short(&packet, 2); // channel 10
-	showd_packet_add_char(&packet, 0); // from 0
-	showd_packet_add_char(&packet, 13); // to 255
-	showd_packet_add_float(&packet, 1); // 4 seconds
-	showd_packet_add_float(&packet, 1); // 4 seconds
-	showd_packet_add_int(&packet, 1);
+	showd_packet_add_char(&packet, 13); // from 0
+	showd_packet_add_float(&packet, 2); // 4 seconds
 	showd_packet_save(&packet, fp);
 
 	showd_packet_init(&packet, SHOW_FUNC_LOCK);
 	showd_packet_add_short(&packet, 3); // channel 10
-	showd_packet_add_char(&packet, 13); // from 0
-	showd_packet_add_float(&packet, 4); // 4 seconds
+	showd_packet_add_char(&packet, 0); // from 0
+	showd_packet_add_float(&packet, 5); // 4 seconds
 	showd_packet_save(&packet, fp);
 
 	showd_packet_init(&packet, SHOW_FUNC_FADE);
 	showd_packet_add_short(&packet, 4); // channel 10
-	showd_packet_add_char(&packet, 0); // from 0
-	showd_packet_add_char(&packet, 255); // to 255
-	showd_packet_add_float(&packet, 2); // 4 seconds
+	showd_packet_add_char(&packet, 255); // from 0
+	showd_packet_add_char(&packet, 0); // to 255
+	showd_packet_add_float(&packet, 1); // 4 seconds
 	showd_packet_save(&packet, fp);
 
 	showd_packet_init(&packet, SHOW_FUNC_FADE);
 	showd_packet_add_short(&packet, 5); // channel 10
-	showd_packet_add_char(&packet, 0); // from 0
-	showd_packet_add_char(&packet, 255); // to 255
-	showd_packet_add_float(&packet, 2); // 4 seconds
+	showd_packet_add_char(&packet, 255); // from 0
+	showd_packet_add_char(&packet, 0); // to 255
+	showd_packet_add_float(&packet, 1); // 4 seconds
 	showd_packet_save(&packet, fp);
 
 	showd_packet_init(&packet, SHOW_FUNC_TS_END);
@@ -200,6 +196,21 @@ int main(int argc, char **argv) {
 	showd_packet_add_short(&packet, 2); // channel 10
 	showd_packet_add_char(&packet, 12); // from 0
 	showd_packet_add_float(&packet, 0.15); // 4 seconds
+	showd_packet_save(&packet, fp);
+
+	showd_packet_init(&packet, SHOW_FUNC_EFFECT);
+	showd_packet_add_short(&packet, 1); // effect 1
+	showd_packet_add_short(&packet, 2); // channel 2
+	showd_packet_save(&packet, fp);
+
+	showd_packet_init(&packet, SHOW_FUNC_EFFECT);
+	showd_packet_add_short(&packet, 1); // effect 1
+	showd_packet_add_short(&packet, 3); // channel 2
+	showd_packet_save(&packet, fp);
+
+	showd_packet_init(&packet, SHOW_FUNC_EFFECT);
+	showd_packet_add_short(&packet, 2); // effect 1
+	showd_packet_add_short(&packet, 4); // channel 4
 	showd_packet_save(&packet, fp);
 
 	showd_packet_init(&packet, SHOW_FUNC_TS_END);
@@ -254,7 +265,7 @@ int main(int argc, char **argv) {
 
 	showd_packet_init(&packet, SHOW_FUNC_LOCK);
 	showd_packet_add_short(&packet, 3); // channel 10
-	showd_packet_add_char(&packet, 40); // from 0
+	showd_packet_add_char(&packet, 0); // from 0
 	showd_packet_add_float(&packet, 2); // 4 seconds
 	showd_packet_save(&packet, fp);
 

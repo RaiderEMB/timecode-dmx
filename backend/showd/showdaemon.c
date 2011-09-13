@@ -81,9 +81,18 @@ struct show_effect {
 	int effect_id;
 	char step_count;
 	int operation_count;
+	int length;
 
 	float step_lengths[256];
 	struct show_operation operations[MAX_LOCAL_OPERATIONS];
+};
+
+struct show_run_effect {
+	unsigned short offset;
+	unsigned short effect_id;
+	int timestamp_start;
+	int active;
+	int stepsrun;
 };
 
 static int current_effect_id = -1;
@@ -99,6 +108,9 @@ static struct show_bartrig    bartrigs[MAX_OPERATIONS];
 
 static int effectid_count = 0;
 static struct show_effect effects[MAX_EFFECTS];
+
+static struct show_run_effect run_effects[MAX_EFFECTS];
+static int show_run_effect_count = 0;
 
 void signal_handler (int sig) {
         jack_client_close (client);
@@ -256,6 +268,22 @@ void operation_add(struct show_operation *op, float length) {
 	printf(" debug: Args len: %d, first arg: %d\n", op->argument_len, op->arguments[0]);
 }
 
+static void show_effect_add(struct show_operation *op) {
+	int i;
+	printf("Spawn-effect added.\n");
+	for (i = 0; i < MAX_EFFECTS; ++i) {
+		if (run_effects[i].active == 0) {
+			run_effects[i].active = 1;
+			show_read_short(op, 0, &(run_effects[i].effect_id));
+			show_read_short(op, 2, &(run_effects[i].offset));
+			run_effects[i].timestamp_start = timestamps[current_timestamp_id].timestamp;
+			printf("Spawn effect id: %d at %s\n", i, timestamp_display(run_effects[i].timestamp_start));
+			show_run_effect_count++;
+			return;
+		}
+	}
+}
+
 static void handle_operation(struct show_operation *op) {
 	float length1 = 0;
 	float length2 = 0;
@@ -284,6 +312,13 @@ static void handle_operation(struct show_operation *op) {
 
 		case SHOW_FUNC_TS_END:
 			current_timestamp_id = -1;
+			break;
+
+		case SHOW_FUNC_EFFECT:
+			if (current_timestamp_id > 0)
+				show_effect_add(op);
+			else
+				fprintf(stderr, "Could not add effect without a timestamp scope\n");
 			break;
 
 		case SHOW_FUNC_BLINK:
@@ -487,10 +522,13 @@ int main(int argc, char **argv) {
 			}
 		}
 	}
+	
+	/* DO NOT REMOVE */
 	printf("Organized data: (effects: %d)\n", effectid_count);
 	for (i = 1; i < effectid_count + 1; ++i) {
 		int stepi = 0;
 		int operationi = 0;
+		float totallen = 0;
 		printf("\tEffect %d, operations: %d, steps: %d\n", i, effects[i].operation_count, effects[i].step_count);
 		
 		// Find total length of each step
@@ -509,7 +547,9 @@ int main(int argc, char **argv) {
 		printf("\t\tStep lengths:\n");
 		for (stepi = 1; stepi < effects[i].step_count+1; ++stepi) {
 			printf("\t\t\tStep %02d: lengths: %f\n", stepi, effects[i].step_lengths[stepi]);
+			totallen += effects[i].step_lengths[stepi];
 		}
+		effects[i].length = totallen;
 	}
 
 	printf("Timed events: (count: %d)\n", timestamps_count);
@@ -590,11 +630,53 @@ int main(int argc, char **argv) {
 		if (transport_state == JackTransportRolling) {
 			position = (float)frame_time / current.frame_rate;
 
+			/* Have we traveled back in time? */
 			if (last_timestamp == 0 || position * 1000 < last_timestamp) {
 				last_timestamp = position * 1000;
 				last_i = 0;
+
+				/* invalidate all pending effects */
+				//for (i=0; i < MAX_EFFECTS; ++i) {
+				//	run_effects[i].active = 0;
+				//}
 			}
 
+			int effect_count = 0;
+			for (i = 0; i < MAX_EFFECTS; ++i) {
+				if (run_effects[i].active == 1) {
+					int start_time = run_effects[i].timestamp_start;
+					if (last_timestamp >= start_time) {
+						struct show_effect *eff = &(effects[run_effects[i].effect_id]);
+						int o;
+						for (o = 0; o < eff->step_count; ++o)  {
+							if (start_time +  (eff->step_lengths[o] * 1000) > position * 1000) {
+								break;
+							}
+						}
+						
+						int current_step = o;
+						int has_done_step = 0;
+						if (run_effects[i].stepsrun >= current_step)
+							break;
+
+						printf("Maybe firing effect job id %d, effect id %d, step %d\n", i, eff->effect_id, o);
+
+						for (o = 0; o < eff->operation_count; ++o) {
+							if (eff->operations[o].step == current_step) {
+								printf("%s: FIRE EFFECT %d STEP %d\n", timestamp_display(position * 1000), eff->operations[o].command, current_step);
+								//TODO: Channel + offset
+								send_command(&eff->operations[o]);
+								has_done_step = 1;
+							}
+						}
+						if (has_done_step && current_step > run_effects[i].stepsrun)
+							run_effects[i].stepsrun = current_step;
+					}
+					effect_count++;
+				}
+				if (effect_count == show_run_effect_count)
+					break;
+			}
 			for (i = last_i; i < timestamps_count; ++i) {
 				int oi=0;
 				if (timestamps[i].timestamp > last_timestamp && timestamps[i].timestamp <= position * 1000) {
