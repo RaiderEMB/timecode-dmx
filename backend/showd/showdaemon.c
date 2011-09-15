@@ -43,6 +43,7 @@ static int verbose;
 #define DMXC_PORT 9118
 
 #define EXTERNAL_TC_DISPLAY 1
+#define EXTERNAL_TC_HOST "192.168.0.200"
 
 struct show_operation {
 	char allocated;
@@ -605,8 +606,8 @@ int main(int argc, char **argv) {
 	si_ext_display.sin_family = AF_INET;
 	si_ext_display.sin_port = htons(1337);
 
-	if (inet_aton("192.168.0.200", &si_ext_display.sin_addr) == 0) {
-		fprintf(stderr, "Error using gethostbyaddr()\n");
+	if (inet_aton(EXTERNAL_TC_HOST, &si_ext_display.sin_addr) == 0) {
+		fprintf(stderr, "Error using inet_aton(" EXTERNAL_TC_HOST ")\n");
 		exit(1);
 	}
 #endif
