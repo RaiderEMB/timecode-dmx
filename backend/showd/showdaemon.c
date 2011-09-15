@@ -39,6 +39,9 @@ static int verbose;
 
 #define PROGRAM_NAME "showdaemon"
 
+#define DMXC_HOST "127.0.0.1"
+#define DMXC_PORT 9118
+
 struct show_operation {
 	char allocated;
 
@@ -161,7 +164,7 @@ static int show_read_float(struct show_operation *op, int pos, float *out) {
 
 
 char *timestamp_display(int timestamp) {
-	static char string[12];
+	static char string[13];
 	int ms = timestamp % 1000;
 	timestamp = timestamp / 1000;
 
@@ -441,8 +444,6 @@ void send_command(struct show_operation *op) {
 	struct dmxc_packet packet;
 	int i;
 
-	dmxc_init("127.0.0.1",9118);
-
 	switch (op->command)  {
 		case SHOW_FUNC_LOCK:
 			dmxc_packet_init(&packet, DMXD_FUNC_LOCK, 1);
@@ -469,8 +470,6 @@ void send_command(struct show_operation *op) {
 	}
 	//printf("Sending command %d, len %d\n", packet.data[0], packet.length);
 	dmxc_udp_send(&packet);
-
-	close(dmxc_sock);
 }
 
 int main(int argc, char **argv) {
@@ -593,6 +592,8 @@ int main(int argc, char **argv) {
 	}
 
 	highsock = sock;
+
+	dmxc_init(DMXC_HOST, DMXC_PORT);
 
         if ((client = jack_client_open (PROGRAM_NAME,  JackNullOption, &status)) == 0) {
                 fprintf (stderr, "JACK: Server not running?\n");
