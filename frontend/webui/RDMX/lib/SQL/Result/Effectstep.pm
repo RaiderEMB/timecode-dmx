@@ -86,6 +86,12 @@ __PACKAGE__->table("effectstep");
   extra: {unsigned => 1}
   is_nullable: 1
 
+=head2 preval
+
+  data_type: 'tinyint'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -123,6 +129,8 @@ __PACKAGE__->add_columns(
   { data_type => "mediumint", extra => { unsigned => 1 }, is_nullable => 1 },
   "times",
   { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 1 },
+  "preval",
+  { data_type => "tinyint", extra => { unsigned => 1 }, is_nullable => 1 },
 );
 __PACKAGE__->set_primary_key("id");
 
@@ -159,8 +167,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-11 03:09:41
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:OYoU4pw60jUZfT5HUv5GBA
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-15 01:58:38
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:p1ZagwAMIi1278QfWkcTaA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
