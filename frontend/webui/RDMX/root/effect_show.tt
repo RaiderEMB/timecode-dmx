@@ -1,0 +1,177 @@
+<h2>Effect [[% effect.name %]]</h2>
+<div id="back">
+	<a href="/[% timeline.id %]/effect">Back</a>
+</div>
+
+<div id="inner">
+
+
+<div id="steps" style="float:left;">
+
+<table>
+<th>STP</th>
+<th>Attr</th>
+<th>Action</th>
+<th>From</th>
+<th>To</th>
+<th>Time</th>
+<th>Time2</th>
+<th>Times</th>
+<th>Pre</th>
+<th colspan=2>Edit</th>
+
+[% FOREACH step = steps %]
+	<tr>
+		<td>[% step.step %]</td>
+		<td>[% step.attribute.name %]</td>
+		<td>[% step.action %]</td>
+		<td>[% step.from %]</td>
+		<td>[% step.to %]</td>
+		<td>[% step.time %]</td>
+		<td>[% step.time2 %]</td>
+		<td>[% step.times %]</td>
+		<td>[% step.preval %]</td>
+		<td><a href="?edit=[% step.id %]">Edit</a></td>
+		<td><a href="?del=[% step.id %]">Remove</a></td>
+[% laststep = step.step %]
+	</tr>
+[% END %]
+</table>
+
+<a href="?new=1">New step</a>
+
+</div>
+<script type="text/javascript">
+$().ready(function() {
+
+	$("#time").hide();
+	$("#time2").hide();
+	$("#times").hide();
+	$("#preval").show();
+	$("#to").hide();
+
+	$("#action select").change(function() {
+		if ($(this).val() == "fade") {
+			$("#time").show();
+			$("#time2").hide();
+			$("#times").hide();
+			$("#to").show();
+		}
+		else if ( $(this).val() == "blink" ) {
+			$("#time").show();
+			$("#time2").show();
+			$("#times").show();
+			$("#preval").show();
+			$("#to").show();
+
+		}
+		else {
+			$("#time").hide();
+			$("#time2").hide();
+			$("#to").hide();
+			$("#times").hide();
+			$("#preval").hide();
+		}
+
+
+	});
+
+});
+</script>
+<div id="steps" style="float:left;padding-left:10px">
+[% IF c.request.param("new") %]
+<form method="post">
+<h3>new step</h3>
+<div id="step" class="field">
+[% xs = 1%]
+<label>Step</label>
+<span><select name="step">
+[% WHILE xs < 40 %]
+<option value="[% xs %]"[% IF laststep == xs %] selected[% END %]>[% xs %]</option>
+[% xs = xs + 1 %]
+[% END %]
+</select>
+</span>
+</div>
+
+
+<div id="action" class="field">
+<label>Action</label>
+<span>
+<select name="action">
+<option value="set">Set</option>
+<option value="fade">Fade</option>
+<option value="blink">Blink</option>
+</select>
+</span>
+</div>
+
+
+<div id="attribute" class="field">
+<label>Attribute</label>
+<span>
+<select name="attribute">
+[% FOREACH attr = c.model("SQL::Attribute").all %]
+<option value="[% attr.id %]">[% attr.name %]</option>
+[% END %]
+</select>
+</span>
+</div>
+
+<div id="from" class="field">
+<label>VAL</label>
+<span>
+<input type="text" value="" name="from" />
+</span>
+</div>
+
+
+<div id="to" class="field">
+<label>ToVAL</label>
+<span>
+<input type="text" value="" name="to" />
+</span>
+</div>
+
+
+
+<div id="time" class="field">
+<label>OverTime</label>
+<span>
+<input type="text" value="" name="time" />
+</span>
+</div>
+
+
+<div id="time2" class="field">
+<label>TimeTwo</label>
+<span>
+<input type="text" value="" name="time2" />
+</span>
+</div>
+
+<div id="times" class="field">
+<label>Times</label>
+<span>
+<input type="text" value="" name="times" />
+</span>
+</div>
+
+<div style="padding-top: 10px">
+<input type="submit" value="Save step" />
+</div>
+
+</form>
+[% END %]
+<style type="text/css">
+.field label {
+	
+	display:block;
+}
+.field {
+	padding-bottom: 5px;
+}
+</style>
+</div>
+
+</div>

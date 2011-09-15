@@ -3,11 +3,142 @@
 	<a href="/[% timeline.id %]">Back</a>
 </div>
 <div id="inner">
+
+
+
+<div id="timecol" style="float:left;">
+
 <table>
 [% FOREACH tc = timecodes %]
-<tr>
-	<td>[% tc.position %]</td>
+<tr id="[% tc.id %]">
+	<td><span id="tc_[% tc.position %]" class="fix ms2tc">[% tc.position %]</span></td>
+	<td class="comment">[% tc.comment %]</td>
+	<td>[% FOR tct = tc.timecodetags %]<span id="tag_[% tct.tag %]" class="tag">[% tct.tag %]</span>[% END %]
+		<span class="addtag">+</span>
+	</td>
 </tr>
 [% END %]
 </table>
+
 </div>
+
+<div id="timecol" style="float:left;padding:10px">
+[% IF c.request.param("tag") %]
+<div id="butcol" style="padding: 5px 15px; border: 2px solid #eee;background-color:white; width: 500px">
+<h3>Change/set effect/fixtures for: [% c.request.param("tag") %]</h3>
+<form method="post">
+<select style="width:100%" name="effect">
+<option value="0">(ingen effekt)</option>
+[% FOREACH effect = c.model("SQL::Effect").all %]
+	<option value="[% effect.id %]">[% effect.name %]</option>
+[% END %]
+</select>
+
+[% FOREACH p = c.stash.timeline.patches  %]
+<div>
+<input type="checkbox" value="1" name="patch_[% p.dmx %]" />
+[% p.fixture.brand %]
+[% p.fixture.model %]
+([% p.tags %])
+</div>
+[% END %]
+<input type="submit" style="font-size: 20px" value="Patchitup" />
+
+</form>
+</div>
+[% END %]
+</div>
+
+
+</div>
+
+<script type="text/javascript">
+
+function pad(number, length) {
+    var str = '' + number;
+    while (str.length < length) {
+        str = '0' + str;
+    }
+    return str;
+}  
+
+function sec2tc(ts) {
+  ts = ts / 100;  
+  var milli = Math.floor(ts * 100 % 100);
+  var sec = Math.floor(ts % 60);
+  var min = Math.floor(ts / 60) % 60;
+  var hour = Math.floor(ts/3600);
+  return pad(hour,2) + ":" + pad(min,2) + ":" + pad(sec,2) + ":" + pad(milli,2);
+}
+
+$().ready(function() {
+
+	$(".ms2tc").each(function() {
+		var secm = this.innerHTML;
+		$(this).html(sec2tc(secm));
+	});
+
+	$(".tag").click(
+		function () {
+			window.location.href = "?tag=" + $(this).attr("id").replace("tag_","");
+		}
+	);
+
+	$(".tag").hover(
+		function () {
+			var lookfor = $(this).html();
+			$(".tag").each(function() {
+				if ($(this).html() == lookfor) {
+					$(this).addClass("active");
+				}
+			});
+		}, 
+		function () {
+			var lookfor = $(this).html();
+			$(".tag").each(function() {
+				if ($(this).html() == lookfor) {
+					$(this).removeClass("active");
+				}
+			});
+  
+		}
+	);
+
+	$(".addtag").click(function() {
+		var tag = window.prompt( "Add tag", "" );
+		if (tag != "") {
+			$.ajax({
+				type: "POST",
+				url: "/[% timeline.id %]/edit/ajax",
+				data: {
+					addtag: $(this).parent().parent().attr("id"),
+					newtag: tag
+				},
+				success: function() {
+					window.location.href="?";	
+				}
+			});
+		}
+
+	});
+	
+	$(".comment").click(function() {
+		var newprompt = window.prompt( "Edit comment", $(this).html() );
+		if (newprompt != $(this).html()) {
+			$.ajax({
+				type: "POST",
+				url: "/[% timeline.id %]/edit/ajax",
+				data: {
+					update: $(this).parent().attr("id"),
+					comment: newprompt
+				}
+			});
+
+			$(this).html(newprompt);
+
+		}
+	});
+
+});
+
+</script>

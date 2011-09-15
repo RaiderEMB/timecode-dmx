@@ -7,7 +7,7 @@ __PACKAGE__->config(
     schema_class => 'SQL',
     
     connect_info => {
-        dsn => 'dbi:mysql:database=rdmx;host=casa.exploit.no',
+        dsn => 'dbi:mysql:database=rdmx;host=127.0.0.1',
         user => 'root',
         password => 'warp242',
 	quote_char => '`',

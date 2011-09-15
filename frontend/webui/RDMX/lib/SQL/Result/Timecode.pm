@@ -43,12 +43,6 @@ __PACKAGE__->table("timecode");
   extra: {unsigned => 1}
   is_nullable: 0
 
-=head2 tags
-
-  data_type: 'varchar'
-  is_nullable: 0
-  size: 255
-
 =head2 comment
 
   data_type: 'varchar'
@@ -74,8 +68,6 @@ __PACKAGE__->add_columns(
   },
   "position",
   { data_type => "bigint", extra => { unsigned => 1 }, is_nullable => 0 },
-  "tags",
-  { data_type => "varchar", is_nullable => 0, size => 255 },
   "comment",
   { data_type => "varchar", is_nullable => 0, size => 255 },
 );
@@ -99,9 +91,24 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
+=head2 timecodetags
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-10 20:28:06
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:n+8VSBe2CrruxIpLepQatg
+Type: has_many
+
+Related object: L<SQL::Result::Timecodetag>
+
+=cut
+
+__PACKAGE__->has_many(
+  "timecodetags",
+  "SQL::Result::Timecodetag",
+  { "foreign.timecode" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-11 03:55:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Qi18nGqvDlqhrNvKGC6qzw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

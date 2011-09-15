@@ -1,0 +1,41 @@
+#!/usr/bin/perl -w
+
+use lib "../../../../backend/showd/";
+use lib "../lib/";
+use ShowFile;
+use RDMX::Model::SQL;
+use Data::Dumper;
+
+my $sql = RDMX::Model::SQL->new();
+$|=1;
+
+echo "This is not for using!;P\n";
+exit;
+
+my $t = $sql->resultset("Timecodetag");
+my $tc = $sql->resultset("Timecode");
+
+for my $time ($tc->all) {
+	my $tags = lc $time->tags;
+	my @tgs = split /\s*,\s*/, $tags;
+	for my $tag (@tgs) {
+		if (defined $tag && $tag ne "") {
+			my $new = $t->create({ 
+				timecode => $time->id,
+				tag => $tag
+			});
+			$new->update();
+		}
+	}
+}
+
+
+#ShowFile::init( $ARGV[ 0 ] );
+#ShowFile::ts_start( 38481 );
+
+#ShowFile::blink(chan, from, to, timeon, timeoff, times);
+#ShowFile::fade(chan, from, to, secs);
+#ShowFile::lock(chan, val, secs);
+
+#ShowFile::ts_end();
+

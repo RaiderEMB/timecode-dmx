@@ -1,0 +1,29 @@
+<h2>Effectlib on patch [% timeline.name%]</h2>
+<div id="back">
+	<a href="/[% timeline.id %]">Back</a>
+</div>
+
+<div id="inner">
+<ul>
+[% FOREACH effect = effects %]
+<li><a href="/[% timeline.id %]/effect/[%effect.id %]">[% effect.name %]</a></li>
+[% END %]
+</ul>
+
+<br />
+<br />
+<br />
+<script type="text/javascript">
+ $().ready(function() {
+	$("#neweff").click(function() {
+		var effname = prompt("Nytt effektnavn?","");
+		if (effname != "" && effname != undefined) {
+			window.location.href = "?neweff=" + effname;
+		}
+	});
+ });
+</script>
+<div style="background-color: #eee;padding: 20px">
+	<a id="neweff">Ny effekt</a>
+</div>
+</div>
