@@ -42,6 +42,8 @@ static int verbose;
 #define DMXC_HOST "127.0.0.1"
 #define DMXC_PORT 9118
 
+#define EXTERNAL_TC_DISPLAY 1
+
 struct show_operation {
 	char allocated;
 
@@ -114,6 +116,11 @@ static struct show_effect effects[MAX_EFFECTS];
 
 static struct show_run_effect run_effects[MAX_EFFECTS];
 static int show_run_effect_count = 0;
+
+#ifdef EXTERNAL_TC_DISPLAY
+	struct sockaddr_in si_ext_display;
+	int ext_display_busy = 0;
+#endif
 
 void signal_handler (int sig) {
         jack_client_close (client);
@@ -591,6 +598,19 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
+#ifdef EXTERNAL_TC_DISPLAY
+	struct sockaddr_in si_ext_display;
+
+	memset((void *) &si_ext_display, 0, sizeof(si_ext_display));
+	si_ext_display.sin_family = AF_INET;
+	si_ext_display.sin_port = htons(1337);
+
+	if (inet_aton("192.168.0.200", &si_ext_display.sin_addr) == 0) {
+		fprintf(stderr, "Error using gethostbyaddr()\n");
+		exit(1);
+	}
+#endif
+
 	highsock = sock;
 
 	dmxc_init(DMXC_HOST, DMXC_PORT);
@@ -637,9 +657,21 @@ int main(int argc, char **argv) {
 
                 transport_state = jack_transport_query (client, &current);
                 frame_time = jack_get_current_transport_frame (client);
-		if (transport_state == JackTransportRolling) {
-			position = (float)frame_time / current.frame_rate;
+		position = (float)frame_time / current.frame_rate;
+		
+//		if (transport_state == JackTransportPosition || transport_state == JackTransportRolling) {
+#ifdef EXTERNAL_TC_DISPLAY
+			static float last_ext_display_update;
 
+			if (!ext_display_busy || position >= last_ext_display_update + 1) {
+				int iposition = position * 100;
+				sendto(sock, &iposition, sizeof(iposition), MSG_DONTWAIT, (const struct sockaddr*)&si_ext_display, sizeof(si_ext_display));
+				last_ext_display_update = position;
+				ext_display_busy = 1;
+			}
+#endif
+//		}
+		if (transport_state == JackTransportRolling) {
 			/* Have we traveled back in time? */
 			if (last_timestamp == 0 || position * 1000 < last_timestamp) {
 				last_timestamp = position * 1000;
@@ -728,6 +760,10 @@ int main(int argc, char **argv) {
 
 				if (buffer[0] == 1) {
 					show_read_datafile();
+#ifdef EXTERNAL_TC_DISPLAY
+				} else if (buffer[0] == 'K') {
+					ext_display_busy = 0;
+#endif
 				} else {
 					printf("Invalid packet received\n");
 				}
