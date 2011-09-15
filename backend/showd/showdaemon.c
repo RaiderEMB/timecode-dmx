@@ -447,12 +447,19 @@ void send_command(struct show_operation *op) {
 		case SHOW_FUNC_LOCK:
 			dmxc_packet_init(&packet, DMXD_FUNC_LOCK, 1);
 			break;
+
 		case SHOW_FUNC_BLINK:
 			dmxc_packet_init(&packet, DMXD_FUNC_BLINK, 1);
 			break;
+
 		case SHOW_FUNC_FADE:
 			dmxc_packet_init(&packet, DMXD_FUNC_FADE, 1);
 			break;
+
+		case SHOW_FUNC_CONTROL:
+			dmxc_packet_init(&packet, DMXD_FUNC_CONTROL, 1);
+			break;
+
 		default:
 			return;
 	}
@@ -717,7 +724,13 @@ int main(int argc, char **argv) {
 //		handle_operations();
 		gettimeofday(&lastsend, NULL);
 		
-		if (!verbose && (now.tv_sec > updated.tv_sec)) {
+		if (now.tv_sec > updated.tv_sec) {
+			if (transport_state == JackTransportRolling) {
+				struct show_operation op;
+				op.command = SHOW_FUNC_CONTROL;
+				op.argument_len = 0;
+				send_command(&op);
+			}
 			int i,num_operations = 0;
 			for (i = 0; i < MAX_OPERATIONS; ++i) {
 				if (operations[i].allocated)
