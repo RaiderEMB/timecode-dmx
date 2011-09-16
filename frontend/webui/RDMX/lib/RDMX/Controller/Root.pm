@@ -74,7 +74,7 @@ sub timeline : Chained('timeline_entry') : PathPart('') : Args(0) {
 
 sub generate : Chained("timeline_entry") : PathPart("generate") : Args(0) {
 	my ( $self, $c ) = @_;
-	$c->stash->{current_view} = "JSON";
+	$c->response->content_type('application/json; charset=utf-8');
 
 	my $timeline = $c->stash->{timeline};
 
@@ -160,7 +160,7 @@ sub generate : Chained("timeline_entry") : PathPart("generate") : Args(0) {
 		ShowFile::ts_end();
 	}
 	ShowFile::close();
-	$c->response->body("{success:true}");
+	$c->response->body("{\"size\":\"".(-s "/tmp/datafile.showd")."\"}");
 	return 1;
 }
 
