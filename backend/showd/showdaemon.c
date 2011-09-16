@@ -333,8 +333,8 @@ static void handle_operation(struct show_operation *op) {
 			break;
 
 		case SHOW_FUNC_BLINK:
-			show_read_float(op,6,&length1);
-			show_read_int(op,10,&times);
+			show_read_float(op,9,&length1);
+			show_read_int(op,13,&times);
 		case SHOW_FUNC_FADE:
 			show_read_float(op,5,&length2);
 			operation_add(op, (length1 + length2) * times);
