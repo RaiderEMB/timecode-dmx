@@ -29,6 +29,7 @@ sub SHOW_FUNC_FADE { 10; }
 sub SHOW_FUNC_BLINK { 11; }
 sub SHOW_FUNC_LOCK { 12; }
 sub SHOW_FUNC_CONTROL { 13; }
+sub SHOW_FUNC_EFFECT { 14; }
 
 sub init {
 	open($fh, ">". shift()) or die "Error opening file: $@";
@@ -39,7 +40,7 @@ sub effect_start {
 	my ($id) = @_;
 
 	$command_type = "effect";
-	print $fh pack("nCn", 5, SHOW_FUNC_EFFECT_START, $id);
+	print $fh pack("nCn", 3, SHOW_FUNC_EFFECT_START, $id);
 }
 
 sub effect_end {
@@ -58,6 +59,12 @@ sub ts_start {
 
 	$command_type = "timestamp";
 	print $fh pack("nCN", 5, SHOW_FUNC_TS_START, $timestamp);
+}
+
+sub effect {
+	my ($channel, $effect_id) = @_;
+
+	print $fh pack("nCnn", 5, SHOW_FUNC_EFFECT, $effect_id, $channel) if ($command_type ne "effect");
 }
 
 sub lock {
@@ -103,5 +110,8 @@ sub print_time {
         return sprintf("%02d:%02d:%02d.%03d", $hour, $min, $sec, $milli);
 }
 
+sub close {
+	close $fh;
+}
 
 1;
