@@ -329,7 +329,7 @@ static void f_control(struct dmxd_operation *op, float runtime) {
 	/* stop passing artnet data the next frame */
 	fullcontrol = 1;
 
-	if (runtime >= 1) {
+	if (runtime >= 1.1) {
 		operation_remove(op);
 	}
 }

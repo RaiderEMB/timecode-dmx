@@ -7,7 +7,7 @@
 #include <netdb.h>
 #include "dmxc.h"
 
-static int dmxc_sock;
+int dmxc_sock;
 struct sockaddr_in si_dmxd;
 
 int dmxc_udp_send(struct dmxc_packet *packet) {

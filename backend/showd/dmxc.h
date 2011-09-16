@@ -1,6 +1,8 @@
 #ifndef _DMXC_H
 #define _DMXC_H
 
+int dmxc_sock;
+
 enum dmxd_commands {
 	DMXD_FUNC_FADE = 1,
 	DMXD_FUNC_BLINK,

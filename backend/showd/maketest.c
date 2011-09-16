@@ -189,7 +189,7 @@ int main(int argc, char **argv) {
 
 	//
 	showd_packet_init(&packet, SHOW_FUNC_TS_START);
-	showd_packet_add_int(&packet, 40154);
+	showd_packet_add_int(&packet, 40178);
 	showd_packet_save(&packet, fp);
 
 	showd_packet_init(&packet, SHOW_FUNC_LOCK);
@@ -218,7 +218,7 @@ int main(int argc, char **argv) {
 
 	//
 	showd_packet_init(&packet, SHOW_FUNC_TS_START);
-	showd_packet_add_int(&packet, 40636);
+	showd_packet_add_int(&packet, 40657);
 	showd_packet_save(&packet, fp);
 
 	showd_packet_init(&packet, SHOW_FUNC_LOCK);
@@ -232,7 +232,7 @@ int main(int argc, char **argv) {
 
 	//
 	showd_packet_init(&packet, SHOW_FUNC_TS_START);
-	showd_packet_add_int(&packet, 41138);
+	showd_packet_add_int(&packet, 41129);
 	showd_packet_save(&packet, fp);
 
 	showd_packet_init(&packet, SHOW_FUNC_LOCK);
@@ -245,7 +245,7 @@ int main(int argc, char **argv) {
 	showd_packet_save(&packet, fp);
 
 	showd_packet_init(&packet, SHOW_FUNC_TS_START);
-	showd_packet_add_int(&packet, 40362);
+	showd_packet_add_int(&packet, 43671);
 	showd_packet_save(&packet, fp);
 
 	showd_packet_init(&packet, SHOW_FUNC_LOCK);
@@ -289,7 +289,7 @@ int main(int argc, char **argv) {
 	//
 
 	showd_packet_init(&packet, SHOW_FUNC_TS_START);
-	showd_packet_add_int(&packet, 43662);
+	showd_packet_add_int(&packet, 45242);
 	showd_packet_save(&packet, fp);
 
 	showd_packet_init(&packet, SHOW_FUNC_LOCK);
@@ -301,7 +301,7 @@ int main(int argc, char **argv) {
 	showd_packet_init(&packet, SHOW_FUNC_BLINK);
 	showd_packet_add_short(&packet, 2); // channel 10
 	showd_packet_add_char(&packet, 0); // from 0
-	showd_packet_add_char(&packet, 13); // to 255
+	showd_packet_add_char(&packet, 255); // to 255
 	showd_packet_add_float(&packet, 1); // 4 seconds
 	showd_packet_add_float(&packet, 1); // 4 seconds
 	showd_packet_add_int(&packet, 1);

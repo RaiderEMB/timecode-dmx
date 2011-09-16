@@ -39,6 +39,12 @@ static int verbose;
 
 #define PROGRAM_NAME "showdaemon"
 
+#define DMXC_HOST "127.0.0.1"
+#define DMXC_PORT 9118
+
+#define EXTERNAL_TC_DISPLAY 1
+#define EXTERNAL_TC_HOST "192.168.0.200"
+
 struct show_operation {
 	char allocated;
 
@@ -81,7 +87,7 @@ struct show_effect {
 	int effect_id;
 	char step_count;
 	int operation_count;
-	int length;
+	float length;
 
 	float step_lengths[256];
 	struct show_operation operations[MAX_LOCAL_OPERATIONS];
@@ -111,6 +117,11 @@ static struct show_effect effects[MAX_EFFECTS];
 
 static struct show_run_effect run_effects[MAX_EFFECTS];
 static int show_run_effect_count = 0;
+
+#ifdef EXTERNAL_TC_DISPLAY
+	struct sockaddr_in si_ext_display;
+	int ext_display_busy = 0;
+#endif
 
 void signal_handler (int sig) {
         jack_client_close (client);
@@ -161,7 +172,7 @@ static int show_read_float(struct show_operation *op, int pos, float *out) {
 
 
 char *timestamp_display(int timestamp) {
-	static char string[12];
+	static char string[13];
 	int ms = timestamp % 1000;
 	timestamp = timestamp / 1000;
 
@@ -322,8 +333,8 @@ static void handle_operation(struct show_operation *op) {
 			break;
 
 		case SHOW_FUNC_BLINK:
-			show_read_float(op,6,&length1);
-			show_read_int(op,10,&times);
+			show_read_float(op,9,&length1);
+			show_read_int(op,13,&times);
 		case SHOW_FUNC_FADE:
 			show_read_float(op,5,&length2);
 			operation_add(op, (length1 + length2) * times);
@@ -441,18 +452,23 @@ void send_command(struct show_operation *op) {
 	struct dmxc_packet packet;
 	int i;
 
-	dmxc_init("127.0.0.1",9118);
-
 	switch (op->command)  {
 		case SHOW_FUNC_LOCK:
 			dmxc_packet_init(&packet, DMXD_FUNC_LOCK, 1);
 			break;
+
 		case SHOW_FUNC_BLINK:
 			dmxc_packet_init(&packet, DMXD_FUNC_BLINK, 1);
 			break;
+
 		case SHOW_FUNC_FADE:
 			dmxc_packet_init(&packet, DMXD_FUNC_FADE, 1);
 			break;
+
+		case SHOW_FUNC_CONTROL:
+			dmxc_packet_init(&packet, DMXD_FUNC_CONTROL, 1);
+			break;
+
 		default:
 			return;
 	}
@@ -583,7 +599,22 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
+#ifdef EXTERNAL_TC_DISPLAY
+	struct sockaddr_in si_ext_display;
+
+	memset((void *) &si_ext_display, 0, sizeof(si_ext_display));
+	si_ext_display.sin_family = AF_INET;
+	si_ext_display.sin_port = htons(1337);
+
+	if (inet_aton(EXTERNAL_TC_HOST, &si_ext_display.sin_addr) == 0) {
+		fprintf(stderr, "Error using inet_aton(" EXTERNAL_TC_HOST ")\n");
+		exit(1);
+	}
+#endif
+
 	highsock = sock;
+
+	dmxc_init(DMXC_HOST, DMXC_PORT);
 
         if ((client = jack_client_open (PROGRAM_NAME,  JackNullOption, &status)) == 0) {
                 fprintf (stderr, "JACK: Server not running?\n");
@@ -618,7 +649,7 @@ int main(int argc, char **argv) {
 		static struct timeval lastsend;
 		struct timeval now;
 		timeout.tv_sec = 0;
-		timeout.tv_usec = 4000;
+		timeout.tv_usec = 1000;
 
 		FD_ZERO(&selectlist);
 		FD_SET(sock, &selectlist);
@@ -627,50 +658,73 @@ int main(int argc, char **argv) {
 
                 transport_state = jack_transport_query (client, &current);
                 frame_time = jack_get_current_transport_frame (client);
-		if (transport_state == JackTransportRolling) {
-			position = (float)frame_time / current.frame_rate;
+		position = (float)frame_time / current.frame_rate;
+		
+//		if (transport_state == JackTransportPosition || transport_state == JackTransportRolling) {
+#ifdef EXTERNAL_TC_DISPLAY
+			static float last_ext_display_update;
 
+			if (!ext_display_busy || position >= last_ext_display_update + 1) {
+				int iposition = position * 100;
+				sendto(sock, &iposition, sizeof(iposition), MSG_DONTWAIT, (const struct sockaddr*)&si_ext_display, sizeof(si_ext_display));
+				last_ext_display_update = position;
+				ext_display_busy = 1;
+			}
+#endif
+//		}
+		if (transport_state == JackTransportRolling) {
 			/* Have we traveled back in time? */
 			if (last_timestamp == 0 || position * 1000 < last_timestamp) {
 				last_timestamp = position * 1000;
 				last_i = 0;
 
-				/* invalidate all pending effects */
-				//for (i=0; i < MAX_EFFECTS; ++i) {
-				//	run_effects[i].active = 0;
-				//}
+				/* reset run effects */
+				for (i=0; i < MAX_EFFECTS; ++i) {
+					if (run_effects[i].timestamp_start >= position * 100)
+						run_effects[i].stepsrun = 0;
+				}
 			}
 
 			int effect_count = 0;
 			for (i = 0; i < MAX_EFFECTS; ++i) {
 				if (run_effects[i].active == 1) {
+					struct show_effect *eff = &(effects[run_effects[i].effect_id]);
 					int start_time = run_effects[i].timestamp_start;
-					if (last_timestamp >= start_time) {
-						struct show_effect *eff = &(effects[run_effects[i].effect_id]);
+					int end_time = eff->length * 1000;
+
+					if (last_timestamp >= start_time) {// && start_time + end_time >= last_timestamp) {
 						int o;
 						for (o = 0; o < eff->step_count; ++o)  {
-							if (start_time +  (eff->step_lengths[o] * 1000) > position * 1000) {
+							if (start_time +  (int)(eff->step_lengths[o] * 1000) > position * 1000) {
 								break;
 							}
 						}
-						
+
 						int current_step = o;
 						int has_done_step = 0;
 						if (run_effects[i].stepsrun >= current_step)
-							break;
+							continue;
 
-						printf("Maybe firing effect job id %d, effect id %d, step %d\n", i, eff->effect_id, o);
-
+						printf("%s: (effect %d, step %d)\n", timestamp_display(position * 1000), eff->effect_id, current_step);
 						for (o = 0; o < eff->operation_count; ++o) {
 							if (eff->operations[o].step == current_step) {
-								printf("%s: FIRE EFFECT %d STEP %d\n", timestamp_display(position * 1000), eff->operations[o].command, current_step);
-								//TODO: Channel + offset
-								send_command(&eff->operations[o]);
+								struct show_operation tmp_operation;
+								unsigned short channel;
+								show_read_short(&eff->operations[o], 1, &channel);
+								memcpy(&tmp_operation, &eff->operations[o], sizeof(tmp_operation));
+								channel += run_effects[i].offset;
+								tmp_operation.argument_len--;
+								channel = htons(channel);
+								memcpy(&tmp_operation.arguments[0], &tmp_operation.arguments[1], tmp_operation.argument_len);
+								memcpy(&tmp_operation.arguments[0], &channel, sizeof(channel));
+								printf("\tSpawn func_%d Channel: %d\n", eff->operations[o].command, ntohs((unsigned short)tmp_operation.arguments[0]));
+								
+								send_command(&tmp_operation);
 								has_done_step = 1;
 							}
 						}
 						if (has_done_step && current_step > run_effects[i].stepsrun)
-							run_effects[i].stepsrun = current_step;
+							run_effects[i].stepsrun++;
 					}
 					effect_count++;
 				}
@@ -680,11 +734,11 @@ int main(int argc, char **argv) {
 			for (i = last_i; i < timestamps_count; ++i) {
 				int oi=0;
 				if (timestamps[i].timestamp > last_timestamp && timestamps[i].timestamp <= position * 1000) {
-					printf("Jack pos: %f\n", position);
+					printf("%s: (timestamp %d)\n", timestamp_display(position * 1000), i);
 					for (oi = 0; oi < timestamps[i].operation_count; ++oi) {
 						unsigned short channel;
 						show_read_short(timestamps[i].operations[oi], 0, &channel);
-						printf("\t\tSpawn func_%d Channel: %d\n", timestamps[i].operations[oi]->command, channel);
+						printf("\tSpawn func_%d Channel: %d\n", timestamps[i].operations[oi]->command, channel);
 						send_command(timestamps[i].operations[oi]);
 					}
 					last_i = i + 1;
@@ -707,6 +761,10 @@ int main(int argc, char **argv) {
 
 				if (buffer[0] == 1) {
 					show_read_datafile();
+#ifdef EXTERNAL_TC_DISPLAY
+				} else if (buffer[0] == 'K') {
+					ext_display_busy = 0;
+#endif
 				} else {
 					printf("Invalid packet received\n");
 				}
@@ -717,7 +775,13 @@ int main(int argc, char **argv) {
 //		handle_operations();
 		gettimeofday(&lastsend, NULL);
 		
-		if (!verbose && (now.tv_sec > updated.tv_sec)) {
+		if (now.tv_sec > updated.tv_sec) {
+			if (transport_state == JackTransportRolling) {
+				struct show_operation op;
+				op.command = SHOW_FUNC_CONTROL;
+				op.argument_len = 0;
+				send_command(&op);
+			}
 			int i,num_operations = 0;
 			for (i = 0; i < MAX_OPERATIONS; ++i) {
 				if (operations[i].allocated)
