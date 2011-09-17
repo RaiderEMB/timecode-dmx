@@ -30,18 +30,18 @@
 <select style="width:100%" name="effect">
 <option value="0">(ingen effekt)</option>
 [% FOREACH effect = c.model("SQL::Effect").all %]
-	<option value="[% effect.id %]">[% effect.name %]</option>
+	<option value="[% effect.id %]"[% IF tageffect.effect.id == effect.id %] selected[% END %]>[% effect.name %]</option>
 [% END %]
 </select>
 
+<select style="width:100%" size="50" name="patching" multiple="multiple">
 [% FOREACH p = c.stash.timeline.patches  %]
-<div>
-<input type="checkbox" value="1" name="patch_[% p.dmx %]" />
+<option value="[% p.dmx %]" [% %]>
 [% p.fixture.brand %]
 [% p.fixture.model %]
 ([% p.tags %])
-</div>
-[% END %]
+[% END %]</option>
+</select>
 <input type="submit" style="font-size: 20px" value="Patchitup" />
 
 </form>

@@ -194,6 +194,21 @@ sub edit : Chained('edit_entry') : PathPart('') : Args(0) {
 	while (my $tc = $tcs->next) {
 		push @{ $c->stash->{timecodes} }, $tc;
 	}
+	if (my $x = $c->model("SQL::Tageffect")->find({ timeline =>  $c->stash->{timeline}->id, tag => $c->request->param("tag") })) {
+		$c->request->{tageffect} = $x;
+	}
+
+	if (defined $c->request->param("effect")) {
+		my $obj = $c->model("SQL::Tageffect")->find_or_create( {
+			timeline => ,
+			tag => ,
+			effect => ,
+		}, {
+			['timeline', 'tag']
+		} );
+		$obj->update();
+
+	}
 
 }
 
