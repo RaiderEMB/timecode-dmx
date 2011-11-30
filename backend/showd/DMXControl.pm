@@ -16,7 +16,7 @@ our $port = 9118;
 our %transactions;
 
 # Flags
-sub NONE { 1; }
+sub NONE { 0; }
 sub OVERRIDE { 1; }
 
 sub init {

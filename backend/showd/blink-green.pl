@@ -28,14 +28,14 @@ DMXControl::start_transaction();
 DMXControl::lock(500,255,1,DMXControl::OVERRIDE);
 DMXControl::lock(504,255,1,DMXControl::OVERRIDE);
 DMXControl::lock(501,255,1);
+DMXControl::lock(501,255,1);
 DMXControl::lock(505,255,1);
 #DMXControl::lock(502,128,1,DMXControl::OVERRIDE);
 #DMXControl::lock(503,128,1,DMXControl::OVERRIDE);
 DMXControl::end_transaction();
 
 while(1) {
-	DMXControl::control(DMXControl::OVERRIDE);
-	usleep(5000);
+	usleep(2000);
 }
 #DMXControl::start_transaction();
 

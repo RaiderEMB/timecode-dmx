@@ -1,5 +1,5 @@
 package RDMX::Controller::Root;
-use lib "../../../../backend/showd";
+use lib "../../../backend/showd";
 use Moose;
 use namespace::autoclean;
 use Data::Dumper;
@@ -195,19 +195,28 @@ sub edit : Chained('edit_entry') : PathPart('') : Args(0) {
 		push @{ $c->stash->{timecodes} }, $tc;
 	}
 	if (my $x = $c->model("SQL::Tageffect")->find({ timeline =>  $c->stash->{timeline}->id, tag => $c->request->param("tag") })) {
-		$c->request->{tageffect} = $x;
+		$c->stash->{tageffect} = $x;
+	}
+	else {
+		$c->stash->{tageffect} = $c->model("SQL::Tageffect")->find({ timeline =>  $c->stash->{timeline}->id, tag => $c->request->param("tag"), effect => \'NULL' });	
 	}
 
-	if (defined $c->request->param("effect")) {
-		my $obj = $c->model("SQL::Tageffect")->find_or_create( {
-			timeline => ,
-			tag => ,
-			effect => ,
-		}, {
-			['timeline', 'tag']
-		} );
-		$obj->update();
+			
 
+	if (defined $c->request->param("effect")) {
+		$c->stash->{tageffect}->effect($c->request->param("effect"));
+		$c->stash->{tageffect}->update();
+		foreach my $fixp ($c->model("SQL::Tagpatch")->search({ tag => $c->request->param("tag"), timeline =>  $c->stash->{timeline}->id })) {
+			$fixp->delete();
+		} 
+		foreach my $pfix ($c->request->param("patching")) {
+			my $tp = $c->model("SQL::Tagpatch")->create({ 
+				tag => $c->request->param("tag"),
+				timeline =>  $c->stash->{timeline}->id,
+				patchaddr => $pfix
+			});
+			$tp->update();
+		}
 	}
 
 }
@@ -280,8 +289,8 @@ sub effect_show   : Chained('effect_id') : PathPart('') : Args(0) {
 	}
 	if (defined $c->request->param("new") && defined $c->request->param("action")) {
 		my $es = $c->model("SQL::Effectstep")->create({
-			effect => $c->stash->{effect}->id,
-			attribute => $c->request->param("attribute"),
+			'effect' => $c->stash->{effect}->id,
+			'attribute' => $c->request->param("attribute"),
 			'step' => $c->request->param("step"),
 			'action' => $c->request->param("action"),
 			'from' => $c->request->param("from"),

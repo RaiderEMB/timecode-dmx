@@ -649,7 +649,7 @@ int main(int argc, char **argv) {
 		static struct timeval lastsend;
 		struct timeval now;
 		timeout.tv_sec = 0;
-		timeout.tv_usec = 1000;
+		timeout.tv_usec = 4000;
 
 		FD_ZERO(&selectlist);
 		FD_SET(sock, &selectlist);
@@ -678,11 +678,11 @@ int main(int argc, char **argv) {
 				last_timestamp = position * 1000;
 				last_i = 0;
 
-				/* reset run effects */
+				/* reset run effects *//*
 				for (i=0; i < MAX_EFFECTS; ++i) {
 					if (run_effects[i].timestamp_start >= position * 100)
 						run_effects[i].stepsrun = 0;
-				}
+				}*/
 			}
 
 			int effect_count = 0;
@@ -717,14 +717,15 @@ int main(int argc, char **argv) {
 								channel = htons(channel);
 								memcpy(&tmp_operation.arguments[0], &tmp_operation.arguments[1], tmp_operation.argument_len);
 								memcpy(&tmp_operation.arguments[0], &channel, sizeof(channel));
-								printf("\tSpawn func_%d Channel: %d\n", eff->operations[o].command, ntohs((unsigned short)tmp_operation.arguments[0]));
+								printf("\tSpawn func_%d Channel: %di (%d)\n", eff->operations[o].command, ntohs((unsigned short)tmp_operation.arguments[0]), ntohs(channel));
 								
 								send_command(&tmp_operation);
 								has_done_step = 1;
 							}
 						}
-						if (has_done_step && current_step > run_effects[i].stepsrun)
+						if (has_done_step) // && current_step > run_effects[i].stepsrun)
 							run_effects[i].stepsrun++;
+						printf("Effect: %d step: %d steps: %d (has done %d)\n", eff->effect_id, current_step, run_effects[i].stepsrun, has_done_step);
 					}
 					effect_count++;
 				}
@@ -780,7 +781,7 @@ int main(int argc, char **argv) {
 				struct show_operation op;
 				op.command = SHOW_FUNC_CONTROL;
 				op.argument_len = 0;
-				send_command(&op);
+				//send_command(&op);
 			}
 			int i,num_operations = 0;
 			for (i = 0; i < MAX_OPERATIONS; ++i) {

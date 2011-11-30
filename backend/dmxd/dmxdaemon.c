@@ -778,7 +778,7 @@ int dmx_callback(artnet_node n, void *p, void *d) {
 		last_seq = pack->data.admx.sequence;
 	}
 
-	memcpy(artnet_dmx, (unsigned char *)&(pack->data.admx.data), 512);
+	memcpy(artnet_dmx+1, (unsigned char *)&(pack->data.admx.data), 512);
 
 	time(&now) ;
 
