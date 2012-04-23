@@ -16,6 +16,7 @@ snd_rawmidi_t *input;
 snd_rawmidi_t *output;
 
 unsigned char packet_signature[] = { 0x13, 0x37 };
+unsigned char last_packet[100];
 
 #define UDPMIDI_PORT 1205
 
@@ -38,7 +39,7 @@ int main(int argc, char **argv) {
                 fprintf(stderr, "%s <device>\n", argv[0]);
                 exit(-1);
         }
-        e = snd_rawmidi_open(&input, &output, argv[1], SND_RAWMIDI_NONBLOCK);//O_WRONLY);
+        e = snd_rawmidi_open(&input, &output, argv[1], SND_RAWMIDI_NONBLOCK);
 	if (e == -1) {
 	        fprintf(stderr, "snd:rawmidi:open-%X\n", e);
 		return 1;
@@ -72,10 +73,12 @@ int main(int argc, char **argv) {
 	}
 
 	npfds = snd_rawmidi_poll_descriptors_count(input) + 1;
-	pfds = alloca((npfds + 1) * sizeof(struct pollfd));
+	pfds = malloc((npfds + 1) * sizeof(struct pollfd));
 	snd_rawmidi_poll_descriptors(input, pfds, npfds);
 	pfds[npfds-1].fd = sock;
 	pfds[npfds-1].events = POLLRDNORM;
+
+	setvbuf (stdout, NULL, _IONBF, BUFSIZ);
 
         while(1) {
 		int i,rlen, midiin;
@@ -90,7 +93,7 @@ int main(int argc, char **argv) {
 			unsigned char buf[10];
 			unsigned char outbuf[12];
 
-			printf("got midi\n");
+			printf("m");
 			rlen = snd_rawmidi_read(input, buf, sizeof(buf));
 			if (rlen == -EAGAIN)
 				continue;
@@ -105,15 +108,19 @@ int main(int argc, char **argv) {
 			if (sendto(sock, outbuf, 2 + rlen, 0, (struct sockaddr *)&si_other, sizeof(si_other)) == -1) {
 				fprintf(stderr, "Error sending broadcast packet.\n");
 			}
+			memcpy(last_packet, outbuf, rlen + 2);
 		}
 
 		if (pfds[npfds-1].revents & POLLRDNORM) {
 			int len,slen;
 			unsigned char buffer[10];
 
-			printf("Got udp\n");
 			slen = sizeof(si_other);
 			len = recvfrom(sock, buffer, 10, 0, (struct sockaddr *)&si_other, &slen);
+			// Drop our own broadcast packets
+			if (memcmp(last_packet, buffer, len) == 0) continue;
+
+			printf("u");
 			if (len > 2 && memcmp(buffer, packet_signature, 2) == 0) {
         			int wlen = snd_rawmidi_write(output, buffer + 2, len - 2);
 				if (wlen < len - 2) {

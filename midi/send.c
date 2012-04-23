@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
 	unsigned char buf[10],outbuf[12];
 
         if(argc < 2) {
-                fprintf(stderr, "%s <device>\n", argv[0]);
+                fprintf(stderr, "%s <fader value 0-127>\n", argv[0]);
                 return -1;
         }
 
@@ -51,9 +51,9 @@ int main(int argc, char **argv) {
 	}
 
 	memcpy(outbuf, packet_signature, 2);
-	outbuf[0] = 0xB0;
-	outbuf[1] = 0;
-	outbuf[2] = atoi(argv[1]);
+	outbuf[2] = 0xB0;
+	outbuf[3] = 0;
+	outbuf[4] = atoi(argv[1]);
 
 	if (sendto(sock, outbuf, 2 + 3, 0, (struct sockaddr *)&si_other, sizeof(si_other)) == -1) {
 		fprintf(stderr, "Error sending broadcast packet.\n");
