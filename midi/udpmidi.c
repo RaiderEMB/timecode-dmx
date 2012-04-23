@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <poll.h>
 #include <arpa/inet.h>
 #include <alsa/asoundlib.h>
 #include <alsa/asoundef.h>
